@@ -99,7 +99,7 @@
         color: var(--text-main);
         overflow-x: hidden;
         transition: background 0.4s var(--ease-apple), color 0.3s;
-        padding-bottom: calc(140px + env(safe-area-inset-bottom));
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
         line-height: 1.5;
     }
 
@@ -348,55 +348,133 @@
     }
     .f-link:hover .f-svg-box { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }
 
-    /* --- 8. DOCK --- */
-    .dock-wrapper {
-        position: fixed; bottom: 30px; left: 0; width: 100%;
-        display: flex; justify-content: center; z-index: 999; pointer-events: none;
+    /* --- 8. ULTRA APP MINI (FLOATING ACTION BUTTON) --- */
+    .ultra-fab-wrapper {
+        position: fixed;
+        bottom: 30px;
+        left: 20px;
+        z-index: 999;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 12px;
     }
-    .dock {
-        pointer-events: auto;
-        background: rgba(20, 20, 20, 0.9);
-        backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
-        padding: 12px 16px; border-radius: 32px; border: 1px solid rgba(255,255,255,0.1);
-        display: flex; gap: 16px; 
-        box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-        transform: translateY(0); transition: 0.4s var(--ease-apple);
-    }
-    
-    .dock-btn {
-        width: 56px; height: 56px; border-radius: 20px;
-        background: #333; color: white; font-size: 24px;
-        display: flex; align-items: center; justify-content: center;
-        transition: 0.2s cubic-bezier(0.5, 0, 0.5, 1.5);
-        position: relative; border: none;
-        box-shadow: 0 4px 0 #111, 0 10px 15px rgba(0,0,0,0.3);
-        border-top: 1px solid rgba(255,255,255,0.15);
-    }
-    .dock-btn.main {
-        background: linear-gradient(135deg, var(--primary), #FF8800);
-        color: var(--text-on-primary); 
-        box-shadow: 0 4px 0 var(--primary-dark), 0 10px 20px rgba(255, 107, 0, 0.4);
-    }
-    .dock-btn:active {
-        transform: translateY(4px);
-        box-shadow: 0 0 0 transparent, inset 0 2px 5px rgba(0,0,0,0.3);
-    }
-    
-    .dock-btn[data-color="blue"] { color: var(--accent-blue); }
-    .dock-btn[data-color="green"] { color: var(--accent-green); }
-    .dock-btn[data-color="yellow"] { color: var(--accent-yellow); }
-    .dock-btn[data-color="purple"] { color: var(--accent-purple); }
 
-    .dock-btn::after {
+    /* Main Toggle Button */
+    .ultra-main-btn {
+        width: 60px; height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #FF4500);
+        color: #fff;
+        border: none;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 26px;
+        cursor: pointer;
+        box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+        position: relative;
+        z-index: 2;
+        transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        /* Animation rung & glow */
+        animation: ultra-glow 2s infinite;
+    }
+    
+    /* Animation definition */
+    @keyframes ultra-glow {
+        0% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.7); transform: scale(1); }
+        50% { transform: scale(1.05); }
+        70% { box-shadow: 0 0 0 15px rgba(255, 107, 0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); transform: scale(1); }
+    }
+    
+    @keyframes ultra-shake {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-10deg); }
+        75% { transform: rotate(10deg); }
+    }
+
+    /* Apply shake on interval via JS or simpler hover/active */
+    .ultra-main-btn.shaking {
+        animation: ultra-shake 0.5s ease-in-out;
+    }
+
+    .ultra-main-btn i { transition: 0.3s; }
+    .ultra-fab-wrapper.active .ultra-main-btn {
+        transform: rotate(45deg);
+        background: #333; /* Darken when open */
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        animation: none; /* Stop pulsing when open */
+    }
+
+    /* Sub Buttons Container */
+    .ultra-actions {
+        position: absolute;
+        bottom: 70px;
+        left: 0;
+        width: 60px;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 12px;
+        pointer-events: none;
+    }
+
+    .ultra-sub-btn {
+        width: 50px; height: 50px;
+        border-radius: 18px;
+        background: var(--glass-material); /* Adaptive glass background */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid var(--glass-border);
+        color: var(--text-main);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        transition: 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        margin: 0 auto; /* Center in column */
+        text-decoration: none;
+        pointer-events: auto;
+    }
+
+    /* Active State: Fan out buttons */
+    .ultra-fab-wrapper.active .ultra-sub-btn {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    
+    /* Staggered delay for "Spring" effect */
+    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(1) { transition-delay: 0.05s; }
+    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(2) { transition-delay: 0.1s; }
+    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(3) { transition-delay: 0.15s; }
+    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(4) { transition-delay: 0.2s; }
+    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(5) { transition-delay: 0.25s; }
+
+    /* Tooltips (Right Side) */
+    .ultra-sub-btn::after {
         content: attr(data-tooltip);
-        position: absolute; top: -45px; left: 50%; transform: translateX(-50%) scale(0.8);
-        background: rgba(0,0,0,0.9); color: white; padding: 6px 12px; border-radius: 12px;
-        font-size: 12px; opacity: 0; pointer-events: none; transition: 0.2s; white-space: nowrap;
-        font-weight: 600;
+        position: absolute;
+        left: 60px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.2s;
+        pointer-events: none;
     }
-    @media(hover: hover) {
-        .dock-btn:hover::after { opacity: 1; transform: translateX(-50%) scale(1); top: -50px; }
+    .ultra-sub-btn:hover::after {
+        opacity: 1; visibility: visible; left: 65px;
     }
+
+    /* Brand Colors */
+    .u-zalo { color: #0068FF; }
+    .u-wa { color: #25D366; }
+    .u-map { color: #FFB800; }
+    .u-phone { color: var(--primary); }
 
     /* --- MOBILE MENU --- */
     .mobile-menu-overlay {
@@ -437,8 +515,6 @@
         .app-icon { width: 60px; height: 60px; font-size: 22px; }
         .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         .footer-box { padding: 50px 30px; }
-        .dock { padding: 10px 14px; gap: 10px; }
-        .dock-btn { width: 48px; height: 48px; font-size: 20px; }
         .section { padding: 60px 0; }
         .feature-grid { gap: 24px; }
     }
@@ -791,15 +867,30 @@
     </div>
 </footer>
 
-<!-- DOCK -->
-<div class="dock-wrapper">
-    <nav class="dock">
-        <a href="tel:0942467674" class="dock-btn main" data-tooltip="Gọi" aria-label="Gọi điện"><i class="fa-solid fa-phone"></i></a>
-        <a href="https://zalo.me/0942467674" target="_blank" rel="noopener noreferrer" class="dock-btn" data-color="blue" data-tooltip="Zalo" aria-label="Chat Zalo"><i class="fa-solid fa-comment-dots"></i></a>
-        <a href="https://wa.me/84942467674" target="_blank" rel="noopener noreferrer" class="dock-btn" data-color="green" data-tooltip="WhatsApp" aria-label="Chat WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://maps.app.goo.gl/SR1hcwnCQjPkAvDh7" target="_blank" rel="noopener noreferrer" class="dock-btn" data-color="yellow" data-tooltip="Map" aria-label="Bản đồ"><i class="fa-solid fa-location-dot"></i></a>
-        <a href="#top" class="dock-btn" data-color="purple" data-tooltip="Top" aria-label="Lên đầu trang"><i class="fa-solid fa-arrow-up"></i></a>
-    </nav>
+<!-- NEW ULTRA APP MINI (Expandable Button) -->
+<div class="ultra-fab-wrapper" id="ultra-fab">
+    <div class="ultra-actions">
+        <!-- Buttons expanded from top down or bottom up depending on flex direction -->
+        <a href="tel:0942467674" class="ultra-sub-btn u-phone" data-tooltip="Gọi 0942.467.674" aria-label="Gọi ngay">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+        <a href="https://zalo.me/0942467674" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-zalo" data-tooltip="Chat Zalo" aria-label="Zalo">
+            <i class="fa-solid fa-comment-dots"></i>
+        </a>
+        <a href="https://wa.me/84942467674" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-wa" data-tooltip="Chat WhatsApp" aria-label="WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://maps.app.goo.gl/SR1hcwnCQjPkAvDh7" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-map" data-tooltip="Chỉ đường" aria-label="Bản đồ">
+            <i class="fa-solid fa-map-location-dot"></i>
+        </a>
+        <a href="#top" class="ultra-sub-btn" data-tooltip="Lên đầu trang" aria-label="Top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </div>
+    
+    <button class="ultra-main-btn" id="ultra-toggle" aria-label="Mở tiện ích">
+        <i class="fa-solid fa-bolt"></i>
+    </button>
 </div>
 
 <!-- JS ENGINE -->
@@ -865,6 +956,48 @@
             this.effects();
             this.statusWidget();
             this.setupPWA();
+            this.ultraApp();
+        },
+
+        // --- NEW ULTRA APP LOGIC ---
+        ultraApp() {
+            const toggle = document.getElementById('ultra-toggle');
+            const wrapper = document.getElementById('ultra-fab');
+            const icon = toggle.querySelector('i');
+
+            if (!toggle || !wrapper) return;
+
+            // Toggle function
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                wrapper.classList.toggle('active');
+                
+                // Change Icon
+                if (wrapper.classList.contains('active')) {
+                    icon.classList.remove('fa-bolt');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bolt');
+                }
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (wrapper.classList.contains('active') && !wrapper.contains(e.target)) {
+                    wrapper.classList.remove('active');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bolt');
+                }
+            });
+
+            // Periodic random shake effect when idle
+            setInterval(() => {
+                if (!wrapper.classList.contains('active')) {
+                    toggle.classList.add('shaking');
+                    setTimeout(() => toggle.classList.remove('shaking'), 500);
+                }
+            }, 5000);
         },
 
         nav() {
@@ -883,7 +1016,7 @@
             const menu = document.getElementById('mobile-menu');
             const btn = document.getElementById('menu-btn');
 
-            // Defensive check: Return early if any required element is missing
+            // Defensive check
             if (!mList || !overlay || !menu || !btn) return;
 
             let html = '';
@@ -918,20 +1051,18 @@
                 overlay.classList.toggle('active');
             };
             
-            // Use addEventListener instead of onclick
             btn.addEventListener('click', toggle);
             overlay.addEventListener('click', toggle);
         },
 
         footer() {
             const grid = document.getElementById('footer-grid');
-            if (!grid) return; // Safety check
+            if (!grid) return;
 
             const iconMap = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>`;
             const iconDoc = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>`;
             const iconInfo = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></div>`;
 
-            // Safe retrieval of menu items
             const servicesMenu = CONFIG.MENU.find(x => x.t === 'Dịch vụ');
             const services = servicesMenu && Array.isArray(servicesMenu.sub) ? servicesMenu.sub : [];
 
@@ -980,7 +1111,6 @@
                 const updateUI = (dotId, textId) => {
                     const dot = document.getElementById(dotId);
                     const text = document.getElementById(textId);
-                    // Guard clause: Return if elements don't exist
                     if (!dot || !text) return;
 
                     dot.className = isOpen ? 'status-dot open' : 'status-dot';
@@ -1007,7 +1137,6 @@
                 total.innerText = price.toLocaleString('vi-VN') + 'đ';
             };
             
-            // Safe event listener attachment
             if (type && days && total) {
                 type.addEventListener('change', run);
                 days.addEventListener('input', run);
@@ -1052,7 +1181,6 @@
 
             const tiltBox = document.getElementById('tilt-box');
             
-            // Check tiltBox before using it in mousemove
             document.addEventListener('mousemove', (e) => {
                 if (window.innerWidth < 1024 || !tiltBox) return;
                 const x = (window.innerWidth / 2 - e.pageX) / 30;
@@ -1090,6 +1218,6 @@
 
     document.addEventListener('DOMContentLoaded', () => Render.init());
 </script>
-<script defer src="https://motoopen.github.io/chothuexemayhanoi/motoai_v39_modelfirst_nomarkdown_nolink.js"></script>
+<script src="https://motoopen.github.io/chothuexemayhanoi/motoai_v39_modelfirst_nomarkdown_nolink.js"></script>
 </body>
 </html>
