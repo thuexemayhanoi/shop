@@ -242,7 +242,7 @@
     }
 
     /* MINI APPS */
-    .mini-apps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+    .mini-apps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 40px; }
     .app-item {
         display: flex; flex-direction: column; align-items: center; gap: 10px;
         cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -262,6 +262,24 @@
     .app-item[data-accent="blue"] .app-icon { color: var(--accent-blue); }
     .app-item[data-accent="yellow"] .app-icon { color: var(--accent-yellow); }
     .app-item[data-accent="purple"] .app-icon { color: var(--accent-purple); }
+    /* AI Styling */
+    .app-item[data-accent="ai"] .app-icon { 
+        background: linear-gradient(135deg, #1A1A1A, #000); 
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .app-item[data-accent="ai"] .app-icon i {
+        background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 28px;
+    }
+    /* Heart/Matchmaker Styling */
+    .app-item[data-accent="love"] .app-icon { 
+        background: linear-gradient(135deg, #fff0f0, #ffe6e6); 
+        color: #ff3366;
+    }
+
 
     .app-icon::after {
         content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -269,7 +287,7 @@
         transform: rotate(45deg) translateY(-100%); transition: 0.5s;
     }
     .app-item:hover .app-icon::after { transform: rotate(45deg) translateY(100%); }
-    .app-label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+    .app-label { font-size: 0.75rem; font-weight: 600; color: var(--text-main); text-align: center; line-height: 1.2; }
 
     /* Calculator */
     .calc-box {
@@ -476,6 +494,86 @@
     .u-map { color: #FFB800; }
     .u-phone { color: var(--primary); }
 
+    /* --- AI MODAL STYLES --- */
+    .ai-modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
+        z-index: 2000; opacity: 0; visibility: hidden; 
+        transition: 0.3s; backdrop-filter: blur(5px);
+    }
+    .ai-modal {
+        position: fixed; top: 50%; left: 50%; width: 90%; max-width: 500px;
+        height: 70vh; max-height: 700px;
+        transform: translate(-50%, -40%) scale(0.95);
+        background: var(--surface);
+        border: 1px solid var(--glass-border);
+        border-radius: 32px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        display: flex; flex-direction: column; overflow: hidden;
+        z-index: 2001; opacity: 0; visibility: hidden;
+        transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ai-modal.active { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+    .ai-modal-overlay.active { opacity: 1; visibility: visible; }
+
+    .ai-header {
+        padding: 20px; border-bottom: 1px solid var(--glass-border);
+        display: flex; justify-content: space-between; align-items: center;
+        background: var(--muted-bg);
+    }
+    .ai-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+    .ai-close { cursor: pointer; background: none; border: none; font-size: 24px; color: var(--text-sub); transition: 0.2s; }
+    .ai-close:hover { color: var(--text-main); transform: rotate(90deg); }
+
+    .ai-chat-area {
+        flex: 1; overflow-y: auto; padding: 20px;
+        display: flex; flex-direction: column; gap: 16px;
+        background: var(--bg-body);
+    }
+    
+    .chat-msg {
+        max-width: 85%; padding: 12px 16px; border-radius: 20px;
+        font-size: 0.95rem; line-height: 1.5;
+        position: relative; animation: popIn 0.3s ease-out;
+    }
+    @keyframes popIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .msg-bot {
+        align-self: flex-start;
+        background: var(--surface); border: 1px solid var(--glass-border);
+        border-bottom-left-radius: 4px; color: var(--text-main);
+    }
+    .msg-user {
+        align-self: flex-end;
+        background: linear-gradient(135deg, var(--primary), #FF8800);
+        color: white; border-bottom-right-radius: 4px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
+    }
+    .msg-bot strong { color: var(--primary); }
+
+    .ai-input-area {
+        padding: 16px; background: var(--surface); border-top: 1px solid var(--glass-border);
+        display: flex; gap: 10px;
+    }
+    .ai-input {
+        flex: 1; padding: 12px 16px; border-radius: 24px; border: 1px solid var(--glass-border);
+        background: var(--muted-bg); color: var(--text-main);
+    }
+    .ai-send {
+        width: 46px; height: 46px; border-radius: 50%; border: none;
+        background: var(--text-main); color: var(--surface);
+        display: flex; align-items: center; justify-content: center; cursor: pointer;
+        transition: 0.2s;
+    }
+    .ai-send:hover { transform: scale(1.1); }
+    .ai-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Typing Dot Animation */
+    .typing-dots { display: inline-flex; gap: 4px; }
+    .dot { width: 6px; height: 6px; background: var(--text-sub); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
     /* --- MOBILE MENU --- */
     .mobile-menu-overlay {
         position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998;
@@ -511,7 +609,7 @@
     @media (max-width: 768px) {
         .status-widget { display: none; }
         .hero { padding-top: 100px; padding-bottom: 40px; }
-        .mini-apps { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .mini-apps { grid-template-columns: repeat(3, 1fr); gap: 12px; } /* Adjust grid for mobile */
         .app-icon { width: 60px; height: 60px; font-size: 22px; }
         .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         .footer-box { padding: 50px 30px; }
@@ -606,6 +704,18 @@
                             <div class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
                                 <span class="app-label">Địa Điểm</span>
+                            </div>
+                            
+                            <!-- GEMINI FEATURE 1: AI GUIDE -->
+                            <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                                <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                <span class="app-label">AI Tour Guide ✨</span>
+                            </div>
+
+                             <!-- GEMINI FEATURE 2: BIKE MATCHMAKER -->
+                            <div class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
+                                <div class="app-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                                <span class="app-label">Tìm Xe Chân Ái ✨</span>
                             </div>
                         </div>
                     </div>
@@ -875,6 +985,75 @@
     </div>
 </footer>
 
+<!-- AI MODAL 1: TOUR GUIDE -->
+<div class="ai-modal-overlay" id="ai-overlay"></div>
+<div class="ai-modal" id="ai-modal">
+    <div class="ai-header">
+        <h3><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary)"></i> Mr Tú AI Guide ✨</h3>
+        <button class="ai-close" id="ai-close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-chat-area" id="ai-chat-box">
+        <div class="chat-msg msg-bot">
+            Xin chào! Tôi là <strong>Mr Tú AI</strong>. Tôi có thể giúp bạn lên lịch trình đi phượt, tìm quán ăn ngon ở Phố Cổ, hay chọn xe phù hợp. Bạn cần giúp gì nào? 🛵🍜
+        </div>
+    </div>
+    <div class="ai-input-area">
+        <input type="text" id="ai-input" class="ai-input" placeholder="Hỏi tôi về địa điểm, món ăn...">
+        <button id="ai-send" class="ai-send"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<!-- AI MODAL 2: BIKE MATCHMAKER -->
+<div class="ai-modal-overlay" id="mm-overlay"></div>
+<div class="ai-modal" id="mm-modal" style="height: auto; min-height: 400px;">
+    <div class="ai-header">
+        <h3><i class="fa-solid fa-heart-pulse" style="color:#ff3366"></i> Tìm Xe Chân Ái ✨</h3>
+        <button class="ai-close" id="mm-close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-chat-area" id="mm-content">
+        <!-- Form Content -->
+        <p style="font-size:0.9rem; color:var(--text-sub);">Trả lời 3 câu hỏi nhanh để AI tìm "người bạn đồng hành" hoàn hảo nhất cho chuyến đi của bạn!</p>
+        
+        <div class="form-group">
+            <label class="form-label">1. Trình độ lái xe của bạn?</label>
+            <select class="form-input" id="mm-exp">
+                <option value="newbie">Lái mới (Newbie)</option>
+                <option value="ok">Ổn định (Biết đi xe ga/số)</option>
+                <option value="pro">Tay đua lụa (Thích côn tay/PKL)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">2. Bạn định đi đâu?</label>
+            <select class="form-input" id="mm-dest">
+                <option value="city">Loanh quanh phố (Cafe, Hồ Tây)</option>
+                <option value="trip">Phượt nhẹ (Bát Tràng, Ba Vì)</option>
+                <option value="long">Đi xa / Leo núi (Hà Giang, Sapa)</option>
+            </select>
+        </div>
+        
+         <div class="form-group">
+            <label class="form-label">3. Chiều cao của bạn?</label>
+            <select class="form-input" id="mm-height">
+                <option value="short">Dưới 1m60</option>
+                <option value="mid">1m60 - 1m75</option>
+                <option value="tall">Trên 1m75</option>
+            </select>
+        </div>
+        
+        <button class="btn-3d" id="mm-submit" style="width:100%; margin-top:10px;">
+            <i class="fa-solid fa-magnifying-glass"></i> Tìm Xe Ngay
+        </button>
+        
+        <!-- Result Container -->
+        <div id="mm-result" style="margin-top:20px; display:none; border-top:1px dashed var(--glass-border); padding-top:16px;">
+            <h4 style="color:var(--primary); margin:0 0 8px 0;">Kết quả:</h4>
+            <div id="mm-result-text" style="font-size:0.95rem; line-height:1.6; color:var(--text-main);"></div>
+        </div>
+    </div>
+</div>
+
+
 <!-- NEW ULTRA APP MINI (Expandable Button) -->
 <div class="ultra-fab-wrapper" id="ultra-fab">
     <div class="ultra-actions">
@@ -965,6 +1144,287 @@
             this.statusWidget();
             this.setupPWA();
             this.ultraApp();
+            this.setupAI();
+            this.setupMatchmaker();
+        },
+
+        // --- CORE: FAKE "GEMINI" OFFLINE, KHÔNG CẦN API ---
+        async callGeminiWithRetry(prompt, systemInstruction, onLoading, onSuccess, onError) {
+            try {
+                onLoading();
+
+                const pRaw = String(prompt || "");
+                const sRaw = String(systemInstruction || "");
+                const text = (pRaw + " " + sRaw).toLowerCase();
+
+                // Helper: random delay cho giống AI thật
+                const delay = 500 + Math.floor(Math.random() * 700);
+
+                // Helper: tạo câu trả lời gọn, thân thiện
+                function wrap(msg) {
+                    return msg
+                        .replace(/\s+/g, " ")
+                        .trim();
+                }
+
+                let answer = "";
+
+                /* ====== CASE 1: Dùng trong AI Guide (tour, ăn uống, lịch trình) ====== */
+
+                // Đi Hà Giang / Sa Pa / phượt dài ngày
+                if (/hà giang|ha giang|sapa|sa pa|đi xa|highway|mountain|đèo|đi đèo/.test(text)) {
+                    answer = wrap(
+                        "Đi Hà Giang, Sa Pa hoặc cung đèo dài thì anh nên chạy xe số hoặc XR150: máy khỏe, phanh đầm, leo dốc an toàn. " +
+                        "Nếu chở đồ nhiều, ưu tiên Wave / XR150, hạn chế xe ga yếu phanh và nhanh nóng máy."
+                    );
+                }
+                // Phố Cổ / Hoàn Kiếm / Old Quarter
+                else if (/phố cổ|pho co|old quarter|hoàn kiếm|hoan kiem|center|city center/.test(text)) {
+                    answer = wrap(
+                        "Chạy trong Phố Cổ, Hoàn Kiếm thì Vision hoặc Wave là hợp lý: xe nhỏ gọn, dễ luồn lách, gửi khách sạn cũng tiện. " +
+                        "Đi 1–2 ngày chơi quanh phố thì chọn Vision nhìn lịch sự, Wave thì siêu tiết kiệm xăng."
+                    );
+                }
+                // Hồ Tây, cafe, hẹn hò
+                else if (/hồ tây|ho tay|west lake|cafe|coffee|date|hẹn hò/.test(text)) {
+                    answer = wrap(
+                        "Đi chơi Hồ Tây, cafe, hẹn hò thì Vision hoặc Airblade là đẹp: dáng xe gọn, ngồi 2 người thoải mái, máy êm. " +
+                        "Nếu thích êm ái dễ lái thì Vision, cần khỏe máy hơn chút thì Airblade 160."
+                    );
+                }
+                // Ăn uống, street food, đặc sản
+                else if (/ăn gì|ăn ở đâu|food|street food|đặc sản|mon an|món ăn|bún chả|phở|bun cha|pho/.test(text)) {
+                    answer = wrap(
+                        "Khu Phố Cổ anh thử combo: sáng phở Bát Đàn / Lý Quốc Sư, trưa bún chả Hàng Quạt hoặc Đắc Kim, tối bia / đồ nướng Tạ Hiện. " +
+                        "Đi bằng xe máy thì gửi xe ở các bãi Trần Nhật Duật hoặc ven hồ Hoàn Kiếm rồi đi bộ vào cho đỡ đông."
+                    );
+                }
+                // Hỏi lịch trình 1 ngày / 2 ngày / 3 ngày
+                else if (/lịch trình|itinerary|1 ngày|2 ngày|3 ngày|one day|two days|three days/.test(text)) {
+                    answer = wrap(
+                        "Nếu ở Hà Nội 1–2 ngày: sáng chạy hồ Hoàn Kiếm – Phố Cổ, trưa qua Hồ Tây, chiều lên Long Biên / Gia Lâm ngắm sông Hồng. " +
+                        "Có xe máy thì đi được nhiều điểm hơn, không mất thời gian chờ taxi, chi phí rẻ hơn khá nhiều."
+                    );
+                }
+                // Hỏi giá / chi phí
+                else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
+                    answer = wrap(
+                        "Tạm tính: xe số khoảng 120k/ngày, xe ga Vision ~150k–180k/ngày, xe ga cao cấp từ 230k–250k/ngày. " +
+                        "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo để em chốt chuẩn theo lịch."
+                    );
+                }
+                // Giấy tờ, cọc
+                else if (/cọc|đặt cọc|deposit|giấy tờ|passport|hộ chiếu|cccd/.test(text)) {
+                    answer = wrap(
+                        "Thủ tục cơ bản: CCCD hoặc hộ chiếu + cọc theo giá trị xe. " +
+                        "Nếu anh thuê dài ngày hoặc có đủ giấy tờ thì có thể giảm cọc. Chi tiết em hay trao đổi trực tiếp qua Zalo / điện thoại cho nhanh."
+                    );
+                }
+
+                /* ====== CASE 2: Dùng trong Matchmaker (chọn xe chân ái) ====== */
+
+                else if (/trình độ lái|tay đua lụa|newbie|tay ga|côn tay|xr150|vision|airblade|wave alpha/.test(text)) {
+                    // Parse “Trình độ lái, Điểm đến, Chiều cao” từ prompt
+                    const expMatch   = /trình độ lái[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+                    const destMatch  = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+                    const heightMatch= /chiều cao[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+
+                    const exp   = (expMatch[1]   || "").toLowerCase();
+                    const dest  = (destMatch[1]  || "").toLowerCase();
+                    const height= (heightMatch[1]|| "").toLowerCase();
+
+                    function pickBike() {
+                        // Mặc định
+                        let bike = "Honda Vision";
+                        let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
+
+                        // Theo kinh nghiệm + điểm đến
+                        if (/tay đua|lụa|pro|PKL/i.test(expMatch[1] || "")) {
+                            if (/xa|leo núi|hà giang|sa pa|sapa|long/i.test(dest)) {
+                                bike = "Honda XR150";
+                                reason = "gầm cao, phuộc tốt, bám đường, cực hợp cung đèo dài và đường xấu.";
+                            } else {
+                                bike = "Honda Airblade 160";
+                                reason = "máy 160 khoẻ, tăng tốc tốt, đi phố hay đi xa đều sướng.";
+                            }
+                        } else if (/mới|newbie/i.test(expMatch[1] || "")) {
+                            if (/city|phố|loanh quanh|hồ tây|ho tây/.test(dest)) {
+                                bike = "Honda Vision";
+                                reason = "thấp, nhẹ, vững tay lái, rất dễ xoay trở trong hẻm và phố cổ.";
+                            } else {
+                                bike = "Honda Wave Alpha";
+                                reason = "bền, tiết kiệm xăng, dễ sửa, hợp cho người mới mà vẫn muốn đi xa.";
+                            }
+                        } else {
+                            // Mức trung bình
+                            if (/long|xa|núi|đèo/.test(dest)) {
+                                bike = "Honda Wave Alpha";
+                                reason = "máy đủ khoẻ, ăn ít xăng, nếu cần vẫn leo đèo tốt.";
+                            } else {
+                                bike = "Honda Vision";
+                                reason = "cân bằng giữa thoải mái, dễ đi và chi phí.";
+                            }
+                        }
+
+                        // Điều chỉnh theo chiều cao
+                        if (/dưới 1m60|duoi 1m60|short/.test(height)) {
+                            if (bike === "Honda XR150") {
+                                bike = "Honda Vision";
+                                reason = "yên thấp, dễ chống chân hơn so với XR150 nếu anh/chị hơi thấp.";
+                            }
+                        } else if (/trên 1m75|tren 1m75|tall/.test(height)) {
+                            if (bike === "Honda Vision") {
+                                bike = "Honda Airblade 160";
+                                reason = "khung cao hơn, ngồi đỡ gò bó cho người cao.";
+                            }
+                        }
+
+                        return { bike, reason };
+                    }
+
+                    const { bike, reason } = pickBike();
+
+                    answer = wrap(
+                        `Xe chân ái của bạn là: ${bike}. ` +
+                        `Lý do: ${reason} Nếu cần em giữ sẵn 1 xe và gửi ảnh chi tiết, anh nhắn Zalo 0942.467.674 là em hỗ trợ luôn.`
+                    );
+                }
+
+                /* ====== FALLBACK: Câu trả lời chung ====== */
+
+                else {
+                    answer = wrap(
+                        "Em là trợ lý Mr Tú AI. Anh cho em biết: anh đi đâu, mấy ngày, thích xe số hay xe ga, em gợi ý luôn mẫu xe + tầm giá hợp lý, thêm vài gợi ý quán ăn/nghỉ cho tiện cung đường."
+                    );
+                }
+
+                setTimeout(() => {
+                    onSuccess(answer);
+                }, delay);
+            } catch (err) {
+                // Trong trường hợp lỗi JS, vẫn gọi onError để UI không bị treo
+                if (onError) onError(err.message || "Local AI error");
+            }
+        },
+
+        // --- FEATURE 1: AI TOUR GUIDE ---
+        setupAI() {
+            const modal = document.getElementById('ai-modal');
+            const overlay = document.getElementById('ai-overlay');
+            const closeBtn = document.getElementById('ai-close');
+            const chatBox = document.getElementById('ai-chat-box');
+            const input = document.getElementById('ai-input');
+            const sendBtn = document.getElementById('ai-send');
+
+            window.AI_Guide = {
+                open: () => {
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
+                    input.focus();
+                }
+            };
+
+            const close = () => {
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            };
+
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+
+            const addMsg = (text, isUser = false) => {
+                const div = document.createElement('div');
+                div.className = `chat-msg ${isUser ? 'msg-user' : 'msg-bot'}`;
+                div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                chatBox.appendChild(div);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+
+            const showLoader = () => {
+                const div = document.createElement('div');
+                div.className = 'chat-msg msg-bot';
+                div.id = 'ai-loader';
+                div.innerHTML = `<div class="typing-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>`;
+                chatBox.appendChild(div);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+
+            const removeLoader = () => {
+                const loader = document.getElementById('ai-loader');
+                if (loader) loader.remove();
+            };
+
+            const handleSend = () => {
+                const text = input.value.trim();
+                if (!text) return;
+                
+                // Add user message
+                addMsg(text, true);
+                input.value = '';
+
+                // Call API
+                const systemPrompt = "Bạn là Mr Tú, một hướng dẫn viên địa phương thân thiện, am hiểu sâu sắc về Hà Nội và làm việc cho dịch vụ cho thuê xe máy 'Mr Tú Bike'. Bạn chuyên tư vấn lịch trình đi phượt, địa điểm ăn uống ngon bổ rẻ ở Phố Cổ, Tây Hồ, và các loại xe phù hợp (Vision, Airblade, Wave). Câu trả lời ngắn gọn (dưới 100 từ), vui vẻ, dùng icon, và luôn khuyến khích khách thuê xe máy để di chuyển. Nếu khách hỏi giá, hãy gợi ý xem bảng giá.";
+                
+                Render.callGeminiWithRetry(
+                    text,
+                    systemPrompt,
+                    showLoader, // onLoading
+                    (response) => { removeLoader(); addMsg(response); }, // onSuccess
+                    (error) => { removeLoader(); addMsg("Mạng đang bận, bạn thử lại chút nữa nhé! 😅"); } // onError
+                );
+            };
+
+            sendBtn.addEventListener('click', handleSend);
+            input.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+        },
+
+        // --- FEATURE 2: BIKE MATCHMAKER ---
+        setupMatchmaker() {
+            const modal = document.getElementById('mm-modal');
+            const overlay = document.getElementById('mm-overlay');
+            const closeBtn = document.getElementById('mm-close');
+            const submitBtn = document.getElementById('mm-submit');
+            const resultBox = document.getElementById('mm-result');
+            const resultText = document.getElementById('mm-result-text');
+
+            window.AI_Matchmaker = {
+                open: () => {
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
+                }
+            };
+
+            const close = () => {
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            };
+
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+
+            submitBtn.addEventListener('click', () => {
+                const exp = document.getElementById('mm-exp').options[document.getElementById('mm-exp').selectedIndex].text;
+                const dest = document.getElementById('mm-dest').options[document.getElementById('mm-dest').selectedIndex].text;
+                const height = document.getElementById('mm-height').options[document.getElementById('mm-height').selectedIndex].text;
+
+                const userPrompt = `Người dùng có thông số sau: Trình độ lái: ${exp}. Điểm đến: ${dest}. Chiều cao: ${height}. Hãy chọn 1 xe phù hợp nhất trong số (Honda Vision, Honda Airblade 160, Honda Wave Alpha, Honda XR150).`;
+                const systemPrompt = "Bạn là chuyên gia tư vấn xe máy của Mr Tú Bike. Dựa vào thông tin người dùng, hãy đề xuất DUY NHẤT 1 mẫu xe phù hợp nhất. Giải thích lý do thật ngắn gọn, súc tích và vui vẻ (dưới 60 từ). Bắt đầu câu trả lời bằng 'Xe chân ái của bạn là: [Tên Xe]'.";
+
+                resultBox.style.display = 'block';
+                resultText.innerHTML = `<div class="typing-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div> Đang phân tích...`;
+
+                Render.callGeminiWithRetry(
+                    userPrompt,
+                    systemPrompt,
+                    () => {}, // loading handled manually above
+                    (text) => {
+                        resultText.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    },
+                    (error) => {
+                        resultText.innerHTML = "Hệ thống đang bận, nhưng mình đoán là Honda Vision sẽ hợp với mọi người! 😂";
+                    }
+                );
+            });
         },
 
         // --- NEW ULTRA APP LOGIC ---
