@@ -1,8 +1,7 @@
-/* motoai_v39_premium_ios_nomarkdown_fixed.js
-   ✅ SECURITY: Chống XSS (textNode injection)
-   ✅ PERFORMANCE: Fix visualViewport listener leak
-   ✅ LOGIC: Fix parse giá VND, Fix session loop
-   ✅ UX: Trạng thái sending, ARIA accessibility
+/* motoai_v39_premium_final_fixed.js
+   ✅ FIX 1: addMsg chống XSS (TextNode injection)
+   ✅ FIX 2: Viewport listener chỉ gắn 1 lần (Singleton pattern)
+   ✅ FIX 3: showTyping kiểm tra trùng lặp
 */
 (function(){
   if (window.MotoAI_v39_LOADED) return;
@@ -15,7 +14,7 @@
     zalo:  "",
     map:   "",
     avatar: "👩‍💼",
-    themeColor: "#007AFF", // Màu xanh chuẩn iOS
+    themeColor: "#007AFF", 
 
     autolearn: true,
     viOnly: true,
@@ -32,23 +31,20 @@
     fetchPauseMs: 160,
     disableQuickMap: false,
 
-    // Smart flags
     smart: {
-      semanticSearch: true,   // BM25
-      extractiveQA:   true,   // chích câu “đinh”
-      autoPriceLearn: true    // trích giá từ HTML
+      semanticSearch: true,
+      extractiveQA:   true,
+      autoPriceLearn: true
     },
 
-    debug: false, // Default false production
-
+    debug: false,
     noLinksInReply: true,
     noMarkdownReply: true,
     preferModelOverFamily: true
   };
 
-  // Fix: Không mutate trực tiếp window object để tránh side-effect
   const RAW_ORG = (window.MotoAI_CONFIG || {});
-  const ORG = Object.assign({}, RAW_ORG); // Clone shallow copy
+  const ORG = Object.assign({}, RAW_ORG);
   
   if(!ORG.zalo && (ORG.phone||DEF.phone)) {
     ORG.zalo = 'https://zalo.me/' + String(ORG.phone||DEF.phone).replace(/\s+/g,'');
@@ -111,7 +107,7 @@
     clean: "MotoAI_v39_lastClean"
   };
 
-  /* ====== UI PREMIUM (Glassmorphism + iOS Fixes) ====== */
+  /* ====== UI PREMIUM ====== */
   const CSS = `
   :root{
     --mta-z: 2147483647;
@@ -325,7 +321,7 @@
   function getSess(){ const arr = safe(localStorage.getItem(K.sess))||[]; return Array.isArray(arr)?arr:[]; }
   function saveSess(a){ try{ localStorage.setItem(K.sess, JSON.stringify(a.slice(-MAX_MSG))); }catch{} }
   
-  // FIX XSS: Sử dụng textContent thay vì innerHTML
+  // FIX 1: Chống XSS bằng textContent và textNode
   function addMsg(role, text, save = true){
     if(!text) return;
     const body=$("#mta-body"); if(!body) return;
@@ -346,11 +342,10 @@
     }
   }
 
-  // FIX Loop: Render không gọi lại saveSess
   function renderSess(){
     const body=$("#mta-body"); body.innerHTML="";
     const arr=getSess();
-    if(arr.length) arr.forEach(m=> addMsg(m.role,m.text, false)); // false = no save
+    if(arr.length) arr.forEach(m=> addMsg(m.role,m.text, false));
     else addMsg("bot", naturalize(`Xin chào, em là hỗ trợ viên của ${CFG.brand}. Anh/chị cần thuê xe gì ạ?`), true);
   }
 
@@ -470,9 +465,6 @@
       {key:/\bxe\s*ga\b/i,                      type:'xe ga'}
     ];
     
-    // FIX: Regex parse giá thông minh hơn
-    // Ưu tiên bắt số kèm đơn vị k/tr/triệu
-    // Nếu không có đơn vị, kiểm tra định dạng xxx.xxx hoặc xxx,xxx
     const reNum = /((?:\d+[.,])*\d+)(?:\s*(k|tr|triệu|million))?/i;
     
     function parseVND(line){
@@ -481,17 +473,13 @@
       let rawNum = m[1];
       let unit = (m[2]||'').toLowerCase();
 
-      // Nếu có đơn vị rõ ràng
       if(unit){
-        const num = parseFloat(rawNum.replace(/,/g,'.')); // Chuẩn hoá thập phân về dấu chấm
+        const num = parseFloat(rawNum.replace(/,/g,'.')); 
         if(unit==='k') val = Math.round(num*1000);
         else if(unit==='tr' || unit==='triệu' || unit==='million') val = Math.round(num*1000000);
       } else {
-        // Không có đơn vị, xử lý theo kiểu VND (150.000 hoặc 150,000 đều là 150000)
-        // Xoá hết dấu phân cách
         const cleanRaw = rawNum.replace(/[.,]/g, '');
         const num = parseInt(cleanRaw, 10);
-        // Heuristic: Giá thuê xe thường > 50k
         if(num > 50000) val = num;
       }
       return val;
@@ -518,11 +506,10 @@
     return out;
   }
   
-  // FIX: Tối ưu bộ nhớ cho BM25
   function buildBM25(docs){
     const k1=1.5,b=0.75; 
     const df=new Map(); 
-    const tfList = []; // Array thay vì Map lồng Map để tiết kiệm
+    const tfList = []; 
     let total=0;
     
     docs.forEach(d=>{
@@ -589,7 +576,6 @@
     }
     catch(e){ 
         clearTimeout(id); 
-        // Silent fail để không làm phiền console người dùng, chỉ log khi debug
         if(CFG.debug) console.warn("Fetch failed:", url, e);
         return null; 
     }
@@ -732,9 +718,10 @@
   /* ====== CONTROL ====== */
   let isOpen=false, sending=false;
   
+  // FIX 3: showTyping tránh tạo trùng
   function showTyping(){
     const body=$("#mta-body"); if(!body) return;
-    if($("#mta-typing")) return; // FIX: Tránh duplicate indicator
+    if($("#mta-typing")) return; // Kiểm tra tồn tại
     const box=document.createElement("div"); box.id="mta-typing"; box.innerHTML=`<div class="dot-flashing"></div>`;
     body.appendChild(box); body.scrollTop=body.scrollHeight;
   }
@@ -744,7 +731,6 @@
     if(sending) return;
     const v=(text||"").trim(); if(!v) return;
     
-    // UX: Set state
     sending=true; 
     const btnSend = $("#mta-send"); if(btnSend) btnSend.classList.add('sending');
 
@@ -773,7 +759,6 @@
     
     isOpen=true; renderSess();
     setTimeout(()=>{ const i=$("#mta-in"); if(i) i.focus(); }, 300);
-    // Lưu ý: Không gọi adjustForIOS ở đây nữa, nó đã tự chạy qua singleton listener
   }
   
   function closeChat(){
@@ -791,17 +776,15 @@
     if(card) { card.style.bottom = "20px"; card.style.height = "75vh"; }
   }
 
-  /* ====== IOS KEYBOARD FIX (SINGLETON) ====== */
+  // FIX 2: Singleton Listener cho iOS Viewport (thay adjustForIOS cũ)
   function setupViewportFix(){
     if(!window.visualViewport) return;
     
-    // FIX: Listener chỉ khai báo 1 lần
     const view = window.visualViewport;
     const onResize = () => {
-      if(!isOpen) return; // Chỉ tính toán khi mở chat
+      if(!isOpen) return; 
       const card = $("#mta-card"); if(!card) return;
       
-      // Nếu chiều cao viewport giảm mạnh (bàn phím hiện)
       if(view.height < window.innerHeight - 100){
         if(window.innerWidth <= 480){
           card.style.height = view.height + "px";
@@ -838,7 +821,6 @@
   function ready(fn){ if(document.readyState==="complete"||document.readyState==="interactive") fn(); else document.addEventListener("DOMContentLoaded", fn); }
 
   ready(async ()=>{
-    // Clear old clean
     const lastClean = parseInt(localStorage.getItem(K.clean)||0);
     if(!lastClean || (Date.now()-lastClean) > 7*24*3600*1000){ localStorage.removeItem(K.ctx); localStorage.setItem(K.clean, Date.now()); }
     
@@ -846,13 +828,12 @@
     const st=document.createElement("style"); st.textContent=CSS; document.head.appendChild(st);
     
     bindEvents(); 
-    setupViewportFix(); // FIX: Gọi 1 lần ở đây
+    setupViewportFix(); // Chỉ gọi 1 lần ở đây
     mergeAutoPrices();
     
     if(CFG.autolearn){
       const origins = Array.from(new Set([location.origin, ...(CFG.extraSites||[])]));
       const last = parseInt(localStorage.getItem(K.stamp)||0);
-      // Run async, không block UI
       if(!last || (Date.now()-last) >= CFG.refreshHours*3600*1000) {
           setTimeout(() => learnSites(origins, false), 3000);
       }
