@@ -8,7 +8,7 @@
 <meta name="description" content="Dịch vụ thuê xe máy Hà Nội uy tín, giao xe tận nơi miễn phí khu Hoàn Kiếm, Phố Cổ. Xe mới 2024–2025, giá chỉ từ 100k/ngày, không cần đặt cọc.">
 <meta name="theme-color" content="#000000">
 
-<!-- Canonical URL Updated -->
+<!-- Canonical URL -->
 <link rel="canonical" href="https://thuexemayhanoi.github.io/shop/">
 
 <!-- PWA iOS Config -->
@@ -626,8 +626,8 @@
         <div class="nav-bar glass-panel">
             <div class="header-left">
                 <a href="./" class="logo">
-                    <!-- CHANGED LOGO -->
-                    <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0462.jpeg" class="logo-img" alt="logo Mr Tú Bike" width="44" height="44">
+                    <!-- CHANGED LOGO: fixed github URL -->
+                    <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" class="logo-img" alt="logo Mr Tú Bike" width="44" height="44">
                     <div class="logo-text">
                         <!-- CHANGED NAME -->
                         <span class="logo-title">Mr Tú</span>
@@ -693,7 +693,7 @@
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
                                 <span class="app-label">Gọi Ngay</span>
                             </div>
-                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0942467674', '_blank')">
+                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0942467674', '_blank', 'noopener,noreferrer')">
                                 <div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
                                 <span class="app-label">Zalo</span>
                             </div>
@@ -756,7 +756,7 @@
                         <span style="font-size:1.6rem; font-weight:800; color:var(--primary)" id="c-total">150.000đ</span>
                     </div>
 
-                    <button class="btn-3d" style="width:100%; margin-top:24px;" onclick="window.open('https://zalo.me/0942467674', '_blank')">
+                    <button class="btn-3d" style="width:100%; margin-top:24px;" onclick="window.open('https://zalo.me/0942467674', '_blank', 'noopener,noreferrer')">
                         Đặt Xe Ngay <i class="fa-solid fa-arrow-right"></i>
                     </button>
                     <p style="text-align:center; font-size:0.75rem; color:var(--text-sub); margin-top:12px; opacity:0.7;">*Không cần cọc online</p>
@@ -971,8 +971,8 @@
             <div class="footer-grid" id="footer-grid"></div>
             
             <div class="copyright" style="margin-top: 50px;">
-                <!-- CHANGED LOGO FOOTER -->
-                <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
+                <!-- CHANGED LOGO FOOTER: fixed URL -->
+                <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
                 <p style="text-align:center; color:var(--text-sub); font-size:0.9rem; line-height:1.5;">
                     <!-- CHANGED NAME -->
                     <strong>© 2025 Mr Tú Motorbike Rental.</strong><br>
@@ -1082,6 +1082,16 @@
 
 <!-- JS ENGINE -->
 <script>
+    // --- SECURITY UTILS ---
+    function escapeHTML(s) {
+        return String(s || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     // --- ICONS (SVG) ---
     const ICONS = {
         home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
@@ -1315,6 +1325,12 @@
             const chatBox = document.getElementById('ai-chat-box');
             const input = document.getElementById('ai-input');
             const sendBtn = document.getElementById('ai-send');
+            
+            // Focus Trap Helpers
+            const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            const firstFocusableElement = modal.querySelectorAll(focusableElements)[0];
+            const focusableContent = modal.querySelectorAll(focusableElements);
+            const lastFocusableElement = focusableContent[focusableContent.length - 1];
 
             window.AI_Guide = {
                 open: () => {
@@ -1329,13 +1345,38 @@
                 overlay.classList.remove('active');
             };
 
+            // Keyboard Accessibility
+            modal.addEventListener('keydown', (e) => {
+                const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+                if (e.key === 'Escape') close();
+
+                if (!isTabPressed) return;
+
+                if (e.shiftKey) { 
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else { 
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            });
+
             closeBtn.addEventListener('click', close);
             overlay.addEventListener('click', close);
 
             const addMsg = (text, isUser = false) => {
                 const div = document.createElement('div');
                 div.className = `chat-msg ${isUser ? 'msg-user' : 'msg-bot'}`;
-                div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                // SECURE FIX: use escapeHTML()
+                if (isUser) {
+                    div.textContent = text;
+                } else {
+                    div.innerHTML = escapeHTML(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                }
                 chatBox.appendChild(div);
                 chatBox.scrollTop = chatBox.scrollHeight;
             };
@@ -1398,6 +1439,11 @@
                 modal.classList.remove('active');
                 overlay.classList.remove('active');
             };
+            
+            // Add basic Escape support
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) close();
+            });
 
             closeBtn.addEventListener('click', close);
             overlay.addEventListener('click', close);
@@ -1418,7 +1464,8 @@
                     systemPrompt,
                     () => {}, // loading handled manually above
                     (text) => {
-                        resultText.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                        // SECURE FIX: use escapeHTML()
+                        resultText.innerHTML = escapeHTML(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                     },
                     (error) => {
                         resultText.innerHTML = "Hệ thống đang bận, nhưng mình đoán là Honda Vision sẽ hợp với mọi người! 😂";
@@ -1470,13 +1517,12 @@
 
         nav() {
             const dNav = document.getElementById('desktop-menu');
-            if (dNav) {
-                dNav.innerHTML = CONFIG.MENU.map(i => {
-                    if (i.sub) return `<a href="${i.sub[0].l}" class="nav-link">${i.sub[0].l === '#' ? i.t : i.sub[0].l.replace('.html', '') === '#' ? i.t : i.t}</a>`; // Simplified logic to match requested copy
-                     if (i.sub) return `<a href="${i.sub[0].l}" class="nav-link">${i.t}</a>`;
-                    return `<a href="${i.l}" class="nav-link">${i.t}</a>`;
-                }).join('');
-            }
+            if (!dNav) return;
+            // FIXED: Clean logic
+            dNav.innerHTML = CONFIG.MENU.map(item => {
+                const href = item.l || (item.sub && item.sub[0] && item.sub[0].l) || '#';
+                return `<a href="${href}" class="nav-link">${item.t}</a>`;
+            }).join('');
         },
 
         mobile() {
@@ -1653,11 +1699,17 @@
 
             const tiltBox = document.getElementById('tilt-box');
             
+            // FIXED: Added debounce with requestAnimationFrame
+            let raf;
             document.addEventListener('mousemove', (e) => {
                 if (window.innerWidth < 1024 || !tiltBox) return;
-                const x = (window.innerWidth / 2 - e.pageX) / 30;
-                const y = (window.innerHeight / 2 - e.pageY) / 30;
-                tiltBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
+                if (raf) cancelAnimationFrame(raf);
+                
+                raf = requestAnimationFrame(() => {
+                    const x = (window.innerWidth / 2 - e.pageX) / 30;
+                    const y = (window.innerHeight / 2 - e.pageY) / 30;
+                    tiltBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
+                });
             });
 
             document.addEventListener('mouseleave', () => {
@@ -1675,17 +1727,21 @@
                 theme_color: "#000000",
                 background_color: "#000000",
                 icons: [{
-                    // CHANGED ICON
-                    src: "https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0462.jpeg",
+                    // FIXED: Corrected URL and type
+                    src: "https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg",
                     sizes: "192x192",
-                    type: "image/png"
+                    type: "image/jpeg"
                 }]
             };
             const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
             const link = document.createElement('link');
             link.rel = 'manifest';
-            link.href = URL.createObjectURL(blob);
+            const url = URL.createObjectURL(blob);
+            link.href = url;
             document.head.appendChild(link);
+            
+            // FIXED: Revoke URL to save memory
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
         }
     };
 
