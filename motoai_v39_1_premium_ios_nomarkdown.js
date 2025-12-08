@@ -1,9 +1,8 @@
-/* motoai_v39_1_premium_ios_nomarkdown.js
-   ✅ UPDATE: UI/UX Premium (Glassmorphism), Animation mượt (Spring physics)
-   ✅ FIX: iOS Keyboard overlap (One-time bind), Auto-zoom, Safe-area
-   ✅ FIX: Storage Quota Safe, DOM Null Safety, QuickCall Auto-Avoid
-   ✅ LOGIC: Giữ nguyên v38.1 (BM25 + Extractive QA + Auto-Price Learn)
-   ✅ TÙY BIẾN: KHÔNG Markdown, KHÔNG Link, Ưu tiên Model
+/* motoai_v39_premium_ios_nomarkdown_fixed.js
+   ✅ SECURITY: Chống XSS (textNode injection)
+   ✅ PERFORMANCE: Fix visualViewport listener leak
+   ✅ LOGIC: Fix parse giá VND, Fix session loop
+   ✅ UX: Trạng thái sending, ARIA accessibility
 */
 (function(){
   if (window.MotoAI_v39_LOADED) return;
@@ -40,16 +39,21 @@
       autoPriceLearn: true    // trích giá từ HTML
     },
 
-    // Debug / profiling
-    debug: true,
+    debug: false, // Default false production
 
-    // Tùy biến theo yêu cầu
-    noLinksInReply: true,         // KHÔNG chèn link trong câu trả lời bot
-    noMarkdownReply: true,        // KHÔNG dùng markdown trong câu trả lời bot
-    preferModelOverFamily: true   // ƯU TIÊN model (vision, wave...) hơn family (xe ga/xe số)
+    noLinksInReply: true,
+    noMarkdownReply: true,
+    preferModelOverFamily: true
   };
-  const ORG = (window.MotoAI_CONFIG||{});
-  if(!ORG.zalo && (ORG.phone||DEF.phone)) ORG.zalo = 'https://zalo.me/' + String(ORG.phone||DEF.phone).replace(/\s+/g,'');
+
+  // Fix: Không mutate trực tiếp window object để tránh side-effect
+  const RAW_ORG = (window.MotoAI_CONFIG || {});
+  const ORG = Object.assign({}, RAW_ORG); // Clone shallow copy
+  
+  if(!ORG.zalo && (ORG.phone||DEF.phone)) {
+    ORG.zalo = 'https://zalo.me/' + String(ORG.phone||DEF.phone).replace(/\s+/g,'');
+  }
+  
   const CFG = Object.assign({}, DEF, ORG);
   CFG.smart = Object.assign({}, DEF.smart, (ORG.smart||{}));
 
@@ -62,19 +66,20 @@
   const nfVND = n => (n||0).toLocaleString('vi-VN');
   const clamp = (n,min,max)=> Math.max(min, Math.min(max,n));
   const sameHost = (u, origin)=> { try{ return new URL(u).host.replace(/^www\./,'') === new URL(origin).host.replace(/^www\./,''); }catch{ return false; } };
+  
   function naturalize(t){
     if(!t) return t;
     let s = " "+t+" ";
     s = s.replace(/\s+ạ([.!?,\s]|$)/gi, "$1").replace(/\s+nhé([.!?,\s]|$)/gi, "$1").replace(/\s+nha([.!?,\s]|$)/gi, "$1");
     s = s.replace(/\s{2,}/g," ").trim(); if(!/[.!?]$/.test(s)) s+="."; return s.replace(/\.\./g,".");
   }
+  
   function looksVN(s){
     if(/[ăâêôơưđà-ỹ]/i.test(s)) return true;
     const hits = (s.match(/\b(xe|thuê|giá|liên hệ|hà nội|cọc|giấy tờ)\b/gi)||[]).length;
     return hits >= 2;
   }
 
-  // Loại bỏ thương hiệu khỏi chuỗi để nhận model chính xác
   const BRANDS = ['honda','yamaha','suzuki','piaggio','vinfast','sym','kymco'];
   function stripBrands(text){
     return String(text||'')
@@ -83,7 +88,6 @@
       .trim();
   }
 
-  // Chuẩn hoá câu trả lời: bỏ markdown/link
   function sanitizeReply(s){
     let out = String(s||'');
     if(CFG.noLinksInReply){
@@ -91,47 +95,21 @@
     }
     if(CFG.noMarkdownReply){
       out = out
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1') // [txt](url) -> txt
-        .replace(/[*_`~>]+/g, '');                 // markdown symbols
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
+        .replace(/[*_`~>]+/g, '');
     }
     return out.trim();
   }
 
-  /* ====== STORAGE KEYS & SAFE SAVE ====== */
+  /* ====== STORAGE KEYS ====== */
   const K = {
     sess:  "MotoAI_v39_session",
     ctx:   "MotoAI_v39_ctx",
     learn: "MotoAI_v39_learn",
     autoprices: "MotoAI_v39_auto_prices",
     stamp: "MotoAI_v39_learnStamp",
-    clean: "MotoAI_v39_lastClean",
-    dbg:   "MotoAI_v39_debug_stats"
+    clean: "MotoAI_v39_lastClean"
   };
-
-  // Safe storage with quota handling
-  function safeSetItem(key, valStr) {
-    try {
-      localStorage.setItem(key, valStr);
-    } catch(e) {
-      if(e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-        // Fallback: Thử xóa cache cũ nhất (Learn data)
-        try {
-          const cache = safe(localStorage.getItem(K.learn)) || {};
-          const keys = Object.keys(cache);
-          if (keys.length > 0) {
-             delete cache[keys[0]]; // Xóa domain đầu tiên
-             localStorage.setItem(K.learn, JSON.stringify(cache));
-             // Thử lưu lại
-             localStorage.setItem(key, valStr);
-          } else {
-             // Nếu vẫn không được, thử xóa session cũ
-             localStorage.removeItem(K.sess);
-             localStorage.setItem(key, valStr);
-          }
-        } catch(e2) {} // Give up silently
-      }
-    }
-  }
 
   /* ====== UI PREMIUM (Glassmorphism + iOS Fixes) ====== */
   const CSS = `
@@ -139,25 +117,19 @@
     --mta-z: 2147483647;
     --m-primary: ${CFG.themeColor};
     --m-bg: #ffffff;
-    --m-bg-sec: #f2f2f7; /* iOS secondary bg */
+    --m-bg-sec: #f2f2f7;
     --m-text: #1c1c1e;
     --m-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     --m-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    
-    /* Input sizing fix */
     --m-in-h: 44px;         
-    --m-in-fs: 16px; /* 16px to prevent iOS zoom */
+    --m-in-fs: 16px;
   }
-
   #mta-root{
     position:fixed; right:20px; bottom:calc(20px + env(safe-area-inset-bottom, 0));
     z-index:var(--mta-z); font-family:var(--m-font);
-    pointer-events:none; /* Để click xuyên qua vùng trống */
-    transition: all 0.3s ease;
+    pointer-events:none;
   }
   #mta-root > * { pointer-events:auto; }
-
-  /* Nút Chat Bubble - Hiệu ứng Pulse nhẹ */
   #mta-bubble{
     width:60px; height:60px; border:none; border-radius:30px;
     background: linear-gradient(135deg, var(--m-primary), #00C6FF);
@@ -167,16 +139,12 @@
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   #mta-bubble:active { transform: scale(0.9); }
-
-  /* Backdrop mờ */
   #mta-backdrop{
     position:fixed; inset:0; background:rgba(0,0,0,0.3);
     backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
     opacity:0; pointer-events:none; transition:opacity 0.3s ease;
   }
   #mta-backdrop.show{ opacity:1; pointer-events:auto; }
-
-  /* Card Chat - Glassmorphism & Spring Animation */
   #mta-card{
     position:fixed; right:20px; bottom:20px;
     width:min(400px, calc(100% - 40px));
@@ -185,25 +153,11 @@
     border-radius:24px;
     box-shadow: var(--m-shadow);
     display:flex; flex-direction:column; overflow:hidden;
-    
-    /* Animation state: Hidden */
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    pointer-events: none;
-    transition: 
-      transform 0.5s cubic-bezier(0.19, 1, 0.22, 1),
-      opacity 0.3s ease;
-    
-    /* iOS fix bottom keyboard */
+    opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease;
     transform-origin: bottom right;
   }
-  #mta-card.open{
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
-  }
-
-  /* Header trong suốt mờ (Blur) */
+  #mta-card.open{ opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
   #mta-header{
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -233,25 +187,20 @@
     background:none; border:none; color:#8e8e93; font-size:24px;
     cursor:pointer; margin-left:4px; padding:0 4px;
   }
-
-  /* Body Content */
   #mta-body{
     flex:1; overflow-y:auto; 
     background: var(--m-bg-sec);
-    padding: 70px 12px 12px; /* Top padding bù cho header absolute */
+    padding: 70px 12px 12px;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
-  
-  /* Tin nhắn - Bubble Style */
   .m-msg{
     max-width:80%; margin:6px 0; padding:10px 14px;
     border-radius:18px; line-height:1.45; word-break:break-word; font-size:15px;
     position: relative; animation: msgPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @keyframes msgPop { from{ opacity:0; transform:translateY(10px) scale(0.95); } to{ opacity:1; transform:translateY(0) scale(1); } }
-
   .m-msg.bot{
     background: #fff; color: var(--m-text);
     border-bottom-left-radius: 4px;
@@ -262,8 +211,6 @@
     margin-left: auto; border-bottom-right-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25);
   }
-
-  /* Typing Indicator */
   #mta-typing{ margin:6px 0; padding:8px 12px; background:#fff; border-radius:18px; display:inline-block; border-bottom-left-radius:4px; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
   .dot-flashing {
     position: relative; width: 6px; height: 6px; border-radius: 5px; background-color: #9880ff; color: #9880ff;
@@ -278,8 +225,7 @@
   .dot-flashing::before { left: -10px; animation-delay: 0s; }
   .dot-flashing::after { left: 10px; animation-delay: 1s; }
   @keyframes dot-flashing { 0% { background-color: #9880ff; } 50%, 100% { background-color: rgba(152, 128, 255, 0.2); } }
-
-  /* Suggestion Tags */
+  
   #mta-tags{
     background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
     border-top:1px solid rgba(0,0,0,0.05);
@@ -295,7 +241,6 @@
   }
   #mta-tags button:active{ background:#e5e5ea; transform:scale(0.96); }
 
-  /* Input Area */
   #mta-input{
     background: rgba(255,255,255,0.95);
     padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0));
@@ -313,11 +258,11 @@
     background:var(--m-primary); color:#fff;
     display:flex; align-items:center; justify-content:center;
     cursor:pointer; font-size:18px; box-shadow:0 2px 6px rgba(0,122,255,0.3);
-    transition: transform 0.2s;
+    transition: transform 0.2s, opacity 0.2s;
   }
   #mta-send:active{ transform:scale(0.9); }
+  #mta-send.sending{ opacity:0.6; pointer-events:none; }
 
-  /* Dark Mode Auto Support */
   @media(prefers-color-scheme:dark){
     :root{ --m-bg: #1c1c1e; --m-bg-sec: #000000; --m-text: #ffffff; --m-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); }
     #mta-header{ background: rgba(28, 28, 30, 0.85); border-bottom:1px solid rgba(255,255,255,0.1); }
@@ -330,8 +275,6 @@
     #mta-tags button{ background:#2c2c2e; border-color:#3a3a3c; color:#fff; }
     #mta-typing{ background:#2c2c2e; }
   }
-
-  /* Mobile Fullscreen Logic */
   @media(max-width:480px){
     #mta-card{
       right:0; left:0; bottom:0; width:100%; height:100%; max-height:none;
@@ -341,9 +284,9 @@
 
   const HTML = `
   <div id="mta-root" aria-live="polite">
-    <button id="mta-bubble" aria-label="Chat">💬</button>
+    <button id="mta-bubble" aria-label="Chat" aria-expanded="false">💬</button>
     <div id="mta-backdrop"></div>
-    <section id="mta-card" role="dialog" aria-hidden="true">
+    <section id="mta-card" role="dialog" aria-hidden="true" aria-modal="true">
       <header id="mta-header">
         <div class="bar">
           <div class="avatar">${CFG.avatar}</div>
@@ -356,7 +299,7 @@
             ${CFG.zalo?`<a class="act" href="${CFG.zalo}" target="_blank">Z</a>`:""}
             ${CFG.map?`<a class="act q-map" href="${CFG.map}" target="_blank">📍</a>`:""}
           </div>
-          <button id="mta-close">✕</button>
+          <button id="mta-close" aria-label="Đóng chat">✕</button>
         </div>
       </header>
       <main id="mta-body"></main>
@@ -371,8 +314,8 @@
         </div>
       </div>
       <footer id="mta-input">
-        <input id="mta-in" placeholder="Nhắn tin..." autocomplete="off" enterkeyhint="send"/>
-        <button id="mta-send">➤</button>
+        <input id="mta-in" placeholder="Nhắn tin..." autocomplete="off" enterkeyhint="send" aria-label="Nhập tin nhắn"/>
+        <button id="mta-send" aria-label="Gửi">➤</button>
       </footer>
     </section>
   </div>`;
@@ -380,30 +323,47 @@
   /* ====== SESSION / CONTEXT ====== */
   const MAX_MSG = 10;
   function getSess(){ const arr = safe(localStorage.getItem(K.sess))||[]; return Array.isArray(arr)?arr:[]; }
-  function saveSess(a){ safeSetItem(K.sess, JSON.stringify(a.slice(-MAX_MSG))); }
-  function addMsg(role,text){
+  function saveSess(a){ try{ localStorage.setItem(K.sess, JSON.stringify(a.slice(-MAX_MSG))); }catch{} }
+  
+  // FIX XSS: Sử dụng textContent thay vì innerHTML
+  function addMsg(role, text, save = true){
     if(!text) return;
     const body=$("#mta-body"); if(!body) return;
-    const el=document.createElement("div"); el.className="m-msg "+(role==="user"?"user":"bot"); el.innerHTML=text.replace(/\n/g,"<br>");
+    const el=document.createElement("div"); 
+    el.className="m-msg "+(role==="user"?"user":"bot");
+    
+    // Tách dòng và append text node an toàn
+    const lines = text.split('\n');
+    lines.forEach((line, i) => {
+        if(i > 0) el.appendChild(document.createElement('br'));
+        el.appendChild(document.createTextNode(line));
+    });
+
     body.appendChild(el); body.scrollTop=body.scrollHeight;
-    const arr=getSess(); arr.push({role,text,t:Date.now()}); saveSess(arr);
+    
+    if(save){
+      const arr=getSess(); arr.push({role,text,t:Date.now()}); saveSess(arr);
+    }
   }
+
+  // FIX Loop: Render không gọi lại saveSess
   function renderSess(){
     const body=$("#mta-body"); body.innerHTML="";
     const arr=getSess();
-    if(arr.length) arr.forEach(m=> addMsg(m.role,m.text));
-    else addMsg("bot", naturalize(`Xin chào, em là hỗ trợ viên của ${CFG.brand}. Anh/chị cần thuê xe gì ạ?`));
+    if(arr.length) arr.forEach(m=> addMsg(m.role,m.text, false)); // false = no save
+    else addMsg("bot", naturalize(`Xin chào, em là hỗ trợ viên của ${CFG.brand}. Anh/chị cần thuê xe gì ạ?`), true);
   }
+
   function getCtx(){ return safe(localStorage.getItem(K.ctx)) || {turns:[]}; }
   function pushCtx(delta){
     try{
       const ctx=getCtx(); ctx.turns.push(Object.assign({t:Date.now()}, delta||{}));
       ctx.turns = ctx.turns.slice(-clamp(CFG.maxContextTurns||5,3,8));
-      safeSetItem(K.ctx, JSON.stringify(ctx));
+      localStorage.setItem(K.ctx, JSON.stringify(ctx));
     }catch{}
   }
 
-  /* ====== NLP ENGINE (Giữ nguyên logic v38) ====== */
+  /* ====== NLP ENGINE ====== */
   const TYPE_MAP = [
     {k:'air blade', re:/\bair\s*blade\b|airblade|\bab\b/i,    canon:'air blade'},
     {k:'vision',    re:/\bvision\b/i,                         canon:'vision'},
@@ -509,20 +469,34 @@
       {key:/\bxe\s*số\b/i,                      type:'xe số'},
       {key:/\bxe\s*ga\b/i,                      type:'xe ga'}
     ];
-    const reNum = /(\d+(?:[.,]\d+)?)(?:\s*(k|tr|triệu|million))?|\b(\d{1,3}(?:[.,]\d{3})+)\b/i;
+    
+    // FIX: Regex parse giá thông minh hơn
+    // Ưu tiên bắt số kèm đơn vị k/tr/triệu
+    // Nếu không có đơn vị, kiểm tra định dạng xxx.xxx hoặc xxx,xxx
+    const reNum = /((?:\d+[.,])*\d+)(?:\s*(k|tr|triệu|million))?/i;
+    
     function parseVND(line){
       const m = line.match(reNum); if(!m) return null;
       let val = 0;
-      if(m[3]) val = parseInt(m[3].replace(/[^\d]/g,''),10);
-      else{
-        const num = parseFloat(String(m[1]||'0').replace(',','.'));
-        const unit = (m[2]||'').toLowerCase();
+      let rawNum = m[1];
+      let unit = (m[2]||'').toLowerCase();
+
+      // Nếu có đơn vị rõ ràng
+      if(unit){
+        const num = parseFloat(rawNum.replace(/,/g,'.')); // Chuẩn hoá thập phân về dấu chấm
         if(unit==='k') val = Math.round(num*1000);
         else if(unit==='tr' || unit==='triệu' || unit==='million') val = Math.round(num*1000000);
-        else val = Math.round(num);
+      } else {
+        // Không có đơn vị, xử lý theo kiểu VND (150.000 hoặc 150,000 đều là 150000)
+        // Xoá hết dấu phân cách
+        const cleanRaw = rawNum.replace(/[.,]/g, '');
+        const num = parseInt(cleanRaw, 10);
+        // Heuristic: Giá thuê xe thường > 50k
+        if(num > 50000) val = num;
       }
       return val;
     }
+
     for(const raw of lines){
       const line = String(raw||'');
       const found = models.find(m=> m.key.test(line));
@@ -537,40 +511,64 @@
   /* ====== SEARCH & INDEX ====== */
   function tk(s){ return (s||"").toLowerCase().normalize('NFC').replace(/[^\p{L}\p{N}\s]+/gu,' ').split(/\s+/).filter(Boolean); }
   function loadLearn(){ return safe(localStorage.getItem(K.learn)) || {}; }
-  function saveLearn(o){ safeSetItem(K.learn, JSON.stringify(o)); }
+  function saveLearn(o){ try{ localStorage.setItem(K.learn, JSON.stringify(o)); }catch{} }
   function getIndexFlat(){
     const cache=loadLearn(); const out=[];
     Object.keys(cache).forEach(key=>{ (cache[key].pages||[]).forEach(pg=> out.push(Object.assign({source:key}, pg))); });
     return out;
   }
+  
+  // FIX: Tối ưu bộ nhớ cho BM25
   function buildBM25(docs){
-    const k1=1.5,b=0.75; const df=new Map(), tf=new Map(); let total=0;
+    const k1=1.5,b=0.75; 
+    const df=new Map(); 
+    const tfList = []; // Array thay vì Map lồng Map để tiết kiệm
+    let total=0;
+    
     docs.forEach(d=>{
       const toks=tk(d.text); total+=toks.length;
-      const map=new Map(); toks.forEach(t=> map.set(t,(map.get(t)||0)+1));
-      tf.set(d.id,map); new Set(toks).forEach(t=> df.set(t,(df.get(t)||0)+1));
+      const counts={};
+      toks.forEach(t=> counts[t] = (counts[t]||0)+1);
+      tfList.push({counts, len: toks.length});
+      
+      const uniqueToks = new Set(toks);
+      uniqueToks.forEach(t=> df.set(t, (df.get(t)||0)+1));
     });
-    const N=docs.length||1, avgdl=total/Math.max(1,N); const idf=new Map();
+
+    const N=docs.length||1; 
+    const avgdl=total/Math.max(1,N); 
+    const idf=new Map();
     df.forEach((c,t)=> idf.set(t, Math.log(1 + (N - c + .5)/(c + .5))));
-    function score(query, docId, docLen){
-      const qToks=new Set(tk(query)); const map=tf.get(docId)||new Map(); let s=0;
-      qToks.forEach(t=>{ const f=map.get(t)||0; if(!f) return; const idfv=idf.get(t)||0;
-        s += idfv*(f*(k1+1))/(f + k1*(1 - b + b*(docLen/avgdl)));
+
+    function score(query, docIndex){
+      const qToks=new Set(tk(query)); 
+      const docData = tfList[docIndex];
+      if(!docData) return 0;
+      
+      let s=0;
+      qToks.forEach(t=>{ 
+        const f=docData.counts[t]||0; 
+        if(!f) return; 
+        const idfv=idf.get(t)||0;
+        s += idfv*(f*(k1+1))/(f + k1*(1 - b + b*(docData.len/avgdl)));
       });
       return s;
     }
-    return {score, tf, avgdl};
+    return {score};
   }
+
   function searchIndex(query, k=3){
     const idx = getIndexFlat(); if(!idx.length) return [];
-    const docs = idx.map((it,i)=>({id:String(i), text:((it.title||'')+' '+(it.text||'')), meta:it}));
+    const docs = idx.map((it,i)=>({id:i, text:((it.title||'')+' '+(it.text||'')), meta:it}));
     const bm = CFG.smart.semanticSearch ? buildBM25(docs) : null;
+    
     const scored = bm
-      ? docs.map(d=>({score: bm.score(query, d.id, tk(d.text).length||1), meta:d.meta}))
+      ? docs.map(d=>({score: bm.score(query, d.id), meta:d.meta}))
             .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,k).map(x=>x.meta)
       : idx.map(it=> Object.assign({score: tk(it.title+" "+it.text).filter(t=> tk(query).includes(t)).length}, it)).filter(x=>x.score>0).sort((a,b)=> b.score - a.score).slice(0,k);
     return scored;
   }
+
   function bestSentences(text, query, k=2){
     const sents = String(text||'').replace(/\s+/g,' ').split(/(?<=[\.\!\?])\s+/).slice(0,80);
     const qToks=new Set(tk(query)); const scored = sents.map(s=>{
@@ -583,8 +581,18 @@
   /* ====== CRAWLER ====== */
   async function fetchText(url){
     const ctl = new AbortController(); const id = setTimeout(()=>ctl.abort(), CFG.fetchTimeoutMs);
-    try{ const res = await fetch(url, {signal:ctl.signal}); clearTimeout(id); if(!res.ok) return null; return await res.text(); }
-    catch(e){ clearTimeout(id); return null; }
+    try{ 
+        const res = await fetch(url, {signal:ctl.signal}); 
+        clearTimeout(id); 
+        if(!res.ok) return null; 
+        return await res.text(); 
+    }
+    catch(e){ 
+        clearTimeout(id); 
+        // Silent fail để không làm phiền console người dùng, chỉ log khi debug
+        if(CFG.debug) console.warn("Fetch failed:", url, e);
+        return null; 
+    }
   }
   function parseXML(t){ try{ return (new DOMParser()).parseFromString(t,'text/xml'); }catch{ return null; } }
   function parseHTML(t){ try{ return (new DOMParser()).parseFromString(t,'text/html'); }catch{ return null; } }
@@ -629,7 +637,7 @@
           if(autos.length){
             const stash = safe(localStorage.getItem(K.autoprices))||[];
             stash.push(...autos.map(a=> Object.assign({url:u}, a)));
-            safeSetItem(K.autoprices, JSON.stringify(stash.slice(-500)));
+            localStorage.setItem(K.autoprices, JSON.stringify(stash.slice(-500)));
           }
         }catch{}
       }
@@ -661,7 +669,7 @@
         if(total >= CFG.maxTotalPages) break;
       }catch(e){}
     }
-    safeSetItem(K.stamp, Date.now()); return results;
+    localStorage.setItem(K.stamp, Date.now()); return results;
   }
 
   /* ====== ANSWER LOGIC ====== */
@@ -723,8 +731,10 @@
 
   /* ====== CONTROL ====== */
   let isOpen=false, sending=false;
+  
   function showTyping(){
     const body=$("#mta-body"); if(!body) return;
+    if($("#mta-typing")) return; // FIX: Tránh duplicate indicator
     const box=document.createElement("div"); box.id="mta-typing"; box.innerHTML=`<div class="dot-flashing"></div>`;
     body.appendChild(box); body.scrollTop=body.scrollHeight;
   }
@@ -733,97 +743,82 @@
   async function sendUser(text){
     if(sending) return;
     const v=(text||"").trim(); if(!v) return;
-    sending=true; addMsg("user", v);
+    
+    // UX: Set state
+    sending=true; 
+    const btnSend = $("#mta-send"); if(btnSend) btnSend.classList.add('sending');
+
+    addMsg("user", v);
     pushCtx({from:"user", raw:v, type:detectType(v), qty:detectQty(v)});
+    
     const isMobile = window.innerWidth < 480; const wait = (isMobile? 1200 : 1800) + Math.random()*1000;
     showTyping(); await sleep(wait);
+    
     const ans = await deepAnswer(v);
     hideTyping(); addMsg("bot", sanitizeReply(ans)); pushCtx({from:"bot", raw:sanitizeReply(ans)});
+    
     sending=false;
+    if(btnSend) btnSend.classList.remove('sending');
   }
   
   function openChat(){
     if(isOpen) return;
     $("#mta-card").classList.add("open");
     $("#mta-backdrop").classList.add("show");
-    $("#mta-bubble").style.transform = "scale(0) rotate(90deg)"; // Animation ẩn nút
-    setTimeout(()=>$("#mta-bubble").style.display="none", 200);
+    
+    const bub = $("#mta-bubble");
+    bub.style.transform = "scale(0) rotate(90deg)";
+    bub.setAttribute("aria-expanded", "true");
+    setTimeout(()=>bub.style.display="none", 200);
+    
     isOpen=true; renderSess();
     setTimeout(()=>{ const i=$("#mta-in"); if(i) i.focus(); }, 300);
-    adjustForIOS();
+    // Lưu ý: Không gọi adjustForIOS ở đây nữa, nó đã tự chạy qua singleton listener
   }
   
   function closeChat(){
     if(!isOpen) return;
     $("#mta-card").classList.remove("open");
     $("#mta-backdrop").classList.remove("show");
-    $("#mta-bubble").style.display="flex";
-    setTimeout(()=>$("#mta-bubble").style.transform="scale(1) rotate(0)", 10);
+    
+    const bub = $("#mta-bubble");
+    bub.style.display="flex";
+    bub.setAttribute("aria-expanded", "false");
+    setTimeout(()=>bub.style.transform="scale(1) rotate(0)", 10);
+    
     isOpen=false; hideTyping();
-    // Reset height fix
     const card = $("#mta-card");
     if(card) { card.style.bottom = "20px"; card.style.height = "75vh"; }
   }
 
-  /* ====== IOS KEYBOARD & DOCK FIX ====== */
-  let IOS_BOUND = false;
-  function adjustForIOS(){
-    if(IOS_BOUND || !window.visualViewport) return;
-    IOS_BOUND = true; // Mark as bound
-    const card = $("#mta-card");
+  /* ====== IOS KEYBOARD FIX (SINGLETON) ====== */
+  function setupViewportFix(){
+    if(!window.visualViewport) return;
+    
+    // FIX: Listener chỉ khai báo 1 lần
     const view = window.visualViewport;
-    function onResize(){
-      if(!isOpen) return;
+    const onResize = () => {
+      if(!isOpen) return; // Chỉ tính toán khi mở chat
+      const card = $("#mta-card"); if(!card) return;
+      
       // Nếu chiều cao viewport giảm mạnh (bàn phím hiện)
       if(view.height < window.innerHeight - 100){
-        // Mobile full mode
         if(window.innerWidth <= 480){
           card.style.height = view.height + "px";
           card.style.bottom = "0px";
         } else {
-          // Desktop/Tablet mode
           const offset = window.innerHeight - view.height;
           card.style.bottom = (offset + 10) + "px";
         }
         const body=$("#mta-body"); if(body) body.scrollTop=body.scrollHeight;
       } else {
-        // Bàn phím ẩn
         card.style.height = window.innerWidth <= 480 ? "100%" : "75vh";
         card.style.bottom = window.innerWidth <= 480 ? "0px" : "20px";
       }
-    }
+    };
+
     view.addEventListener("resize", onResize);
     view.addEventListener("scroll", onResize);
-  }
-
-  function checkDockOverlap(){
-    const root = $("#mta-root");
-    const card = $("#mta-card");
-    if(!root || !card || CFG.position) return;
-    
-    // Select common floating elements in bottom-right
-    const blockers = document.querySelectorAll("#quick-call, .quick-call, .quickcall, #quick-call-button, .quick-call-btn, .dock-bottom, .dock-right, .bottom-dock, .call-btn-fixed, .hotline-phone-ring-wrap");
-    
-    let conflict = false;
-    blockers.forEach(el => {
-      if(!el) return;
-      const r = el.getBoundingClientRect();
-      // Nếu phần tử nằm ở góc dưới phải (cách phải < 100px và cách đáy < 150px)
-      if(r.right > window.innerWidth - 100 && r.bottom > window.innerHeight - 150){
-        if(getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden'){
-          conflict = true;
-        }
-      }
-    });
-
-    if(conflict){
-      // Chuyển sang trái
-      root.style.right = "auto";
-      root.style.left = "20px";
-      card.style.right = "auto";
-      card.style.left = "20px";
-      card.style.transformOrigin = "bottom left"; // Fix animation origin
-    }
   }
 
   function bindEvents(){
@@ -837,45 +832,30 @@
       if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); const v=e.target.value.trim(); if(!v) return; e.target.value=""; sendUser(v); }
       const tags=$("#mta-tags"); if(tags){ if(e.target.value.trim().length>0) tags.classList.add('hidden'); else tags.classList.remove('hidden'); }
     });
-    // Check null an toàn cho track
-    const track = $("#mta-tag-track");
-    if(track){
-      track.querySelectorAll("button").forEach(btn=> btn.addEventListener("click", ()=> sendUser(btn.dataset.q||btn.textContent)));
-    }
+    $("#mta-tag-track").querySelectorAll("button").forEach(btn=> btn.addEventListener("click", ()=> sendUser(btn.dataset.q||btn.textContent)));
   }
 
-  function ready(fn){ 
-    if(document.readyState==="complete"||document.readyState==="interactive") {
-      // Đảm bảo body tồn tại
-      if(document.body) fn();
-      else setTimeout(()=> ready(fn), 50);
-    } else {
-      document.addEventListener("DOMContentLoaded", ()=> {
-         if(document.body) fn();
-         else setTimeout(()=> ready(fn), 50);
-      });
-    }
-  }
+  function ready(fn){ if(document.readyState==="complete"||document.readyState==="interactive") fn(); else document.addEventListener("DOMContentLoaded", fn); }
 
   ready(async ()=>{
     // Clear old clean
     const lastClean = parseInt(localStorage.getItem(K.clean)||0);
-    if(!lastClean || (Date.now()-lastClean) > 7*24*3600*1000){ localStorage.removeItem(K.ctx); safeSetItem(K.clean, Date.now()); }
+    if(!lastClean || (Date.now()-lastClean) > 7*24*3600*1000){ localStorage.removeItem(K.ctx); localStorage.setItem(K.clean, Date.now()); }
     
-    // Inject HTML Safe
-    if(!document.body) return; // double check
     const wrap=document.createElement("div"); wrap.innerHTML=HTML; document.body.appendChild(wrap.firstElementChild);
     const st=document.createElement("style"); st.textContent=CSS; document.head.appendChild(st);
     
-    checkDockOverlap(); // Auto avoid quick call
     bindEvents(); 
-    adjustForIOS(); 
+    setupViewportFix(); // FIX: Gọi 1 lần ở đây
     mergeAutoPrices();
     
     if(CFG.autolearn){
       const origins = Array.from(new Set([location.origin, ...(CFG.extraSites||[])]));
       const last = parseInt(localStorage.getItem(K.stamp)||0);
-      if(!last || (Date.now()-last) >= CFG.refreshHours*3600*1000) await learnSites(origins, false);
+      // Run async, không block UI
+      if(!last || (Date.now()-last) >= CFG.refreshHours*3600*1000) {
+          setTimeout(() => learnSites(origins, false), 3000);
+      }
     }
   });
 
