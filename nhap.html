@@ -4,24 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>Thuê Xe Máy Hà Nội Uy Tín - Mr Tú Bike | Giá Rẻ & Giao Tận Nơi</title>
-<meta name="description" content="Dịch vụ thuê xe máy Hà Nội uy tín, giao xe tận nơi miễn phí khu Hoàn Kiếm, Phố Cổ. Xe mới 2024–2025, giá chỉ từ 100k/ngày, không cần đặt cọc.">
+<title>Thuê Xe Máy Hà Nội Uy Tín - Mr Tú | 081.665.9199</title>
+<meta name="description" content="Dịch vụ thuê xe máy Hà Nội uy tín, giao xe tận nơi miễn phí khu Hoàn Kiếm, Phố Cổ. Xe mới 2024–2025, giá chỉ từ 100k/ngày. Hotline: 081.665.9199">
 <meta name="theme-color" content="#000000">
 
-<!-- Canonical URL Updated -->
+<!-- Canonical URL -->
 <link rel="canonical" href="https://thuexemayhanoi.github.io/shop/">
 
 <!-- PWA iOS Config -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="NT Ultra">
+<meta name="apple-mobile-web-app-title" content="Mr Tú">
 
 <!-- Fonts & Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 
 <style>
     /* --- 1. DESIGN SYSTEM: WCAG 2.1 COMPLIANT --- */
@@ -103,7 +103,6 @@
         line-height: 1.5;
     }
 
-    /* Font Inheritance Fix */
     input, button, select, textarea { font-family: inherit; }
 
     a { text-decoration: none; color: inherit; }
@@ -123,6 +122,17 @@
         -webkit-backdrop-filter: blur(25px) saturate(180%);
         border: 1px solid var(--glass-border);
         box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    }
+    
+    /* FALLBACK FOR LOW-END DEVICES */
+    @supports not (backdrop-filter: blur(10px)) {
+        .glass-panel {
+            background: var(--surface);
+            opacity: 0.98;
+        }
+        [data-theme="dark"] .glass-panel {
+            background: #1c1c1ef2; 
+        }
     }
 
     /* BTN-3D */
@@ -197,6 +207,7 @@
     .nav-link {
         padding: 8px 16px; border-radius: 20px; font-size: 0.95rem; font-weight: 600;
         color: var(--text-sub); transition: 0.2s;
+        display: flex; align-items: center; gap: 6px;
     }
     .nav-link:hover { color: var(--primary); background: var(--muted-bg); }
     
@@ -242,7 +253,7 @@
     }
 
     /* MINI APPS */
-    .mini-apps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+    .mini-apps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 40px; }
     .app-item {
         display: flex; flex-direction: column; align-items: center; gap: 10px;
         cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -262,6 +273,24 @@
     .app-item[data-accent="blue"] .app-icon { color: var(--accent-blue); }
     .app-item[data-accent="yellow"] .app-icon { color: var(--accent-yellow); }
     .app-item[data-accent="purple"] .app-icon { color: var(--accent-purple); }
+    /* AI Styling */
+    .app-item[data-accent="ai"] .app-icon { 
+        background: linear-gradient(135deg, #1A1A1A, #000); 
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .app-item[data-accent="ai"] .app-icon i {
+        background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 28px;
+    }
+    /* Heart/Matchmaker Styling */
+    .app-item[data-accent="love"] .app-icon { 
+        background: linear-gradient(135deg, #fff0f0, #ffe6e6); 
+        color: #ff3366;
+    }
+
 
     .app-icon::after {
         content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -269,16 +298,15 @@
         transform: rotate(45deg) translateY(-100%); transition: 0.5s;
     }
     .app-item:hover .app-icon::after { transform: rotate(45deg) translateY(100%); }
-    .app-label { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+    .app-label { font-size: 0.75rem; font-weight: 600; color: var(--text-main); text-align: center; line-height: 1.2; }
 
     /* Calculator */
     .calc-box {
         padding: 32px; border-radius: 36px;
         transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-        box-shadow: var(--shadow-3d); transition: transform 0.2s;
+        box-shadow: var(--shadow-3d); transition: transform 0.1s linear; 
         border-top: 1px solid rgba(255,255,255,0.3);
     }
-    .calc-box:hover { transform: perspective(1000px) rotateY(0) rotateX(0); }
     
     .form-group { margin-bottom: 20px; }
     .form-label { font-size: 0.9rem; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; display: block; }
@@ -318,6 +346,81 @@
         content: '✔'; position: absolute; left: 0; color: var(--primary); font-weight: bold;
     }
 
+    /* --- NEW STYLES FOR ADDED SECTIONS --- */
+    
+    /* NEW SECTION 1: STATS */
+    .stats-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;
+    }
+    .stat-item h3 {
+        font-size: 3.5rem; color: var(--primary); margin: 0; line-height: 1; letter-spacing: -2px;
+        background: linear-gradient(135deg, var(--primary), #FFD60A);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-item p { font-size: 1rem; font-weight: 700; color: var(--text-main); margin-top: 10px; }
+
+    /* NEW SECTION 2: TIMELINE */
+    .process-container {
+        display: flex; justify-content: space-between; position: relative; gap: 20px;
+    }
+    .process-step {
+        flex: 1; text-align: center; position: relative; z-index: 1;
+        padding: 20px; border-radius: 24px; transition: 0.3s;
+    }
+    .process-step:hover { background: var(--glass-material); box-shadow: var(--shadow-3d); }
+    .step-icon {
+        width: 80px; height: 80px; margin: 0 auto 20px;
+        background: var(--muted-bg); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 32px; color: var(--text-main); border: 2px solid var(--glass-border);
+    }
+    .process-step:hover .step-icon { background: var(--primary); color: #000; border-color: var(--primary); }
+    
+    /* NEW SECTION 3: ITINERARY CARDS */
+    .iti-card {
+        padding: 30px; border-radius: 32px; text-align: center;
+        background: var(--glass-material); border: 1px solid var(--glass-border);
+        transition: 0.4s; position: relative; overflow: hidden;
+    }
+    .iti-card::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+        background: var(--primary);
+    }
+    .iti-icon-lg {
+        font-size: 60px; margin-bottom: 20px; display: block;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* NEW SECTION 4: COMPARISON TABLE (CARD STYLE) */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .compare-col { padding: 40px; border-radius: 32px; }
+    .compare-col.highlight {
+        background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(255,107,0,0.05));
+        border: 2px solid var(--primary); position: relative;
+    }
+    .compare-col.highlight::after {
+        content: 'NÊN CHỌN'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+        background: var(--primary); color: #000; padding: 6px 16px; border-radius: 20px;
+        font-weight: 800; font-size: 0.8rem;
+    }
+    .compare-list li {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 12px 0; border-bottom: 1px dashed var(--glass-border); font-weight: 600;
+    }
+    .c-check { color: var(--accent-green); }
+    .c-cross { color: var(--text-sub); opacity: 0.5; }
+
+    /* NEW SECTION 5: CONTACT FORM STYLE */
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; }
+    .c-info-side { 
+        background: linear-gradient(135deg, var(--primary), #FF4500); 
+        padding: 40px; color: white; 
+        display: flex; flex-direction: column; justify-content: center; gap: 16px;
+    }
+    .c-form-side { padding: 40px; background: var(--muted-bg); }
+    .c-detail { display: flex; align-items: center; gap: 12px; font-size: 1.1rem; font-weight: 600; }
+    
     /* --- 7. FOOTER --- */
     .footer { margin-top: 40px; }
     .footer-box { padding: 70px 50px; border-radius: 48px; position: relative; overflow: hidden; }
@@ -476,6 +579,86 @@
     .u-map { color: #FFB800; }
     .u-phone { color: var(--primary); }
 
+    /* --- AI MODAL STYLES --- */
+    .ai-modal-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
+        z-index: 2000; opacity: 0; visibility: hidden; 
+        transition: 0.3s; backdrop-filter: blur(5px);
+    }
+    .ai-modal {
+        position: fixed; top: 50%; left: 50%; width: 90%; max-width: 500px;
+        height: 70vh; max-height: 700px;
+        transform: translate(-50%, -40%) scale(0.95);
+        background: var(--surface);
+        border: 1px solid var(--glass-border);
+        border-radius: 32px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        display: flex; flex-direction: column; overflow: hidden;
+        z-index: 2001; opacity: 0; visibility: hidden;
+        transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ai-modal.active { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+    .ai-modal-overlay.active { opacity: 1; visibility: visible; }
+
+    .ai-header {
+        padding: 20px; border-bottom: 1px solid var(--glass-border);
+        display: flex; justify-content: space-between; align-items: center;
+        background: var(--muted-bg);
+    }
+    .ai-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+    .ai-close { cursor: pointer; background: none; border: none; font-size: 24px; color: var(--text-sub); transition: 0.2s; }
+    .ai-close:hover { color: var(--text-main); transform: rotate(90deg); }
+
+    .ai-chat-area {
+        flex: 1; overflow-y: auto; padding: 20px;
+        display: flex; flex-direction: column; gap: 16px;
+        background: var(--bg-body);
+    }
+    
+    .chat-msg {
+        max-width: 85%; padding: 12px 16px; border-radius: 20px;
+        font-size: 0.95rem; line-height: 1.5;
+        position: relative; animation: popIn 0.3s ease-out;
+    }
+    @keyframes popIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .msg-bot {
+        align-self: flex-start;
+        background: var(--surface); border: 1px solid var(--glass-border);
+        border-bottom-left-radius: 4px; color: var(--text-main);
+    }
+    .msg-user {
+        align-self: flex-end;
+        background: linear-gradient(135deg, var(--primary), #FF8800);
+        color: white; border-bottom-right-radius: 4px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
+    }
+    .msg-bot strong { color: var(--primary); }
+
+    .ai-input-area {
+        padding: 16px; background: var(--surface); border-top: 1px solid var(--glass-border);
+        display: flex; gap: 10px;
+    }
+    .ai-input {
+        flex: 1; padding: 12px 16px; border-radius: 24px; border: 1px solid var(--glass-border);
+        background: var(--muted-bg); color: var(--text-main);
+    }
+    .ai-send {
+        width: 46px; height: 46px; border-radius: 50%; border: none;
+        background: var(--text-main); color: var(--surface);
+        display: flex; align-items: center; justify-content: center; cursor: pointer;
+        transition: 0.2s;
+    }
+    .ai-send:hover { transform: scale(1.1); }
+    .ai-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Typing Dot Animation */
+    .typing-dots { display: inline-flex; gap: 4px; }
+    .dot { width: 6px; height: 6px; background: var(--text-sub); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
     /* --- MOBILE MENU --- */
     .mobile-menu-overlay {
         position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998;
@@ -507,16 +690,31 @@
         .menu-toggle { display: flex !important; }
         .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         .status-widget { display: none; }
+        
+        /* New Sections Responsive */
+        .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        .process-container { flex-direction: column; gap: 30px; }
+        .process-step::after { display: none; } /* Hide connectors on mobile */
+        .compare-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
         .status-widget { display: none; }
         .hero { padding-top: 100px; padding-bottom: 40px; }
-        .mini-apps { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .mini-apps { grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .app-icon { width: 60px; height: 60px; font-size: 22px; }
         .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         .footer-box { padding: 50px 30px; }
         .section { padding: 60px 0; }
         .feature-grid { gap: 24px; }
+        
+        /* Specific adjustments */
+        .stat-item h3 { font-size: 2.8rem; }
+        .stats-grid { gap: 30px; }
+        
+        /* Contact Form Mobile */
+        .contact-layout { grid-template-columns: 1fr; }
+        .c-info-side { padding: 30px; }
+        .c-form-side { padding: 30px; }
     }
 </style>
 </head>
@@ -528,12 +726,9 @@
         <div class="nav-bar glass-panel">
             <div class="header-left">
                 <a href="./" class="logo">
-                    <!-- CHANGED LOGO -->
-                    <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0462.jpeg" class="logo-img" alt="logo Mr Tú Bike" width="44" height="44">
+                    <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" class="logo-img" alt="logo Mr Tú Bike" width="44" height="44">
                     <div class="logo-text">
-                        <!-- CHANGED NAME -->
                         <span class="logo-title">Mr Tú</span>
-                        <span>Ultra iOS 26</span>
                     </div>
                 </a>
                 
@@ -578,7 +773,6 @@
                         <span class="material-symbols-rounded" style="font-size:16px;">verified</span>
                         Thuê xe máy Hà Nội – Hoàn Kiếm
                     </div>
-                    <!-- CHANGED NAME -->
                     <h1 class="hero-title">
                         Thuê Xe Máy Hà Nội<br>
                         <span class="text-highlight">Hoàn Kiếm & Phố Cổ</span>
@@ -591,11 +785,11 @@
                     <div>
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Quick Access</div>
                         <div class="mini-apps">
-                            <div class="app-item" data-accent="green" onclick="window.location.href='tel:0942467674'">
+                            <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
                                 <span class="app-label">Gọi Ngay</span>
                             </div>
-                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0942467674', '_blank')">
+                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
                                 <div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
                                 <span class="app-label">Zalo</span>
                             </div>
@@ -606,6 +800,18 @@
                             <div class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
                                 <span class="app-label">Địa Điểm</span>
+                            </div>
+                            
+                            <!-- GEMINI FEATURE 1: AI GUIDE -->
+                            <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                                <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                <span class="app-label">AI Tour Guide ✨</span>
+                            </div>
+
+                             <!-- GEMINI FEATURE 2: BIKE MATCHMAKER -->
+                            <div class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
+                                <div class="app-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                                <span class="app-label">Tìm Xe Chân Ái ✨</span>
                             </div>
                         </div>
                     </div>
@@ -646,7 +852,7 @@
                         <span style="font-size:1.6rem; font-weight:800; color:var(--primary)" id="c-total">150.000đ</span>
                     </div>
 
-                    <button class="btn-3d" style="width:100%; margin-top:24px;" onclick="window.open('https://zalo.me/0942467674', '_blank')">
+                    <button class="btn-3d" style="width:100%; margin-top:24px;" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
                         Đặt Xe Ngay <i class="fa-solid fa-arrow-right"></i>
                     </button>
                     <p style="text-align:center; font-size:0.75rem; color:var(--text-sub); margin-top:12px; opacity:0.7;">*Không cần cọc online</p>
@@ -664,12 +870,10 @@
                 <div class="content-block fade-in-up">
                     <div style="text-align: center; margin-bottom: 40px;">
                         <span style="color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Về Chúng Tôi</span>
-                        <!-- CHANGED NAME -->
-                        <h2>Mr Tú Bike - Đơn Vị Cho Thuê Xe Máy Hàng Đầu Hà Nội</h2>
+                        <h2>Mr Tú - Đơn Vị Cho Thuê Xe Máy Hàng Đầu Hà Nội</h2>
                     </div>
                     <p>
-                        <!-- CHANGED NAME -->
-                        Chào mừng bạn đến với <strong>Mr Tú Bike</strong>, dịch vụ <em>cho thuê xe máy Hà Nội</em> uy tín và chuyên nghiệp. Với hơn 10 năm kinh nghiệm phục vụ hàng ngàn lượt khách du lịch trong nước và quốc tế, chúng tôi tự hào mang đến những trải nghiệm di chuyển tuyệt vời nhất trên những cung đường Thủ đô.
+                        Chào mừng bạn đến với <strong>Mr Tú</strong>, dịch vụ <em>cho thuê xe máy Hà Nội</em> uy tín và chuyên nghiệp. Với hơn 10 năm kinh nghiệm phục vụ hàng ngàn lượt khách du lịch trong nước và quốc tế, chúng tôi tự hào mang đến những trải nghiệm di chuyển tuyệt vời nhất trên những cung đường Thủ đô.
                     </p>
                     <div class="feature-grid" style="margin-top: 40px;">
                         <div class="feature-card glass-panel">
@@ -695,28 +899,51 @@
         <!-- SECTION 2: DÀN XE -->
         <section class="section section-bg">
             <div class="container">
-                <h2 class="fade-in-up" style="text-align:center;">Dàn Xe "Ultra" Đời Mới 2024-2025</h2>
+                <h2 class="fade-in-up" style="text-align:center;">Dàn Xe Đời Mới 2024-2025</h2>
                 <div class="feature-grid">
+                    <!-- XE 1 -->
                     <div class="feature-card glass-panel fade-in-up">
-                        <img src="https://img.freepik.com/free-photo/scooter-city_1157-41489.jpg?size=626&ext=jpg" alt="Thuê xe Vision Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
-                        <h3>Honda Vision 2025</h3>
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0618.jpeg" alt="Thuê xe Vision Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <h3>Honda Vision</h3>
                         <p>Dòng xe ga quốc dân, nhỏ gọn, cốp rộng, tiết kiệm xăng. Phù hợp cho bạn nữ và đi phố.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 130k/ngày</strong>
-                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:0942467674'">Đặt Ngay</button>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
+                    
+                    <!-- XE 2 -->
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 100ms;">
-                        <img src="https://img.freepik.com/free-photo/motorcycle-road_1157-36021.jpg?size=626&ext=jpg" alt="Thuê xe Airblade 160 Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
-                        <h3>Honda Airblade 160</h3>
-                        <p>Động cơ 160cc mạnh mẽ, kiểu dáng thể thao. Hợp đi đường dài, Ninh Bình, Sa Pa, Hà Giang.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 180k/ngày</strong>
-                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:0942467674'">Đặt Ngay</button>
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0615.jpeg" alt="Thuê xe Airblade 160 Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <h3>Honda Airblade</h3>
+                        <p>Động cơ mạnh mẽ, kiểu dáng thể thao. Hợp đi đường dài, Ninh Bình, Sa Pa, Hà Giang.</p>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
+                    
+                    <!-- XE 3 -->
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 200ms;">
-                        <img src="https://img.freepik.com/free-photo/modern-motorcycle_1157-36018.jpg?size=626&ext=jpg" alt="Thuê xe Wave Alpha Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0616.jpeg" alt="Thuê xe Wave Alpha Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Wave Alpha / RSX</h3>
                         <p>Nồi đồng cối đá, bền bỉ, siêu tiết kiệm nhiên liệu. Lựa chọn kinh tế nhất cho phượt thủ và sinh viên.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 100k/ngày</strong>
-                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:0942467674'">Đặt Ngay</button>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 150k/ngày</strong>
+                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
+                    </div>
+
+                      <!-- XE 4 (50cc) -->
+                      <div class="feature-card glass-panel fade-in-up" style="transition-delay: 300ms;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0614.jpeg" alt="Thuê xe máy 50cc Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <h3>Xe máy 50cc</h3>
+                        <p>Không cần bằng lái, thiết kế nhỏ gọn, dễ điều khiển. Sự lựa chọn hoàn hảo cho học sinh, sinh viên.</p>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
+                    </div>
+
+                    <!-- XE 5 (Xe Điện) -->
+                    <div class="feature-card glass-panel fade-in-up" style="transition-delay: 400ms;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0617.jpeg" alt="Thuê xe máy điện Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <h3>Xe Điện</h3>
+                        <p>Vận hành êm ái, thân thiện với môi trường, chi phí thấp. Phù hợp cho các chuyến đi ngắn trong nội thành.</p>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 180k/ngày</strong>
+                        <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                 </div>
             </div>
@@ -802,8 +1029,7 @@
                 <div class="hero-grid">
                     <div class="fade-in-up">
                         <h2>Cam Kết <span class="text-highlight">Vàng</span></h2>
-                        <!-- CHANGED NAME -->
-                        <p>Tại Mr Tú Bike, chúng tôi không chỉ cho thuê xe, chúng tôi bán sự an tâm.</p>
+                        <p>Tại Mr Tú, chúng tôi không chỉ cho thuê xe, chúng tôi bán sự an tâm.</p>
                         <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 30px;">
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">1</div>
@@ -822,7 +1048,7 @@
                         </div>
                     </div>
                     <div class="fade-in-up">
-                        <img src="https://img.freepik.com/free-photo/mechanic-repairing-motorcycle-workshop_1157-36035.jpg" alt="Bảo dưỡng xe máy" loading="lazy" width="600" height="400" style="width: 100%; border-radius: 32px; box-shadow: var(--shadow-3d);">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0623.jpeg" alt="Bảo dưỡng xe máy" loading="lazy" width="600" height="400" style="width: 100%; border-radius: 32px; box-shadow: var(--shadow-3d);">
                     </div>
                 </div>
             </div>
@@ -845,10 +1071,146 @@
                 
                 <div style="text-align: center; margin-top: 50px;" class="fade-in-up">
                     <h3>Bạn còn câu hỏi khác?</h3>
-                    <button class="btn-3d" onclick="window.location.href='tel:0942467674'">Gọi Tư Vấn Miễn Phí</button>
+                    <button class="btn-3d" onclick="window.location.href='tel:+84816659199'">Gọi Tư Vấn Miễn Phí</button>
                 </div>
             </div>
         </section>
+        
+        <!-- NEW SECTION 1: QUY TRÌNH THUÊ XE (TIMELINE STYLE) -->
+        <section class="section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 50px;" class="fade-in-up">Quy Trình Thuê Xe 3 Bước</h2>
+                <div class="process-container fade-in-up">
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                        <h3>1. Đặt Xe</h3>
+                        <p>Liên hệ Hotline/Zalo để chốt loại xe và địa điểm giao nhận.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fa-solid fa-motorcycle"></i></div>
+                        <h3>2. Nhận Xe</h3>
+                        <p>Kiểm tra xe, ký hợp đồng và nhận xe tận nơi chỉ sau 15 phút.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fa-solid fa-road"></i></div>
+                        <h3>3. Vi Vu</h3>
+                        <p>Tận hưởng chuyến đi. Hỗ trợ sự cố 24/7 trên mọi cung đường.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION 2: CON SỐ ẤN TƯỢNG (STATS) -->
+        <section class="section section-bg">
+            <div class="container">
+                <div class="stats-grid fade-in-up">
+                    <div class="stat-item">
+                        <h3>10+</h3>
+                        <p>Năm Kinh Nghiệm</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>5.000+</h3>
+                        <p>Khách Hàng Hài Lòng</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>300+</h3>
+                        <p>Đầu Xe Đời Mới</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Hỗ Trợ Kỹ Thuật</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION 3: GỢI Ý LỊCH TRÌNH (NO IMAGES - ICON CARDS) -->
+        <section class="section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 40px;" class="fade-in-up">Gợi Ý Lịch Trình Vi Vu</h2>
+                <div class="feature-grid">
+                    <div class="iti-card fade-in-up">
+                        <span class="material-symbols-rounded iti-icon-lg">coffee</span>
+                        <h3>Hanoi City Tour</h3>
+                        <p>Lăng Bác - Hồ Tây - Cà phê Trứng - Phố Cổ.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Vision, Lead</strong></p>
+                    </div>
+                    <div class="iti-card fade-in-up" style="transition-delay: 100ms;">
+                        <span class="material-symbols-rounded iti-icon-lg">pottery</span>
+                        <h3>Làng Gốm Bát Tràng</h3>
+                        <p>Cách trung tâm 15km. Trải nghiệm làm gốm và mua sắm.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Airblade, Wave</strong></p>
+                    </div>
+                    <div class="iti-card fade-in-up" style="transition-delay: 200ms;">
+                        <span class="material-symbols-rounded iti-icon-lg">landscape</span>
+                        <h3>Vườn Quốc Gia Ba Vì</h3>
+                        <p>Săn mây, ngắm hoa dã quỳ. Cách Hà Nội 60km.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Xe số, Côn tay</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION 4: SO SÁNH DỊCH VỤ -->
+        <section class="section section-bg">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 40px;" class="fade-in-up">Tại Sao Chọn Mr Tú?</h2>
+                <div class="compare-grid fade-in-up">
+                    <div class="compare-col glass-panel">
+                        <h3 style="text-align:center; color:var(--text-sub);">Nơi Khác</h3>
+                        <ul class="content-list compare-list">
+                            <li><span>Giao xe chậm trễ</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
+                            <li><span>Mũ bảo hiểm cũ, bẩn</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
+                            <li><span>Phát sinh phí ẩn</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
+                            <li><span>Hỗ trợ hời hợt</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
+                        </ul>
+                    </div>
+                    <div class="compare-col glass-panel highlight">
+                        <h3 style="text-align:center; color:var(--primary);">Mr Tú Bike</h3>
+                        <ul class="content-list compare-list">
+                            <li><span>Giao xe 15 phút</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
+                            <li><span>Mũ sạch, thơm tho</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
+                            <li><span>Giá niêm yết rõ ràng</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
+                            <li><span>Cứu hộ 24/7 tận nơi</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: ULTRA OPTIMIZED CONTACT FORM (REPLACED) -->
+        <section class="section" id="contact-section">
+            <div class="container fade-in-up">
+                <div class="glass-panel" style="border-radius: 32px; overflow: hidden;">
+                    <div class="contact-layout">
+                         <!-- Left Side: Visual/Info -->
+                         <div class="c-info-side">
+                            <h3 style="color:white; margin-bottom:12px;">Liên Hệ Ngay</h3>
+                            <p style="color: rgba(255,255,255,0.9);">
+                                Hỗ trợ tư vấn thuê xe, lên lịch trình phượt 24/7. <br>
+                                Phản hồi siêu tốc trong 5 phút.
+                            </p>
+                            <div class="c-detail">
+                                 <i class="fa-solid fa-envelope"></i>
+                                 <span>nguyentuantu2482@gmail.com</span>
+                            </div>
+                            <div class="c-detail">
+                                <i class="fa-solid fa-phone"></i>
+                                <span>081.665.9199</span>
+                           </div>
+                         </div>
+                         <!-- Right Side: Form -->
+                         <div class="c-form-side">
+                            <input type="text" id="contact-name" class="form-input" placeholder="Tên của bạn" style="margin-bottom:12px;">
+                            <input type="tel" id="contact-phone" class="form-input" placeholder="Số điện thoại" style="margin-bottom:12px;">
+                            <textarea id="contact-msg" class="form-input" rows="3" placeholder="Nội dung cần hỗ trợ (Loại xe, ngày đi)..." style="margin-bottom:20px;"></textarea>
+                            <button class="btn-3d" style="width:100%" onclick="sendEmail()">Gửi Email <i class="fa-solid fa-paper-plane"></i></button>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
 </main>
@@ -861,31 +1223,101 @@
             <div class="footer-grid" id="footer-grid"></div>
             
             <div class="copyright" style="margin-top: 50px;">
-                <!-- CHANGED LOGO FOOTER -->
-                <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
+                <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
                 <p style="text-align:center; color:var(--text-sub); font-size:0.9rem; line-height:1.5;">
-                    <!-- CHANGED NAME -->
                     <strong>© 2025 Mr Tú Motorbike Rental.</strong><br>
                     Địa chỉ: 116 Cầu Gỗ, Hoàn Kiếm, Hà Nội.<br>
-                    Hotline: 0942.467.674 - Email: contact@nguyentubike.com<br>
-                    Ultra iOS 26.1 Concept. All rights reserved.
+                    Hotline: 081.665.9199 - Email: nguyentuantu2482@gmail.com<br>
+                    All rights reserved.
                 </p>
             </div>
         </div>
     </div>
 </footer>
 
+<!-- AI MODAL 1: TOUR GUIDE (ACCESSIBILITY FIXED: Added role, aria-modal, aria-labelledby) -->
+<div class="ai-modal-overlay" id="ai-overlay"></div>
+<div class="ai-modal" id="ai-modal" role="dialog" aria-modal="true" aria-labelledby="ai-modal-title">
+    <div class="ai-header">
+        <h3 id="ai-modal-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary)"></i> Mr Tú AI Guide ✨</h3>
+        <button class="ai-close" id="ai-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-chat-area" id="ai-chat-box">
+        <div class="chat-msg msg-bot">
+            Xin chào! Tôi là <strong>Mr Tú AI</strong>. Tôi có thể giúp bạn lên lịch trình đi phượt, tìm quán ăn ngon ở Phố Cổ, hay chọn xe phù hợp. Bạn cần giúp gì nào? 🛵🍜
+        </div>
+    </div>
+    <div class="ai-input-area">
+        <input type="text" id="ai-input" class="ai-input" placeholder="Hỏi tôi về địa điểm, món ăn...">
+        <button id="ai-send" class="ai-send" aria-label="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<!-- AI MODAL 2: BIKE MATCHMAKER (ACCESSIBILITY FIXED) -->
+<div class="ai-modal-overlay" id="mm-overlay"></div>
+<div class="ai-modal" id="mm-modal" role="dialog" aria-modal="true" aria-labelledby="mm-modal-title" style="height: auto; min-height: 400px;">
+    <div class="ai-header">
+        <h3 id="mm-modal-title"><i class="fa-solid fa-heart-pulse" style="color:#ff3366"></i> Tìm Xe Chân Ái ✨</h3>
+        <button class="ai-close" id="mm-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-chat-area" id="mm-content">
+        <!-- Form Content -->
+        <p style="font-size:0.9rem; color:var(--text-sub);">Trả lời 3 câu hỏi nhanh để AI tìm "người bạn đồng hành" hoàn hảo nhất cho chuyến đi của bạn!</p>
+        
+        <div class="form-group">
+            <label class="form-label">1. Trình độ lái xe của bạn?</label>
+            <select class="form-input" id="mm-exp">
+                <option value="newbie">Lái mới (Newbie)</option>
+                <option value="ok">Ổn định (Biết đi xe ga/số)</option>
+                <option value="pro">Tay đua lụa (Thích côn tay/PKL)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">2. Bạn định đi đâu?</label>
+            <select class="form-input" id="mm-dest">
+                <option value="city">Loanh quanh phố (Cafe, Hồ Tây)</option>
+                <option value="trip">Phượt nhẹ (Bát Tràng, Ba Vì)</option>
+                <option value="long">Đi xa / Leo núi (Hà Giang, Sapa)</option>
+            </select>
+        </div>
+        
+         <div class="form-group">
+            <label class="form-label">3. Chiều cao của bạn?</label>
+            <select class="form-input" id="mm-height">
+                <option value="short">Dưới 1m60</option>
+                <option value="mid">1m60 - 1m75</option>
+                <option value="tall">Trên 1m75</option>
+            </select>
+        </div>
+        
+        <button class="btn-3d" id="mm-submit" style="width:100%; margin-top:10px;">
+            <i class="fa-solid fa-magnifying-glass"></i> Tìm Xe Ngay
+        </button>
+        
+        <!-- Result Container -->
+        <div id="mm-result" style="margin-top:20px; display:none; border-top:1px dashed var(--glass-border); padding-top:16px;">
+            <h4 style="color:var(--primary); margin:0 0 8px 0;">Kết quả:</h4>
+            <div id="mm-result-text" style="font-size:0.95rem; line-height:1.6; color:var(--text-main);"></div>
+        </div>
+    </div>
+</div>
+
+
 <!-- NEW ULTRA APP MINI (Expandable Button) -->
 <div class="ultra-fab-wrapper" id="ultra-fab">
     <div class="ultra-actions">
         <!-- Buttons expanded from top down or bottom up depending on flex direction -->
-        <a href="tel:0942467674" class="ultra-sub-btn u-phone" data-tooltip="Gọi 0942.467.674" aria-label="Gọi ngay">
+        <!-- FIXED: PHONE NUMBER -->
+        <a href="tel:+84816659199" class="ultra-sub-btn u-phone" data-tooltip="Gọi 081.665.9199" aria-label="Gọi ngay">
             <i class="fa-solid fa-phone"></i>
         </a>
-        <a href="https://zalo.me/0942467674" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-zalo" data-tooltip="Chat Zalo" aria-label="Zalo">
+        <!-- FIXED: ZALO NUMBER -->
+        <a href="https://zalo.me/0816659199" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-zalo" data-tooltip="Chat Zalo" aria-label="Zalo">
             <i class="fa-solid fa-comment-dots"></i>
         </a>
-        <a href="https://wa.me/84942467674" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-wa" data-tooltip="Chat WhatsApp" aria-label="WhatsApp">
+        <!-- FIXED: PHONE NUMBER IN WA -->
+        <a href="https://wa.me/84816659199" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-wa" data-tooltip="Chat WhatsApp" aria-label="WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
         <a href="https://maps.app.goo.gl/SR1hcwnCQjPkAvDh7" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-map" data-tooltip="Chỉ đường" aria-label="Bản đồ">
@@ -904,6 +1336,9 @@
 <!-- JS ENGINE -->
 <script>
     // --- ICONS (SVG) ---
+    // SECURITY FIX: Define icons as strings but we will parse them carefully or use innerHTML only on STATIC CONSTANTS,
+    // BUT since the requirement is strict, we will stick to FontAwesome classes where possible or simple SVGs.
+    // For this specific requirement, I'm refactoring the Render methods to use DOM elements.
     const ICONS = {
         home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
         doc: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>',
@@ -925,7 +1360,9 @@
                     {t: "Thuê xe theo tuần", l: "tuan.html", i: ICONS.doc},
                     {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
                     {t: "Thủ tục thuê xe", l: "thutuc.html", i: ICONS.doc},
-                    {t: "Khuyến mãi", l: "uudai.html", i: ICONS.tag}
+                    {t: "Khuyến mãi", l: "uudai.html", i: ICONS.tag},
+                    {t: "Kinh nghiệm", l: "kinhnghiem.html", i: ICONS.doc}, /* ADDED LINK 1 */
+                    {t: "Mạng xã hội", l: "mangxahoi.html", i: ICONS.tag} /* ADDED LINK 2 */
                 ]
             },
             { 
@@ -955,6 +1392,19 @@
         ]
     };
 
+    // --- FORM LOGIC (EMAIL SENDER) ---
+    function sendEmail() {
+        const name = document.getElementById('contact-name').value;
+        const phone = document.getElementById('contact-phone').value;
+        const msg = document.getElementById('contact-msg').value;
+        
+        const subject = `Liên hệ thuê xe từ ${name || 'Khách hàng'}`;
+        const body = `Xin chào Mr Tú,\n\nTên tôi là: ${name}\nSố điện thoại: ${phone}\n\nNội dung cần hỗ trợ:\n${msg}`;
+        
+        // Use standard mailto
+        window.location.href = `mailto:nguyentuantu2482@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
     const Render = {
         init() {
             this.nav();
@@ -965,9 +1415,282 @@
             this.statusWidget();
             this.setupPWA();
             this.ultraApp();
+            this.setupAI();
+            this.setupMatchmaker();
         },
 
-        // --- NEW ULTRA APP LOGIC ---
+        // --- CORE: FAKE "GEMINI" OFFLINE, KHÔNG CẦN API ---
+        async callGeminiWithRetry(prompt, systemInstruction, onLoading, onSuccess, onError) {
+            try {
+                onLoading();
+
+                const pRaw = String(prompt || "");
+                const sRaw = String(systemInstruction || "");
+                const text = (pRaw + " " + sRaw).toLowerCase();
+
+                // Helper: random delay cho giống AI thật
+                const delay = 500 + Math.floor(Math.random() * 700);
+
+                // Helper: tạo câu trả lời gọn, thân thiện
+                function wrap(msg) {
+                    return msg
+                        .replace(/\s+/g, " ")
+                        .trim();
+                }
+
+                let answer = "";
+
+                // Logic AI (Simulated)
+                // Note: Fixed Phone Number in responses
+                if (/hà giang|ha giang|sapa|sa pa|đi xa|highway|mountain|đèo|đi đèo/.test(text)) {
+                    answer = wrap(
+                        "Đi Hà Giang, Sa Pa hoặc cung đèo dài thì anh nên chạy xe số hoặc XR150: máy khỏe, phanh đầm, leo dốc an toàn. " +
+                        "Nếu chở đồ nhiều, ưu tiên Wave / XR150, hạn chế xe ga yếu phanh và nhanh nóng máy."
+                    );
+                }
+                else if (/phố cổ|pho co|old quarter|hoàn kiếm|hoan kiem|center|city center/.test(text)) {
+                    answer = wrap(
+                        "Chạy trong Phố Cổ, Hoàn Kiếm thì Vision hoặc Wave là hợp lý: xe nhỏ gọn, dễ luồn lách, gửi khách sạn cũng tiện. " +
+                        "Đi 1–2 ngày chơi quanh phố thì chọn Vision nhìn lịch sự, Wave thì siêu tiết kiệm xăng."
+                    );
+                }
+                else if (/hồ tây|ho tay|west lake|cafe|coffee|date|hẹn hò/.test(text)) {
+                    answer = wrap(
+                        "Đi chơi Hồ Tây, cafe, hẹn hò thì Vision hoặc Airblade là đẹp: dáng xe gọn, ngồi 2 người thoải mái, máy êm. " +
+                        "Nếu thích êm ái dễ lái thì Vision, cần khỏe máy hơn chút thì Airblade 160."
+                    );
+                }
+                else if (/ăn gì|ăn ở đâu|food|street food|đặc sản|mon an|món ăn|bún chả|phở|bun cha|pho/.test(text)) {
+                    answer = wrap(
+                        "Khu Phố Cổ anh thử combo: sáng phở Bát Đàn / Lý Quốc Sư, trưa bún chả Hàng Quạt hoặc Đắc Kim, tối bia / đồ nướng Tạ Hiện. " +
+                        "Đi bằng xe máy thì gửi xe ở các bãi Trần Nhật Duật hoặc ven hồ Hoàn Kiếm rồi đi bộ vào cho đỡ đông."
+                    );
+                }
+                else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
+                    answer = wrap(
+                        "Tạm tính: xe số khoảng 120k/ngày, xe ga Vision ~150k–180k/ngày, xe ga cao cấp từ 230k–250k/ngày. " +
+                        "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
+                    );
+                }
+                else {
+                    answer = wrap(
+                        "Em là trợ lý Mr Tú AI. Anh cho em biết: anh đi đâu, mấy ngày, thích xe số hay xe ga, em gợi ý luôn mẫu xe + tầm giá hợp lý, thêm vài gợi ý quán ăn/nghỉ cho tiện cung đường."
+                    );
+                }
+
+                // Matchmaker Logic
+                 if (/trình độ lái|tay đua lụa|newbie|tay ga|côn tay|xr150|vision|airblade|wave alpha/.test(text)) {
+                      const expMatch = /trình độ lái[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+                      const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+                      const heightMatch= /chiều cao[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+                      
+                      // Simple selection logic (abbreviated for this file)
+                      let bike = "Honda Vision";
+                      let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
+                      
+                      if (/xa|leo núi|hà giang|sapa/i.test(destMatch[1] || "")) { bike = "Honda XR150"; reason = "leo đèo khoẻ."; }
+                      
+                      answer = `Xe chân ái của bạn là: **${bike}**. Lý do: ${reason} Nếu cần em giữ sẵn 1 xe, anh nhắn Zalo **081.665.9199** là em hỗ trợ luôn.`;
+                 }
+
+                setTimeout(() => {
+                    onSuccess(answer);
+                }, delay);
+            } catch (err) {
+                if (onError) onError(err.message || "Local AI error");
+            }
+        },
+
+        // --- FEATURE 1: AI TOUR GUIDE ---
+        setupAI() {
+            const modal = document.getElementById('ai-modal');
+            const overlay = document.getElementById('ai-overlay');
+            const closeBtn = document.getElementById('ai-close');
+            const chatBox = document.getElementById('ai-chat-box');
+            const input = document.getElementById('ai-input');
+            const sendBtn = document.getElementById('ai-send');
+            
+            // Focus Trap Helpers for Accessibility
+            const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            
+            window.AI_Guide = {
+                open: () => {
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
+                    input.focus();
+                }
+            };
+
+            const close = () => {
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            };
+
+            // Keyboard Accessibility (Focus Trap)
+            modal.addEventListener('keydown', (e) => {
+                const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+                if (e.key === 'Escape') close();
+
+                if (!isTabPressed) return;
+                
+                const focusableContent = modal.querySelectorAll(focusableElements);
+                const firstFocusableElement = focusableContent[0];
+                const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+                if (e.shiftKey) { 
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else { 
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+
+            // SECURITY FIX: Replaced innerHTML with textContent and DOM creation
+            const addMsg = (text, isUser = false) => {
+                const div = document.createElement('div');
+                div.className = `chat-msg ${isUser ? 'msg-user' : 'msg-bot'}`;
+                
+                if (isUser) {
+                    div.textContent = text;
+                } else {
+                    // Safe parsing for specific formatting like **bold**
+                    // We split by ** and alternate bold/text
+                    const parts = text.split(/\*\*(.*?)\*\*/g);
+                    parts.forEach((part, index) => {
+                        if (index % 2 === 1) { // It's the content inside **...**
+                            const strong = document.createElement('strong');
+                            strong.textContent = part;
+                            div.appendChild(strong);
+                        } else {
+                            // Text node
+                            div.appendChild(document.createTextNode(part));
+                        }
+                    });
+                }
+                chatBox.appendChild(div);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+
+            const showLoader = () => {
+                const div = document.createElement('div');
+                div.className = 'chat-msg msg-bot';
+                div.id = 'ai-loader';
+                // Safe way to add loader
+                const dots = document.createElement('div');
+                dots.className = 'typing-dots';
+                for(let i=0; i<3; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    dots.appendChild(dot);
+                }
+                div.appendChild(dots);
+                chatBox.appendChild(div);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+
+            const removeLoader = () => {
+                const loader = document.getElementById('ai-loader');
+                if (loader) loader.remove();
+            };
+
+            const handleSend = () => {
+                const text = input.value.trim();
+                if (!text) return;
+                
+                addMsg(text, true);
+                input.value = '';
+
+                // FIXED PHONE in Prompt
+                const systemPrompt = "Bạn là Mr Tú, hướng dẫn viên Hà Nội. Hotline Zalo là 081.665.9199. Hãy tư vấn ngắn gọn.";
+                
+                Render.callGeminiWithRetry(
+                    text,
+                    systemPrompt,
+                    showLoader, 
+                    (response) => { removeLoader(); addMsg(response); },
+                    (error) => { removeLoader(); addMsg("Mạng đang bận, bạn thử lại chút nữa nhé! 😅"); } 
+                );
+            };
+
+            sendBtn.addEventListener('click', handleSend);
+            input.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+        },
+
+        // --- FEATURE 2: BIKE MATCHMAKER ---
+        setupMatchmaker() {
+            const modal = document.getElementById('mm-modal');
+            const overlay = document.getElementById('mm-overlay');
+            const closeBtn = document.getElementById('mm-close');
+            const submitBtn = document.getElementById('mm-submit');
+            const resultBox = document.getElementById('mm-result');
+            const resultText = document.getElementById('mm-result-text');
+
+            window.AI_Matchmaker = {
+                open: () => {
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
+                }
+            };
+
+            const close = () => {
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            };
+            
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) close();
+            });
+
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+
+            submitBtn.addEventListener('click', () => {
+                const exp = document.getElementById('mm-exp').options[document.getElementById('mm-exp').selectedIndex].text;
+                const dest = document.getElementById('mm-dest').options[document.getElementById('mm-dest').selectedIndex].text;
+                const height = document.getElementById('mm-height').options[document.getElementById('mm-height').selectedIndex].text;
+
+                const userPrompt = `Người dùng có thông số sau: Trình độ lái: ${exp}. Điểm đến: ${dest}. Chiều cao: ${height}.`;
+                
+                // Fixed Prompt
+                const systemPrompt = "Tư vấn xe máy. Nhắn Zalo 081.665.9199.";
+
+                resultBox.style.display = 'block';
+                resultText.textContent = "Đang phân tích...";
+
+                Render.callGeminiWithRetry(
+                    userPrompt,
+                    systemPrompt,
+                    () => {}, 
+                    (text) => {
+                        // SECURITY FIX: Same robust text parsing
+                        resultText.innerHTML = ''; // Clear
+                        const parts = text.split(/\*\*(.*?)\*\*/g);
+                        parts.forEach((part, index) => {
+                            if (index % 2 === 1) {
+                                const strong = document.createElement('strong');
+                                strong.textContent = part;
+                                resultText.appendChild(strong);
+                            } else {
+                                resultText.appendChild(document.createTextNode(part));
+                            }
+                        });
+                    },
+                    (error) => {
+                        resultText.textContent = "Hệ thống đang bận, nhưng mình đoán là Honda Vision sẽ hợp với mọi người! 😂";
+                    }
+                );
+            });
+        },
+
+        // --- ULTRA APP LOGIC (PERFORMANCE FIXED) ---
         ultraApp() {
             const toggle = document.getElementById('ultra-toggle');
             const wrapper = document.getElementById('ultra-fab');
@@ -999,61 +1722,127 @@
                 }
             });
 
-            // Periodic random shake effect when idle
-            setInterval(() => {
+            // PERFORMANCE FIX: Only shake a few times or when tab is active
+            let shakeCount = 0;
+            const maxShakes = 5;
+
+            const shakeInterval = setInterval(() => {
+                if (document.hidden) return; // Don't run if tab is hidden
+                
+                if (shakeCount >= maxShakes) {
+                    clearInterval(shakeInterval);
+                    return;
+                }
+
                 if (!wrapper.classList.contains('active')) {
                     toggle.classList.add('shaking');
                     setTimeout(() => toggle.classList.remove('shaking'), 500);
+                    shakeCount++;
                 }
             }, 5000);
         },
 
+        // SECURITY FIX: NAV RENDERED VIA DOM
         nav() {
             const dNav = document.getElementById('desktop-menu');
-            if (dNav) {
-                dNav.innerHTML = CONFIG.MENU.map(i => {
-                    if (i.sub) return `<a href="${i.sub[0].l}" class="nav-link">${i.sub[0].l === '#' ? i.t : i.sub[0].l.replace('.html', '') === '#' ? i.t : i.t}</a>`; // Simplified logic to match requested copy
-                     if (i.sub) return `<a href="${i.sub[0].l}" class="nav-link">${i.t}</a>`;
-                    return `<a href="${i.l}" class="nav-link">${i.t}</a>`;
-                }).join('');
-            }
+            if (!dNav) return;
+            dNav.innerHTML = ''; // Clear
+
+            CONFIG.MENU.forEach(item => {
+                const a = document.createElement('a');
+                a.href = item.l || (item.sub && item.sub[0] && item.sub[0].l) || '#';
+                a.className = 'nav-link';
+                a.textContent = item.t;
+                dNav.appendChild(a);
+            });
         },
 
+        // SECURITY FIX: MOBILE MENU RENDERED VIA DOM (NO INNERHTML)
         mobile() {
             const mList = document.getElementById('mobile-list');
             const overlay = document.getElementById('overlay');
             const menu = document.getElementById('mobile-menu');
             const btn = document.getElementById('menu-btn');
 
-            // Defensive check
             if (!mList || !overlay || !menu || !btn) return;
+            
+            mList.innerHTML = ''; // Clear
 
-            let html = '';
-            html += `<div style="margin-bottom:24px; padding:12px; background:var(--muted-bg); border-radius:16px; display:flex; align-items:center; gap:10px;">
-                <div id="mob-status-dot" class="status-dot" style="width:10px; height:10px;"></div>
-                <span id="mob-status-text" style="font-weight:700; font-size:0.9rem;">Kiểm tra giờ...</span>
-            </div>`;
+            // Status widget for mobile (rebuilt safely)
+            const statusDiv = document.createElement('div');
+            statusDiv.style.cssText = "margin-bottom:24px; padding:12px; background:var(--muted-bg); border-radius:16px; display:flex; align-items:center; gap:10px;";
+            
+            const dot = document.createElement('div');
+            dot.id = 'mob-status-dot';
+            dot.className = 'status-dot';
+            dot.style.cssText = 'width:10px; height:10px;';
+            
+            const text = document.createElement('span');
+            text.id = 'mob-status-text';
+            text.style.cssText = 'font-weight:700; font-size:0.9rem;';
+            text.textContent = 'Kiểm tra giờ...';
+
+            statusDiv.appendChild(dot);
+            statusDiv.appendChild(text);
+            mList.appendChild(statusDiv);
 
             CONFIG.MENU.forEach(i => {
                 if (i.sub) {
-                    html += `<div style="margin-bottom:16px;">
-                        <div style="display:flex;align-items:center;margin-bottom:12px;color:var(--text-main);">
-                            <div class="menu-icon" style="color:var(--text-main)">${i.i}</div>
-                            <div style="font-weight:800; font-size:1.15rem;">${i.t}</div>
-                        </div>
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-left:10px;">
-                            ${i.sub.map(s => `<a href="${s.l}" style="display:flex;align-items:center;gap:8px;padding:12px; background:var(--muted-bg); border-radius:14px; font-size:0.85rem; color:var(--text-sub); font-weight:600; text-decoration:none;">
-                                <span style="color:var(--primary); transform:scale(0.8);">${s.i}</span>${s.t}
-                            </a>`).join('')}
-                        </div>
-                    </div>`;
+                    const group = document.createElement('div');
+                    group.style.marginBottom = '16px';
+                    
+                    const titleDiv = document.createElement('div');
+                    titleDiv.style.cssText = "display:flex;align-items:center;margin-bottom:12px;color:var(--text-main);";
+                    
+                    // Safe Icon injection
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'menu-icon';
+                    iconDiv.style.color = 'var(--text-main)';
+                    iconDiv.innerHTML = i.i; // Safe because i.i is static const SVG
+                    
+                    const titleText = document.createElement('div');
+                    titleText.style.cssText = "font-weight:800; font-size:1.15rem;";
+                    titleText.textContent = i.t;
+                    
+                    titleDiv.appendChild(iconDiv);
+                    titleDiv.appendChild(titleText);
+                    group.appendChild(titleDiv);
+
+                    const grid = document.createElement('div');
+                    grid.style.cssText = "display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-left:10px;";
+
+                    i.sub.forEach(s => {
+                        const subLink = document.createElement('a');
+                        subLink.href = s.l;
+                        subLink.style.cssText = "display:flex;align-items:center;gap:8px;padding:12px; background:var(--muted-bg); border-radius:14px; font-size:0.85rem; color:var(--text-sub); font-weight:600; text-decoration:none;";
+                        
+                        // Safe sub-icon
+                        const sIcon = document.createElement('span');
+                        sIcon.style.cssText = "color:var(--primary); transform:scale(0.8);";
+                        sIcon.innerHTML = s.i; 
+                        
+                        subLink.appendChild(sIcon);
+                        subLink.appendChild(document.createTextNode(s.t));
+                        
+                        grid.appendChild(subLink);
+                    });
+                    
+                    group.appendChild(grid);
+                    mList.appendChild(group);
                 } else {
-                    html += `<a href="${i.l}" style="display:flex; align-items:center; gap:12px; font-size:1.15rem; font-weight:700; padding:16px 0; border-bottom:1px solid var(--glass-border); color:var(--text-main); text-decoration:none;">
-                        <div class="menu-icon">${i.i}</div>${i.t}
-                    </a>`;
+                    const link = document.createElement('a');
+                    link.href = i.l;
+                    link.style.cssText = "display:flex; align-items:center; gap:12px; font-size:1.15rem; font-weight:700; padding:16px 0; border-bottom:1px solid var(--glass-border); color:var(--text-main); text-decoration:none;";
+                    
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'menu-icon';
+                    iconDiv.innerHTML = i.i;
+                    
+                    link.appendChild(iconDiv);
+                    link.appendChild(document.createTextNode(i.t));
+                    mList.appendChild(link);
                 }
             });
-            mList.innerHTML = html;
 
             const toggle = () => {
                 menu.classList.toggle('active');
@@ -1064,59 +1853,89 @@
             overlay.addEventListener('click', toggle);
         },
 
+        // SECURITY FIX: FOOTER RENDERED VIA DOM (NO INNERHTML INJECTION FROM CONFIG)
         footer() {
             const grid = document.getElementById('footer-grid');
             if (!grid) return;
+            grid.innerHTML = ''; // Clear
 
-            const iconMap = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>`;
-            const iconDoc = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>`;
-            const iconInfo = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></div>`;
+            const iconMapStr = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>`;
+            const iconDocStr = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>`;
 
-            const servicesMenu = CONFIG.MENU.find(x => x.t === 'Dịch vụ');
-            const services = servicesMenu && Array.isArray(servicesMenu.sub) ? servicesMenu.sub : [];
+            // Helper to create column
+            const createCol = (title, items, iconStr) => {
+                const col = document.createElement('div');
+                col.className = 'f-col';
+                
+                const h4 = document.createElement('h4');
+                const h4Icon = document.createElement('span');
+                h4Icon.className = 'material-symbols-rounded';
+                h4Icon.textContent = 'map';
+                h4.appendChild(h4Icon);
+                h4.appendChild(document.createTextNode(' ' + title));
+                col.appendChild(h4);
 
-            const locationsMenu = CONFIG.MENU.find(x => x.t === 'Địa điểm');
-            const locations = locationsMenu && Array.isArray(locationsMenu.sub) ? locationsMenu.sub : [];
-            
+                items.forEach(item => {
+                    const a = document.createElement('a');
+                    a.href = item.l;
+                    a.className = 'f-link';
+                    
+                    // We treat iconStr as trusted static HTML here
+                    const iconWrapper = document.createElement('span');
+                    iconWrapper.innerHTML = iconStr;
+                    
+                    a.appendChild(iconWrapper);
+                    a.appendChild(document.createTextNode(' ' + item.t));
+                    col.appendChild(a);
+                });
+                return col;
+            };
+
+            // 1. Info Col (Static HTML mostly safe to keep here as block, or convert)
+            const col1 = document.createElement('div');
+            col1.className = 'f-col';
+            col1.innerHTML = `<h4><span class="material-symbols-rounded">info</span> Về Mr Tú</h4>
+                <a href="gioithieu.html" class="f-link">${iconDocStr} Giới thiệu</a>
+                <a href="chinhsach.html" class="f-link">${iconDocStr} Chính sách bảo mật</a>
+                <a href="dieukhoan.html" class="f-link">${iconDocStr} Điều khoản sử dụng</a>
+                <a href="lienhe.html" class="f-link">${iconDocStr} Liên hệ</a>
+                <div style="margin-top:24px; display:flex; gap:12px;">
+                    <button class="action-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></button>
+                    <button class="action-btn" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></button>
+                    <button class="action-btn" aria-label="Map"><i class="fa-solid fa-map-location-dot"></i></button>
+                </div>`;
+            grid.appendChild(col1);
+
+            // 2. Services Col
+            const services = CONFIG.MENU.find(x => x.t === 'Dịch vụ')?.sub || [];
+            const col2 = document.createElement('div');
+            col2.className = 'f-col';
+            col2.innerHTML = `<h4><span class="material-symbols-rounded">settings</span> Dịch vụ</h4>`;
+            services.forEach(s => {
+                const a = document.createElement('a');
+                a.href = s.l; a.className = 'f-link';
+                // Safe injection
+                const span = document.createElement('span');
+                span.innerHTML = iconDocStr;
+                a.appendChild(span);
+                a.appendChild(document.createTextNode(' ' + s.t));
+                col2.appendChild(a);
+            });
+            grid.appendChild(col2);
+
+            // 3 & 4. Location Cols
+            const locations = CONFIG.MENU.find(x => x.t === 'Địa điểm')?.sub || [];
             const halfLoc = Math.ceil(locations.length / 2);
-
-            grid.innerHTML = `
-                <div class="f-col">
-                    <!-- CHANGED NAME IN FOOTER HEADER -->
-                    <h4><span class="material-symbols-rounded">info</span> Về Mr Tú</h4>
-                    <a href="gioithieu.html" class="f-link">${iconInfo} Giới thiệu</a>
-                    <a href="chinhsach.html" class="f-link">${iconDoc} Chính sách bảo mật</a>
-                    <a href="dieukhoan.html" class="f-link">${iconDoc} Điều khoản sử dụng</a>
-                    <a href="lienhe.html" class="f-link">${iconInfo} Liên hệ</a>
-                    <div style="margin-top:24px; display:flex; gap:12px;">
-                        <button class="action-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></button>
-                        <button class="action-btn" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></button>
-                        <button class="action-btn" aria-label="Map"><i class="fa-solid fa-map-location-dot"></i></button>
-                    </div>
-                </div>
-                
-                <div class="f-col">
-                    <h4><span class="material-symbols-rounded">settings</span> Dịch vụ</h4>
-                    ${services.map(s => `<a href="${s.l}" class="f-link">${iconDoc} ${s.t}</a>`).join('')}
-                </div>
-                
-                <div class="f-col">
-                    <h4><span class="material-symbols-rounded">map</span> Khu vực 1</h4>
-                    ${locations.slice(0, halfLoc).map(s => `<a href="${s.l}" class="f-link">${iconMap} ${s.t}</a>`).join('')}
-                </div>
-                
-                <div class="f-col">
-                    <h4><span class="material-symbols-rounded">map</span> Khu vực 2</h4>
-                    ${locations.slice(halfLoc).map(s => `<a href="${s.l}" class="f-link">${iconMap} ${s.t}</a>`).join('')}
-                </div>
-            `;
+            
+            grid.appendChild(createCol('Khu vực 1', locations.slice(0, halfLoc), iconMapStr));
+            grid.appendChild(createCol('Khu vực 2', locations.slice(halfLoc), iconMapStr));
         },
 
         statusWidget() {
             const checkTime = () => {
                 const now = new Date();
                 const hours = now.getHours();
-                // UPDATED LOGIC: 8h - 17h
+                // 8h - 17h
                 const isOpen = hours >= 8 && hours < 17;
                 
                 const updateUI = (dotId, textId) => {
@@ -1125,7 +1944,6 @@
                     if (!dot || !text) return;
 
                     dot.className = isOpen ? 'status-dot open' : 'status-dot';
-                    // UPDATED TEXT: (8h-17h)
                     text.innerText = isOpen ? 'Đang mở cửa (8h-17h)' : 'Đã đóng cửa (8h-17h)';
                     text.className = `status-text ${isOpen ? 'text-open' : 'text-closed'}`;
                 };
@@ -1191,41 +2009,57 @@
                 document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el));
             }, 500);
 
+            // PERFORMANCE FIX: Only listen for mousemove on the specific element
+            // And remove when not hovering
             const tiltBox = document.getElementById('tilt-box');
-            
-            document.addEventListener('mousemove', (e) => {
-                if (window.innerWidth < 1024 || !tiltBox) return;
-                const x = (window.innerWidth / 2 - e.pageX) / 30;
-                const y = (window.innerHeight / 2 - e.pageY) / 30;
-                tiltBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
-            });
+            if (tiltBox) {
+                tiltBox.addEventListener('mousemove', (e) => {
+                    // Only calc if screen is large enough
+                    if (window.innerWidth < 1024) return;
+                    
+                    const rect = tiltBox.getBoundingClientRect();
+                    // Calculate mouse position relative to element center
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    // Rotate based on relative position
+                    // Limit rotation to avoid too much skew
+                    const rotateX = -1 * y / 20;
+                    const rotateY = x / 20;
+                    
+                    requestAnimationFrame(() => {
+                        tiltBox.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    });
+                });
 
-            document.addEventListener('mouseleave', () => {
-                if (!tiltBox) return;
-                tiltBox.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
-            });
+                tiltBox.addEventListener('mouseleave', () => {
+                    tiltBox.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                });
+            }
         },
 
         setupPWA() {
             const manifest = {
-                name: "Mr Tu Bike",
+                name: "Mr Tu",
                 short_name: "NT Ultra",
                 display: "standalone",
                 start_url: "./",
                 theme_color: "#000000",
                 background_color: "#000000",
                 icons: [{
-                    // CHANGED ICON
-                    src: "https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0462.jpeg",
+                    src: "https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg",
                     sizes: "192x192",
-                    type: "image/png"
+                    type: "image/jpeg"
                 }]
             };
             const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
             const link = document.createElement('link');
             link.rel = 'manifest';
-            link.href = URL.createObjectURL(blob);
+            const url = URL.createObjectURL(blob);
+            link.href = url;
             document.head.appendChild(link);
+            
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
         }
     };
 
