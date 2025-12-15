@@ -185,6 +185,7 @@
     .logo-title { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1; display: block; color: var(--text-main); }
     .logo-text span { font-size: 0.75rem; font-weight: 600; color: var(--text-sub); letter-spacing: 1px; display: block; }
 
+    /* STATUS WIDGET RE-STYLED */
     .status-widget {
         display: flex; align-items: center; gap: 8px;
         padding: 6px 14px; border-radius: 20px;
@@ -199,8 +200,12 @@
         transition: 0.3s;
     }
     .status-dot.open { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .status-dot.online { background: var(--secondary); box-shadow: 0 0 8px var(--secondary); } /* NEW: Online mode */
+    
     .text-open { color: var(--accent-green) !important; }
     .text-closed { color: var(--accent-red) !important; }
+    .text-online { color: var(--secondary) !important; } /* NEW: Online text */
+    
     .status-text { font-size: 0.75rem; font-weight: 700; color: var(--text-main); white-space: nowrap; }
 
     .desktop-nav { display: flex; gap: 4px; }
@@ -872,8 +877,10 @@
                         Thuê Xe Máy Hà Nội<br>
                         <span class="text-highlight">Hoàn Kiếm & Phố Cổ</span>
                     </h1>
+                    
+                    <!-- FIX: Cập nhật nội dung 24/7 chính xác hơn -->
                     <p>
-                        Dịch vụ cho thuê xe máy Hà Nội chuẩn du lịch & công tác. Giao xe tận nơi trong 15–20 phút tại khu Phố Cổ, Hoàn Kiếm, Hồ Tây. Xe đời mới, hỗ trợ 24/7.
+                        Dịch vụ cho thuê xe máy Hà Nội chuẩn du lịch & công tác. Giao xe tận nơi trong 15–20 phút tại khu Phố Cổ, Hoàn Kiếm, Hồ Tây. <strong>Xe đời mới, hỗ trợ kỹ thuật & cứu hộ 24/7.</strong>
                     </p>
 
                     <!-- 3D Mini Apps -->
@@ -1420,14 +1427,16 @@
             <div class="copyright" style="margin-top: 50px;">
                 <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
                 
-                <!-- Optimized Contact Info Wrapper -->
+                <!-- FIX: Optimized Contact Info Wrapper & Tách rõ giờ làm việc vs Hotline -->
                 <div class="footer-contact-info">
                      <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội, Việt Nam</p>
                      <div class="fc-row">
                          <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:0816659199">081.665.9199</a></p>
                          <p class="fc-item"><i class="fa-solid fa-envelope"></i> nguyentuantu2482@gmail.com</p>
                      </div>
-                     <p class="fc-item"><i class="fa-regular fa-clock"></i> Giờ mở cửa: 08:00 – 17:00</p>
+                     <!-- New Logic Display -->
+                     <p class="fc-item" style="color:var(--primary);"><i class="fa-solid fa-headset"></i> Hotline & Kỹ thuật: 24/7</p>
+                     <p class="fc-item"><i class="fa-regular fa-clock"></i> Cửa hàng: 08:00 – 17:00</p>
                 </div>
 
                 <p style="text-align:center; color:var(--text-sub); font-size:0.8rem; margin-top:20px; opacity:0.6;">
@@ -1539,9 +1548,6 @@
 <!-- JS ENGINE -->
 <script>
     // --- ICONS (SVG) ---
-    // SECURITY FIX: Define icons as strings but we will parse them carefully or use innerHTML only on STATIC CONSTANTS,
-    // BUT since the requirement is strict, we will stick to FontAwesome classes where possible or simple SVGs.
-    // For this specific requirement, I'm refactoring the Render methods to use DOM elements.
     const ICONS = {
         home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
         doc: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>',
@@ -1564,8 +1570,8 @@
                     {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
                     {t: "Thủ tục thuê xe", l: "thutuc.html", i: ICONS.doc},
                     {t: "Khuyến mãi", l: "uudai.html", i: ICONS.tag},
-                    {t: "Kinh nghiệm", l: "kinhnghiem.html", i: ICONS.doc}, /* ADDED LINK 1 */
-                    {t: "Mạng xã hội", l: "mangxahoi.html", i: ICONS.tag} /* ADDED LINK 2 */
+                    {t: "Kinh nghiệm", l: "kinhnghiem.html", i: ICONS.doc},
+                    {t: "Mạng xã hội", l: "mangxahoi.html", i: ICONS.tag}
                 ]
             },
             { 
@@ -1644,7 +1650,6 @@
                 let answer = "";
 
                 // Logic AI (Simulated)
-                // Note: Fixed Phone Number in responses
                 if (/hà giang|ha giang|sapa|sa pa|đi xa|highway|mountain|đèo|đi đèo/.test(text)) {
                     answer = wrap(
                         "Đi Hà Giang, Sa Pa hoặc cung đèo dài thì anh nên chạy xe số hoặc XR150: máy khỏe, phanh đầm, leo dốc an toàn. " +
@@ -1687,7 +1692,7 @@
                       const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
                       const heightMatch= /chiều cao[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
                       
-                      // Simple selection logic (abbreviated for this file)
+                      // Simple selection logic
                       let bike = "Honda Vision";
                       let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
                       
@@ -1729,7 +1734,6 @@
                 overlay.classList.remove('active');
             };
 
-            // Keyboard Accessibility (Focus Trap)
             modal.addEventListener('keydown', (e) => {
                 const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
                 if (e.key === 'Escape') close();
@@ -1756,7 +1760,6 @@
             closeBtn.addEventListener('click', close);
             overlay.addEventListener('click', close);
 
-            // SECURITY FIX: Replaced innerHTML with textContent and DOM creation
             const addMsg = (text, isUser = false) => {
                 const div = document.createElement('div');
                 div.className = `chat-msg ${isUser ? 'msg-user' : 'msg-bot'}`;
@@ -1764,8 +1767,6 @@
                 if (isUser) {
                     div.textContent = text;
                 } else {
-                    // Safe parsing for specific formatting like **bold**
-                    // We split by ** and alternate bold/text
                     const parts = text.split(/\*\*(.*?)\*\*/g);
                     parts.forEach((part, index) => {
                         if (index % 2 === 1) { // It's the content inside **...**
@@ -1773,7 +1774,6 @@
                             strong.textContent = part;
                             div.appendChild(strong);
                         } else {
-                            // Text node
                             div.appendChild(document.createTextNode(part));
                         }
                     });
@@ -1786,7 +1786,6 @@
                 const div = document.createElement('div');
                 div.className = 'chat-msg msg-bot';
                 div.id = 'ai-loader';
-                // Safe way to add loader
                 const dots = document.createElement('div');
                 dots.className = 'typing-dots';
                 for(let i=0; i<3; i++) {
@@ -1811,7 +1810,6 @@
                 addMsg(text, true);
                 input.value = '';
 
-                // FIXED PHONE in Prompt
                 const systemPrompt = "Bạn là Mr Tú, hướng dẫn viên Hà Nội. Hotline Zalo là 081.665.9199. Hãy tư vấn ngắn gọn.";
                 
                 Render.callGeminiWithRetry(
@@ -1861,8 +1859,6 @@
                 const height = document.getElementById('mm-height').options[document.getElementById('mm-height').selectedIndex].text;
 
                 const userPrompt = `Người dùng có thông số sau: Trình độ lái: ${exp}. Điểm đến: ${dest}. Chiều cao: ${height}.`;
-                
-                // Fixed Prompt
                 const systemPrompt = "Tư vấn xe máy. Nhắn Zalo 081.665.9199.";
 
                 resultBox.style.display = 'block';
@@ -1873,7 +1869,6 @@
                     systemPrompt,
                     () => {}, 
                     (text) => {
-                        // SECURITY FIX: Same robust text parsing
                         resultText.innerHTML = ''; // Clear
                         const parts = text.split(/\*\*(.*?)\*\*/g);
                         parts.forEach((part, index) => {
@@ -1893,7 +1888,7 @@
             });
         },
 
-        // --- ULTRA APP LOGIC (PERFORMANCE FIXED) ---
+        // --- ULTRA APP LOGIC ---
         ultraApp() {
             const toggle = document.getElementById('ultra-toggle');
             const wrapper = document.getElementById('ultra-fab');
@@ -1925,7 +1920,6 @@
                 }
             });
 
-            // PERFORMANCE FIX: Only shake a few times or when tab is active
             let shakeCount = 0;
             const maxShakes = 5;
 
@@ -1945,7 +1939,6 @@
             }, 5000);
         },
 
-        // SECURITY FIX: NAV RENDERED VIA DOM
         nav() {
             const dNav = document.getElementById('desktop-menu');
             if (!dNav) return;
@@ -1960,7 +1953,6 @@
             });
         },
 
-        // SECURITY FIX: MOBILE MENU RENDERED VIA DOM (NO INNERHTML)
         mobile() {
             const mList = document.getElementById('mobile-list');
             const overlay = document.getElementById('overlay');
@@ -1997,11 +1989,10 @@
                     const titleDiv = document.createElement('div');
                     titleDiv.style.cssText = "display:flex;align-items:center;margin-bottom:12px;color:var(--text-main);";
                     
-                    // Safe Icon injection
                     const iconDiv = document.createElement('div');
                     iconDiv.className = 'menu-icon';
                     iconDiv.style.color = 'var(--text-main)';
-                    iconDiv.innerHTML = i.i; // Safe because i.i is static const SVG
+                    iconDiv.innerHTML = i.i; 
                     
                     const titleText = document.createElement('div');
                     titleText.style.cssText = "font-weight:800; font-size:1.15rem;";
@@ -2019,7 +2010,6 @@
                         subLink.href = s.l;
                         subLink.style.cssText = "display:flex;align-items:center;gap:8px;padding:12px; background:var(--muted-bg); border-radius:14px; font-size:0.85rem; color:var(--text-sub); font-weight:600; text-decoration:none;";
                         
-                        // Safe sub-icon
                         const sIcon = document.createElement('span');
                         sIcon.style.cssText = "color:var(--primary); transform:scale(0.8);";
                         sIcon.innerHTML = s.i; 
@@ -2056,7 +2046,6 @@
             overlay.addEventListener('click', toggle);
         },
 
-        // SECURITY FIX: FOOTER RENDERED VIA DOM (NO INNERHTML INJECTION FROM CONFIG)
         footer() {
             const grid = document.getElementById('footer-grid');
             if (!grid) return;
@@ -2083,7 +2072,6 @@
                     a.href = item.l;
                     a.className = 'f-link';
                     
-                    // We treat iconStr as trusted static HTML here
                     const iconWrapper = document.createElement('span');
                     iconWrapper.innerHTML = iconStr;
                     
@@ -2094,7 +2082,7 @@
                 return col;
             };
 
-            // 1. Info Col (Static HTML mostly safe to keep here as block, or convert)
+            // 1. Info Col
             const col1 = document.createElement('div');
             col1.className = 'f-col';
             col1.innerHTML = `<h4><span class="material-symbols-rounded">info</span> Về Mr Tú</h4>
@@ -2117,7 +2105,6 @@
             services.forEach(s => {
                 const a = document.createElement('a');
                 a.href = s.l; a.className = 'f-link';
-                // Safe injection
                 const span = document.createElement('span');
                 span.innerHTML = iconDocStr;
                 a.appendChild(span);
@@ -2134,11 +2121,14 @@
             grid.appendChild(createCol('Khu vực 2', locations.slice(halfLoc), iconMapStr));
         },
 
+        // --- FIX: SMART STATUS LOGIC (NEVER SHOW "CLOSED") ---
         statusWidget() {
             const checkTime = () => {
                 const now = new Date();
                 const hours = now.getHours();
-                // 8h - 17h
+                
+                // Logic: 08:00 - 17:00 is OPEN (Green)
+                // Logic: 17:00 - 08:00 is SUPPORT ONLINE (Orange/Yellow) -> KHÔNG BAO GIỜ HIỆN CLOSED
                 const isOpen = hours >= 8 && hours < 17;
                 
                 const updateUI = (dotId, textId) => {
@@ -2146,9 +2136,16 @@
                     const text = document.getElementById(textId);
                     if (!dot || !text) return;
 
-                    dot.className = isOpen ? 'status-dot open' : 'status-dot';
-                    text.innerText = isOpen ? 'Đang mở cửa (8h-17h)' : 'Đã đóng cửa (8h-17h)';
-                    text.className = `status-text ${isOpen ? 'text-open' : 'text-closed'}`;
+                    if (isOpen) {
+                         dot.className = 'status-dot open';
+                         text.innerText = 'Cửa hàng đang mở (8h-17h)';
+                         text.className = 'status-text text-open';
+                    } else {
+                         // Thay vì "Closed", ta hiện "Support Online"
+                         dot.className = 'status-dot online';
+                         text.innerText = 'Hỗ trợ Online 24/7';
+                         text.className = 'status-text text-online';
+                    }
                 };
                 
                 updateUI('status-dot', 'status-text');
@@ -2212,21 +2209,13 @@
                 document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el));
             }, 500);
 
-            // PERFORMANCE FIX: Only listen for mousemove on the specific element
-            // And remove when not hovering
             const tiltBox = document.getElementById('tilt-box');
             if (tiltBox) {
                 tiltBox.addEventListener('mousemove', (e) => {
-                    // Only calc if screen is large enough
                     if (window.innerWidth < 1024) return;
-                    
                     const rect = tiltBox.getBoundingClientRect();
-                    // Calculate mouse position relative to element center
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    // Rotate based on relative position
-                    // Limit rotation to avoid too much skew
                     const rotateX = -1 * y / 20;
                     const rotateY = x / 20;
                     
