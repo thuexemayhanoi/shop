@@ -451,6 +451,19 @@
     }
     .f-link:hover .f-svg-box { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }
 
+    /* FOOTER OPTIMIZATION (NEW) */
+    .footer-contact-info {
+        text-align: center; color: var(--text-sub); font-size: 0.95rem;
+        display: flex; flex-direction: column; gap: 8px; align-items: center;
+        margin-bottom: 16px;
+    }
+    .fc-item { margin: 0; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .fc-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    
+    @media (max-width: 768px) {
+        .fc-row { flex-direction: column; gap: 8px; }
+    }
+
     /* --- 8. ULTRA APP MINI (FLOATING ACTION BUTTON) --- */
     .ultra-fab-wrapper {
         position: fixed;
@@ -1224,11 +1237,19 @@
             
             <div class="copyright" style="margin-top: 50px;">
                 <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
-                <p style="text-align:center; color:var(--text-sub); font-size:0.9rem; line-height:1.5;">
-                    <strong>© 2025 Mr Tú Motorbike Rental.</strong><br>
-                    Địa chỉ: 116 Cầu Gỗ, Hoàn Kiếm, Hà Nội.<br>
-                    Hotline: 081.665.9199 - Email: nguyentuantu2482@gmail.com<br>
-                    All rights reserved.
+                
+                <!-- Optimized Contact Info Wrapper -->
+                <div class="footer-contact-info">
+                     <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội, Việt Nam</p>
+                     <div class="fc-row">
+                         <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:0816659199">081.665.9199</a></p>
+                         <p class="fc-item"><i class="fa-solid fa-envelope"></i> nguyentuantu2482@gmail.com</p>
+                     </div>
+                     <p class="fc-item"><i class="fa-regular fa-clock"></i> Giờ mở cửa: 08:00 – 17:00</p>
+                </div>
+
+                <p style="text-align:center; color:var(--text-sub); font-size:0.8rem; margin-top:20px; opacity:0.6;">
+                    © 2025 Mr Tú Motorbike Rental. All rights reserved.
                 </p>
             </div>
         </div>
@@ -1320,7 +1341,7 @@
         <a href="https://wa.me/84816659199" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-wa" data-tooltip="Chat WhatsApp" aria-label="WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
-        <a href="https://maps.app.goo.gl/SR1hcwnCQjPkAvDh7" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-map" data-tooltip="Chỉ đường" aria-label="Bản đồ">
+        <a href="https://maps.app.goo.gl/UkBn4FgTNjk8ojM9A?g_st=ic" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-map" data-tooltip="Chỉ đường" aria-label="Bản đồ">
             <i class="fa-solid fa-map-location-dot"></i>
         </a>
         <a href="#top" class="ultra-sub-btn" data-tooltip="Lên đầu trang" aria-label="Top">
