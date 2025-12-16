@@ -102,7 +102,8 @@
         color: var(--text-main);
         overflow-x: hidden;
         transition: background 0.4s var(--ease-apple), color 0.3s;
-        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+        /* Default padding, will be overridden by patch for mobile */
+        padding-bottom: 40px; 
         line-height: 1.5;
     }
 
@@ -560,6 +561,20 @@
         .fc-row { flex-direction: column; gap: 8px; }
     }
 
+    /* Social Icons Styles */
+    .social-btn {
+        width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        background: var(--muted-bg); color: var(--text-main); border: 1px solid var(--glass-border);
+        font-size: 16px; transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .social-btn:hover { transform: translateY(-5px); color: #fff; border-color: transparent; }
+    
+    .social-fb:hover { background: #1877F2; }
+    .social-ins:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .social-pin:hover { background: #BD081C; }
+    .social-me:hover { background: #00A98F; }
+    .social-tik:hover { background: #000000; }
+
     /* --- 8. ULTRA APP MINI (FLOATING ACTION BUTTON) --- */
     .ultra-fab-wrapper {
         position: fixed;
@@ -823,6 +838,80 @@
         /* Specific adjustments */
         .stat-item h3 { font-size: 2.8rem; }
         .stats-grid { gap: 30px; }
+    }
+
+    /* ==========================================================================
+       FIX: Floating button overlap on mobile Safari
+       Name: Mobile Viewport & FAB Patch
+       Target: iPhone (SafeArea), Mobile Devices < 768px
+       ========================================================================== */
+    @media (max-width: 768px) {
+        
+        /* 1. TẠO KHOẢNG TRỐNG CUỘT TRANG (SCROLL SPACE)
+           Thêm padding cực lớn dưới đáy body để người dùng có thể cuộn nội dung 
+           lên cao khỏi khu vực bị FAB che khuất.
+           Sử dụng env(safe-area-inset-bottom) cho các dòng iPhone X trở lên.
+        */
+        body {
+            padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+        }
+
+        /* 2. ĐIỀU CHỈNH VỊ TRÍ FAB VÀ KÍCH THƯỚC TRÊN MOBILE
+           Giữ nguyên vị trí fixed nhưng đẩy lên trên vùng an toàn (Home Indicator).
+        */
+        .ultra-fab-wrapper {
+            left: 20px; /* Giữ nguyên bên trái như thiết kế gốc */
+            /* Cách đáy màn hình một khoảng an toàn + 20px */
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            /* Reset width để căn giữa các phần tử con dễ hơn */
+            width: 50px;
+            align-items: center;
+        }
+
+        /* 3. GIẢM KÍCH THƯỚC NÚT CHÍNH (MAIN BUTTON)
+           Giảm từ 60px -> 50px để bớt chiếm diện tích màn hình nhỏ.
+        */
+        .ultra-main-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 22px; /* Giảm size icon */
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3); /* Giảm độ đổ bóng */
+        }
+
+        /* 4. ĐIỀU CHỈNH DANH SÁCH NÚT CON (SUB ACTIONS)
+           Căn chỉnh lại vị trí để khớp với nút chính mới thu nhỏ.
+        */
+        .ultra-actions {
+            bottom: 60px; /* Khoảng cách với nút chính mới */
+            width: 100%;  /* Full width của wrapper cha (50px) */
+            align-items: center;
+            gap: 10px;    /* Khoảng cách giữa các nút con */
+        }
+
+        /* 5. GIẢM KÍCH THƯỚC NÚT CON
+           Giảm từ 50px -> 42px
+        */
+        .ultra-sub-btn {
+            width: 42px;
+            height: 42px;
+            font-size: 18px;
+            margin: 0 auto; /* Căn giữa tuyệt đối */
+        }
+
+        /* 6. ẨN TOOLTIP TRÊN MOBILE
+           Trên điện thoại chạm là mở, tooltip bay ra sẽ che mất nội dung khác
+           và gây rối mắt.
+        */
+        .ultra-sub-btn::after {
+            display: none !important;
+        }
+
+        /* 7. FIX CHO FOOTER
+           Đảm bảo footer box có khoảng thở bên trong
+        */
+        .footer-box {
+            padding-bottom: 30px;
+        }
     }
 </style>
 </head>
@@ -2108,7 +2197,7 @@
                 return col;
             };
 
-            // 1. Info Col
+            // 1. Info Col (UPDATED WITH 5 SOCIAL LINKS)
             const col1 = document.createElement('div');
             col1.className = 'f-col';
             col1.innerHTML = `<h4><span class="material-symbols-rounded">info</span> Về Mr Tú</h4>
@@ -2116,10 +2205,12 @@
                 <a href="chinhsach.html" class="f-link">${iconDocStr} Chính sách bảo mật</a>
                 <a href="dieukhoan.html" class="f-link">${iconDocStr} Điều khoản sử dụng</a>
                 <a href="lienhe.html" class="f-link">${iconDocStr} Liên hệ</a>
-                <div style="margin-top:24px; display:flex; gap:12px;">
-                    <button class="action-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></button>
-                    <button class="action-btn" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></button>
-                    <button class="action-btn" aria-label="Map"><i class="fa-solid fa-map-location-dot"></i></button>
+                <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="https://m.facebook.com/chothuexemayphocohanoi/" target="_blank" rel="noopener" class="social-btn social-fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/chothuexemayphoco" target="_blank" rel="noopener" class="social-btn social-ins" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.pinterest.com/chothuexemayphoco/" target="_blank" rel="noopener" class="social-btn social-pin" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+                    <a href="https://about.me/chothuexemayphoco" target="_blank" rel="noopener" class="social-btn social-me" aria-label="About Me"><i class="fa-solid fa-address-card"></i></a>
+                    <a href="https://www.tiktok.com/@thuexemayphoco" target="_blank" rel="noopener" class="social-btn social-tik" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>`;
             grid.appendChild(col1);
 
