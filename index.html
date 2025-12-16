@@ -33,7 +33,7 @@
         /* BRAND PRIMARY */
         --primary: #FF6B00;
         --primary-dark: #cc5500;
-        --text-on-primary: #fff; /* ĐÃ SỬA: Đổi sang trắng để dễ đọc */
+        --text-on-primary: #fff; 
         --secondary: #FFB800;
         
         /* ACCENT COLORS */
@@ -82,7 +82,7 @@
 
         --shadow-3d: 0 20px 50px -10px rgba(0,0,0,0.7);
         --btn-shadow: 0 6px 0 #b34700, 0 15px 30px rgba(255, 107, 0, 0.3);
-        --text-on-primary: #fff; /* Đảm bảo màu trắng trên nền tối */
+        --text-on-primary: #fff; 
     }
 
     /* --- 2. RESET & BASE --- */
@@ -911,6 +911,14 @@
         width: 32px; height: 32px; border-radius: 10px;
         background: var(--muted-bg); display: flex; align-items: center; justify-content: center;
         color: var(--primary); margin-right: 12px;
+    }
+    
+    /* --- AUTO ACTION PULSE EFFECT --- */
+    .pulse { animation: pulseGlow 1s infinite; }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 rgba(255,107,0,0.6); }
+      70% { box-shadow: 0 0 12px rgba(255,107,0,0.9); }
+      100% { box-shadow: 0 0 0 rgba(255,107,0,0); }
     }
 
     /* --- RESPONSIVE --- */
@@ -1809,6 +1817,81 @@
 
 <!-- JS ENGINE -->
 <script>
+    /* ===== MotoAI Local Smart Upgrade (Lite – Offline) ===== */
+    const MOTO_AI_CTX = {
+      purpose: null,
+      days: null,
+      people: null,
+      asked: {}
+    };
+
+    function motoAI_Action(type) {
+      const callBtn = document.querySelector('.u-phone, .fab-call');
+      const zaloBtn = document.querySelector('.u-zalo, .fab-zalo');
+
+      if (type === "call" && callBtn) {
+        callBtn.classList.add("pulse");
+        callBtn.click();
+      }
+
+      if (type === "zalo" && zaloBtn) {
+        zaloBtn.classList.add("pulse");
+        zaloBtn.click();
+      }
+    }
+
+    function motoAI_Upgrade(userText) {
+      const t = userText.toLowerCase();
+
+      /* --- AUTO ACTION TRIGGER --- */
+      if (/giữ xe|đặt xe|thuê luôn|lấy xe|ok|đồng ý/i.test(t)) {
+          setTimeout(() => motoAI_Action("zalo"), 1000); 
+      }
+      if (/gọi|call|điện thoại/i.test(t)) {
+          setTimeout(() => motoAI_Action("call"), 1000);
+      }
+
+      /* --- HIỂU NGỮ CẢNH --- */
+      if (/du lịch|đi chơi|phượt/.test(t)) MOTO_AI_CTX.purpose = "travel";
+      if (/đi làm|công việc|đi làm hằng ngày/.test(t)) MOTO_AI_CTX.purpose = "work";
+      if (/2 người|hai người/.test(t)) MOTO_AI_CTX.people = 2;
+      if (/\d+\s*(ngày|tháng)/.test(t)) {
+        MOTO_AI_CTX.days = t.match(/\d+\s*(ngày|tháng)/)[0];
+      }
+
+      /* --- HỎI NGƯỢC THÔNG MINH --- */
+      if (!MOTO_AI_CTX.purpose && !MOTO_AI_CTX.asked.purpose) {
+        MOTO_AI_CTX.asked.purpose = true;
+        return "Anh/chị thuê xe để đi làm hay du lịch ạ?";
+      }
+
+      if (!MOTO_AI_CTX.days && !MOTO_AI_CTX.asked.days) {
+        MOTO_AI_CTX.asked.days = true;
+        return "Mình dự định thuê xe trong bao lâu ạ (theo ngày hay tháng)?";
+      }
+
+      /* --- ĐỀ XUẤT XE --- */
+      if (MOTO_AI_CTX.purpose === "travel") {
+        return `MotoAI gợi ý:
+    • Xe ga (Vision / Lead)
+    • Êm, cốp rộng, phù hợp đi chơi
+    • Giá từ 150.000đ/ngày
+
+    Anh/chị muốn em giữ xe hôm nay không ạ?`;
+      }
+
+      if (MOTO_AI_CTX.purpose === "work") {
+        return `MotoAI gợi ý:
+    • Xe số (Wave / Sirius)
+    • Tiết kiệm xăng, dễ đi hằng ngày
+    • Giá từ 120.000đ/ngày
+
+    Anh/chị cần em giữ xe hay gửi địa chỉ nhận xe ạ?`;
+      }
+
+      return "";
+    }
+
     // --- ICONS (SVG) ---
     const ICONS = {
         home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
@@ -1899,6 +1982,14 @@
                 const pRaw = String(prompt || "");
                 const sRaw = String(systemInstruction || "");
                 const text = (pRaw + " " + sRaw).toLowerCase();
+                
+                // --- INTEGRATE SMART AI UPGRADE ---
+                const smartReply = motoAI_Upgrade(text);
+                if (smartReply) {
+                    setTimeout(() => onSuccess(smartReply), 600); // Small delay for realism
+                    return;
+                }
+                // --- END UPGRADE ---
 
                 // Helper: random delay cho giống AI thật
                 const delay = 500 + Math.floor(Math.random() * 700);
