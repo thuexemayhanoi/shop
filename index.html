@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="p:domain_verify" content="5945d3f78c30f86d329c3a73799e2460"/>
-<title>Thuê Xe Máy Hà Nội Uy Tín - Mr Tú | 081.665.9199</title>
-<meta name="description" content="Dịch vụ thuê xe máy Hà Nội uy tín, giao xe tận nơi miễn phí khu Hoàn Kiếm, Phố Cổ. Xe mới 2024–2025, giá chỉ từ 100k/ngày. Hotline: 081.665.9199">
+
+<!-- 1. SEO ULTRA MODE: META TAGS OPTIMIZED -->
+<title>Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú | Giao Xe 15p, Giá Rẻ</title>
+<meta name="description" content="Dịch vụ thuê xe máy Phố Cổ Hà Nội uy tín số 1 Mr Tú. Giao xe tận nơi Hoàn Kiếm, Tây Hồ chỉ 15p. Xe mới 2024, giá từ 100k, cứu hộ 24/7. Đặt xe ngay!">
+<meta name="keywords" content="thuê xe máy phố cổ hà nội, thuê xe máy hoàn kiếm, thuê xe máy hà nội mr tú, cho thuê xe máy hà nội giá rẻ">
+<meta name="author" content="Mr Tú ">
 <meta name="theme-color" content="#000000">
 
 <!-- Canonical URL -->
@@ -99,7 +102,8 @@
         color: var(--text-main);
         overflow-x: hidden;
         transition: background 0.4s var(--ease-apple), color 0.3s;
-        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+        /* Default padding, will be overridden by patch for mobile */
+        padding-bottom: 40px; 
         line-height: 1.5;
     }
 
@@ -113,6 +117,10 @@
     h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); }
     strong { color: var(--primary); font-weight: 700; }
 
+    /* SEO Link Style */
+    a.seo-link { color: var(--primary); text-decoration: underline; text-decoration-color: rgba(255, 107, 0, 0.3); text-underline-offset: 4px; transition: 0.2s; }
+    a.seo-link:hover { text-decoration-color: var(--primary); }
+
     /* --- 3. UI COMPONENTS --- */
     .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     
@@ -124,14 +132,14 @@
         box-shadow: 0 8px 32px rgba(0,0,0,0.05);
     }
     
-    /* FALLBACK FOR LOW-END DEVICES (No Backdrop Filter) */
+    /* FALLBACK FOR LOW-END DEVICES */
     @supports not (backdrop-filter: blur(10px)) {
         .glass-panel {
             background: var(--surface);
             opacity: 0.98;
         }
         [data-theme="dark"] .glass-panel {
-            background: #1c1c1ef2; /* Solid dark color equivalent */
+            background: #1c1c1ef2; 
         }
     }
 
@@ -185,6 +193,7 @@
     .logo-title { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1; display: block; color: var(--text-main); }
     .logo-text span { font-size: 0.75rem; font-weight: 600; color: var(--text-sub); letter-spacing: 1px; display: block; }
 
+    /* STATUS WIDGET RE-STYLED */
     .status-widget {
         display: flex; align-items: center; gap: 8px;
         padding: 6px 14px; border-radius: 20px;
@@ -199,8 +208,12 @@
         transition: 0.3s;
     }
     .status-dot.open { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+    .status-dot.online { background: var(--secondary); box-shadow: 0 0 8px var(--secondary); } 
+    
     .text-open { color: var(--accent-green) !important; }
     .text-closed { color: var(--accent-red) !important; }
+    .text-online { color: var(--secondary) !important; }
+    
     .status-text { font-size: 0.75rem; font-weight: 700; color: var(--text-main); white-space: nowrap; }
 
     .desktop-nav { display: flex; gap: 4px; }
@@ -304,10 +317,9 @@
     .calc-box {
         padding: 32px; border-radius: 36px;
         transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-        box-shadow: var(--shadow-3d); transition: transform 0.1s linear; /* optimized for JS control */
+        box-shadow: var(--shadow-3d); transition: transform 0.1s linear; 
         border-top: 1px solid rgba(255,255,255,0.3);
     }
-    /* Hover effect handled by JS for performance */
     
     .form-group { margin-bottom: 20px; }
     .form-label { font-size: 0.9rem; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; display: block; }
@@ -347,6 +359,264 @@
         content: '✔'; position: absolute; left: 0; color: var(--primary); font-weight: bold;
     }
 
+    /* --- NEW STYLES FOR ADDED SECTIONS --- */
+    
+    /* FAQ ACCORDION STYLES (NEW) */
+    .faq-accordion {
+        display: flex; flex-direction: column; gap: 16px;
+    }
+    .faq-item {
+        background: var(--glass-material);
+        border-radius: 20px;
+        border: 1px solid var(--glass-border);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    .faq-item[open] {
+        border-color: var(--primary);
+        box-shadow: 0 8px 24px rgba(255,107,0,0.1);
+    }
+    .faq-summary {
+        padding: 20px 24px;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--text-main);
+    }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary:hover { color: var(--primary); }
+    
+    .faq-icon-toggle {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        background: var(--muted-bg);
+        display: flex; align-items: center; justify-content: center;
+        transition: 0.3s;
+        color: var(--primary);
+    }
+    .faq-item[open] .faq-icon-toggle { transform: rotate(45deg); background: var(--primary); color: #000; }
+    
+    .faq-content-body {
+        padding: 0 24px 24px 24px;
+        color: var(--text-sub);
+        line-height: 1.6;
+        font-size: 1rem;
+        animation: slideDown 0.3s ease-out;
+    }
+    @keyframes slideDown { from {opacity: 0; transform: translateY(-10px);} to {opacity: 1; transform: translateY(0);} }
+
+    /* NEW SECTION 1: STATS */
+    .stats-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;
+    }
+    .stat-item h3 {
+        font-size: 3.5rem; color: var(--primary); margin: 0; line-height: 1; letter-spacing: -2px;
+        background: linear-gradient(135deg, var(--primary), #FFD60A);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-item p { font-size: 1rem; font-weight: 700; color: var(--text-main); margin-top: 10px; }
+
+    /* NEW SECTION 2: TIMELINE */
+    .process-container {
+        display: flex; justify-content: space-between; position: relative; gap: 20px;
+    }
+    .process-step {
+        flex: 1; text-align: center; position: relative; z-index: 1;
+        padding: 20px; border-radius: 24px; transition: 0.3s;
+    }
+    .process-step:hover { background: var(--glass-material); box-shadow: var(--shadow-3d); }
+    .step-icon {
+        width: 80px; height: 80px; margin: 0 auto 20px;
+        background: var(--muted-bg); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 32px; color: var(--text-main); border: 2px solid var(--glass-border);
+    }
+    .process-step:hover .step-icon { background: var(--primary); color: #000; border-color: var(--primary); }
+    
+    /* NEW SECTION 3: ITINERARY CARDS */
+    .iti-card {
+        padding: 30px; border-radius: 32px; text-align: center;
+        background: var(--glass-material); border: 1px solid var(--glass-border);
+        transition: 0.4s; position: relative; overflow: hidden;
+    }
+    .iti-card::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+        background: var(--primary);
+    }
+    .iti-icon-lg {
+        font-size: 60px; margin-bottom: 20px; display: block;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* -----------------------------------------------------------------
+       AI COMPARISON SECTION STYLES (MODERN UPGRADE)
+       ----------------------------------------------------------------- */
+    .ai-comp-section {
+        overflow: hidden;
+        position: relative;
+    }
+    .ai-comp-container {
+        display: grid;
+        grid-template-columns: 1fr 120px 1fr; /* Default 3 columns */
+        gap: 20px;
+        align-items: center;
+        position: relative;
+    }
+    
+    /* Cards */
+    .ai-card {
+        padding: 30px;
+        border-radius: 24px;
+        position: relative;
+        transition: 0.3s;
+        height: 100%;
+        display: flex; flex-direction: column;
+        justify-content: center;
+    }
+    
+    /* Competitor Card */
+    .ai-card.competitor {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        filter: grayscale(1);
+    }
+    .ai-card.competitor:hover {
+        filter: grayscale(0.5);
+        border-color: var(--accent-red);
+        box-shadow: 0 0 20px rgba(196, 28, 0, 0.2);
+    }
+    .comp-title {
+        font-size: 1.2rem; font-weight: 700; color: var(--text-sub);
+        display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    
+    /* Mr Tu Card */
+    .ai-card.mrtu {
+        background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(0,0,0,0));
+        border: 2px solid var(--primary);
+        box-shadow: 0 0 30px rgba(255,107,0,0.15);
+    }
+    .ai-card.mrtu::before {
+        content: ''; position: absolute; top: -2px; left: 20px; right: 20px; height: 2px;
+        background: var(--primary); box-shadow: 0 0 10px var(--primary);
+    }
+    .mrtu-title {
+        font-size: 1.5rem; font-weight: 800; color: var(--primary);
+        display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+        text-shadow: 0 0 15px rgba(255,107,0,0.4);
+    }
+
+    /* Lists */
+    .ai-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
+    .ai-item {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 10px 0; border-bottom: 1px dashed rgba(255,255,255,0.1);
+        font-size: 0.95rem; font-weight: 600;
+    }
+    .ai-item span:first-child { color: var(--text-sub); }
+    .ai-val { font-family: monospace; font-size: 1.1rem; }
+    
+    .val-bad { color: var(--text-sub); display: flex; align-items: center; gap: 6px; }
+    .val-good { color: var(--accent-green); display: flex; align-items: center; gap: 6px; text-shadow: 0 0 5px rgba(52, 199, 89, 0.4); }
+
+    /* Central Scanner Radar */
+    .ai-radar-box {
+        width: 120px; height: 120px;
+        position: relative;
+        margin: 0 auto;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .radar-circle {
+        position: absolute; width: 100%; height: 100%; border-radius: 50%;
+        border: 1px solid rgba(255,107,0,0.2);
+        background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 70%);
+    }
+    .radar-scan {
+        position: absolute; width: 100%; height: 100%; border-radius: 50%;
+        background: conic-gradient(from 0deg, transparent 0deg, rgba(255,107,0,0.4) 60deg, transparent 61deg);
+        animation: radarSpin 2s linear infinite;
+    }
+    .radar-icon { font-size: 32px; color: var(--primary); z-index: 2; }
+    
+    @keyframes radarSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Score Badge */
+    .ai-score-badge {
+        position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+        background: #000; padding: 4px 12px; border-radius: 20px;
+        border: 1px solid var(--primary); color: var(--primary);
+        font-family: monospace; font-weight: bold; font-size: 0.8rem;
+        white-space: nowrap; z-index: 5;
+    }
+
+    /* Glitch Effect Text */
+    .glitch-text { animation: glitch 3s infinite; }
+    @keyframes glitch {
+        0% { opacity: 1; transform: translateX(0); }
+        98% { opacity: 1; transform: translateX(0); }
+        99% { opacity: 0.8; transform: translateX(2px); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Responsive AI Section */
+    @media (max-width: 900px) {
+        .ai-comp-container { grid-template-columns: 1fr; gap: 40px; }
+        .ai-radar-box { transform: rotate(90deg); margin: -20px auto; z-index: 2; width: 80px; height: 80px; }
+        .radar-icon { transform: rotate(-90deg); font-size: 24px; }
+        .ai-card { padding: 24px; }
+    }
+
+
+    /* NEW SECTION 5: AI ULTRA CONTACT FORM */
+    .ai-contact-wrapper {
+        position: relative;
+        background: #000;
+        border-radius: 32px;
+        overflow: hidden;
+        border: 1px solid #333;
+    }
+    .ai-scan-line {
+        position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+        background: var(--primary);
+        box-shadow: 0 0 10px var(--primary);
+        animation: scan 3s linear infinite;
+        z-index: 10;
+        opacity: 0.5;
+    }
+    @keyframes scan { 0% {top:0} 100% {top:100%} }
+
+    .ai-contact-grid {
+        display: grid; grid-template-columns: 1fr 1.5fr;
+    }
+    .ai-info-panel {
+        background: linear-gradient(180deg, rgba(255,107,0,0.1), transparent);
+        padding: 40px;
+        display: flex; flex-direction: column; justify-content: center;
+        border-right: 1px solid #333;
+    }
+    .ai-form-panel { padding: 40px; background: rgba(20,20,20,0.95); }
+    
+    .cyber-title {
+        font-family: monospace; font-size: 1.5rem; color: var(--primary);
+        margin-bottom: 10px; display: block;
+    }
+    .cyber-text { color: #888; font-family: monospace; margin-bottom: 20px; }
+    
+    .ai-input-group { position: relative; margin-bottom: 20px; }
+    .ai-input-field {
+        width: 100%; background: #0a0a0a; border: 1px solid #333;
+        color: var(--primary); font-family: monospace; padding: 15px;
+        border-radius: 8px; transition: 0.3s;
+    }
+    .ai-input-field:focus {
+        border-color: var(--primary); box-shadow: 0 0 15px rgba(255,107,0,0.2);
+    }
+    
     /* --- 7. FOOTER --- */
     .footer { margin-top: 40px; }
     .footer-box { padding: 70px 50px; border-radius: 48px; position: relative; overflow: hidden; }
@@ -376,6 +646,33 @@
         transition: 0.3s; flex-shrink: 0;
     }
     .f-link:hover .f-svg-box { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }
+
+    /* FOOTER OPTIMIZATION (NEW) */
+    .footer-contact-info {
+        text-align: center; color: var(--text-sub); font-size: 0.95rem;
+        display: flex; flex-direction: column; gap: 8px; align-items: center;
+        margin-bottom: 16px;
+    }
+    .fc-item { margin: 0; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .fc-row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    
+    @media (max-width: 768px) {
+        .fc-row { flex-direction: column; gap: 8px; }
+    }
+
+    /* Social Icons Styles */
+    .social-btn {
+        width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        background: var(--muted-bg); color: var(--text-main); border: 1px solid var(--glass-border);
+        font-size: 16px; transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .social-btn:hover { transform: translateY(-5px); color: #fff; border-color: transparent; }
+    
+    .social-fb:hover { background: #1877F2; }
+    .social-ins:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .social-pin:hover { background: #BD081C; }
+    .social-me:hover { background: #00A98F; }
+    .social-tik:hover { background: #000000; }
 
     /* --- 8. ULTRA APP MINI (FLOATING ACTION BUTTON) --- */
     .ultra-fab-wrapper {
@@ -616,16 +913,103 @@
         .menu-toggle { display: flex !important; }
         .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         .status-widget { display: none; }
+        
+        /* New Sections Responsive */
+        .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        .process-container { flex-direction: column; gap: 30px; }
+        .process-step::after { display: none; } /* Hide connectors on mobile */
+        
+        /* AI Form Mobile */
+        .ai-contact-grid { grid-template-columns: 1fr; }
+        .ai-info-panel { border-right: none; border-bottom: 1px solid #333; }
     }
     @media (max-width: 768px) {
         .status-widget { display: none; }
         .hero { padding-top: 100px; padding-bottom: 40px; }
-        .mini-apps { grid-template-columns: repeat(3, 1fr); gap: 12px; } /* Adjust grid for mobile */
+        .mini-apps { grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .app-icon { width: 60px; height: 60px; font-size: 22px; }
         .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         .footer-box { padding: 50px 30px; }
         .section { padding: 60px 0; }
         .feature-grid { gap: 24px; }
+        
+        /* Specific adjustments */
+        .stat-item h3 { font-size: 2.8rem; }
+        .stats-grid { gap: 30px; }
+    }
+
+    /* ==========================================================================
+       FIX: Floating button overlap on mobile Safari
+       Name: Mobile Viewport & FAB Patch
+       Target: iPhone (SafeArea), Mobile Devices < 768px
+       ========================================================================== */
+    @media (max-width: 768px) {
+        
+        /* 1. TẠO KHOẢNG TRỐNG CUỘT TRANG (SCROLL SPACE)
+           Thêm padding cực lớn dưới đáy body để người dùng có thể cuộn nội dung 
+           lên cao khỏi khu vực bị FAB che khuất.
+           Sử dụng env(safe-area-inset-bottom) cho các dòng iPhone X trở lên.
+        */
+        body {
+            padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+        }
+
+        /* 2. ĐIỀU CHỈNH VỊ TRÍ FAB VÀ KÍCH THƯỚC TRÊN MOBILE
+           Giữ nguyên vị trí fixed nhưng đẩy lên trên vùng an toàn (Home Indicator).
+        */
+        .ultra-fab-wrapper {
+            left: 20px; /* Giữ nguyên bên trái như thiết kế gốc */
+            /* Cách đáy màn hình một khoảng an toàn + 20px */
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            /* Reset width để căn giữa các phần tử con dễ hơn */
+            width: 50px;
+            align-items: center;
+        }
+
+        /* 3. GIẢM KÍCH THƯỚC NÚT CHÍNH (MAIN BUTTON)
+           Giảm từ 60px -> 50px để bớt chiếm diện tích màn hình nhỏ.
+        */
+        .ultra-main-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 22px; /* Giảm size icon */
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3); /* Giảm độ đổ bóng */
+        }
+
+        /* 4. ĐIỀU CHỈNH DANH SÁCH NÚT CON (SUB ACTIONS)
+           Căn chỉnh lại vị trí để khớp với nút chính mới thu nhỏ.
+        */
+        .ultra-actions {
+            bottom: 60px; /* Khoảng cách với nút chính mới */
+            width: 100%;  /* Full width của wrapper cha (50px) */
+            align-items: center;
+            gap: 10px;    /* Khoảng cách giữa các nút con */
+        }
+
+        /* 5. GIẢM KÍCH THƯỚC NÚT CON
+           Giảm từ 50px -> 42px
+        */
+        .ultra-sub-btn {
+            width: 42px;
+            height: 42px;
+            font-size: 18px;
+            margin: 0 auto; /* Căn giữa tuyệt đối */
+        }
+
+        /* 6. ẨN TOOLTIP TRÊN MOBILE
+           Trên điện thoại chạm là mở, tooltip bay ra sẽ che mất nội dung khác
+           và gây rối mắt.
+        */
+        .ultra-sub-btn::after {
+            display: none !important;
+        }
+
+        /* 7. FIX CHO FOOTER
+           Đảm bảo footer box có khoảng thở bên trong
+        */
+        .footer-box {
+            padding-bottom: 30px;
+        }
     }
 </style>
 </head>
@@ -684,12 +1068,14 @@
                         <span class="material-symbols-rounded" style="font-size:16px;">verified</span>
                         Thuê xe máy Hà Nội – Hoàn Kiếm
                     </div>
+                    <!-- 3. OPTIMIZED H1 -->
                     <h1 class="hero-title">
                         Thuê Xe Máy Hà Nội<br>
                         <span class="text-highlight">Hoàn Kiếm & Phố Cổ</span>
                     </h1>
+                    
                     <p>
-                        Dịch vụ cho thuê xe máy Hà Nội chuẩn du lịch & công tác. Giao xe tận nơi trong 15–20 phút tại khu Phố Cổ, Hoàn Kiếm, Hồ Tây. Xe đời mới, hỗ trợ 24/7.
+                        Dịch vụ cho thuê xe máy Hà Nội chuẩn du lịch & công tác. Giao xe tận nơi trong 15–20 phút tại khu <a href="phoco.html" class="seo-link">Phố Cổ</a>, Hoàn Kiếm, Hồ Tây. <strong>Xe đời mới, hỗ trợ kỹ thuật & cứu hộ 24/7.</strong>
                     </p>
 
                     <!-- 3D Mini Apps -->
@@ -738,9 +1124,9 @@
                     <div class="form-group">
                         <label class="form-label" for="c-type">Loại xe</label>
                         <select class="form-input" id="c-type">
-                            <option value="150000">Xe số (Wave/Sirius) - 150k</option>
-                            <option value="200000">Xe ga (Vision/Airblade) - 200k</option>
-                            <option value="350000">Xe côn/PKL - 350k</option>
+                            <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
+                            <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
+                            <option value="350000">Xe côn/PKL - 350.000</option>
                         </select>
                     </div>
 
@@ -775,7 +1161,7 @@
 
     <!-- BODY CONTENT -->
     <div id="body-content">
-        <!-- SECTION 1: GIỚI THIỆU -->
+        <!-- SECTION 1: GIỚI THIỆU (ADDED 4TH CARD) -->
         <section class="section">
             <div class="container">
                 <div class="content-block fade-in-up">
@@ -784,7 +1170,7 @@
                         <h2>Mr Tú - Đơn Vị Cho Thuê Xe Máy Hàng Đầu Hà Nội</h2>
                     </div>
                     <p>
-                        Chào mừng bạn đến với <strong>Mr Tú</strong>, dịch vụ <em>cho thuê xe máy Hà Nội</em> uy tín và chuyên nghiệp. Với hơn 10 năm kinh nghiệm phục vụ hàng ngàn lượt khách du lịch trong nước và quốc tế, chúng tôi tự hào mang đến những trải nghiệm di chuyển tuyệt vời nhất trên những cung đường Thủ đô.
+                        Chào mừng bạn đến với <strong>Mr Tú</strong>, dịch vụ <a href="ngay.html" class="seo-link">cho thuê xe máy Hà Nội</a> uy tín và chuyên nghiệp. Với hơn 10 năm kinh nghiệm phục vụ hàng ngàn lượt khách du lịch trong nước và quốc tế, chúng tôi tự hào mang đến những trải nghiệm di chuyển tuyệt vời nhất trên những cung đường Thủ đô.
                     </p>
                     <div class="feature-grid" style="margin-top: 40px;">
                         <div class="feature-card glass-panel">
@@ -792,32 +1178,41 @@
                             <h3>An Toàn Tuyệt Đối</h3>
                             <p>100% xe được bảo dưỡng định kỳ tại hãng. Mũ bảo hiểm sạch, đủ 2 cái, tặng kèm áo mưa.</p>
                         </div>
-                        <div class="feature-card glass-panel">
+                        
+                        <!-- 4. LOGIC FIX HERE: UPDATED TEXT TO RESOLVE CONFLICT -->
+                        <div class="feature-card glass-panel" id="delivery">
                             <div class="f-icon"><span class="material-symbols-rounded">rocket_launch</span></div>
                             <h3>Giao Xe Siêu Tốc</h3>
-                            <p>15–20 phút nhận xe tại Hoàn Kiếm, Phố Cổ, Tây Hồ. Đội ngũ giao xe hoạt động 24/7.</p>
+                            <p>15–20 phút nhận xe tại Hoàn Kiếm, Phố Cổ, Tây Hồ. Giao xe linh hoạt theo lịch hẹn – hỗ trợ kỹ thuật & cứu hộ 24/7.</p>
                         </div>
+                        
                         <div class="feature-card glass-panel">
                             <div class="f-icon"><span class="material-symbols-rounded">savings</span></div>
                             <h3>Giá Rẻ Minh Bạch</h3>
                             <p>Giá thuê xe máy Hà Nội cạnh tranh, niêm yết công khai, không phát sinh phí ẩn.</p>
+                        </div>
+                        <!-- NEW CARD ADDED -->
+                        <div class="feature-card glass-panel">
+                            <div class="f-icon"><span class="material-symbols-rounded">assignment_turned_in</span></div>
+                            <h3>Thủ Tục Đơn Giản</h3>
+                            <p>Chỉ cần CCCD hoặc hộ chiếu. Không giữ giấy tờ gốc, linh hoạt cho khách du lịch.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: DÀN XE -->
+        <!-- SECTION 2: DÀN XE (FIXED TITLE & PRICES) -->
         <section class="section section-bg">
             <div class="container">
-                <h2 class="fade-in-up" style="text-align:center;">Dàn Xe Đời Mới 2024-2025</h2>
+                <h2 class="fade-in-up" style="text-align:center;">Các loại xe máy cho thuê phố cổ Hà Nội</h2>
                 <div class="feature-grid">
                     <!-- XE 1 -->
                     <div class="feature-card glass-panel fade-in-up">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0618.jpeg" alt="Thuê xe Vision Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Vision</h3>
                         <p>Dòng xe ga quốc dân, nhỏ gọn, cốp rộng, tiết kiệm xăng. Phù hợp cho bạn nữ và đi phố.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                     
@@ -826,7 +1221,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0615.jpeg" alt="Thuê xe Airblade 160 Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Airblade</h3>
                         <p>Động cơ mạnh mẽ, kiểu dáng thể thao. Hợp đi đường dài, Ninh Bình, Sa Pa, Hà Giang.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                     
@@ -835,16 +1230,16 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0616.jpeg" alt="Thuê xe Wave Alpha Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Wave Alpha / RSX</h3>
                         <p>Nồi đồng cối đá, bền bỉ, siêu tiết kiệm nhiên liệu. Lựa chọn kinh tế nhất cho phượt thủ và sinh viên.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 150k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 150.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
 
-                     <!-- XE 4 (50cc) -->
-                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 300ms;">
+                      <!-- XE 4 (50cc) -->
+                      <div class="feature-card glass-panel fade-in-up" style="transition-delay: 300ms;">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0614.jpeg" alt="Thuê xe máy 50cc Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe máy 50cc</h3>
                         <p>Không cần bằng lái, thiết kế nhỏ gọn, dễ điều khiển. Sự lựa chọn hoàn hảo cho học sinh, sinh viên.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
 
@@ -853,7 +1248,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0617.jpeg" alt="Thuê xe máy điện Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe Điện</h3>
                         <p>Vận hành êm ái, thân thiện với môi trường, chi phí thấp. Phù hợp cho các chuyến đi ngắn trong nội thành.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 180k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 180.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                 </div>
@@ -864,39 +1259,46 @@
         <section class="section">
             <div class="container">
                 <div class="glass-panel fade-in-up" style="padding: 40px; border-radius: 32px;">
-                    <h2 style="text-align: center; margin-bottom: 30px;">Bảng Giá Thuê Xe Máy Hà Nội 2025</h2>
+                    <h2 style="text-align: center; margin-bottom: 30px;">Bảng Giá <a href="banggia.html" class="seo-link">Thuê Xe Máy Hà Nội</a></h2>
                     <div style="overflow-x: auto;">
                         <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
                             <thead>
                                 <tr style="background: rgba(255,107,0,0.1); color: var(--primary);">
                                     <th scope="col" style="padding: 16px; text-align: left; border-radius: 12px 0 0 12px;">Loại Xe</th>
                                     <th scope="col" style="padding: 16px; text-align: left;">1 Ngày</th>
-                                    <th scope="col" style="padding: 16px; text-align: left;">3-5 Ngày</th>
-                                    <th scope="col" style="padding: 16px; text-align: left;">Tuần</th>
-                                    <th scope="col" style="padding: 16px; text-align: left; border-radius: 0 12px 12px 0;">Tháng</th>
+                                    <th scope="col" style="padding: 16px; text-align: left;">1 Tuần</th>
+                                    <th scope="col" style="padding: 16px; text-align: left;">1 Tháng</th>
+                                    <th scope="col" style="padding: 16px; text-align: left; border-radius: 0 12px 12px 0;">Đặt Cọc</th>
                                 </tr>
                             </thead>
                             <tbody style="font-weight: 500;">
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
-                                    <td style="padding: 16px;">Xe Số (Wave, Sirius)</td>
-                                    <td style="padding: 16px;">120.000đ</td>
-                                    <td style="padding: 16px;">100.000đ</td>
-                                    <td style="padding: 16px;">600.000đ</td>
-                                    <td style="padding: 16px;">1.500.000đ</td>
+                                    <td style="padding: 16px;">Xe số Honda Wave</td>
+                                    <td style="padding: 16px;">150k</td>
+                                    <td style="padding: 16px;">600k-700k</td>
+                                    <td style="padding: 16px;">1.200k</td>
+                                    <td style="padding: 16px;">2-3 triệu</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
-                                    <td style="padding: 16px;">Xe Ga Thường (Vision, Lead)</td>
-                                    <td style="padding: 16px;">150.000đ</td>
-                                    <td style="padding: 16px;">130.000đ</td>
-                                    <td style="padding: 16px;">800.000đ</td>
-                                    <td style="padding: 16px;">2.500.000đ</td>
+                                    <td style="padding: 16px;">Xe ga Honda Vision</td>
+                                    <td style="padding: 16px;">200k</td>
+                                    <td style="padding: 16px;">800k-1.000k</td>
+                                    <td style="padding: 16px;">1.800k-2.000k</td>
+                                    <td style="padding: 16px;">4-5 triệu</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
-                                    <td style="padding: 16px;">Xe Ga Cao Cấp (SH, AB 160)</td>
-                                    <td style="padding: 16px;">250.000đ</td>
-                                    <td style="padding: 16px;">220.000đ</td>
-                                    <td style="padding: 16px;">1.400.000đ</td>
-                                    <td style="padding: 16px;">3.500.000đ</td>
+                                    <td style="padding: 16px;">Xe ga Air Blade</td>
+                                    <td style="padding: 16px;">200k</td>
+                                    <td style="padding: 16px;">800k</td>
+                                    <td style="padding: 16px;">1.400k</td>
+                                    <td style="padding: 16px;">3 triệu</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--glass-border);">
+                                    <td style="padding: 16px;">Xe ga giá rẻ (Click/Mio)</td>
+                                    <td style="padding: 16px;">150k</td>
+                                    <td style="padding: 16px;">600k-700k</td>
+                                    <td style="padding: 16px;">1.000k-1.200k</td>
+                                    <td style="padding: 16px;">2 triệu</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -912,7 +1314,7 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;">
                     <div class="glass-panel fade-in-up" style="padding: 24px; border-radius: 20px; text-align: center;">
                         <i class="fa-solid fa-hotel" style="font-size: 40px; color: var(--primary); margin-bottom: 16px;"></i>
-                        <h3>Phố Cổ & Hoàn Kiếm</h3>
+                        <h3><a href="hoankiem.html" class="seo-link">Phố Cổ & Hoàn Kiếm</a></h3>
                         <p style="font-size: 0.9rem;">Giao miễn phí tận sảnh khách sạn trong 15 phút. Khu vực Mã Mây, Hàng Bạc, Tạ Hiện...</p>
                     </div>
                     <div class="glass-panel fade-in-up" style="padding: 24px; border-radius: 20px; text-align: center; transition-delay: 100ms;">
@@ -934,7 +1336,7 @@
             </div>
         </section>
 
-        <!-- SECTION 7: CAM KẾT -->
+        <!-- SECTION 7: CAM KẾT (ADDED 2 MORE ITEMS) -->
         <section class="section">
             <div class="container">
                 <div class="hero-grid">
@@ -942,6 +1344,7 @@
                         <h2>Cam Kết <span class="text-highlight">Vàng</span></h2>
                         <p>Tại Mr Tú, chúng tôi không chỉ cho thuê xe, chúng tôi bán sự an tâm.</p>
                         <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 30px;">
+                            <!-- Cam kết 1 -->
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">1</div>
                                 <div>
@@ -949,11 +1352,28 @@
                                     <p style="margin: 0; font-size: 0.95rem;">Xe hỏng, thủng săm? Đội hỗ trợ luôn sẵn sàng, đổi xe khác hoặc xử lý tại chỗ.</p>
                                 </div>
                             </div>
+                            <!-- Cam kết 2 -->
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">2</div>
                                 <div>
                                     <h4 style="margin: 0 0 8px 0; font-size: 1.1rem;">Hoàn tiền nếu không hài lòng</h4>
                                     <p style="margin: 0; font-size: 0.95rem;">Xe không đúng cam kết, chạy yếu, quá cũ? Hoàn lại 100% tiền thuê cho khách.</p>
+                                </div>
+                            </div>
+                            <!-- Cam kết 3 (NEW) -->
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">3</div>
+                                <div>
+                                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem;">Không giữ giấy tờ gốc</h4>
+                                    <p style="margin: 0; font-size: 0.95rem;">Hỗ trợ khách du lịch chụp ảnh giấy tờ, đặt cọc nhỏ, không lo thất lạc giấy tờ tùy thân.</p>
+                                </div>
+                            </div>
+                            <!-- Cam kết 4 (NEW) -->
+                             <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">4</div>
+                                <div>
+                                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem;">Đổ xăng & Mũ BH free</h4>
+                                    <p style="margin: 0; font-size: 0.95rem;">Giao xe luôn có sẵn xăng để đi ngay. Trang bị 2 mũ bảo hiểm sạch sẽ và áo mưa đi kèm.</p>
                                 </div>
                             </div>
                         </div>
@@ -965,18 +1385,66 @@
             </div>
         </section>
 
-        <!-- SECTION 10: FAQ -->
+        <!-- SECTION 10: FAQ (OPTIMIZED ACCORDION - 5 QUESTIONS) -->
         <section class="section section-bg">
             <div class="container">
                 <h2 style="text-align: center; margin-bottom: 40px;" class="fade-in-up">Câu Hỏi Thường Gặp (FAQ)</h2>
-                <div class="content-block">
-                    <div class="glass-panel fade-in-up" style="margin-bottom: 16px; padding: 24px; border-radius: 20px; cursor: pointer;">
-                        <h4 style="margin: 0 0 10px 0; color: var(--primary);">Tôi có cần bằng lái xe để thuê không?</h4>
-                        <p style="margin: 0; font-size: 0.95rem;">Bạn cần có GPLX hạng A1/A2. Với khách nước ngoài, nên có GPLX quốc tế (IDP).</p>
-                    </div>
-                    <div class="glass-panel fade-in-up" style="margin-bottom: 16px; padding: 24px; border-radius: 20px; cursor: pointer;">
-                        <h4 style="margin: 0 0 10px 0; color: var(--primary);">Xe bị hỏng giữa đường thì sao?</h4>
-                        <p style="margin: 0; font-size: 0.95rem;">Gọi hotline kỹ thuật. Lỗi do xe, chúng tôi chịu phí. Lỗi do khách, khách chịu phí thực tế.</p>
+                <div class="content-block fade-in-up">
+                    <div class="faq-accordion">
+                        <!-- Q1 -->
+                        <details class="faq-item">
+                            <summary class="faq-summary">
+                                Tôi có cần bằng lái xe để thuê không?
+                                <div class="faq-icon-toggle"><i class="fa-solid fa-plus"></i></div>
+                            </summary>
+                            <div class="faq-content-body">
+                                Bạn cần có GPLX hạng A1/A2 hợp lệ. Với khách nước ngoài, chúng tôi khuyến khích sử dụng Giấy phép lái xe quốc tế (IDP) để đảm bảo tuân thủ luật giao thông Việt Nam.
+                            </div>
+                        </details>
+
+                        <!-- Q2 -->
+                        <details class="faq-item">
+                            <summary class="faq-summary">
+                                Xe bị hỏng giữa đường thì xử lý sao?
+                                <div class="faq-icon-toggle"><i class="fa-solid fa-plus"></i></div>
+                            </summary>
+                            <div class="faq-content-body">
+                                Hãy gọi ngay hotline kỹ thuật của Mr Tú. Nếu lỗi do xe (máy móc, hao mòn), chúng tôi chịu 100% phí hoặc đổi xe khác. Nếu lỗi do khách (thủng săm, va quệt), khách hàng chịu chi phí thực tế.
+                            </div>
+                        </details>
+
+                        <!-- Q3 -->
+                        <details class="faq-item">
+                            <summary class="faq-summary">
+                                Thủ tục đặt cọc như thế nào?
+                                <div class="faq-icon-toggle"><i class="fa-solid fa-plus"></i></div>
+                            </summary>
+                            <div class="faq-content-body">
+                                Mr Tú hỗ trợ linh hoạt: Bạn có thể xem thêm tại trang <a href="thutuc.html" class="seo-link">Thủ tục thuê xe</a>, thường chỉ cần để lại CCCD/Hộ chiếu hoặc đặt cọc 1-2 triệu đồng.
+                            </div>
+                        </details>
+
+                        <!-- Q4 -->
+                        <details class="faq-item">
+                            <summary class="faq-summary">
+                                Gặp cảnh sát giao thông thì làm thế nào?
+                                <div class="faq-icon-toggle"><i class="fa-solid fa-plus"></i></div>
+                            </summary>
+                            <div class="faq-content-body">
+                                Tất cả xe của Mr Tú đều có đầy đủ giấy tờ (Đăng ký xe, Bảo hiểm). Chúng tôi sẽ cung cấp bản photo công chứng hoặc bản gốc để bạn xuất trình. Hãy tuân thủ luật giao thông (đội mũ, đúng làn) để chuyến đi an toàn nhé!
+                            </div>
+                        </details>
+
+                        <!-- Q5 -->
+                        <details class="faq-item">
+                            <summary class="faq-summary">
+                                Tôi có thể thuê xe đi một chiều (One-way) không?
+                                <div class="faq-icon-toggle"><i class="fa-solid fa-plus"></i></div>
+                            </summary>
+                            <div class="faq-content-body">
+                                Hiện tại Mr Tú chủ yếu phục vụ giao nhận tại Hà Nội. Tuy nhiên, với các đoàn lớn đi xuyên Việt hoặc các cung đường cụ thể, hãy <a href="lienhe.html" class="seo-link">liên hệ trực tiếp</a> Zalo để chúng tôi sắp xếp phương án hỗ trợ tốt nhất.
+                            </div>
+                        </details>
                     </div>
                 </div>
                 
@@ -986,6 +1454,222 @@
                 </div>
             </div>
         </section>
+        
+        <!-- NEW SECTION 1: QUY TRÌNH THUÊ XE -->
+        <section class="section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 50px;" class="fade-in-up">Quy Trình Thuê Xe 3 Bước</h2>
+                <div class="process-container fade-in-up">
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                        <h3>1. Đặt Xe</h3>
+                        <p>Liên hệ Hotline/Zalo để chốt loại xe và địa điểm giao nhận.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fa-solid fa-motorcycle"></i></div>
+                        <h3>2. Nhận Xe</h3>
+                        <p>Kiểm tra xe, ký hợp đồng và nhận xe tận nơi chỉ sau 15 phút.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fa-solid fa-road"></i></div>
+                        <h3>3. Vi Vu</h3>
+                        <p>Tận hưởng chuyến đi. Hỗ trợ sự cố 24/7 trên mọi cung đường.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION 2: CON SỐ ẤN TƯỢNG -->
+        <section class="section section-bg">
+            <div class="container">
+                <div class="stats-grid fade-in-up">
+                    <div class="stat-item">
+                        <h3>10+</h3>
+                        <p>Năm Kinh Nghiệm</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>5.000+</h3>
+                        <p>Khách Hàng Hài Lòng</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>300+</h3>
+                        <p>Đầu Xe Đời Mới</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Hỗ Trợ Kỹ Thuật</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION 3: GỢI Ý LỊCH TRÌNH (FIXED INNER CITY LOCATIONS) -->
+        <section class="section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 40px;" class="fade-in-up">Gợi Ý Lịch Trình Vi Vu</h2>
+                <div class="feature-grid">
+                    <div class="iti-card fade-in-up">
+                        <span class="material-symbols-rounded iti-icon-lg">coffee</span>
+                        <h3>Phố Cổ Đi Bộ</h3>
+                        <p>Khám phá 36 phố phường, ẩm thực đường phố, chợ đêm Đồng Xuân.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Vision, Wave</strong></p>
+                    </div>
+                    
+                    <div class="iti-card fade-in-up" style="transition-delay: 100ms;">
+                        <div style="font-size: 60px; margin-bottom: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            <i class="fa-solid fa-monument"></i>
+                        </div>
+                        <h3>Ba Đình Lịch Sử</h3>
+                        <p>Viếng Lăng Bác, tham quan Chùa Một Cột và Hoàng Thành Thăng Long.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Vision, Airblade</strong></p>
+                    </div>
+                    <div class="iti-card fade-in-up" style="transition-delay: 200ms;">
+                        <span class="material-symbols-rounded iti-icon-lg">landscape</span>
+                        <h3>Tây Hồ Lộng Gió</h3>
+                        <p>Dạo quanh Hồ Tây, Phủ Tây Hồ, thung lũng hoa và cafe view hồ cực chill.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Xe ga, Airblade</strong></p>
+                    </div>
+                   
+                    <div class="iti-card fade-in-up" style="transition-delay: 300ms;">
+                        <div style="font-size: 60px; margin-bottom: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                             <i class="fa-solid fa-place-of-worship"></i>
+                        </div>
+                        <h3>Hoàn Kiếm</h3>
+                        <p>Dạo hồ Gươm, Nhà Thờ Lớn, Nhà Hát Lớn và kem Tràng Tiền.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Xe điện, 50cc</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- UPGRADED SECTION 4: AI SYSTEM COMPARISON DASHBOARD        -->
+        <!-- ========================================================== -->
+        <section class="section section-bg ai-comp-section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 50px;" class="fade-in-up">
+                    AI SYSTEM <span class="text-highlight">COMPARISON</span>
+                </h2>
+                
+                <div class="ai-comp-container fade-in-up">
+                    
+                    <!-- LEFT CARD: COMPETITOR -->
+                    <div class="ai-card competitor">
+                        <div class="comp-title">
+                            <span class="material-symbols-rounded">warning</span>
+                            <span class="glitch-text">MARKET STANDARD</span>
+                        </div>
+                        <ul class="ai-list">
+                            <li class="ai-item">
+                                <span>Tốc độ giao</span>
+                                <span class="ai-val val-bad">45-60p <i class="fa-solid fa-circle-exclamation"></i></span>
+                            </li>
+                            <li class="ai-item">
+                                <span>Chất lượng xe</span>
+                                <span class="ai-val val-bad">Ngẫu nhiên</span>
+                            </li>
+                            <li class="ai-item">
+                                <span>Vệ sinh mũ</span>
+                                <span class="ai-val val-bad">Không rõ</span>
+                            </li>
+                            <li class="ai-item">
+                                <span>Hỗ trợ</span>
+                                <span class="ai-val val-bad">Giờ HC</span>
+                            </li>
+                        </ul>
+                        <!-- Simulated Score -->
+                        <div class="ai-score-badge" style="border-color:#555; color:#777;">SCORE: <span id="score-comp">0</span>%</div>
+                    </div>
+
+                    <!-- CENTER: RADAR SCANNER -->
+                    <div class="ai-radar-box">
+                        <div class="radar-circle"></div>
+                        <div class="radar-scan"></div>
+                        <i class="fa-solid fa-fingerprint radar-icon"></i>
+                    </div>
+
+                    <!-- RIGHT CARD: MR TU -->
+                    <div class="ai-card mrtu">
+                        <div class="mrtu-title">
+                            <span class="material-symbols-rounded">verified</span>
+                            <span>MR TU ULTRA</span>
+                        </div>
+                        <ul class="ai-list">
+                            <li class="ai-item">
+                                <span>Tốc độ giao</span>
+                                <span class="ai-val val-good">15 Mins <i class="fa-solid fa-bolt"></i></span>
+                            </li>
+                            <li class="ai-item">
+                                <span>Chất lượng xe</span>
+                                <span class="ai-val val-good">Bảo dưỡng hãng</span>
+                            </li>
+                            <li class="ai-item">
+                                <span>Vệ sinh mũ</span>
+                                <span class="ai-val val-good">Sạch thơm <i class="fa-solid fa-sparkles"></i></span>
+                            </li>
+                            <li class="ai-item">
+                                <span>Hỗ trợ</span>
+                                <span class="ai-val val-good">24/7 AI+Human</span>
+                            </li>
+                        </ul>
+                        <!-- Simulated Score -->
+                        <div class="ai-score-badge">MATCH: <span id="score-mrtu">0</span>%</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: AI ULTRA MODERN CONTACT FORM (NO API NEEDED) -->
+        <section class="section" id="contact-section">
+            <div class="container fade-in-up">
+                <div class="ai-contact-wrapper">
+                    <div class="ai-scan-line"></div>
+                    <div class="ai-contact-grid">
+                        <!-- Info Panel -->
+                        <div class="ai-info-panel">
+                            <span class="cyber-title">SYSTEM: ONLINE</span>
+                            <span class="cyber-text">>> CONNECTING TO MR TU HQ...</span>
+                            <h2 style="color:white; margin: 20px 0;">LIÊN HỆ AI ULTRA</h2>
+                            <p style="color:#aaa;">Hệ thống hỗ trợ đặt xe tự động. Phản hồi siêu tốc qua Zalo/Hotline.</p>
+                            
+                            <div style="margin-top:30px;">
+                                <div class="c-detail" style="color:#fff; margin-bottom:15px;">
+                                    <i class="fa-solid fa-envelope" style="color:var(--primary)"></i>
+                                    <span>nguyentuantu2482@gmail.com</span>
+                                </div>
+                                <div class="c-detail" style="color:#fff;">
+                                    <i class="fa-solid fa-phone" style="color:var(--primary)"></i>
+                                    <span>081.665.9199</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Panel -->
+                        <div class="ai-form-panel">
+                            <div class="ai-input-group">
+                                <label class="form-label" style="color:var(--primary)">// NHẬP TÊN:</label>
+                                <input type="text" id="contact-name" class="ai-input-field" placeholder="_YOUR_NAME">
+                            </div>
+                            <div class="ai-input-group">
+                                <label class="form-label" style="color:var(--primary)">// SỐ ĐIỆN THOẠI:</label>
+                                <input type="tel" id="contact-phone" class="ai-input-field" placeholder="+84...">
+                            </div>
+                            <div class="ai-input-group">
+                                <label class="form-label" style="color:var(--primary)">// YÊU CẦU:</label>
+                                <textarea id="contact-msg" class="ai-input-field" rows="3" placeholder="Loại xe, ngày nhận, địa điểm..."></textarea>
+                            </div>
+                            
+                            <button class="btn-3d" style="width:100%; border-radius:8px; letter-spacing:2px;" onclick="sendEmail()">
+                                <i class="fa-solid fa-paper-plane"></i> GỬI DỮ LIỆU
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
 </main>
@@ -999,11 +1683,21 @@
             
             <div class="copyright" style="margin-top: 50px;">
                 <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
-                <p style="text-align:center; color:var(--text-sub); font-size:0.9rem; line-height:1.5;">
-                    <strong>© 2025 Mr Tú Motorbike Rental.</strong><br>
-                    Địa chỉ: 116 Cầu Gỗ, Hoàn Kiếm, Hà Nội.<br>
-                    Hotline: 081.665.9199 - Email: contact@nguyentubike.com<br>
-                    All rights reserved.
+                
+                <!-- FIX: Optimized Contact Info Wrapper & Tách rõ giờ làm việc vs Hotline -->
+                <div class="footer-contact-info">
+                     <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội, Việt Nam</p>
+                     <div class="fc-row">
+                         <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:0816659199">081.665.9199</a></p>
+                         <p class="fc-item"><i class="fa-solid fa-envelope"></i> nguyentuantu2482@gmail.com</p>
+                     </div>
+                     <!-- New Logic Display -->
+                     <p class="fc-item" style="color:var(--primary);"><i class="fa-solid fa-headset"></i> Hotline & Kỹ thuật: 24/7</p>
+                     <p class="fc-item"><i class="fa-regular fa-clock"></i> Cửa hàng: 08:00 – 17:00</p>
+                </div>
+
+                <p style="text-align:center; color:var(--text-sub); font-size:0.8rem; margin-top:20px; opacity:0.6;">
+                    <a href="https://motoopen.github.io/thuexemayohoankiem/" target="_blank" rel="noopener">Cho thuê xe máy Phố Cổ | Mr Tú</a>
                 </p>
             </div>
         </div>
@@ -1095,7 +1789,7 @@
         <a href="https://wa.me/84816659199" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-wa" data-tooltip="Chat WhatsApp" aria-label="WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
-        <a href="https://maps.app.goo.gl/SR1hcwnCQjPkAvDh7" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-map" data-tooltip="Chỉ đường" aria-label="Bản đồ">
+        <a href="https://maps.app.goo.gl/UkBn4FgTNjk8ojM9A?g_st=ic" target="_blank" rel="noopener noreferrer" class="ultra-sub-btn u-map" data-tooltip="Chỉ đường" aria-label="Bản đồ">
             <i class="fa-solid fa-map-location-dot"></i>
         </a>
         <a href="#top" class="ultra-sub-btn" data-tooltip="Lên đầu trang" aria-label="Top">
@@ -1111,9 +1805,6 @@
 <!-- JS ENGINE -->
 <script>
     // --- ICONS (SVG) ---
-    // SECURITY FIX: Define icons as strings but we will parse them carefully or use innerHTML only on STATIC CONSTANTS,
-    // BUT since the requirement is strict, we will stick to FontAwesome classes where possible or simple SVGs.
-    // For this specific requirement, I'm refactoring the Render methods to use DOM elements.
     const ICONS = {
         home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
         doc: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>',
@@ -1135,7 +1826,9 @@
                     {t: "Thuê xe theo tuần", l: "tuan.html", i: ICONS.doc},
                     {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
                     {t: "Thủ tục thuê xe", l: "thutuc.html", i: ICONS.doc},
-                    {t: "Khuyến mãi", l: "uudai.html", i: ICONS.tag}
+                    {t: "Khuyến mãi", l: "uudai.html", i: ICONS.tag},
+                    {t: "Kinh nghiệm", l: "kinhnghiem.html", i: ICONS.doc},
+                    {t: "Mạng xã hội", l: "mangxahoi.html", i: ICONS.tag}
                 ]
             },
             { 
@@ -1165,6 +1858,19 @@
         ]
     };
 
+    // --- FORM LOGIC (EMAIL SENDER) ---
+    function sendEmail() {
+        const name = document.getElementById('contact-name').value;
+        const phone = document.getElementById('contact-phone').value;
+        const msg = document.getElementById('contact-msg').value;
+        
+        const subject = `Liên hệ thuê xe từ ${name || 'Khách hàng'}`;
+        const body = `Xin chào Mr Tú,\n\nTên tôi là: ${name}\nSố điện thoại: ${phone}\n\nNội dung cần hỗ trợ:\n${msg}`;
+        
+        // Use standard mailto
+        window.location.href = `mailto:nguyentuantu2482@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
     const Render = {
         init() {
             this.nav();
@@ -1177,6 +1883,7 @@
             this.ultraApp();
             this.setupAI();
             this.setupMatchmaker();
+            this.aiScoreAnimation(); // Run score animation for comparison
         },
 
         // --- CORE: FAKE "GEMINI" OFFLINE, KHÔNG CẦN API ---
@@ -1201,7 +1908,6 @@
                 let answer = "";
 
                 // Logic AI (Simulated)
-                // Note: Fixed Phone Number in responses
                 if (/hà giang|ha giang|sapa|sa pa|đi xa|highway|mountain|đèo|đi đèo/.test(text)) {
                     answer = wrap(
                         "Đi Hà Giang, Sa Pa hoặc cung đèo dài thì anh nên chạy xe số hoặc XR150: máy khỏe, phanh đầm, leo dốc an toàn. " +
@@ -1244,7 +1950,7 @@
                       const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
                       const heightMatch= /chiều cao[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
                       
-                      // Simple selection logic (abbreviated for this file)
+                      // Simple selection logic
                       let bike = "Honda Vision";
                       let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
                       
@@ -1259,6 +1965,41 @@
             } catch (err) {
                 if (onError) onError(err.message || "Local AI error");
             }
+        },
+        
+        // --- NEW: AI SCORE ANIMATION FOR COMPARISON SECTION ---
+        aiScoreAnimation() {
+            const compScore = document.getElementById('score-comp');
+            const mrtuScore = document.getElementById('score-mrtu');
+            
+            if(!compScore || !mrtuScore) return;
+
+            const animateValue = (obj, start, end, duration) => {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Animate scores when visible
+                        animateValue(compScore, 0, 42, 2000); // Competitor score low
+                        animateValue(mrtuScore, 0, 99, 2500); // Mr Tu score high
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            const section = document.querySelector('.ai-comp-section');
+            if(section) observer.observe(section);
         },
 
         // --- FEATURE 1: AI TOUR GUIDE ---
@@ -1286,7 +2027,6 @@
                 overlay.classList.remove('active');
             };
 
-            // Keyboard Accessibility (Focus Trap)
             modal.addEventListener('keydown', (e) => {
                 const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
                 if (e.key === 'Escape') close();
@@ -1313,7 +2053,6 @@
             closeBtn.addEventListener('click', close);
             overlay.addEventListener('click', close);
 
-            // SECURITY FIX: Replaced innerHTML with textContent and DOM creation
             const addMsg = (text, isUser = false) => {
                 const div = document.createElement('div');
                 div.className = `chat-msg ${isUser ? 'msg-user' : 'msg-bot'}`;
@@ -1321,8 +2060,6 @@
                 if (isUser) {
                     div.textContent = text;
                 } else {
-                    // Safe parsing for specific formatting like **bold**
-                    // We split by ** and alternate bold/text
                     const parts = text.split(/\*\*(.*?)\*\*/g);
                     parts.forEach((part, index) => {
                         if (index % 2 === 1) { // It's the content inside **...**
@@ -1330,7 +2067,6 @@
                             strong.textContent = part;
                             div.appendChild(strong);
                         } else {
-                            // Text node
                             div.appendChild(document.createTextNode(part));
                         }
                     });
@@ -1343,7 +2079,6 @@
                 const div = document.createElement('div');
                 div.className = 'chat-msg msg-bot';
                 div.id = 'ai-loader';
-                // Safe way to add loader
                 const dots = document.createElement('div');
                 dots.className = 'typing-dots';
                 for(let i=0; i<3; i++) {
@@ -1368,7 +2103,6 @@
                 addMsg(text, true);
                 input.value = '';
 
-                // FIXED PHONE in Prompt
                 const systemPrompt = "Bạn là Mr Tú, hướng dẫn viên Hà Nội. Hotline Zalo là 081.665.9199. Hãy tư vấn ngắn gọn.";
                 
                 Render.callGeminiWithRetry(
@@ -1418,8 +2152,6 @@
                 const height = document.getElementById('mm-height').options[document.getElementById('mm-height').selectedIndex].text;
 
                 const userPrompt = `Người dùng có thông số sau: Trình độ lái: ${exp}. Điểm đến: ${dest}. Chiều cao: ${height}.`;
-                
-                // Fixed Prompt
                 const systemPrompt = "Tư vấn xe máy. Nhắn Zalo 081.665.9199.";
 
                 resultBox.style.display = 'block';
@@ -1430,7 +2162,6 @@
                     systemPrompt,
                     () => {}, 
                     (text) => {
-                        // SECURITY FIX: Same robust text parsing
                         resultText.innerHTML = ''; // Clear
                         const parts = text.split(/\*\*(.*?)\*\*/g);
                         parts.forEach((part, index) => {
@@ -1450,7 +2181,7 @@
             });
         },
 
-        // --- ULTRA APP LOGIC (PERFORMANCE FIXED) ---
+        // --- ULTRA APP LOGIC ---
         ultraApp() {
             const toggle = document.getElementById('ultra-toggle');
             const wrapper = document.getElementById('ultra-fab');
@@ -1482,7 +2213,6 @@
                 }
             });
 
-            // PERFORMANCE FIX: Only shake a few times or when tab is active
             let shakeCount = 0;
             const maxShakes = 5;
 
@@ -1502,7 +2232,6 @@
             }, 5000);
         },
 
-        // SECURITY FIX: NAV RENDERED VIA DOM
         nav() {
             const dNav = document.getElementById('desktop-menu');
             if (!dNav) return;
@@ -1517,7 +2246,6 @@
             });
         },
 
-        // SECURITY FIX: MOBILE MENU RENDERED VIA DOM (NO INNERHTML)
         mobile() {
             const mList = document.getElementById('mobile-list');
             const overlay = document.getElementById('overlay');
@@ -1554,11 +2282,10 @@
                     const titleDiv = document.createElement('div');
                     titleDiv.style.cssText = "display:flex;align-items:center;margin-bottom:12px;color:var(--text-main);";
                     
-                    // Safe Icon injection
                     const iconDiv = document.createElement('div');
                     iconDiv.className = 'menu-icon';
                     iconDiv.style.color = 'var(--text-main)';
-                    iconDiv.innerHTML = i.i; // Safe because i.i is static const SVG
+                    iconDiv.innerHTML = i.i; 
                     
                     const titleText = document.createElement('div');
                     titleText.style.cssText = "font-weight:800; font-size:1.15rem;";
@@ -1576,7 +2303,6 @@
                         subLink.href = s.l;
                         subLink.style.cssText = "display:flex;align-items:center;gap:8px;padding:12px; background:var(--muted-bg); border-radius:14px; font-size:0.85rem; color:var(--text-sub); font-weight:600; text-decoration:none;";
                         
-                        // Safe sub-icon
                         const sIcon = document.createElement('span');
                         sIcon.style.cssText = "color:var(--primary); transform:scale(0.8);";
                         sIcon.innerHTML = s.i; 
@@ -1613,7 +2339,6 @@
             overlay.addEventListener('click', toggle);
         },
 
-        // SECURITY FIX: FOOTER RENDERED VIA DOM (NO INNERHTML INJECTION FROM CONFIG)
         footer() {
             const grid = document.getElementById('footer-grid');
             if (!grid) return;
@@ -1640,7 +2365,6 @@
                     a.href = item.l;
                     a.className = 'f-link';
                     
-                    // We treat iconStr as trusted static HTML here
                     const iconWrapper = document.createElement('span');
                     iconWrapper.innerHTML = iconStr;
                     
@@ -1651,7 +2375,7 @@
                 return col;
             };
 
-            // 1. Info Col (Static HTML mostly safe to keep here as block, or convert)
+            // 1. Info Col (UPDATED WITH 5 SOCIAL LINKS)
             const col1 = document.createElement('div');
             col1.className = 'f-col';
             col1.innerHTML = `<h4><span class="material-symbols-rounded">info</span> Về Mr Tú</h4>
@@ -1659,10 +2383,12 @@
                 <a href="chinhsach.html" class="f-link">${iconDocStr} Chính sách bảo mật</a>
                 <a href="dieukhoan.html" class="f-link">${iconDocStr} Điều khoản sử dụng</a>
                 <a href="lienhe.html" class="f-link">${iconDocStr} Liên hệ</a>
-                <div style="margin-top:24px; display:flex; gap:12px;">
-                    <button class="action-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></button>
-                    <button class="action-btn" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></button>
-                    <button class="action-btn" aria-label="Map"><i class="fa-solid fa-map-location-dot"></i></button>
+                <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="https://m.facebook.com/chothuexemayphocohanoi/" target="_blank" rel="noopener" class="social-btn social-fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/chothuexemayphoco" target="_blank" rel="noopener" class="social-btn social-ins" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.pinterest.com/chothuexemayphoco/" target="_blank" rel="noopener" class="social-btn social-pin" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+                    <a href="https://about.me/chothuexemayphoco" target="_blank" rel="noopener" class="social-btn social-me" aria-label="About Me"><i class="fa-solid fa-address-card"></i></a>
+                    <a href="https://www.tiktok.com/@thuexemayphoco" target="_blank" rel="noopener" class="social-btn social-tik" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>`;
             grid.appendChild(col1);
 
@@ -1674,7 +2400,6 @@
             services.forEach(s => {
                 const a = document.createElement('a');
                 a.href = s.l; a.className = 'f-link';
-                // Safe injection
                 const span = document.createElement('span');
                 span.innerHTML = iconDocStr;
                 a.appendChild(span);
@@ -1691,11 +2416,14 @@
             grid.appendChild(createCol('Khu vực 2', locations.slice(halfLoc), iconMapStr));
         },
 
+        // --- FIX: SMART STATUS LOGIC (NEVER SHOW "CLOSED") ---
         statusWidget() {
             const checkTime = () => {
                 const now = new Date();
                 const hours = now.getHours();
-                // 8h - 17h
+                
+                // Logic: 08:00 - 17:00 is OPEN (Green)
+                // Logic: 17:00 - 08:00 is SUPPORT ONLINE (Orange/Yellow) -> KHÔNG BAO GIỜ HIỆN CLOSED
                 const isOpen = hours >= 8 && hours < 17;
                 
                 const updateUI = (dotId, textId) => {
@@ -1703,9 +2431,16 @@
                     const text = document.getElementById(textId);
                     if (!dot || !text) return;
 
-                    dot.className = isOpen ? 'status-dot open' : 'status-dot';
-                    text.innerText = isOpen ? 'Đang mở cửa (8h-17h)' : 'Đã đóng cửa (8h-17h)';
-                    text.className = `status-text ${isOpen ? 'text-open' : 'text-closed'}`;
+                    if (isOpen) {
+                         dot.className = 'status-dot open';
+                         text.innerText = 'Cửa hàng đang mở (8h-17h)';
+                         text.className = 'status-text text-open';
+                    } else {
+                         // Thay vì "Closed", ta hiện "Support Online"
+                         dot.className = 'status-dot online';
+                         text.innerText = 'Hỗ trợ Online 24/7';
+                         text.className = 'status-text text-online';
+                    }
                 };
                 
                 updateUI('status-dot', 'status-text');
@@ -1769,21 +2504,13 @@
                 document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el));
             }, 500);
 
-            // PERFORMANCE FIX: Only listen for mousemove on the specific element
-            // And remove when not hovering
             const tiltBox = document.getElementById('tilt-box');
             if (tiltBox) {
                 tiltBox.addEventListener('mousemove', (e) => {
-                    // Only calc if screen is large enough
                     if (window.innerWidth < 1024) return;
-                    
                     const rect = tiltBox.getBoundingClientRect();
-                    // Calculate mouse position relative to element center
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    
-                    // Rotate based on relative position
-                    // Limit rotation to avoid too much skew
                     const rotateX = -1 * y / 20;
                     const rotateY = x / 20;
                     
