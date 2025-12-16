@@ -8,7 +8,7 @@
 <title>Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú | Giao Xe 15p, Giá Rẻ</title>
 <meta name="description" content="Dịch vụ thuê xe máy Phố Cổ Hà Nội uy tín số 1 Mr Tú. Giao xe tận nơi Hoàn Kiếm, Tây Hồ chỉ 15p. Xe mới 2024, giá từ 100k, cứu hộ 24/7. Đặt xe ngay!">
 <meta name="keywords" content="thuê xe máy phố cổ hà nội, thuê xe máy hoàn kiếm, thuê xe máy hà nội mr tú, cho thuê xe máy hà nội giá rẻ">
-<meta name="author" content="Mr Tú ">
+<meta name="author" content="Mr Tú">
 <meta name="theme-color" content="#000000">
 
 <!-- Canonical URL -->
@@ -102,7 +102,6 @@
         color: var(--text-main);
         overflow-x: hidden;
         transition: background 0.4s var(--ease-apple), color 0.3s;
-        /* Default padding, will be overridden by patch for mobile */
         padding-bottom: 40px; 
         line-height: 1.5;
     }
@@ -140,6 +139,16 @@
         }
         [data-theme="dark"] .glass-panel {
             background: #1c1c1ef2; 
+        }
+    }
+
+    /* REDUCED MOTION PREFERENCE */
+    @media (prefers-reduced-motion: reduce) {
+        *, ::before, ::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
         }
     }
 
@@ -1688,7 +1697,7 @@
                 <div class="footer-contact-info">
                      <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội, Việt Nam</p>
                      <div class="fc-row">
-                         <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:0816659199">081.665.9199</a></p>
+                         <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:0816659199" style="text-decoration:none;color:inherit;">081.665.9199</a></p>
                          <p class="fc-item"><i class="fa-solid fa-envelope"></i> nguyentuantu2482@gmail.com</p>
                      </div>
                      <!-- New Logic Display -->
@@ -1697,7 +1706,7 @@
                 </div>
 
                 <p style="text-align:center; color:var(--text-sub); font-size:0.8rem; margin-top:20px; opacity:0.6;">
-                    <a href="https://motoopen.github.io/thuexemayohoankiem/" target="_blank" rel="noopener">Cho thuê xe máy Phố Cổ | Mr Tú</a>
+                    <a href="https://motoopen.github.io/thuexemayohoankiem/" target="_blank" rel="noopener noreferrer">Cho thuê xe máy Phố Cổ | Mr Tú</a>
                 </p>
             </div>
         </div>
@@ -1711,7 +1720,7 @@
         <h3 id="ai-modal-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary)"></i> Mr Tú AI Guide ✨</h3>
         <button class="ai-close" id="ai-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <div class="ai-chat-area" id="ai-chat-box">
+    <div class="ai-chat-area" id="ai-chat-box" role="log" aria-live="polite">
         <div class="chat-msg msg-bot">
             Xin chào! Tôi là <strong>Mr Tú AI</strong>. Tôi có thể giúp bạn lên lịch trình đi phượt, tìm quán ăn ngon ở Phố Cổ, hay chọn xe phù hợp. Bạn cần giúp gì nào? 🛵🍜
         </div>
@@ -1767,7 +1776,7 @@
         <!-- Result Container -->
         <div id="mm-result" style="margin-top:20px; display:none; border-top:1px dashed var(--glass-border); padding-top:16px;">
             <h4 style="color:var(--primary); margin:0 0 8px 0;">Kết quả:</h4>
-            <div id="mm-result-text" style="font-size:0.95rem; line-height:1.6; color:var(--text-main);"></div>
+            <div id="mm-result-text" style="font-size:0.95rem; line-height:1.6; color:var(--text-main);" role="log" aria-live="polite"></div>
         </div>
     </div>
 </div>
@@ -1946,9 +1955,8 @@
 
                 // Matchmaker Logic
                  if (/trình độ lái|tay đua lụa|newbie|tay ga|côn tay|xr150|vision|airblade|wave alpha/.test(text)) {
-                      const expMatch = /trình độ lái[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+                      // Fix: Added || [] to prevent crash if exec returns null
                       const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
-                      const heightMatch= /chiều cao[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
                       
                       // Simple selection logic
                       let bike = "Honda Vision";
@@ -2034,6 +2042,10 @@
                 if (!isTabPressed) return;
                 
                 const focusableContent = modal.querySelectorAll(focusableElements);
+                
+                // --- FIX: GUARD CLAUSE ---
+                if (!focusableContent || focusableContent.length === 0) return; 
+
                 const firstFocusableElement = focusableContent[0];
                 const lastFocusableElement = focusableContent[focusableContent.length - 1];
 
@@ -2139,6 +2151,7 @@
                 overlay.classList.remove('active');
             };
             
+            // Fix: remove listener if modal destroyed (not critical here but good practice)
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('active')) close();
             });
@@ -2384,11 +2397,11 @@
                 <a href="dieukhoan.html" class="f-link">${iconDocStr} Điều khoản sử dụng</a>
                 <a href="lienhe.html" class="f-link">${iconDocStr} Liên hệ</a>
                 <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
-                    <a href="https://m.facebook.com/chothuexemayphocohanoi/" target="_blank" rel="noopener" class="social-btn social-fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/chothuexemayphoco" target="_blank" rel="noopener" class="social-btn social-ins" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.pinterest.com/chothuexemayphoco/" target="_blank" rel="noopener" class="social-btn social-pin" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
-                    <a href="https://about.me/chothuexemayphoco" target="_blank" rel="noopener" class="social-btn social-me" aria-label="About Me"><i class="fa-solid fa-address-card"></i></a>
-                    <a href="https://www.tiktok.com/@thuexemayphoco" target="_blank" rel="noopener" class="social-btn social-tik" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://m.facebook.com/chothuexemayphocohanoi/" target="_blank" rel="noopener noreferrer" class="social-btn social-fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/chothuexemayphoco" target="_blank" rel="noopener noreferrer" class="social-btn social-ins" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.pinterest.com/chothuexemayphoco/" target="_blank" rel="noopener noreferrer" class="social-btn social-pin" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+                    <a href="https://about.me/chothuexemayphoco" target="_blank" rel="noopener noreferrer" class="social-btn social-me" aria-label="About Me"><i class="fa-solid fa-address-card"></i></a>
+                    <a href="https://www.tiktok.com/@thuexemayphoco" target="_blank" rel="noopener noreferrer" class="social-btn social-tik" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>`;
             grid.appendChild(col1);
 
@@ -2519,8 +2532,9 @@
                     });
                 });
 
+                // --- FIX: RESTORE ORIGINAL TRANSFORM ON LEAVE ---
                 tiltBox.addEventListener('mouseleave', () => {
-                    tiltBox.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                    tiltBox.style.transform = 'perspective(1000px) rotateY(-5deg) rotateX(5deg)';
                 });
             }
         },
