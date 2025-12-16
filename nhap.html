@@ -469,7 +469,8 @@
         padding: 12px 0; border-bottom: 1px dashed var(--glass-border); font-weight: 600;
     }
     .c-check { color: var(--accent-green); }
-    .c-cross { color: var(--text-sub); opacity: 0.5; }
+    /* Fix lỗi card nơi khác hiển thị rõ hơn với màu đỏ */
+    .c-cross { color: var(--accent-red); opacity: 0.8; }
 
     /* NEW SECTION 5: AI ULTRA CONTACT FORM */
     .ai-contact-wrapper {
@@ -936,9 +937,9 @@
                     <div class="form-group">
                         <label class="form-label" for="c-type">Loại xe</label>
                         <select class="form-input" id="c-type">
-                            <option value="150000">Xe số (Wave/Sirius) - 150k</option>
-                            <option value="200000">Xe ga (Vision/Airblade) - 200k</option>
-                            <option value="350000">Xe côn/PKL - 350k</option>
+                            <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
+                            <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
+                            <option value="350000">Xe côn/PKL - 350.000</option>
                         </select>
                     </div>
 
@@ -1014,17 +1015,17 @@
             </div>
         </section>
 
-        <!-- SECTION 2: DÀN XE -->
+        <!-- SECTION 2: DÀN XE (FIXED TITLE & PRICES) -->
         <section class="section section-bg">
             <div class="container">
-                <h2 class="fade-in-up" style="text-align:center;">Dàn Xe Đời Mới 2024-2025</h2>
+                <h2 class="fade-in-up" style="text-align:center;">Các loại xe máy cho thuê phố cổ Hà Nội</h2>
                 <div class="feature-grid">
                     <!-- XE 1 -->
                     <div class="feature-card glass-panel fade-in-up">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0618.jpeg" alt="Thuê xe Vision Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Vision</h3>
                         <p>Dòng xe ga quốc dân, nhỏ gọn, cốp rộng, tiết kiệm xăng. Phù hợp cho bạn nữ và đi phố.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                     
@@ -1033,7 +1034,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0615.jpeg" alt="Thuê xe Airblade 160 Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Airblade</h3>
                         <p>Động cơ mạnh mẽ, kiểu dáng thể thao. Hợp đi đường dài, Ninh Bình, Sa Pa, Hà Giang.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                     
@@ -1042,7 +1043,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0616.jpeg" alt="Thuê xe Wave Alpha Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Wave Alpha / RSX</h3>
                         <p>Nồi đồng cối đá, bền bỉ, siêu tiết kiệm nhiên liệu. Lựa chọn kinh tế nhất cho phượt thủ và sinh viên.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 150k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 150.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
 
@@ -1051,7 +1052,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0614.jpeg" alt="Thuê xe máy 50cc Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe máy 50cc</h3>
                         <p>Không cần bằng lái, thiết kế nhỏ gọn, dễ điều khiển. Sự lựa chọn hoàn hảo cho học sinh, sinh viên.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
 
@@ -1060,7 +1061,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0617.jpeg" alt="Thuê xe máy điện Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe Điện</h3>
                         <p>Vận hành êm ái, thân thiện với môi trường, chi phí thấp. Phù hợp cho các chuyến đi ngắn trong nội thành.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 180k/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 180.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                 </div>
@@ -1315,46 +1316,46 @@
             </div>
         </section>
 
-        <!-- NEW SECTION 3: GỢI Ý LỊCH TRÌNH (FIXED ICON + ADDED CARD) -->
+        <!-- NEW SECTION 3: GỢI Ý LỊCH TRÌNH (FIXED INNER CITY LOCATIONS) -->
         <section class="section">
             <div class="container">
                 <h2 style="text-align: center; margin-bottom: 40px;" class="fade-in-up">Gợi Ý Lịch Trình Vi Vu</h2>
                 <div class="feature-grid">
                     <div class="iti-card fade-in-up">
                         <span class="material-symbols-rounded iti-icon-lg">coffee</span>
-                        <h3>Hanoi City Tour</h3>
-                        <p>Lăng Bác - Hồ Tây - Cà phê Trứng - Phố Cổ.</p>
-                        <p style="font-size:0.9rem;">Thích hợp: <strong>Vision, Lead</strong></p>
+                        <h3>Phố Cổ Đi Bộ</h3>
+                        <p>Khám phá 36 phố phường, ẩm thực đường phố, chợ đêm Đồng Xuân.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Vision, Wave</strong></p>
                     </div>
-                    <!-- FIXED ICON HERE -->
+                    
                     <div class="iti-card fade-in-up" style="transition-delay: 100ms;">
                         <div style="font-size: 60px; margin-bottom: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                            <i class="fa-solid fa-paintbrush"></i>
+                            <i class="fa-solid fa-monument"></i>
                         </div>
-                        <h3>Làng Gốm Bát Tràng</h3>
-                        <p>Cách trung tâm 15km. Trải nghiệm làm gốm và mua sắm.</p>
-                        <p style="font-size:0.9rem;">Thích hợp: <strong>Airblade, Wave</strong></p>
+                        <h3>Ba Đình Lịch Sử</h3>
+                        <p>Viếng Lăng Bác, tham quan Chùa Một Cột và Hoàng Thành Thăng Long.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Vision, Airblade</strong></p>
                     </div>
                     <div class="iti-card fade-in-up" style="transition-delay: 200ms;">
                         <span class="material-symbols-rounded iti-icon-lg">landscape</span>
-                        <h3>Vườn Quốc Gia Ba Vì</h3>
-                        <p>Săn mây, ngắm hoa dã quỳ. Cách Hà Nội 60km.</p>
-                        <p style="font-size:0.9rem;">Thích hợp: <strong>Xe số, Côn tay</strong></p>
+                        <h3>Tây Hồ Lộng Gió</h3>
+                        <p>Dạo quanh Hồ Tây, Phủ Tây Hồ, thung lũng hoa và cafe view hồ cực chill.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Xe ga, Airblade</strong></p>
                     </div>
-                    <!-- ADDED NEW CARD -->
+                   
                     <div class="iti-card fade-in-up" style="transition-delay: 300ms;">
                         <div style="font-size: 60px; margin-bottom: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                             <i class="fa-solid fa-campground"></i>
+                             <i class="fa-solid fa-place-of-worship"></i>
                         </div>
-                        <h3>Camping Hàm Lợn</h3>
-                        <p>Cắm trại cuối tuần, nướng BBQ bên hồ. Cách HN 40km.</p>
-                        <p style="font-size:0.9rem;">Thích hợp: <strong>Wave, Sirius</strong></p>
+                        <h3>Hoàn Kiếm</h3>
+                        <p>Dạo hồ Gươm, Nhà Thờ Lớn, Nhà Hát Lớn và kem Tràng Tiền.</p>
+                        <p style="font-size:0.9rem;">Thích hợp: <strong>Xe điện, 50cc</strong></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- NEW SECTION 4: SO SÁNH DỊCH VỤ -->
+        <!-- NEW SECTION 4: SO SÁNH DỊCH VỤ (FIXED X MARK & ADDED 2 CARDS) -->
         <section class="section section-bg">
             <div class="container">
                 <h2 style="text-align: center; margin-bottom: 40px;" class="fade-in-up">Tại Sao Chọn Mr Tú?</h2>
@@ -1366,6 +1367,10 @@
                             <li><span>Mũ bảo hiểm cũ, bẩn</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
                             <li><span>Phát sinh phí ẩn</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
                             <li><span>Hỗ trợ hời hợt</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
+                            <!-- Added Row 1 -->
+                            <li><span>Thủ tục rườm rà</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
+                             <!-- Added Row 2 -->
+                            <li><span>Xe cũ nát, yếu</span> <span class="c-cross"><i class="fa-solid fa-xmark"></i></span></li>
                         </ul>
                     </div>
                     <div class="compare-col glass-panel highlight">
@@ -1375,6 +1380,10 @@
                             <li><span>Mũ sạch, thơm tho</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
                             <li><span>Giá niêm yết rõ ràng</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
                             <li><span>Cứu hộ 24/7 tận nơi</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
+                            <!-- Added Row 1 -->
+                            <li><span>Chỉ cần CCCD/Hộ chiếu</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
+                             <!-- Added Row 2 -->
+                            <li><span>Xe mới, bảo dưỡng kỹ</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
                         </ul>
                     </div>
                 </div>
