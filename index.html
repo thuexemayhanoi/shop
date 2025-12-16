@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<!-- SEO ULTRA MODE -->
+<!-- SEO MODE -->
 <title>Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú | Giao Xe 15p, Giá Rẻ</title>
 <meta name="description" content="Dịch vụ thuê xe máy Phố Cổ Hà Nội uy tín số 1 Mr Tú. Giao xe tận nơi Hoàn Kiếm, Tây Hồ chỉ 15p. Xe mới 2024, giá từ 100k, cứu hộ 24/7. Đặt xe ngay!">
 <meta name="keywords" content="thuê xe máy phố cổ hà nội, thuê xe máy hoàn kiếm, thuê xe máy hà nội mr tú, cho thuê xe máy hà nội giá rẻ">
@@ -1291,31 +1291,31 @@
                             <tbody style="font-weight: 500;">
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe số Honda Wave</td>
-                                    <td style="padding: 16px;">150k</td>
-                                    <td style="padding: 16px;">600k-700k</td>
-                                    <td style="padding: 16px;">1.200k</td>
-                                    <td style="padding: 16px;">2-3 triệu</td>
+                                    <td style="padding: 16px;">150.000đ</td>
+                                    <td style="padding: 16px;">600.000 - 700.000đ</td>
+                                    <td style="padding: 16px;">1.200.000đ</td>
+                                    <td style="padding: 16px;">2.000.000 - 3.000.000đ</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe ga Honda Vision</td>
-                                    <td style="padding: 16px;">200k</td>
-                                    <td style="padding: 16px;">800k-1.000k</td>
-                                    <td style="padding: 16px;">1.800k-2.000k</td>
-                                    <td style="padding: 16px;">4-5 triệu</td>
+                                    <td style="padding: 16px;">200.000đ</td>
+                                    <td style="padding: 16px;">800.000 - 1.000.000đ</td>
+                                    <td style="padding: 16px;">1.800.000 - 2.000.000đ</td>
+                                    <td style="padding: 16px;">4.000.000 - 5.000.000đ</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe ga Air Blade</td>
-                                    <td style="padding: 16px;">200k</td>
-                                    <td style="padding: 16px;">800k</td>
-                                    <td style="padding: 16px;">1.400k</td>
-                                    <td style="padding: 16px;">3 triệu</td>
+                                    <td style="padding: 16px;">200.000đ</td>
+                                    <td style="padding: 16px;">800.000đ</td>
+                                    <td style="padding: 16px;">1.400.000đ</td>
+                                    <td style="padding: 16px;">3.000.000đ</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe ga giá rẻ (Click/Mio)</td>
-                                    <td style="padding: 16px;">150k</td>
-                                    <td style="padding: 16px;">600k-700k</td>
-                                    <td style="padding: 16px;">1.000k-1.200k</td>
-                                    <td style="padding: 16px;">2 triệu</td>
+                                    <td style="padding: 16px;">150.000đ</td>
+                                    <td style="padding: 16px;">600.000 - 700.000đ</td>
+                                    <td style="padding: 16px;">1.000.000 - 1.200.000đ</td>
+                                    <td style="padding: 16px;">2.000.000đ</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1609,7 +1609,7 @@
                     <div class="ai-card mrtu">
                         <div class="mrtu-title">
                             <span class="material-symbols-rounded">verified</span>
-                            <span>MR TÚ ULTRA</span>
+                            <span>MR TÚ</span> <!-- ĐÃ SỬA: BỎ CHỮ ULTRA -->
                         </div>
                         <ul class="ai-list">
                             <li class="ai-item">
@@ -1825,16 +1825,23 @@
       asked: {}
     };
 
+    // FIX: Add Lock to prevent spamming actions
+    let MOTO_AI_ACTION_LOCK = false;
+
     function motoAI_Action(type) {
+      if (MOTO_AI_ACTION_LOCK) return; // FIX: Nếu đã lock thì không chạy nữa
+
       const callBtn = document.querySelector('.u-phone, .fab-call');
       const zaloBtn = document.querySelector('.u-zalo, .fab-zalo');
 
       if (type === "call" && callBtn) {
+        MOTO_AI_ACTION_LOCK = true; // Lock ngay
         callBtn.classList.add("pulse");
         callBtn.click();
       }
 
       if (type === "zalo" && zaloBtn) {
+        MOTO_AI_ACTION_LOCK = true; // Lock ngay
         zaloBtn.classList.add("pulse");
         zaloBtn.click();
       }
@@ -1843,8 +1850,8 @@
     function motoAI_Upgrade(userText) {
       const t = userText.toLowerCase();
 
-      /* --- AUTO ACTION TRIGGER --- */
-      if (/giữ xe|đặt xe|thuê luôn|lấy xe|ok|đồng ý/i.test(t)) {
+      /* --- AUTO ACTION TRIGGER (FIXED: removed "ok", added strong intent) --- */
+      if (/giữ xe|đặt xe|thuê luôn|lấy xe|chốt xe|lấy xe ngay|đồng ý/i.test(t)) {
           setTimeout(() => motoAI_Action("zalo"), 1000); 
       }
       if (/gọi|call|điện thoại/i.test(t)) {
@@ -2030,7 +2037,7 @@
                 }
                 else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
                     answer = wrap(
-                        "Tạm tính: xe số khoảng 120k/ngày, xe ga Vision ~150k–180k/ngày, xe ga cao cấp từ 230k–250k/ngày. " +
+                        "Tạm tính: xe số khoảng 120.000/ngày, xe ga Vision ~150.000–180.000/ngày, xe ga cao cấp từ 230.000–250.000/ngày. " +
                         "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
                     );
                 }
