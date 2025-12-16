@@ -19,9 +19,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mr Tú">
 
-<!-- Fonts & Icons -->
+<!-- Fonts & Icons (Preloaded as recommended) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -32,7 +33,7 @@
         /* BRAND PRIMARY */
         --primary: #FF6B00;
         --primary-dark: #cc5500;
-        --text-on-primary: #000000; 
+        --text-on-primary: #fff; /* ĐÃ SỬA: Đổi sang trắng để dễ đọc */
         --secondary: #FFB800;
         
         /* ACCENT COLORS */
@@ -81,7 +82,7 @@
 
         --shadow-3d: 0 20px 50px -10px rgba(0,0,0,0.7);
         --btn-shadow: 0 6px 0 #b34700, 0 15px 30px rgba(255, 107, 0, 0.3);
-        --text-on-primary: #000000; 
+        --text-on-primary: #fff; /* Đảm bảo màu trắng trên nền tối */
     }
 
     /* --- 2. RESET & BASE --- */
@@ -241,6 +242,9 @@
         cursor: pointer; transition: 0.3s;
     }
     .action-btn:hover { background: var(--primary); color: var(--text-on-primary); transform: rotate(15deg); }
+    
+    /* Ẩn menu toggle trên desktop */
+    .menu-toggle { display: none; }
 
     /* --- 5. HERO SECTION --- */
     .hero {
@@ -1044,7 +1048,8 @@
                 <button class="action-btn" id="theme-btn" aria-label="Đổi giao diện sáng/tối">
                     <span class="material-symbols-rounded">light_mode</span>
                 </button>
-                <button class="action-btn menu-toggle" id="menu-btn" style="display:none" aria-label="Mở menu">
+                <!-- ĐÃ SỬA: Xóa style="display:none" để tránh lỗi mobile, ẩn bằng CSS .menu-toggle -->
+                <button class="action-btn menu-toggle" id="menu-btn" aria-label="Mở menu">
                     <span class="material-symbols-rounded">grid_view</span>
                 </button>
             </div>
@@ -1084,7 +1089,7 @@
 
                     <!-- 3D Mini Apps -->
                     <div>
-                        <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Quick Access</div>
+                        <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Truy cập nhanh</div>
                         <div class="mini-apps">
                             <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
@@ -1552,7 +1557,7 @@
         <section class="section section-bg ai-comp-section">
             <div class="container">
                 <h2 style="text-align: center; margin-bottom: 50px;" class="fade-in-up">
-                    AI SYSTEM <span class="text-highlight">COMPARISON</span>
+                    SO SÁNH HIỆU QUẢ <span class="text-highlight">DỊCH VỤ</span>
                 </h2>
                 
                 <div class="ai-comp-container fade-in-up">
@@ -1561,7 +1566,7 @@
                     <div class="ai-card competitor">
                         <div class="comp-title">
                             <span class="material-symbols-rounded">warning</span>
-                            <span class="glitch-text">MARKET STANDARD</span>
+                            <span class="glitch-text">THỊ TRƯỜNG CHUNG</span>
                         </div>
                         <ul class="ai-list">
                             <li class="ai-item">
@@ -1582,7 +1587,7 @@
                             </li>
                         </ul>
                         <!-- Simulated Score -->
-                        <div class="ai-score-badge" style="border-color:#555; color:#777;">SCORE: <span id="score-comp">0</span>%</div>
+                        <div class="ai-score-badge" style="border-color:#555; color:#777;">ĐIỂM: <span id="score-comp">0</span>%</div>
                     </div>
 
                     <!-- CENTER: RADAR SCANNER -->
@@ -1596,12 +1601,12 @@
                     <div class="ai-card mrtu">
                         <div class="mrtu-title">
                             <span class="material-symbols-rounded">verified</span>
-                            <span>MR TU ULTRA</span>
+                            <span>MR TÚ ULTRA</span>
                         </div>
                         <ul class="ai-list">
                             <li class="ai-item">
                                 <span>Tốc độ giao</span>
-                                <span class="ai-val val-good">15 Mins <i class="fa-solid fa-bolt"></i></span>
+                                <span class="ai-val val-good">15 Phút <i class="fa-solid fa-bolt"></i></span>
                             </li>
                             <li class="ai-item">
                                 <span>Chất lượng xe</span>
@@ -1617,7 +1622,7 @@
                             </li>
                         </ul>
                         <!-- Simulated Score -->
-                        <div class="ai-score-badge">MATCH: <span id="score-mrtu">0</span>%</div>
+                        <div class="ai-score-badge">ĐỘ KHỚP: <span id="score-mrtu">0</span>%</div>
                     </div>
 
                 </div>
@@ -1633,9 +1638,9 @@
                     <div class="ai-contact-grid">
                         <!-- Info Panel -->
                         <div class="ai-info-panel">
-                            <span class="cyber-title">SYSTEM: ONLINE</span>
-                            <span class="cyber-text">>> CONNECTING TO MR TU HQ...</span>
-                            <h2 style="color:white; margin: 20px 0;">LIÊN HỆ AI ULTRA</h2>
+                            <span class="cyber-title">HỆ THỐNG: ONLINE</span>
+                            <span class="cyber-text">>> ĐANG KẾT NỐI MÁY CHỦ MR TÚ...</span>
+                            <h2 style="color:white; margin: 20px 0;">ĐẶT XE TỰ ĐỘNG (AI)</h2>
                             <p style="color:#aaa;">Hệ thống hỗ trợ đặt xe tự động. Phản hồi siêu tốc qua Zalo/Hotline.</p>
                             
                             <div style="margin-top:30px;">
@@ -1654,7 +1659,7 @@
                         <div class="ai-form-panel">
                             <div class="ai-input-group">
                                 <label class="form-label" style="color:var(--primary)">// NHẬP TÊN:</label>
-                                <input type="text" id="contact-name" class="ai-input-field" placeholder="_YOUR_NAME">
+                                <input type="text" id="contact-name" class="ai-input-field" placeholder="Họ tên của bạn...">
                             </div>
                             <div class="ai-input-group">
                                 <label class="form-label" style="color:var(--primary)">// SỐ ĐIỆN THOẠI:</label>
