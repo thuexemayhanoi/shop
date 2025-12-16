@@ -11,8 +11,8 @@
 
   /* ====== CONFIG ====== */
   const DEF = {
-    brand: "Chothuexemay",
-    phone: "0942467674",
+    brand: "Mr Tú",
+    phone: "0816659199",
     zalo:  "",
     map:   "",
     avatar: "👩‍💼",
