@@ -11,7 +11,6 @@
 <meta name="author" content="Mr Tú">
 <meta name="theme-color" content="#000000">
 
-<!-- Canonical URL -->
 <link rel="canonical" href="https://thuexemayhanoi.github.io/shop/">
 
 <!-- PWA iOS Config -->
@@ -19,7 +18,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Mr Tú">
 
-<!-- Fonts & Icons (Preloaded as recommended) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style">
@@ -30,31 +28,26 @@
 <style>
     /* --- 1. DESIGN SYSTEM: WCAG 2.1 COMPLIANT --- */
     :root {
-        /* BRAND PRIMARY */
         --primary: #FF6B00;
         --primary-dark: #cc5500;
         --text-on-primary: #fff; 
         --secondary: #FFB800;
         
-        /* ACCENT COLORS */
         --accent-green: #006837;
         --accent-blue: #0056D2;
         --accent-purple: #7425C9;
         --accent-yellow: #995700;
         --accent-red: #C41C00;
 
-        /* BACKGROUNDS */
         --bg-body: #F2F2F7;
         --surface: #FFFFFF;
         --glass-material: rgba(255, 255, 255, 0.9);
         --glass-border: rgba(0, 0, 0, 0.1);
         --muted-bg: rgba(0, 0, 0, 0.05);
 
-        /* TEXT */
         --text-main: #111111;
         --text-sub: #555555;
         
-        /* SHADOWS & UI */
         --shadow-3d: 0 10px 30px -10px rgba(0,0,0,0.15);
         --btn-shadow: 0 6px 0 var(--primary-dark), 0 15px 25px rgba(255, 107, 0, 0.2);
         --btn-active: 0 0 0 var(--primary-dark), inset 0 2px 5px rgba(0,0,0,0.1);
@@ -117,7 +110,6 @@
     h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); }
     strong { color: var(--primary); font-weight: 700; }
 
-    /* SEO Link Style */
     a.seo-link { color: var(--primary); text-decoration: underline; text-decoration-color: rgba(255, 107, 0, 0.3); text-underline-offset: 4px; transition: 0.2s; }
     a.seo-link:hover { text-decoration-color: var(--primary); }
 
@@ -153,7 +145,6 @@
         }
     }
 
-    /* BTN-3D */
     .btn-3d {
         position: relative;
         border: none;
@@ -203,7 +194,6 @@
     .logo-title { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1; display: block; color: var(--text-main); }
     .logo-text span { font-size: 0.75rem; font-weight: 600; color: var(--text-sub); letter-spacing: 1px; display: block; }
 
-    /* STATUS WIDGET */
     .status-widget {
         display: flex; align-items: center; gap: 8px;
         padding: 6px 14px; border-radius: 20px;
@@ -371,7 +361,6 @@
         content: '✔'; position: absolute; left: 0; color: var(--primary); font-weight: bold;
     }
 
-    /* FAQ ACCORDION STYLES */
     .faq-accordion {
         display: flex; flex-direction: column; gap: 16px;
     }
@@ -419,7 +408,6 @@
     }
     @keyframes slideDown { from {opacity: 0; transform: translateY(-10px);} to {opacity: 1; transform: translateY(0);} }
 
-    /* STATS SECTION */
     .stats-grid {
         display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;
     }
@@ -430,7 +418,6 @@
     }
     .stat-item p { font-size: 1rem; font-weight: 700; color: var(--text-main); margin-top: 10px; }
 
-    /* TIMELINE SECTION */
     .process-container {
         display: flex; justify-content: space-between; position: relative; gap: 20px;
     }
@@ -447,7 +434,6 @@
     }
     .process-step:hover .step-icon { background: var(--primary); color: #000; border-color: var(--primary); }
     
-    /* ITINERARY CARDS */
     .iti-card {
         padding: 30px; border-radius: 32px; text-align: center;
         background: var(--glass-material); border: 1px solid var(--glass-border);
@@ -476,7 +462,6 @@
         position: relative;
     }
     
-    /* Cards */
     .ai-card {
         padding: 30px;
         border-radius: 24px;
@@ -487,7 +472,6 @@
         justify-content: center;
     }
     
-    /* Competitor Card */
     .ai-card.competitor {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -503,7 +487,6 @@
         display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
     }
     
-    /* Mr Tu Card */
     .ai-card.mrtu {
         background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(0,0,0,0));
         border: 2px solid var(--primary);
@@ -519,7 +502,6 @@
         text-shadow: 0 0 15px rgba(255,107,0,0.4);
     }
 
-    /* Lists */
     .ai-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
     .ai-item {
         display: flex; justify-content: space-between; align-items: center;
@@ -553,7 +535,6 @@
     
     @keyframes radarSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* Score Badge */
     .ai-score-badge {
         position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
         background: #000; padding: 4px 12px; border-radius: 20px;
@@ -571,7 +552,6 @@
         100% { opacity: 1; transform: translateX(0); }
     }
 
-    /* Responsive AI Section */
     @media (max-width: 900px) {
         .ai-comp-container { grid-template-columns: 1fr; gap: 40px; }
         .ai-radar-box { transform: rotate(90deg); margin: -20px auto; z-index: 2; width: 80px; height: 80px; }
@@ -655,7 +635,6 @@
     }
     .f-link:hover .f-svg-box { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }
 
-    /* FOOTER OPTIMIZATION */
     .footer-contact-info {
         text-align: center; color: var(--text-sub); font-size: 0.95rem;
         display: flex; flex-direction: column; gap: 8px; align-items: center;
@@ -668,7 +647,6 @@
         .fc-row { flex-direction: column; gap: 8px; }
     }
 
-    /* Social Icons Styles */
     .social-btn {
         width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
         background: var(--muted-bg); color: var(--text-main); border: 1px solid var(--glass-border);
@@ -694,7 +672,6 @@
         gap: 12px;
     }
 
-    /* Main Toggle Button */
     .ultra-main-btn {
         width: 60px; height: 60px;
         border-radius: 50%;
@@ -708,11 +685,9 @@
         position: relative;
         z-index: 2;
         transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        /* Animation rung & glow */
         animation: ultra-glow 2s infinite;
     }
     
-    /* Animation definition */
     @keyframes ultra-glow {
         0% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.7); transform: scale(1); }
         50% { transform: scale(1.05); }
@@ -739,7 +714,6 @@
         animation: none; /* Stop pulsing when open */
     }
 
-    /* Sub Buttons Container */
     .ultra-actions {
         position: absolute;
         bottom: 70px;
@@ -784,7 +758,6 @@
     .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(4) { transition-delay: 0.2s; }
     .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(5) { transition-delay: 0.25s; }
 
-    /* Tooltips (Right Side) */
     .ultra-sub-btn::after {
         content: attr(data-tooltip);
         position: absolute;
@@ -804,7 +777,6 @@
         opacity: 1; visibility: visible; left: 65px;
     }
 
-    /* Brand Colors */
     .u-zalo { color: #0068FF; }
     .u-wa { color: #25D366; }
     .u-map { color: #FFB800; }
@@ -930,12 +902,10 @@
         .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         .status-widget { display: none; }
         
-        /* New Sections Responsive */
         .stats-grid { grid-template-columns: repeat(2, 1fr); }
         .process-container { flex-direction: column; gap: 30px; }
-        .process-step::after { display: none; } /* Hide connectors on mobile */
+        .process-step::after { display: none; } 
         
-        /* AI Form Mobile */
         .ai-contact-grid { grid-template-columns: 1fr; }
         .ai-info-panel { border-right: none; border-bottom: 1px solid #333; }
     }
@@ -949,7 +919,6 @@
         .section { padding: 60px 0; }
         .feature-grid { gap: 24px; }
         
-        /* Specific adjustments */
         .stat-item h3 { font-size: 2.8rem; }
         .stats-grid { gap: 30px; }
     }
@@ -1043,7 +1012,6 @@
                     </div>
                 </a>
                 
-                <!-- WIDGET GIỜ MỞ CỬA -->
                 <div class="status-widget" id="status-widget">
                     <div class="status-dot" id="status-dot"></div>
                     <span class="status-text" id="status-text">Đang tải...</span>
@@ -1079,7 +1047,6 @@
         <div class="container">
             <div class="hero-grid">
                 
-                <!-- Content Left -->
                 <div class="fade-in-up">
                     <div class="hero-badge">
                         <span class="material-symbols-rounded" style="font-size:16px;">verified</span>
@@ -1095,7 +1062,6 @@
                         Dịch vụ cho thuê xe máy Hà Nội chuẩn du lịch & công tác. Giao xe tận nơi trong 15–20 phút tại khu <a href="phoco.html" class="seo-link">Phố Cổ</a>, Hoàn Kiếm, Hồ Tây. <strong>Xe đời mới, hỗ trợ kỹ thuật & cứu hộ 24/7.</strong>
                     </p>
 
-                    <!-- 3D Mini Apps -->
                     <div>
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Truy cập nhanh</div>
                         <div class="mini-apps">
@@ -1131,7 +1097,6 @@
                     </div>
                 </div>
 
-                <!-- Calculator Right -->
                 <div class="calc-box glass-panel fade-in-up" id="tilt-box" style="transition-delay: 0.2s;">
                     <h3 style="display:flex; align-items:center; gap:10px;">
                         <span class="material-symbols-rounded" style="color:var(--primary)">bolt</span>
@@ -1178,7 +1143,6 @@
 
     <!-- BODY CONTENT -->
     <div id="body-content">
-        <!-- Section 1: Introduction -->
         <section class="section">
             <div class="container">
                 <div class="content-block fade-in-up">
@@ -1196,7 +1160,6 @@
                             <p>100% xe được bảo dưỡng định kỳ tại hãng. Mũ bảo hiểm sạch, đủ 2 cái, tặng kèm áo mưa.</p>
                         </div>
                         
-                        <!-- Feature Card: Delivery -->
                         <div class="feature-card glass-panel" id="delivery">
                             <div class="f-icon"><span class="material-symbols-rounded">rocket_launch</span></div>
                             <h3>Giao Xe Siêu Tốc</h3>
@@ -1224,7 +1187,6 @@
             <div class="container">
                 <h2 class="fade-in-up" style="text-align:center;">Các loại xe máy cho thuê phố cổ Hà Nội</h2>
                 <div class="feature-grid">
-                    <!-- XE 1 -->
                     <div class="feature-card glass-panel fade-in-up">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0618.jpeg" alt="Thuê xe Vision Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Vision</h3>
@@ -1233,7 +1195,6 @@
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                     
-                    <!-- XE 2 -->
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 100ms;">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0615.jpeg" alt="Thuê xe Airblade 160 Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Airblade</h3>
@@ -1242,7 +1203,6 @@
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                     
-                    <!-- XE 3 -->
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 200ms;">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0616.jpeg" alt="Thuê xe Wave Alpha Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Wave Alpha / RSX</h3>
@@ -1251,7 +1211,6 @@
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
 
-                      <!-- XE 4 (50cc) -->
                       <div class="feature-card glass-panel fade-in-up" style="transition-delay: 300ms;">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0614.jpeg" alt="Thuê xe máy 50cc Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe máy 50cc</h3>
@@ -1260,7 +1219,6 @@
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
 
-                    <!-- XE 5 (Xe Điện) -->
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 400ms;">
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0617.jpeg" alt="Thuê xe máy điện Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe Điện</h3>
@@ -1361,7 +1319,6 @@
                         <h2>Cam Kết <span class="text-highlight">Vàng</span></h2>
                         <p>Tại Mr Tú, chúng tôi không chỉ cho thuê xe, chúng tôi bán sự an tâm.</p>
                         <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 30px;">
-                            <!-- Cam kết 1 -->
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">1</div>
                                 <div>
@@ -1369,7 +1326,6 @@
                                     <p style="margin: 0; font-size: 0.95rem;">Xe hỏng, thủng săm? Đội hỗ trợ luôn sẵn sàng, đổi xe khác hoặc xử lý tại chỗ.</p>
                                 </div>
                             </div>
-                            <!-- Cam kết 2 -->
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">2</div>
                                 <div>
@@ -1377,7 +1333,6 @@
                                     <p style="margin: 0; font-size: 0.95rem;">Xe không đúng cam kết, chạy yếu, quá cũ? Hoàn lại 100% tiền thuê cho khách.</p>
                                 </div>
                             </div>
-                            <!-- Cam kết 3 -->
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">3</div>
                                 <div>
@@ -1385,7 +1340,6 @@
                                     <p style="margin: 0; font-size: 0.95rem;">Hỗ trợ khách du lịch chụp ảnh giấy tờ, đặt cọc nhỏ, không lo thất lạc giấy tờ tùy thân.</p>
                                 </div>
                             </div>
-                            <!-- Cam kết 4 -->
                              <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">4</div>
                                 <div>
@@ -1408,7 +1362,6 @@
                 <h2 style="text-align: center; margin-bottom: 40px;" class="fade-in-up">Câu Hỏi Thường Gặp (FAQ)</h2>
                 <div class="content-block fade-in-up">
                     <div class="faq-accordion">
-                        <!-- Q1 -->
                         <details class="faq-item">
                             <summary class="faq-summary">
                                 Tôi có cần bằng lái xe để thuê không?
@@ -1419,7 +1372,6 @@
                             </div>
                         </details>
 
-                        <!-- Q2 -->
                         <details class="faq-item">
                             <summary class="faq-summary">
                                 Xe bị hỏng giữa đường thì xử lý sao?
@@ -1430,7 +1382,6 @@
                             </div>
                         </details>
 
-                        <!-- Q3 -->
                         <details class="faq-item">
                             <summary class="faq-summary">
                                 Thủ tục đặt cọc như thế nào?
@@ -1441,7 +1392,6 @@
                             </div>
                         </details>
 
-                        <!-- Q4 -->
                         <details class="faq-item">
                             <summary class="faq-summary">
                                 Gặp cảnh sát giao thông thì làm thế nào?
@@ -1452,7 +1402,6 @@
                             </div>
                         </details>
 
-                        <!-- Q5 -->
                         <details class="faq-item">
                             <summary class="faq-summary">
                                 Tôi có thể thuê xe đi một chiều (One-way) không?
@@ -1570,7 +1519,6 @@
                 
                 <div class="ai-comp-container fade-in-up">
                     
-                    <!-- LEFT CARD: COMPETITOR -->
                     <div class="ai-card competitor">
                         <div class="comp-title">
                             <span class="material-symbols-rounded">warning</span>
@@ -1594,18 +1542,15 @@
                                 <span class="ai-val val-bad">Giờ HC</span>
                             </li>
                         </ul>
-                        <!-- Simulated Score -->
                         <div class="ai-score-badge" style="border-color:#555; color:#777;">ĐIỂM: <span id="score-comp">0</span>%</div>
                     </div>
 
-                    <!-- CENTER: RADAR SCANNER -->
                     <div class="ai-radar-box">
                         <div class="radar-circle"></div>
                         <div class="radar-scan"></div>
                         <i class="fa-solid fa-fingerprint radar-icon"></i>
                     </div>
 
-                    <!-- RIGHT CARD: MR TU -->
                     <div class="ai-card mrtu">
                         <div class="mrtu-title">
                             <span class="material-symbols-rounded">verified</span>
@@ -1629,7 +1574,6 @@
                                 <span class="ai-val val-good">24/7 AI+Human</span>
                             </li>
                         </ul>
-                        <!-- Simulated Score -->
                         <div class="ai-score-badge">ĐỘ KHỚP: <span id="score-mrtu">0</span>%</div>
                     </div>
 
@@ -1644,7 +1588,6 @@
                 <div class="ai-contact-wrapper">
                     <div class="ai-scan-line"></div>
                     <div class="ai-contact-grid">
-                        <!-- Info Panel -->
                         <div class="ai-info-panel">
                             <span class="cyber-title">HỆ THỐNG: ONLINE</span>
                             <span class="cyber-text">>> ĐANG KẾT NỐI MÁY CHỦ MR TÚ...</span>
@@ -1663,7 +1606,6 @@
                             </div>
                         </div>
 
-                        <!-- Form Panel -->
                         <div class="ai-form-panel">
                             <div class="ai-input-group">
                                 <label class="form-label" style="color:var(--primary)">// NHẬP TÊN:</label>
@@ -1701,7 +1643,6 @@
             <div class="copyright" style="margin-top: 50px;">
                 <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
                 
-                <!-- Contact Info Wrapper -->
                 <div class="footer-contact-info">
                      <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội, Việt Nam</p>
                      <div class="fc-row">
@@ -1746,7 +1687,6 @@
         <button class="ai-close" id="mm-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="ai-chat-area" id="mm-content">
-        <!-- Form Content -->
         <p style="font-size:0.9rem; color:var(--text-sub);">Trả lời 3 câu hỏi nhanh để AI tìm "người bạn đồng hành" hoàn hảo nhất cho chuyến đi của bạn!</p>
         
         <div class="form-group">
@@ -1780,7 +1720,6 @@
             <i class="fa-solid fa-magnifying-glass"></i> Tìm Xe Ngay
         </button>
         
-        <!-- Result Container -->
         <div id="mm-result" style="margin-top:20px; display:none; border-top:1px dashed var(--glass-border); padding-top:16px;">
             <h4 style="color:var(--primary); margin:0 0 8px 0;">Kết quả:</h4>
             <div id="mm-result-text" style="font-size:0.95rem; line-height:1.6; color:var(--text-main);" role="log" aria-live="polite"></div>
@@ -1858,7 +1797,6 @@
           setTimeout(() => motoAI_Action("call"), 1000);
       }
 
-      /* --- HIỂU NGỮ CẢNH --- */
       if (/du lịch|đi chơi|phượt/.test(t)) MOTO_AI_CTX.purpose = "travel";
       if (/đi làm|công việc|đi làm hằng ngày/.test(t)) MOTO_AI_CTX.purpose = "work";
       if (/2 người|hai người/.test(t)) MOTO_AI_CTX.people = 2;
@@ -1962,7 +1900,6 @@
         const subject = `Liên hệ thuê xe từ ${name || 'Khách hàng'}`;
         const body = `Xin chào Mr Tú,\n\nTên tôi là: ${name}\nSố điện thoại: ${phone}\n\nNội dung cần hỗ trợ:\n${msg}`;
         
-        // Use standard mailto
         window.location.href = `mailto:nguyentuantu2482@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
 
@@ -1998,10 +1935,8 @@
                 }
                 // --- END UPGRADE ---
 
-                // Helper: random delay cho giống AI thật
                 const delay = 500 + Math.floor(Math.random() * 700);
 
-                // Helper: tạo câu trả lời gọn, thân thiện
                 function wrap(msg) {
                     return msg
                         .replace(/\s+/g, " ")
@@ -2052,7 +1987,6 @@
                       // Fix: Added || [] to prevent crash if exec returns null
                       const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
                       
-                      // Simple selection logic
                       let bike = "Honda Vision";
                       let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
                       
@@ -2093,8 +2027,8 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         // Animate scores when visible
-                        animateValue(compScore, 0, 42, 2000); // Competitor score low
-                        animateValue(mrtuScore, 0, 99, 2500); // Mr Tu score high
+                        animateValue(compScore, 0, 42, 2000); 
+                        animateValue(mrtuScore, 0, 99, 2500); 
                         observer.unobserve(entry.target);
                     }
                 });
@@ -2137,7 +2071,6 @@
                 
                 const focusableContent = modal.querySelectorAll(focusableElements);
                 
-                // Guard clause
                 if (!focusableContent || focusableContent.length === 0) return; 
 
                 const firstFocusableElement = focusableContent[0];
@@ -2168,7 +2101,7 @@
                 } else {
                     const parts = text.split(/\*\*(.*?)\*\*/g);
                     parts.forEach((part, index) => {
-                        if (index % 2 === 1) { // It's the content inside **...**
+                        if (index % 2 === 1) { 
                             const strong = document.createElement('strong');
                             strong.textContent = part;
                             div.appendChild(strong);
@@ -2269,7 +2202,7 @@
                     systemPrompt,
                     () => {}, 
                     (text) => {
-                        resultText.innerHTML = ''; // Clear
+                        resultText.innerHTML = ''; 
                         const parts = text.split(/\*\*(.*?)\*\*/g);
                         parts.forEach((part, index) => {
                             if (index % 2 === 1) {
@@ -2296,12 +2229,10 @@
 
             if (!toggle || !wrapper) return;
 
-            // Toggle function
             toggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 wrapper.classList.toggle('active');
                 
-                // Change Icon
                 if (wrapper.classList.contains('active')) {
                     icon.classList.remove('fa-bolt');
                     icon.classList.add('fa-xmark');
@@ -2311,7 +2242,6 @@
                 }
             });
 
-            // Close when clicking outside
             document.addEventListener('click', (e) => {
                 if (wrapper.classList.contains('active') && !wrapper.contains(e.target)) {
                     wrapper.classList.remove('active');
@@ -2342,7 +2272,7 @@
         nav() {
             const dNav = document.getElementById('desktop-menu');
             if (!dNav) return;
-            dNav.innerHTML = ''; // Clear
+            dNav.innerHTML = ''; 
 
             CONFIG.MENU.forEach(item => {
                 const a = document.createElement('a');
@@ -2361,9 +2291,8 @@
 
             if (!mList || !overlay || !menu || !btn) return;
             
-            mList.innerHTML = ''; // Clear
+            mList.innerHTML = ''; 
 
-            // Status widget for mobile
             const statusDiv = document.createElement('div');
             statusDiv.style.cssText = "margin-bottom:24px; padding:12px; background:var(--muted-bg); border-radius:16px; display:flex; align-items:center; gap:10px;";
             
@@ -2449,12 +2378,11 @@
         footer() {
             const grid = document.getElementById('footer-grid');
             if (!grid) return;
-            grid.innerHTML = ''; // Clear
+            grid.innerHTML = ''; 
 
             const iconMapStr = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>`;
             const iconDocStr = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>`;
 
-            // Helper to create column
             const createCol = (title, items, iconStr) => {
                 const col = document.createElement('div');
                 col.className = 'f-col';
@@ -2482,7 +2410,6 @@
                 return col;
             };
 
-            // 1. Info Col
             const col1 = document.createElement('div');
             col1.className = 'f-col';
             col1.innerHTML = `<h4><span class="material-symbols-rounded">info</span> Về Mr Tú</h4>
@@ -2499,7 +2426,6 @@
                 </div>`;
             grid.appendChild(col1);
 
-            // 2. Services Col
             const services = CONFIG.MENU.find(x => x.t === 'Dịch vụ')?.sub || [];
             const col2 = document.createElement('div');
             col2.className = 'f-col';
@@ -2515,7 +2441,6 @@
             });
             grid.appendChild(col2);
 
-            // 3 & 4. Location Cols
             const locations = CONFIG.MENU.find(x => x.t === 'Địa điểm')?.sub || [];
             const halfLoc = Math.ceil(locations.length / 2);
             
@@ -2626,7 +2551,6 @@
                     });
                 });
 
-                // Restore original transform
                 tiltBox.addEventListener('mouseleave', () => {
                     tiltBox.style.transform = 'perspective(1000px) rotateY(-5deg) rotateX(5deg)';
                 });
