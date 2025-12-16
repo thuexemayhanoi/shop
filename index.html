@@ -11,6 +11,20 @@
 <meta name="author" content="Mr Tú">
 <meta name="theme-color" content="#000000">
 
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thuexemayhanoi.github.io/shop/">
+<meta property="og:title" content="Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú">
+<meta property="og:description" content="Giao xe tận nơi 15p, mũ bảo hiểm sạch, xe mới. Hotline: 081.665.9199">
+<meta property="og:image" content="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0618.jpeg">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://thuexemayhanoi.github.io/shop/">
+<meta property="twitter:title" content="Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú">
+<meta property="twitter:description" content="Giao xe tận nơi 15p, mũ bảo hiểm sạch, xe mới. Hotline: 081.665.9199">
+<meta property="twitter:image" content="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0618.jpeg">
+
 <link rel="canonical" href="https://thuexemayhanoi.github.io/shop/">
 
 <!-- PWA iOS Config -->
@@ -29,7 +43,9 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+<!-- FontAwesome: Load print then switch to all for performance -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
 <style>
     /* --- 1. DESIGN SYSTEM: WCAG 2.1 COMPLIANT --- */
@@ -195,6 +211,10 @@
         animation: spin 12s linear infinite;
         background: var(--surface);
     }
+    /* Reduce motion for logo if preferred */
+    @media (prefers-reduced-motion: reduce) {
+        .logo-img { animation: none; }
+    }
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
     .logo-title { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1; display: block; color: var(--text-main); }
@@ -298,8 +318,9 @@
         font-size: 1rem;
     }
     .mobile-search-close {
-        position: absolute; right: 22px; top: 50%; transform: translateY(-50%);
+        position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
         color: var(--text-sub); font-size: 18px; cursor: pointer;
+        background: transparent; border: none; padding: 4px;
     }
 
     /* --- 5. HERO SECTION --- */
@@ -1030,6 +1051,7 @@
         <div class="nav-bar glass-panel">
             <div class="header-left">
                 <a href="./" class="logo">
+                    <!-- FIXED IMAGE URL -->
                     <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg" class="logo-img" alt="logo Mr Tú Bike" width="44" height="44">
                     <div class="logo-text">
                         <span class="logo-title">Mr Tú</span>
@@ -1045,9 +1067,9 @@
             <nav class="desktop-nav" id="desktop-menu"></nav>
 
             <div class="header-actions">
-                <!-- FEATURE 2: SEARCH BAR (Desktop) -->
+                <!-- FEATURE 2: SEARCH BAR (Desktop) - FIXED: onkeypress -> onkeydown -->
                 <div class="search-container-desktop">
-                    <input type="text" class="search-input" id="search-desktop" placeholder="Tìm xe, giá..." onkeypress="handleSearch(event, this)">
+                    <input type="text" class="search-input" id="search-desktop" placeholder="Tìm xe, giá..." onkeydown="handleSearch(event, this)">
                     <i class="fa-solid fa-magnifying-glass search-icon-inside"></i>
                 </div>
 
@@ -1065,11 +1087,13 @@
             </div>
         </div>
         
-        <!-- FEATURE 2: MOBILE SEARCH DROPDOWN -->
+        <!-- FEATURE 2: MOBILE SEARCH DROPDOWN - FIXED: onkeypress -> onkeydown, added button role -->
         <div class="mobile-search-dropdown" id="mob-search-drop">
             <div style="position:relative;">
-                <input type="text" class="mobile-search-input" id="search-mobile" placeholder="Nhập từ khóa tìm kiếm..." onkeypress="handleSearch(event, this)">
-                <i class="fa-solid fa-xmark mobile-search-close" onclick="toggleMobileSearch()"></i>
+                <input type="text" class="mobile-search-input" id="search-mobile" placeholder="Nhập từ khóa tìm kiếm..." onkeydown="handleSearch(event, this)">
+                <button class="mobile-search-close" onclick="toggleMobileSearch()" aria-label="Đóng tìm kiếm">
+                     <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -1107,6 +1131,7 @@
                     <div>
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Truy cập nhanh</div>
                         <div class="mini-apps">
+                            <!-- FIXED: tel links with +84 -->
                             <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
                                 <span class="app-label">Gọi Ngay</span>
@@ -1124,7 +1149,7 @@
                                 <span class="app-label">Địa Điểm</span>
                             </div>
                             
-                            <!-- AI Guide -->
+                            <!-- AI Guide (Fallback script handles race condition) -->
                             <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
                                 <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                                 <span class="app-label">AI Tour Guide ✨</span>
@@ -1224,13 +1249,13 @@
             </div>
         </section>
 
-        <!-- SECTION 2: FLEET -->
+        <!-- SECTION 2: FLEET (FIXED IMAGE URLs) -->
         <section class="section section-bg">
             <div class="container">
                 <h2 class="fade-in-up" style="text-align:center;">Các loại xe máy cho thuê phố cổ Hà Nội</h2>
                 <div class="feature-grid">
                     <div class="feature-card glass-panel fade-in-up">
-                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0618.jpeg" alt="Thuê xe Vision Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0618.jpeg" alt="Thuê xe Vision Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Vision</h3>
                         <p>Dòng xe ga quốc dân, nhỏ gọn, cốp rộng, tiết kiệm xăng. Phù hợp cho bạn nữ và đi phố.</p>
                         <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
@@ -1238,7 +1263,7 @@
                     </div>
                     
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 100ms;">
-                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0615.jpeg" alt="Thuê xe Airblade 160 Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0615.jpeg" alt="Thuê xe Airblade 160 Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Honda Airblade</h3>
                         <p>Động cơ mạnh mẽ, kiểu dáng thể thao. Hợp đi đường dài, Ninh Bình, Sa Pa, Hà Giang.</p>
                         <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
@@ -1246,7 +1271,7 @@
                     </div>
                     
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 200ms;">
-                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0616.jpeg" alt="Thuê xe Wave Alpha Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0616.jpeg" alt="Thuê xe Wave Alpha Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Wave Alpha / RSX</h3>
                         <p>Nồi đồng cối đá, bền bỉ, siêu tiết kiệm nhiên liệu. Lựa chọn kinh tế nhất cho phượt thủ và sinh viên.</p>
                         <strong style="font-size:1.2rem; color:var(--primary);">Từ 150.000đ/ngày</strong>
@@ -1254,7 +1279,7 @@
                     </div>
 
                       <div class="feature-card glass-panel fade-in-up" style="transition-delay: 300ms;">
-                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0614.jpeg" alt="Thuê xe máy 50cc Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0614.jpeg" alt="Thuê xe máy 50cc Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe máy 50cc</h3>
                         <p>Không cần bằng lái, thiết kế nhỏ gọn, dễ điều khiển. Sự lựa chọn hoàn hảo cho học sinh, sinh viên.</p>
                         <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
@@ -1262,7 +1287,7 @@
                     </div>
 
                     <div class="feature-card glass-panel fade-in-up" style="transition-delay: 400ms;">
-                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0617.jpeg" alt="Thuê xe máy điện Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0617.jpeg" alt="Thuê xe máy điện Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe Điện</h3>
                         <p>Vận hành êm ái, thân thiện với môi trường, chi phí thấp. Phù hợp cho các chuyến đi ngắn trong nội thành.</p>
                         <strong style="font-size:1.2rem; color:var(--primary);">Từ 180.000đ/ngày</strong>
@@ -1353,7 +1378,7 @@
             </div>
         </section>
 
-        <!-- SECTION 7: COMMITMENT -->
+        <!-- SECTION 7: COMMITMENT (FIXED IMAGE URL) -->
         <section class="section">
             <div class="container">
                 <div class="hero-grid">
@@ -1392,7 +1417,7 @@
                         </div>
                     </div>
                     <div class="fade-in-up">
-                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0623.jpeg" alt="Bảo dưỡng xe máy" loading="lazy" width="600" height="400" style="width: 100%; border-radius: 32px; box-shadow: var(--shadow-3d);">
+                        <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0623.jpeg" alt="Bảo dưỡng xe máy" loading="lazy" width="600" height="400" style="width: 100%; border-radius: 32px; box-shadow: var(--shadow-3d);">
                     </div>
                 </div>
             </div>
@@ -1675,7 +1700,7 @@
 
 </main>
 
-<!-- FOOTER -->
+<!-- FOOTER (FIXED IMAGE URL) -->
 <footer class="footer" id="footer-target">
     <div class="container">
         <div class="footer-box glass-panel fade-in-up">
@@ -1688,7 +1713,7 @@
                 <div class="footer-contact-info">
                      <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội, Việt Nam</p>
                      <div class="fc-row">
-                         <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:0816659199" style="text-decoration:none;color:inherit;">081.665.9199</a></p>
+                         <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:+84816659199" style="text-decoration:none;color:inherit;">081.665.9199</a></p>
                          <p class="fc-item"><i class="fa-solid fa-envelope"></i> nguyentuantu2482@gmail.com</p>
                      </div>
                      <p class="fc-item" style="color:var(--primary);"><i class="fa-solid fa-headset"></i> Hotline & Kỹ thuật: 24/7</p>
@@ -1799,6 +1824,21 @@
 </div>
 
 <!-- JS ENGINE -->
+<script>
+// --- FALLBACK TO PREVENT RACE CONDITION ERRORS ---
+// Added to ensure buttons don't throw errors if clicked before full load
+window.AI_Guide = window.AI_Guide || { open: function () {
+  const modal = document.getElementById('ai-modal');
+  const overlay = document.getElementById('ai-overlay');
+  if (modal && overlay) { modal.classList.add('active'); overlay.classList.add('active'); modal.querySelector('input')?.focus(); }
+} };
+window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
+  const modal = document.getElementById('mm-modal');
+  const overlay = document.getElementById('mm-overlay');
+  if (modal && overlay) { modal.classList.add('active'); overlay.classList.add('active'); }
+} };
+</script>
+
 <script>
     /* ===== MotoAI Local Smart Upgrade (Lite – Offline) ===== */
     const MOTO_AI_CTX = {
@@ -1943,6 +1983,7 @@
         }
     }
 
+    // FIXED: Changed event to 'keydown' for better compatibility
     function handleSearch(e, input) {
         if(e.key === 'Enter') {
             const val = input.value.toLowerCase();
@@ -2212,7 +2253,7 @@
             };
 
             sendBtn.addEventListener('click', handleSend);
-            input.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
         },
 
         setupMatchmaker() {
