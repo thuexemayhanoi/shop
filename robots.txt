@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thuexemayhanoi.github.io/shop/sitemap.xml
