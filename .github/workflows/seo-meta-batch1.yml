@@ -1,4 +1,4 @@
-name: SEO Meta Batch 1
+name: SEO Meta Batch 1 Smoke Test
 
 on:
   workflow_dispatch:
@@ -7,134 +7,14 @@ on:
       - '.github/workflows/seo-meta-batch1.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  seo-meta-batch1:
+  smoke:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Run SEO Meta Batch 1
+      - name: Smoke test
+        shell: bash
         run: |
-          python3 <<'PY'
-          import os
-          import sys
-
-          changes = {
-              'index.html': {
-                  'old': [
-                      '<title>Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú | Giao Xe 15p, Giá Rẻ</title>',
-                      '<meta name="description" content="Dịch vụ thuê xe máy Phố Cổ Hà Nội uy tín số 1 Mr Tú. Giao xe tận nơi Hoàn Kiếm, Tây Hồ chỉ 15p. Xe mới 2024, giá từ 100k, cứu hộ 24/7. Đặt xe ngay!">'
-                  ],
-                  'new': [
-                      '<title>Thuê Xe Máy Hà Nội - Mr Tú | Xe Số, Xe Ga, Thuê Ngày/Tuần/Tháng</title>',
-                      '<meta name="description" content="Dịch vụ thuê xe máy Hà Nội của Mr Tú, phục vụ nhiều khu vực nội thành với xe số, xe ga và các gói thuê theo ngày, tuần, tháng. Xem thông tin và liên hệ đặt xe.">'
-                  ]
-              },
-              'banggia.html': {
-                  'old': [
-                      '<title>Bảng Giá Thuê Xe Máy Hà Nội 2025 | Giá Rẻ Từ 100k - Mr Tú</title>',
-                      '<meta name="description" content="Bảng giá thuê xe máy Hà Nội mới nhất 2025 tại Mr Tú. Giá chỉ từ 100k/ngày, xe mới, không cọc. Giảm 20% khi thuê tuần/tháng. Xem chi tiết & đặt xe ngay!">'
-                  ],
-                  'new': [
-                      '<title>Bảng Giá Thuê Xe Máy Hà Nội | Giá Thuê Theo Ngày, Tuần, Tháng - Mr Tú</title>',
-                      '<meta name="description" content="Tham khảo bảng giá thuê xe máy Hà Nội theo loại xe và thời gian thuê. Kiểm tra mức giá, điều kiện thuê và liên hệ Mr Tú để xác nhận chi phí hiện hành.">'
-                  ]
-              },
-              'chinhsach.html': {
-                  'old': [
-                      '<title>Chính Sách Bảo Mật Thuê Xe Máy Mr Tú | Cam Kết An Toàn 100%</title>',
-                      '<meta name="description" content="Chính sách bảo mật thuê xe máy Mr Tú cam kết bảo vệ tuyệt đối thông tin khách hàng (CCCD, SĐT). Xem chi tiết quy định lưu trữ & sử dụng dữ liệu tại đây!">'
-                  ],
-                  'new': [
-                      '<title>Chính Sách Bảo Mật - Thuê Xe Máy Mr Tú | Thông Tin Cá Nhân</title>',
-                      '<meta name="description" content="Chính sách bảo mật của Mr Tú giải thích cách thông tin khách hàng được thu thập, sử dụng và bảo vệ khi liên hệ hoặc sử dụng dịch vụ thuê xe máy.">'
-                  ]
-              },
-              'hoankiem.html': {
-                  'old': [
-                      '<meta name="description" content="Dịch vụ cho thuê xe máy Hoàn Kiếm, Phố Cổ Hà Nội giao xe tận nơi sau 5 phút. Xe mới, mũ xịn, giá từ 100k. Gọi Mr Tú 081.665.9199 để nhận xe ngay!">'
-                  ],
-                  'new': [
-                      '<meta name="description" content="Dịch vụ thuê xe máy Hoàn Kiếm của Mr Tú, hỗ trợ giao nhận tại khu vực trung tâm Hà Nội. Xem loại xe, thông tin thuê và liên hệ để kiểm tra tình trạng xe.">'
-                  ]
-              }
-          }
-
-          files_to_modify = list(changes.keys())
-          workflow_file = '.github/workflows/seo-meta-batch1.yml'
-          total_replacements = 0
-          all_passed = True
-
-          def process_file(filepath):
-              global total_replacements, all_passed
-              if not os.path.exists(filepath):
-                  print(f'FAIL: {filepath} does not exist')
-                  all_passed = False
-                  return
-              with open(filepath, 'r', encoding='utf-8') as f:
-                  content = f.read()
-              head_end_idx = content.find('</head>')
-              if head_end_idx == -1:
-                  print(f'FAIL: {filepath} has no </head> tag')
-                  all_passed = False
-                  return
-              head_part = content[:head_end_idx + len('</head>')]
-              body_part = content[head_end_idx + len('</head>'):]
-              modified_head = head_part
-              replacements_count = 0
-              data = changes[filepath]
-              for i, old_str in enumerate(data['old']):
-                  count = modified_head.count(old_str)
-                  if count != 1:
-                      print(f'FAIL: {filepath} - Old string {i+1} appears {count} times (expected 1)')
-                      all_passed = False
-                      return
-                  modified_head = modified_head.replace(old_str, data['new'][i], 1)
-                  replacements_count += 1
-              new_content = modified_head + body_part
-              if new_content[head_end_idx + len('</head>'):] != body_part:
-                  print(f'FAIL: {filepath} - Body part changed after </head>')
-                  all_passed = False
-                  return
-              total_replacements += replacements_count
-              with open(filepath, 'w', encoding='utf-8') as f:
-                  f.write(new_content)
-              print(f'PASS: {filepath} - {replacements_count} replacements')
-
-          for filepath in files_to_modify:
-              process_file(filepath)
-
-          if total_replacements != 7:
-              print(f'FAIL: Total replacements = {total_replacements} (expected 7)')
-              all_passed = False
-
-          if not all_passed:
-              print('WORKFLOW FAILED')
-              sys.exit(1)
-
-          os.system('git diff --check')
-          os.system('git diff -- index.html banggia.html chinhsach.html hoankiem.html')
-
-          os.remove(workflow_file)
-          print(f'Deleted: {workflow_file}')
-
-          os.system('git add -A')
-
-          staged_result = os.popen('git diff --cached --name-only').read().strip().split('
-')
-          expected_files = sorted(['.github/workflows/seo-meta-batch1.yml', 'index.html', 'banggia.html', 'chinhsach.html', 'hoankiem.html'])
-          actual_files = sorted([f for f in staged_result if f])
-          if actual_files != expected_files:
-              print(f'FAIL: Staged files mismatch. Expected: {expected_files}, Got: {actual_files}')
-              sys.exit(1)
-
-          os.system('git commit -m "SEO: refine page intent and refresh metadata"')
-          os.system('git push')
-          print('WORKFLOW SUCCESS')
-          print(f'Total replacements: {total_replacements}')
-          PY
+          echo "SMOKE_OK"
+          echo "GitHub Actions runner is working"
