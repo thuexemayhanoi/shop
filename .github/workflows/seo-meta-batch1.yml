@@ -1,4 +1,4 @@
-name: SEO Meta Batch 1 Smoke Test
+name: SEO Meta Batch 1
 
 on:
   workflow_dispatch:
@@ -7,14 +7,153 @@ on:
       - '.github/workflows/seo-meta-batch1.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  smoke:
+  seo-meta-batch1:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Smoke test
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply SEO metadata
         shell: bash
         run: |
-          echo "SMOKE_OK"
-          echo "GitHub Actions runner is working"
+          python3 <<'PY'
+          from pathlib import Path
+          import sys
+
+          replacements = {
+              "index.html": [
+                  (
+                      '<title>Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú | Giao Xe 15p, Giá Rẻ</title>',
+                      '<title>Thuê Xe Máy Hà Nội - Mr Tú | Xe Số, Xe Ga, Thuê Ngày/Tuần/Tháng</title>'
+                  ),
+                  (
+                      '<meta name="description" content="Dịch vụ thuê xe máy Phố Cổ Hà Nội uy tín số 1 Mr Tú. Giao xe tận nơi Hoàn Kiếm, Tây Hồ chỉ 15p. Xe mới 2024, giá từ 100k, cứu hộ 24/7. Đặt xe ngay!">',
+                      '<meta name="description" content="Dịch vụ thuê xe máy Hà Nội của Mr Tú, phục vụ nhiều khu vực nội thành với xe số, xe ga và các gói thuê theo ngày, tuần, tháng. Xem thông tin và liên hệ đặt xe.">'
+                  ),
+              ],
+
+              "banggia.html": [
+                  (
+                      '<title>Bảng Giá Thuê Xe Máy Hà Nội 2025 | Giá Rẻ Từ 100k - Mr Tú</title>',
+                      '<title>Bảng Giá Thuê Xe Máy Hà Nội | Giá Thuê Theo Ngày, Tuần, Tháng - Mr Tú</title>'
+                  ),
+                  (
+                      '<meta name="description" content="Bảng giá thuê xe máy Hà Nội mới nhất 2025 tại Mr Tú. Giá chỉ từ 100k/ngày, xe mới, không cọc. Giảm 20% khi thuê tuần/tháng. Xem chi tiết & đặt xe ngay!">',
+                      '<meta name="description" content="Tham khảo bảng giá thuê xe máy Hà Nội theo loại xe và thời gian thuê. Kiểm tra mức giá, điều kiện thuê và liên hệ Mr Tú để xác nhận chi phí hiện hành.">'
+                  ),
+              ],
+
+              "chinhsach.html": [
+                  (
+                      '<title>Chính Sách Bảo Mật Thuê Xe Máy Mr Tú | Cam Kết An Toàn 100%</title>',
+                      '<title>Chính Sách Bảo Mật - Thuê Xe Máy Mr Tú | Thông Tin Cá Nhân</title>'
+                  ),
+                  (
+                      '<meta name="description" content="Chính sách bảo mật thuê xe máy Mr Tú cam kết bảo vệ tuyệt đối thông tin khách hàng (CCCD, SĐT). Xem chi tiết quy định lưu trữ & sử dụng dữ liệu tại đây!">',
+                      '<meta name="description" content="Chính sách bảo mật của Mr Tú giải thích cách thông tin khách hàng được thu thập, sử dụng và bảo vệ khi liên hệ hoặc sử dụng dịch vụ thuê xe máy.">'
+                  ),
+              ],
+
+              "hoankiem.html": [
+                  (
+                      '<meta name="description" content="Dịch vụ cho thuê xe máy Hoàn Kiếm, Phố Cổ Hà Nội giao xe tận nơi sau 5 phút. Xe mới, mũ xịn, giá từ 100k. Gọi Mr Tú 081.665.9199 để nhận xe ngay!">',
+                      '<meta name="description" content="Dịch vụ thuê xe máy Hoàn Kiếm của Mr Tú, hỗ trợ giao nhận tại khu vực trung tâm Hà Nội. Xem loại xe, thông tin thuê và liên hệ để kiểm tra tình trạng xe.">'
+                  ),
+              ],
+          }
+
+          total = 0
+          prepared = {}
+
+          for filename, pairs in replacements.items():
+              path = Path(filename)
+
+              if not path.exists():
+                  print(f"FAIL: missing {filename}")
+                  sys.exit(1)
+
+              original = path.read_bytes()
+
+              marker = b"</head>"
+              if original.count(marker) != 1:
+                  print(f"FAIL: {filename} contains {original.count(marker)} </head> markers")
+                  sys.exit(1)
+
+              head, tail = original.split(marker, 1)
+              modified_head = head
+
+              for old, new in pairs:
+                  old_b = old.encode("utf-8")
+                  new_b = new.encode("utf-8")
+
+                  count = modified_head.count(old_b)
+
+                  if count != 1:
+                      print(f"FAIL: {filename}: OLD string count is {count}, expected 1")
+                      sys.exit(1)
+
+                  modified_head = modified_head.replace(old_b, new_b, 1)
+                  total += 1
+
+              new_content = modified_head + marker + tail
+
+              old_tail = marker + tail
+              new_tail = new_content[len(modified_head):]
+
+              if new_tail != old_tail:
+                  print(f"FAIL: content after </head> changed in {filename}")
+                  sys.exit(1)
+
+              prepared[filename] = new_content
+
+          if total != 7:
+              print(f"FAIL: total replacements = {total}, expected 7")
+              sys.exit(1)
+
+          for filename, content in prepared.items():
+              Path(filename).write_bytes(content)
+
+          print("PASS: exactly 7 replacements prepared")
+          PY
+
+      - name: Validate diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          echo "===== CHANGED FILES ====="
+          git diff --name-only
+          ACTUAL="$(git diff --name-only | sort)"
+          EXPECTED="$(printf '%s\n' banggia.html chinhsach.html hoankiem.html index.html | sort)"
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "FAIL: unexpected changed files"
+            echo "Expected:"
+            echo "$EXPECTED"
+            echo "Actual:"
+            echo "$ACTUAL"
+            exit 1
+          fi
+          echo "===== DIFF ====="
+          git diff --             index.html             banggia.html             chinhsach.html             hoankiem.html
+
+      - name: Commit SEO changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             index.html             banggia.html             chinhsach.html             hoankiem.html
+          STAGED="$(git diff --cached --name-only | sort)"
+          EXPECTED="$(printf '%s\n' banggia.html chinhsach.html hoankiem.html index.html | sort)"
+          if [ "$STAGED" != "$EXPECTED" ]; then
+            echo "FAIL: staged file list mismatch"
+            exit 1
+          fi
+          git commit -m "SEO: refine page intent and refresh metadata"
+          git push origin "HEAD:${{ github.ref_name }}"
