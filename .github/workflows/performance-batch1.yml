@@ -94,10 +94,10 @@ jobs:
 
               # CHANGE 2: Remove 500ms fade-in delay (multiline-safe)
               fade_re = re.compile(
-                  rb"setTimeout\s*\(\s*\(\s*\=>\s*\{\s*"
+                  rb"setTimeout\s*\\(\s*\\(\s*\=>\s*\{\s*"
                   rb"document\.querySelectorAll\('\.fade-in-up'\)"
-                  rb"\.forEach\s*\(\s*el\s*\=>\s*obs\.observe\s*\(\s*el\s*\)\s*\);\s*"
-                  rb"\}\s*,\s*500\s*\);"
+                  rb"\.forEach\s*\\(\s*el\s*\=>\s*obs\.observe\s*\\(\s*el\s*\\)\s*\\);\s*"
+                  rb"\}\\s*,\s*500\s*\\);"
               )
               
               fade_matches = fade_re.findall(modified_tail)
@@ -115,8 +115,7 @@ jobs:
               
               for img_name in img_files_list:
                   old_src = f"https://raw.githubusercontent.com/thuexemayhanoi/shop/main/{img_name}".encode('utf-8')
-                  # Only replace in src="..." attributes
-                  src_pattern = rb'(src="' + re.escape(old_src) + rb'")'
+                  src_pattern = re.compile(rb'(src="' + re.escape(old_src) + rb'")')
                   new_src = f"./{img_name}".encode('utf-8')
                   new_src_attr = rb'(src="' + re.escape(new_src) + rb'")'
                   
@@ -165,7 +164,7 @@ jobs:
                   skipped_files.add(filepath.name)
                   print(f"Skipped: {filepath.name} (no changes)")
 
-          print(f"\nPerformance changes applied:")
+          print(f"Performance changes applied:")
           print(f"  Render.init replacements: {render_init_count}")
           print(f"  Fade-in delay removals: {fade_in_count}")
           print(f"  Image URL conversions: {image_url_count}")
@@ -184,7 +183,6 @@ jobs:
           echo "Changed files:"
           echo "$CHANGED_FILES"
           
-          # Only root-level *.html files should be changed
           UNEXPECTED="$(echo "$CHANGED_FILES" | grep -vE '^\.html$' || true)"
           if [ -n "$UNEXPECTED" ]; then
             echo "FAIL: Unexpected non-HTML files changed"
