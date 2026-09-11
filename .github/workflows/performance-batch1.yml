@@ -5,12 +5,13 @@ on:
   push:
     paths:
       - '.github/workflows/performance-batch1.yml'
+      - '.github/scripts/perf_batch1.py'
 
 permissions:
   contents: write
 
 jobs:
-  performance-batch1:
+  performance:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +22,71 @@ jobs:
 
       - name: Apply performance optimizations
         shell: bash
-        run: |
-          python3 <<'PYTHON_SCRIPT'
-          from pathlib import Path
-          import sys
-          import re
+        run: python3 .github/scripts/perf_batch1.py
 
-          html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()]
+      - name: Validate production diff
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git diff --check
+
+          CHANGED="$(git diff --name-only)"
+
+          echo "Changed files:"
+          printf '%s
+' "$CHANGED"
+
+          if [ -z "$CHANGED" ]; then
+            echo "FAIL: NO PRODUCTION CHANGES"
+            exit 1
+          fi
+
+          UNEXPECTED="$(
+            printf '%s
+' "$CHANGED" |
+            grep -vE '^[^/]+\.html$' || true
+          )"
+
+          if [ -n "$UNEXPECTED" ]; then
+            echo "FAIL: Unexpected files changed"
+            printf '%s
+' "$UNEXPECTED"
+            exit 1
+          fi
+
+          git diff --stat
+
+      - name: Commit production changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -- *.html
+
+          STAGED="$(git diff --cached --name-only)"
+
+          BAD="$(
+            printf '%s
+' "$STAGED" |
+            grep -vE '^[^/]+\.html$' || true
+          )"
+
+          if [ -z "$STAGED" ]; then
+            echo "FAIL: nothing staged"
+            exit 1
+          fi
+
+          if [ -n "$BAD" ]; then
+            echo "FAIL: unexpected staged files"
+            printf '%s
+' "$BAD"
+            exit 1
+          fi
+
+          git commit -m "perf: optimize static image delivery and initialization"
+
+          git push origin HEAD:main
