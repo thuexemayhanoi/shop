@@ -34,7 +34,8 @@ jobs:
           CHANGED="$(git diff --name-only)"
 
           echo "Changed files:"
-          printf '%s\n' "$CHANGED"
+          printf '%s
+' "$CHANGED"
 
           if [ -z "$CHANGED" ]; then
             echo "FAIL: NO PRODUCTION CHANGES"
@@ -42,13 +43,15 @@ jobs:
           fi
 
           UNEXPECTED="$(
-            printf '%s\n' "$CHANGED" |
-            grep -vE '^[^/]+\.html$' || true
+            printf '%s
+' "$CHANGED" |
+            grep -vE '^[^/]+.html$' || true
           )"
 
           if [ -n "$UNEXPECTED" ]; then
             echo "FAIL: Unexpected files changed"
-            printf '%s\n' "$UNEXPECTED"
+            printf '%s
+' "$UNEXPECTED"
             exit 1
           fi
 
@@ -67,8 +70,9 @@ jobs:
           STAGED="$(git diff --cached --name-only)"
 
           BAD="$(
-            printf '%s\n' "$STAGED" |
-            grep -vE '^[^/]+\.html$' || true
+            printf '%s
+' "$STAGED" |
+            grep -vE '^[^/]+.html$' || true
           )"
 
           if [ -z "$STAGED" ]; then
@@ -78,7 +82,8 @@ jobs:
 
           if [ -n "$BAD" ]; then
             echo "FAIL: unexpected staged files"
-            printf '%s\n' "$BAD"
+            printf '%s
+' "$BAD"
             exit 1
           fi
 
