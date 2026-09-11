@@ -1,0 +1,82 @@
+name: Recover Phoco Full Page
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/recover-phoco.yml'
+      - '.github/scripts/recover_phoco.py'
+
+permissions:
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore known-good page and apply SEO
+        run: python3 .github/scripts/recover_phoco.py
+
+      - name: Validate diff
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git diff --check
+
+          CHANGED="$(git diff --name-only)"
+
+          echo "Production diff:"
+          echo "$CHANGED"
+
+          if [ "$CHANGED" != "phoco.html" ]; then
+            echo "FAIL: production diff must contain only phoco.html"
+            exit 1
+          fi
+
+          grep -Fq             'motoai_v40_bm25plus_final.js'             phoco.html
+
+          grep -Fq             'Render.init();'             phoco.html
+
+          if grep -Fq './motoai-main.js' phoco.html; then
+            echo "FAIL: bad MotoAI source"
+            exit 1
+          fi
+
+          LINES="$(wc -l < phoco.html)"
+
+          echo "phoco.html lines: $LINES"
+
+          if [ "$LINES" -lt 1800 ]; then
+            echo "FAIL: page too short"
+            exit 1
+          fi
+
+          git diff --stat
+
+      - name: Commit recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email             "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -- phoco.html
+
+          STAGED="$(git diff --cached --name-only)"
+
+          if [ "$STAGED" != "phoco.html" ]; then
+            echo "FAIL: staged diff must contain only phoco.html"
+            exit 1
+          fi
+
+          git commit -m             "fix: restore full Phố Cổ page and preserve SEO targeting"
+
+          git push origin HEAD:main
