@@ -27,6 +27,7 @@ jobs:
           import sys
           import re
 
+          # Collect all root-level HTML files
           html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()])
           
           if len(html_files) != 25:
@@ -43,15 +44,36 @@ jobs:
           changed_files = set()
           skipped_files = set()
 
-          motoai_patterns = [b'motoai', b'MOTO_AI', b'motoAI', b'AI_Guide', b'AI_Matchmaker']
+          # MotoAI protection patterns
+          protected_tokens = (
+              b'motoai',
+              b'MOTO_AI',
+              b'motoAI',
+              b'AI_Guide',
+              b'AI_Matchmaker'
+          )
+
+          def protected_lines(data):
+              return [
+                  line
+                  for line in data.splitlines(keepends=True)
+                  if any(token in line for token in protected_tokens)
+              ]
+
+          moto_src_re = re.compile(
+              rb'<script\b[^>]*\bsrc=["\'][^"\']*motoai[^"\']*["\'][^>]*>\s*</script>',
+              re.IGNORECASE
+          )
 
           for filepath in html_files:
               path = Path(filepath)
               original = path.read_bytes()
 
+              # HEAD validation
               marker = b"</head>"
-              if original.count(marker) != 1:
-                  print(f"FAIL: {filepath.name} contains {original.count(marker)} </head> markers")
+              head_count = original.count(marker)
+              if head_count != 1:
+                  print(f"FAIL: {filepath.name} contains {head_count} </head> markers (expected 1)")
                   sys.exit(1)
 
               head, tail = original.split(marker, 1)
@@ -64,43 +86,43 @@ jobs:
               if old_render in modified_tail:
                   count = modified_tail.count(old_render)
                   if count != 1:
-                      print(f"FAIL: {filepath.name}: DOMContentLoaded pattern appears {count} times")
+                      print(f"FAIL: {filepath.name}: DOMContentLoaded pattern appears {count} times (expected 0 or 1)")
                       sys.exit(1)
                   modified_tail = modified_tail.replace(old_render, new_render, 1)
                   render_init_count += 1
                   changed_files.add(filepath.name)
 
-              # CHANGE 2: Remove 500ms fade-in delay
-              fade_pattern = b"document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el))"
+              # CHANGE 2: Remove 500ms fade-in delay (multiline-safe)
+              fade_re = re.compile(
+                  rb"setTimeout\s*\(\s*\(\s*\=>\s*\{\s*"
+                  rb"document\.querySelectorAll\('\.fade-in-up'\)"
+                  rb"\.forEach\s*\(\s*el\s*\=>\s*obs\.observe\s*\(\s*el\s*\)\s*\);\s*"
+                  rb"\}\s*,\s*500\s*\);"
+              )
               
-              target_block = b"setTimeout(() => { document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el)); }, 500)"
-              if target_block in modified_tail:
-                  if modified_tail.count(target_block) != 1:
-                      print(f"FAIL: {filepath.name}: fade-in pattern appears {modified_tail.count(target_block)} times")
-                      sys.exit(1)
-                  modified_tail = modified_tail.replace(target_block, fade_pattern, 1)
-                  fade_in_count += 1
-                  changed_files.add(filepath.name)
-              
-              target_block2 = b"setTimeout(function() { document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el)); }, 500)"
-              if target_block2 in modified_tail:
-                  if modified_tail.count(target_block2) != 1:
-                      print(f"FAIL: {filepath.name}: fade-in pattern variant appears {modified_tail.count(target_block2)} times")
-                      sys.exit(1)
-                  modified_tail = modified_tail.replace(target_block2, fade_pattern, 1)
+              fade_matches = fade_re.findall(modified_tail)
+              if len(fade_matches) > 1:
+                  print(f"FAIL: {filepath.name}: fade-in pattern appears {len(fade_matches)} times (expected <= 1)")
+                  sys.exit(1)
+              elif len(fade_matches) == 1:
+                  fade_pattern = b"document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el))"
+                  modified_tail = fade_re.sub(fade_pattern, modified_tail, count=1)
                   fade_in_count += 1
                   changed_files.add(filepath.name)
 
-              # CHANGE 3: Same-origin image delivery
+              # CHANGE 3: Same-origin image delivery (only in src attributes)
               img_files_list = [f.name for f in Path(".").glob("IMG_*.jpeg") if f.is_file()]
               
               for img_name in img_files_list:
                   old_src = f"https://raw.githubusercontent.com/thuexemayhanoi/shop/main/{img_name}".encode('utf-8')
+                  # Only replace in src="..." attributes
+                  src_pattern = rb'(src="' + re.escape(old_src) + rb'")'
                   new_src = f"./{img_name}".encode('utf-8')
+                  new_src_attr = rb'(src="' + re.escape(new_src) + rb'")'
                   
-                  if old_src in modified_tail:
-                      count = modified_tail.count(old_src)
-                      modified_tail = modified_tail.replace(old_src, new_src)
+                  if src_pattern.search(modified_tail):
+                      count = len(src_pattern.findall(modified_tail))
+                      modified_tail = src_pattern.sub(new_src_attr, modified_tail)
                       image_url_count += count
                       changed_files.add(filepath.name)
 
@@ -125,13 +147,15 @@ jobs:
                   print(f"FAIL: {filepath.name}: HEAD changed")
                   sys.exit(1)
 
-              # VALIDATION: MotoAI unchanged
-              for pattern in motoai_patterns:
-                  old_matches = [(m.start(), m.end()) for m in re.finditer(pattern, original)]
-                  new_matches = [(m.start(), m.end()) for m in re.finditer(pattern, new_content)]
-                  if old_matches != new_matches:
-                      print(f"FAIL: {filepath.name}: MotoAI content changed")
-                      sys.exit(1)
+              # VALIDATION: MotoAI protected lines unchanged
+              if protected_lines(original) != protected_lines(new_content):
+                  print(f"FAIL: {filepath.name}: protected MotoAI lines changed")
+                  sys.exit(1)
+
+              # VALIDATION: MotoAI external script src unchanged
+              if moto_src_re.findall(original) != moto_src_re.findall(new_content):
+                  print(f"FAIL: {filepath.name}: MotoAI external script src changed")
+                  sys.exit(1)
 
               # Write the modified file
               if modified_tail != tail:
@@ -155,8 +179,19 @@ jobs:
         run: |
           set -euo pipefail
           git diff --check
-          echo "===== CHANGED FILES ====="
-          git diff --name-only
+          
+          CHANGED_FILES="$(git diff --name-only)"
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          
+          # Only root-level *.html files should be changed
+          UNEXPECTED="$(echo "$CHANGED_FILES" | grep -vE '^\.html$' || true)"
+          if [ -n "$UNEXPECTED" ]; then
+            echo "FAIL: Unexpected non-HTML files changed"
+            echo "$UNEXPECTED"
+            exit 1
+          fi
+          
           echo "===== DIFF STAT ====="
           git diff --stat
 
@@ -166,6 +201,6 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add --all
+          git add *.html
           git commit -m "perf: improve perceived page load across static pages"
           git push origin "HEAD:${{ github.ref_name }}"
