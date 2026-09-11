@@ -86,7 +86,7 @@ jobs:
               if old_render in modified_tail:
                   count = modified_tail.count(old_render)
                   if count != 1:
-                      print(f"FAIL: {filepath.name}: DOMContentLoaded pattern appears {count} times (expected 0 or 1)")
+                      print(f"FAIL: {filepath.name}: DOMContentLoaded pattern appears {count} times")
                       sys.exit(1)
                   modified_tail = modified_tail.replace(old_render, new_render, 1)
                   render_init_count += 1
@@ -101,27 +101,39 @@ jobs:
               )
               
               fade_matches = fade_re.findall(modified_tail)
+              
               if len(fade_matches) > 1:
-                  print(f"FAIL: {filepath.name}: fade-in pattern appears {len(fade_matches)} times (expected <= 1)")
+                  print(f"FAIL: {filepath.name}: fade-in pattern appears {len(fade_matches)} times")
                   sys.exit(1)
-              elif len(fade_matches) == 1:
-                  fade_pattern = b"document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el))"
-                  modified_tail = fade_re.sub(fade_pattern, modified_tail, count=1)
+              
+              if len(fade_matches) == 1:
+                  replacement = (
+                      b"document.querySelectorAll('.fade-in-up')"
+                      b".forEach(el => obs.observe(el));"
+                  )
+                  modified_tail = fade_re.sub(replacement, modified_tail, count=1)
                   fade_in_count += 1
                   changed_files.add(filepath.name)
 
-              # CHANGE 3: Same-origin image delivery (only in src attributes)
-              img_files_list = [f.name for f in Path(".").glob("IMG_*.jpeg") if f.is_file()]
+              # CHANGE 3: Same-origin image delivery (only in BODY/tail after </head>)
+              img_files_list = [
+                  f.name
+                  for f in Path(".").glob("IMG_*.jpeg")
+                  if f.is_file()
+              ]
               
               for img_name in img_files_list:
-                  old_src_str = f"https://raw.githubusercontent.com/thuexemayhanoi/shop/main/{img_name}"
-                  src_pattern = re.compile(rb'(src="' + re.escape(old_src_str) + rb'")')
-                  new_src_str = f"./{img_name}"
-                  new_src_attr = rb'(src="' + re.escape(new_src_str) + rb'")'
+                  old_attr = (
+                      f'src="https://raw.githubusercontent.com/'
+                      f'thuexemayhanoi/shop/main/{img_name}"'
+                  ).encode("utf-8")
                   
-                  if src_pattern.search(modified_tail):
-                      count = len(src_pattern.findall(modified_tail))
-                      modified_tail = src_pattern.sub(new_src_attr, modified_tail)
+                  new_attr = f'src="./{img_name}"'.encode("utf-8")
+                  
+                  count = modified_tail.count(old_attr)
+                  
+                  if count:
+                      modified_tail = modified_tail.replace(old_attr, new_attr)
                       image_url_count += count
                       changed_files.add(filepath.name)
 
@@ -165,6 +177,7 @@ jobs:
                   print(f"Skipped: {filepath.name} (no changes)")
 
           print(f"Performance changes applied:")
+          print(f"  HTML inspected: {len(html_files)}")
           print(f"  Render.init replacements: {render_init_count}")
           print(f"  Fade-in delay removals: {fade_in_count}")
           print(f"  Image URL conversions: {image_url_count}")
@@ -183,9 +196,9 @@ jobs:
           echo "Changed files:"
           echo "$CHANGED_FILES"
           
-          UNEXPECTED="$(echo "$CHANGED_FILES" | grep -vE '^\.html$' || true)"
+          UNEXPECTED="$(echo "$CHANGED_FILES" | grep -vE '^[^/]+\.html$' || true)"
           if [ -n "$UNEXPECTED" ]; then
-            echo "FAIL: Unexpected non-HTML files changed"
+            echo "FAIL: Unexpected production files changed"
             echo "$UNEXPECTED"
             exit 1
           fi
@@ -200,5 +213,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add *.html
+          
+          STAGED_FILES="$(git diff --cached --name-only)"
+          echo "Staged files:"
+          echo "$STAGED_FILES"
+          
           git commit -m "perf: improve perceived page load across static pages"
           git push origin "HEAD:${{ github.ref_name }}"
