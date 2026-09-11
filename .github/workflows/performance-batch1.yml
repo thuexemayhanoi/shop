@@ -92,12 +92,12 @@ jobs:
                   render_init_count += 1
                   changed_files.add(filepath.name)
 
-              # CHANGE 2: Remove 500ms fade-in delay (multiline-safe)
+              # CHANGE 2: Remove 500ms fade-in delay
               fade_re = re.compile(
                   rb"setTimeout\s*\\(\s*\\(\s*\=>\s*\{\s*"
                   rb"document\.querySelectorAll\('\.fade-in-up'\)"
-                  rb"\.forEach\s*\\(\s*el\s*\=>\s*obs\.observe\s*\\(\s*el\s*\\)\s*\\);\s*"
-                  rb"\}\s*,\s*500\s*\\);"
+                  rb"\.forEach\\(\s*el\s*\=>\s*obs\.observe\\(\s*el\s*\\)\s*\\);\s*"
+                  rb"\}\\s*,\\s*500\\s*\\);"
               )
               
               fade_matches = fade_re.findall(modified_tail)
