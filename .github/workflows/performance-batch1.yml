@@ -20,3 +20,11 @@ jobs:
           fetch-depth: 0
 
       - name: Apply performance optimizations
+        shell: bash
+        run: |
+          python3 <<'PYTHON_SCRIPT'
+          from pathlib import Path
+          import sys
+          import re
+
+          html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()]
