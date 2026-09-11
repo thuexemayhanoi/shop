@@ -45,7 +45,7 @@ jobs:
           UNEXPECTED="$(
             printf '%s
 ' "$CHANGED" |
-            grep -vE '^[^/]+\.html$' || true
+            grep -vE '^[^/]+.html$' || true
           )"
 
           if [ -n "$UNEXPECTED" ]; then
@@ -72,7 +72,7 @@ jobs:
           BAD="$(
             printf '%s
 ' "$STAGED" |
-            grep -vE '^[^/]+\.html$' || true
+            grep -vE '^[^/]+.html$' || true
           )"
 
           if [ -z "$STAGED" ]; then
