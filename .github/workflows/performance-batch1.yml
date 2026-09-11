@@ -1,0 +1,171 @@
+name: Performance Batch 1
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/performance-batch1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  performance-batch1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply performance optimizations
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import sys
+          import re
+
+          html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()])
+          
+          if len(html_files) != 25:
+              print(f"FAIL: Expected 25 HTML files, found {len(html_files)}")
+              print(f"Files: {[f.name for f in html_files]}")
+              sys.exit(1)
+
+          print(f"Inspected {len(html_files)} HTML files")
+
+          render_init_count = 0
+          fade_in_count = 0
+          image_url_count = 0
+          decoding_count = 0
+          changed_files = set()
+          skipped_files = set()
+
+          motoai_patterns = [b'motoai', b'MOTO_AI', b'motoAI', b'AI_Guide', b'AI_Matchmaker']
+
+          for filepath in html_files:
+              path = Path(filepath)
+              original = path.read_bytes()
+
+              marker = b"</head>"
+              if original.count(marker) != 1:
+                  print(f"FAIL: {filepath.name} contains {original.count(marker)} </head> markers")
+                  sys.exit(1)
+
+              head, tail = original.split(marker, 1)
+              modified_tail = tail
+
+              # CHANGE 1
+              old_render = b"document.addEventListener('DOMContentLoaded', () => Render.init());"
+              new_render = b"Render.init();"
+              
+              if old_render in modified_tail:
+                  count = modified_tail.count(old_render)
+                  if count != 1:
+                      print(f"FAIL: {filepath.name}: DOMContentLoaded pattern appears {count} times")
+                      sys.exit(1)
+                  modified_tail = modified_tail.replace(old_render, new_render, 1)
+                  render_init_count += 1
+                  changed_files.add(filepath.name)
+
+              # CHANGE 2
+              fade_pattern = b"document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el))"
+              
+              target_block = b"setTimeout(() => { document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el)); }, 500)"
+              if target_block in modified_tail:
+                  if modified_tail.count(target_block) != 1:
+                      print(f"FAIL: {filepath.name}: fade-in pattern appears {modified_tail.count(target_block)} times")
+                      sys.exit(1)
+                  modified_tail = modified_tail.replace(target_block, fade_pattern, 1)
+                  fade_in_count += 1
+                  changed_files.add(filepath.name)
+              
+              target_block2 = b"setTimeout(function() { document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el)); }, 500)"
+              if target_block2 in modified_tail:
+                  if modified_tail.count(target_block2) != 1:
+                      print(f"FAIL: {filepath.name}: fade-in pattern variant appears {modified_tail.count(target_block2)} times")
+                      sys.exit(1)
+                  modified_tail = modified_tail.replace(target_block2, fade_pattern, 1)
+                  fade_in_count += 1
+                  changed_files.add(filepath.name)
+
+              # CHANGE 3
+              img_files = [f.name for f in Path(".").glob("IMG_*.jpeg") if f.is_file()]
+              
+              for img_name in img_files:
+                  old_src = f"https://raw.githubusercontent.com/thuexemayhanoi/shop/main/{img_name}".encode('utf-8')
+                  new_src = f"./{img_name}".encode('utf-8')
+                  
+                  if old_src in modified_tail:
+                      count = modified_tail.count(old_src)
+                      modified_tail = modified_tail.replace(old_src, new_src)
+                      image_url_count += count
+                      changed_files.add(filepath.name)
+
+              # CHANGE 4
+              img_pattern = rb'(<img\s+[^>]*loading="lazy"[^>]*)>'
+              
+              def add_decoding(match):
+                  img_tag = match.group(1)
+                  if b'decoding=' in img_tag:
+                      return match.group(0)
+                  return img_tag + b' decoding="async">'
+              
+              new_tail, replacements = re.subn(img_pattern, add_decoding, modified_tail)
+              decoding_count += replacements
+              if replacements > 0:
+                  changed_files.add(filepath.name)
+              modified_tail = new_tail
+
+              # VALIDATION: HEAD unchanged
+              new_content = head + marker + modified_tail
+              if new_content[:len(head)] != head:
+                  print(f"FAIL: {filepath.name}: HEAD changed")
+                  sys.exit(1)
+
+              # VALIDATION: MotoAI unchanged
+              for pattern in motoai_patterns:
+                  old_matches = [(m.start(), m.end()) for m in re.finditer(pattern, original)]
+                  new_matches = [(m.start(), m.end()) for m in re.finditer(pattern, new_content)]
+                  if old_matches != new_matches:
+                      print(f"FAIL: {filepath.name}: MotoAI content changed")
+                      sys.exit(1)
+
+              # Write the modified file
+              if modified_tail != tail:
+                  path.write_bytes(new_content)
+                  print(f"Modified: {filepath.name}")
+              else:
+                  skipped_files.add(filepath.name)
+                  print(f"Skipped: {filepath.name} (no changes)")
+
+          print(f"\nPerformance changes applied:")
+          print(f"  Render.init replacements: {render_init_count}")
+          print(f"  Fade-in delay removals: {fade_in_count}")
+          print(f"  Image URL conversions: {image_url_count}")
+          print(f"  Decoding additions: {decoding_count}")
+          print(f"  Files changed: {len(changed_files)}")
+          print(f"  Files skipped: {len(skipped_files)}")
+          PY
+
+      - name: Validate diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          echo "===== CHANGED FILES ====="
+          git diff --name-only
+          echo "===== DIFF STAT ====="
+          git diff --stat
+
+      - name: Commit performance changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit -m "perf: improve perceived page load across static pages"
+          git push origin "HEAD:${{ github.ref_name }}"
