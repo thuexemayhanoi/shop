@@ -12,3 +12,17 @@ permissions:
 jobs:
   performance-batch1:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply performance optimizations
+        shell: bash
+        run: |
+          python3 <<'PYTHON_SCRIPT'
+          from pathlib import Path
+          import sys
+          import re
