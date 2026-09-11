@@ -1,0 +1,117 @@
+name: SEO Primary Keyword Batch — Phố Cổ
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/seo-phoco.yml'
+      - '.github/scripts/seo_phoco.py'
+
+permissions:
+  contents: write
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply SEO changes
+        shell: bash
+        run: python3 .github/scripts/seo_phoco.py
+
+      - name: Validate production diff
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git diff --check
+
+          CHANGED="$(git diff --name-only)"
+
+          echo "Changed files:"
+          printf '%s\n' "$CHANGED"
+
+          if [ -z "$CHANGED" ]; then
+            echo "FAIL: NO PRODUCTION CHANGES"
+            exit 1
+          fi
+
+          UNEXPECTED="$(
+            printf '%s\n' "$CHANGED" |
+            grep -vE '^[^/]+\.html$' || true
+          )"
+
+          if [ -n "$UNEXPECTED" ]; then
+            echo "FAIL: Unexpected files changed"
+            printf '%s\n' "$UNEXPECTED"
+            exit 1
+          fi
+
+          if [ "$CHANGED" != "phoco.html" ]; then
+            echo "FAIL: Expected only phoco.html, got: $CHANGED"
+            exit 1
+          fi
+
+          # Validate SEO changes
+          if ! grep -q '<title>Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú | Xe Số, Xe Ga</title>' phoco.html; then
+            echo "FAIL: Title not updated correctly"
+            exit 1
+          fi
+
+          if ! grep -q 'Thuê xe máy Phố Cổ Hà Nội - Mr Tú' phoco.html; then
+            echo "FAIL: H1 not updated correctly"
+            exit 1
+          fi
+
+          if ! grep -q 'https://thuexemayhanoi.github.io/shop/phoco.html' phoco.html; then
+            echo "FAIL: Canonical URL changed or missing"
+            exit 1
+          fi
+
+          if ! grep -q 'motoai' phoco.html; then
+            echo "FAIL: MotoAI references missing"
+            exit 1
+          fi
+
+          if ! grep -q 'Render.init()' phoco.html; then
+            echo "FAIL: Render.init() missing"
+            exit 1
+          fi
+
+          if ! grep -q './IMG_0462.jpeg' phoco.html || ! grep -q './IMG_0618.jpeg' phoco.html; then
+            echo "FAIL: Local image URLs changed"
+            exit 1
+          fi
+
+          git diff --stat
+
+      - name: Commit SEO changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add phoco.html
+
+          STAGED="$(git diff --cached --name-only)"
+
+          if [ -z "$STAGED" ]; then
+            echo "FAIL: nothing staged"
+            exit 1
+          fi
+
+          if [ "$STAGED" != "phoco.html" ]; then
+            echo "FAIL: Expected only phoco.html staged, got: $STAGED"
+            exit 1
+          fi
+
+          git commit -m "SEO: target Thuê xe máy Phố Cổ Hà Nội"
+
+          git push origin HEAD:main
