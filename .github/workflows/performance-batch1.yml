@@ -22,12 +22,11 @@ jobs:
       - name: Apply performance optimizations
         shell: bash
         run: |
-          python3 <<'PY'
+          python3 <<'PYTHON_SCRIPT'
           from pathlib import Path
           import sys
           import re
 
-          # Collect all root-level HTML files
           html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()])
           
           if len(html_files) != 25:
@@ -38,13 +37,11 @@ jobs:
           print(f"Inspected {len(html_files)} HTML files")
 
           render_init_count = 0
-          fade_in_count = 0
           image_url_count = 0
           decoding_count = 0
           changed_files = set()
           skipped_files = set()
 
-          # MotoAI protection patterns
           protected_tokens = (
               b'motoai',
               b'MOTO_AI',
@@ -69,7 +66,6 @@ jobs:
               path = Path(filepath)
               original = path.read_bytes()
 
-              # HEAD validation
               marker = b"</head>"
               head_count = original.count(marker)
               if head_count != 1:
@@ -79,7 +75,6 @@ jobs:
               head, tail = original.split(marker, 1)
               modified_tail = tail
 
-              # CHANGE 1: Remove artificial UI wait
               old_render = b"document.addEventListener('DOMContentLoaded', () => Render.init());"
               new_render = b"Render.init();"
               
@@ -92,30 +87,6 @@ jobs:
                   render_init_count += 1
                   changed_files.add(filepath.name)
 
-              # CHANGE 2: Remove 500ms fade-in delay
-              fade_re = re.compile(
-                  rb"setTimeout\s*\\(\s*\\(\s*\=>\s*\{\s*"
-                  rb"document\.querySelectorAll\('\.fade-in-up'\)"
-                  rb"\.forEach\\(\s*el\s*\=>\s*obs\.observe\\(\s*el\s*\\)\s*\\);\s*"
-                  rb"\}\\s*,\\s*500\\s*\\);"
-              )
-              
-              fade_matches = fade_re.findall(modified_tail)
-              
-              if len(fade_matches) > 1:
-                  print(f"FAIL: {filepath.name}: fade-in pattern appears {len(fade_matches)} times")
-                  sys.exit(1)
-              
-              if len(fade_matches) == 1:
-                  replacement = (
-                      b"document.querySelectorAll('.fade-in-up')"
-                      b".forEach(el => obs.observe(el));"
-                  )
-                  modified_tail = fade_re.sub(replacement, modified_tail, count=1)
-                  fade_in_count += 1
-                  changed_files.add(filepath.name)
-
-              # CHANGE 3: Same-origin image delivery (only in BODY/tail after </head>)
               img_files_list = [
                   f.name
                   for f in Path(".").glob("IMG_*.jpeg")
@@ -124,11 +95,11 @@ jobs:
               
               for img_name in img_files_list:
                   old_attr = (
-                      f'src="https://raw.githubusercontent.com/'
-                      f'thuexemayhanoi/shop/main/{img_name}"'
+                      "src="https://raw.githubusercontent.com/"
+                      + "thuexemayhanoi/shop/main/" + img_name + """
                   ).encode("utf-8")
                   
-                  new_attr = f'src="./{img_name}"'.encode("utf-8")
+                  new_attr = ("src="./" + img_name + """).encode("utf-8")
                   
                   count = modified_tail.count(old_attr)
                   
@@ -137,7 +108,6 @@ jobs:
                       image_url_count += count
                       changed_files.add(filepath.name)
 
-              # CHANGE 4: Async image decoding
               img_pattern = rb'(<img\s+[^>]*loading="lazy"[^>]*)>'
               
               def add_decoding(match):
@@ -152,23 +122,19 @@ jobs:
                   changed_files.add(filepath.name)
               modified_tail = new_tail
 
-              # VALIDATION: HEAD unchanged
               new_content = head + marker + modified_tail
               if new_content[:len(head)] != head:
                   print(f"FAIL: {filepath.name}: HEAD changed")
                   sys.exit(1)
 
-              # VALIDATION: MotoAI protected lines unchanged
               if protected_lines(original) != protected_lines(new_content):
                   print(f"FAIL: {filepath.name}: protected MotoAI lines changed")
                   sys.exit(1)
 
-              # VALIDATION: MotoAI external script src unchanged
               if moto_src_re.findall(original) != moto_src_re.findall(new_content):
                   print(f"FAIL: {filepath.name}: MotoAI external script src changed")
                   sys.exit(1)
 
-              # Write the modified file
               if modified_tail != tail:
                   path.write_bytes(new_content)
                   print(f"Modified: {filepath.name}")
@@ -179,30 +145,26 @@ jobs:
           print(f"Performance changes applied:")
           print(f"  HTML inspected: {len(html_files)}")
           print(f"  Render.init replacements: {render_init_count}")
-          print(f"  Fade-in delay removals: {fade_in_count}")
           print(f"  Image URL conversions: {image_url_count}")
           print(f"  Decoding additions: {decoding_count}")
           print(f"  Files changed: {len(changed_files)}")
           print(f"  Files skipped: {len(skipped_files)}")
-          PY
+          PYTHON_SCRIPT
 
       - name: Validate diff
         shell: bash
         run: |
           set -euo pipefail
           git diff --check
-          
           CHANGED_FILES="$(git diff --name-only)"
           echo "Changed files:"
           echo "$CHANGED_FILES"
-          
           UNEXPECTED="$(echo "$CHANGED_FILES" | grep -vE '^[^/]+\.html$' || true)"
           if [ -n "$UNEXPECTED" ]; then
             echo "FAIL: Unexpected production files changed"
             echo "$UNEXPECTED"
             exit 1
           fi
-          
           echo "===== DIFF STAT ====="
           git diff --stat
 
@@ -213,10 +175,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add *.html
-          
           STAGED_FILES="$(git diff --cached --name-only)"
           echo "Staged files:"
           echo "$STAGED_FILES"
-          
-          git commit -m "perf: improve perceived page load across static pages"
-          git push origin "HEAD:${{ github.ref_name }}"
+          if [ -z "$STAGED_FILES" ]; then
+            echo "FAIL: NO PRODUCTION CHANGES"
+            exit 1
+          fi
+          git commit -m "perf: optimize static image delivery and initialization"
+          git push origin "$GITHUB_REF"
