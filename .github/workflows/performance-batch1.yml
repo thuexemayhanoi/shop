@@ -57,7 +57,7 @@ jobs:
               head, tail = original.split(marker, 1)
               modified_tail = tail
 
-              # CHANGE 1
+              # CHANGE 1: Remove artificial UI wait
               old_render = b"document.addEventListener('DOMContentLoaded', () => Render.init());"
               new_render = b"Render.init();"
               
@@ -70,7 +70,7 @@ jobs:
                   render_init_count += 1
                   changed_files.add(filepath.name)
 
-              # CHANGE 2
+              # CHANGE 2: Remove 500ms fade-in delay
               fade_pattern = b"document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el))"
               
               target_block = b"setTimeout(() => { document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el)); }, 500)"
@@ -91,10 +91,10 @@ jobs:
                   fade_in_count += 1
                   changed_files.add(filepath.name)
 
-              # CHANGE 3
-              img_files = [f.name for f in Path(".").glob("IMG_*.jpeg") if f.is_file()]
+              # CHANGE 3: Same-origin image delivery
+              img_files_list = [f.name for f in Path(".").glob("IMG_*.jpeg") if f.is_file()]
               
-              for img_name in img_files:
+              for img_name in img_files_list:
                   old_src = f"https://raw.githubusercontent.com/thuexemayhanoi/shop/main/{img_name}".encode('utf-8')
                   new_src = f"./{img_name}".encode('utf-8')
                   
@@ -104,7 +104,7 @@ jobs:
                       image_url_count += count
                       changed_files.add(filepath.name)
 
-              # CHANGE 4
+              # CHANGE 4: Async image decoding
               img_pattern = rb'(<img\s+[^>]*loading="lazy"[^>]*)>'
               
               def add_decoding(match):
