@@ -1,0 +1,53 @@
+name: Test Performance Batch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Count HTML files
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import sys
+
+          html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()])
+          print(f"Found {len(html_files)} HTML files")
+          print(f"Files: {[f.name for f in html_files]}")
+          
+          if len(html_files) != 25:
+              print(f"FAIL: Expected 25, got {len(html_files)}")
+              sys.exit(1)
+          
+          print("SUCCESS: 25 HTML files found")
+          PY
+
+      - name: Check patterns
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+
+          html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()])
+          
+          for filepath in html_files:
+              content = Path(filepath).read_text()
+              
+              has_dom = "document.addEventListener('DOMContentLoaded', () => Render.init());" in content
+              has_fade = "setTimeout(() => { document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el)); }, 500)" in content
+              has_github = "https://raw.githubusercontent.com/thuexemayhanoi/shop/main/" in content
+              has_lazy = 'loading="lazy"' in content
+              
+              print(f"{filepath.name}: DOM={has_dom}, Fade={has_fade}, GitHub={has_github}, Lazy={has_lazy}")
+          PY
