@@ -97,7 +97,7 @@ jobs:
                   rb"setTimeout\s*\\(\s*\\(\s*\=>\s*\{\s*"
                   rb"document\.querySelectorAll\('\.fade-in-up'\)"
                   rb"\.forEach\s*\\(\s*el\s*\=>\s*obs\.observe\s*\\(\s*el\s*\\)\s*\\);\s*"
-                  rb"\\}\\s*,\\s*500\\s*\\);"
+                  rb"\}\s*,\s*500\s*\\);"
               )
               
               fade_matches = fade_re.findall(modified_tail)
