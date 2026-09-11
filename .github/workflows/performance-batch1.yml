@@ -97,7 +97,7 @@ jobs:
                   rb"setTimeout\s*\\(\s*\\(\s*\=>\s*\{\s*"
                   rb"document\.querySelectorAll\('\.fade-in-up'\)"
                   rb"\.forEach\s*\\(\s*el\s*\=>\s*obs\.observe\s*\\(\s*el\s*\\)\s*\\);\s*"
-                  rb"\}\\s*,\s*500\s*\\);"
+                  rb"\\}\\s*,\\s*500\\s*\\);"
               )
               
               fade_matches = fade_re.findall(modified_tail)
@@ -114,10 +114,12 @@ jobs:
               img_files_list = [f.name for f in Path(".").glob("IMG_*.jpeg") if f.is_file()]
               
               for img_name in img_files_list:
-                  old_src = f"https://raw.githubusercontent.com/thuexemayhanoi/shop/main/{img_name}".encode('utf-8')
-                  src_pattern = re.compile(rb'(src="' + re.escape(old_src) + rb'")')
-                  new_src = f"./{img_name}".encode('utf-8')
-                  new_src_attr = rb'(src="' + re.escape(new_src) + rb'")'
+                  old_src_str = f"https://raw.githubusercontent.com/thuexemayhanoi/shop/main/{img_name}"
+                  old_src = old_src_str.encode('utf-8')
+                  src_pattern = re.compile(rb'(src="' + re.escape(old_src_str) + rb'")')
+                  new_src_str = f"./{img_name}"
+                  new_src = new_src_str.encode('utf-8')
+                  new_src_attr = rb'(src="' + re.escape(new_src_str) + rb'")'
                   
                   if src_pattern.search(modified_tail):
                       count = len(src_pattern.findall(modified_tail))
