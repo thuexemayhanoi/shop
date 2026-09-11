@@ -20,16 +20,3 @@ jobs:
           fetch-depth: 0
 
       - name: Apply performance optimizations
-        shell: bash
-        run: |
-          python3 <<'PYTHON_SCRIPT'
-          from pathlib import Path
-          import sys
-          import re
-
-          html_files = sorted([f for f in Path(".").glob("*.html") if f.is_file()])
-          
-          if len(html_files) != 25:
-              print(f"FAIL: Expected 25 HTML files, found {len(html_files)}")
-              print(f"Files: {[f.name for f in html_files]}")
-              sys.exit(1)
