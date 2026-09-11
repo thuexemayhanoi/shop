@@ -28,768 +28,100 @@
 
 <link rel="canonical" href="https://thuexemayhanoi.github.io/shop/phoco.html">
 
-<!-- PWA iOS Config -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="bl
-ack-translucent">
-<meta name="apple-mobile-web-app-title" content="Mr Tú Phố Cổ">
-
-<!-- LOCAL GEO -->
-<meta name="geo.region" content="VN-HN">
-<meta name="geo.placename" content="Phố Cổ Hoàn Kiếm, Hà Nội">
-<meta name="geo.position" content="21.0388606;105.8535709">
-<meta name="ICBM" content="21.0388606, 105.8535709">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
-<!-- FontAwesome: Load print then switch to all for performance -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
 <style>
-    /* --- 1. DESIGN SYSTEM: WCAG 2.1 COMPLIANT --- */
-    :root {
-        --primary: #FF6B00;
-        --primary-dark: #cc5500;
-        --text-on-primary: #fff; 
-        --secondary: #FFB800;
-        
-        --accent-green: #006837;
-        --accent-blue: #0056D2;
-        --accent-purple: #7425C9;
-        --accent-yellow: #995700;
-        --accent-red: #C41C00;
-
-        --bg-body: #F2F2F7;
-        --surface: #FFFFFF;
-        --glass-material: rgba(255, 255, 255, 0.9);
-        --glass-border: rgba(0, 0, 0, 0.1);
-        --muted-bg: rgba(0, 0, 0, 0.05);
-
-        --text-main: #111111;
-        --text-sub: #555555;
-        
-        --shadow-3d: 0 10px 30px -10px rgba(0,0,0,0.15);
-        --btn-shadow: 0 6px 0 var(--primary-dark), 0 15px 25px rgba(255, 107, 0, 0.2);
-        --btn-active: 0 0 0 var(--pri
-mary-dark), inset 0 2px 5px rgba(0,0,0,0.1);
-        
-        --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
-        --font-stack: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    }
-
-    /* DARK THEME OVERRIDES */
-    [data-theme="dark"] {
-        --bg-body: #050505;
-        --surface: #1C1C1E;
-        --glass-material: rgba(30, 30, 32, 0.85);
-        --glass-border: rgba(255, 255, 255, 0.15);
-        --muted-bg: rgba(255, 255, 255, 0.08);
-
-        --accent-green: #34C759;
-        --accent-blue: #409CFF;
-        --accent-purple: #BF5AF2;
-        --accent-yellow: #FFD60A;
-        --accent-red: #FF453A;
-
-        --text-main: #F5F5F7;
-        --text-sub: #AEAEB2;
-
-        --shadow-3d: 0 20px 50px -10px rgba(0,0,0,0.7);
-        --btn-shadow: 0 6px 0 #b34700, 0 15px 30px rgba(255, 107, 0, 0.3);
-        --text-on-primary: #fff; 
-    }
-
-    /* --- 2. RESET & BASE --- */
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
-    
-    html { 
-        scroll-behavior: smooth; 
-        font-size: 100%; 
-        -webkit-font-smoothing: antialiased; 
-        -moz-osx-font-smoothing: grayscale; 
-        height: 100%;
-    }
-    
-    body {
-        margin: 0; padding: 0;
-        font-family: var(--font-stack);
-        background: var(--bg-body);
-        color: var(--text-main);
-        overflow-x: hidden;
-        transition: background 0.4s var(--ease-apple), color 0.3s;
-        padding-bottom: 40px; 
-        line-height: 1.5;
-    }
-
-    input, button, select, textarea { font-family: inherit; }
-
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; padding: 0; margin: 0; }
-    
-    p { line-height: 1.7; margin-bottom: 1.5rem; font-size: 1.05rem; color: var(--text-sub); font-weight: 500; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.5px; color: var(--text-main); margin-top: 3rem; }
-    h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; col
-or: var(--primary); margin-top: 2rem;}
-    strong { color: var(--text-main); font-weight: 700; }
-
-    a.seo-link { color: var(--primary); text-decoration: underline; text-decoration-color: rgba(255, 107, 0, 0.3); text-underline-offset: 4px; transition: 0.2s; }
-    a.seo-link:hover { text-decoration-color: var(--primary); }
-
-    /* --- 3. UI COMPONENTS --- */
-    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    
-    .glass-panel {
-        background: var(--glass-material);
-        backdrop-filter: blur(25px) saturate(180%);
-        -webkit-backdrop-filter: blur(25px) saturate(180%);
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 8px 32px rgba(0,0,0,0.05);
-    }
-    
-    /* FALLBACK FOR LOW-END DEVICES */
-    @supports not (backdrop-filter: blur(10px)) {
-        .glass-panel {
-            background: var(--surface);
-            opacity: 0.98;
-        }
-        [data-theme="dark"] .glass-panel {
-            background: #1c1c1ef2; 
-        }
-    }
-
-    /* REDUCED MOTION PREFERENCE (ACCESSIBILITY) */
-    @media (prefers-reduced-motion: reduce) {
-        *, ::before, ::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-        }
-    }
-
-    .btn-3d {
-        position: relative;
-        border: none;
-        background: linear-gradient(145deg, var(--primary), #FF8800);
-        color: var(--text-on-primary) !important; 
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        padding: 1rem 1.6rem;
-        border-radius: 24px;
-        cursor: pointer;
-        transition: transform 0.1s, box-shadow 0.1s;
-        box-shadow: var(--btn-shadow);
-        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-        border-top: 1px solid rgba(255,255,255,0.3);
-        font-size: 1rem;
-    }
-    .btn-3d:
-active { transform: translateY(6px); box-shadow: var(--btn-active); }
-
-    .fade-in-up { opacity: 0; transform: translateY(40px); transition: all 0.8s var(--ease-apple); }
-    .fade-in-up.visible { opacity: 1; transform: translateY(0); }
-
-    /* --- 4. HEADER --- */
-    .header {
-        position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-        padding: 12px 0; transition: 0.3s;
-    }
-    .header.scrolled { padding: 8px 0; }
-    
-    .nav-bar {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 8px 12px; border-radius: 100px;
-        transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
-    
-    .header-left { display: flex; align-items: center; gap: 12px; }
-
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo-img {
-        width: 44px; height: 44px; border-radius: 50%;
-        border: 2px solid var(--primary); padding: 2px;
-        animation: spin 12s linear infinite;
-        background: var(--surface);
-    }
-    /* Reduce motion for logo if preferred */
-    @media (prefers-reduced-motion: reduce) {
-        .logo-img { animation: none; }
-    }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    /* LOGO TITLE CHANGED TO DIV FOR SEO */
-    .logo-title { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1; display: block; color: var(--text-main); }
-    .logo-text span { font-size: 0.75rem; font-weight: 600; color: var(--text-sub); letter-spacing: 1px; display: block; }
-
-    .status-widget {
-        display: flex; align-items: center; gap: 8px;
-        padding: 6px 14px; border-radius: 20px;
-        background: var(--muted-bg);
-        border: 1px solid var(--glass-border);
-        backdrop-filter: blur(10px);
-    }
-    .status-dot {
-        width: 10px; height: 10px; border-radius: 50%;
-        background: var(--accent-red);
-        box-shadow: 0 0 8px var(--accent-red);
-        transition: 0.3s;
-    }
-    .status-dot.open { background: var(--accent-green); box
--shadow: 0 0 8px var(--accent-green); }
-    .status-dot.online { background: var(--secondary); box-shadow: 0 0 8px var(--secondary); } 
-    
-    .text-open { color: var(--accent-green) !important; }
-    .text-closed { color: var(--accent-red) !important; }
-    .text-online { color: var(--secondary) !important; }
-    
-    .status-text { font-size: 0.75rem; font-weight: 700; color: var(--text-main); white-space: nowrap; }
-
-    .desktop-nav { display: flex; gap: 4px; }
-    .nav-link {
-        padding: 8px 16px; border-radius: 20px; font-size: 0.95rem; font-weight: 600;
-        color: var(--text-sub); transition: 0.2s;
-        display: flex; align-items: center; gap: 6px;
-    }
-    .nav-link:hover { color: var(--primary); background: var(--muted-bg); }
-    
-    .header-actions { display: flex; gap: 8px; align-items: center;}
-    .action-btn {
-        width: 40px; height: 40px; border-radius: 50%; border: none;
-        background: var(--muted-bg); color: var(--text-main);
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; transition: 0.3s;
-    }
-    .action-btn:hover { background: var(--primary); color: var(--text-on-primary); transform: rotate(15deg); }
-    
-    .menu-toggle { display: none; }
-
-    /* --- SEARCH BAR CSS (NEW FEATURE) --- */
-    .search-container-desktop {
-        position: relative;
-        margin-right: 10px;
-        display: flex; align-items: center;
-    }
-    .search-input {
-        background: var(--muted-bg);
-        border: 1px solid var(--glass-border);
-        color: var(--text-main);
-        border-radius: 20px;
-        padding: 8px 16px 8px 36px;
-        font-size: 0.9rem;
-        width: 180px;
-        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        outline: none;
-    }
-    .search-input:focus {
-        width: 240px;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15);
-        background: var(--surface);
-    }
-    .search-icon-inside {
-        posit
-ion: absolute;
-        left: 12px;
-        color: var(--text-sub);
-        font-size: 16px;
-        pointer-events: none;
-        transition: 0.3s;
-    }
-    .search-input:focus + .search-icon-inside { color: var(--primary); }
-
-    /* Mobile Search Overlay */
-    .mobile-search-btn { display: none; }
-    .mobile-search-dropdown {
-        position: absolute;
-        top: 110%; left: 10px; right: 10px;
-        background: var(--glass-material);
-        backdrop-filter: blur(25px);
-        padding: 12px;
-        border-radius: 16px;
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        display: none;
-        animation: slideDownSearch 0.3s ease;
-        z-index: 999;
-    }
-    .mobile-search-dropdown.active { display: block; }
-    @keyframes slideDownSearch { from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
-    .mobile-search-input {
-        width: 100%; padding: 10px 40px 10px 16px;
-        border-radius: 12px; border: 1px solid var(--glass-border);
-        background: var(--muted-bg); color: var(--text-main);
-        font-size: 1rem;
-    }
-    .mobile-search-close {
-        position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-        color: var(--text-sub); font-size: 18px; cursor: pointer;
-        background: transparent; border: none; padding: 4px;
-    }
-
-    /* --- 5. HERO SECTION --- */
-    .hero {
-        min-height: 100vh; padding-top: 120px; padding-bottom: 60px;
-        display: flex; align-items: center; position: relative; overflow: hidden;
-    }
-    .hero-glow {
-        position: absolute; width: 90vw; height: 90vw;
-        background: radial-gradient(circle, rgba(255, 107, 0, 0.3) 0%, transparent 65%);
-        top: -30%; right: -30%; filter: blur(100px); opacity: 0.6; z-index: -1;
-        animation: float 10s ease-in-out infinite alternate;
-    }
-    @keyframes float { from {transform: translate(0,0);} to {transform: translate(-40px, 50px);} }
-
-  
-  .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
-
-    .hero-badge {
-        display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
-        border-radius: 100px; background: rgba(255, 107, 0, 0.1); color: var(--primary);
-        font-weight: 700; font-size: 0.85rem; border: 1px solid rgba(255, 107, 0, 0.3);
-        margin-bottom: 24px; box-shadow: 0 4px 20px rgba(255,107,0,0.1);
-    }
-    .hero-title {
-        font-size: clamp(2.2rem, 5vw, 4rem);
-        line-height: 1.1; font-weight: 800;
-        margin-bottom: 24px; letter-spacing: -1.5px;
-        color: var(--text-main);
-    }
-    .text-highlight {
-        background: linear-gradient(135deg, var(--primary) 20%, var(--secondary) 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    /* MINI APPS */
-    .mini-apps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 40px; }
-    .app-item {
-        display: flex; flex-direction: column; align-items: center; gap: 10px;
-        cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .app-item:hover { transform: translateY(-12px) scale(1.05); }
-    
-    .app-icon {
-        width: 68px; height: 68px; border-radius: 22px;
-        background: var(--glass-material); border: 1px solid var(--glass-border);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 26px; color: var(--primary); 
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        position: relative; overflow: hidden;
-    }
-    
-    .app-item[data-accent="green"] .app-icon { color: var(--accent-green); }
-    .app-item[data-accent="blue"] .app-icon { color: var(--accent-blue); }
-    .app-item[data-accent="yellow"] .app-icon { color: var(--accent-yellow); }
-    .app-item[data-accent="purple"] .app-icon { color: var(--accent-purple); }
-    /* AI Styling */
-    .app-item[data-accent="ai"] .app-icon { 
-        background:
- linear-gradient(135deg, #1A1A1A, #000); 
-        color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .app-item[data-accent="ai"] .app-icon i {
-        background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 28px;
-    }
-    /* Heart/Matchmaker Styling */
-    .app-item[data-accent="love"] .app-icon { 
-        background: linear-gradient(135deg, #fff0f0, #ffe6e6); 
-        color: #ff3366;
-    }
-
-    .app-icon::after {
-        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
-        transform: rotate(45deg) translateY(-100%); transition: 0.5s;
-    }
-    .app-item:hover .app-icon::after { transform: rotate(45deg) translateY(100%); }
-    .app-label { font-size: 0.75rem; font-weight: 600; color: var(--text-main); text-align: center; line-height: 1.2; }
-
-    /* Calculator */
-    .calc-box {
-        padding: 32px; border-radius: 36px;
-        transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-        box-shadow: var(--shadow-3d); transition: transform 0.1s linear; 
-        border-top: 1px solid rgba(255,255,255,0.3);
-    }
-    
-    .form-group { margin-bottom: 20px; }
-    .form-label { font-size: 0.9rem; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; display: block; }
-    .form-input {
-        width: 100%; padding: 1rem; border-radius: 18px; border: 1px solid var(--glass-border);
-        background: var(--muted-bg); color: var(--text-main); font-size: 1rem; font-weight: 600;
-        transition: 0.3s;
-    }
-    .form-input:focus { background: var(--surface); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.2); }
-
-    /* --- 6. SECTIONS --- */
-    .section { padding: 80px 0; }
-    .section-bg { background: var(--muted-bg); }
-    
-    .content-block { max-width: 860px; ma
-rgin: 0 auto; }
-    .policy-content ul, .policy-content ol { padding-left: 20px; color: var(--text-sub); margin-bottom: 20px; }
-    .policy-content li { margin-bottom: 10px; }
-    .policy-content p { text-align: justify; }
-
-    /* --- 7. FOOTER --- */
-    .footer { margin-top: 40px; }
-    .footer-box { padding: 70px 50px; border-radius: 48px; position: relative; overflow: hidden; }
-    .footer-bg-glow {
-        position: absolute; bottom: -50%; left: 50%; transform: translateX(-50%);
-        width: 120%; height: 120%; background: radial-gradient(circle, var(--primary) 0%, transparent 60%);
-        opacity: 0.08; pointer-events: none;
-    }
-    
-    .footer-grid { display: grid; gap: 50px; z-index: 1; position: relative; grid-template-columns: repeat(4, 1fr); }
-    
-    .f-col h4 {
-        font-size: 1.2rem; font-weight: 800; margin-bottom: 24px; color: var(--text-main);
-        display: flex; align-items: center; gap: 10px;
-    }
-    
-    .f-link {
-        display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
-        color: var(--text-sub); font-weight: 500; transition: 0.3s; font-size: 1rem;
-    }
-    .f-link:hover { color: var(--primary); transform: translateX(8px); }
-    
-    .f-svg-box {
-        width: 32px; height: 32px; border-radius: 10px;
-        background: var(--muted-bg); border: 1px solid var(--glass-border);
-        display: flex; align-items: center; justify-content: center; color: var(--text-main);
-        transition: 0.3s; flex-shrink: 0;
-    }
-    .f-link:hover .f-svg-box { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }
-
-    .footer-contact-info {
-        text-align: center; color: var(--text-sub); font-size: 0.95rem;
-        display: flex; flex-direction: column; gap: 8px; align-items: center;
-        margin-bottom: 16px;
-    }
-    .fc-item { margin: 0; display: flex; align-items: center; gap: 8px; justify-content: center; }
-    .fc-row { display: flex; gap: 20px; flex-wrap: wrap; justify-co
-ntent: center; }
-    
-    @media (max-width: 768px) {
-        .fc-row { flex-direction: column; gap: 8px; }
-    }
-
-    .social-btn {
-        width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        background: var(--muted-bg); color: var(--text-main); border: 1px solid var(--glass-border);
-        font-size: 16px; transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .social-btn:hover { transform: translateY(-5px); color: #fff; border-color: transparent; }
-    
-    .social-fb:hover { background: #1877F2; }
-    .social-ins:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-    .social-pin:hover { background: #BD081C; }
-    .social-me:hover { background: #00A98F; }
-    .social-tik:hover { background: #000000; }
-
-    /* --- 8. ULTRA APP MINI (FLOATING ACTION BUTTON) --- */
-    .ultra-fab-wrapper {
-        position: fixed;
-        bottom: 30px;
-        left: 20px;
-        z-index: 999;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .ultra-main-btn {
-        width: 60px; height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--primary), #FF4500);
-        color: #fff;
-        border: none;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 26px;
-        cursor: pointer;
-        box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
-        position: relative;
-        z-index: 2;
-        transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        animation: ultra-glow 2s infinite;
-    }
-    
-    @keyframes ultra-glow {
-        0% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.7); transform: scale(1); }
-        50% { transform: scale(1.05); }
-        70% { box-shadow: 0 0 0 15px rgba(255, 107, 0, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); transform: scale(1); }
-    }
-    
-    @keyfram
-es ultra-shake {
-        0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(-10deg); }
-        75% { transform: rotate(10deg); }
-    }
-
-    /* Apply shake on interval via JS or simpler hover/active */
-    .ultra-main-btn.shaking {
-        animation: ultra-shake 0.5s ease-in-out;
-    }
-
-    .ultra-main-btn i { transition: 0.3s; }
-    .ultra-fab-wrapper.active .ultra-main-btn {
-        transform: rotate(45deg);
-        background: #333; /* Darken when open */
-        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        animation: none; /* Stop pulsing when open */
-    }
-
-    .ultra-actions {
-        position: absolute;
-        bottom: 70px;
-        left: 0;
-        width: 60px;
-        display: flex;
-        flex-direction: column-reverse;
-        gap: 12px;
-        pointer-events: none;
-    }
-
-    .ultra-sub-btn {
-        width: 50px; height: 50px;
-        border-radius: 18px;
-        background: var(--glass-material); /* Adaptive glass background */
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid var(--glass-border);
-        color: var(--text-main);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 20px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        cursor: pointer;
-        opacity: 0;
-        transform: translateY(20px) scale(0.8);
-        transition: 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        margin: 0 auto; /* Center in column */
-        text-decoration: none;
-        pointer-events: auto;
-    }
-    
-    /* FEATURE 1: BACKTOP STYLE - Hidden by default at top */
-    .u-backtop {
-        display: none; 
-    }
-    .u-backtop.show {
-        display: flex;
-        animation: popInBtn 0.3s ease;
-    }
-    @keyframes popInBtn { from {transform:scale(0);} to {transform:scale(1);} }
-
-    /* Active State: Fan out buttons */
-    .ultra-fab-wrapper.active .ultra-sub-btn {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    
- 
-   /* Staggered delay for "Spring" effect */
-    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(1) { transition-delay: 0.05s; }
-    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(2) { transition-delay: 0.1s; }
-    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(3) { transition-delay: 0.15s; }
-    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(4) { transition-delay: 0.2s; }
-    .ultra-fab-wrapper.active .ultra-sub-btn:nth-child(5) { transition-delay: 0.25s; }
-
-    .ultra-sub-btn::after {
-        content: attr(data-tooltip);
-        position: absolute;
-        left: 60px;
-        background: rgba(0,0,0,0.8);
-        color: white;
-        padding: 4px 10px;
-        border-radius: 8px;
-        font-size: 12px;
-        white-space: nowrap;
-        opacity: 0;
-        visibility: hidden;
-        transition: 0.2s;
-        pointer-events: none;
-    }
-    .ultra-sub-btn:hover::after {
-        opacity: 1; visibility: visible; left: 65px;
-    }
-
-    .u-zalo { color: #0068FF; }
-    .u-wa { color: #25D366; }
-    .u-map { color: #FFB800; }
-    .u-phone { color: var(--primary); }
-
-    /* --- AI MODAL STYLES --- */
-    .ai-modal-overlay {
-        position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
-        z-index: 2000; opacity: 0; visibility: hidden; 
-        transition: 0.3s; backdrop-filter: blur(5px);
-    }
-    .ai-modal {
-        position: fixed; top: 50%; left: 50%; width: 90%; max-width: 500px;
-        height: 70vh; max-height: 700px;
-        transform: translate(-50%, -40%) scale(0.95);
-        background: var(--surface);
-        border: 1px solid var(--glass-border);
-        border-radius: 32px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        display: flex; flex-direction: column; overflow: hidden;
-        z-index: 2001; opacity: 0; visibility: hidden;
-        transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .ai-modal.active { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-    .ai-modal-overlay.a
-ctive { opacity: 1; visibility: visible; }
-
-    .ai-header {
-        padding: 20px; border-bottom: 1px solid var(--glass-border);
-        display: flex; justify-content: space-between; align-items: center;
-        background: var(--muted-bg);
-    }
-    .ai-header h3 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-    .ai-close { cursor: pointer; background: none; border: none; font-size: 24px; color: var(--text-sub); transition: 0.2s; }
-    .ai-close:hover { color: var(--text-main); transform: rotate(90deg); }
-
-    .ai-chat-area {
-        flex: 1; overflow-y: auto; padding: 20px;
-        display: flex; flex-direction: column; gap: 16px;
-        background: var(--bg-body);
-    }
-    
-    .chat-msg {
-        max-width: 85%; padding: 12px 16px; border-radius: 20px;
-        font-size: 0.95rem; line-height: 1.5;
-        position: relative; animation: popIn 0.3s ease-out;
-    }
-    @keyframes popIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-    .msg-bot {
-        align-self: flex-start;
-        background: var(--surface); border: 1px solid var(--glass-border);
-        border-bottom-left-radius: 4px; color: var(--text-main);
-    }
-    .msg-user {
-        align-self: flex-end;
-        background: linear-gradient(135deg, var(--primary), #FF8800);
-        color: white; border-bottom-right-radius: 4px;
-        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
-    }
-    .msg-bot strong { color: var(--primary); }
-
-    .ai-input-area {
-        padding: 16px; background: var(--surface); border-top: 1px solid var(--glass-border);
-        display: flex; gap: 10px;
-    }
-    .ai-input {
-        flex: 1; padding: 12px 16px; border-radius: 24px; border: 1px solid var(--glass-border);
-        background: var(--muted-bg); color: var(--text-main);
-    }
-    .ai-send {
-        width: 46px; height: 46px; border-radius: 50%; border: none;
-        background: var(--text-main); color: var(--surface);
-        
-display: flex; align-items: center; justify-content: center; cursor: pointer;
-        transition: 0.2s;
-    }
-    .ai-send:hover { transform: scale(1.1); }
-    .ai-send:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* Typing Dot Animation */
-    .typing-dots { display: inline-flex; gap: 4px; }
-    .dot { width: 6px; height: 6px; background: var(--text-sub); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
-    .dot:nth-child(1) { animation-delay: -0.32s; }
-    .dot:nth-child(2) { animation-delay: -0.16s; }
-    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-
-    /* --- MOBILE MENU --- */
-    .mobile-menu-overlay {
-        position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998;
-        opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(8px);
-    }
-    .mobile-menu {
-        position: fixed; bottom: 0; left: 0; width: 100%; max-height: 85vh;
-        background: var(--surface); border-radius: 36px 36px 0 0;
-        transform: translateY(100%); transition: 0.5s var(--ease-apple); z-index: 999;
-        display: flex; flex-direction: column; overflow: hidden;
-        border-top: 1px solid var(--glass-border);
-    }
-    .mobile-menu.active { transform: translateY(0); }
-    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
-    .drag-handle { width: 50px; height: 6px; background: #E5E5EA; border-radius: 10px; margin: 16px auto; }
-    .menu-content { padding: 20px 24px 140px 24px; overflow-y: auto; }
-
-    .menu-icon {
-        width: 32px; height: 32px; border-radius: 10px;
-        background: var(--muted-bg); display: flex; align-items: center; justify-content: center;
-        color: var(--primary); margin-right: 12px;
-    }
-    
-    /* --- AUTO ACTION PULSE EFFECT --- */
-    .pulse { animation: pulseGlow 1s infinite; }
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 rgba(255,107,0,0.6); }
-      70% { box-shadow: 0 0 12px rgba(255,107,0,0.9); }
-    
-  100% { box-shadow: 0 0 0 rgba(255,107,0,0); }
-    }
-
-    /* --- RESPONSIVE --- */
-    @media (max-width: 1024px) {
-        .hero-title { font-size: 3.5rem; }
-        .hero-grid { grid-template-columns: 1fr; gap: 50px; }
-        .desktop-nav { display: none; }
-        .menu-toggle { display: flex !important; }
-        .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        .status-widget { display: none; }
-        
-        .ai-contact-grid { grid-template-columns: 1fr; }
-        .ai-info-panel { border-right: none; border-bottom: 1px solid #333; }
-        
-        /* Tablet & Mobile Search Optimization */
-        .search-container-desktop { display: none; }
-        .mobile-search-btn { display: flex; }
-    }
-    @media (max-width: 768px) {
-        .status-widget { display: none; }
-        .hero { padding-top: 100px; padding-bottom: 40px; }
-        .mini-apps { grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .app-icon { width: 60px; height: 60px; font-size: 22px; }
-        .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-        .footer-box { padding: 50px 30px; }
-        .section { padding: 60px 0; }
-        .feature-grid { gap: 24px; }
-    }
-
-    /* ==========================================================================
-       FIX: Floating button overlap on mobile Safari
-       Name: Mobile Viewport & FAB Patch
-       Target: iPhone (SafeArea), Mobile Devices < 768px
-       ========================================================================== */
-    @media (max-width: 768px) {
-        body { padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important; }
-        .ultra-fab-wrapper {
-            left: 20px; bottom: calc(20px + env(safe-area-inset-bottom));
-            width: 50px; align-items: center;
-        }
-        .ultra-main-btn { width: 50px; height: 50px; font-size: 22px; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3); }
-        .ultra-actions { bottom: 60px; width: 100%; align-items: center; gap: 10px; 
+:root {
+    --primary: #FF6B00;
+    --primary-dark: #cc5500;
+    --text-on-primary: #fff;
+    --secondary: #FFB800;
+    --bg-body: #F2F2F7;
+    --surface: #FFFFFF;
+    --text-main: #111111;
+    --text-sub: #555555;
+    --glass-material: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.1);
+    --shadow-3d: 0 10px 30px -10px rgba(0,0,0,0.15);
+    --btn-shadow: 0 6px 0 var(--primary-dark), 0 15px 25px rgba(255, 107, 0, 0.2);
+    --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+    --font-stack: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
-        .ultra-sub-btn { width: 42px; height: 42px; font-size: 18px; margin: 0 auto; }
-        .ultra-sub-btn::after { display: none !important; }
-        .footer-box { padding-bottom: 30px; }
-    }
+
+body {
+    margin: 0; padding: 0;
+    font-family: var(--font-stack);
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.glass-panel {
+    background: var(--glass-material);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+}
+
+.header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    padding: 12px 0;
+}
+.nav-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px; border-radius: 100px;
+    background: var(--glass-material);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.header-left { display: flex; align-items: center; gap: 12px; }
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-img {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 2px solid var(--primary); padding: 2px;
+    background: var(--surface);
+}
+.logo-title { font-size: 1.1rem; font-weight: 800; color: var(--text-main); }
+.logo-text span { font-size: 0.75rem; font-weight: 600; color: var(--text-sub); }
+
+.hero {
+    min-height: 100vh; padding-top: 120px; padding-bottom: 60px;
+    display: flex; align-items: center; position: relative; overflow: hidden;
+}
+.hero-badge {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+    border-radius: 100px; background: rgba(255, 107, 0, 0.1); color: var(--primary);
+    font-weight: 700; font-size: 0.85rem; border: 1px solid rgba(255, 107, 0, 0.3);
+    margin-bottom: 24px;
+}
+.hero-title {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.1; font-weight: 800;
+    margin-bottom: 24px; letter-spacing: -1.5px;
+    color: var(--text-main);
+}
+p { line-height: 1.7; margin-bottom: 1.5rem; font-size: 1.05rem; color: var(--text-sub); font-weight: 500; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.2rem); font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.5px; color: var(--text-main); margin-top: 3rem; }
+.btn-3d {
+    position: relative; border: none;
+    background: linear-gradient(145deg, var(--primary), #FF8800);
+    color: var(--text-on-primary) !important;
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 1rem 1.6rem; border-radius: 24px; cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s; box-shadow: var(--btn-shadow);
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    border-top: 1px solid rgba(255,255,255,0.3); font-size: 1rem;
+}
+.section { padding: 80px 0; }
+.footer { margin-top: 40px; }
+.footer-box { padding: 50px; border-radius: 48px; background: var(--glass-material); border: 1px solid var(--glass-border); }
 </style>
-</head><body id="top">
+</head>
+<body id="top">
 
 <!-- HEADER -->
 <header class="header" id="header">
@@ -799,26 +131,10 @@ display: flex; align-items: center; justify-content: center; cursor: pointer;
                 <a href="./" class="logo">
                     <img src="./IMG_0462.jpeg" class="logo-img" alt="logo Mr Tú Bike" width="44" height="44">
                     <div class="logo-text">
-                        <!-- SEO ADJUSTMENT: H1 changed to DIV -->
                         <div class="logo-title">Mr Tú</div>
                         <span>Thuê xe máy Phố Cổ</span>
                     </div>
                 </a>
-                <div class="status-widget">
-                    <div class="status-dot open"></div>
-                    <div class="status-text text-open">MỞ CỬA</div>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="desktop-nav">
-                    <a href="./" class="nav-link"><i class="fas fa-home"></i> Trang Chủ</a>
-                    <a href="banggia.html" class="nav-link"><i class="fas fa-tag"></i> Bảng Giá</a>
-                    <a href="thutuc.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Thủ Tục</a>
-                    <a href="lienhe.html" class="nav-link"><i class="fas fa-phone"></i> Liên Hệ</a>
-                </div>
-                <div class="header-actions">
-                    <button class="action-btn menu-toggle"><i class="fas fa-bars"></i></button>
-                </div>
             </div>
         </div>
     </div>
@@ -827,42 +143,12 @@ display: flex; align-items: center; justify-content: center; cursor: pointer;
 <!-- HERO SECTION -->
 <main>
     <section class="hero">
-        <div class="hero-glow"></div>
         <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge">Uy tín số 1 Hoàn Kiếm</div>
-                    <h1>Dịch vụ cho thuê xe máy Phố Cổ uy tín, thủ tục nhanh - Mr Tú</h1>
-                    <p>Bạn đang tìm dịch vụ thuê xe máy tại Phố Cổ Hà Nội? Mr Tú cung cấp dịch vụ thuê xe máy uy tín với thủ tục nhanh chóng, xe mới 2024, giao tận nơi miễn phí.</p>
-                    <div class="hero-cta">
-                        <a href="tel:+84816659199" class="btn-3d"><i class="fas fa-phone"></i> Gọi Ngay: 081.665.9199</a>
-                        <a href="#calculator" class="btn-3d">Tính Giá Thuê</a>
-                    </div>
-                </div>
-                <div class="hero-calculator" id="calculator">
-                    <div class="calc-box glass-panel">
-                        <h3><i class="fas fa-calculator"></i> Tính Giá Thuê</h3>
-                        <form class="calc-form">
-                            <div class="form-group">
-                                <label class="form-label">Loại Xe</label>
-                                <select class="form-input" id="bikeType">
-                                    <option value="standard">Xe Số Standard</option>
-                                    <option value="automatic">Xe Ga Tự Động</option>
-                                    <option value="premium">Xe Cao Cấp</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Số Ngày Thuê</label>
-                                <input type="number" class="form-input" id="days" value="1" min="1">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Tổng Giá</label>
-                                <div class="form-input" id="totalPrice" style="font-weight: 800; color: var(--primary);">150,000 VNĐ</div>
-                            </div>
-                            <button type="button" class="btn-3d" style="width: 100%;">Tính Giá</button>
-                        </form>
-                    </div>
-                </div>
+            <div class="hero-content">
+                <div class="hero-badge">Uy tín số 1 Hoàn Kiếm</div>
+                <h1>Dịch vụ cho thuê xe máy Phố Cổ uy tín, thủ tục nhanh - Mr Tú</h1>
+                <p>Bạn đang tìm dịch vụ thuê xe máy tại Phố Cổ Hà Nội? Mr Tú cung cấp dịch vụ thuê xe máy uy tín với thủ tục nhanh chóng.</p>
+                <a href="tel:+84816659199" class="btn-3d">Gọi Ngay: 081.665.9199</a>
             </div>
         </div>
     </section>
@@ -870,20 +156,16 @@ display: flex; align-items: center; justify-content: center; cursor: pointer;
     <!-- WHY CHOOSE SECTION -->
     <section class="section">
         <div class="container">
-            <div class="content-block">
-                <h2>Tại sao nên thuê xe máy Phố Cổ tại Mr Tú?</h2>
-                <p>Mr Tú là dịch vụ thuê xe máy uy tín nhất tại Phố Cổ Hà Nội với hơn 5 năm kinh nghiệm.</p>
-            </div>
+            <h2>Tại sao nên thuê xe máy Phố Cổ tại Mr Tú?</h2>
+            <p>Mr Tú là dịch vụ thuê xe máy uy tín nhất tại Phố Cổ Hà Nội.</p>
         </div>
     </section>
 
     <!-- PRICE SECTION -->
-    <section class="section section-bg">
+    <section class="section">
         <div class="container">
-            <div class="content-block">
-                <h2>Bảng giá thuê xe máy Phố Cổ 2024</h2>
-                <p>Giá thuê xe máy tại Mr Tú luôn cạnh tranh và minh bạch.</p>
-            </div>
+            <h2>Bảng giá thuê xe máy Phố Cổ 2024</h2>
+            <p>Giá thuê xe máy tại Mr Tú luôn cạnh tranh.</p>
         </div>
     </section>
 </main>
@@ -892,21 +174,9 @@ display: flex; align-items: center; justify-content: center; cursor: pointer;
 <footer class="footer">
     <div class="container">
         <div class="footer-box glass-panel">
-            <div class="footer-bg-glow"></div>
-            <div class="footer-grid">
-                <div class="f-col">
-                    <h4><i class="fas fa-info-circle"></i> Thông Tin</h4>
-                    <a href="./" class="f-link"><div class="f-svg-box"><i class="fas fa-home"></i></div>Trang Chủ</a>
-                    <a href="gioithieu.html" class="f-link"><div class="f-svg-box"><i class="fas fa-users"></i></div>Giới Thiệu</a>
-                </div>
-                <div class="f-col">
-                    <h4><i class="fas fa-phone"></i> Liên Hệ</h4>
-                    <div class="footer-contact-info">
-                        <div class="fc-row">
-                            <div class="fc-item"><i class="fas fa-phone"></i> <strong>Hotline:</strong> 081.665.9199</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="footer-contact-info">
+                <div><i class="fas fa-phone"></i> <strong>Hotline:</strong> 081.665.9199</div>
+                <div><i class="fas fa-map-marker-alt"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội</div>
             </div>
         </div>
     </div>
