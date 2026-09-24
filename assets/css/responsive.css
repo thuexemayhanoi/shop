@@ -1,0 +1,84 @@
+.ai-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Typing Dot Animation */
+    .typing-dots { display: inline-flex; gap: 4px; }
+    .dot { width: 6px; height: 6px; background: var(--text-sub); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+    .dot:nth-child(1) { animation-delay: -0.32s; }
+    .dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+
+    /* --- MOBILE MENU --- */
+    .mobile-menu-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998;
+        opacity: 0; visibility: hidden; transition: 0.3s; backdrop-filter: blur(8px);
+    }
+    .mobile-menu {
+        position: fixed; bottom: 0; left: 0; width: 100%; max-height: 85vh;
+        background: var(--surface); border-radius: 36px 36px 0 0;
+        transform: translateY(100%); transition: 0.5s var(--ease-apple); z-index: 999;
+        display: flex; flex-direction: column; overflow: hidden;
+        border-top: 1px solid var(--glass-border);
+    }
+    .mobile-menu.active { transform: translateY(0); }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    .drag-handle { width: 50px; height: 6px; background: #E5E5EA; border-radius: 10px; margin: 16px auto; }
+    .menu-content { padding: 20px 24px 140px 24px; overflow-y: auto; }
+
+    .menu-icon {
+        width: 32px; height: 32px; border-radius: 10px;
+        background: var(--muted-bg); display: flex; align-items: center; justify-content: center;
+        color: var(--primary); margin-right: 12px;
+    }
+    
+    /* --- AUTO ACTION PULSE EFFECT --- */
+    .pulse { animation: pulseGlow 1s infinite; }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 rgba(255,107,0,0.6); }
+      70% { box-shadow: 0 0 12px rgba(255,107,0,0.9); }
+      100% { box-shadow: 0 0 0 rgba(255,107,0,0); }
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+        .hero-title { font-size: 3.5rem; }
+        .hero-grid { grid-template-columns: 1fr; gap: 50px; }
+        .desktop-nav { display: none; }
+        .menu-toggle { display: flex !important; }
+        .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .status-widget { display: none; }
+        
+        .ai-contact-grid { grid-template-columns: 1fr; }
+        .ai-info-panel { border-right: none; border-bottom: 1px solid #333; }
+        
+        /* Tablet & Mobile Search Optimization */
+        .search-container-desktop { display: none; }
+        .mobile-search-btn { display: flex; }
+    }
+    @media (max-width: 768px) {
+        .status-widget { display: none; }
+        .hero { padding-top: 100px; padding-bottom: 40px; }
+        .mini-apps { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .app-icon { width: 60px; height: 60px; font-size: 22px; }
+        .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+        .footer-box { padding: 50px 30px; }
+        .section { padding: 60px 0; }
+        .feature-grid { gap: 24px; }
+    }
+
+    /* ==========================================================================
+       FIX: Floating button overlap on mobile Safari
+       Name: Mobile Viewport & FAB Patch
+       Target: iPhone (SafeArea), Mobile Devices < 768px
+       ========================================================================== */
+    @media (max-width: 768px) {
+        body { padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important; }
+        .ultra-fab-wrapper {
+            left: 20px; bottom: calc(20px + env(safe-area-inset-bottom));
+            width: 50px; align-items: center;
+        }
+        .ultra-main-btn { width: 50px; height: 50px; font-size: 22px; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3); }
+        .ultra-actions { bottom: 60px; width: 100%; align-items: center; gap: 10px; }
+        .ultra-sub-btn { width: 42px; height: 42px; font-size: 18px; margin: 0 auto; }
+        .ultra-sub-btn::after { display: none !important; }
+        .footer-box { padding-bottom: 30px; }
+    }

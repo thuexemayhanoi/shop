@@ -1,0 +1,800 @@
+/* ===== MotoAI Local Smart Upgrade (Lite – Offline) ===== */
+    const MOTO_AI_CTX = {
+      purpose: null,
+      days: null,
+      people: null,
+      asked: {}
+    };
+
+    let MOTO_AI_ACTION_LOCK = false;
+
+    function motoAI_Action(type) {
+      if (MOTO_AI_ACTION_LOCK) return; 
+
+      const callBtn = document.querySelector('.u-phone, .fab-call');
+      const zaloBtn = document.querySelector('.u-zalo, .fab-zalo');
+
+      if (type === "call" && callBtn) {
+        MOTO_AI_ACTION_LOCK = true; 
+        callBtn.classList.add("pulse");
+        callBtn.click();
+      }
+
+      if (type === "zalo" && zaloBtn) {
+        MOTO_AI_ACTION_LOCK = true; 
+        zaloBtn.classList.add("pulse");
+        zaloBtn.click();
+      }
+    }
+
+    function motoAI_Upgrade(userText) {
+      const t = userText.toLowerCase();
+
+      /* --- AUTO ACTION TRIGGER --- */
+      if (/giữ xe|đặt xe|thuê luôn|lấy xe|chốt xe|lấy xe ngay|đồng ý/i.test(t)) {
+          setTimeout(() => motoAI_Action("zalo"), 1000); 
+      }
+      if (/gọi|call|điện thoại/i.test(t)) {
+          setTimeout(() => motoAI_Action("call"), 1000);
+      }
+
+      if (/du lịch|đi chơi|phượt/.test(t)) MOTO_AI_CTX.purpose = "travel";
+      if (/đi làm|công việc|đi làm hằng ngày/.test(t)) MOTO_AI_CTX.purpose = "work";
+      if (/2 người|hai người/.test(t)) MOTO_AI_CTX.people = 2;
+      if (/\d+\s*(ngày|tháng)/.test(t)) {
+        MOTO_AI_CTX.days = t.match(/\d+\s*(ngày|tháng)/)[0];
+      }
+
+      /* --- HỎI NGƯỢC THÔNG MINH --- */
+      if (!MOTO_AI_CTX.purpose && !MOTO_AI_CTX.asked.purpose) {
+        MOTO_AI_CTX.asked.purpose = true;
+        return "Anh/chị thuê xe để đi làm hay du lịch ạ?";
+      }
+
+      if (!MOTO_AI_CTX.days && !MOTO_AI_CTX.asked.days) {
+        MOTO_AI_CTX.asked.days = true;
+        return "Mình dự định thuê xe trong bao lâu ạ (theo ngày hay tháng)?";
+      }
+
+      /* --- ĐỀ XUẤT XE --- */
+      if (MOTO_AI_CTX.purpose === "travel") {
+        return `MotoAI gợi ý:
+    • Xe ga (Vision / Lead)
+    • Êm, cốp rộng, phù hợp đi chơi
+    • Giá từ 150.000đ/ngày
+
+    Anh/chị muốn em giữ xe hôm nay không ạ?`;
+      }
+
+      if (MOTO_AI_CTX.purpose === "work") {
+        return `MotoAI gợi ý:
+    • Xe số (Wave / Sirius)
+    • Tiết kiệm xăng, dễ đi hằng ngày
+    • Giá từ 120.000đ/ngày
+
+    Anh/chị cần em giữ xe hay gửi địa chỉ nhận xe ạ?`;
+      }
+
+      return "";
+    }
+
+    // --- ICONS (SVG) ---
+    const ICONS = {
+        home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
+        doc: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>',
+        map: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>',
+        tag: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>',
+        mail: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>'
+    };
+
+    // --- CONFIG DATA ---
+    const CONFIG = {
+        MENU: [
+            { t: "Trang chủ", l: "./", i: ICONS.home },
+            { t: "Giới thiệu", l: "gioithieu.html", i: ICONS.doc },
+            { 
+                t: "Dịch vụ", l: "#", i: ICONS.tag,
+                sub: [
+                    {t: "Bảng giá 2025", l: "banggia.html", i: ICONS.tag},
+                    {t: "Thuê xe theo ngày", l: "ngay.html", i: ICONS.doc},
+                    {t: "Thuê xe theo tuần", l: "tuan.html", i: ICONS.doc},
+                    {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
+                    {t: "Thủ tục thuê xe", l: "thutuc.html", i: ICONS.doc},
+                    {t: "Khuyến mãi", l: "uudai.html", i: ICONS.tag},
+                    {t: "Kinh nghiệm", l: "kinhnghiem.html", i: ICONS.doc},
+                    {t: "Mạng xã hội", l: "mangxahoi.html", i: ICONS.tag}
+                ]
+            },
+            { 
+                t: "Địa điểm", l: "#", i: ICONS.map,
+                sub: [
+                    {t: "Hoàn Kiếm", l: "hoankiem.html", i: ICONS.map},
+                    {t: "Phố Cổ", l: "phoco.html", i: ICONS.map},
+                    {t: "Tây Hồ", l: "tayho.html", i: ICONS.map},
+                    {t: "Ba Đình", l: "badinh.html", i: ICONS.map},
+                    {t: "Cầu Giấy", l: "caugiay.html", i: ICONS.map},
+                    {t: "Đống Đa", l: "dongda.html", i: ICONS.map},
+                    {t: "Thanh Xuân", l: "thanhxuan.html", i: ICONS.map},
+                    {t: "Hai Bà Trưng", l: "haibatrung.html", i: ICONS.map},
+                    {t: "Long Biên", l: "longbien.html", i: ICONS.map},
+                    {t: "Ga Hà Nội", l: "gahn.html", i: ICONS.map}
+                ]
+            },
+            { t: "FAQ", l: "faq.html", i: ICONS.doc },
+            {
+                t: "Chính sách", l: "#", i: ICONS.doc,
+                sub: [
+                    { t: "Chính sách bảo mật", l: "chinhsach.html", i: ICONS.doc },
+                    { t: "Điều khoản sử dụng", l: "dieukhoan.html", i: ICONS.doc }
+                ]
+            },
+            { t: "Liên hệ", l: "lienhe.html", i: ICONS.mail }
+        ]
+    };
+    
+    // FEATURE 2: SEARCH LOGIC
+    function toggleMobileSearch() {
+        const drop = document.getElementById('mob-search-drop');
+        drop.classList.toggle('active');
+        if(drop.classList.contains('active')) {
+            setTimeout(() => document.getElementById('search-mobile').focus(), 100);
+        }
+    }
+
+    // FIXED: Changed event to 'keydown' for better compatibility
+    function handleSearch(e, input) {
+        if(e.key === 'Enter') {
+            const val = input.value.toLowerCase();
+            if(!val) return;
+            
+            // Simple logic: Find headings matching text
+            const headings = document.querySelectorAll('h1, h2, h3, h4, .feature-card h3');
+            let found = false;
+            
+            for(let h of headings) {
+                if(h.textContent.toLowerCase().includes(val)) {
+                    h.scrollIntoView({behavior: 'smooth', block: 'center'});
+                    h.style.color = 'var(--primary)'; // Highlight
+                    setTimeout(() => h.style.color = '', 2000);
+                    found = true;
+                    // Close mobile search if open
+                    document.getElementById('mob-search-drop').classList.remove('active');
+                    break;
+                }
+            }
+            
+            if(!found) {
+                alert('Không tìm thấy nội dung: ' + val);
+            }
+        }
+    }
+
+    const Render = {
+        init() {
+            this.nav();
+            this.mobile();
+            this.footer();
+            this.calc();
+            this.effects();
+            this.statusWidget();
+            this.setupPWA();
+            this.ultraApp();
+            this.setupAI();
+            this.setupMatchmaker();
+        },
+
+        // --- CORE: FAKE "GEMINI" OFFLINE, KHÔNG CẦN API ---
+        async callGeminiWithRetry(prompt, systemInstruction, onLoading, onSuccess, onError) {
+            try {
+                onLoading();
+
+                const pRaw = String(prompt || "");
+                const sRaw = String(systemInstruction || "");
+                const text = (pRaw + " " + sRaw).toLowerCase();
+                
+                const smartReply = motoAI_Upgrade(text);
+                if (smartReply) {
+                    setTimeout(() => onSuccess(smartReply), 600);
+                    return;
+                }
+
+                const delay = 500 + Math.floor(Math.random() * 700);
+
+                function wrap(msg) {
+                    return msg.replace(/\s+/g, " ").trim();
+                }
+
+                let answer = "";
+
+                // Logic AI (Simulated)
+                if (/hà giang|ha giang|sapa|sa pa|đi xa|highway|mountain|đèo|đi đèo/.test(text)) {
+                    answer = wrap(
+                        "Đi Hà Giang, Sa Pa hoặc cung đèo dài thì anh nên chạy xe số hoặc XR150: máy khỏe, phanh đầm, leo dốc an toàn. " +
+                        "Nếu chở đồ nhiều, ưu tiên Wave / XR150, hạn chế xe ga yếu phanh và nhanh nóng máy."
+                    );
+                }
+                else if (/phố cổ|pho co|old quarter|hoàn kiếm|hoan kiem|center|city center/.test(text)) {
+                    answer = wrap(
+                        "Chạy trong Phố Cổ, Hoàn Kiếm thì Vision hoặc Wave là hợp lý: xe nhỏ gọn, dễ luồn lách, gửi khách sạn cũng tiện. " +
+                        "Đi 1–2 ngày chơi quanh phố thì chọn Vision nhìn lịch sự, Wave thì siêu tiết kiệm xăng."
+                    );
+                }
+                else if (/hồ tây|ho tay|west lake|cafe|coffee|date|hẹn hò/.test(text)) {
+                    answer = wrap(
+                        "Đi chơi Hồ Tây, cafe, hẹn hò thì Vision hoặc Airblade là đẹp: dáng xe gọn, ngồi 2 người thoải mái, máy êm. " +
+                        "Nếu thích êm ái dễ lái thì Vision, cần khỏe máy hơn chút thì Airblade 160."
+                    );
+                }
+                else if (/ăn gì|ăn ở đâu|food|street food|đặc sản|mon an|món ăn|bún chả|phở|bun cha|pho/.test(text)) {
+                    answer = wrap(
+                        "Khu Phố Cổ anh thử combo: sáng phở Bát Đàn / Lý Quốc Sư, trưa bún chả Hàng Quạt hoặc Đắc Kim, tối bia / đồ nướng Tạ Hiện. " +
+                        "Đi bằng xe máy thì gửi xe ở các bãi Trần Nhật Duật hoặc ven hồ Hoàn Kiếm rồi đi bộ vào cho đỡ đông."
+                    );
+                }
+                else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
+                    answer = wrap(
+                        "Tạm tính: xe số khoảng 120.000/ngày, xe ga Vision ~150.000–180.000/ngày, xe ga cao cấp từ 230.000–250.000/ngày. " +
+                        "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
+                    );
+                }
+                else {
+                    answer = wrap(
+                        "Em là trợ lý Mr Tú AI. Anh cho em biết: anh đi đâu, mấy ngày, thích xe số hay xe ga, em gợi ý luôn mẫu xe + tầm giá hợp lý, thêm vài gợi ý quán ăn/nghỉ cho tiện cung đường."
+                    );
+                }
+
+                 if (/trình độ lái|tay đua lụa|newbie|tay ga|côn tay|xr150|vision|airblade|wave alpha/.test(text)) {
+                      const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
+                      
+                      let bike = "Honda Vision";
+                      let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
+                      
+                      if (/xa|leo núi|hà giang|sapa/i.test(destMatch[1] || "")) { bike = "Honda XR150"; reason = "leo đèo khoẻ."; }
+                      
+                      answer = `Xe chân ái của bạn là: **${bike}**. Lý do: ${reason} Nếu cần em giữ sẵn 1 xe, anh nhắn Zalo **081.665.9199** là em hỗ trợ luôn.`;
+                 }
+
+                setTimeout(() => {
+                    onSuccess(answer);
+                }, delay);
+            } catch (err) {
+                if (onError) onError(err.message || "Local AI error");
+            }
+        },
+        
+        setupAI() {
+            const modal = document.getElementById('ai-modal');
+            const overlay = document.getElementById('ai-overlay');
+            const closeBtn = document.getElementById('ai-close');
+            const chatBox = document.getElementById('ai-chat-box');
+            const input = document.getElementById('ai-input');
+            const sendBtn = document.getElementById('ai-send');
+            
+            const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            
+            window.AI_Guide = {
+                open: () => {
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
+                    input.focus();
+                }
+            };
+
+            const close = () => {
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            };
+
+            modal.addEventListener('keydown', (e) => {
+                const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+                if (e.key === 'Escape') close();
+                if (!isTabPressed) return;
+                
+                const focusableContent = modal.querySelectorAll(focusableElements);
+                if (!focusableContent || focusableContent.length === 0) return; 
+
+                const firstFocusableElement = focusableContent[0];
+                const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+                if (e.shiftKey) { 
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else { 
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            });
+
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+
+            const addMsg = (text, isUser = false) => {
+                const div = document.createElement('div');
+                div.className = `chat-msg ${isUser ? 'msg-user' : 'msg-bot'}`;
+                
+                if (isUser) {
+                    div.textContent = text;
+                } else {
+                    const parts = text.split(/\*\*(.*?)\*\*/g);
+                    parts.forEach((part, index) => {
+                        if (index % 2 === 1) { 
+                            const strong = document.createElement('strong');
+                            strong.textContent = part;
+                            div.appendChild(strong);
+                        } else {
+                            div.appendChild(document.createTextNode(part));
+                        }
+                    });
+                }
+                chatBox.appendChild(div);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+
+            const showLoader = () => {
+                const div = document.createElement('div');
+                div.className = 'chat-msg msg-bot';
+                div.id = 'ai-loader';
+                const dots = document.createElement('div');
+                dots.className = 'typing-dots';
+                for(let i=0; i<3; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    dots.appendChild(dot);
+                }
+                div.appendChild(dots);
+                chatBox.appendChild(div);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+
+            const removeLoader = () => {
+                const loader = document.getElementById('ai-loader');
+                if (loader) loader.remove();
+            };
+
+            const handleSend = () => {
+                const text = input.value.trim();
+                if (!text) return;
+                addMsg(text, true);
+                input.value = '';
+                const systemPrompt = "Bạn là Mr Tú, hướng dẫn viên Hà Nội. Hotline Zalo là 081.665.9199. Hãy tư vấn ngắn gọn.";
+                Render.callGeminiWithRetry(text, systemPrompt, showLoader, (response) => { removeLoader(); addMsg(response); }, (error) => { removeLoader(); addMsg("Mạng đang bận, bạn thử lại chút nữa nhé! 😅"); });
+            };
+
+            sendBtn.addEventListener('click', handleSend);
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
+        },
+
+        setupMatchmaker() {
+            const modal = document.getElementById('mm-modal');
+            const overlay = document.getElementById('mm-overlay');
+            const closeBtn = document.getElementById('mm-close');
+            const submitBtn = document.getElementById('mm-submit');
+            const resultBox = document.getElementById('mm-result');
+            const resultText = document.getElementById('mm-result-text');
+
+            window.AI_Matchmaker = {
+                open: () => {
+                    modal.classList.add('active');
+                    overlay.classList.add('active');
+                }
+            };
+
+            const close = () => {
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            };
+            
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) close();
+            });
+
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+
+            submitBtn.addEventListener('click', () => {
+                const exp = document.getElementById('mm-exp').options[document.getElementById('mm-exp').selectedIndex].text;
+                const dest = document.getElementById('mm-dest').options[document.getElementById('mm-dest').selectedIndex].text;
+                const height = document.getElementById('mm-height').options[document.getElementById('mm-height').selectedIndex].text;
+
+                const userPrompt = `Người dùng có thông số sau: Trình độ lái: ${exp}. Điểm đến: ${dest}. Chiều cao: ${height}.`;
+                const systemPrompt = "Tư vấn xe máy. Nhắn Zalo 081.665.9199.";
+
+                resultBox.style.display = 'block';
+                resultText.textContent = "Đang phân tích...";
+
+                Render.callGeminiWithRetry(
+                    userPrompt,
+                    systemPrompt,
+                    () => {}, 
+                    (text) => {
+                        resultText.innerHTML = ''; 
+                        const parts = text.split(/\*\*(.*?)\*\*/g);
+                        parts.forEach((part, index) => {
+                            if (index % 2 === 1) {
+                                const strong = document.createElement('strong');
+                                strong.textContent = part;
+                                resultText.appendChild(strong);
+                            } else {
+                                resultText.appendChild(document.createTextNode(part));
+                            }
+                        });
+                    },
+                    (error) => {
+                        resultText.textContent = "Hệ thống đang bận, nhưng mình đoán là Honda Vision sẽ hợp với mọi người! 😂";
+                    }
+                );
+            });
+        },
+
+        // --- ULTRA APP LOGIC (Updated with Backtop logic) ---
+        ultraApp() {
+            const toggle = document.getElementById('ultra-toggle');
+            const wrapper = document.getElementById('ultra-fab');
+            const icon = toggle.querySelector('i');
+            const backTopBtn = document.getElementById('u-backtop-btn');
+
+            if (!toggle || !wrapper) return;
+
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                wrapper.classList.toggle('active');
+                
+                if (wrapper.classList.contains('active')) {
+                    icon.classList.remove('fa-bolt');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bolt');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (wrapper.classList.contains('active') && !wrapper.contains(e.target)) {
+                    wrapper.classList.remove('active');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bolt');
+                }
+            });
+
+            // Feature 1: Logic to hide/show backtop button based on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backTopBtn.classList.add('show');
+                } else {
+                    backTopBtn.classList.remove('show');
+                }
+            });
+
+            let shakeCount = 0;
+            const maxShakes = 5;
+
+            const shakeInterval = setInterval(() => {
+                if (document.hidden) return; 
+                
+                if (shakeCount >= maxShakes) {
+                    clearInterval(shakeInterval);
+                    return;
+                }
+
+                if (!wrapper.classList.contains('active')) {
+                    toggle.classList.add('shaking');
+                    setTimeout(() => toggle.classList.remove('shaking'), 500);
+                    shakeCount++;
+                }
+            }, 5000);
+        },
+
+        nav() {
+            const dNav = document.getElementById('desktop-menu');
+            if (!dNav) return;
+            dNav.innerHTML = ''; 
+
+            CONFIG.MENU.forEach(item => {
+                const a = document.createElement('a');
+                a.href = item.l || (item.sub && item.sub[0] && item.sub[0].l) || '#';
+                a.className = 'nav-link';
+                a.textContent = item.t;
+                dNav.appendChild(a);
+            });
+        },
+
+        mobile() {
+            const mList = document.getElementById('mobile-list');
+            const overlay = document.getElementById('overlay');
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('menu-btn');
+
+            if (!mList || !overlay || !menu || !btn) return;
+            
+            mList.innerHTML = ''; 
+
+            const statusDiv = document.createElement('div');
+            statusDiv.style.cssText = "margin-bottom:24px; padding:12px; background:var(--muted-bg); border-radius:16px; display:flex; align-items:center; gap:10px;";
+            
+            const dot = document.createElement('div');
+            dot.id = 'mob-status-dot';
+            dot.className = 'status-dot';
+            dot.style.cssText = 'width:10px; height:10px;';
+            
+            const text = document.createElement('span');
+            text.id = 'mob-status-text';
+            text.style.cssText = 'font-weight:700; font-size:0.9rem;';
+            text.textContent = 'Kiểm tra giờ...';
+
+            statusDiv.appendChild(dot);
+            statusDiv.appendChild(text);
+            mList.appendChild(statusDiv);
+
+            CONFIG.MENU.forEach(i => {
+                if (i.sub) {
+                    const group = document.createElement('div');
+                    group.style.marginBottom = '16px';
+                    
+                    const titleDiv = document.createElement('div');
+                    titleDiv.style.cssText = "display:flex;align-items:center;margin-bottom:12px;color:var(--text-main);";
+                    
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'menu-icon';
+                    iconDiv.style.color = 'var(--text-main)';
+                    iconDiv.innerHTML = i.i; 
+                    
+                    const titleText = document.createElement('div');
+                    titleText.style.cssText = "font-weight:800; font-size:1.15rem;";
+                    titleText.textContent = i.t;
+                    
+                    titleDiv.appendChild(iconDiv);
+                    titleDiv.appendChild(titleText);
+                    group.appendChild(titleDiv);
+
+                    const grid = document.createElement('div');
+                    grid.style.cssText = "display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-left:10px;";
+
+                    i.sub.forEach(s => {
+                        const subLink = document.createElement('a');
+                        subLink.href = s.l;
+                        subLink.style.cssText = "display:flex;align-items:center;gap:8px;padding:12px; background:var(--muted-bg); border-radius:14px; font-size:0.85rem; color:var(--text-sub); font-weight:600; text-decoration:none;";
+                        
+                        const sIcon = document.createElement('span');
+                        sIcon.style.cssText = "color:var(--primary); transform:scale(0.8);";
+                        sIcon.innerHTML = s.i; 
+                        
+                        subLink.appendChild(sIcon);
+                        subLink.appendChild(document.createTextNode(s.t));
+                        
+                        grid.appendChild(subLink);
+                    });
+                    
+                    group.appendChild(grid);
+                    mList.appendChild(group);
+                } else {
+                    const link = document.createElement('a');
+                    link.href = i.l;
+                    link.style.cssText = "display:flex; align-items:center; gap:12px; font-size:1.15rem; font-weight:700; padding:16px 0; border-bottom:1px solid var(--glass-border); color:var(--text-main); text-decoration:none;";
+                    
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'menu-icon';
+                    iconDiv.innerHTML = i.i;
+                    
+                    link.appendChild(iconDiv);
+                    link.appendChild(document.createTextNode(i.t));
+                    mList.appendChild(link);
+                }
+            });
+
+            const toggle = () => {
+                menu.classList.toggle('active');
+                overlay.classList.toggle('active');
+            };
+            
+            btn.addEventListener('click', toggle);
+            overlay.addEventListener('click', toggle);
+        },
+
+        footer() {
+            const grid = document.getElementById('footer-grid');
+            if (!grid) return;
+            grid.innerHTML = ''; 
+
+            const iconMapStr = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>`;
+            const iconDocStr = `<div class="f-svg-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>`;
+
+            const createCol = (title, items, iconStr) => {
+                const col = document.createElement('div');
+                col.className = 'f-col';
+                
+                const h4 = document.createElement('h4');
+                const h4Icon = document.createElement('span');
+                h4Icon.className = 'material-symbols-rounded';
+                h4Icon.textContent = 'map';
+                h4.appendChild(h4Icon);
+                h4.appendChild(document.createTextNode(' ' + title));
+                col.appendChild(h4);
+
+                items.forEach(item => {
+                    const a = document.createElement('a');
+                    a.href = item.l;
+                    a.className = 'f-link';
+                    
+                    const iconWrapper = document.createElement('span');
+                    iconWrapper.innerHTML = iconStr;
+                    
+                    a.appendChild(iconWrapper);
+                    a.appendChild(document.createTextNode(' ' + item.t));
+                    col.appendChild(a);
+                });
+                return col;
+            };
+
+            const col1 = document.createElement('div');
+            col1.className = 'f-col';
+            col1.innerHTML = `<h4><span class="material-symbols-rounded">info</span> Về Mr Tú</h4>
+                <a href="gioithieu.html" class="f-link">${iconDocStr} Giới thiệu</a>
+                <a href="chinhsach.html" class="f-link">${iconDocStr} Chính sách bảo mật</a>
+                <a href="dieukhoan.html" class="f-link">${iconDocStr} Điều khoản sử dụng</a>
+                <a href="lienhe.html" class="f-link">${iconDocStr} Liên hệ</a>
+                <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="https://m.facebook.com/chothuexemayphocohanoi/" target="_blank" rel="noopener noreferrer" class="social-btn social-fb" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/chothuexemayphoco" target="_blank" rel="noopener noreferrer" class="social-btn social-ins" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.pinterest.com/chothuexemayphoco/" target="_blank" rel="noopener noreferrer" class="social-btn social-pin" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+                    <a href="https://about.me/chothuexemayphoco" target="_blank" rel="noopener noreferrer" class="social-btn social-me" aria-label="About Me"><i class="fa-solid fa-address-card"></i></a>
+                    <a href="https://www.tiktok.com/@thuexemayphoco" target="_blank" rel="noopener noreferrer" class="social-btn social-tik" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                </div>`;
+            grid.appendChild(col1);
+
+            const services = CONFIG.MENU.find(x => x.t === 'Dịch vụ')?.sub || [];
+            const col2 = document.createElement('div');
+            col2.className = 'f-col';
+            col2.innerHTML = `<h4><span class="material-symbols-rounded">settings</span> Dịch vụ</h4>`;
+            services.forEach(s => {
+                const a = document.createElement('a');
+                a.href = s.l; a.className = 'f-link';
+                const span = document.createElement('span');
+                span.innerHTML = iconDocStr;
+                a.appendChild(span);
+                a.appendChild(document.createTextNode(' ' + s.t));
+                col2.appendChild(a);
+            });
+            grid.appendChild(col2);
+
+            const locations = CONFIG.MENU.find(x => x.t === 'Địa điểm')?.sub || [];
+            const halfLoc = Math.ceil(locations.length / 2);
+            
+            grid.appendChild(createCol('Khu vực 1', locations.slice(0, halfLoc), iconMapStr));
+            grid.appendChild(createCol('Khu vực 2', locations.slice(halfLoc), iconMapStr));
+        },
+
+        statusWidget() {
+            const checkTime = () => {
+                const now = new Date();
+                const hours = now.getHours();
+                
+                const isOpen = hours >= 8 && hours < 17;
+                
+                const updateUI = (dotId, textId) => {
+                    const dot = document.getElementById(dotId);
+                    const text = document.getElementById(textId);
+                    if (!dot || !text) return;
+
+                    if (isOpen) {
+                         dot.className = 'status-dot open';
+                         text.innerText = 'Cửa hàng đang mở (8h-17h)';
+                         text.className = 'status-text text-open';
+                    } else {
+                         dot.className = 'status-dot online';
+                         text.innerText = 'Hỗ trợ Online 24/7';
+                         text.className = 'status-text text-online';
+                    }
+                };
+                
+                updateUI('status-dot', 'status-text');
+                updateUI('mob-status-dot', 'mob-status-text');
+            };
+            checkTime();
+            setInterval(checkTime, 60000);
+        },
+
+        calc() {
+            const type = document.getElementById('c-type');
+            const days = document.getElementById('c-days');
+            const total = document.getElementById('c-total');
+
+            const run = () => {
+                let d = parseInt(days.value, 10) || 1;
+                if (d < 1) d = 1;
+                const price = (parseInt(type.value, 10) || 0) * d;
+                total.innerText = price.toLocaleString('vi-VN') + 'đ';
+            };
+            
+            if (type && days && total) {
+                type.addEventListener('change', run);
+                days.addEventListener('input', run);
+                run();
+            }
+        },
+
+        effects() {
+            const header = document.getElementById('header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    header.classList.toggle('scrolled', window.scrollY > 50);
+                });
+            }
+
+            const tBtn = document.getElementById('theme-btn');
+            if (tBtn) {
+                const setThemeIcon = (theme) => {
+                    tBtn.innerHTML = theme === 'dark'
+                        ? '<span class="material-symbols-rounded">light_mode</span>'
+                        : '<span class="material-symbols-rounded">dark_mode</span>';
+                };
+
+                const current = document.documentElement.getAttribute('data-theme') || 'dark';
+                setThemeIcon(current);
+
+                tBtn.addEventListener('click', () => {
+                    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const newTheme = isDark ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    setThemeIcon(newTheme);
+                });
+            }
+
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, {threshold: 0.1});
+            
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in-up').forEach(el => obs.observe(el));
+            }, 500);
+
+            const tiltBox = document.getElementById('tilt-box');
+            if (tiltBox) {
+                tiltBox.addEventListener('mousemove', (e) => {
+                    if (window.innerWidth < 1024) return;
+                    const rect = tiltBox.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    const rotateX = -1 * y / 20;
+                    const rotateY = x / 20;
+                    
+                    requestAnimationFrame(() => {
+                        tiltBox.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    });
+                });
+
+                tiltBox.addEventListener('mouseleave', () => {
+                    tiltBox.style.transform = 'perspective(1000px) rotateY(-5deg) rotateX(5deg)';
+                });
+            }
+        },
+
+        setupPWA() {
+            const manifest = {
+                name: "Mr Tu",
+                short_name: "NT Ultra",
+                display: "standalone",
+                start_url: "./",
+                theme_color: "#000000",
+                background_color: "#000000",
+                icons: [{
+                    src: "https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0462.jpeg",
+                    sizes: "192x192",
+                    type: "image/jpeg"
+                }]
+            };
+            const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            document.head.appendChild(link);
+            
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        }
+    };
+
+    Render.init();

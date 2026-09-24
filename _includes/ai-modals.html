@@ -1,0 +1,67 @@
+<!-- AI MODAL 1: TOUR GUIDE -->
+<div class="ai-modal-overlay" id="ai-overlay"></div>
+<div class="ai-modal" id="ai-modal" role="dialog" aria-modal="true" aria-labelledby="ai-modal-title">
+    <div class="ai-header">
+        <h3 id="ai-modal-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary)"></i> Mr Tú AI Guide ✨</h3>
+        <button class="ai-close" id="ai-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-chat-area" id="ai-chat-box" role="log" aria-live="polite">
+        <div class="chat-msg msg-bot">
+            Xin chào! Tôi là <strong>Mr Tú AI</strong>. Tôi có thể giúp bạn lên lịch trình đi phượt, tìm quán ăn ngon ở Phố Cổ, hay chọn xe phù hợp. Bạn cần giúp gì nào? 🛵🍜
+        </div>
+    </div>
+    <div class="ai-input-area">
+        <input type="text" id="ai-input" class="ai-input" placeholder="Hỏi tôi về địa điểm, món ăn...">
+        <button id="ai-send" class="ai-send" aria-label="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<!-- AI MODAL 2: BIKE MATCHMAKER -->
+<div class="ai-modal-overlay" id="mm-overlay"></div>
+<div class="ai-modal" id="mm-modal" role="dialog" aria-modal="true" aria-labelledby="mm-modal-title" style="height: auto; min-height: 400px;">
+    <div class="ai-header">
+        <h3 id="mm-modal-title"><i class="fa-solid fa-heart-pulse" style="color:#ff3366"></i> Tìm Xe Chân Ái ✨</h3>
+        <button class="ai-close" id="mm-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="ai-chat-area" id="mm-content">
+        <p style="font-size:0.9rem; color:var(--text-sub);">Trả lời 3 câu hỏi nhanh để AI tìm "người bạn đồng hành" hoàn hảo nhất cho chuyến đi của bạn!</p>
+        
+        <div class="form-group">
+            <label class="form-label">1. Trình độ lái xe của bạn?</label>
+            <select class="form-input" id="mm-exp">
+                <option value="newbie">Lái mới (Newbie)</option>
+                <option value="ok">Ổn định (Biết đi xe ga/số)</option>
+                <option value="pro">Tay đua lụa (Thích côn tay/PKL)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">2. Bạn định đi đâu?</label>
+            <select class="form-input" id="mm-dest">
+                <option value="city">Loanh quanh phố (Cafe, Hồ Tây)</option>
+                <option value="trip">Phượt nhẹ (Bát Tràng, Ba Vì)</option>
+                <option value="long">Đi xa / Leo núi (Hà Giang, Sapa)</option>
+            </select>
+        </div>
+        
+         <div class="form-group">
+            <label class="form-label">3. Chiều cao của bạn?</label>
+            <select class="form-input" id="mm-height">
+                <option value="short">Dưới 1m60</option>
+                <option value="mid">1m60 - 1m75</option>
+                <option value="tall">Trên 1m75</option>
+            </select>
+        </div>
+        
+        <button class="btn-3d" id="mm-submit" style="width:100%; margin-top:10px;">
+            <i class="fa-solid fa-magnifying-glass"></i> Tìm Xe Ngay
+        </button>
+        
+        <div id="mm-result" style="margin-top:20px; display:none; border-top:1px dashed var(--glass-border); padding-top:16px;">
+            <h4 style="color:var(--primary); margin:0 0 8px 0;">Kết quả:</h4>
+            <div id="mm-result-text" style="font-size:0.95rem; line-height:1.6; color:var(--text-main);" role="log" aria-live="polite"></div>
+        </div>
+    </div>
+</div>
+
+
