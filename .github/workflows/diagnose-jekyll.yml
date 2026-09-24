@@ -1,0 +1,50 @@
+name: Diagnose Jekyll build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/diagnose-jekyll.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build with official Pages action
+        id: pages_build
+        continue-on-error: true
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler: none
+
+      - name: Direct jekyll build with log capture
+        continue-on-error: true
+        run: |
+          gem install github-pages --no-document > /dev/null 2>&1
+          set +e
+          jekyll build --source . --destination ./_site_direct --trace > jekyll-build.log 2>&1
+          code=$?
+          echo "direct jekyll exit=$code"
+          tail -n 60 jekyll-build.log
+          exit 0
+
+      - name: Push log to diagnose branch
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B diagnose
+          git add jekyll-build.log
+          git commit -m "diagnose: jekyll build log" --no-verify || echo "nothing to commit"
+          git push origin diagnose --force
