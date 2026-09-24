@@ -45,9 +45,8 @@ assets/js/
 
 ## Jekyll
 
-Các trang có front matter rỗng (`---` `---`) để Jekyll xử lý `{% include %}`.
-GitHub Pages chạy Jekyll mặc định (không có `.nojekyll`). Không có token Liquid
-(`{{`, `{%`) trong nội dung trang nên output giữ nguyên.
+Các trang có front matter rỗng (`---` `---`) để Jekyll xử lý thẻ include của các layout chung.
+GitHub Pages chạy Jekyll mặc định (không có `.nojekyll`). Nội dung trang không chứa cú pháp Liquid nên output giữ nguyên.
 
 ## Rủi ro còn lại / TODO cho phase sau
 
