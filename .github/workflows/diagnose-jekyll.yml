@@ -1,4 +1,4 @@
-name: Diagnose Jekyll build
+name: Diagnose Jekyll build (v2)
 
 on:
   workflow_dispatch:
@@ -23,20 +23,23 @@ jobs:
           source: ./
           destination: ./_site
 
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler: none
+      - name: Record outcome
+        run: |
+          echo "pages_build outcome: ${{ steps.pages_build.outcome }}" | tee -a jekyll-build.log
 
-      - name: Direct jekyll build with log capture
+      - name: Run Pages builder container with full log
         continue-on-error: true
         run: |
-          gem install github-pages --no-document > /dev/null 2>&1
           set +e
-          jekyll build --source . --destination ./_site_direct --trace > jekyll-build.log 2>&1
-          code=$?
-          echo "direct jekyll exit=$code"
-          tail -n 60 jekyll-build.log
+          docker pull ghcr.io/actions/jekyll-build-pages:v1.2
+          docker run --rm \
+            -e INPUT_SOURCE=./ \
+            -e INPUT_DESTINATION=/github/workspace/_site_c \
+            -e INPUT_VERBOSE=true \
+            -v "$PWD:/github/workspace" \
+            -w /github/workspace \
+            ghcr.io/actions/jekyll-build-pages:v1.2 >> jekyll-build.log 2>&1
+          echo "docker exit=$?" | tee -a jekyll-build.log
           exit 0
 
       - name: Push log to diagnose branch
