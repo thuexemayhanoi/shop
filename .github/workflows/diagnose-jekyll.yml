@@ -31,14 +31,14 @@ jobs:
         continue-on-error: true
         run: |
           set +e
-          docker pull ghcr.io/actions/jekyll-build-pages:v1.2
+          docker pull ghcr.io/actions/jekyll-build-pages:v1.0.13
           docker run --rm \
             -e INPUT_SOURCE=./ \
             -e INPUT_DESTINATION=/github/workspace/_site_c \
             -e INPUT_VERBOSE=true \
             -v "$PWD:/github/workspace" \
             -w /github/workspace \
-            ghcr.io/actions/jekyll-build-pages:v1.2 >> jekyll-build.log 2>&1
+            ghcr.io/actions/jekyll-build-pages:v1.0.13 >> jekyll-build.log 2>&1
           echo "docker exit=$?" | tee -a jekyll-build.log
           exit 0
 
