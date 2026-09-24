@@ -34,8 +34,11 @@ jobs:
           docker pull ghcr.io/actions/jekyll-build-pages:v1.0.13
           docker run --rm \
             -e INPUT_SOURCE=./ \
-            -e INPUT_DESTINATION=/github/workspace/_site_c \
+            -e INPUT_DESTINATION=./_site_c \
             -e INPUT_VERBOSE=true \
+            -e GITHUB_WORKSPACE=/github/workspace \
+            -e GITHUB_REPOSITORY=thuexemayhanoi/shop \
+            -e INPUT_BUILD_REVISION=${{ github.sha }} \
             -v "$PWD:/github/workspace" \
             -w /github/workspace \
             ghcr.io/actions/jekyll-build-pages:v1.0.13 >> jekyll-build.log 2>&1
