@@ -20,29 +20,37 @@
         return n.toLocaleString('vi-VN') + 'đ';
     }
 
+    /* Cost of one combination: months monthly blocks + weeks weekly blocks + leftover days.
+       Uses min/max monthly price when the model has a monthly range. Returns {min, max}. */
+    function combo(m, days, months, weeks) {
+        var rest = days - months * 30 - weeks * 7;
+        var min = months * m.monthMin + weeks * m.week + rest * m.daily;
+        var max = months * m.monthMax + weeks * m.week + rest * m.daily;
+        return { min: min, max: max };
+    }
+
     /* Estimate total for `days` rental of model `key` (see MODELS).
-       Unknown keys -> contact-shop message. */
+       Chooses the cheapest valid combination of monthly (30d blocks), weekly (7d blocks)
+       and daily rates for leftover days. Unknown keys -> contact-shop message. */
     function calcEstimate(days, key) {
         days = Math.max(1, parseInt(days, 10) || 1);
         var m = MODELS[String(key || '').toLowerCase()];
         if (!m) return CONTACT;
 
-        if (days < 7) return fmt(m.daily * days);
+        var maxMonths = Math.floor(days / 30);
+        var best = null;
 
-        if (days < 28) {
-            var weeks = Math.floor(days / 7);
-            var extra = days - weeks * 7;
-            var byDay = m.daily * days;
-            var byPkg = weeks * m.week + extra * m.daily;
-            return fmt(byPkg < byDay ? byPkg : byDay) + ' (ước tính)';
+        for (var mo = 0; mo <= maxMonths; mo++) {
+            var restAfterMonths = days - mo * 30;
+            var maxWeeks = Math.floor(restAfterMonths / 7);
+            for (var wk = 0; wk <= maxWeeks; wk++) {
+                var c = combo(m, days, mo, wk);
+                if (!best || c.min < best.min) best = c;
+            }
         }
 
-        var months = Math.floor(days / 30);
-        var remDays = days - months * 30;
-        var min = months * m.monthMin + remDays * m.daily;
-        var max = months * m.monthMax + remDays * m.daily;
-        if (min === max) return fmt(min) + ' (ước tính)';
-        return fmt(min).replace('đ', '') + ' - ' + fmt(max) + ' (ước tính, tùy dòng xe)';
+        if (best.min === best.max) return fmt(best.min) + ' (ước tính)';
+        return fmt(best.min).replace('đ', '') + ' - ' + fmt(best.max) + ' (ước tính, tùy dòng xe)';
     }
 
     window.MotoTusPrices = {
