@@ -9,7 +9,7 @@ checker).
 
 | Page | Primary intents |
 |---|---|
-| `index.html` | thuê xe máy Hà Nội |
+| `index.html` | thuê xe máy Hà Nội. Homepage is the umbrella page and additionally supports (but does not own) these secondary terms: thuê xe máy Phố Cổ, thuê xe máy Hoàn Kiếm, giá thuê xe máy Hà Nội. Dedicated specialist pages remain the owners of those intents. |
 | `phoco.html` | thuê xe máy Phố Cổ; thuê xe máy Phố Cổ Hà Nội |
 | `hoankiem.html` | thuê xe máy Hoàn Kiếm |
 | `banggia.html` | bảng giá thuê xe máy (pricing intent) |

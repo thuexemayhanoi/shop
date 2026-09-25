@@ -145,18 +145,28 @@ Actions secrets only, and none are configured yet.
 
 ## Category index and sitemap
 
-- `scripts/generate_category_index.py` — deterministic category listing
-  pages under `cam-nang/<category>/index.html`, **50 articles per page**
-  (`page-2.html`, …). Pages are generated only when a category actually has
-  PUBLISHED articles; empty index pages are never committed. All generated
+- `scripts/generate_category_pages.py` — deterministic category pagination.
+  The six ROOT hub pages (`kinhnghiem.html`, `antoan.html`, `xemay.html`,
+  `dulich.html`, `cungduong.html`, `hoidap.html`) ARE page 1 of each
+  category; no competing `cam-nang/<category>/index.html` is ever generated.
+  The first 50 PUBLISHED article cards are injected into each root hub via
+  an idempotent `<!-- ARTICLE-LIST:START/END -->` block (manual hub content
+  outside the delimiters is never touched). When a category has MORE than 50
+  PUBLISHED articles, page 2+ goes to `cam-nang/<category>/page-2.html`,
+  `page-3.html`, … (50 articles per page), each linking back to the root hub.
+  Empty pagination pages are never committed. All generated
   links carry the GitHub Pages base path from `config/site.json`
   (`/shop/cam-nang/…`, `/shop/kinhnghiem.html`); bare-root
   `href="/cam-nang/…"` links are forbidden. The page skeleton exposes
   header/footer partial mount points so the existing site design system can
   be included later without redesign.
-- `scripts/generate_sitemap.py` — merges the current `sitemap.xml` (every
-  existing public URL is preserved) with PUBLISHED production articles only.
-  Article URLs are built from `config/site.json` → `site_url`
+- `scripts/generate_sitemap.py` — merges the current `sitemap.xml` with
+  PUBLISHED production articles only. LEGACY (non-factory) URLs are always
+  preserved; factory article URLs (namespace
+  `site_url + "/cam-nang/"`) are REBUILT from the CURRENT matrix on every
+  generation, so stale article URLs (e.g. a row later changed to BLOCKED)
+  are removed instead of accumulating. Article URLs are built from
+  `config/site.json` → `site_url`
   (`https://thuexemayhanoi.github.io/shop/cam-nang/<category>/<slug>.html`),
   never from the bare host origin. No SAMPLEs, no
   PLANNED/WRITING/REVIEW/FAIL/BLOCKED, no duplicates, valid XML.
