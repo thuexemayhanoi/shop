@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "protected_pages": [
+    {
+      "path": "index.html",
+      "role": "homepage",
+      "primary_intents": ["thuê xe máy hà nội", "thue xe may ha noi"],
+      "notes": "Homepage owns the head commercial term for the whole city."
+    },
+    {
+      "path": "phoco.html",
+      "role": "commercial-landing",
+      "primary_intents": ["thuê xe máy phố cổ", "thuê xe máy phố cổ hà nội", "thue xe may pho co"],
+      "notes": "Owns Phố Cổ rental intent. Informational articles may mention Phố Cổ but must not target rental intent."
+    },
+    {
+      "path": "hoankiem.html",
+      "role": "commercial-landing",
+      "primary_intents": ["thuê xe máy hoàn kiếm", "thue xe may hoan kiem"],
+      "notes": "Owns Hoàn Kiếm rental intent."
+    },
+    {
+      "path": "banggia.html",
+      "role": "pricing",
+      "primary_intents": ["bảng giá thuê xe máy hà nội", "giá thuê xe máy hà nội", "bảng giá thuê xe máy"],
+      "notes": "Owns pricing/price-list intent."
+    },
+    {
+      "path": "ngay.html",
+      "role": "rental-duration",
+      "primary_intents": ["thuê xe máy theo ngày", "thuê xe máy hà nội theo ngày"],
+      "notes": "Owns daily rental intent."
+    },
+    {
+      "path": "tuan.html",
+      "role": "rental-duration",
+      "primary_intents": ["thuê xe máy theo tuần", "thuê xe máy hà nội theo tuần"],
+      "notes": "Owns weekly rental intent."
+    },
+    {
+      "path": "thang.html",
+      "role": "rental-duration",
+      "primary_intents": ["thuê xe máy theo tháng", "thuê xe máy hà nội theo tháng"],
+      "notes": "Owns monthly rental intent."
+    },
+    {
+      "path": "thutuc.html",
+      "role": "service",
+      "primary_intents": ["thủ tục thuê xe máy", "thủ tục thuê xe máy hà nội"],
+      "notes": "Owns rental procedure intent."
+    },
+    {
+      "path": "uudai.html",
+      "role": "service",
+      "primary_intents": ["ưu đãi thuê xe máy", "khuyến mãi thuê xe máy hà nội"],
+      "notes": "Owns promotion intent. Articles must not promise specific discounts."
+    },
+    {
+      "path": "kinhnghiem.html",
+      "role": "category-hub",
+      "primary_intents": ["kinh nghiệm thuê xe máy hà nội"],
+      "notes": "Category hub — Kinh nghiệm."
+    },
+    {
+      "path": "antoan.html",
+      "role": "category-hub",
+      "primary_intents": ["an toàn khi đi xe máy"],
+      "notes": "Category hub — An toàn."
+    },
+    {
+      "path": "xemay.html",
+      "role": "category-hub",
+      "primary_intents": ["các loại xe máy"],
+      "notes": "Category hub — Xe máy."
+    },
+    {
+      "path": "dulich.html",
+      "role": "category-hub",
+      "primary_intents": ["du lịch hà nội"],
+      "notes": "Category hub — Du lịch."
+    },
+    {
+      "path": "cungduong.html",
+      "role": "category-hub",
+      "primary_intents": ["cung đường phượt hà nội"],
+      "notes": "Category hub — Cung đường."
+    },
+    {
+      "path": "hoidap.html",
+      "role": "category-hub",
+      "primary_intents": ["hỏi đáp thuê xe máy"],
+      "notes": "Category hub — Hỏi đáp."
+    }
+  ],
+  "rules": {
+    "exact_primary_intent_match": "FAIL",
+    "title_or_h1_exact_match_with_protected_intent": "FAIL",
+    "near_similar_title": "REVIEW warning (never auto-FAIL on fuzzy similarity alone)",
+    "informational_articles_may_mention": "Articles may mention commercial places (Phố Cổ, Hoàn Kiếm...) in informational context, but must not target rental/price/procedure intent owned by protected pages."
+  }
+}

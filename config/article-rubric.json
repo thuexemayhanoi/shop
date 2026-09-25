@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "total_score": 100,
+  "thresholds": {
+    "PASS": {"min": 90, "max": 100, "requires_no_critical_failures": true},
+    "REVIEW": {"min": 80, "max": 89, "requires_no_critical_failures": true},
+    "FAIL": {"min": 0, "max": 79}
+  },
+  "any_critical_failure_is_fail": true,
+  "thin_content_min_words": 300,
+  "sections": {
+    "technical_seo": 15,
+    "search_intent": 15,
+    "content_quality": 15,
+    "internal_linking": 10,
+    "cannibalization": 15,
+    "fact_safety": 10,
+    "schema_metadata": 10,
+    "readability_structure": 5,
+    "technical_validation": 5
+  },
+  "critical_failure_rules": [
+    "missing H1",
+    "multiple H1s",
+    "missing canonical",
+    "canonical points to wrong article",
+    "duplicate canonical",
+    "broken required internal link",
+    "duplicate article ID",
+    "duplicate slug",
+    "exact duplicate primary keyword",
+    "protected commercial-intent collision",
+    "confirmed wrong business price",
+    "fixed price invented for unknown model",
+    "stale deposit-policy claim",
+    "fabricated source",
+    "obvious placeholder/template text",
+    "article empty or severely truncated",
+    "malformed HTML/front matter that prevents rendering",
+    "unsupported legal claim in requires_sources article without source evidence"
+  ],
+  "notes": {
+    "keyword_density": "NOT USED. No arbitrary density thresholds; only obvious stuffing/duplication is detected.",
+    "word_count": "No exact word count required. Only the thin-content threshold applies; quality > length.",
+    "legal_content": "Articles covering law/fines/licence/insurance with requires_sources=true must include a source/reference section; otherwise REVIEW or FAIL."
+  }
+}
