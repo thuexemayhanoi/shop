@@ -1,0 +1,5 @@
+{
+  "enabled": true,
+  "scheduled_runs_enabled": true,
+  "note": "Factory kill switch. enabled=false pauses ALL batch runs. scheduled_runs_enabled=false pauses cron runs only (manual workflow_dispatch still allowed). Do NOT delete cron to pause — flip these flags instead."
+}

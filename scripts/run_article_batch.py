@@ -2,41 +2,50 @@
 # -*- coding: utf-8 -*-
 """Batch controller for the 2,000-article content factory.
 
-Orchestrates ONE batch of up to 50 articles. It NEVER writes article
-content itself — writing is delegated to scripts/article_writer.py, which
-stops with WRITER_NOT_CONFIGURED (exit 5) unless a real provider is
-configured.
+Orchestrates ONE batch of up to 50 articles end to end:
+
+    per article: PLANNED -> WRITING -> QA -> (REPAIR -> QA){<=3} -> outcome
+
+Outcomes: PASS (publishable), FAIL (never published), REVIEW (needs another
+repair pass), BLOCKED (repair budget exhausted — never published),
+PROVIDER_ERROR (safe stop; row returns to PLANNED for a later run).
+
+Hard invariants:
+  - One bad article NEVER kills the other 49 (per-article isolation).
+  - PASS / PUBLISHED rows are never rewritten.
+  - No real writer => safe stop (WRITER_NOT_CONFIGURED / WRITER_SECRET_MISSING);
+    rows stay PLANNED. Content is never fabricated.
+  - QA is deterministic: validate_article + check_cannibalization + score_article.
+  - Max batch = 50, max repair attempts = 3, bounded API retries, sequential
+    processing by default (configurable 1-3 via --concurrency).
 
 Modes:
-  --batch BATCH-001 --prepare   claim up to 50 PLANNED rows, mark them
-                                WRITING, write data/batches/BATCH-001.json
-  --batch BATCH-001 --resume    continue QA of unfinished rows (files that
-                                already exist); never rewrites PASS/PUBLISHED
-  --batch BATCH-001             full run: write (needs provider) then QA
-  --next [--batch-size N]       pick the first batch that still has PLANNED
-                                rows and run it (prepare only, without writer)
+  --batch BATCH-001 [--prepare|--resume|--dry-run|--pilot]
+  --next            first batch with PLANNED rows (never chained by itself)
+  --pilot          BATCH-001 ONLY, max 50, no automatic next batch
+  --mark-published flip PASS rows with existing on-MAIN files to PUBLISHED
+                   (call only AFTER the commit reached MAIN)
 
-QA per article = validate_article + check_cannibalization + score_article.
-PASS -> publishable. REVIEW -> up to 3 repair attempts, then BLOCKED.
-FAIL  -> never published. One bad article never blocks the others.
-
-Reports: reports/batches/BATCH-XXX.json (gitignored).
+Reports: reports/batches/BATCH-XXX.json + .md (per-article detail).
 
 Exit codes:
-  0 ok / prepared
+  0 ok/prepared/dry-run
   1 usage or matrix violation
-  2 non-blocking issues (some articles still REVIEW)
+  2 non-blocking issues (REVIEW/BLOCKED present)
   3 batch had FAIL articles
   4 tool/config error
   5 WRITER_NOT_CONFIGURED
+  6 WRITER_SECRET_MISSING
 """
 import argparse
+import concurrent.futures
 import csv
 import datetime
 import io
 import json
 import os
 import sys
+import threading
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import article_lib as lib
@@ -45,6 +54,11 @@ import score_article as score_article_module
 
 MAX_BATCH_SIZE = 50
 MAX_REPAIR_ATTEMPTS = 3
+MAX_CONCURRENCY = 3
+# Cost/failure guard: stop generating NEW articles when >= 5 provider errors
+# occur AND they exceed 30% of attempted writes. Completed results preserved.
+PROVIDER_ERROR_FLOOR = 5
+PROVIDER_ERROR_RATE = 0.30
 EXIT_USAGE = 1
 EXIT_ISSUES = 2
 EXIT_FAILS = 3
@@ -95,9 +109,106 @@ def select_resume_rows(rows, repo_root, batch_size=MAX_BATCH_SIZE):
     return out[:batch_size]
 
 
+def select_stale_rows(rows, repo_root, batch_size=MAX_BATCH_SIZE):
+    """Crash recovery: rows claimed WRITING/QA/REPAIR whose file was never
+    written (runner died mid-write). They are safely re-claimable; their
+    status will be redone from scratch. PASS/PUBLISHED never qualify."""
+    out = []
+    for r in rows:
+        st = (r.get("status") or "").strip()
+        if st not in ("WRITING", "QA", "REPAIR", "REVIEW"):
+            continue
+        path = r.get("output_path") or ""
+        if path and not os.path.isfile(os.path.join(repo_root, path)):
+            out.append(r)
+    return out[:batch_size]
+
+
+def neighboring_topics(matrix, row, limit=6):
+    """Nearby matrix topics (same category, other rows) so the writer avoids
+    cannibalization. Excludes the article itself and PUBLISHED titles' exact
+    duplicates."""
+    topics = []
+    for r in production_rows(matrix):
+        if r.get("article_id") == row.get("article_id"):
+            continue
+        if (r.get("category") or "").strip() != (row.get("category") or "").strip():
+            continue
+        t = (r.get("working_title") or "").strip()
+        if t:
+            topics.append({"article_id": r.get("article_id"), "title": t})
+    return topics[:limit]
+
+
+def build_writer_context(row, matrix, ownership, facts, rubric, site=None,
+                         repo_root=None):
+    """Full production context handed to the writer for ONE article.
+
+    Includes everything the writer must respect: identity fields, target
+    length, link rules, parent hub requirement, commercial link limit,
+    trusted business facts, unapproved-model policy, deposit wording, legal
+    source requirements, protected intents, site base URL and neighboring
+    matrix topics for cannibalization awareness."""
+    rubric = rubric or {}
+    length_cfg = rubric.get("article_length", {})
+    link_cfg = rubric.get("contextual_internal_links", {})
+    site = site or lib.load_site_config()
+    base = (site.get("site_url") or "https://thuexemayhanoi.github.io/shop").rstrip("/")
+    slug = (row.get("slug") or "").strip()
+    out_path = (row.get("output_path") or "").strip()
+    canonical = "%s/%s" % (base, out_path) if out_path else base
+    protected = []
+    for p in (ownership or {}).get("protected_pages", []):
+        for intent in p.get("primary_intents", []):
+            protected.append({"page": p.get("path"), "intent": intent})
+    trusted = dict(facts or {})
+    # Defensive: never leak unverified fields into the writer context.
+    trusted.pop("requires_owner_confirmation", None)
+    return {
+        "standard": "Mr Tú Content Factory production standard",
+        "article_id": row.get("article_id"),
+        "category": row.get("category"),
+        "category_label": row.get("category"),
+        "working_title": row.get("working_title"),
+        "primary_keyword": row.get("primary_keyword"),
+        "secondary_keywords": row.get("secondary_keywords") or "",
+        "search_intent": row.get("search_intent"),
+        "slug": slug,
+        "output_path": out_path,
+        "parent_hub": row.get("parent_hub"),
+        "requires_sources": row.get("requires_sources"),
+        "source_notes": row.get("source_notes") or "",
+        "internal_link_targets": (row.get("internal_link_targets") or "").replace(";", ", "),
+        "commercial_link_target": row.get("commercial_link_target") or "",
+        "canonical_url": canonical,
+        "published_date": row.get("planned_date") or datetime.date.today().isoformat(),
+        "target_min_words": int(length_cfg.get("target_min_words", 1600)),
+        "target_max_words": int(length_cfg.get("target_max_words", 2000)),
+        "contextual_internal_links_min": int(link_cfg.get("min", 3)),
+        "contextual_internal_links_max": int(link_cfg.get("max", 5)),
+        "parent_hub_link_required": True,
+        "commercial_links_max": int(rubric.get("commercial_links_max", 1)),
+        "business_facts": trusted,
+        "approved_price_data": trusted.get("approved_models", {}),
+        "unapproved_models": trusted.get("unapproved_models", []),
+        "unapproved_price_message": trusted.get("unapproved_price_message", ""),
+        "deposit_wording": (trusted.get("deposit_policy") or {}).get(
+            "standard_wording", ""),
+        "protected_intents": protected,
+        "neighbor_topics": neighboring_topics(matrix, row),
+        "url_base": base,
+        "baseurl": site.get("baseurl", "/shop"),
+        "word_count_scope": "main editorial content only",
+        "anchors": "descriptive and diverse; no 'xem thêm'/'tại đây'/'click here'",
+        "h1_per_article": 1,
+        "schema": "Article",
+        "breadcrumb": "required",
+    }
+
+
 def build_manifest(batch_id, rows, rubric=None, facts=None, ownership=None,
-                  site=None):
-    """Batch manifest consumed by an external authorized AI writer.
+                  site=None, matrix=None):
+    """Batch manifest consumed by an authorized AI writer.
 
     writer_context carries the full production standard so a real writer
     knows the target length, link rules, parent hub, allowed targets,
@@ -106,6 +217,7 @@ def build_manifest(batch_id, rows, rubric=None, facts=None, ownership=None,
     rubric = rubric or {}
     length_cfg = rubric.get("article_length", {})
     link_cfg = rubric.get("contextual_internal_links", {})
+    site = site or {}
     writer_context = {
         "standard": "Mr Tú Content Factory production standard",
         "target_min_words": int(length_cfg.get("target_min_words", 1600)),
@@ -175,8 +287,13 @@ def qa_article(html_path, matrix, ownership, facts, rubric):
         "path": html_path,
         "validation_errors": errors,
         "cannibalization_failures": fails,
+        "cannibalization_warnings": warns,
+        "cannibalization_flags": flags,
         "score": score,
         "status": status,  # PASS / REVIEW / FAIL
+        "critical_failures": criticals,
+        "review_flags": rflags,
+        "warnings": warnings,
     }
     return result
 
@@ -242,7 +359,41 @@ def write_report(repo_root, report):
     p = os.path.join(d, report["batch_id"] + ".json")
     with io.open(p, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
+    md = os.path.join(d, report["batch_id"] + ".md")
+    with io.open(md, "w", encoding="utf-8") as f:
+        f.write(report_markdown(report))
     return p
+
+
+def report_markdown(report):
+    L = []
+    L.append("# Batch report %s" % report.get("batch_id"))
+    L.append("")
+    L.append("- started_at: %s" % report.get("started_at"))
+    L.append("- finished_at: %s" % report.get("finished_at"))
+    L.append("- writer_provider: %s" % report.get("writer_provider"))
+    L.append("- commit_sha: %s" % report.get("commit_sha"))
+    L.append("- requested: %s | written: %s | pass: %s | published: %s" %
+             (report.get("requested"), report.get("written"),
+              report.get("pass"), report.get("published")))
+    L.append("- review: %s | repair: %s | fail: %s | blocked: %s | provider_errors: %s" %
+             (report.get("review"), report.get("repair"),
+              report.get("fail"), report.get("blocked"),
+              report.get("provider_errors")))
+    L.append("- scores: avg %s | min %s | max %s | repair_count: %s" %
+             (report.get("average_score"), report.get("min_score"),
+              report.get("max_score"), report.get("repair_count")))
+    L.append("")
+    L.append("| article_id | output_path | status | score | repairs | cannibalization | notes |")
+    L.append("|---|---|---|---|---|---|---|")
+    for a in report.get("articles", []):
+        L.append("| %s | %s | %s | %s | %s | %s | %s |" % (
+            a.get("article_id"), a.get("output_path"), a.get("outcome"),
+            a.get("score"), a.get("repair_attempts"),
+            ("FAIL" if a.get("cannibalization_failures") else
+             ("warn" if a.get("cannibalization_warnings") else "PASS")),
+            "; ".join((a.get("quality_failures") or [])[:3])))
+    return "\n".join(L) + "\n"
 
 
 def write_manifest(repo_root, manifest):
@@ -255,14 +406,246 @@ def write_manifest(repo_root, manifest):
 
 
 # ---------------------------------------------------------------------------
-# QA + publish policy for a set of rows (pure; unit-testable)
+# Writer pipeline for ONE article (isolated; one failure never blocks others)
+# ---------------------------------------------------------------------------
+
+def _qa_report_for_writer(res):
+    """Compact QA report sent back to the writer for repair."""
+    return {
+        "score": res.get("score"),
+        "status": res.get("status"),
+        "validation_errors": res.get("validation_errors"),
+        "critical_failures": res.get("critical_failures"),
+        "review_flags": res.get("review_flags"),
+        "cannibalization_failures": res.get("cannibalization_failures"),
+        "cannibalization_warnings": res.get("cannibalization_warnings"),
+        "warnings": res.get("warnings"),
+    }
+
+
+def process_article(row, matrix, ownership, facts, rubric, repo_root,
+                    provider, site=None, dry_run=False, resume_only=False):
+    """Full lifecycle of one article: write -> QA -> repair loop.
+
+    Returns (updates, entry). Never raises for a single-article failure —
+    provider/QA errors are captured in the entry so the other 49 continue.
+    """
+    aid = row.get("article_id")
+    out_rel = (row.get("output_path") or "").strip()
+    out_abs = os.path.join(repo_root, out_rel) if out_rel else ""
+    entry = {
+        "article_id": aid,
+        "output_path": out_rel,
+        "outcome": None,
+        "score": None,
+        "repair_attempts": 0,
+        "quality_failures": [],
+        "cannibalization_failures": [],
+        "cannibalization_warnings": [],
+        "provider_error": None,
+    }
+    updates = {}
+    prior_attempts = repair_attempts(row.get("notes", ""))
+
+    status = (row.get("status") or "").strip()
+    if status in ("PASS", "PUBLISHED"):
+        # Never rewritten. Crash/resume safety invariant.
+        entry["outcome"] = "SKIP_PASS_PUBLISHED"
+        return updates, entry
+
+    if not out_rel:
+        entry["outcome"] = "FAIL"
+        entry["quality_failures"] = ["missing output_path"]
+        updates[aid] = {"status": "FAIL", "quality_status": "FAIL",
+                        "last_checked": today()}
+        return updates, entry
+
+    html = None
+    if os.path.isfile(out_abs) and not dry_run:
+        # Resume: QA the existing file first; rewrite only if QA says so.
+        pass  # no file yet: falls through to the write step below
+    elif not resume_only:
+        if provider is None:
+            entry["outcome"] = "WRITER_NOT_CONFIGURED"
+            return updates, entry
+        if dry_run:
+            entry["outcome"] = "WOULD_WRITE"
+            return updates, entry
+        # ---- real write ----
+        if not os.path.isfile(out_abs) or status in ("WRITING", "QA", "REPAIR", "REVIEW"):
+            ctx = build_writer_context(row, matrix, ownership, facts, rubric,
+                                       site, repo_root)
+            updates[aid] = {"status": "WRITING"}
+            try:
+                html = provider.write_article(row, ctx)
+            except article_writer.WriterSecretMissing as e:
+                entry["outcome"] = "WRITER_SECRET_MISSING"
+                entry["provider_error"] = str(e)
+                updates = {aid: {"status": "PLANNED"}}  # row stays PLANNED
+                return updates, entry
+            except Exception as e:  # provider timeout/error -> safe stop for row
+                entry["outcome"] = "PROVIDER_ERROR"
+                entry["provider_error"] = str(e)[:300]
+                # row returns to PLANNED for a later run (no durable fake state)
+                updates = {aid: {"status": "PLANNED"}}
+                return updates, entry
+            if not os.path.isdir(os.path.dirname(out_abs)):
+                os.makedirs(os.path.dirname(out_abs), exist_ok=True)
+            with io.open(out_abs, "w", encoding="utf-8") as f:
+                f.write(html)
+            updates[aid] = {"status": "QA"}
+
+    if dry_run:
+        entry["outcome"] = "WOULD_QA" if os.path.isfile(out_abs) else "WOULD_WRITE"
+        return updates, entry
+
+    if not os.path.isfile(out_abs):
+        entry["outcome"] = "NOT_WRITTEN"
+        return updates, entry
+
+    # ---- QA + repair loop ----
+    attempts = prior_attempts
+    while True:
+        res = qa_article(out_abs, matrix, ownership, facts, rubric)
+        entry["score"] = res["score"]
+        entry["quality_failures"] = (res.get("validation_errors") or [])[:10] + \
+            (res.get("critical_failures") or [])[:10]
+        entry["cannibalization_failures"] = res.get("cannibalization_failures") or []
+        entry["cannibalization_warnings"] = res.get("cannibalization_warnings") or []
+        if res["status"] == "PASS":
+            entry["outcome"] = "PASS"
+            updates[aid] = {"status": "PASS", "quality_status": "PASS",
+                            "score": str(res["score"]),
+                            "last_checked": today()}
+            return updates, entry
+        if res["status"] == "FAIL":
+            # FAIL is never auto-published and (per current policy) never
+            # silently converted to PASS. Recorded and kept.
+            entry["outcome"] = "FAIL"
+            updates[aid] = {"status": "FAIL", "quality_status": "FAIL",
+                            "score": str(res["score"]),
+                            "last_checked": today()}
+            return updates, entry
+        # REVIEW: repair only the identified problems, max 3 attempts total
+        if attempts >= MAX_REPAIR_ATTEMPTS or provider is None:
+            entry["outcome"] = "BLOCKED" if attempts >= MAX_REPAIR_ATTEMPTS else "REVIEW_NO_WRITER"
+            updates[aid] = {"status": "BLOCKED" if attempts >= MAX_REPAIR_ATTEMPTS else "REVIEW",
+                            "quality_status": "BLOCKED" if attempts >= MAX_REPAIR_ATTEMPTS else "REVIEW",
+                            "score": str(res["score"]),
+                            "notes": note_repair(row.get("notes", ""), attempts),
+                            "last_checked": today()}
+            return updates, entry
+        try:
+            with io.open(out_abs, encoding="utf-8") as f:
+                original_html = f.read()
+            repaired = provider.repair_article(
+                row, build_writer_context(row, matrix, ownership, facts,
+                                          rubric, site, repo_root),
+                original_html, _qa_report_for_writer(res))
+            with io.open(out_abs, "w", encoding="utf-8") as f:
+                f.write(repaired)
+        except Exception as e:
+            entry["provider_error"] = ("repair: %s" % str(e))[:300]
+            # keep the last QA verdict; a repair API failure must not fake PASS
+            entry["outcome"] = "PROVIDER_ERROR"
+            updates[aid] = {"status": "REVIEW", "quality_status": "REVIEW",
+                            "score": str(res["score"]),
+                            "notes": note_repair(row.get("notes", ""), attempts),
+                            "last_checked": today()}
+            return updates, entry
+        attempts += 1
+        entry["repair_attempts"] = attempts - prior_attempts
+
+
+class _Guard(object):
+    """Cost guard: stop generating NEW articles when provider errors spike."""
+
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.attempted = 0
+        self.errors = 0
+        self.stopped = False
+
+    def note_attempt(self):
+        with self.lock:
+            self.attempted += 1
+
+    def note_error(self):
+        with self.lock:
+            self.errors += 1
+            if (self.errors >= PROVIDER_ERROR_FLOOR and
+                    self.errors > PROVIDER_ERROR_RATE * max(self.attempted, 1)):
+                self.stopped = True
+
+    def should_stop(self):
+        with self.lock:
+            return self.stopped
+
+
+def run_writer_pipeline(rows, matrix, ownership, facts, rubric, repo_root,
+                        provider, site=None, dry_run=False, resume_only=False,
+                        concurrency=1):
+    """Write + QA every row independently. One failure never blocks others.
+
+    Sequential by default (reliability over speed); bounded 1-3 concurrency
+    via ThreadPoolExecutor when explicitly requested."""
+    guard = _Guard()
+    results = []
+
+    def work(row):
+        if not dry_run and provider is not None:
+            guard.note_attempt()
+        updates, entry = process_article(
+            row, matrix, ownership, facts, rubric, repo_root, provider,
+            site, dry_run=dry_run, resume_only=resume_only)
+        if entry.get("outcome") in ("PROVIDER_ERROR", "WRITER_SECRET_MISSING"):
+            guard.note_error()
+        return updates, entry
+
+    todo = list(rows)
+
+    def skipped(row):
+        return ({}, {"article_id": row.get("article_id"),
+                     "output_path": row.get("output_path"),
+                     "outcome": "SKIPPED_PROVIDER_ERRORS",
+                     "score": None, "repair_attempts": 0,
+                     "quality_failures": [],
+                     "cannibalization_failures": [],
+                     "cannibalization_warnings": [],
+                     "provider_error": None})
+
+    if concurrency <= 1:
+        for row in todo:
+            if not dry_run and guard.should_stop():
+                results.append(skipped(row))
+                continue
+            results.append(work(row))
+    else:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=concurrency) as ex:
+            futures = []
+            for row in todo:
+                if not dry_run and guard.should_stop():
+                    results.append(skipped(row))
+                    continue
+                futures.append(ex.submit(work, row))
+            for fut in concurrent.futures.as_completed(futures):
+                results.append(fut.result())
+
+    updates = {}
+    articles = []
+    for upd, entry in results:
+        updates.update(upd)
+        articles.append(entry)
+    return updates, articles, guard
+
+
+# ---------------------------------------------------------------------------
+# QA-only policy for pre-existing files (kept for backward compatibility)
 # ---------------------------------------------------------------------------
 
 def run_qa_for_rows(rows, matrix, ownership, facts, rubric, repo_root):
     """QA each row whose file exists. Never lets one failure block others.
-    REVIEW rows get up to MAX_REPAIR_ATTEMPTS attempts (no writer -> BLOCKED).
-    PASS rows are marked publishable (PUBLISHED is set only after the actual
-    git commit to MAIN)."""
+    REVIEW rows get up to MAX_REPAIR_ATTEMPTS attempts (no writer -> BLOCKED)."""
     updates = {}
     report_articles = []
     for r in rows:
@@ -277,17 +660,12 @@ def run_qa_for_rows(rows, matrix, ownership, facts, rubric, repo_root):
         res = qa_article(path, matrix, ownership, facts, rubric)
         entry["score"] = res["score"]
         entry["article_id"] = res["article_id"] or aid
-        attempts = 0
-        # Repair loop: without a configured writer no automatic repair is
-        # possible, so REVIEW stays REVIEW here and the orchestrator marks
-        # BLOCKED after MAX_REPAIR_ATTEMPTS recorded attempts.
         if res["status"] == "PASS":
             entry["outcome"] = "PASS"
             updates[aid] = {"status": "PASS", "quality_status": "PASS",
                             "score": str(res["score"]),
                             "last_checked": today()}
         elif res["status"] == "REVIEW":
-            # count previous recorded attempts via notes field
             entry["outcome"] = "REVIEW"
             updates[aid] = {"status": "REVIEW", "quality_status": "REVIEW",
                             "score": str(res["score"]),
@@ -305,9 +683,55 @@ def today():
     return datetime.date.today().isoformat()
 
 
+def repair_attempts(notes):
+    import re as _re
+    m = _re.search(r"repair:(\d+)", notes or "")
+    return int(m.group(1)) if m else 0
+
+
+def note_repair(notes, n):
+    import re as _re
+    s = _re.sub(r"repair:\d+", "repair:%d" % n, notes or "")
+    if "repair:%d" % n not in s:
+        s = (s + " " if s.strip() else "") + "repair:%d" % n
+    return s.strip()
+
+
+def summarize(report_articles):
+    scores = [a.get("score") for a in report_articles
+              if isinstance(a.get("score"), (int, float))]
+    return {
+        "pass": len([a for a in report_articles if a.get("outcome") == "PASS"]),
+        "review": len([a for a in report_articles
+                       if a.get("outcome") in ("REVIEW", "REVIEW_NO_WRITER")]),
+        "repair": len([a for a in report_articles if (a.get("repair_attempts") or 0) > 0]),
+        "fail": len([a for a in report_articles if a.get("outcome") == "FAIL"]),
+        "blocked": len([a for a in report_articles if a.get("outcome") == "BLOCKED"]),
+        "provider_errors": len([a for a in report_articles
+                                if a.get("outcome") in ("PROVIDER_ERROR",
+                                                        "WRITER_SECRET_MISSING")]),
+        "average_score": (round(sum(scores) / len(scores), 1) if scores else None),
+        "min_score": min(scores) if scores else None,
+        "max_score": max(scores) if scores else None,
+        "repair_count": sum(a.get("repair_attempts") or 0 for a in report_articles),
+    }
+
+
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
+def _load_kill_switch(repo_root):
+    """Factory kill switch: config/content-factory.json. Missing = enabled."""
+    p = os.path.join(repo_root, "config", "content-factory.json")
+    if not os.path.isfile(p):
+        return {"enabled": True, "scheduled_runs_enabled": True}
+    try:
+        with io.open(p, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {"enabled": True, "scheduled_runs_enabled": True}
+
 
 def main_func(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -318,17 +742,35 @@ def main_func(argv=None):
                     help="claim rows and write batch manifest only")
     ap.add_argument("--resume", action="store_true",
                     help="QA unfinished rows only; never rewrite PASS/PUBLISHED")
+    ap.add_argument("--pilot", action="store_true",
+                    help="pilot mode: BATCH-001 only, max 50, no chaining")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="show what would run; write nothing")
     ap.add_argument("--mark-published", action="store_true",
                     help="flip PASS rows with existing files to PUBLISHED "
                          "(call only AFTER the commit reached MAIN)")
+    ap.add_argument("--scheduled", action="store_true",
+                    help="cron entry point: honors config/content-factory.json "
+                         "kill switch and FACTORY_COMPLETE detection")
     ap.add_argument("--batch-size", type=int, default=MAX_BATCH_SIZE,
                     help="max articles per run (default 50, max 50)")
+    ap.add_argument("--concurrency", type=int, default=1,
+                    help="writer calls in parallel (default 1, max 3)")
     args = ap.parse_args(argv)
 
     repo_root = lib.ROOT
     batch_size = min(args.batch_size, MAX_BATCH_SIZE)
-    if args.batch_size > MAX_BATCH_SIZE:
-        print("NOTE: batch-size capped to %d" % MAX_BATCH_SIZE)
+    concurrency = max(1, min(args.concurrency, MAX_CONCURRENCY))
+
+    kill = _load_kill_switch(repo_root)
+    if args.scheduled and not kill.get("enabled", True):
+        print("FACTORY_PAUSED: config/content-factory.json enabled=false. "
+              "No changes made.")
+        return 0
+    if args.scheduled and not kill.get("scheduled_runs_enabled", True):
+        print("FACTORY_SCHEDULE_PAUSED: scheduled_runs_enabled=false. "
+              "No changes made.")
+        return 0
 
     try:
         matrix = lib.load_matrix()
@@ -340,15 +782,37 @@ def main_func(argv=None):
         print("ERROR: %s" % e)
         return EXIT_ERROR
 
-    batch_id = args.batch
-    if args.next or (not batch_id and not args.resume):
+    # ------- pilot mode: BATCH-001 only, never chained -------
+    if args.pilot:
+        batch_id = "BATCH-001"
+        rows = batch_rows(matrix, batch_id)
+        if not rows:
+            print("ERROR: BATCH-001 not found — pilot aborted.")
+            return EXIT_USAGE
+        if args.batch and args.batch != "BATCH-001":
+            print("ERROR: pilot mode may only run BATCH-001.")
+            return EXIT_USAGE
+    else:
+        batch_id = args.batch
+        if args.next or (not batch_id and not args.resume and
+                         not args.mark_published):
+            batch_id = next_batch_id(matrix)
+            if not batch_id:
+                if args.scheduled:
+                    print("FACTORY_COMPLETE: no PLANNED/WRITING/QA/REPAIR "
+                          "rows remain. No changes made.")
+                    return 0
+                print("No PLANNED rows left — all batches done.")
+                return 0
+            print("Next batch: %s" % batch_id)
+
+    if batch_id is None and args.resume:
         batch_id = next_batch_id(matrix)
         if not batch_id:
-            print("No PLANNED rows left — all batches done.")
+            print("No unfinished rows.")
             return 0
-        print("Next batch: %s" % batch_id)
 
-    rows = batch_rows(matrix, batch_id)
+    rows = batch_rows(matrix, batch_id) if batch_id else []
     if not rows:
         print("ERROR: batch %s not found" % batch_id)
         return EXIT_USAGE
@@ -358,6 +822,8 @@ def main_func(argv=None):
               % (batch_id, batch_id))
         return EXIT_USAGE
     try:
+        started_at = datetime.datetime.now().isoformat(timespec="seconds")
+
         # ---------------- prepare-only mode ----------------
         if args.prepare:
             claim = select_claim_rows(rows, batch_size)
@@ -365,30 +831,33 @@ def main_func(argv=None):
                 print("No PLANNED rows in %s (statuses: %s)"
                       % (batch_id, sorted({(r.get("status") or "?") for r in rows})))
                 return 0
-            manifest = build_manifest(batch_id, claim, rubric, facts, ownership, site)
-            # Probe the writer BEFORE claiming. Without a real provider we
-            # must NOT leave durable WRITING claims in the matrix ledger —
-            # rows stay PLANNED and remain safely claimable later. The
-            # manifest is still produced as an artifact for an external
-            # authorized writer.
+            manifest = build_manifest(batch_id, claim, rubric, facts,
+                                     ownership, site, matrix)
+            provider = None
+            configured = False
             try:
-                article_writer.write_article(claim[0], {"mode": "prepare-probe"})
-            except article_writer.WriterNotConfigured:
+                provider = article_writer.get_provider()
+                configured = provider.is_configured()
+            except Exception:
+                configured = False
+            if not configured:
                 write_manifest(repo_root, manifest)
+                if _secret_missing(provider):
+                    print("WRITER_SECRET_MISSING: provider selected but its "
+                          "API key is absent. Manifest written to "
+                          "data/batches/%s.json; rows stay PLANNED; no "
+                          "content generated." % batch_id)
+                    return article_writer.EXIT_WRITER_SECRET_MISSING
                 print("WRITER_NOT_CONFIGURED: manifest written to "
-                      "data/batches/%s.json; NO article generated, matrix rows "
-                      "left PLANNED (no durable WRITING claim without a writer). "
-                      "Run an authorized AI writer (e.g. Mistral agent) on the "
-                      "manifest, then use --resume." % batch_id)
+                      "data/batches/%s.json; NO article generated, matrix "
+                      "rows left PLANNED. Configure WRITER_PROVIDER + its "
+                      "secret (GitHub Actions Secrets) then run the batch "
+                      "for real." % batch_id)
                 return article_writer.EXIT_WRITER_NOT_CONFIGURED
-            # A real writer is configured: claim the rows durably now.
             write_manifest(repo_root, manifest)
-            updates = {r["article_id"]: {"status": "WRITING"} for r in claim}
-            update_matrix_statuses(repo_root, updates)
-            print("PREPARED %s: %d articles claimed WRITING, manifest at "
-                  "data/batches/%s.json" % (batch_id, len(claim), batch_id))
-            print("writer provider present — refusing inline generation; "
-                  "use --resume after the writer produced files.")
+            print("PREPARED %s: writer '%s' configured; %d articles ready. "
+                  "Run without --prepare to write, QA and repair for real."
+                  % (batch_id, getattr(provider, "name", "?"), len(claim)))
             return 0
 
         # ---------------- mark-published mode ----------------
@@ -405,64 +874,105 @@ def main_func(argv=None):
                   (len(ready), batch_id))
             return 0
 
-        # ---------------- resume / run mode ----------------
-        if args.resume:
-            todo = select_resume_rows(rows, repo_root, batch_size)
-        else:
-            # full run: writer must exist to create missing files
+        # ---------------- dry run ----------------
+        if args.dry_run:
             claim = select_claim_rows(rows, batch_size)
+            resume = select_resume_rows(rows, repo_root, batch_size)
+            print("DRY RUN %s: %d PLANNED claimable, %d unfinished files, "
+                  "statuses: %s" % (batch_id, len(claim), len(resume),
+                                    sorted({(r.get("status") or "?") for r in rows})))
+            return 0
+
+        # ---------------- real run / resume ----------------
+        resume_rows = select_resume_rows(rows, repo_root, batch_size)
+        claim_rows = []
+        provider = article_writer.get_provider()
+        provider_name = getattr(provider, "name", "none")
+        if len(resume_rows) < batch_size:
+            want = batch_size - len(resume_rows)
+            seen_ids = set()
+            candidate_claim = []
+            # crash recovery: re-claim WRITING/QA/REPAIR rows that never
+            # produced a file, then fresh PLANNED rows
+            for r in (select_stale_rows(rows, repo_root, want) +
+                      select_claim_rows(rows, want)):
+                if r["article_id"] not in seen_ids:
+                    seen_ids.add(r["article_id"])
+                    candidate_claim.append(r)
+            candidate_claim = candidate_claim[:want]
+            # A real writer must be configured before PLANNED rows are claimed.
             try:
-                article_writer.write_article(claim[0], {"mode": "run-probe"}) if claim else None
-            except article_writer.WriterNotConfigured:
-                manifest = build_manifest(batch_id, claim, rubric, facts, ownership, site)
+                configured = provider.is_configured()
+            except Exception:
+                configured = False
+            if candidate_claim and configured:
+                claim_rows = candidate_claim
+            elif candidate_claim and not resume_rows:
+                # nothing resumable AND no writer -> safe stop
+                manifest = build_manifest(batch_id, candidate_claim, rubric,
+                                          facts, ownership, site, matrix)
                 write_manifest(repo_root, manifest)
+                if _secret_missing(provider):
+                    print("WRITER_SECRET_MISSING: provider '%s' selected but "
+                          "its API key is not configured. Batch %s prepared as "
+                          "manifest only; rows stay PLANNED; no content "
+                          "generated." % (provider_name, batch_id))
+                    return article_writer.EXIT_WRITER_SECRET_MISSING
                 print("WRITER_NOT_CONFIGURED: batch %s prepared as manifest; "
                       "no content generated." % batch_id)
                 return article_writer.EXIT_WRITER_NOT_CONFIGURED
-            todo = [r for r in rows
-                    if (r.get("status") or "").strip() in ("WRITING", "QA", "REPAIR", "REVIEW")
-                    and os.path.isfile(os.path.join(repo_root, r.get("output_path") or ""))]
 
+        todo = claim_rows + resume_rows
         if not todo:
-            print("Nothing to QA in %s (no unfinished article files)." % batch_id)
+            print("Nothing to do in %s (no claimable PLANNED rows without a "
+                  "writer, no unfinished files)." % batch_id)
             return 0
 
-        updates, articles = run_qa_for_rows(todo, matrix, ownership, facts,
-                                            rubric, repo_root)
-        # REVIEW -> BLOCKED after max recorded repair attempts
-        for r in todo:
-            if r["article_id"] in updates and updates[r["article_id"]]["status"] == "REVIEW":
-                attempts = repair_attempts(r.get("notes", ""))
-                if attempts + 1 >= MAX_REPAIR_ATTEMPTS:
-                    updates[r["article_id"]]["status"] = "BLOCKED"
-                    updates[r["article_id"]]["quality_status"] = "BLOCKED"
-                    updates[r["article_id"]]["notes"] = note_repair(r.get("notes", ""), attempts + 1)
-                else:
-                    updates[r["article_id"]]["status"] = "REPAIR"
-                    updates[r["article_id"]]["notes"] = note_repair(r.get("notes", ""), attempts + 1)
+        # Durable WRITING claim before the first API call (crash-safe resume).
+        if claim_rows:
+            update_matrix_statuses(repo_root,
+                                   {r["article_id"]: {"status": "WRITING"}
+                                    for r in claim_rows})
+            matrix = lib.load_matrix()
+            rows = batch_rows(matrix, batch_id)
+            by_id = {r["article_id"]: r for r in rows}
+            todo = [by_id.get(r["article_id"], r) for r in todo]
+
+        updates, articles, guard = run_writer_pipeline(
+            todo, matrix, ownership, facts, rubric, repo_root, provider,
+            site=site, resume_only=False, concurrency=concurrency)
+
+        # Persist per-article outcomes (idempotent; PASS/PUBLISHED untouched).
         update_matrix_statuses(repo_root, updates)
 
-        for e in articles:
-            if e["outcome"] == "REPAIR" or e["outcome"] == "REVIEW":
-                e["outcome"] = updates.get(e["article_id"], {}).get("status", "REVIEW")
-            if e["outcome"] in ("REVIEW", "REPAIR", "BLOCKED"):
-                e["repair_attempts"] = repair_attempts(updates.get(e["article_id"], {}).get("notes", ""))
-
+        stats = summarize(articles)
+        secret_missing = any(a.get("outcome") == "WRITER_SECRET_MISSING"
+                            for a in articles)
         report = {
             "batch_id": batch_id,
+            "started_at": started_at,
+            "finished_at": datetime.datetime.now().isoformat(timespec="seconds"),
             "requested": len(todo),
-            "written": len([a for a in articles if a["outcome"] != "NOT_WRITTEN"]),
-            "pass": len([a for a in articles if a["outcome"] == "PASS"]),
-            "published": 0,  # PUBLISHED is set only after the commit reaches MAIN
-            "review": len([a for a in articles if a["outcome"] in ("REVIEW", "REPAIR")]),
-            "fail": len([a for a in articles if a["outcome"] == "FAIL"]),
-            "blocked": len([a for a in articles if a["outcome"] == "BLOCKED"]),
+            "writer_provider": provider_name,
+            "written": len([a for a in articles if a.get("outcome") not in
+                            ("NOT_WRITTEN", "WRITER_NOT_CONFIGURED",
+                             "WRITER_SECRET_MISSING", "SKIPPED_PROVIDER_ERRORS")]),
+            "published": 0,  # set only after the commit reaches MAIN
+            "commit_sha": os.environ.get("GITHUB_SHA") or None,
             "articles": articles,
         }
+        report.update(stats)
         rp = write_report(repo_root, report)
         print(json.dumps({k: v for k, v in report.items() if k != "articles"},
                          ensure_ascii=False))
         print("report: %s" % rp)
+        if guard.should_stop():
+            print("GUARD: provider error rate exceeded threshold — new "
+                  "generation stopped; completed results preserved.")
+        if secret_missing:
+            print("WRITER_SECRET_MISSING: at least one article could not be "
+                  "written because the API key is absent. Rows stayed PLANNED.")
+            return article_writer.EXIT_WRITER_SECRET_MISSING
         if report["fail"]:
             return EXIT_FAILS
         if report["review"] or report["blocked"]:
@@ -472,18 +982,17 @@ def main_func(argv=None):
         release_lock(repo_root, batch_id)
 
 
-def repair_attempts(notes):
-    import re as _re
-    m = _re.search(r"repair:(\d+)", notes or "")
-    return int(m.group(1)) if m else 0
-
-
-def note_repair(notes, n):
-    import re as _re
-    s = _re.sub(r"repair:\d+", "repair:%d" % n, notes or "")
-    if "repair:%d" % n not in s:
-        s = (s + " " if s.strip() else "") + "repair:%d" % n
-    return s.strip()
+def _secret_missing(provider):
+    """True when a named provider is selected but its secret is absent."""
+    if provider is None or isinstance(provider, article_writer._NullProvider):
+        return False
+    try:
+        env = getattr(provider, "env", None)
+        if env is not None and provider.name == "mistral":
+            return not bool((env.get("MISTRAL_API_KEY") or "").strip())
+    except Exception:
+        pass
+    return False
 
 
 if __name__ == "__main__":

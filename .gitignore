@@ -4,7 +4,8 @@ reports/article-quality/*.html
 # OS noise
 .DS_Store
 Thumbs.db
-# Generated batch manifests and reports (keep .gitkeep)
+# Generated batch manifests are regenerable; batch REPORTS are committed
+# (reports/batches/BATCH-XXX.json|md) because they are the durable audit
+# trail of each production run.
 data/batches/*.json
 data/batches/*.lock
-reports/batches/*.json

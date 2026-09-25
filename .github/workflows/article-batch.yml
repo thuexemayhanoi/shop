@@ -1,9 +1,22 @@
 name: Article Batch
 
-# Manual-only batch orchestration. NO CRON YET: scheduling must only be added
-# after the writer provider is configured and BATCH-001 has been piloted.
-# The future schedule must never start a new batch while an earlier batch is
-# still WRITING/QA.
+# Production batch orchestration for the 2,000-article factory.
+#
+# REAL pipeline: write (WRITER_PROVIDER=mistral via MISTRAL_API_KEY secret)
+# -> deterministic QA -> repair loop (max 3) -> publish PASS articles to
+# MAIN -> regenerate category hubs + sitemap.
+#
+# NO CRON YET: scheduling may only be added after BATCH-001 has been piloted
+# for real and verified stable (pilot=true run with a configured writer).
+# The future cron must use --next (never a hard-coded BATCH-NNN) and must
+# check this kill switch: config/content-factory.json
+#   enabled / scheduled_runs_enabled = false -> exit safely, no changes.
+#
+# Global production concurrency: only ONE batch workflow run may execute at
+# a time across all batches and trigger types. cancel-in-progress: false
+# queues a second run instead of killing the in-flight batch. The local
+# filesystem lock is NOT sufficient across runners; this group plus the
+# matrix state persisted to MAIN prevents duplicate claims.
 
 on:
   workflow_dispatch:
@@ -16,20 +29,24 @@ on:
         description: "Max articles per run (default 50, max 50)"
         required: false
         default: "50"
+      pilot:
+        description: "Pilot mode: BATCH-001 only, max 50, no chaining"
+        type: boolean
+        required: false
+        default: false
+      dry_run:
+        description: "Show what would run; write nothing"
+        type: boolean
+        required: false
+        default: false
+      concurrency:
+        description: "Writer calls in parallel (default 1, max 3)"
+        required: false
+        default: "1"
 
 permissions:
-  contents: read
+  contents: write
 
-# GLOBAL production batch concurrency: only ONE batch workflow run may execute
-# at a time — across BATCH-001, BATCH-002, --next and any future scheduled
-# runs. A per-batch group would let two different batches overlap, which is
-# forbidden once automatic publishing is enabled. cancel-in-progress: false
-# queues a second run instead of killing the in-flight batch.
-# NOTE: the local filesystem lock (data/batches/BATCH-XXX.lock) is NOT
-# sufficient inside GitHub Actions — separate runners have separate
-# workspaces, so a local lock file cannot be seen by another runner. Only the
-# matrix state persisted to MAIN plus this workflow-level concurrency group
-# prevents duplicate claims in CI.
 concurrency:
   group: article-batch-production
   cancel-in-progress: false
@@ -52,6 +69,18 @@ jobs:
       - name: Run factory tests
         run: python3 -m unittest discover tests
 
+      - name: Check factory kill switch
+        id: killswitch
+        run: |
+          set -eu
+          python3 - <<'EOF'
+          import json, sys
+          cfg = json.load(open("config/content-factory.json", encoding="utf-8"))
+          if not cfg.get("enabled", True):
+              print("FACTORY_PAUSED"); sys.exit(1)
+          print("kill switch: enabled")
+          EOF
+
       - name: Cap batch size
         id: size
         run: |
@@ -61,46 +90,144 @@ jobs:
           case "$size" in (*[!0-9]*|'') size=50;; esac
           if [ "$size" -gt 50 ]; then size=50; fi
           if [ "$size" -lt 1 ]; then size=1; fi
+          conc="${{ github.event.inputs.concurrency }}"
+          if [ -z "$conc" ]; then conc=1; fi
+          case "$conc" in (*[!0-9]*|'') conc=1;; esac
+          if [ "$conc" -gt 3 ]; then conc=3; fi
+          if [ "$conc" -lt 1 ]; then conc=1; fi
           echo "size=$size" >> "$GITHUB_OUTPUT"
-          echo "Batch size: $size (hard max 50)"
+          echo "conc=$conc" >> "$GITHUB_OUTPUT"
+          echo "Batch size: $size (hard max 50); writer concurrency: $conc"
 
-      - name: Prepare batch (claim rows + manifest)
-        id: prepare
+      # ------------------------------------------------------------------
+      # REAL writer pipeline: write -> QA -> repair -> PASS/REVIEW/FAIL/
+      # BLOCKED per article, one bad article never blocks the others.
+      # ------------------------------------------------------------------
+      - name: Run batch (write + QA + repair)
+        id: runbatch
+        env:
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          WRITER_PROVIDER: mistral
+          GITHUB_SHA: ${{ github.sha }}
         run: |
           set -eu
           mkdir -p data/batches reports/batches
-          if [ -n "${{ github.event.inputs.batch_id }}" ]; then
-            set +e
-            python3 scripts/run_article_batch.py \
-              --batch "${{ github.event.inputs.batch_id }}" \
-              --batch-size "${{ steps.size.outputs.size }}" \
-              --prepare > prepare.log 2>&1
-            code=$?
-            set -e
+          args=""
+          bid="${{ github.event.inputs.batch_id }}"
+          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then
+            args="$args --pilot"
+          elif [ -n "$bid" ]; then
+            args="$args --batch $bid"
           else
-            set +e
-            python3 scripts/run_article_batch.py \
-              --next --batch-size "${{ steps.size.outputs.size }}" \
-              --prepare > prepare.log 2>&1
-            code=$?
-            set -e
+            args="$args --next"
           fi
-          cat prepare.log
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            args="$args --dry-run"
+          fi
+          set +e
+          python3 scripts/run_article_batch.py $args \
+            --batch-size "${{ steps.size.outputs.size }}" \
+            --concurrency "${{ steps.size.outputs.conc }}" > batch.log 2>&1
+          code=$?
+          set -e
+          cat batch.log
           if [ "$code" -eq 5 ]; then
             echo "result=WRITER_NOT_CONFIGURED" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          exit "$code"
+          if [ "$code" -eq 6 ]; then
+            echo "result=WRITER_SECRET_MISSING" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$code" -ne 0 ]; then
+            echo "result=DONE_WITH_ISSUES" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=OK" >> "$GITHUB_OUTPUT"
+          fi
+          exit 0   # issues are reported per-article; publish step decides
 
       - name: Report writer status
-        if: steps.prepare.outputs.result == 'WRITER_NOT_CONFIGURED'
+        if: steps.runbatch.outputs.result == 'WRITER_NOT_CONFIGURED' || steps.runbatch.outputs.result == 'WRITER_SECRET_MISSING'
         run: |
-          echo "::notice::WRITER_NOT_CONFIGURED — batch manifest prepared; no AI writer provider is configured, so no content was generated. Wire an authorized writer provider (credentials via GitHub Actions secrets only) before running a real batch."
+          echo "::notice::${{ steps.runbatch.outputs.result }} — no authorized writer is configured (MISTRAL_API_KEY via GitHub Actions Secrets). No content was generated; matrix rows stay PLANNED. Add the secret, then re-run."
 
-      - name: Upload batch manifest
+      # ------------------------------------------------------------------
+      # Partial-batch publishing: ONLY PASS articles are committed, their
+      # exact rows flipped PUBLISHED only AFTER the push to MAIN succeeds.
+      # FAIL/REVIEW/BLOCKED never publish and never block the good ones.
+      # ------------------------------------------------------------------
+      - name: Stage PASS articles for publish
+        if: steps.runbatch.outputs.result == 'OK' || steps.runbatch.outputs.result == 'DONE_WITH_ISSUES'
+        id: stage
+        run: |
+          set -eu
+          python3 - <<'EOF' > pass_files.txt
+          import csv, io, os, sys
+          sys.path.insert(0, "scripts")
+          import article_lib as lib
+          matrix = lib.load_matrix()
+          rows = [r for r in matrix if not lib.is_sample_row(r)
+                  and (r.get("status") or "").strip() == "PASS"
+                  and r.get("output_path")
+                  and os.path.isfile(r["output_path"])]
+          for r in rows:
+              print(r["output_path"])
+          print("data/content-matrix.csv")
+          print("reports/batches")
+          EOF
+          count=$(grep -c '\.html$' pass_files.txt || true)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          cat pass_files.txt
+          if [ "$count" -eq 0 ]; then
+            echo "No PASS articles to publish this run."
+          fi
+
+      - name: Commit PASS articles + matrix to MAIN
+        if: steps.stage.outputs.count != '0' && steps.stage.outputs.count != ''
+        run: |
+          set -eu
+          git config user.name "Mr Tú"
+          git config user.email "nguyentuantu2482@gmail.com"
+          git add $(cat pass_files.txt | tr '\n' ' ')
+          git commit -m "article batch: publish ${{ steps.stage.outputs.count }} PASS articles + matrix state" || echo "nothing to commit"
+          git push origin HEAD:main
+
+      - name: Confirm push then mark PUBLISHED
+        if: steps.stage.outputs.count != '0' && steps.stage.outputs.count != ''
+        run: |
+          set -eu
+          # PUBLISHED means the file actually exists on MAIN. Mark rows only
+          # after the push succeeded (previous step would have failed otherwise).
+          bid="${{ github.event.inputs.batch_id }}"
+          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then bid="BATCH-001"; fi
+          python3 scripts/run_article_batch.py --batch "${bid:-BATCH-001}" --mark-published
+          git add data/content-matrix.csv
+          git commit -m "article batch: mark ${{ steps.stage.outputs.count }} rows PUBLISHED (files verified on MAIN)" || echo "nothing to commit"
+          git push origin HEAD:main
+
+      - name: Regenerate category hubs + sitemap from PUBLISHED rows
+        if: steps.stage.outputs.count != '0' && steps.stage.outputs.count != ''
+        run: |
+          set -eu
+          python3 scripts/generate_category_pages.py
+          python3 scripts/generate_sitemap.py
+          git add cam-nang sitemap.xml 2>/dev/null || true
+          git commit -m "article batch: regenerate category hubs + sitemap for published articles" || echo "nothing to commit"
+          git push origin HEAD:main
+
+      - name: Final validation after publish
+        run: |
+          set -eu
+          python3 scripts/validate_content_matrix.py
+          python3 -m unittest discover tests
+
+      - name: Upload batch report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: batch-manifest
-          path: data/batches/*.json
+          name: batch-report
+          path: |
+            reports/batches/*.json
+            reports/batches/*.md
+            batch.log
           if-no-files-found: ignore

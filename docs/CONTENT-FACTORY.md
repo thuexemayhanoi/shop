@@ -218,3 +218,55 @@ Actions secrets only, and none are configured yet.
 - `tests/` — unit tests + fixtures proving gate and batch behavior.
 - `reports/article-quality/`, `reports/batches/` — generated reports
   (gitignored except `.gitkeep`).
+
+## Production writer pipeline (2026-09-25)
+
+The factory now has a real, end-to-end writer + repair + publish pipeline:
+
+- **Provider registry** (`scripts/providers/`): `WRITER_PROVIDER=mistral`
+  selects `scripts/providers/mistral_writer.py` (Mistral chat completions
+  API, stdlib-only, timeout + bounded exponential-backoff retries, clear
+  error classification). Credentials come from the environment / GitHub
+  Actions Secrets ONLY (`MISTRAL_API_KEY`) — never committed.
+- **Safe stop**: no provider -> `WRITER_NOT_CONFIGURED` (exit 5); provider
+  without key -> `WRITER_SECRET_MISSING` (exit 6). Rows stay PLANNED.
+  Content is never fabricated and states are never faked.
+- **Per-article lifecycle** (`scripts/run_article_batch.py`):
+  PLANNED -> WRITING -> QA -> (REPAIR -> QA) x max 3 -> PASS / FAIL /
+  BLOCKED / REVIEW. One bad article never blocks the other 49.
+- **Writer context** (`build_writer_context`): article identity, keywords,
+  intent, output path, parent hub, protected intents, trusted business
+  facts (unverified owner facts are never sent), approved prices,
+  unapproved-model policy, deposit wording, legal-source requirements,
+  link rules (3-5 contextual, max 1 commercial), 1600-2000 word target,
+  site base URL /shop, neighboring matrix topics for cannibalization
+  awareness.
+- **Repair loop**: REVIEW sends the original article + exact QA report
+  back to the writer; only the identified problems are repaired; after 3
+  failed attempts the article is BLOCKED and never published. FAIL is
+  never auto-published.
+- **Crash recovery**: PASS/PUBLISHED never rewritten; WRITING/QA/REPAIR
+  rows resume safely (files kept, missing files re-claimed); no duplicate
+  IDs or output files; durable state lives in the matrix committed to MAIN.
+- **Cost guard**: sequential by default (`--concurrency` 1-3); provider
+  failures >= 5 and > 30% stop NEW generation while preserving results.
+- **Pilot mode**: `--pilot` (or workflow input `pilot=true`) = BATCH-001
+  only, max 50, no chaining.
+- **Kill switch**: `config/content-factory.json` — `enabled=false` pauses
+  everything; `scheduled_runs_enabled=false` pauses cron runs only.
+- **Partial publishing** (`.github/workflows/article-batch.yml`,
+  `permissions: contents: write`): only PASS articles are committed with
+  the matrix; `--mark-published` flips rows only AFTER the push to MAIN
+  succeeds; category hubs + sitemap are regenerated from PUBLISHED rows.
+  Batch reports `reports/batches/BATCH-XXX.{json,md}` are committed as the
+  audit trail.
+- **Scheduling**: NO CRON yet. A daily cron may only be added after a real
+  BATCH-001 pilot with a configured writer is proven stable; it must use
+  `--next`, check the kill switch, resume active batches before starting
+  new ones, and report FACTORY_COMPLETE without changes when done.
+
+## Batch reports
+
+`reports/batches/BATCH-XXX.json` + `.md`: batch id, timestamps, provider,
+requested/written/pass/published/review/repair/fail/blocked/provider
+errors, score stats, commit SHA, and per-article outcome detail.
