@@ -95,10 +95,47 @@ def select_resume_rows(rows, repo_root, batch_size=MAX_BATCH_SIZE):
     return out[:batch_size]
 
 
-def build_manifest(batch_id, rows):
+def build_manifest(batch_id, rows, rubric=None, facts=None, ownership=None,
+                  site=None):
+    """Batch manifest consumed by an external authorized AI writer.
+
+    writer_context carries the full production standard so a real writer
+    knows the target length, link rules, parent hub, allowed targets,
+    commercial link limit, business facts and protected intents.
+    """
+    rubric = rubric or {}
+    length_cfg = rubric.get("article_length", {})
+    link_cfg = rubric.get("contextual_internal_links", {})
+    writer_context = {
+        "standard": "Mr Tú Content Factory production standard",
+        "target_min_words": int(length_cfg.get("target_min_words", 1600)),
+        "target_max_words": int(length_cfg.get("target_max_words", 2000)),
+        "word_count_scope": "main editorial content only (article/main "
+                            "container; nav/header/footer/breadcrumb/chatbot "
+                            "excluded)",
+        "contextual_internal_links_min": int(link_cfg.get("min", 3)),
+        "contextual_internal_links_max": int(link_cfg.get("max", 5)),
+        "parent_hub_link_required": True,
+        "commercial_links_max": int(rubric.get("commercial_links_max", 1)),
+        "anchors": "descriptive and diverse; no 'xem thêm'/'tại đây'/'click here'; "
+                   "no repeated exact-match anchors",
+        "primary_intents_per_article": 1,
+        "h1_per_article": 1,
+        "canonical": "self-referencing",
+        "schema": "Article",
+        "breadcrumb": "required",
+        "sources": "required for rows with requires_sources=true "
+                   "(official Vietnamese government/legal domains preferred)",
+        "business_facts_file": "config/business-facts.json (trusted section only; "
+                               "requires_owner_confirmation values are null and "
+                               "must never be published)",
+        "protected_intents_file": "config/seo-ownership.json",
+        "url_base": (site or {}).get("site_url", "https://thuexemayhanoi.github.io/shop"),
+    }
     return {
         "batch_id": batch_id,
         "generated": datetime.datetime.now().isoformat(timespec="seconds"),
+        "writer_context": writer_context,
         "articles": [
             {
                 "article_id": r.get("article_id"),
@@ -111,6 +148,7 @@ def build_manifest(batch_id, rows):
                 "output_path": r.get("output_path"),
                 "parent_hub": r.get("parent_hub"),
                 "requires_sources": r.get("requires_sources"),
+                "source_notes": r.get("source_notes"),
                 "internal_link_targets": r.get("internal_link_targets"),
                 "commercial_link_target": r.get("commercial_link_target"),
             }
@@ -128,7 +166,7 @@ def qa_article(html_path, matrix, ownership, facts, rubric):
     article = lib.Article(html_path)
     errors = lib.validate_article(article, matrix, ownership, facts, rubric)
     fails, warns, flags = lib.check_cannibalization(article, ownership, matrix, facts)
-    (score, status, sections, criticals, warnings, recs, rflags) = \
+    (score, status, sections, criticals, warnings, recs, rflags, prod) = \
         score_article_module.score_article(article, matrix, ownership, facts, rubric)
     if errors or criticals:
         status = "FAIL"
@@ -297,6 +335,7 @@ def main_func(argv=None):
         ownership = lib.load_ownership()
         facts = lib.load_business_facts()
         rubric = lib.load_rubric()
+        site = lib.load_site_config()
     except lib.ConfigError as e:
         print("ERROR: %s" % e)
         return EXIT_ERROR
@@ -326,22 +365,29 @@ def main_func(argv=None):
                 print("No PLANNED rows in %s (statuses: %s)"
                       % (batch_id, sorted({(r.get("status") or "?") for r in rows})))
                 return 0
-            manifest = build_manifest(batch_id, claim)
+            manifest = build_manifest(batch_id, claim, rubric, facts, ownership, site)
+            # Probe the writer BEFORE claiming. Without a real provider we
+            # must NOT leave durable WRITING claims in the matrix ledger —
+            # rows stay PLANNED and remain safely claimable later. The
+            # manifest is still produced as an artifact for an external
+            # authorized writer.
+            try:
+                article_writer.write_article(claim[0], {"mode": "prepare-probe"})
+            except article_writer.WriterNotConfigured:
+                write_manifest(repo_root, manifest)
+                print("WRITER_NOT_CONFIGURED: manifest written to "
+                      "data/batches/%s.json; NO article generated, matrix rows "
+                      "left PLANNED (no durable WRITING claim without a writer). "
+                      "Run an authorized AI writer (e.g. Mistral agent) on the "
+                      "manifest, then use --resume." % batch_id)
+                return article_writer.EXIT_WRITER_NOT_CONFIGURED
+            # A real writer is configured: claim the rows durably now.
             write_manifest(repo_root, manifest)
             updates = {r["article_id"]: {"status": "WRITING"} for r in claim}
             update_matrix_statuses(repo_root, updates)
             print("PREPARED %s: %d articles claimed WRITING, manifest at "
                   "data/batches/%s.json" % (batch_id, len(claim), batch_id))
-            # A real writer must now produce the files. Without a provider
-            # we stop here — honest stop, no fake content.
-            try:
-                article_writer.write_article(claim[0], {"mode": "prepare-probe"})
-            except article_writer.WriterNotConfigured:
-                print("WRITER_NOT_CONFIGURED: manifest ready; run an authorized "
-                      "AI writer (e.g. Mistral agent) on data/batches/%s.json, "
-                      "then use --resume." % batch_id)
-                return article_writer.EXIT_WRITER_NOT_CONFIGURED
-            print("writer provider present — but refusing inline generation; "
+            print("writer provider present — refusing inline generation; "
                   "use --resume after the writer produced files.")
             return 0
 
@@ -368,7 +414,7 @@ def main_func(argv=None):
             try:
                 article_writer.write_article(claim[0], {"mode": "run-probe"}) if claim else None
             except article_writer.WriterNotConfigured:
-                manifest = build_manifest(batch_id, claim)
+                manifest = build_manifest(batch_id, claim, rubric, facts, ownership, site)
                 write_manifest(repo_root, manifest)
                 print("WRITER_NOT_CONFIGURED: batch %s prepared as manifest; "
                       "no content generated." % batch_id)

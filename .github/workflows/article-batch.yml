@@ -20,6 +20,20 @@ on:
 permissions:
   contents: read
 
+# GLOBAL production batch concurrency: only ONE batch workflow run may execute
+# at a time — across BATCH-001, BATCH-002, --next and any future scheduled
+# runs. A per-batch group would let two different batches overlap, which is
+# forbidden once automatic publishing is enabled. cancel-in-progress: false
+# queues a second run instead of killing the in-flight batch.
+# NOTE: the local filesystem lock (data/batches/BATCH-XXX.lock) is NOT
+# sufficient inside GitHub Actions — separate runners have separate
+# workspaces, so a local lock file cannot be seen by another runner. Only the
+# matrix state persisted to MAIN plus this workflow-level concurrency group
+# prevents duplicate claims in CI.
+concurrency:
+  group: article-batch-production
+  cancel-in-progress: false
+
 jobs:
   batch:
     runs-on: ubuntu-latest
