@@ -1,197 +1,173 @@
-README — Thuê Xe Máy Phố Cổ (Mr Tú)
+# Thuê Xe Máy Hà Nội — Mr Tú Motorbike Rental (thuexemayhanoi/shop)
 
-Mô tả ngắn:
-Repository chứa một landing page cho dịch vụ cho thuê xe máy (HTML/CSS/JS) kèm một widget chatbot/assistant nội bộ (motoai_v40_bm25plus_final.js) — một bản “MotoAI v4.0 (BM25+ final)” tối ưu cho thị trường VN, hỗ trợ NLU nhẹ, tra cứu tài liệu cục bộ, crawler + sitemap reader, trích xuất bảng giá tự động, và một chatbot offline giả lập (fallback AI) để tư vấn/đặt xe qua Zalo/Hotline.
+Static site for Mr Tú Motorbike Rental in Hanoi, served via GitHub Pages at
+`https://thuexemayhanoi.github.io/shop/`. This README is the ENTRY POINT for
+humans and AI agents working on this repository.
 
-⸻
+**Language: nội dung tiếng Việt / tooling tiếng Anh.**
 
-Mục lục
-	1.	Tổng quan chức năng￼
-	2.	Kiến trúc & Thành phần chính￼
-	3.	Cách chạy / kiểm thử nhanh￼
-	4.	Cấu hình & tuỳ chỉnh nhanh￼
-	5.	Chi tiết kỹ thuật (quan trọng)￼
-	6.	Local storage / keys quan trọng￼
-	7.	Hành vi tìm kiếm (BM25+) — tóm tắt thuật toán￼
-	8.	Crawl / Auto-price extraction￼
-	9.	AI offline (fallback) và UX chatbot￼
-	10.	Tiềm năng nâng cấp / TODOs￼
-	11.	Bảo mật & Quyền riêng tư￼
-	12.	Góp phần & License￼
-	13.	Liên hệ tác giả￼
+---
 
-⸻
+## 1. Project purpose
 
-Tổng quan chức năng
-	•	Landing page responsive, dark/light theme, nhiều section marketing (HERO, fleet, pricing, FAQ, contact).
-	•	Floating “ultra-fab” contact + AI modal + matchmaker modal.
-	•	Mini “MotoAI” widget (motoai_v40_bm25plus_final.js) tích hợp:
-	•	NLU rule-based (phân loại loại xe, lượng thời gian, khu vực, tên).
-	•	Intent scoring (giá, thủ tục, giao xe, liên hệ…).
-	•	Giá mẫu (PRICE_TABLE) + composePrice() để trả lời giá nhanh.
-	•	Local search index (BM25+ với boosts: phrase, synonym, freshness).
-	•	Crawler nhẹ: sitemap reader, fallback crawl, trích xuất Last-Modified.
-	•	Auto-price extraction từ nội dung web.
-	•	Context lưu localStorage (turn-based, session).
-	•	API giao diện: window.MotoAI_v40.open(), .send(), .learnNow(), .clear().
+Marketing + rental site for a motorbike rental business in Hanoi, plus a
+content factory (planned ~2,000 informational articles) with a deterministic
+quality gate. The public site must stay fast, stable, and must never invent
+business facts (prices, deposit, availability, policies).
 
-⸻
+## 2. Current public site architecture
 
-Kiến trúc & Thành phần chính
-	•	index.html — giao diện chính, CSS + markup, modal AI, form.
-	•	motoai_v40_bm25plus_final.js — engine chatbot / search / crawler / autolearn (được link defer cuối index.html).
-	•	Assets: ảnh được host trực tiếp trên GitHub raw.
-	•	Storage keys trong localStorage quản lý session, context, cache crawl, autoprices.
+- Pure static HTML/CSS/JS, Jekyll front-matter enabled (`---\n---`) for
+  `{% include %}` partials (`_includes/`).
+- Menu is rendered client-side from `CONFIG.MENU` defined in shared JS
+  (`assets/js/app.js`, `app-rental.js`, `app-info.js`) and inline copies in a
+  few pages. Current nav: parent categories including **Dịch vụ**, **Địa điểm**,
+  **Cẩm nang** (6 children: Kinh nghiệm, An toàn, Xe máy, Du lịch, Cung đường,
+  Hỏi đáp), **FAQ**.
+- Shared styling via `assets/css/`. Animations (hero blur, logo spin) are
+  intentionally disabled for performance — do not re-enable.
+- Booking uses a static form + mailto. No backend, no database.
 
-⸻
+### Commercial landing pages (DO NOT duplicate their intent)
 
-Cách chạy / kiểm thử nhanh
-	1.	Clone repo hoặc mở file index.html từ thư mục local hoặc deploy trên GitHub Pages.
-	2.	Mở trình duyệt (Chrome, Edge, Safari). Không cần backend.
-	3.	Các action nhanh:
-	•	Mở chatbot widget: window.MotoAI_v40.open()
-	•	Gửi tin demo: window.MotoAI_v40.send("thuê vision 3 ngày")
-	•	Forçar crawl/learn (dev): await window.MotoAI_v40.learnNow([location.origin], true)
+| Page | Primary intent |
+|---|---|
+| `index.html` | thuê xe máy Hà Nội |
+| `phoco.html` | thuê xe máy Phố Cổ / Phố Cổ Hà Nội |
+| `hoankiem.html` | thuê xe máy Hoàn Kiếm |
+| `banggia.html`, `ngay.html`, `tuan.html`, `thang.html` | pricing / daily / weekly / monthly rental |
+| `thutuc.html` | rental procedure |
+| District pages: `tayho.html`, `badinh.html`, `caugiay.html`, `dongda.html`, `thanhxuan.html`, `haibatrung.html`, `longbien.html`, `gahn.html` | district rental intents |
 
-Lưu ý: crawler sẽ dùng fetch() để truy xuất sitemap / trang — nếu host tắt CORS hoặc đang chạy từ file://, chức năng crawl có thể lỗi. Chạy trên HTTP(s) server (ví dụ npx http-server hoặc GitHub Pages).
+### Cẩm nang structure (informational hubs)
 
-⸻
+| Hub | Category |
+|---|---|
+| `kinhnghiem.html` | Kinh nghiệm |
+| `antoan.html` | An toàn |
+| `xemay.html` | Xe máy |
+| `dulich.html` | Du lịch |
+| `cungduong.html` | Cung đường |
+| `hoidap.html` | Hỏi đáp |
 
-Cấu hình & tuỳ chỉnh nhanh
+Hubs are category pages, NOT replacements for commercial landing pages.
+Future articles belong to exactly ONE of these six categories. Do not create
+new top-level categories without owner approval.
 
-Các cấu hình nằm trong file JS (biến DEF / CFG):
-	•	brand, phone, zalo, map, avatar, themeColor — hiển thị UI.
-	•	autolearn (boolean) — bật/tắt học tự động.
-	•	viOnly — lọc nội dung VN.
-	•	maxContextTurns, fetchTimeoutMs, crawlDepth, refreshHours, maxPagesPerDomain, maxTotalPages.
-	•	smart.searchThreshold — ngưỡng lọc kết quả tìm kiếm.
+## 3. MotoAI production state (current MAIN)
 
-Thay đổi trực tiếp trong motoai_v40_bm25plus_final.js hoặc truyền window.MotoAI_CONFIG trước khi script load để override.
+The production chatbot is `motoai_v40_bm25plus_final.js` (MotoAI v40, BM25+).
+Current production configuration on ALL pages:
 
-Ví dụ cấu hình trước khi tải script:
+```
+autolearn: false
+debug: false
+smart.autoPriceLearn: false
+```
 
-<script>
-  window.MotoAI_CONFIG = { brand: "Mr Tú", phone: "0816659199", autolearn: true, themeColor: "#007AFF" };
-</script>
-<script src="motoai_v40_bm25plus_final.js" defer></script>
+- Prices come from `assets/js/prices.js` (`window.MotoTusPrices`) — the only
+  approved price source. Auto price crawling is DISABLED and must stay
+  disabled. MotoAI v39 files in the repo root are legacy, unused; do not load
+  them.
+- On `index.html`, v40 is lazy-loaded only after the user taps the AI button
+  (performance rule). Child pages may load it directly with the same safe
+  config (`assets/js/motoai-config.js` runs first, then v40 `defer`).
+- The homepage "Tìm Xe Chân Ái" Bike Matchmaker is a separate tool that uses
+  experience, destination and height; it uses approved models only and no
+  invented prices or fake confidence scores.
+- Deposit-policy wording in all chatbot answers follows
+  `config/business-facts.json` (2.000.000 – 5.000.000đ tùy xe và điều kiện;
+  liên hệ để xác nhận). Stale claims ("2–3tr xe số / 3–5tr xe ga", "miễn cọc",
+  "500k–1 triệu", guaranteed reduced deposit) are forbidden.
 
+Detailed MotoAI technical documentation: [docs/MOTOAI.md](docs/MOTOAI.md).
 
-⸻
+## 4. Performance rules (non-negotiable)
 
-Chi tiết kỹ thuật (quan trọng)
+- No background crawling on any page.
+- No new infinite animations, no backdrop-filter increases, no continuous
+  effects on the homepage.
+- No heavy scripts loaded during page startup on `index.html`.
+- Previous performance fixes (disabled hero blur, disabled logo spin) stay
+  intact.
 
-NLU & entity extraction
-	•	TYPE_MAP + regex để phát hiện model (vision, air blade, xe ga/số, xe điện, 50cc, xe côn tay,…).
-	•	detectQty() bắt số + unit (ngày/tuần/tháng).
-	•	detectArea() heuristics đơn giản cho vài khu vực.
-	•	detectIntent() trả về bảng score cho intent (needPrice, needDocs, needContact, needDelivery, needReturn, needPolicy).
+## 5. Business source-of-truth files
 
-Price model
-	•	PRICE_TABLE: bảng giá mẫu theo model + đơn vị (day/week/month). composePrice() tạo câu trả lời tự nhiên.
-	•	mergeAutoPrices() cập nhật PRICE_TABLE bằng median (p50) dữ liệu trích xuất từ crawl.
+| File | Truth about |
+|---|---|
+| `config/business-facts.json` | prices, deposit policy, phone, opening hours, licence/insurance rules (machine-readable) |
+| `assets/js/prices.js` | runtime prices for chatbot/calculator |
+| `config/seo-ownership.json` | protected search intents per commercial page |
+| `config/article-rubric.json` | scoring weights, thresholds, critical-fail rules |
+| `data/content-matrix.csv` | the article backlog (status tracking) |
 
-Context / dialog
-	•	Lưu turns trong localStorage[K.ctx], maxContextTurns mặc định 8.
-	•	Multi-step stateful flows: ASK_MODEL, ASK_DURATION, ASK_DELIVERY, etc.
+Never contradict these files. Anything not in them must be confirmed with
+Mr Tú (phone 0816659199) before publication.
 
-⸻
+## 6. The future ~2,000-article factory
 
-Local storage / keys quan trọng
-	•	MotoAI_v39_session — session chat (user/bot messages).
-	•	MotoAI_v39_ctx — dialog context/turns.
-	•	MotoAI_v39_learn — cache crawl / index.
-	•	MotoAI_v39_auto_prices — bảng giá trích xuất (raw).
-	•	MotoAI_v39_learnStamp — thời gian learn gần nhất.
-	•	MotoAI_v39_lastClean — timestamp clean lần cuối.
+The content factory infrastructure is complete; production articles are NOT
+written yet. Lifecycle, scale path and agent contract:
+[docs/CONTENT-FACTORY.md](docs/CONTENT-FACTORY.md). Writing rules:
+[docs/ARTICLE-RULES.md](docs/ARTICLE-RULES.md). Protected intents:
+[docs/SEO-OWNERSHIP.md](docs/SEO-OWNERSHIP.md).
 
-Xoá toàn bộ cache dev:
+Scale path: pilot 20–30 articles → audit → 100 → audit → 250 → audit →
+larger batches → eventual ~2,000. Do not publish 2,000 in one batch.
 
-window.MotoAI_v40.clear();
-localStorage.removeItem('MotoAI_v39_autoprices');
+## 7. AGENT READ ORDER — read BEFORE writing ANY article
 
+1. `README.md` (this file)
+2. `docs/CONTENT-FACTORY.md`
+3. `docs/ARTICLE-RULES.md`
+4. `docs/SEO-OWNERSHIP.md`
+5. `config/business-facts.json`
+6. `config/article-rubric.json`
+7. `config/seo-ownership.json`
+8. `data/content-matrix.csv`
 
-⸻
+Then select exactly ONE eligible (PLANNED) matrix row. After writing, run the
+quality gate. An article is NOT publishable until final status is PASS.
 
-Hành vi tìm kiếm (BM25+) — tóm tắt thuật toán
-	•	Tokenize Unicode, loại stopwords VN.
-	•	Tính df/tf trên tập trang đã crawl (cache learn).
-	•	BM25+ variant: chuẩn BM25 cộng delta thích ứng (adaptiveDelta) để adjust theo độ dài tài liệu.
-	•	Boosts bổ sung:
-	•	phraseBoost() nếu câu query xuất hiện nguyên văn.
-	•	synonymBoost() dùng map synonym (xe ga ⇄ vision, lead, air blade…).
-	•	freshnessBoost() nếu meta.ts (Last-Modified) mới.
-	•	scoreDocMeta() bonus nếu URL/title khớp dạng banggia, thutuc.
-	•	Kết quả lọc theo CFG.smart.searchThreshold (mặc định 1.0).
+## 8. Quality-gate commands
 
-⸻
+```bash
+python3 scripts/validate_article.py path/to/article.html
+python3 scripts/check_cannibalization.py path/to/article.html
+python3 scripts/score_article.py path/to/article.html
+python3 -m unittest tests/test_article_quality.py
+```
 
-Crawl / Auto-price extraction
-	•	learnSites(origins, force):
-	•	Gọi readSitemap() để đọc sitemap.xml; nếu không có sitemap, fallback fallbackCrawl() lấy các link từ homepage.
-	•	pullPages() tải trang bằng fetchTextWithMeta() (có đọc Last-Modified) và trích xuất title/meta description.
-	•	extractPricesFromText() quét dòng, regex detect model + giá, parse số với đơn vị (k, tr, triệu).
-	•	Kết quả lưu K.autoprices, mergeAutoPrices() cập nhật PRICE_TABLE.
+Pipeline: PLAN → WRITE → VALIDATE → SCORE → CHECK CANNIBALIZATION → FIX →
+RE-SCORE → PASS → PUBLISH. The deterministic tools are the gate; an AI writer
+may NEVER publish merely because it thinks the article is good.
 
-Lưu ý: Crawl client-side phụ thuộc CORS. Để crawl toàn diện, cần chạy crawler server-side (đề xuất nâng cấp).
+Exit codes:
 
-⸻
+| Code | Meaning |
+|---|---|
+| 0 | PASS (scorer) / valid (validator) / no conflict (cannibalization) |
+| 1 | validator: hard errors |
+| 2 | REVIEW required (not publishable) |
+| 3 | FAIL (critical failure or score below threshold) |
+| 4 | tool/config error |
 
-AI offline (fallback) và UX chatbot
-	•	Nếu không có API, có Render.callGeminiWithRetry()—thực chất là một fallback rule-based + template reply generator (không gọi API bên ngoài).
-	•	Chat widget UI premium: glassmorphism, typing indicator, tags quick-queries.
-	•	API dùng trong trang:
-	•	window.MotoAI_v40.open() — mở widget
-	•	window.MotoAI_v40.close()
-	•	window.MotoAI_v40.send("...")
-	•	window.MotoAI_v40.learnNow([urls], force) — trigger crawl/learn
-	•	window.MotoAI_v40.clear() — xoá caches
+Scoring: 100 points total. PASS = 90–100 AND no critical failures.
+REVIEW = 80–89 AND no critical failures. FAIL = 0–79 OR any critical failure.
 
-⸻
+CI: `.github/workflows/article-quality.yml` runs tests and the full gate on
+every PR / relevant push; REVIEW or FAIL fails CI. Legacy special-purpose
+workflows `recover-phoco.yml` and `seo-phoco.yml` are separate and must not be
+modified casually.
 
-Tiềm năng nâng cấp / TODOs (ưu tiên)
-	1.	Crawl server-side (cron) để bypass CORS, tăng độ tin cậy, index sâu hơn.
-	2.	Chỉ số an toàn: kiểm tra robots.txt, rate-limit, user-agent rõ ràng.
-	3.	Indexstore: chuyển BM25 từ localStorage sang indexedDB hoặc server search service (Elastic / Typesense / Meilisearch).
-	4.	Unit tests cho NLU regex / price parsing.
-	5.	Nâng cấp NLU: dùng small transformer (on-prem) hoặc OpenAI/Anthropic để intent/entity extraction cho độ chính xác cao hơn.
-	6.	Tối ưu bảo mật: validate input trước khi dùng trong mailto/href để tránh injection.
-	7.	I18n & locale: hiện code giả định VN; tách strings để dễ translate.
-	8.	Accessibility: kiểm tra contrast, keyboard trap, aria attributes cho modal (đã thêm nhiều fix accessibility nhưng cần audit).
+## 9. Hard rules recap
 
-⸻
-
-Bảo mật & Quyền riêng tư
-	•	Hiện lưu ctx, session, autoprices trong localStorage. Không upload/đẩy thông tin người dùng lên server.
-	•	Contact form dùng mailto: — không có backend storage. Nếu cần lưu lead, phải thêm backend an toàn (HTTPS) và xác thực.
-	•	Không giữ giấy tờ: UI khuyến cáo không giữ giấy tờ gốc; đây là nội dung marketing — chính sách thực tế cần tuân thủ pháp luật địa phương.
-
-⸻
-
-Góp phần & License
-	•	Đề xuất license: MIT (nếu bạn muốn chia public). Thêm file LICENSE nếu đồng ý.
-	•	Cách đóng góp: fork → feature branch → PR → mô tả rõ sửa lỗi / thay đổi.
-	•	Khi gửi PR, kèm checklist: cross-browser test, desktop/mobile, accessibility quick test.
-
-⸻
-
-Ví dụ cấu hình / snippet dev
-
-Ghi đè cấu hình (trước script):
-
-<script>
-  window.MotoAI_CONFIG = {
-    brand: "Mr Tú",
-    phone: "0816659199",
-    autolearn: true,
-    refreshHours: 12,
-    smart: { searchThreshold: 0.8 }
-  };
-</script>
-<script src="/path/to/motoai_v40_bm25plus_final.js" defer></script>
-
-Xoá cache dev nhanh:
-
-localStorage.removeItem('MotoAI_v39_learn');
-localStorage.removeItem('MotoAI_v39_autoprices');
-localStorage.removeItem('MotoAI_v39_ctx');
-
+- Never change existing public URLs, titles/H1/canonicals of commercial pages
+  (especially `phoco.html`, `hoankiem.html`, `index.html`).
+- Never invent prices, availability, promotions, guarantees, delivery times
+  or policies.
+- Never claim free/24-7/guaranteed anything unless owner-verified.
+- Opening hours: 08:00–17:00 daily; do not promise service outside them.
+- Motorcycles over 50cc require a valid driving licence; never encourage
+  traffic-law violations.
+- Insurance is the customer's responsibility; never claim included insurance.
