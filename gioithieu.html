@@ -8,7 +8,7 @@
 
 <!-- SEO ULTRA MODE -->
 <title>Giới Thiệu Thuê Xe Máy Hà Nội - Mr Tú</title>
-<meta name="description" content="Tìm hiểu về Mr Tú - Dịch vụ cho thuê xe máy Hà Nội tại Phố Cổ. Giá chỉ từ 150.000đ/ngày, giao xe tận nơi Hoàn Kiếm theo lịch hẹn, thủ tục đơn giản. Xem ngay!">
+<meta name="description" content="Tìm hiểu về Mr Tú - Dịch vụ cho thuê xe máy Hà Nội tại Phố Cổ. Giá chỉ từ 150.000đ/ngày, thủ tục đơn giản, vui lòng liên hệ để xác nhận hình thức nhận xe. Xem ngay!">
 <meta name="keywords" content="giới thiệu thuê xe máy hà nội, thuê xe máy phố cổ mr tú, thuê xe máy hoàn kiếm uy tín, dịch vụ thuê xe máy hà nội, mr tú bike rental">
 <meta name="author" content="Mr Tú">
 <meta name="theme-color" content="#000000">
@@ -651,7 +651,7 @@
                     <p>Giữa hàng trăm đơn vị cho thuê xe máy tại Hoàn Kiếm, Mr Tú giữ vững chất lượng nhờ những cam kết:</p>
                     <ul>
                         <li><strong>Chất lượng xe đỉnh cao:</strong> 100% xe được bảo dưỡng định kỳ chính hãng. Xe luôn được rửa sạch, kiểm tra phanh, lốp, dầu nhớt kỹ càng trước khi giao cho khách.</li>
-                        <li><strong>Giao xe theo lịch hẹn:</strong> Đội ngũ nhân viên thông thạo địa hình, giao xe tận nơi trong khu vực <a href="hoankiem.html" class="seo-link">Phố Cổ & Hoàn Kiếm</a> theo lịch hẹn trong giờ mở cửa.</li>
+                        <li><strong>Giao/nhận xe:</strong> Đội ngũ nhân viên thông thạo địa hình khu vực <a href="hoankiem.html" class="seo-link">Phố Cổ & Hoàn Kiếm</a>; vui lòng liên hệ để xác nhận khả năng giao/nhận xe.</li>
                         <li><strong>Thủ tục tối giản:</strong> Chúng tôi hiểu bạn đi du lịch không muốn rườm rà giấy tờ. Tại Mr Tú, bạn chỉ cần để lại CCCD hoặc hộ chiếu (có thể chụp ảnh lại), mức đặt cọc tùy trường hợp thuê (thường 2.000.000 – 5.000.000đ). Xem chi tiết tại trang <a href="thutuc.html" class="seo-link">thủ tục thuê xe</a>.</li>
                         <li><strong>Hỗ trợ sự cố:</strong> Nếu xe gặp sự cố, gọi hotline để được hỗ trợ xử lý hoặc đổi xe theo thỏa thuận.</li>
                     </ul>
@@ -1421,25 +1421,16 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
 
         statusWidget() {
             const checkTime = () => {
-                const now = new Date();
-                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
-                
-                const isOpen = hours >= 8 && hours < 17;
+                const isOpen = true; // shop hours unverified in config - neutral placeholder, no open/closed inference
                 
                 const updateUI = (dotId, textId) => {
                     const dot = document.getElementById(dotId);
                     const text = document.getElementById(textId);
                     if (!dot || !text) return;
 
-                    if (isOpen) {
-                         dot.className = 'status-dot open';
-                         text.innerText = 'Cửa hàng đang mở (8h-17h)';
-                         text.className = 'status-text text-open';
-                    } else {
-                         dot.className = 'status-dot online';
-                         text.innerText = 'Ngoài giờ mở cửa – liên hệ Zalo';
-                         text.className = 'status-text text-online';
-                    }
+                    dot.className = 'status-dot online';
+                    text.innerText = 'Liên hệ để xác nhận thời gian hỗ trợ';
+                    text.className = 'status-text text-online';
                 };
                 
                 updateUI('status-dot', 'status-text');

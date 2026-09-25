@@ -89,10 +89,10 @@
     },
     {
       "@type": "Question",
-      "name": "Có giao xe tận nơi tại Phố Cổ Hà Nội không?",
+      "name": "Mr Tú có hỗ trợ giao/nhận xe tại Phố Cổ Hà Nội không?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Có. Mr Tú hỗ trợ giao xe khu vực Phố Cổ và Hoàn Kiếm. Quận xa hơn vui lòng liên hệ để xác nhận khu vực giao xe."
+        "text": "Mr Tú hỗ trợ khu vực Phố Cổ và Hoàn Kiếm tùy điều kiện. Vui lòng liên hệ để xác nhận khả năng giao/nhận xe và khu vực."
       }
     }
   ]
@@ -719,15 +719,15 @@
                     <ul>
                         <li><strong>Trong nội thành Hà Nội:</strong> Nếu xe gặp lỗi kỹ thuật (chết máy, hỏng động cơ...), vui lòng gọi hotline để được hướng dẫn xử lý hoặc hỗ trợ đổi xe.</li>
                         <li><strong>Sự cố nhỏ (thủng săm):</strong> Bạn vui lòng vá xe tại tiệm sửa gần nhất. Chi phí vá săm thông thường khoảng 30k-50k.</li>
-                        <li><strong>Hotline hỗ trợ:</strong> Gọi ngay 081.665.9199 trong giờ mở cửa để được hỗ trợ nhanh nhất.</li>
+                        <li><strong>Hotline hỗ trợ:</strong> Gọi ngay 081.665.9199 để được hỗ trợ nhanh nhất.</li>
                     </ul>
                 </div>
 
                 <h2>4. Địa điểm & Giao nhận xe</h2>
 
                 <div class="faq-item">
-                    <h3>Cửa hàng có giao xe tận nơi không?</h3>
-                    <p>Có! Chúng tôi hỗ trợ giao xe tận nơi quanh khu vực <a href="hoankiem.html" class="seo-link">Hoàn Kiếm & Phố Cổ</a>. Với các quận xa hơn (Cầu Giấy, Tây Hồ...), vui lòng liên hệ để xác nhận khu vực và chi phí giao xe.</p>
+                    <h3>Cửa hàng có hỗ trợ giao/nhận xe không?</h3>
+                    <p>Có thể hỗ trợ quanh khu vực <a href="hoankiem.html" class="seo-link">Hoàn Kiếm & Phố Cổ</a> tùy điều kiện. Với các quận xa hơn (Cầu Giấy, Tây Hồ...), vui lòng liên hệ để xác nhận khả năng giao/nhận xe, khu vực và chi phí (nếu có).</p>
                     <p>Bạn cũng có thể nhận xe trực tiếp tại cửa hàng khu vực <strong>Hoàn Kiếm, Hà Nội</strong> (liên hệ Mr Tú để biết địa điểm cụ thể).</p>
                 </div>
 
@@ -1526,25 +1526,16 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
 
         statusWidget() {
             const checkTime = () => {
-                const now = new Date();
-                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
-                
-                const isOpen = hours >= 8 && hours < 17;
+                const isOpen = true; // shop hours unverified in config - neutral placeholder, no open/closed inference
                 
                 const updateUI = (dotId, textId) => {
                     const dot = document.getElementById(dotId);
                     const text = document.getElementById(textId);
                     if (!dot || !text) return;
 
-                    if (isOpen) {
-                         dot.className = 'status-dot open';
-                         text.innerText = 'Cửa hàng đang mở (8h-17h)';
-                         text.className = 'status-text text-open';
-                    } else {
-                         dot.className = 'status-dot online';
-                         text.innerText = 'Ngoài giờ mở cửa – liên hệ Zalo';
-                         text.className = 'status-text text-online';
-                    }
+                    dot.className = 'status-dot online';
+                    text.innerText = 'Liên hệ để xác nhận thời gian hỗ trợ';
+                    text.className = 'status-text text-online';
                 };
                 
                 updateUI('status-dot', 'status-text');
