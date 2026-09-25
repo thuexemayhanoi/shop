@@ -34,17 +34,18 @@ def run_score(name):
     facts = lib.load_business_facts()
     rubric = lib.load_rubric()
     row = lib.find_matrix_row(article, matrix)
-    result = scorer.score_article(article, matrix, ownership, facts, rubric)
+    (score, status, sections, failures, warnings, recs, flags, _prod) = \
+        scorer.score_article(article, matrix, ownership, facts, rubric)
     return {
         "article": article,
         "row": row,
-        "score": result[0],
-        "status": result[1],
-        "sections": result[2],
-        "failures": result[3],
-        "warnings": result[4],
-        "recommendations": result[5],
-        "review_flags": result[6],
+        "score": score,
+        "status": status,
+        "sections": sections,
+        "failures": failures,
+        "warnings": warnings,
+        "recommendations": recs,
+        "review_flags": flags,
     }
 
 

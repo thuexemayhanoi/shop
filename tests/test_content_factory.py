@@ -236,7 +236,10 @@ class RunnerCLITests(FactoryTestCase):
                     os.path.join(tmp, "data", "content-matrix.csv"))
         return tmp
 
-    def test_prepare_cli_writes_manifest_and_marks_writing(self):
+    def test_prepare_without_writer_writes_manifest_keeps_planned(self):
+        """With no writer provider configured, --prepare produces the manifest
+        artifact but must NOT leave durable WRITING claims in the matrix —
+        rows stay PLANNED and remain safely recoverable."""
         tmp = self._sandbox()
         env = dict(os.environ, PYTHONPATH=SCRIPTS)
         code = subprocess.call(
@@ -253,11 +256,20 @@ rb.main_func(['--batch', 'BATCH-001', '--prepare'])
             self.assertTrue(os.path.exists(manifest), "manifest missing (code=%d)" % code)
             data = json.load(io.open(manifest, encoding="utf-8"))
             self.assertEqual(len(data["articles"]), 50)
+            # writer context carries the production standard
+            wc = data.get("writer_context", {})
+            self.assertEqual(wc.get("target_min_words"), 1600)
+            self.assertEqual(wc.get("target_max_words"), 2000)
+            self.assertEqual(wc.get("contextual_internal_links_min"), 3)
+            self.assertEqual(wc.get("contextual_internal_links_max"), 5)
+            self.assertEqual(wc.get("commercial_links_max"), 1)
+            self.assertTrue(wc.get("parent_hub_link_required"))
             with io.open(os.path.join(tmp, "data", "content-matrix.csv"),
                          encoding="utf-8") as f:
                 rows = list(csv.DictReader(f))
             writing = [r for r in rows if r["status"] == "WRITING"]
-            self.assertEqual(len(writing), 50)
+            self.assertEqual(len(writing), 0,
+                             "WRITING claimed without a configured writer")
         finally:
             shutil.rmtree(tmp)
 
