@@ -104,16 +104,30 @@ Detailed MotoAI technical documentation: [docs/MOTOAI.md](docs/MOTOAI.md).
 Never contradict these files. Anything not in them must be confirmed with
 Mr Tú (phone 0816659199) before publication.
 
-## 6. The future ~2,000-article factory
+## 6. The 2,000-article content factory (batch architecture)
 
-The content factory infrastructure is complete; production articles are NOT
-written yet. Lifecycle, scale path and agent contract:
+The plan is now concrete: **2,000 production articles** in **40 batches** of
+**exactly 50 articles each**. The matrix
+(`data/content-matrix.csv`) holds all 2,000 planned rows (categories: KN 350,
+AT 300, XM 350, DL 400, CD 300, HD 300) plus 8 SAMPLE fixture rows that do not
+count toward the total. Production articles are NOT written yet.
+
+Policy per article:
+
+- `PASS` → publishable immediately after QA.
+- `REVIEW` → repair and re-score, max **3 attempts**; still REVIEW → `BLOCKED`, do not publish.
+- `FAIL` → never publish automatically. One failed article never blocks the other PASS articles in its batch.
+- `PUBLISHED` is set only after the article file is actually committed to MAIN.
+
+Writing requires a real AI writer or human author. `scripts/article_writer.py`
+is the provider interface; without an authorized provider it stops with
+`WRITER_NOT_CONFIGURED` (exit 5). Never fabricate template content, never
+commit API keys.
+
+Lifecycle, URL architecture, resume and lock behavior:
 [docs/CONTENT-FACTORY.md](docs/CONTENT-FACTORY.md). Writing rules:
 [docs/ARTICLE-RULES.md](docs/ARTICLE-RULES.md). Protected intents:
 [docs/SEO-OWNERSHIP.md](docs/SEO-OWNERSHIP.md).
-
-Scale path: pilot 20–30 articles → audit → 100 → audit → 250 → audit →
-larger batches → eventual ~2,000. Do not publish 2,000 in one batch.
 
 ## 7. AGENT READ ORDER — read BEFORE writing ANY article
 
@@ -132,13 +146,19 @@ quality gate. An article is NOT publishable until final status is PASS.
 ## 8. Quality-gate commands
 
 ```bash
+# single-article gate
 python3 scripts/validate_article.py path/to/article.html
 python3 scripts/check_cannibalization.py path/to/article.html
 python3 scripts/score_article.py path/to/article.html
-python3 -m unittest tests/test_article_quality.py
+# matrix + factory
+python3 scripts/validate_content_matrix.py
+python3 scripts/run_article_batch.py --batch BATCH-001 --prepare
+python3 scripts/run_article_batch.py --batch BATCH-001 --resume
+python3 scripts/run_article_batch.py --next --batch-size 50
+python3 -m unittest discover tests
 ```
 
-Pipeline: PLAN → WRITE → VALIDATE → SCORE → CHECK CANNIBALIZATION → FIX →
+Pipeline per article: PLAN → WRITE → VALIDATE → SCORE → CHECK CANNIBALIZATION → FIX →
 RE-SCORE → PASS → PUBLISH. The deterministic tools are the gate; an AI writer
 may NEVER publish merely because it thinks the article is good.
 
@@ -151,12 +171,20 @@ Exit codes:
 | 2 | REVIEW required (not publishable) |
 | 3 | FAIL (critical failure or score below threshold) |
 | 4 | tool/config error |
+| 5 | WRITER_NOT_CONFIGURED (batch runner / writer interface) |
 
 Scoring: 100 points total. PASS = 90–100 AND no critical failures.
 REVIEW = 80–89 AND no critical failures. FAIL = 0–79 OR any critical failure.
 
 CI: `.github/workflows/article-quality.yml` runs tests and the full gate on
-every PR / relevant push; REVIEW or FAIL fails CI. Legacy special-purpose
+every PR / relevant push; REVIEW or FAIL fails CI. It also runs
+`scripts/validate_content_matrix.py` (2000 rows / 40 batches x 50). The manual
+batch workflow `.github/workflows/article-batch.yml` is `workflow_dispatch`
+only (inputs: batch_id, batch_size default 50, hard max 50); it validates the
+matrix and prepares a batch manifest, then reports `WRITER_NOT_CONFIGURED`
+until a real writer provider exists. NO CRON is attached to any workflow —
+scheduling is deliberately deferred (future cron must never start a new
+batch while an earlier batch is still WRITING/QA). Legacy special-purpose
 workflows `recover-phoco.yml` and `seo-phoco.yml` are separate and must not be
 modified casually.
 

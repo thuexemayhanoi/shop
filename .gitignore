@@ -4,3 +4,7 @@ reports/article-quality/*.html
 # OS noise
 .DS_Store
 Thumbs.db
+# Generated batch manifests and reports (keep .gitkeep)
+data/batches/*.json
+data/batches/*.lock
+reports/batches/*.json
