@@ -59,9 +59,9 @@
       /* --- ĐỀ XUẤT XE --- */
       if (MOTO_AI_CTX.purpose === "travel") {
         return `MotoAI gợi ý:
-    • Xe ga (Vision / Lead)
+    • Xe ga (Honda Vision)
     • Êm, cốp rộng, phù hợp đi chơi
-    • Giá từ 150.000đ/ngày
+    • Giá từ 200.000đ/ngày
 
     Anh/chị muốn em giữ xe hôm nay không ạ?`;
       }
@@ -705,9 +705,13 @@
             const run = () => {
                 let d = parseInt(days.value, 10) || 1;
                 if (d < 1) d = 1;
-                const daily = parseInt(type.value, 10) || 0;
-                if (daily === 0) { total.innerText = 'Liên hệ để xác nhận giá hiện tại'; return; }
-                total.innerText = window.MotoTusPrices ? window.MotoTusPrices.calcEstimate(d, daily) : (daily * d).toLocaleString('vi-VN') + 'đ';
+                const key = String(type.value || 'contact');
+                if (!window.MotoTusPrices) {
+                    const v = parseInt(type.value, 10) || 0;
+                    total.innerText = v > 0 ? (v * d).toLocaleString('vi-VN') + 'đ' : 'Liên hệ để xác nhận giá hiện tại';
+                    return;
+                }
+                total.innerText = window.MotoTusPrices.calcEstimate(d, key);
             };
             
             if (type && days && total) {
