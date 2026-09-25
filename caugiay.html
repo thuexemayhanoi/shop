@@ -207,9 +207,12 @@
                     <div class="form-group">
                         <label class="form-label" for="c-type">Loại xe</label>
                         <select class="form-input" id="c-type">
-                            <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
-                            <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
-                            <option value="0">Xe côn/PKL - Liên hệ</option>
+                            <option value="wave">Xe số (Wave/Sirius) - 150.000</option>
+                            <option value="click">Xe ga (Click/Mio) - 150.000</option>
+                            <option value="vision">Honda Vision - 200.000</option>
+                            <option value="airblade">Honda Air Blade - 200.000</option>
+                            <option value="ebike">Xe điện - 200.000</option>
+                            <option value="contact">Xe côn/PKL - Liên hệ</option>
                         </select>
                     </div>
 
@@ -252,7 +255,7 @@
                     <li><strong>Đối với xe số (Wave, Sirius):</strong> Mức cọc thường từ 2 - 3 triệu đồng. Đây là mức đảm bảo trách nhiệm cơ bản đối với phương tiện.</li>
                     <li><strong>Đối với xe ga (Vision, Airblade, Lead):</strong> Mức cọc từ 3 - 5 triệu đồng. Các dòng xe ga có giá trị cao hơn, đòi hỏi sự cam kết bảo quản kỹ càng hơn từ người thuê.</li>
                 </ol>
-                <p>Việc đặt cọc này giúp chúng tôi tự tin giao những chiếc xe <strong>tốt nhất, mới nhất</strong> cho bạn mà không lo ngại rủi ro. Số tiền cọc sẽ được hoàn trả 100% ngay sau khi bạn trả xe và hoàn tất <a href="thutuc.html" class="seo-link">thủ tục trả xe</a> an toàn. Đây là cam kết uy tín của Mr Tú.</p>
+                <p>Việc đặt cọc này giúp chúng tôi tự tin giao những chiếc xe <strong>tốt nhất, mới nhất</strong> cho bạn mà không lo ngại rủi ro. Số tiền cọc được hoàn lại theo hợp đồng khi bạn trả xe và hoàn tất <a href="thutuc.html" class="seo-link">thủ tục trả xe</a> đúng tình trạng.</p>
 
                 <h2>3. Các dòng xe cho thuê phổ biến tại Cầu Giấy</h2>
                 <p>Chúng tôi cung cấp đa dạng các mẫu xe phù hợp với sinh viên và dân văn phòng tại Cầu Giấy:</p>
@@ -373,9 +376,9 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
       /* --- ĐỀ XUẤT XE --- */
       if (MOTO_AI_CTX.purpose === "travel") {
         return `MotoAI gợi ý:
-    • Xe ga (Vision / Lead)
+    • Xe ga (Honda Vision)
     • Êm, cốp rộng, phù hợp đi chơi
-    • Giá từ 150.000đ/ngày
+    • Giá từ 200.000đ/ngày
 
     Anh/chị muốn em giữ xe hôm nay không ạ?`;
       }
@@ -1024,9 +1027,13 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             const run = () => {
                 let d = parseInt(days.value, 10) || 1;
                 if (d < 1) d = 1;
-                const daily = parseInt(type.value, 10) || 0;
-                if (daily === 0) { total.innerText = 'Liên hệ để xác nhận giá hiện tại'; return; }
-                total.innerText = window.MotoTusPrices ? window.MotoTusPrices.calcEstimate(d, daily) : (daily * d).toLocaleString('vi-VN') + 'đ';
+                const key = String(type.value || 'contact');
+                if (!window.MotoTusPrices) {
+                    const v = parseInt(type.value, 10) || 0;
+                    total.innerText = v > 0 ? (v * d).toLocaleString('vi-VN') + 'đ' : 'Liên hệ để xác nhận giá hiện tại';
+                    return;
+                }
+                total.innerText = window.MotoTusPrices.calcEstimate(d, key);
             };
             
             if (type && days && total) {
