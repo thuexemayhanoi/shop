@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <!-- SEO ULTRA MODE: OPTIMIZED FOR LONG BIEN KEYWORD -->
-<title>Thuê Xe Máy Long Biên Giá Rẻ | Giao Tận Nơi Theo Lịch Hẹn - Mr Tú</title>
-<meta name="description" content="Dịch vụ thuê xe máy Long Biên. Xe được bảo dưỡng định kỳ, giao xe tận nơi, thủ tục đơn giản. Liên hệ để đặt xe đi Phố Cổ hoặc đi tỉnh. Giá từ 150.000đ/ngày.">
+<title>Thuê Xe Máy Long Biên Giá Rẻ & Uy Tín - Mr Tú</title>
+<meta name="description" content="Dịch vụ thuê xe máy Long Biên. Xe được bảo dưỡng định kỳ, thủ tục đơn giản, liên hệ để xác nhận hình thức nhận xe. Liên hệ để đặt xe đi Phố Cổ hoặc đi tỉnh. Giá từ 150.000đ/ngày.">
 <meta name="keywords" content="thuê xe máy long biên, thuê xe máy ngọc lâm, thuê xe máy bồ đề, thuê xe máy đi tỉnh, thuê xe máy hà nội giá rẻ, mr tú motorbike">
 <meta name="author" content="Mr Tú">
 <meta name="theme-color" content="#000000">
@@ -18,7 +18,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thuexemayhanoi.github.io/shop/longbien.html">
 <meta property="og:title" content="Thuê Xe Máy Long Biên - Chạy Phố & Đi Tỉnh An Toàn | Mr Tú">
-<meta property="og:description" content="Nhận xe tại Long Biên theo lịch hẹn. Xe bảo dưỡng định kỳ, mũ bảo hiểm sạch sẽ. Tư vấn cung đường đi tỉnh.">
+<meta property="og:description" content="Liên hệ để đặt xe và xác nhận hình thức nhận xe. Xe bảo dưỡng định kỳ, mũ bảo hiểm sạch sẽ. Tư vấn cung đường đi tỉnh.">
 <meta property="og:image" content="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0618.jpeg">
 
 <!-- Twitter -->
@@ -194,7 +194,7 @@
                     </h1>
                     
                     <p>
-                        Dịch vụ <strong>thuê xe máy Long Biên</strong> của Mr Tú. Vị trí thuận tiện ngay đầu cầu Chương Dương: vào <a href="phoco.html" class="seo-link">Phố Cổ</a> nhanh, tiện đường đi Bát Tràng, EcoPark hay phượt các tỉnh phía Bắc. Xe được bảo dưỡng, giao xe theo lịch hẹn!
+                        Dịch vụ <strong>thuê xe máy Long Biên</strong> của Mr Tú. Vị trí thuận tiện ngay đầu cầu Chương Dương: vào <a href="phoco.html" class="seo-link">Phố Cổ</a> nhanh, tiện đường đi Bát Tràng, EcoPark hay phượt các tỉnh phía Bắc. Xe được bảo dưỡng, vui lòng liên hệ để xác nhận thời gian nhận xe!
                     </p>
 
                     <div>
@@ -315,7 +315,7 @@
                 <h3>Cam kết của Mr Tú</h3>
                 <p>Dù bạn thuê xe để đi làm hàng ngày, đi cafe cuối tuần hay thực hiện những chuyến đi phượt dài ngày, Mr Tú luôn đồng hành cùng bạn:</p>
                 <ul>
-                    <li>✅ Giao xe tận nơi khu vực Long Biên, Ngọc Lâm, Bồ Đề... theo lịch hẹn trong giờ mở cửa.</li>
+                    <li>✅ Liên hệ để xác nhận khả năng giao/nhận xe khu vực Long Biên, Ngọc Lâm, Bồ Đề...</li>
                     <li>✅ Trang bị sẵn 2 mũ bảo hiểm chất lượng, áo mưa và dây buộc đồ.</li>
                     <li>✅ Gọi hotline nếu xe gặp sự cố trên đường.</li>
                 </ul>
@@ -1096,25 +1096,16 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
 
         statusWidget() {
             const checkTime = () => {
-                const now = new Date();
-                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
-                
-                const isOpen = hours >= 8 && hours < 17;
+                const isOpen = true; // shop hours unverified in config - neutral placeholder, no open/closed inference
                 
                 const updateUI = (dotId, textId) => {
                     const dot = document.getElementById(dotId);
                     const text = document.getElementById(textId);
                     if (!dot || !text) return;
 
-                    if (isOpen) {
-                          dot.className = 'status-dot open';
-                          text.innerText = 'Cửa hàng đang mở (8h-17h)';
-                          text.className = 'status-text text-open';
-                    } else {
-                          dot.className = 'status-dot online';
-                          text.innerText = 'Ngoài giờ mở cửa – liên hệ Zalo';
-                          text.className = 'status-text text-online';
-                    }
+                    dot.className = 'status-dot online';
+                    text.innerText = 'Liên hệ để xác nhận thời gian hỗ trợ';
+                    text.className = 'status-text text-online';
                 };
                 
                 updateUI('status-dot', 'status-text');
