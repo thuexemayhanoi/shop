@@ -89,31 +89,37 @@ step).
 `scripts/run_article_batch.py` orchestrates ONE batch of at most 50 articles.
 
 ```bash
-# claim up to 50 PLANNED rows, mark them WRITING, write the manifest
-python3 scripts/run_article_batch.py --batch BATCH-001 --prepare
-# or the first batch that still has PLANNED rows
-python3 scripts/run_article_batch.py --next --batch-size 50
+# claim up to 50 PLANNED rows, mark them WRITING, write the agent manifest
+python3 scripts/run_article_batch.py --batch BATCH-001 --prepare-agent
+# or: resume the active unfinished batch, else the first with PLANNED rows
+python3 scripts/run_article_batch.py --next --prepare-agent
 
-# after an external writer produced the files: QA unfinished rows
-python3 scripts/run_article_batch.py --batch BATCH-001 --resume
+# THE EXTERNAL WRITER (the Mistral agent, or a human) now writes the
+# article files itself at each row's output_path, per docs/ARTICLE-RULES.md
 
-# after the commit reached MAIN: flip PASS rows to PUBLISHED
+# deterministic QA of the batch's written files (validate + cannibalization
+# + scorer); REVIEW rows get a bounded repair budget
+python3 scripts/run_article_batch.py --batch BATCH-001 --qa
+
+# publish scope: list exactly this batch's PASS files; push them to MAIN
+python3 scripts/run_article_batch.py --batch BATCH-001 --publish
+
+# after the push reached remote MAIN: flip PASS rows to PUBLISHED
 python3 scripts/run_article_batch.py --batch BATCH-001 --mark-published
 ```
 
-- `--prepare` writes `data/batches/BATCH-XXX.json`, a machine-readable
-  manifest (writer_context with the full production standard — target word
-  range, contextual-link rules, parent hub, allowed targets, commercial
-  limit, business facts, protected intents — plus per-article fields) that
-  an external AI writer (e.g. a Mistral agent) consumes.
-- **No writer configured → no durable claims**: with
-  WRITER_NOT_CONFIGURED the manifest is still produced but the matrix rows
-  stay PLANNED (nothing pretends content was written). Rows are claimed
-  WRITING only when a real writer provider is configured.
-- **State persistence**: GitHub Actions runner-local changes are NOT
-  persistent unless committed. `data/content-matrix.csv` on MAIN is the
-  single durable ledger; the production flow persists PLANNED → WRITING →
-  QA → PASS → PUBLISHED transitions to MAIN once a real writer is connected.
+- `--prepare-agent` writes `data/batches/BATCH-XXX.json`, a machine-readable
+  manifest (per-article writer_context with the full production standard —
+  word_standard 1600-2000, link_standard 3-5 contextual links + parent hub +
+  max 1 commercial, protected intents, business facts policy, canonical_url,
+  ACTUAL date_published, neighbor topics) that the external writer consumes.
+- **No API, no secrets**: the writer is the Mistral agent (or a human)
+  operating this repository directly. There is no provider module, no
+  MISTRAL_API_KEY and no GitHub secret anywhere in the flow.
+- **State persistence**: the agent works on a checkout and commits
+  transitions to MAIN. `data/content-matrix.csv` on MAIN is the single
+  durable ledger (PLANNED → WRITING → QA/REPAIR → PASS → PUBLISHED, plus
+  published_date).
 - Manifests/locks are gitignored; `data/content-matrix.csv` stays the ledger.
 - The batch size is capped at 50 — a larger `--batch-size` is clamped, never
   silently exceeded.
@@ -131,17 +137,18 @@ python3 scripts/run_article_batch.py --batch BATCH-001 --mark-published
 - Every run writes `reports/batches/BATCH-XXX.json`:
   requested / written / pass / published / review / fail / blocked + per-article
   results. Reports are gitignored.
-- Exit codes: 0 ok, 1 usage/lock, 2 REVIEW articles remain, 3 FAIL articles,
-  4 tool error, **5 WRITER_NOT_CONFIGURED**.
+- Exit codes: 0 ok, 1 tool/config error, 2 usage/lock, 3 FAIL articles,
+  4 REVIEW/BLOCKED remain, 5 WRITER_NOT_CONFIGURED (article_writer.py only).
 
 ## Writer requirement (no fake writers)
 
-`scripts/article_writer.py` defines the provider contract
-(`write_article(matrix_row, context)`). With no authorized provider
-configured it raises `WriterNotConfigured` and the batch runner stops with
-`WRITER_NOT_CONFIGURED`. The repository deliberately contains no template
-content generator and no API keys; provider credentials belong in GitHub
-Actions secrets only, and none are configured yet.
+The WRITER is the external Mistral agent (or a human). The repository
+deliberately contains NO AI API provider, NO credentials and NO template
+content generator. `scripts/article_writer.py` is a neutral boundary:
+calling `write_article()` raises `WriterNotConfigured` (exit 5) with
+instructions for the agent — prepare the batch, read the manifest, write
+the files at their output_path, then run --qa. Rows are never faked: if
+the agent cannot write an article honestly, it stays unwritten.
 
 ## Category index and sitemap
 
@@ -177,26 +184,47 @@ Actions secrets only, and none are configured yet.
 - `.github/workflows/article-quality.yml` — tests (`python3 -m unittest
   discover tests`), matrix validation, and the full article gate; REVIEW/FAIL
   fails CI.
-- `.github/workflows/article-batch.yml` — `workflow_dispatch` ONLY (inputs:
-  batch_id, batch_size default 50, max 50). Validates the matrix and tests,
-  prepares the batch manifest, uploads it as an artifact, and reports
-  `WRITER_NOT_CONFIGURED` (notice, not a misleading failure) when no writer
-  provider exists.
-- **No cron anywhere.** When scheduling is added later, it must never start a
-  new batch while an earlier batch is still WRITING/QA.
+- `.github/workflows/article-batch.yml` — `workflow_dispatch` ONLY
+  (read-only helper: contents: read, no secrets). Inputs: batch_id,
+  batch_size, pilot, dry_run, qa, progress. It runs the test suite and
+  matrix validation, resolves the batch, dry-runs the scope, optionally
+  runs deterministic --qa on the files in the checkout, and uploads
+  reports as artifacts. It NEVER writes articles, NEVER pushes, NEVER
+  claims rows (no --prepare-agent / --publish / --mark-published in CI).
+- **No cron anywhere, by design.** Hourly repetition belongs to the
+  EXTERNAL Mistral agent operator, not to GitHub Actions. A scheduled AI
+  writer must never be added to CI.
 
-## Auto-writer contract
+## External-agent operating model (hourly operator flow)
+
+The Mistral agent IS the writer and the publisher; GitHub is the
+deterministic planner / validator / ledger / CI.
 
 1. Fetch CURRENT MAIN; verify the SHA before editing.
-2. Read all files in the README agent read order.
-3. Prepare/claim one batch (max 50 PLANNED rows) via the batch runner.
-4. Write each article per `docs/ARTICLE-RULES.md` (requires_sources rows need
-   official-source verification first).
-5. Run validator, cannibalization checker, scorer for EVERY article.
-6. REVIEW → fix and re-run (max 3 attempts) → still REVIEW → BLOCKED.
+2. Run `--next --dry-run` to resolve the batch ONCE (an active unfinished
+   batch is resumed before any new PLANNED batch; FAIL/BLOCKED never block).
+3. `--prepare-agent` (max 50 rows) → manifest `data/batches/BATCH-XXX.json`.
+4. Write each article per `docs/ARTICLE-RULES.md` at its output_path:
+   1600-2000 Vietnamese words, 1 H1, self canonical, Article +
+   BreadcrumbList JSON-LD, lang="vi", author "Mr Tú", datePublished = the
+   manifest's date_published (ACTUAL date, never planned_date), 3-5
+   contextual internal links (parent hub required, max 1 true commercial).
+   requires_sources rows must cite >=1 approved official source URL
+   (config/source-policy.json) verified via web research in a visible
+   "Nguồn tham khảo" section; if verification is impossible, leave the
+   article unwritten or BLOCK it honestly — never guess.
+5. `--qa`: validator + cannibalization checker + scorer for EVERY article.
+6. REVIEW → the agent repairs the file using the exact QA report and
+   re-runs --qa (max 3 attempts, notes carry repair:N) → still REVIEW →
+   BLOCKED (never published).
 7. FAIL → stop, do not publish that article; keep the batch's PASS articles.
-8. PASS → commit the article files, push to MAIN, then `--mark-published`
-   (this also refreshes the category index and sitemap).
+8. PASS, in order: `--publish` lists the PASS files → push them + the
+   matrix to MAIN → verify on remote → `--mark-published` → regenerate the
+   six root category hubs (generate_category_pages.py: first-50 block
+   injected into the root hub; page-2+ only when a category exceeds 50
+   PUBLISHED) and sitemap.xml (PUBLISHED articles only) → push hubs +
+   cam-nang/ + sitemap.xml → write the batch report +
+   factory-progress.json.
 
 ## Rules recap
 
@@ -219,54 +247,51 @@ Actions secrets only, and none are configured yet.
 - `reports/article-quality/`, `reports/batches/` — generated reports
   (gitignored except `.gitkeep`).
 
-## Production writer pipeline (2026-09-25)
+## Production writer pipeline (API-free, external agent)
 
-The factory now has a real, end-to-end writer + repair + publish pipeline:
+The factory has a real, end-to-end claim → write → QA → repair → publish
+pipeline in which the Mistral agent is the writer:
 
-- **Provider registry** (`scripts/providers/`): `WRITER_PROVIDER=mistral`
-  selects `scripts/providers/mistral_writer.py` (Mistral chat completions
-  API, stdlib-only, timeout + bounded exponential-backoff retries, clear
-  error classification). Credentials come from the environment / GitHub
-  Actions Secrets ONLY (`MISTRAL_API_KEY`) — never committed.
-- **Safe stop**: no provider -> `WRITER_NOT_CONFIGURED` (exit 5); provider
-  without key -> `WRITER_SECRET_MISSING` (exit 6). Rows stay PLANNED.
-  Content is never fabricated and states are never faked.
+- **No provider layer**: `scripts/providers/` is gone for good. There is
+  no WRITER_PROVIDER, no MISTRAL_API_KEY, no API client, no GitHub secret
+  and no billing path anywhere in the repository. `article_writer.py`
+  only raises `WriterNotConfigured` (exit 5) — the agent writes files
+  itself.
 - **Per-article lifecycle** (`scripts/run_article_batch.py`):
-  PLANNED -> WRITING -> QA -> (REPAIR -> QA) x max 3 -> PASS / FAIL /
-  BLOCKED / REVIEW. One bad article never blocks the other 49.
-- **Writer context** (`build_writer_context`): article identity, keywords,
-  intent, output path, parent hub, protected intents, trusted business
-  facts (unverified owner facts are never sent), approved prices,
-  unapproved-model policy, deposit wording, legal-source requirements,
-  link rules (3-5 contextual, max 1 commercial), 1600-2000 word target,
-  site base URL /shop, neighboring matrix topics for cannibalization
-  awareness.
-- **Repair loop**: REVIEW sends the original article + exact QA report
-  back to the writer; only the identified problems are repaired; after 3
-  failed attempts the article is BLOCKED and never published. FAIL is
-  never auto-published.
+  PLANNED → WRITING (--prepare-agent) → agent writes → --qa → PASS /
+  FAIL / REVIEW → agent repairs (≤ 3, notes repair:N) → PASS | BLOCKED.
+  One bad article never blocks the other 49.
+- **Writer context** (`build_writer_context`, in the manifest): article
+  identity, keywords, intent, output path, parent hub, protected intents,
+  business facts policy (unverified owner facts never sent), legal-source
+  requirements, link_standard (3-5 contextual, max 1 TRUE commercial —
+  category hubs are informational, not commercial), word_standard
+  (1600-2000), canonical_url, ACTUAL date_published (never the future
+  planned_date), site base URL /shop, neighboring matrix topics.
+- **Source policy** (`config/source-policy.json`): requires_sources rows
+  must cite ≥1 approved official domain (chinhphu.vn, vanban.chinhphu.vn,
+  congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn — exact or
+  subdomain match) in a visible "Nguồn tham khảo" section; otherwise the
+  source gate FAILS the article in --qa.
+- **Repair loop**: REVIEW rows consume a bounded budget; after 3 attempts
+  they are BLOCKED and never published. FAIL is never auto-published.
 - **Crash recovery**: PASS/PUBLISHED never rewritten; WRITING/QA/REPAIR
-  rows resume safely (files kept, missing files re-claimed); no duplicate
-  IDs or output files; durable state lives in the matrix committed to MAIN.
-- **Cost guard**: sequential by default (`--concurrency` 1-3); provider
-  failures >= 5 and > 30% stop NEW generation while preserving results.
-- **Pilot mode**: `--pilot` (or workflow input `pilot=true`) = BATCH-001
-  only, max 50, no chaining.
+  rows with existing files resume safely; file-less rows stay claimable;
+  durable state lives in the matrix committed to MAIN.
+- **Publish invariant order**: push PASS files + matrix → verify remote →
+  --mark-published → regenerate root hubs + sitemap → push. Root hub =
+  page 1 (first 50 PUBLISHED per category); page-2+ exists only above 50;
+  never cam-nang/<cat>/index.html.
+- **Pilot mode**: `--pilot` = BATCH-001 only, max 50, no chaining.
 - **Kill switch**: `config/content-factory.json` — `enabled=false` pauses
-  everything; `scheduled_runs_enabled=false` pauses cron runs only.
-- **Partial publishing** (`.github/workflows/article-batch.yml`,
-  `permissions: contents: write`): only PASS articles are committed with
-  the matrix; `--mark-published` flips rows only AFTER the push to MAIN
-  succeeds; category hubs + sitemap are regenerated from PUBLISHED rows.
-  Batch reports `reports/batches/BATCH-XXX.{json,md}` are committed as the
-  audit trail.
-- **Scheduling**: NO CRON yet. A daily cron may only be added after a real
-  BATCH-001 pilot with a configured writer is proven stable; it must use
-  `--next`, check the kill switch, resume active batches before starting
-  new ones, and report FACTORY_COMPLETE without changes when done.
+  everything.
+- **Scheduling**: NO CRON, ever, in GitHub Actions. The hourly operator
+  flow above belongs to the external agent.
 
 ## Batch reports
 
-`reports/batches/BATCH-XXX.json` + `.md`: batch id, timestamps, provider,
-requested/written/pass/published/review/repair/fail/blocked/provider
-errors, score stats, commit SHA, and per-article outcome detail.
+`reports/batches/BATCH-XXX.json` + `.md`: batch id, timestamps, writer
+(external-agent), processed/written/pass/published/review/repair/fail/
+blocked, score stats, source-gate counts, commit SHA, and per-article
+outcome detail. `reports/batches/factory-progress.json` is the global
+deterministic progress ledger.

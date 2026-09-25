@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "approved_source_domains": [
+    "chinhphu.vn",
+    "vanban.chinhphu.vn",
+    "congbao.chinhphu.vn",
+    "thutuc.gov.vn",
+    "mt.gov.vn",
+    "hanoi.gov.vn"
+  ],
+  "notes": "Official Vietnamese government/legal domains only. Articles with requires_sources=true must cite at least one source URL whose hostname matches an approved domain (exact match or *.approved). The writing agent must verify the source content via web research before publishing; if official verification is unavailable the article is BLOCKED, never guessed. Blog/legal-summary sites are not authoritative.",
+  "section_heading_required": "Nguồn tham khảo",
+  "min_approved_urls": 1
+}

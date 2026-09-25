@@ -11,6 +11,7 @@ import io
 import json
 import os
 import re
+from urllib.parse import urlparse
 import sys
 from difflib import SequenceMatcher
 
@@ -77,6 +78,95 @@ def load_business_facts():
 
 def load_ownership():
     return load_json(repo_path("config", "seo-ownership.json"))
+
+
+# ---------------------------------------------------------------------------
+# Commercial page classification + source policy (API-free factory v3)
+# ---------------------------------------------------------------------------
+
+def commercial_pages(ownership):
+    """Basenames of TRUE commercial landing pages.
+
+    The explicit ``commercial`` flag on each protected page wins. Legacy
+    configs without the flag fall back to role classification. Category
+    hubs (kinhnghiem/antoan/xemay/dulich/cungduong/hoidap.html) are
+    protected from cannibalization but are INFORMATIONAL, never commercial.
+    """
+    out = set()
+    for p in (ownership or {}).get("protected_pages", []):
+        path = p.get("path") or ""
+        if "commercial" in p:
+            if p["commercial"]:
+                out.add(os.path.basename(path))
+        elif p.get("role") in ("homepage", "commercial-landing", "pricing",
+                               "rental-duration", "service"):
+            out.add(os.path.basename(path))
+    return out
+
+
+def load_source_policy():
+    """config/source-policy.json — approved official source domains."""
+    p = repo_path("config", "source-policy.json")
+    if not os.path.exists(p):
+        raise ConfigError("missing config/source-policy.json")
+    return load_json(p)
+
+
+def _host_ok(hostname, domain):
+    h = (hostname or "").lower().strip(".")
+    d = (domain or "").lower().strip(".")
+    return h == d or h.endswith("." + d)
+
+
+def source_gate(article, row, policy=None):
+    """Strict legal-source gate for requires_sources production rows.
+
+    Returns (failures, approved_urls). Requirements (config/source-policy.json):
+      - a visible source section (heading 'Nguồn tham khảo'/'Tham khảo'/
+        'Sources' or existing approved-domain links),
+      - at least min_approved_urls EXTERNAL source URLs whose hostname is
+        an approved official domain (exact or subdomain match).
+    Malformed source URLs are failures. SAMPLE rows and
+    requires_sources=false rows are never forced to cite.
+    """
+    if is_sample_row(row or {}):
+        return [], []
+    if str((row or {}).get("requires_sources", "")).strip().lower() \
+            not in ("true", "yes", "1"):
+        return [], []
+    policy = policy or load_source_policy()
+    domains = policy.get("approved_source_domains", [])
+    need = int(policy.get("min_approved_urls", 1))
+    failures = []
+    if not article.sources_section:
+        failures.append("requires_sources article has no visible "
+                        "'Nguồn tham khảo' source section")
+    approved = []
+    malformed = []
+    for href, _anchor in article.links:
+        if not href.lower().startswith(("http://", "https://")):
+            continue
+        host = None
+        try:
+            host = urlparse(href).hostname
+        except Exception:
+            host = None
+        if not host:
+            malformed.append(href)
+            continue
+        if any(_host_ok(host, d) for d in domains):
+            approved.append(href)
+    if malformed:
+        failures.append("malformed source URL(s): %s" % malformed[:3])
+    if len(approved) < need:
+        failures.append(
+            "requires_sources article cites %d approved official source "
+            "URL(s) (minimum %d; approved domains: %s). The writing agent "
+            "must verify legal claims via official sources before "
+            "publishing — never guess."
+            % (len(approved), need, ", ".join(domains)))
+    return failures, approved
+
 
 
 def load_site_config():
@@ -305,10 +395,9 @@ class Article(object):
             parent_hub_present = any(
                 os.path.basename(t) == parent_hub
                 for t, _ in self.contextual_links)
-        commercial_paths = set()
-        if ownership:
-            for p in ownership.get("protected_pages", []):
-                commercial_paths.add(os.path.basename(p.get("path") or ""))
+        # TRUE commercial pages only (explicit flag in seo-ownership;
+        # category hubs are protected informational pages, never commercial)
+        commercial_paths = commercial_pages(ownership)
         commercial = [(t, a) for t, a in self.contextual_links
                       if os.path.basename(t) in commercial_paths]
         comm_dup = 0
@@ -859,5 +948,10 @@ def validate_article(article, matrix, ownership, facts, rubric):
     # fact safety criticals
     f_fail, _ = check_fact_safety(article, facts)
     errors.extend(f_fail)
+
+    # strict legal-source gate (approved official domains only)
+    if row is not None:
+        src_fail, _approved = source_gate(article, row)
+        errors.extend(src_fail)
 
     return errors

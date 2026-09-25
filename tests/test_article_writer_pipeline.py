@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Writer-pipeline unit tests (NO real API calls — mock provider only).
+"""Writer-pipeline unit tests for the API-free factory (NO API, NO provider).
 
-Covers: writer called once per article, max-50, correct context, output
-path, per-article isolation, PASS/PUBLISHED never rewritten, REVIEW repair
-loop (max 3, BLOCKED after), FAIL never published, partial batch publish,
-crash/resume idempotence, missing secret safe stop, provider timeout."""
+The external Mistral agent is the writer; these tests verify the
+deterministic pipeline around it: agent claims rows (--prepare-agent),
+files are written at real output paths, --qa gates them, PASS/PUBLISHED
+are never rewritten, repair budget is enforced, publish scope is the
+resolved batch only, and nothing ever requires MISTRAL_API_KEY.
+"""
 import io
+import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -18,7 +22,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 SCRIPTS = os.path.join(ROOT, "scripts")
 sys.path.insert(0, SCRIPTS)
-sys.path.insert(0, os.path.join(SCRIPTS, "providers"))
 
 import article_lib as lib
 import article_writer as aw
@@ -51,22 +54,24 @@ def _pad_description(row):
     return base[:170]
 
 
-def good_article_html(row, ctx=None):
+def good_article_html(row, ctx=None, sources_html=""):
     """Deterministic, genuinely passing production article for a matrix row.
     1600-2000 unique Vietnamese words, 4 contextual links (parent hub + 3
-    others), full technical HTML structure. No prices, no unverified facts."""
+    informational pages), full technical HTML. datePublished = the ACTUAL
+    date from the writer context (never the future planned_date)."""
     title = row.get("working_title") or row.get("primary_keyword") or "Bài viết"
     pk = row.get("primary_keyword") or ""
     hub = row.get("parent_hub") or "kinhnghiem.html"
-    # Non-protected informational targets: district/FAQ pages. All category
-    # hubs are protected commercial pages, so ONLY the parent hub may be
-    # linked (commercial_links_max = 1).
+    # Informational targets: district/FAQ pages. Category hubs are protected
+    # informational pages; NONE of these links is a commercial landing page,
+    # so the single commercial-link budget stays untouched.
     others = [("badinh.html", "hướng dẫn thuê xe máy ở Ba Đình"),
               ("caugiay.html", "kinh nghiệm thuê xe tại Cầu Giấy"),
               ("faq.html", "câu hỏi thường gặp về thuê xe máy")][:3]
     out_path = row.get("output_path") or ("cam-nang/%s.html" % row.get("slug", "x"))
     canonical = "%s/%s" % (_SITE, out_path)
-    date = row.get("planned_date") or "2026-09-25"
+    date = (ctx or {}).get("date_published") or row.get("planned_date") \
+        or "2026-09-25"
     cat = row.get("category") or "Kinh nghiệm"
 
     def _wc(html_fragment):
@@ -110,6 +115,9 @@ def good_article_html(row, ctx=None):
                 paras.append(link_para_1)
             if n == 12:
                 paras.append(link_para_2)
+    if sources_html:
+        paras.append("<h2>Nguồn tham khảo</h2>")
+        paras.append(sources_html)
     body = "\n".join(paras)
     return """<!DOCTYPE html>
 <html lang="vi">
@@ -140,38 +148,9 @@ def good_article_html(row, ctx=None):
                   date=date, cat=cat, hub=hub, body=body)
 
 
-class FakeProvider(object):
-    """Mock writer. Records calls; per-article behavior is configurable."""
-
-    name = "fake"
-
-    def __init__(self, fail_write_ids=(), raise_type=None, repair_html=None,
-                 never_repair=False):
-        self.calls = []
-        self.contexts = []
-        self.fail_write_ids = set(fail_write_ids)
-        self.raise_type = raise_type or RuntimeError
-        self.repair_html = repair_html
-        self.never_repair = never_repair
-
-    def is_configured(self):
-        return True
-
-    def write_article(self, row, ctx):
-        self.calls.append(("write", row["article_id"]))
-        self.contexts.append(ctx)
-        if row["article_id"] in self.fail_write_ids:
-            raise self.raise_type("provider boom for %s" % row["article_id"])
-        return good_article_html(row, ctx)
-
-    def repair_article(self, row, ctx, html, qa_report):
-        self.calls.append(("repair", row["article_id"]))
-        if self.never_repair:
-            return html  # unchanged -> QA verdict stays REVIEW
-        if self.repair_html is not None:
-            return self.repair_html(row, ctx)
-        # default repair: return a genuinely fixed article
-        return good_article_html(row, ctx)
+APPROVED_SOURCE = ('<p>Xem bản gốc tại <a href='
+                  '"https://vanban.chinhphu.vn/?page=nghi-dinh-168-2024-nd-cp">'
+                  'Nghị định 168/2024/NĐ-CP</a> trên cổng văn bản Chính phủ.</p>')
 
 
 class PipelineTestCase(unittest.TestCase):
@@ -197,293 +176,317 @@ class PipelineTestCase(unittest.TestCase):
         row["output_path"] = "cam-nang-test/%s.html" % row["slug"]
         return row
 
-    def _qa_env(self):
-        return self.matrix, self.ownership, self.facts, self.rubric
+    def _ctx(self, row):
+        return rb.build_writer_context(row, self.matrix, self.ownership,
+                                       self.facts, self.rubric, self.site)
+
+    def _write(self, row, ctx=None, sources_html=""):
+        path = os.path.join(self.tmp, row["output_path"])
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        io.open(path, "w", encoding="utf-8").write(
+            good_article_html(row, ctx, sources_html))
+        return path
+
+    def _qa(self, rows, repo_root=None):
+        return rb.run_qa_for_batch(rows, self.matrix, self.ownership,
+                                   self.facts, self.rubric,
+                                   repo_root or self.tmp)
 
 
-class WriterPipelineTests(PipelineTestCase):
+class AgentPipelineTests(PipelineTestCase):
     # KN-0001 has requires_sources=false — safe for generated fixtures.
 
-    def test_writer_called_once_and_output_written_to_correct_path(self):
-        row = self._row("KN-0001")
-        provider = FakeProvider()
-        updates, entry = rb.process_article(
-            row, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
-        self.assertEqual(provider.calls, [("write", "KN-0001")])
-        out = os.path.join(self.tmp, row["output_path"])
-        self.assertTrue(os.path.isfile(out), "article not written to output_path")
-        self.assertEqual(entry["outcome"], "PASS", entry)
+    def test_written_article_passes_qa(self):
+        row = self._row("KN-0001", status="WRITING")
+        self._write(row, self._ctx(row))
+        updates, articles = self._qa([row])
+        self.assertEqual(articles[0]["outcome"], "PASS",
+                         articles[0]["quality_failures"])
+        self.assertGreaterEqual(articles[0]["score"], 90)
         self.assertEqual(updates["KN-0001"]["status"], "PASS")
-        self.assertGreaterEqual(entry["score"], 90)
 
-    def test_writer_receives_full_context(self):
+    def test_writer_context_carries_full_standard(self):
         row = self._row("KN-0001")
-        provider = FakeProvider()
-        rb.process_article(row, *self._qa_env(), repo_root=self.tmp,
-                           provider=provider, site=self.site)
-        ctx = provider.contexts[0]
-        for key in ("article_id", "category", "working_title", "primary_keyword",
-                    "search_intent", "output_path", "parent_hub",
-                    "protected_intents", "business_facts", "approved_price_data",
-                    "unapproved_models", "deposit_wording", "target_min_words",
-                    "target_max_words", "contextual_internal_links_min",
-                    "contextual_internal_links_max", "commercial_links_max",
-                    "url_base", "neighbor_topics", "canonical_url"):
-            self.assertIn(key, ctx, "writer context missing %s" % key)
-        self.assertEqual(ctx["target_min_words"], 1600)
-        self.assertEqual(ctx["target_max_words"], 2000)
-        self.assertEqual(ctx["article_id"], "KN-0001")
-        # unverified owner facts must never reach the writer
-        self.assertNotIn("requires_owner_confirmation", ctx["business_facts"])
+        ctx = self._ctx(row)
+        self.assertEqual(ctx["word_standard"]["target_min_words"], 1600)
+        self.assertEqual(ctx["word_standard"]["target_max_words"], 2000)
+        self.assertEqual(ctx["link_standard"]["contextual_internal_links_min"], 3)
+        self.assertEqual(ctx["link_standard"]["contextual_internal_links_max"], 5)
+        self.assertTrue(ctx["link_standard"]["parent_hub_link_required"])
+        self.assertEqual(ctx["link_standard"]["commercial_links_max"], 1)
+        self.assertTrue(ctx["canonical_url"].endswith(row["output_path"]))
+        self.assertTrue(ctx["protected_intents"])
         self.assertTrue(ctx["neighbor_topics"])
+        # ACTUAL date, never the future planned_date
+        self.assertEqual(ctx["date_published"], rb.today())
+        self.assertNotEqual(ctx["date_published"], row["planned_date"])
 
-    def test_one_writer_error_does_not_kill_batch(self):
-        rows = [self._row(i) for i in
-                ("KN-0001", "XM-0001", "DL-0001", "CD-0001")]
-        provider = FakeProvider(fail_write_ids={"XM-0001"})
-        updates, articles, guard = rb.run_writer_pipeline(
-            rows, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
+    def test_requires_sources_row_fails_qa_without_sources(self):
+        """AT-0001 requires_sources=true: no 'Nguồn tham khảo' section with
+        an approved official URL => the source gate FAILS the article."""
+        row = self._row("AT-0001", status="WRITING")
+        self._write(row, self._ctx(row))  # no sources section
+        updates, articles = self._qa([row])
+        self.assertEqual(articles[0]["outcome"], "FAIL")
+        self.assertTrue(any("approved official source" in f
+                            for f in articles[0]["quality_failures"]))
+        self.assertEqual(updates["AT-0001"]["status"], "FAIL")
+
+    def test_requires_sources_row_passes_qa_with_approved_source(self):
+        row = self._row("AT-0001", status="WRITING")
+        self._write(row, self._ctx(row), sources_html=APPROVED_SOURCE)
+        updates, articles = self._qa([row])
+        self.assertEqual(articles[0]["outcome"], "PASS",
+                         articles[0]["quality_failures"])
+
+    def test_pass_and_published_rows_never_rewritten(self):
+        row_p = self._row("KN-0001", status="PASS")
+        row_pub = self._row("XM-0001", status="PUBLISHED")
+        self._write(row_p)
+        self._write(row_pub)
+        got = rb.select_qa_rows([row_p, row_pub], self.tmp, 50)
+        self.assertEqual(got, [])
+        # and publishing scope ignores PUBLISHED rows
+        self.assertEqual(rb.select_publish_rows([row_p, row_pub], self.tmp),
+                         [row_p])
+
+    def test_unwritten_row_isolated_from_written_rows(self):
+        written = self._row("KN-0001", status="WRITING")
+        unwritten = self._row("XM-0001", status="WRITING")
+        self._write(written, self._ctx(written))
+        updates, articles = self._qa([written, unwritten])
         outcomes = {a["article_id"]: a["outcome"] for a in articles}
         self.assertEqual(outcomes["KN-0001"], "PASS")
-        self.assertEqual(outcomes["DL-0001"], "PASS")
-        self.assertEqual(outcomes["CD-0001"], "PASS")
-        self.assertEqual(outcomes["XM-0001"], "PROVIDER_ERROR")
-        # failed row returns safely to PLANNED (retryable), others PASS
-        self.assertEqual(updates["XM-0001"]["status"], "PLANNED")
-        self.assertEqual(guard.errors, 1)
+        self.assertEqual(outcomes["XM-0001"], "NOT_WRITTEN")
+        self.assertNotIn("XM-0001", updates)  # stays WRITING, retryable
 
-    def test_pass_not_rewritten(self):
-        row = self._row("KN-0001", status="PASS")
-        provider = FakeProvider()
-        updates, entry = rb.process_article(
-            row, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
-        self.assertEqual(entry["outcome"], "SKIP_PASS_PUBLISHED")
-        self.assertEqual(provider.calls, [])  # never called
-        self.assertEqual(updates, {})
-
-    def test_published_not_rewritten(self):
-        row = self._row("KN-0001", status="PUBLISHED")
-        provider = FakeProvider()
-        updates, entry = rb.process_article(
-            row, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
-        self.assertEqual(entry["outcome"], "SKIP_PASS_PUBLISHED")
-        self.assertEqual(provider.calls, [])
-        self.assertFalse(os.path.exists(
-            os.path.join(self.tmp, row["output_path"])))
-
-    def test_review_invokes_repair_and_passes(self):
-        # KN-0002 also requires_sources=false? use KN-0001 with a broken
-        # first draft, then the repair returns a good article.
-        row = self._row("KN-0001")
-        path = os.path.join(self.tmp, row["output_path"])
-        os.makedirs(os.path.dirname(path))
-        # craft a REVIEW-grade draft: too few contextual links
-        broken = good_article_html(row)
-        import re as _re
-        broken = _re.sub(r'<p>Bạn có thể mở rộng kiến thức.*?</p>', "", broken,
-                         flags=_re.S)
-        broken = _re.sub(r'<p>Nếu bạn cần bổ sung.*?</p>', "", broken,
-                         flags=_re.S)
-        io.open(path, "w", encoding="utf-8").write(broken)
-        row["status"] = "QA"
-        provider = FakeProvider()
-        updates, entry = rb.process_article(
-            row, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
-        self.assertEqual(entry["outcome"], "PASS", entry)
-        self.assertIn(("repair", "KN-0001"), provider.calls)
-        self.assertGreaterEqual(entry["repair_attempts"], 1)
-
-    def test_repair_max_3_then_blocked(self):
-        row = self._row("KN-0001")
-        path = os.path.join(self.tmp, row["output_path"])
-        os.makedirs(os.path.dirname(path))
-        import re as _re
-        broken = good_article_html(row)
-        broken = _re.sub(r'<a href="[^"]+">', "<em>",
-                         broken).replace("</a>", "</em>")
-        io.open(path, "w", encoding="utf-8").write(broken)
-        row["status"] = "REVIEW"
-        provider = FakeProvider(never_repair=True)  # repair never fixes
-        updates, entry = rb.process_article(
-            row, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
-        self.assertEqual(entry["outcome"], "BLOCKED")
-        # writer asked to repair exactly MAX_REPAIR_ATTEMPTS times
-        repairs = [c for c in provider.calls if c[0] == "repair"]
-        self.assertEqual(len(repairs), rb.MAX_REPAIR_ATTEMPTS)
-        self.assertEqual(updates["KN-0001"]["status"], "BLOCKED")
-
-    def test_fail_never_published(self):
-        row = self._row("KN-0001")
-        # a wrong-price article is a hard fact-safety FAIL
-        path = os.path.join(self.tmp, row["output_path"])
-        os.makedirs(os.path.dirname(path))
-        html = good_article_html(row).replace(
+    def test_fail_does_not_block_pass(self):
+        good = self._row("KN-0001", status="WRITING")
+        bad = self._row("DL-0001", status="WRITING")
+        self._write(good, self._ctx(good))
+        path = self._write(bad, self._ctx(bad))
+        # wrong-price claim = hard fact-safety FAIL
+        html = io.open(path, encoding="utf-8").read().replace(
             "trước khi xuất phát cho chuyến đi an toàn hơn",
             "giá thuê Honda Vision chỉ 300.000đ mỗi ngày rất rẻ", 1)
-        assert "300.000đ" in html
         io.open(path, "w", encoding="utf-8").write(html)
-        row["status"] = "QA"
-        provider = FakeProvider()
-        updates, entry = rb.process_article(
-            row, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
-        self.assertEqual(entry["outcome"], "FAIL")
-        self.assertEqual(updates["KN-0001"]["status"], "FAIL")
-        self.assertNotEqual(updates["KN-0001"]["status"], "PUBLISHED")
+        updates, articles = self._qa([good, bad])
+        outcomes = {a["article_id"]: a["outcome"] for a in articles}
+        self.assertEqual(outcomes["KN-0001"], "PASS")
+        self.assertEqual(outcomes["DL-0001"], "FAIL")
+        self.assertEqual(updates["DL-0001"]["status"], "FAIL")
 
-    def test_partial_batch_publishing(self):
-        """43-style: some PASS, some FAIL/PROVIDER_ERROR — PASS still pass."""
-        ids = ["KN-0001", "XM-0001", "DL-0001", "CD-0001", "KN-0002", "HD-0001"]
-        rows = [self._row(i) for i in ids]
-        provider = FakeProvider(fail_write_ids={"XM-0001"})
-        updates, articles, guard = rb.run_writer_pipeline(
-            rows, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
+    def test_review_repair_then_pass(self):
+        """Weak-links draft => REVIEW (repair:1 stamped); after the agent
+        rewrites the file, the next QA pass is PASS."""
+        row = self._row("KN-0001", status="REVIEW")
+        path = self._write(row, self._ctx(row))
+        html = io.open(path, encoding="utf-8").read()
+        html = re.sub(r'<p>Bạn có thể mở rộng kiến thức.*?</p>', "", html,
+                      flags=re.S)
+        html = re.sub(r'<p>Nếu bạn cần bổ sung.*?</p>', "", html,
+                      flags=re.S)
+        io.open(path, "w", encoding="utf-8").write(html)
+        updates, articles = self._qa([row])
+        self.assertEqual(articles[0]["outcome"], "REVIEW")
+        self.assertIn("repair:1", updates["KN-0001"]["notes"])
+        # agent repairs: rewrite the file properly
+        row = self._row("KN-0001", status="REPAIR")
+        row["notes"] = updates["KN-0001"]["notes"]
+        self._write(row, self._ctx(row))
+        updates2, articles2 = self._qa([row])
+        self.assertEqual(articles2[0]["outcome"], "PASS",
+                         articles2[0]["quality_failures"])
+        self.assertEqual(updates2["KN-0001"]["status"], "PASS")
+
+    def test_review_after_max_repairs_blocked(self):
+        """A REVIEW row with repair:2 in its notes (two attempts spent) gets
+        ONE final QA pass; still REVIEW => BLOCKED, never published."""
+        row = None
+        for r in self.matrix:
+            if r.get("output_path") == "tests/fixtures/review_weak_links.html":
+                row = dict(r)
+                break
+        self.assertIsNotNone(row)
+        row["article_id"] = "ZZ-9001"
+        row["status"] = "REVIEW"
+        row["notes"] = (row.get("notes") or "") + " repair:2"
+        updates, articles = rb.run_qa_for_batch(
+            [row], self.matrix, self.ownership, self.facts, self.rubric,
+            ROOT)  # repo_root=ROOT: the fixture lives in the real repo
+        self.assertEqual(articles[0]["outcome"], "BLOCKED", articles[0])
+        self.assertEqual(updates["ZZ-9001"]["status"], "BLOCKED")
+        self.assertIn("repair:3", updates["ZZ-9001"]["notes"])
+        # BLOCKED is outside the publish scope forever
+        self.assertEqual(rb.select_publish_rows([row], ROOT), [])
+
+    def test_publish_scope_is_batch_only(self):
+        rows = [self._row(i, status="PASS")
+                for i in ("KN-0001", "XM-0001", "DL-0001")]
+        for r in rows:
+            r["batch_id"] = "BATCH-001"
+            self._write(r)
+        other = self._row("CD-0001", status="PASS")
+        other["batch_id"] = "BATCH-002"
+        self._write(other)
+        got = rb.select_publish_rows(rows, self.tmp)
+        self.assertEqual({r["article_id"] for r in got},
+                         {"KN-0001", "XM-0001", "DL-0001"})
+        got2 = rb.select_publish_rows([other], self.tmp)
+        self.assertEqual([r["batch_id"] for r in got2], ["BATCH-002"])
+
+    def test_partial_batch_publish(self):
+        """Some PASS, some FAIL — exactly the PASS rows are publishable."""
+        good = self._row("KN-0001", status="WRITING")
+        bad = self._row("DL-0001", status="WRITING")
+        self._write(good, self._ctx(good))
+        path = self._write(bad, self._ctx(bad))
+        html = io.open(path, encoding="utf-8").read().replace(
+            "trước khi xuất phát cho chuyến đi an toàn hơn",
+            "giá thuê Honda Vision chỉ 300.000đ mỗi ngày rất rẻ", 1)
+        io.open(path, "w", encoding="utf-8").write(html)
+        updates, articles = self._qa([good, bad])
         passed = [a for a in articles if a["outcome"] == "PASS"]
-        self.assertGreater(len(passed), 0, "at least some must PASS")
-        stats = rb.summarize(articles)
-        self.assertEqual(stats["pass"], len(passed))
-        self.assertEqual(stats["provider_errors"], 1)
-        # publishable = exactly the PASS articles
-        publishable = [k for k, v in updates.items() if v.get("status") == "PASS"]
-        self.assertEqual(sorted(publishable),
-                         sorted(a["article_id"] for a in passed))
+        self.assertEqual(len(passed), 1)
+        # simulate the matrix update, then check the publish scope
+        good["status"] = updates["KN-0001"]["status"]
+        publishable = rb.select_publish_rows([good, bad], self.tmp)
+        self.assertEqual([r["article_id"] for r in publishable], ["KN-0001"])
 
-    def test_max_batch_size_50(self):
+    def test_crash_resume_picks_only_rows_with_files(self):
+        """Runner crashed mid-batch: only active rows whose files exist are
+        QA-resumed; PASS rows and file-less WRITING rows are untouched."""
+        done = self._row("KN-0001", status="PASS")
+        half = self._row("DL-0001", status="QA")
+        stale = self._row("CD-0001", status="WRITING")
+        self._write(done)
+        self._write(half, self._ctx(half))
+        got = rb.select_qa_rows([done, half, stale], self.tmp, 50)
+        self.assertEqual([r["article_id"] for r in got], ["DL-0001"])
+        updates, articles = self._qa(got)
+        self.assertEqual(articles[0]["outcome"], "PASS")
+        self.assertNotIn("KN-0001", updates)
+        self.assertNotIn("CD-0001", updates)
+
+    def test_next_resolution_consistency(self):
+        """--next resolves ONE batch id; claim/QA/publish all use it."""
+        bid = rb.next_batch_id(self.matrix)
+        self.assertEqual(bid, "BATCH-001")
+        rows = rb.batch_rows(self.matrix, bid)
+        claim = rb.select_claim_rows(rows)
+        self.assertEqual(len(claim), 50)
+        self.assertTrue(all(r["batch_id"] == bid for r in claim))
+        # a resumed active batch wins over a fresh PLANNED one
+        rows2 = [dict(r) for r in self.prod]
+        for r in rows2:
+            if r["batch_id"] == "BATCH-002":
+                r["status"] = "QA"
+                break
+        self.assertEqual(rb.next_batch_id(rows2), "BATCH-002")
+
+    def test_max_batch_size_capped_at_50(self):
         rows = [dict(r) for r in self.prod[:120]]
         for r in rows:
             r["status"] = "PLANNED"
         self.assertEqual(len(rb.select_claim_rows(rows, 500)), 50)
         self.assertLessEqual(rb.MAX_BATCH_SIZE, 50)
 
-    def test_crash_resume_idempotent(self):
-        """Runner crashes after writing 2 files; resume finishes the rest
-        without duplicates and never rewrites completed PASS files."""
-        ids = ["KN-0001", "DL-0001", "CD-0001"]
-        rows = [self._row(i) for i in ids]
-        # simulate crash: first article already written + PASS, second
-        # written but stuck in QA, third not started (stale WRITING).
-        for row in rows:
-            os.makedirs(os.path.dirname(
-                os.path.join(self.tmp, row["output_path"])), exist_ok=True)
-        io.open(os.path.join(self.tmp, rows[0]["output_path"]), "w",
-                encoding="utf-8").write(good_article_html(rows[0]))
-        io.open(os.path.join(self.tmp, rows[1]["output_path"]), "w",
-                encoding="utf-8").write(good_article_html(rows[1]))
-        rows[0]["status"] = "PASS"
-        rows[1]["status"] = "QA"
-        rows[2]["status"] = "WRITING"  # claimed, file never written
-        resume = rb.select_resume_rows(rows, self.tmp, 50)
-        stale = rb.select_stale_rows(rows, self.tmp, 50)
-        self.assertEqual([r["article_id"] for r in resume], ["DL-0001"])
-        self.assertEqual([r["article_id"] for r in stale], ["CD-0001"])
-        provider = FakeProvider()
-        updates, articles, guard = rb.run_writer_pipeline(
-            resume + stale, *self._qa_env(), repo_root=self.tmp,
-            provider=provider, site=self.site)
-        # PASS row untouched; the other two completed; exactly one write call
-        write_ids = [c[1] for c in provider.calls if c[0] == "write"]
-        self.assertNotIn("KN-0001", write_ids)
-        outcomes = {a["article_id"]: a["outcome"] for a in articles}
-        self.assertEqual(outcomes["DL-0001"], "PASS")
-        self.assertEqual(outcomes["CD-0001"], "PASS")
-        # no duplicate files: each path exists exactly once (by construction)
-        for row in rows:
-            self.assertTrue(os.path.isfile(
-                os.path.join(self.tmp, row["output_path"])))
+    def test_dry_run_subprocess_changes_nothing(self):
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, True)
+        os.makedirs(os.path.join(tmp, "data"))
+        shutil.copytree(os.path.join(ROOT, "config"),
+                        os.path.join(tmp, "config"))
+        shutil.copy(os.path.join(ROOT, "data", "content-matrix.csv"),
+                    os.path.join(tmp, "data", "content-matrix.csv"))
+        p = subprocess.run(
+            [sys.executable, "-c", """
+import sys
+sys.path.insert(0, %r)
+import run_article_batch as rb, article_lib as lib
+lib.ROOT = %r
+raise SystemExit(rb.main_func(['--next', '--dry-run']))
+""" % (SCRIPTS, tmp)],
+            capture_output=True, text=True,
+            env=dict(os.environ, PYTHONPATH=SCRIPTS))
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        self.assertIn("DRY RUN BATCH-001", p.stdout)
+        self.assertIn("50 PLANNED claimable", p.stdout)
+        with io.open(os.path.join(tmp, "data", "content-matrix.csv"),
+                     encoding="utf-8") as f:
+            import csv as _csv
+            rows = list(_csv.DictReader(f))
+        self.assertFalse([r for r in rows if r["status"] == "WRITING"])
+        self.assertFalse(os.path.exists(os.path.join(tmp, "data", "batches")))
 
-    def test_missing_secret_safe_stop(self):
-        """Provider selected but key absent: rows stay PLANNED, nothing
-        fabricated."""
-        env = {"WRITER_PROVIDER": "mistral"}  # no MISTRAL_API_KEY
-        from providers import load_configured_provider
-        provider = load_configured_provider(env)
-        self.assertIsNotNone(provider)
-        self.assertFalse(provider.is_configured())
-        row = self._row("KN-0001")
-        ctx = rb.build_writer_context(row, self.matrix, self.ownership,
-                                      self.facts, self.rubric, self.site,
-                                      self.tmp)
-        with self.assertRaises(aw.WriterSecretMissing):
-            provider.write_article(row, ctx)
-        self.assertFalse(os.path.exists(
-            os.path.join(self.tmp, row["output_path"])))
 
-    def test_no_provider_selected_is_null(self):
-        provider = aw.get_provider()
-        from providers import load_configured_provider
-        self.assertIsNone(load_configured_provider({}))
-        self.assertIsInstance(provider, aw._NullProvider)
+class NoApiArchitectureTests(PipelineTestCase):
+    """The repo contains NO provider layer and NO API-secret dependency."""
+
+    def test_no_providers_directory(self):
+        self.assertFalse(os.path.isdir(os.path.join(SCRIPTS, "providers")))
+
+    def test_no_api_key_dependency_in_sources(self):
+        banned = ("MISTRAL_API_KEY", "api.mistral.ai", "chat/completions",
+                  "OPENAI_API_KEY", "ANTHROPIC_API_KEY")
+        for name in sorted(os.listdir(SCRIPTS)):
+            if not name.endswith(".py"):
+                continue
+            with io.open(os.path.join(SCRIPTS, name), encoding="utf-8") as f:
+                src = f.read()
+            for b in banned:
+                self.assertNotIn(b, src,
+                                 "%s references banned %s" % (name, b))
+
+    def test_prepare_agent_subprocess_sandboxed(self):
+        """--prepare-agent works with NO secret in the environment and
+        writes ONLY inside the sandbox — the real repo matrix is never
+        contaminated with WRITING claims."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp, True)
+        os.makedirs(os.path.join(tmp, "data"))
+        shutil.copytree(os.path.join(ROOT, "config"),
+                        os.path.join(tmp, "config"))
+        shutil.copy(os.path.join(ROOT, "data", "content-matrix.csv"),
+                    os.path.join(tmp, "data", "content-matrix.csv"))
+        env = {k: v for k, v in os.environ.items()
+               if not k.startswith(("MISTRAL", "WRITER", "OPENAI",
+                                    "ANTHROPIC"))}
+        env["PYTHONPATH"] = SCRIPTS
+        p = subprocess.run(
+            [sys.executable, "-c", """
+import sys
+sys.path.insert(0, %r)
+import run_article_batch as rb, article_lib as lib
+lib.ROOT = %r
+raise SystemExit(rb.main_func(['--batch', 'BATCH-001', '--prepare-agent']))
+""" % (SCRIPTS, tmp)],
+            capture_output=True, text=True, env=env)
+        self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+        self.assertIn("PREPARED-AGENT BATCH-001", p.stdout)
+        self.assertIn("50 articles claimed WRITING", p.stdout)
+        manifest = json.load(io.open(
+            os.path.join(tmp, "data", "batches", "BATCH-001.json"),
+            encoding="utf-8"))
+        self.assertEqual(len(manifest["articles"]), 50)
+        # SANDBOX: the real repository matrix is untouched
+        with io.open(os.path.join(ROOT, "data", "content-matrix.csv"),
+                     encoding="utf-8") as f:
+            import csv as _csv
+            real = list(_csv.DictReader(f))
+        self.assertFalse([r for r in real if r["status"] == "WRITING"],
+                         "real matrix contaminated by sandbox run")
+
+    def test_writer_not_configured(self):
         with self.assertRaises(aw.WriterNotConfigured):
-            provider.write_article({"article_id": "X"}, {})
+            aw.write_article({"article_id": "X"}, {})
 
-    def test_provider_timeout_handled(self):
-        rows = [self._row("KN-0001"), self._row("DL-0001")]
-        provider = FakeProvider(fail_write_ids={"KN-0001"},
-                                raise_type=TimeoutError)
-        updates, articles, guard = rb.run_writer_pipeline(
-            rows, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site)
-        outcomes = {a["article_id"]: a["outcome"] for a in articles}
-        self.assertEqual(outcomes["KN-0001"], "PROVIDER_ERROR")
-        self.assertEqual(outcomes["DL-0001"], "PASS")
-        self.assertEqual(updates["KN-0001"]["status"], "PLANNED")
-
-    def test_guard_stops_new_articles_when_errors_spike(self):
-        guard = rb._Guard()
-        for i in range(10):
-            guard.note_attempt()
-        for i in range(rb.PROVIDER_ERROR_FLOOR + 1):
-            guard.note_error()
-        self.assertTrue(guard.should_stop())
-
-    def test_guard_does_not_trip_on_small_error_count(self):
-        guard = rb._Guard()
-        for i in range(10):
-            guard.note_attempt()
-        guard.note_error()
-        self.assertFalse(guard.should_stop())
-
-    def test_concurrency_bounded(self):
-        self.assertLessEqual(rb.MAX_CONCURRENCY, 3)
-        rows = [self._row(i) for i in ("KN-0001", "DL-0001", "CD-0001")]
-        provider = FakeProvider()
-        updates, articles, guard = rb.run_writer_pipeline(
-            rows, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site, concurrency=rb.MAX_CONCURRENCY)
-        self.assertEqual(len([a for a in articles if a["outcome"] == "PASS"]), 3)
-
-    def test_dry_run_writes_nothing(self):
-        row = self._row("KN-0001")
-        provider = FakeProvider()
-        updates, entry = rb.process_article(
-            row, *self._qa_env(), repo_root=self.tmp, provider=provider,
-            site=self.site, dry_run=True)
-        self.assertEqual(entry["outcome"], "WOULD_WRITE")
-        self.assertEqual(provider.calls, [])
-        self.assertFalse(os.path.exists(
-            os.path.join(self.tmp, row["output_path"])))
-
-
-class WriterContextTests(PipelineTestCase):
-    def test_context_matches_mission_requirements(self):
-        row = self.by_id["KN-0001"]
-        ctx = rb.build_writer_context(row, self.matrix, self.ownership,
-                                      self.facts, self.rubric, self.site,
-                                      ROOT)
-        self.assertEqual(ctx["url_base"], _SITE)
-        self.assertEqual(ctx["baseurl"], "/shop")
-        self.assertIn("2.000.000", ctx["deposit_wording"])
-        self.assertTrue(ctx["protected_intents"])
-        self.assertEqual(ctx["commercial_link_target"], "thutuc.html")
-        self.assertTrue(ctx["neighbor_topics"])
-        self.assertNotIn("requires_owner_confirmation", ctx["business_facts"])
+    def test_writer_cli_exit_5(self):
+        p = subprocess.run(
+            [sys.executable, os.path.join(SCRIPTS, "article_writer.py")],
+            capture_output=True, text=True)
+        self.assertEqual(p.returncode, 5)
+        self.assertIn("WRITER_NOT_CONFIGURED", p.stdout)
 
 
 if __name__ == "__main__":

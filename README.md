@@ -129,11 +129,12 @@ Policy per article:
 - `FAIL` → never publish automatically. One failed article never blocks the other PASS articles in its batch.
 - `PUBLISHED` is set only after the article file is actually committed to MAIN.
 
-Writing requires a real AI writer or human author. `scripts/article_writer.py`
-is the provider interface; without an authorized provider it stops with
-`WRITER_NOT_CONFIGURED` (exit 5) — no article body is generated and no fake
-durable WRITING claims are left in the matrix. Never fabricate template
-content, never commit API keys.
+The WRITER is the external Mistral agent (or a human) operating this repo
+directly. `scripts/article_writer.py` is a neutral boundary: asked to
+write, it stops with `WRITER_NOT_CONFIGURED` (exit 5) and instructs the
+agent to run `--prepare-agent`, read the manifest, write the files itself,
+then run `--qa`. No API, no secrets, no provider modules; never fabricate
+template content.
 
 Lifecycle, URL architecture, resume and lock behavior:
 [docs/CONTENT-FACTORY.md](docs/CONTENT-FACTORY.md). Writing rules:
@@ -179,9 +180,9 @@ python3 scripts/check_cannibalization.py path/to/article.html
 python3 scripts/score_article.py path/to/article.html
 # matrix + factory
 python3 scripts/validate_content_matrix.py
-python3 scripts/run_article_batch.py --batch BATCH-001 --prepare
-python3 scripts/run_article_batch.py --batch BATCH-001 --resume
-python3 scripts/run_article_batch.py --next --batch-size 50
+python3 scripts/run_article_batch.py --batch BATCH-001 --prepare-agent
+python3 scripts/run_article_batch.py --batch BATCH-001 --qa
+python3 scripts/run_article_batch.py --next --dry-run
 python3 -m unittest discover tests
 ```
 
@@ -208,12 +209,12 @@ every PR / relevant push; REVIEW or FAIL fails CI. It also runs
 `scripts/validate_content_matrix.py` (2000 rows / 40 batches x 50). The manual
 batch workflow `.github/workflows/article-batch.yml` is `workflow_dispatch`
 only (inputs: batch_id, batch_size default 50, hard max 50); it validates the
-matrix and prepares a batch manifest, then reports `WRITER_NOT_CONFIGURED`
-until a real writer provider exists. NO CRON is attached to any workflow —
-scheduling is deliberately deferred (future cron must never start a new
-batch while an earlier batch is still WRITING/QA). Legacy special-purpose
-workflows `recover-phoco.yml` and `seo-phoco.yml` are separate and must not be
-modified casually.
+matrix and dry-runs the batch scope, optionally runs deterministic QA on
+the files in the checkout, and uploads reports as artifacts (read-only:
+contents: read). NO CRON is attached to any workflow — the hourly operator
+flow belongs to the external agent, never to GitHub Actions. Legacy
+special-purpose workflows `recover-phoco.yml` and `seo-phoco.yml` are
+separate and must not be modified casually.
 
 ## 9. Hard rules recap
 

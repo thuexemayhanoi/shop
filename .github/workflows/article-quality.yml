@@ -6,13 +6,14 @@ on:
   push:
     branches: [main]
     paths:
-      - "data/articles/**"
+      - "cam-nang/**"
       - "data/content-matrix.csv"
       - "tests/**"
       - "scripts/**"
       - "config/article-rubric.json"
       - "config/business-facts.json"
       - "config/seo-ownership.json"
+      - "config/source-policy.json"
       - "docs/**"
       - ".github/workflows/article-quality.yml"
 
@@ -39,17 +40,16 @@ jobs:
       - name: Validate content matrix
         run: python3 scripts/validate_content_matrix.py
 
-      - name: Determine candidate articles
+      - name: Determine candidate articles (REAL repository paths)
         id: candidates
         run: |
           set -eu
-          mkdir -p /tmp/candidates
-          count=0
-          # Production articles: files listed in the content matrix
-          if [ -f data/content-matrix.csv ]; then
-            python3 - <<'PY'
-          import csv, os, shutil
-          os.makedirs('/tmp/candidates', exist_ok=True)
+          # Production articles are validated at their REAL repository paths
+          # (cam-nang/... etc.). Files are NEVER copied/flattened into /tmp:
+          # flattening loses the directory, which breaks relative
+          # article-to-article links inside a category directory.
+          python3 - <<'PY' > candidates.txt
+          import csv, os
           with open('data/content-matrix.csv', encoding='utf-8') as f:
               for row in csv.DictReader(f):
                   p = (row.get('output_path') or '').strip()
@@ -57,16 +57,11 @@ jobs:
                   if p.startswith('tests/') or aid.startswith('SAMPLE'):
                       continue  # fixtures and samples are not production articles
                   if p and os.path.isfile(p):
-                      shutil.copy(p, '/tmp/candidates/' + os.path.basename(p))
+                      print(p)
           PY
-          fi
-          # Also include any changed/new files under the article directory
-          if [ -d data/articles ]; then
-            cp -n data/articles/*.html /tmp/candidates/ 2>/dev/null || true
-          fi
-          count=$(ls /tmp/candidates/*.html 2>/dev/null | wc -l)
+          count=$(wc -l < candidates.txt)
           echo "count=$count" >> "$GITHUB_OUTPUT"
-          echo "Candidate articles: $count"
+          echo "Candidate production articles: $count (validated at real paths)"
 
       - name: Validate, cannibalization-check and score articles
         if: steps.candidates.outputs.count != '0'
@@ -74,23 +69,17 @@ jobs:
           set -eu
           status=0
           mkdir -p reports/article-quality
-          for f in /tmp/candidates/*.html; do
+          while IFS= read -r f; do
             echo "===== $f"
             python3 scripts/validate_article.py "$f" || status=3
             python3 scripts/check_cannibalization.py "$f" || status=3
             python3 scripts/score_article.py "$f" || status=3
-          done
+          done < candidates.txt
           exit $status
 
       - name: No candidates note
         if: steps.candidates.outputs.count == '0'
-        run: echo "No production candidate articles to check (matrix/articles unchanged or empty)."
-
-      - name: Collect quality reports
-        if: always()
-        run: |
-          mkdir -p reports/article-quality
-          ls reports/article-quality/ || true
+        run: echo "No production candidate articles to check (none published yet)."
 
       - name: Upload quality reports
         if: always() && steps.candidates.outputs.count != '0'

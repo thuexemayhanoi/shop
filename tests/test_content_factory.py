@@ -130,7 +130,7 @@ class BatchSelectionTests(FactoryTestCase):
                 r["status"] = st
                 r["output_path"] = "tests/fixtures/good.html" if st in ("WRITING", "QA", "REVIEW") else "nope.html"
                 rows.append(r)
-            got = rb.select_resume_rows(rows, ROOT, 50)
+            got = rb.select_qa_rows(rows, ROOT, 50)
             self.assertEqual([r["status"] for r in got], ["WRITING", "QA", "REVIEW"])
         finally:
             shutil.rmtree(tmp)
@@ -138,7 +138,7 @@ class BatchSelectionTests(FactoryTestCase):
     def test_resume_never_touches_pass(self):
         rows = [dict(self.prod[0])]
         rows[0]["status"] = "PASS"
-        self.assertEqual(rb.select_resume_rows(rows, ROOT, 50), [])
+        self.assertEqual(rb.select_qa_rows(rows, ROOT, 50), [])
 
     def test_batch_rows_and_next(self):
         b1 = rb.batch_rows(self.matrix, "BATCH-001")
@@ -176,7 +176,7 @@ class PublishPolicyTests(FactoryTestCase):
     def test_pass_article_is_publishable(self):
         ownership, facts, rubric = self._qa_env()
         row = self._row_for_fixture("good.html", "ZZ-9999")
-        updates, articles = rb.run_qa_for_rows([row], self.matrix, ownership,
+        updates, articles = rb.run_qa_for_batch([row], self.matrix, ownership,
                                                facts, rubric, ROOT)
         self.assertEqual(articles[0]["outcome"], "PASS")
         self.assertEqual(updates["ZZ-9999"]["status"], "PASS")
@@ -184,7 +184,7 @@ class PublishPolicyTests(FactoryTestCase):
     def test_fail_article_not_published(self):
         ownership, facts, rubric = self._qa_env()
         row = self._row_for_fixture("fail_vision_price.html", "ZZ-9998")
-        updates, articles = rb.run_qa_for_rows([row], self.matrix, ownership,
+        updates, articles = rb.run_qa_for_batch([row], self.matrix, ownership,
                                                facts, rubric, ROOT)
         self.assertEqual(articles[0]["outcome"], "FAIL")
         self.assertEqual(updates["ZZ-9998"]["status"], "FAIL")
@@ -192,7 +192,7 @@ class PublishPolicyTests(FactoryTestCase):
     def test_review_article_not_published(self):
         ownership, facts, rubric = self._qa_env()
         row = self._row_for_fixture("review_weak_links.html", "ZZ-9997")
-        updates, articles = rb.run_qa_for_rows([row], self.matrix, ownership,
+        updates, articles = rb.run_qa_for_batch([row], self.matrix, ownership,
                                                facts, rubric, ROOT)
         self.assertEqual(articles[0]["outcome"], "REVIEW")
         self.assertNotEqual(updates["ZZ-9997"]["status"], "PASS")
@@ -203,7 +203,7 @@ class PublishPolicyTests(FactoryTestCase):
         rows = [self._row_for_fixture("good.html", "ZZ-0001"),
                 self._row_for_fixture("fail_vision_price.html", "ZZ-0002"),
                 self._row_for_fixture("good2.html", "ZZ-0003")]
-        updates, articles = rb.run_qa_for_rows(rows, self.matrix, ownership,
+        updates, articles = rb.run_qa_for_batch(rows, self.matrix, ownership,
                                                facts, rubric, ROOT)
         outcomes = {a["article_id"]: a["outcome"] for a in articles}
         self.assertEqual(outcomes["ZZ-0001"], "PASS")
@@ -236,40 +236,70 @@ class RunnerCLITests(FactoryTestCase):
                     os.path.join(tmp, "data", "content-matrix.csv"))
         return tmp
 
-    def test_prepare_without_writer_writes_manifest_keeps_planned(self):
-        """With no writer provider configured, --prepare produces the manifest
-        artifact but must NOT leave durable WRITING claims in the matrix —
-        rows stay PLANNED and remain safely recoverable."""
+    def test_prepare_agent_claims_50_writing_and_manifest(self):
+        """--prepare-agent claims exactly the batch's PLANNED rows as
+        WRITING and writes the deterministic agent manifest — with NO API,
+        NO provider and NO secrets. Rows are claimed (WRITING) so the
+        external agent knows exactly which files to write; the manifest
+        carries the full per-article production context."""
         tmp = self._sandbox()
         env = dict(os.environ, PYTHONPATH=SCRIPTS)
         code = subprocess.call(
             [sys.executable, "-c", """
-import sys, os
+import sys
 sys.path.insert(0, %r)
 import run_article_batch as rb, article_lib as lib
 lib.ROOT = %r
-rb.main_func(['--batch', 'BATCH-001', '--prepare'])
+rb.main_func(['--batch', 'BATCH-001', '--prepare-agent'])
 """ % (SCRIPTS, tmp)],
             env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         try:
             manifest = os.path.join(tmp, "data", "batches", "BATCH-001.json")
-            self.assertTrue(os.path.exists(manifest), "manifest missing (code=%d)" % code)
+            self.assertEqual(code, 0)
+            self.assertTrue(os.path.exists(manifest))
             data = json.load(io.open(manifest, encoding="utf-8"))
             self.assertEqual(len(data["articles"]), 50)
-            # writer context carries the production standard
-            wc = data.get("writer_context", {})
-            self.assertEqual(wc.get("target_min_words"), 1600)
-            self.assertEqual(wc.get("target_max_words"), 2000)
-            self.assertEqual(wc.get("contextual_internal_links_min"), 3)
-            self.assertEqual(wc.get("contextual_internal_links_max"), 5)
-            self.assertEqual(wc.get("commercial_links_max"), 1)
-            self.assertTrue(wc.get("parent_hub_link_required"))
+            wc = data["articles"][0]
+            # full writer context per article
+            self.assertEqual(wc["word_standard"]["target_min_words"], 1600)
+            self.assertEqual(wc["word_standard"]["target_max_words"], 2000)
+            self.assertEqual(wc["link_standard"]["contextual_internal_links_min"], 3)
+            self.assertEqual(wc["link_standard"]["contextual_internal_links_max"], 5)
+            self.assertEqual(wc["link_standard"]["commercial_links_max"], 1)
+            self.assertTrue(wc["link_standard"]["parent_hub_link_required"])
+            self.assertTrue(wc["canonical_url"].endswith(wc["output_path"]))
+            # datePublished = ACTUAL date, never the future planned_date
+            self.assertNotEqual(wc["date_published"], wc.get("planned_date"))
+            self.assertEqual(wc["date_published"], rb.today())
             with io.open(os.path.join(tmp, "data", "content-matrix.csv"),
                          encoding="utf-8") as f:
                 rows = list(csv.DictReader(f))
             writing = [r for r in rows if r["status"] == "WRITING"]
-            self.assertEqual(len(writing), 0,
-                             "WRITING claimed without a configured writer")
+            self.assertEqual(len(writing), 50)
+            self.assertTrue(all(r["batch_id"] == "BATCH-001" for r in writing))
+        finally:
+            shutil.rmtree(tmp)
+
+    def test_prepare_agent_needs_no_secret(self):
+        """prepare-agent must work with a scrubbed environment: no
+        MISTRAL_API_KEY, no WRITER_PROVIDER, no provider modules."""
+        tmp = self._sandbox()
+        env = {k: v for k, v in os.environ.items()
+               if not k.startswith(("MISTRAL", "WRITER", "OPENAI", "ANTHROPIC"))}
+        env["PYTHONPATH"] = SCRIPTS
+        code = subprocess.call(
+            [sys.executable, "-c", """
+import sys
+sys.path.insert(0, %r)
+import run_article_batch as rb, article_lib as lib
+lib.ROOT = %r
+rb.main_func(['--batch', 'BATCH-001', '--prepare-agent'])
+""" % (SCRIPTS, tmp)],
+            env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        try:
+            self.assertEqual(code, 0)
+            self.assertTrue(os.path.exists(os.path.join(
+                tmp, "data", "batches", "BATCH-001.json")))
         finally:
             shutil.rmtree(tmp)
 

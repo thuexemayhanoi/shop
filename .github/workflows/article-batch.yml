@@ -1,32 +1,34 @@
 name: Article Batch
 
-# Production batch orchestration for the 2,000-article factory.
+# DETERMINISTIC HELPER ONLY — GitHub Actions never writes articles and
+# never calls any AI API. The Mistral agent (or a human) is the writer and
+# the publisher; it runs scripts/run_article_batch.py locally, writes the
+# article files itself, QA-repairs them and pushes PASS files + matrix to
+# MAIN. This workflow only verifies repository state and prepares checks:
 #
-# REAL pipeline: write (WRITER_PROVIDER=mistral via MISTRAL_API_KEY secret)
-# -> deterministic QA -> repair loop (max 3) -> publish PASS articles to
-# MAIN -> regenerate category hubs + sitemap.
+#   - validate content matrix
+#   - run the factory test suite
+#   - respect the kill switch (config/content-factory.json)
+#   - optionally DRY-RUN batch resolution (--next / --batch / --pilot)
+#   - optionally run deterministic QA (--qa) on whatever article files
+#     exist in the checkout, and write reports/batches/*.{json,md}
+#   - optionally write reports/batches/factory-progress.json (--progress)
+#   - upload the reports as artifacts
 #
-# NO CRON YET: scheduling may only be added after BATCH-001 has been piloted
-# for real and verified stable (pilot=true run with a configured writer).
-# The future cron must use --next (never a hard-coded BATCH-NNN) and must
-# check this kill switch: config/content-factory.json
-#   enabled / scheduled_runs_enabled = false -> exit safely, no changes.
+# NO CRON: hourly repetition belongs to the EXTERNAL Mistral agent
+# scheduler, not GitHub Actions. NEVER add an AI-writing cron here.
 #
-# Global production concurrency: only ONE batch workflow run may execute at
-# a time across all batches and trigger types. cancel-in-progress: false
-# queues a second run instead of killing the in-flight batch. The local
-# filesystem lock is NOT sufficient across runners; this group plus the
-# matrix state persisted to MAIN prevents duplicate claims.
+# NO SECRETS: no AI API keys of any kind, no provider modules, no API calls.
 
 on:
   workflow_dispatch:
     inputs:
       batch_id:
-        description: "Batch to run, e.g. BATCH-001 (empty = first batch with PLANNED rows)"
+        description: "Batch to inspect, e.g. BATCH-001 (empty = --next resolution)"
         required: false
         default: ""
       batch_size:
-        description: "Max articles per run (default 50, max 50)"
+        description: "Max articles per batch (default 50, max 50)"
         required: false
         default: "50"
       pilot:
@@ -35,17 +37,23 @@ on:
         required: false
         default: false
       dry_run:
-        description: "Show what would run; write nothing"
+        description: "Resolve the batch and show what would run (no writes)"
+        type: boolean
+        required: false
+        default: true
+      qa:
+        description: "Run deterministic QA on written files present in this checkout"
         type: boolean
         required: false
         default: false
-      concurrency:
-        description: "Writer calls in parallel (default 1, max 3)"
+      progress:
+        description: "Write reports/batches/factory-progress.json"
+        type: boolean
         required: false
-        default: "1"
+        default: true
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: article-batch-production
@@ -63,171 +71,61 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Check kill switch (config/content-factory.json)
+        run: |
+          set -eu
+          enabled=$(python3 -c "import json;print(json.load(open('config/content-factory.json'))['enabled'])")
+          echo "content-factory enabled = $enabled"
+          if [ "$enabled" != "True" ]; then
+            echo "FACTORY_PAUSED: kill switch off — reports only."
+          fi
+
+      - name: Run factory test suite
+        run: python3 -m unittest discover tests
+
       - name: Validate content matrix
         run: python3 scripts/validate_content_matrix.py
 
-      - name: Run factory tests
-        run: python3 -m unittest discover tests
-
-      - name: Check factory kill switch
-        id: killswitch
+      - name: Resolve batch + dry-run scope
         run: |
           set -eu
-          python3 - <<'EOF'
-          import json, sys
-          cfg = json.load(open("config/content-factory.json", encoding="utf-8"))
-          if not cfg.get("enabled", True):
-              print("FACTORY_PAUSED"); sys.exit(1)
-          print("kill switch: enabled")
-          EOF
-
-      - name: Cap batch size
-        id: size
-        run: |
-          set -eu
-          size="${{ github.event.inputs.batch_size }}"
-          if [ -z "$size" ]; then size=50; fi
-          case "$size" in (*[!0-9]*|'') size=50;; esac
-          if [ "$size" -gt 50 ]; then size=50; fi
-          if [ "$size" -lt 1 ]; then size=1; fi
-          conc="${{ github.event.inputs.concurrency }}"
-          if [ -z "$conc" ]; then conc=1; fi
-          case "$conc" in (*[!0-9]*|'') conc=1;; esac
-          if [ "$conc" -gt 3 ]; then conc=3; fi
-          if [ "$conc" -lt 1 ]; then conc=1; fi
-          echo "size=$size" >> "$GITHUB_OUTPUT"
-          echo "conc=$conc" >> "$GITHUB_OUTPUT"
-          echo "Batch size: $size (hard max 50); writer concurrency: $conc"
-
-      # ------------------------------------------------------------------
-      # REAL writer pipeline: write -> QA -> repair -> PASS/REVIEW/FAIL/
-      # BLOCKED per article, one bad article never blocks the others.
-      # ------------------------------------------------------------------
-      - name: Run batch (write + QA + repair)
-        id: runbatch
-        env:
-          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
-          WRITER_PROVIDER: mistral
-          GITHUB_SHA: ${{ github.sha }}
-        run: |
-          set -eu
-          mkdir -p data/batches reports/batches
-          args=""
-          bid="${{ github.event.inputs.batch_id }}"
-          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then
-            args="$args --pilot"
-          elif [ -n "$bid" ]; then
-            args="$args --batch $bid"
+          args="--batch-size ${{ github.event.inputs.batch_size || '50' }}"
+          if [ -n "${{ github.event.inputs.batch_id }}" ]; then
+            args="$args --batch ${{ github.event.inputs.batch_id }}"
           else
             args="$args --next"
           fi
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-            args="$args --dry-run"
+          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then
+            args="$args --pilot"
           fi
-          set +e
-          python3 scripts/run_article_batch.py $args \
-            --batch-size "${{ steps.size.outputs.size }}" \
-            --concurrency "${{ steps.size.outputs.conc }}" > batch.log 2>&1
-          code=$?
-          set -e
-          cat batch.log
-          if [ "$code" -eq 5 ]; then
-            echo "result=WRITER_NOT_CONFIGURED" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if [ "$code" -eq 6 ]; then
-            echo "result=WRITER_SECRET_MISSING" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if [ "$code" -ne 0 ]; then
-            echo "result=DONE_WITH_ISSUES" >> "$GITHUB_OUTPUT"
+          python3 scripts/run_article_batch.py $args --dry-run --progress
+
+      - name: Deterministic QA (optional, read-only reports)
+        if: ${{ github.event.inputs.qa == 'true' }}
+        run: |
+          set -u
+          args="--batch-size ${{ github.event.inputs.batch_size || '50' }}"
+          if [ -n "${{ github.event.inputs.batch_id }}" ]; then
+            args="$args --batch ${{ github.event.inputs.batch_id }}"
           else
-            echo "result=OK" >> "$GITHUB_OUTPUT"
+            args="$args --next"
           fi
-          exit 0   # issues are reported per-article; publish step decides
-
-      - name: Report writer status
-        if: steps.runbatch.outputs.result == 'WRITER_NOT_CONFIGURED' || steps.runbatch.outputs.result == 'WRITER_SECRET_MISSING'
-        run: |
-          echo "::notice::${{ steps.runbatch.outputs.result }} — no authorized writer is configured (MISTRAL_API_KEY via GitHub Actions Secrets). No content was generated; matrix rows stay PLANNED. Add the secret, then re-run."
-
-      # ------------------------------------------------------------------
-      # Partial-batch publishing: ONLY PASS articles are committed, their
-      # exact rows flipped PUBLISHED only AFTER the push to MAIN succeeds.
-      # FAIL/REVIEW/BLOCKED never publish and never block the good ones.
-      # ------------------------------------------------------------------
-      - name: Stage PASS articles for publish
-        if: steps.runbatch.outputs.result == 'OK' || steps.runbatch.outputs.result == 'DONE_WITH_ISSUES'
-        id: stage
-        run: |
-          set -eu
-          python3 - <<'EOF' > pass_files.txt
-          import csv, io, os, sys
-          sys.path.insert(0, "scripts")
-          import article_lib as lib
-          matrix = lib.load_matrix()
-          rows = [r for r in matrix if not lib.is_sample_row(r)
-                  and (r.get("status") or "").strip() == "PASS"
-                  and r.get("output_path")
-                  and os.path.isfile(r["output_path"])]
-          for r in rows:
-              print(r["output_path"])
-          print("data/content-matrix.csv")
-          print("reports/batches")
-          EOF
-          count=$(grep -c '\.html$' pass_files.txt || true)
-          echo "count=$count" >> "$GITHUB_OUTPUT"
-          cat pass_files.txt
-          if [ "$count" -eq 0 ]; then
-            echo "No PASS articles to publish this run."
+          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then
+            args="$args --pilot"
           fi
+          python3 scripts/run_article_batch.py $args --qa --progress
+          code=$?
+          # 0 ok / 3 FAIL rows / 4 REVIEW-BLOCKED rows are valid QA results;
+          # only tool/usage errors fail the workflow.
+          if [ "$code" -ne 0 ] && [ "$code" -ne 3 ] && [ "$code" -ne 4 ]; then
+            exit "$code"
+          fi
+          exit 0
 
-      - name: Commit PASS articles + matrix to MAIN
-        if: steps.stage.outputs.count != '0' && steps.stage.outputs.count != ''
-        run: |
-          set -eu
-          git config user.name "Mr Tú"
-          git config user.email "nguyentuantu2482@gmail.com"
-          git add $(cat pass_files.txt | tr '\n' ' ')
-          git commit -m "article batch: publish ${{ steps.stage.outputs.count }} PASS articles + matrix state" || echo "nothing to commit"
-          git push origin HEAD:main
-
-      - name: Confirm push then mark PUBLISHED
-        if: steps.stage.outputs.count != '0' && steps.stage.outputs.count != ''
-        run: |
-          set -eu
-          # PUBLISHED means the file actually exists on MAIN. Mark rows only
-          # after the push succeeded (previous step would have failed otherwise).
-          bid="${{ github.event.inputs.batch_id }}"
-          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then bid="BATCH-001"; fi
-          python3 scripts/run_article_batch.py --batch "${bid:-BATCH-001}" --mark-published
-          git add data/content-matrix.csv
-          git commit -m "article batch: mark ${{ steps.stage.outputs.count }} rows PUBLISHED (files verified on MAIN)" || echo "nothing to commit"
-          git push origin HEAD:main
-
-      - name: Regenerate category hubs + sitemap from PUBLISHED rows
-        if: steps.stage.outputs.count != '0' && steps.stage.outputs.count != ''
-        run: |
-          set -eu
-          python3 scripts/generate_category_pages.py
-          python3 scripts/generate_sitemap.py
-          git add cam-nang sitemap.xml 2>/dev/null || true
-          git commit -m "article batch: regenerate category hubs + sitemap for published articles" || echo "nothing to commit"
-          git push origin HEAD:main
-
-      - name: Final validation after publish
-        run: |
-          set -eu
-          python3 scripts/validate_content_matrix.py
-          python3 -m unittest discover tests
-
-      - name: Upload batch report
+      - name: Upload batch reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: batch-report
-          path: |
-            reports/batches/*.json
-            reports/batches/*.md
-            batch.log
+          name: batch-reports
+          path: reports/batches/
           if-no-files-found: ignore

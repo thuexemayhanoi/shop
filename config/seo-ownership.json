@@ -4,93 +4,153 @@
     {
       "path": "index.html",
       "role": "homepage",
-      "primary_intents": ["thuê xe máy hà nội", "thue xe may ha noi"],
-      "secondary_intents": ["thuê xe máy phố cổ", "thuê xe máy hoàn kiếm", "giá thuê xe máy hà nội"],
-      "notes": "Homepage owns the head commercial term for the whole city and supports secondary location/pricing terms without owning them. Secondary intents are supportive only: they do not create conflicts for articles, and articles must not target them as primary."
+      "primary_intents": [
+        "thuê xe máy hà nội",
+        "thue xe may ha noi"
+      ],
+      "secondary_intents": [
+        "thuê xe máy phố cổ",
+        "thuê xe máy hoàn kiếm",
+        "giá thuê xe máy hà nội"
+      ],
+      "notes": "Homepage owns the head commercial term for the whole city and supports secondary location/pricing terms without owning them. Secondary intents are supportive only: they do not create conflicts for articles, and articles must not target them as primary.",
+      "commercial": true
     },
     {
       "path": "phoco.html",
       "role": "commercial-landing",
-      "primary_intents": ["thuê xe máy phố cổ", "thuê xe máy phố cổ hà nội", "thue xe may pho co"],
-      "notes": "Owns Phố Cổ rental intent. Informational articles may mention Phố Cổ but must not target rental intent."
+      "primary_intents": [
+        "thuê xe máy phố cổ",
+        "thuê xe máy phố cổ hà nội",
+        "thue xe may pho co"
+      ],
+      "notes": "Owns Phố Cổ rental intent. Informational articles may mention Phố Cổ but must not target rental intent.",
+      "commercial": true
     },
     {
       "path": "hoankiem.html",
       "role": "commercial-landing",
-      "primary_intents": ["thuê xe máy hoàn kiếm", "thue xe may hoan kiem"],
-      "notes": "Owns Hoàn Kiếm rental intent."
+      "primary_intents": [
+        "thuê xe máy hoàn kiếm",
+        "thue xe may hoan kiem"
+      ],
+      "notes": "Owns Hoàn Kiếm rental intent.",
+      "commercial": true
     },
     {
       "path": "banggia.html",
       "role": "pricing",
-      "primary_intents": ["bảng giá thuê xe máy hà nội", "giá thuê xe máy hà nội", "bảng giá thuê xe máy"],
-      "notes": "Owns pricing/price-list intent."
+      "primary_intents": [
+        "bảng giá thuê xe máy hà nội",
+        "giá thuê xe máy hà nội",
+        "bảng giá thuê xe máy"
+      ],
+      "notes": "Owns pricing/price-list intent.",
+      "commercial": true
     },
     {
       "path": "ngay.html",
       "role": "rental-duration",
-      "primary_intents": ["thuê xe máy theo ngày", "thuê xe máy hà nội theo ngày"],
-      "notes": "Owns daily rental intent."
+      "primary_intents": [
+        "thuê xe máy theo ngày",
+        "thuê xe máy hà nội theo ngày"
+      ],
+      "notes": "Owns daily rental intent.",
+      "commercial": true
     },
     {
       "path": "tuan.html",
       "role": "rental-duration",
-      "primary_intents": ["thuê xe máy theo tuần", "thuê xe máy hà nội theo tuần"],
-      "notes": "Owns weekly rental intent."
+      "primary_intents": [
+        "thuê xe máy theo tuần",
+        "thuê xe máy hà nội theo tuần"
+      ],
+      "notes": "Owns weekly rental intent.",
+      "commercial": true
     },
     {
       "path": "thang.html",
       "role": "rental-duration",
-      "primary_intents": ["thuê xe máy theo tháng", "thuê xe máy hà nội theo tháng"],
-      "notes": "Owns monthly rental intent."
+      "primary_intents": [
+        "thuê xe máy theo tháng",
+        "thuê xe máy hà nội theo tháng"
+      ],
+      "notes": "Owns monthly rental intent.",
+      "commercial": true
     },
     {
       "path": "thutuc.html",
       "role": "service",
-      "primary_intents": ["thủ tục thuê xe máy", "thủ tục thuê xe máy hà nội"],
-      "notes": "Owns rental procedure intent."
+      "primary_intents": [
+        "thủ tục thuê xe máy",
+        "thủ tục thuê xe máy hà nội"
+      ],
+      "notes": "Owns rental procedure intent.",
+      "commercial": true
     },
     {
       "path": "uudai.html",
       "role": "service",
-      "primary_intents": ["ưu đãi thuê xe máy", "khuyến mãi thuê xe máy hà nội"],
-      "notes": "Owns promotion intent. Articles must not promise specific discounts."
+      "primary_intents": [
+        "ưu đãi thuê xe máy",
+        "khuyến mãi thuê xe máy hà nội"
+      ],
+      "notes": "Owns promotion intent. Articles must not promise specific discounts.",
+      "commercial": true
     },
     {
       "path": "kinhnghiem.html",
       "role": "category-hub",
-      "primary_intents": ["kinh nghiệm thuê xe máy hà nội"],
-      "notes": "Category hub — Kinh nghiệm."
+      "primary_intents": [
+        "kinh nghiệm thuê xe máy hà nội"
+      ],
+      "notes": "Category hub — Kinh nghiệm.",
+      "commercial": false
     },
     {
       "path": "antoan.html",
       "role": "category-hub",
-      "primary_intents": ["an toàn khi đi xe máy"],
-      "notes": "Category hub — An toàn."
+      "primary_intents": [
+        "an toàn khi đi xe máy"
+      ],
+      "notes": "Category hub — An toàn.",
+      "commercial": false
     },
     {
       "path": "xemay.html",
       "role": "category-hub",
-      "primary_intents": ["các loại xe máy"],
-      "notes": "Category hub — Xe máy."
+      "primary_intents": [
+        "các loại xe máy"
+      ],
+      "notes": "Category hub — Xe máy.",
+      "commercial": false
     },
     {
       "path": "dulich.html",
       "role": "category-hub",
-      "primary_intents": ["du lịch hà nội"],
-      "notes": "Category hub — Du lịch."
+      "primary_intents": [
+        "du lịch hà nội"
+      ],
+      "notes": "Category hub — Du lịch.",
+      "commercial": false
     },
     {
       "path": "cungduong.html",
       "role": "category-hub",
-      "primary_intents": ["cung đường phượt hà nội"],
-      "notes": "Category hub — Cung đường."
+      "primary_intents": [
+        "cung đường phượt hà nội"
+      ],
+      "notes": "Category hub — Cung đường.",
+      "commercial": false
     },
     {
       "path": "hoidap.html",
       "role": "category-hub",
-      "primary_intents": ["hỏi đáp thuê xe máy"],
-      "notes": "Category hub — Hỏi đáp."
+      "primary_intents": [
+        "hỏi đáp thuê xe máy"
+      ],
+      "notes": "Category hub — Hỏi đáp.",
+      "commercial": false
     }
   ],
   "rules": {
