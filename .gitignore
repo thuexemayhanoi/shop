@@ -1,0 +1,6 @@
+# Generated article-quality reports (keep the directory via .gitkeep)
+reports/article-quality/*.json
+reports/article-quality/*.html
+# OS noise
+.DS_Store
+Thumbs.db

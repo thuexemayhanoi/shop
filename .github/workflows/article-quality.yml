@@ -1,0 +1,98 @@
+name: Article Quality Gate
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "data/articles/**"
+      - "data/content-matrix.csv"
+      - "tests/**"
+      - "scripts/**"
+      - "config/article-rubric.json"
+      - "config/business-facts.json"
+      - "config/seo-ownership.json"
+      - "docs/**"
+      - ".github/workflows/article-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  article-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run unit tests
+        run: python3 -m unittest tests/test_article_quality.py
+
+      - name: Determine candidate articles
+        id: candidates
+        run: |
+          set -eu
+          mkdir -p /tmp/candidates
+          count=0
+          # Production articles: files listed in the content matrix
+          if [ -f data/content-matrix.csv ]; then
+            python3 - <<'PY'
+            import csv, os, shutil
+            os.makedirs('/tmp/candidates', exist_ok=True)
+            with open('data/content-matrix.csv', encoding='utf-8') as f:
+                for row in csv.DictReader(f):
+                    p = (row.get('output_path') or '').strip()
+                    aid = row.get('article_id') or ''
+                    if p.startswith('tests/') or aid.startswith('SAMPLE'):
+                        continue  # fixtures and samples are not production articles
+                    if p and os.path.isfile(p):
+                        shutil.copy(p, '/tmp/candidates/' + os.path.basename(p))
+            PY
+          fi
+          # Also include any changed/new files under the article directory
+          if [ -d data/articles ]; then
+            cp -n data/articles/*.html /tmp/candidates/ 2>/dev/null || true
+          fi
+          count=$(ls /tmp/candidates/*.html 2>/dev/null | wc -l)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "Candidate articles: $count"
+
+      - name: Validate, cannibalization-check and score articles
+        if: steps.candidates.outputs.count != '0'
+        run: |
+          set -eu
+          status=0
+          mkdir -p reports/article-quality
+          for f in /tmp/candidates/*.html; do
+            echo "===== $f"
+            python3 scripts/validate_article.py "$f" || status=3
+            python3 scripts/check_cannibalization.py "$f" || status=3
+            python3 scripts/score_article.py "$f" || status=3
+          done
+          exit $status
+
+      - name: No candidates note
+        if: steps.candidates.outputs.count == '0'
+        run: echo "No production candidate articles to check (matrix/articles unchanged or empty)."
+
+      - name: Collect quality reports
+        if: always()
+        run: |
+          mkdir -p reports/article-quality
+          ls reports/article-quality/ || true
+
+      - name: Upload quality reports
+        if: always() && steps.candidates.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: article-quality-reports
+          path: reports/article-quality/
+          if-no-files-found: ignore
