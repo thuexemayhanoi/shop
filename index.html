@@ -1382,7 +1382,6 @@
                                 <span class="ai-val val-bad">Giờ HC</span>
                             </li>
                         </ul>
-                        <div class="ai-score-badge" style="border-color:#555; color:#777;">ĐIỂM: <span id="score-comp">0</span>%</div>
                     </div>
 
                     <div class="ai-radar-box">
@@ -1891,10 +1890,9 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
         },
         
         aiScoreAnimation() {
-            const compScore = document.getElementById('score-comp');
             const mrtuScore = document.getElementById('score-mrtu');
             
-            if(!compScore || !mrtuScore) return;
+            if(!mrtuScore) return;
 
             const animateValue = (obj, start, end, duration) => {
                 let startTimestamp = null;
@@ -1912,7 +1910,6 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        animateValue(compScore, 0, 42, 2000); 
                         animateValue(mrtuScore, 0, 99, 2500); 
                         observer.unobserve(entry.target);
                     }
