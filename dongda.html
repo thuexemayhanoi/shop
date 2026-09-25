@@ -336,10 +336,9 @@
     .hero-glow {
         position: absolute; width: 90vw; height: 90vw;
         background: radial-gradient(circle, rgba(255, 107, 0, 0.3) 0%, transparent 65%);
-        top: -30%; right: -30%; filter: blur(100px); opacity: 0.6; z-index: -1;
-        animation: float 10s ease-in-out infinite alternate;
+        top: -30%; right: -30%; filter: none; opacity: 0.6; z-index: -1;
+        animation: none;
     }
-    @keyframes float { from {transform: translate(0,0);} to {transform: translate(-40px, 50px);} }
 
     .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
 
