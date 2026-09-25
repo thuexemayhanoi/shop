@@ -98,19 +98,25 @@ def main():
     # GitHub Pages project site: article URLs come from config/site.json
     # site_url (https://thuexemayhanoi.github.io/shop) — NEVER the bare
     # host origin, which would drop the /shop base path.
+    factory_prefix = site["site_url"].rstrip("/") + "/cam-nang/"
+    # STALE URL ACCUMULATION FIX: factory article URLs are REBUILT from the
+    # CURRENT matrix on every generation — never preserved from the old
+    # sitemap. Only non-factory (legacy/commercial) URLs are retained.
+    legacy = [u for u in existing if not u.startswith(factory_prefix)]
     published = published_article_urls(matrix, site["site_url"])
 
-    wanted = existing[:]
+    wanted = legacy[:]
     for p in published:
         if p not in wanted:
             wanted.append(p)
 
-    new_count = len(wanted) - len(existing)
+    new_count = len(wanted) - len(legacy)
     if args.check:
         cur = current_urls(sitemap_path)
         missing = [u for u in wanted if u not in cur]
-        if missing:
-            print("STALE: %d URL(s) missing from sitemap.xml" % len(missing))
+        stale = [u for u in cur if u.startswith(factory_prefix) and u not in wanted]
+        if missing or stale:
+            print("STALE: %d missing, %d stale factory URL(s)" % (len(missing), len(stale)))
             return 1
         print("OK: sitemap.xml is up to date (%d URLs, %d published articles)"
               % (len(cur), len(published)))
@@ -122,7 +128,7 @@ def main():
     with io.open(tmp, "a", encoding="utf-8") as f:
         f.write("\n")
     os.replace(tmp, sitemap_path)
-    print("sitemap.xml: %d existing URLs kept, %d published articles included "
+    print("sitemap.xml: %d legacy URLs kept, %d published articles included "
           "(total %d)" % (len(existing), len(published), len(wanted)))
     return 0
 

@@ -210,15 +210,10 @@ class Article(object):
     def internal_links(self):
         out = []
         for href, anchor in self.links:
-            if href.startswith(("http://", "https://", "mailto:", "tel:", "data:")):
-                # absolute same-site links count as internal
-                if "thuexemayhanoi.github.io" in href:
-                    out.append((href.split("thuexemayhanoi.github.io/shop/")[-1], anchor))
-                continue
-            if href.startswith(("./", "/")):
-                out.append((href.lstrip("./"), anchor))
-            else:
-                out.append((href, anchor))
+            norm = normalize_internal_href(href)
+            if norm is None:
+                continue  # external / non-http link
+            out.append((norm, anchor))
         return out
 
     @property
@@ -278,21 +273,10 @@ class Article(object):
         """
         out = []
         for href, anchor in self._main_links():
-            if href.startswith(("mailto:", "tel:", "data:", "javascript:")):
+            norm = normalize_internal_href(href)
+            if norm is None:
                 continue
-            if href.startswith(("http://", "https://")):
-                if "thuexemayhanoi.github.io" in href:
-                    # same-site absolute URL -> strip origin + /shop base path
-                    if "/shop/" in href:
-                        href = href.split("thuexemayhanoi.github.io/shop/", 1)[-1]
-                    else:
-                        href = href.split("thuexemayhanoi.github.io/", 1)[-1]
-                    out.append((href.lstrip("/"), anchor))
-                continue
-            if href.startswith(("./", "/")):
-                out.append((href.lstrip("./").lstrip("/"), anchor))
-            else:
-                out.append((href, anchor))
+            out.append((norm, anchor))
         return out
 
     @property
@@ -483,13 +467,67 @@ def find_matrix_row(article, matrix):
 # Link resolution
 # ---------------------------------------------------------------------------
 
-def resolve_target(article, target):
-    """Resolve an internal link target against article dir then repo root."""
-    if target.startswith("http"):
-        return None  # not checkable offline; not a broken local link
+def normalize_internal_href(href, site=None):
+    """Normalize any same-site href to a repo-relative path.
+
+    GitHub Pages serves this repo as a project site under /shop/, so pages
+    legitimately contain links like "/shop/antoan.html" or the absolute
+    "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/a.html". Those
+    must resolve LOCALLY to "antoan.html" / "cam-nang/an-toan/a.html" —
+    never "shop/antoan.html" (which would break link checking).
+
+    Rules (uses config/site.json):
+      /shop/antoan.html                       -> antoan.html
+      /shop/cam-nang/an-toan/a.html           -> cam-nang/an-toan/a.html
+      https://thuexemayhanoi.github.io/shop/antoan.html -> antoan.html
+      https://thuexemayhanoi.github.io/shop/cam-nang/x/y.html -> cam-nang/x/y.html
+      ./antoan.html                           -> antoan.html
+      antoan.html                             -> antoan.html
+      https://other-site.example/x            -> None (external)
+      mailto:/tel:/data:/javascript:          -> None
+    """
+    h = (href or "").strip()
+    if not h or h.startswith(("#", "mailto:", "tel:", "data:", "javascript:")):
+        return None
+    try:
+        if site is None:
+            site = load_site_config()
+    except ConfigError:
+        site = {"origin": "https://thuexemayhanoi.github.io", "baseurl": "/shop"}
+    origin = (site.get("origin") or "").rstrip("/")
+    base = (site.get("baseurl") or "").strip("/")
+    if h.startswith(("http://", "https://")):
+        if origin and not h.startswith(origin + "/"):
+            return None  # external URL — never internal
+        # same-origin: strip origin, then the base path segment
+        path = h[len(origin):] if origin and h.startswith(origin) else h
+        path = path.lstrip("/")
+        if base and (path == base or path.startswith(base + "/")):
+            path = path[len(base):].lstrip("/")
+            return path or None
+        # same-origin but outside base path (e.g. other project) -> external
+        return None
+    if base:
+        if h == "/" + base:
+            return "index.html"
+        if h.startswith("/" + base + "/"):
+            return h[len("/" + base + "/"):].lstrip("/")
+    if h.startswith("/"):
+        return h.lstrip("/")
+    return h.lstrip("./")
+
+
+def resolve_target(article, target, site=None):
+    """Resolve an internal link target against article dir then repo root.
+
+    Accepts raw or /shop-prefixed hrefs (normalized via
+    normalize_internal_href first)."""
+    norm = normalize_internal_href(target, site)
+    if norm is None:
+        return None  # external / non-checkable — not a broken local link
     cands = [
-        os.path.normpath(os.path.join(os.path.dirname(article.path), target)),
-        os.path.normpath(os.path.join(ROOT, target)),
+        os.path.normpath(os.path.join(os.path.dirname(article.path), norm)),
+        os.path.normpath(os.path.join(ROOT, norm)),
     ]
     for c in cands:
         if os.path.exists(c):

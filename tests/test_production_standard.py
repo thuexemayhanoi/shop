@@ -16,7 +16,7 @@ SCRIPTS = os.path.join(ROOT, "scripts")
 sys.path.insert(0, SCRIPTS)
 
 import article_lib as lib
-import generate_category_index as gci
+import generate_category_pages as gcp
 import generate_sitemap as gsm
 
 
@@ -254,21 +254,21 @@ class BasePathTests(unittest.TestCase):
         self.assertEqual(site["baseurl"], "/shop")
         self.assertEqual(site["site_url"], "https://thuexemayhanoi.github.io/shop")
 
-    def test_category_index_links_use_shop_base(self):
+    def test_category_hub_block_links_use_shop_base(self):
         rows = [dict(PROD_ROW, output_path="cam-nang/an-toan/at-0001-x.html",
                      working_title="Tiêu đề", status="PUBLISHED")]
-        page = gci.render_page("An toàn", rows, 1, 1, "antoan.html", "/shop")
-        self.assertIn('href="/shop/cam-nang/an-toan/at-0001-x.html"', page)
-        self.assertIn('href="/shop/antoan.html"', page)
-        self.assertNotIn('href="/cam-nang/', page)
-        self.assertNotIn('href="/antoan.html"', page)
+        block = gcp.hub_block(rows, "/shop", "antoan.html", "An toàn", 1)
+        self.assertIn('href="/shop/cam-nang/an-toan/at-0001-x.html"', block)
+        self.assertNotIn('href="/cam-nang/', block)
 
-    def test_category_index_no_root_only_links(self):
+    def test_category_page2_links_shop_base_and_back_to_hub(self):
         rows = [dict(PROD_ROW, output_path="cam-nang/an-toan/at-0001-x.html",
                      working_title="Tiêu đề", status="PUBLISHED")]
-        for base in ("/shop", "https://thuexemayhanoi.github.io/shop"):
-            page = gci.render_page("An toàn", rows, 1, 1, "antoan.html", base)
-            self.assertNotIn('href="/cam-nang/', page)
+        page = gcp.render_page_n("An toàn", rows, 2, 2, "antoan.html", "/shop")
+        self.assertIn('href="/shop/cam-nang/an-toan/page-2.html"', page)
+        self.assertIn('Trang 1', page)
+        self.assertIn('rel="canonical"', page)
+        self.assertNotIn('href="/cam-nang/', page)
 
     def test_sitemap_article_urls_use_shop_base(self):
         rows = [dict(PROD_ROW, status="PUBLISHED")]
@@ -291,9 +291,14 @@ class BasePathTests(unittest.TestCase):
     def test_generators_forbidden_patterns_absent(self):
         row = dict(PROD_ROW, output_path="cam-nang/an-toan/at-0001-x.html",
                    working_title="Tiêu đề", status="PUBLISHED")
-        page = gci.render_page("An toàn", [row], 1, 2, "antoan.html", "/shop")
-        self.assertNotIn('href="/cam-nang/', page)
-        self.assertNotIn('https://thuexemayhanoi.github.io/cam-nang/', page)
+        block = gcp.hub_block([row], "/shop", "antoan.html", "An toàn", 1)
+        self.assertNotIn('href="/cam-nang/', block)
+        self.assertNotIn('https://thuexemayhanoi.github.io/cam-nang/', block)
+    def test_no_generated_category_index_html(self):
+        # root hubs are page 1; cam-nang/<cat>/index.html must never be generated
+        import inspect
+        src = inspect.getsource(gcp)
+        self.assertNotIn('"index.html"', src.replace('"index.html", 1', ''))
 
 
 class ConcurrencyTests(unittest.TestCase):
@@ -317,6 +322,114 @@ class MatrixStillPlannedTests(unittest.TestCase):
         self.assertEqual(len(rows), 2000)
         statuses = set(r.get("status") for r in rows)
         self.assertEqual(statuses, {"PLANNED"})
+
+
+class UrlNormalizationTests(unittest.TestCase):
+    """Factory bug #1: /shop/ hrefs must resolve to repo-relative paths."""
+
+    def test_shop_prefixed_hub(self):
+        self.assertEqual(lib.normalize_internal_href("/shop/antoan.html"), "antoan.html")
+
+    def test_shop_prefixed_article(self):
+        self.assertEqual(lib.normalize_internal_href("/shop/cam-nang/an-toan/a.html"),
+                         "cam-nang/an-toan/a.html")
+
+    def test_absolute_same_site_url(self):
+        self.assertEqual(
+            lib.normalize_internal_href("https://thuexemayhanoi.github.io/shop/antoan.html"),
+            "antoan.html")
+        self.assertEqual(
+            lib.normalize_internal_href(
+                "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/a.html"),
+            "cam-nang/an-toan/a.html")
+
+    def test_relative_forms(self):
+        self.assertEqual(lib.normalize_internal_href("./antoan.html"), "antoan.html")
+        self.assertEqual(lib.normalize_internal_href("antoan.html"), "antoan.html")
+
+    def test_external_and_special_not_internal(self):
+        self.assertIsNone(lib.normalize_internal_href("https://other.example/x.html"))
+        self.assertIsNone(lib.normalize_internal_href("mailto:a@b.c"))
+        self.assertIsNone(lib.normalize_internal_href("#frag"))
+        self.assertIsNone(lib.normalize_internal_href(""))
+
+
+class SitemapStaleUrlRemovalTests(unittest.TestCase):
+    """Factory bug #2: factory URLs are rebuilt from CURRENT matrix status;
+    legacy URLs are preserved."""
+
+    def _prefix(self):
+        site = lib.load_site_config()
+        return site["site_url"].rstrip("/") + "/cam-nang/"
+
+    def test_factory_urls_dropped_from_retained_set(self):
+        prefix = self._prefix()
+        existing = [
+            "https://thuexemayhanoi.github.io/shop/",
+            "https://thuexemayhanoi.github.io/shop/antoan.html",
+            prefix + "an-toan/at-0001-x.html",
+            prefix + "du-lich/dl-0002-y.html",
+        ]
+        legacy = [u for u in existing if not u.startswith(prefix)]
+        self.assertEqual(legacy, existing[:2])
+
+    def test_published_then_blocked_removes_url_but_legacy_kept(self):
+        prefix = self._prefix()
+        site = lib.load_site_config()
+        row = dict(PROD_ROW, output_path="cam-nang/an-toan/at-9001.html", status="PUBLISHED")
+        self.assertEqual(gsm.published_article_urls([row], site["site_url"]),
+                         [prefix + "an-toan/at-9001.html"])
+        blocked = dict(row, status="BLOCKED")
+        self.assertEqual(gsm.published_article_urls([blocked], site["site_url"]), [])
+        # a legacy url never carries the factory prefix, so it survives
+        self.assertFalse(("https://thuexemayhanoi.github.io/shop/antoan.html").startswith(prefix))
+
+
+class HomepageSeoTests(unittest.TestCase):
+    """Homepage (index.html) production-standard checks."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.html = io.open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+        cls.lower = cls.html.lower()
+
+    def test_exactly_one_h1(self):
+        self.assertEqual(self.html.count("<h1"), 1)
+
+    def test_self_canonical(self):
+        self.assertIn('<link rel="canonical" href="https://thuexemayhanoi.github.io/shop/">', self.html)
+
+    def test_title_exists_with_primary_keyword(self):
+        m = self.html.find("<title>")
+        self.assertTrue(m >= 0 and self.html.find("</title>", m) > m)
+        self.assertIn("thuê xe máy hà nội", self.lower)
+
+    def test_meta_description_exists(self):
+        self.assertRegex(self.html, r'<meta name="description" content=".+"')
+
+    def test_target_keywords_present_naturally(self):
+        for kw in ("thuê xe máy hà nội", "phố cổ", "hoàn kiếm", "giá thuê xe máy"):
+            self.assertIn(kw, self.lower, kw)
+
+    def test_contextual_links_to_key_pages(self):
+        for target in ("phoco.html", "hoankiem.html", "banggia.html",
+                       "ngay.html", "tuan.html", "thang.html", "thutuc.html"):
+            self.assertIn('href="%s"' % target, self.html, target)
+
+    def test_localbusiness_jsonld_valid_and_clean(self):
+        import json
+        import re as _re
+        m = _re.search(r'<script type="application/ld\+json">(.*?)</script>',
+                       self.html, _re.S)
+        data = json.loads(m.group(1))
+        self.assertEqual(data["@type"], "LocalBusiness")
+        self.assertEqual(data["telephone"], "+84-816-659-199")
+        for forbidden in ("email", "priceRange", "streetAddress", "openingHoursSpecification"):
+            self.assertNotIn(forbidden, json.dumps(data), forbidden)
+
+    def test_stale_claims_absent(self):
+        for bad in ("15 phút", "15–20 phút", "24/7", "miễn cọc", "không cần cọc"):
+            self.assertNotIn(bad, self.html, bad)
 
 
 if __name__ == "__main__":
