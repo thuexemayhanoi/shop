@@ -216,11 +216,10 @@
     .logo-img {
         width: 44px; height: 44px; border-radius: 50%;
         border: 2px solid var(--primary); padding: 2px;
-        animation: spin 12s linear infinite;
+        animation: none;
         background: var(--surface);
     }
     @media (prefers-reduced-motion: reduce) { .logo-img { animation: none; } }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
 
     /* SEO OPTIMIZED LOGO: Changed H1 to DIV */
     .logo-title { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1; display: block; color: var(--text-main); }

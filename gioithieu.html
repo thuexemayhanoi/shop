@@ -206,14 +206,13 @@
     .logo-img {
         width: 44px; height: 44px; border-radius: 50%;
         border: 2px solid var(--primary); padding: 2px;
-        animation: spin 12s linear infinite;
+        animation: none;
         background: var(--surface);
     }
     /* Reduce motion for logo if preferred */
     @media (prefers-reduced-motion: reduce) {
         .logo-img { animation: none; }
     }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
 
     /* THAY ĐỔI: Sử dụng div/span thay vì h1 ở logo */
     .logo-title { font-size: 1.1rem; font-weight: 800; margin: 0; line-height: 1; display: block; color: var(--text-main); }
