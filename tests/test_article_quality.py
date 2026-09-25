@@ -7,6 +7,7 @@ from scripts/article_lib.py / scripts/score_article.py against the
 fixtures in tests/fixtures/. No network, no AI, deterministic.
 """
 import os
+import re
 import subprocess
 import sys
 import unittest
@@ -91,7 +92,13 @@ class ConfigTests(GateTestCase):
         hdr = [r.keys() for r in self.matrix][0] if self.matrix else []
         for col in ("article_id", "status", "primary_keyword", "slug", "output_path"):
             self.assertIn(col, hdr)
-        self.assertTrue(all(r["article_id"].startswith("SAMPLE") for r in self.matrix))
+        prod_re = re.compile(r"^[A-Z]{2}-\d{4}$")
+        for r in self.matrix:
+            self.assertTrue(r["article_id"].startswith("SAMPLE")
+                            or prod_re.match(r["article_id"]),
+                            "bad article_id %r" % r["article_id"])
+        samples = [r for r in self.matrix if r["article_id"].startswith("SAMPLE")]
+        self.assertEqual(len(samples), 8)
 
     def test_matrix_no_duplicate_production_ids(self):
         ids = [r["article_id"] for r in self.matrix]
