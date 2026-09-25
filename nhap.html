@@ -1017,9 +1017,12 @@
                     <div class="form-group">
                         <label class="form-label" for="c-type">Loại xe</label>
                         <select class="form-input" id="c-type">
-                            <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
-                            <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
-                            <option value="0">Xe côn/PKL - Liên hệ</option>
+                            <option value="wave">Xe số (Wave/Sirius) - 150.000</option>
+                            <option value="click">Xe ga (Click/Mio) - 150.000</option>
+                            <option value="vision">Honda Vision - 200.000</option>
+                            <option value="airblade">Honda Air Blade - 200.000</option>
+                            <option value="ebike">Xe điện - 200.000</option>
+                            <option value="contact">Xe côn/PKL - Liên hệ</option>
                         </select>
                     </div>
 
@@ -1132,7 +1135,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0614.jpeg" alt="Thuê xe máy 50cc Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe máy 50cc</h3>
                         <p>Không cần bằng lái, thiết kế nhỏ gọn, dễ điều khiển. Sự lựa chọn hoàn hảo cho học sinh, sinh viên.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Liên hệ để xác nhận giá hiện tại</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
 
@@ -1141,7 +1144,7 @@
                         <img src="https://raw.githubusercontent.com/thuexemayhanoi/shop/refs/heads/main/IMG_0617.jpeg" alt="Thuê xe máy điện Hà Nội" loading="lazy" width="600" height="400" style="width:100%; height:200px; object-fit:cover; border-radius:16px; margin-bottom:16px;">
                         <h3>Xe Điện</h3>
                         <p>Vận hành êm ái, thân thiện với môi trường, chi phí thấp. Phù hợp cho các chuyến đi ngắn trong nội thành.</p>
-                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 180.000đ/ngày</strong>
+                        <strong style="font-size:1.2rem; color:var(--primary);">Từ 200.000đ/ngày</strong>
                         <button class="btn-3d" style="width:100%; margin-top:10px; padding:10px;" onclick="window.location.href='tel:+84816659199'">Đặt Ngay</button>
                     </div>
                 </div>
@@ -1783,7 +1786,7 @@
                 }
                 else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
                     answer = wrap(
-                        "Tạm tính: xe số khoảng 120k/ngày, xe ga Vision ~150k–180k/ngày, xe ga cao cấp từ 230k–250k/ngày. " +
+                        "Tạm tính: xe số 150.000đ/ngày, xe ga Vision/Air Blade 200.000đ/ngày. Các dòng xe khác: Liên hệ để xác nhận giá hiện tại. " +
                         "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
                     );
                 }
@@ -2272,9 +2275,13 @@
             const run = () => {
                 let d = parseInt(days.value, 10) || 1;
                 if (d < 1) d = 1;
-                const daily = parseInt(type.value, 10) || 0;
-                if (daily === 0) { total.innerText = 'Liên hệ để xác nhận giá hiện tại'; return; }
-                total.innerText = window.MotoTusPrices ? window.MotoTusPrices.calcEstimate(d, daily) : (daily * d).toLocaleString('vi-VN') + 'đ';
+                const key = String(type.value || 'contact');
+                if (!window.MotoTusPrices) {
+                    const v = parseInt(type.value, 10) || 0;
+                    total.innerText = v > 0 ? (v * d).toLocaleString('vi-VN') + 'đ' : 'Liên hệ để xác nhận giá hiện tại';
+                    return;
+                }
+                total.innerText = window.MotoTusPrices.calcEstimate(d, key);
             };
             
             if (type && days && total) {
