@@ -79,6 +79,30 @@ def load_ownership():
     return load_json(repo_path("config", "seo-ownership.json"))
 
 
+def load_site_config():
+    """The single machine-readable source for generated public URLs.
+
+    GitHub Pages serves this repository as a PROJECT SITE at
+    https://thuexemayhanoi.github.io/shop/ — every generated URL must live
+    under the /shop/ base path. Scripts must use this config instead of
+    hard-coding origins.
+    """
+    cfg = load_json(repo_path("config", "site.json"))
+    for key in ("origin", "baseurl", "site_url"):
+        if not cfg.get(key):
+            raise ConfigError("config/site.json missing %r" % key)
+    return cfg
+
+
+def site_url(path=None):
+    """Absolute public URL for a repo-relative path (e.g. 'kinhnghiem.html'
+    -> 'https://thuexemayhanoi.github.io/shop/kinhnghiem.html')."""
+    cfg = load_site_config()
+    if path is None:
+        return cfg["site_url"]
+    return cfg["site_url"].rstrip("/") + "/" + str(path).lstrip("/")
+
+
 def load_matrix():
     """Return list of dict rows from data/content-matrix.csv."""
     path = repo_path("data", "content-matrix.csv")
@@ -203,6 +227,146 @@ class Article(object):
         body = re.sub(r"<style\b.*?</style>", " ", body, flags=re.S | re.I)
         text = re.sub(r"<[^>]+>", " ", body)
         return re.sub(r"\s+", " ", text).strip()
+
+    # -- main editorial content (word-count + contextual-link scope) --------
+    # Word count and contextual-link counting use MAIN CONTENT ONLY:
+    # 1) if an <article> element exists, use it; elif <main>, use that;
+    #    otherwise fall back to the whole HTML body.
+    # 2) then strip <script>/<style>/<nav>/<header>/<footer>/<aside>/
+    #    <noscript>/<form> and any element whose class matches
+    #    breadcrumb|menu|nav|footer|chatbot|motoai|cookie|sidebar|pagination.
+    # 3) words = whitespace-separated tokens of the remaining text.
+    _EXCLUDE_TAG_RE = re.compile(
+        r"<(script|style|nav|header|footer|aside|noscript|form|svg)\b.*?</\1\s*>",
+        re.S | re.I)
+    _EXCLUDE_CLASS_RE = re.compile(
+        r"<([a-z0-9]+)\b[^>]*class=\"[^\"]*(breadcrumb|menu|nav|footer|chatbot|motoai|cookie|sidebar|pagination)[^\"]*\"[^>]*>.*?</\1\s*>",
+        re.S | re.I)
+    _GENERIC_ANCHORS = ["xem thêm", "tại đây", "bấm vào đây", "click here",
+                        "link này", "xem tại đây", "đọc thêm", "see more"]
+
+    def _main_content_html(self):
+        m = re.search(r"<article\b.*?</article\s*>", self.html, re.S | re.I)
+        if m:
+            html = m.group(0)
+        else:
+            m = re.search(r"<main\b.*?</main\s*>", self.html, re.S | re.I)
+            html = m.group(0) if m else self.html
+        html = self._EXCLUDE_TAG_RE.sub(" ", html)
+        prev = None
+        while prev != html:
+            prev = html
+            html = self._EXCLUDE_CLASS_RE.sub(" ", html)
+        return html
+
+    def _main_links(self):
+        """All <a href> links inside the main editorial content."""
+        out = []
+        for m in re.finditer(r'<a\s[^>]*href="([^"#]+)"[^>]*>(.*?)</a>',
+                             self._main_content_html(), re.S | re.I):
+            anchor = re.sub(r"<[^>]+>", " ", m.group(2))
+            out.append((m.group(1).strip(), re.sub(r"\s+", " ", anchor).strip()))
+        return out
+
+    @property
+    def contextual_links(self):
+        """Contextual INTERNAL links inside the main editorial body.
+
+        Excluded by construction: menu, mobile menu, footer, breadcrumb,
+        logo, contact FAB, chatbot, legal/footer navigation, pagination,
+        social links and external links (absolute URLs off-site).
+        """
+        out = []
+        for href, anchor in self._main_links():
+            if href.startswith(("mailto:", "tel:", "data:", "javascript:")):
+                continue
+            if href.startswith(("http://", "https://")):
+                if "thuexemayhanoi.github.io" in href:
+                    # same-site absolute URL -> strip origin + /shop base path
+                    if "/shop/" in href:
+                        href = href.split("thuexemayhanoi.github.io/shop/", 1)[-1]
+                    else:
+                        href = href.split("thuexemayhanoi.github.io/", 1)[-1]
+                    out.append((href.lstrip("/"), anchor))
+                continue
+            if href.startswith(("./", "/")):
+                out.append((href.lstrip("./").lstrip("/"), anchor))
+            else:
+                out.append((href, anchor))
+        return out
+
+    @property
+    def main_content_words(self):
+        """Words of the main editorial content only (see class docstring)."""
+        text = re.sub(r"<[^>]+>", " ", self._main_content_html())
+        text = re.sub(r"\s+", " ", text).strip()
+        return [w for w in text.split(" ") if w]
+
+    def analyze_contextual_links(self, row=None, ownership=None):
+        """Deterministic contextual-link analysis for the production standard.
+
+        Returns dict with:
+          count, anchor_texts, duplicate_anchor_count, generic_anchors,
+          parent_hub, parent_hub_present, commercial_links,
+          duplicate_commercial_anchor
+        """
+        anchors = [a for _, a in self.contextual_links if a]
+        dup = {a: anchors.count(a) for a in set(anchors)}
+        duplicate_anchor_count = sum(n - 1 for n in dup.values() if n > 1)
+        generic = [a for a in anchors
+                   if a.lower().strip(".!") in self._GENERIC_ANCHORS]
+        parent_hub = CATEGORIES.get((row or {}).get("category")) if row else None
+        parent_hub_present = None
+        if parent_hub:
+            parent_hub_present = any(
+                os.path.basename(t) == parent_hub
+                for t, _ in self.contextual_links)
+        commercial_paths = set()
+        if ownership:
+            for p in ownership.get("protected_pages", []):
+                commercial_paths.add(os.path.basename(p.get("path") or ""))
+        commercial = [(t, a) for t, a in self.contextual_links
+                      if os.path.basename(t) in commercial_paths]
+        comm_dup = 0
+        if commercial:
+            ca = [a for _, a in commercial if a]
+            counts = {a: ca.count(a) for a in set(ca)}
+            comm_dup = sum(n - 1 for n in counts.values() if n > 1)
+        return {
+            "count": len(self.contextual_links),
+            "anchor_texts": anchors,
+            "duplicate_anchor_count": duplicate_anchor_count,
+            "generic_anchors": generic,
+            "parent_hub": parent_hub,
+            "parent_hub_present": parent_hub_present,
+            "commercial_links": commercial,
+            "duplicate_commercial_anchor": comm_dup,
+        }
+
+    def heading_structure(self):
+        """Report heading levels + order problems (skipped levels, no H1/H2)."""
+        levels = [lvl for lvl, _ in self.headings]
+        problems = []
+        if not levels:
+            problems.append("no headings at all")
+        prev = 0
+        for lv in levels:
+            if prev and lv > prev + 1:
+                problems.append("heading level skip %d->%d" % (prev, lv))
+            prev = lv
+        if levels and 1 not in levels:
+            problems.append("no H1")
+        return {"levels": levels, "problems": problems}
+
+    def broken_internal_links(self):
+        """Internal links (anywhere in the article) that do not resolve."""
+        out = []
+        for target, _ in self.internal_links:
+            if target.startswith(("http://", "https://")):
+                continue
+            if resolve_target(self, target) is None:
+                out.append(target)
+        return out
 
     @property
     def words(self):
@@ -491,6 +655,97 @@ def check_cannibalization(article, ownership, matrix, facts):
 # ---------------------------------------------------------------------------
 
 REQUIRED_CATEGORIES_HINTS = ["luật", "phạt", "giấy phép", "bảo hiểm", "nghị định", "thông tư"]
+
+
+def evaluate_production_standard(article, row, rubric, ownership):
+    """Mr Tú Content Factory production standard (applies to PRODUCTION
+    matrix rows only; SAMPLE/compact fixtures are exempt).
+
+    Word rule (main-content words only):
+      1600–2000 satisfied | 1200–1599 / 2001–2300 REVIEW | <1200 / >2300 FAIL
+    Contextual internal links: exactly 3–5; 0 = strong REVIEW (never PASS);
+      <3 or >5 = REVIEW. Parent hub link required (missing = REVIEW).
+    Commercial contextual links: >1 = REVIEW. Repeated exact commercial
+      anchor = strong REVIEW. Generic / duplicate anchors = warnings.
+
+    Returns (failures, review_flags, warnings, metrics).
+    """
+    if is_sample_row(row or {}):
+        # SAMPLE / compact test fixtures are exempt from the production
+        # length and contextual-link gates.
+        return [], [], [], {
+            "note": "SAMPLE/fixture row — production standard not enforced",
+            "word_count": len(article.main_content_words),
+            "contextual_internal_link_count": len(article.contextual_links),
+        }
+    failures = []
+    review_flags = []
+    warnings = []
+    length_cfg = rubric.get("article_length", {})
+    tmin = int(length_cfg.get("target_min_words", 1600))
+    tmax = int(length_cfg.get("target_max_words", 2000))
+    rmin = int(length_cfg.get("review_min_words", 1200))
+    rmax = int(length_cfg.get("review_max_words", 2300))
+    link_cfg = rubric.get("contextual_internal_links", {})
+    lmin = int(link_cfg.get("min", 3))
+    lmax = int(link_cfg.get("max", 5))
+    comm_max = int(rubric.get("commercial_links_max", 1))
+
+    wc = len(article.main_content_words)
+    if wc < tmin or wc > tmax:
+        if wc < rmin:
+            failures.append("production article far below length standard "
+                            "(%d words < %d)" % (wc, rmin))
+        elif wc > rmax:
+            failures.append("production article far above length standard "
+                            "(%d words > %d)" % (wc, rmax))
+        else:
+            review_flags.append(
+                "production article outside 1,600–2,000 word target "
+                "(%d words; REVIEW range %d–%d / %d–%d)"
+                % (wc, rmin, tmin - 1, tmax + 1, rmax))
+    if wc >= tmin and wc > tmax + 300:
+        warnings.append("very long article — check for filler")
+
+    li = article.analyze_contextual_links(row, ownership)
+    n = li["count"]
+    if n == 0:
+        review_flags.append(
+            "zero contextual internal links in editorial body (never PASS)")
+    elif n < lmin:
+        review_flags.append(
+            "only %d contextual internal links (minimum %d)" % (n, lmin))
+    elif n > lmax:
+        review_flags.append(
+            "%d contextual internal links (maximum %d)" % (n, lmax))
+    if li["parent_hub_present"] is False:
+        review_flags.append(
+            "parent category hub not contextually linked (%s)" % li["parent_hub"])
+    if len(li["commercial_links"]) > comm_max:
+        review_flags.append(
+            "%d contextual commercial landing-page links (maximum %d)"
+            % (len(li["commercial_links"]), comm_max))
+    if li["duplicate_commercial_anchor"] > 0:
+        review_flags.append("repeated exact-match commercial anchor")
+    if li["generic_anchors"]:
+        warnings.append("generic anchor text present: %r"
+                         % sorted(set(li["generic_anchors"])))
+    if li["duplicate_anchor_count"] > 0:
+        warnings.append("duplicate exact-match anchors (%d repetitions)"
+                        % li["duplicate_anchor_count"])
+
+    metrics = {
+        "word_count": wc,
+        "word_count_scope": "main editorial content (article/main container "
+                            "minus nav/header/footer/breadcrumb/chatbot/scripts)",
+        "contextual_internal_link_count": n,
+        "parent_hub_link_present": li["parent_hub_present"],
+        "anchor_texts": li["anchor_texts"],
+        "duplicate_anchor_count": li["duplicate_anchor_count"],
+        "commercial_link_count": len(li["commercial_links"]),
+        "heading_structure": article.heading_structure(),
+    }
+    return failures, review_flags, warnings, metrics
 
 
 def validate_article(article, matrix, ownership, facts, rubric):

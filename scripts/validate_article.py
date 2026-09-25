@@ -33,11 +33,32 @@ def main():
         return lib.EXIT_ERROR
 
     errors = lib.validate_article(article, matrix, ownership, facts, rubric)
+    row = lib.find_matrix_row(article, matrix)
+    li = article.analyze_contextual_links(row, ownership)
+    production = None
+    if row is not None and not lib.is_sample_row(row):
+        _f, _r, _w, production = lib.evaluate_production_standard(
+            article, row, rubric, ownership)
+    else:
+        production = {
+            "word_count": len(article.main_content_words),
+            "word_count_scope": "main editorial content",
+            "contextual_internal_link_count": li["count"],
+            "parent_hub_link_present": li["parent_hub_present"],
+            "anchor_texts": li["anchor_texts"],
+            "duplicate_anchor_count": li["duplicate_anchor_count"],
+            "broken_internal_links": article.broken_internal_links(),
+            "heading_structure": article.heading_structure(),
+            "note": "SAMPLE/fixture row — production length/link gates not enforced",
+        }
+    if production is not None:
+        production["broken_internal_links"] = article.broken_internal_links()
     result = {
         "article": os.path.abspath(args.article),
         "slug": article.slug,
         "valid": not errors,
         "errors": errors,
+        "production_standard": production,
     }
     if args.json:
         print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -258,6 +258,15 @@ def score_article(article, matrix, ownership, facts, rubric):
             # no sources AND no source notes at all -> stronger signal stays REVIEW
             pass
 
+    # ---------------- production standard (Mr Tú factory standard) ---------
+    production_metrics = None
+    if row is not None and not lib.is_sample_row(row):
+        pf, pr, pw, production_metrics = lib.evaluate_production_standard(
+            article, row, rubric, ownership)
+        failures.extend(pf)
+        review_flags.extend(pr)
+        warnings.extend(pw)
+
     total = sum(sections.values())
     if failures:
         status = "FAIL"
@@ -265,7 +274,7 @@ def score_article(article, matrix, ownership, facts, rubric):
         status = "REVIEW" if total >= 80 else "FAIL"
     else:
         status = "PASS"
-    return total, status, sections, failures, warnings, recommendations, review_flags
+    return total, status, sections, failures, warnings, recommendations, review_flags, production_metrics
 
 
 def main():
@@ -283,7 +292,7 @@ def main():
         print("ERROR: %s" % e)
         return lib.EXIT_ERROR
 
-    total, status, sections, failures, warnings, recs, review_flags = score_article(
+    total, status, sections, failures, warnings, recs, review_flags, prod = score_article(
         article, matrix, ownership, facts, rubric)
 
     report = {
@@ -296,6 +305,7 @@ def main():
         "warnings": warnings,
         "review_flags": review_flags,
         "recommendations": recs,
+        "production_standard": prod,
     }
     outdir = lib.repo_path("reports", "article-quality")
     try:
