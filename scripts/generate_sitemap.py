@@ -40,7 +40,14 @@ def current_urls(sitemap_path):
     return urls
 
 
-def published_article_urls(matrix):
+def published_article_urls(matrix, site_url_base=None):
+    """Absolute public URLs of PUBLISHED production articles only.
+
+    URL = site_url (from config/site.json) + "/" + output_path, e.g.
+    https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/at-0001-....html
+    SAMPLE rows and any non-PUBLISHED status (PLANNED, WRITING, QA, REVIEW,
+    FAIL, BLOCKED, PASS-without-commit) are never included.
+    """
     urls = []
     for r in matrix:
         if lib.is_sample_row(r):
@@ -50,7 +57,10 @@ def published_article_urls(matrix):
         path = (r.get("output_path") or "").strip().lstrip("/")
         if not path:
             continue
-        urls.append("/" + path)
+        if site_url_base:
+            urls.append(site_url_base.rstrip("/") + "/" + path)
+        else:
+            urls.append("/" + path)
     return urls
 
 
@@ -79,24 +89,21 @@ def main():
     sitemap_path = lib.repo_path("sitemap.xml")
     try:
         matrix = lib.load_matrix()
+        site = lib.load_site_config()
     except lib.ConfigError as e:
         print("ERROR: %s" % e)
         return 4
 
     existing = current_urls(sitemap_path)
-    published = published_article_urls(matrix)
-    base_url = ""
-    for u in existing:
-        m = re.match(r"^(https?://[^/]+)/", u)
-        if m:
-            base_url = m.group(1)
-            break
+    # GitHub Pages project site: article URLs come from config/site.json
+    # site_url (https://thuexemayhanoi.github.io/shop) — NEVER the bare
+    # host origin, which would drop the /shop base path.
+    published = published_article_urls(matrix, site["site_url"])
 
     wanted = existing[:]
     for p in published:
-        u = base_url + p if base_url else p
-        if u not in wanted:
-            wanted.append(u)
+        if p not in wanted:
+            wanted.append(p)
 
     new_count = len(wanted) - len(existing)
     if args.check:
