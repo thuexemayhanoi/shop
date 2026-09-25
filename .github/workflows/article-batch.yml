@@ -1,0 +1,92 @@
+name: Article Batch
+
+# Manual-only batch orchestration. NO CRON YET: scheduling must only be added
+# after the writer provider is configured and BATCH-001 has been piloted.
+# The future schedule must never start a new batch while an earlier batch is
+# still WRITING/QA.
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_id:
+        description: "Batch to run, e.g. BATCH-001 (empty = first batch with PLANNED rows)"
+        required: false
+        default: ""
+      batch_size:
+        description: "Max articles per run (default 50, max 50)"
+        required: false
+        default: "50"
+
+permissions:
+  contents: read
+
+jobs:
+  batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validate content matrix
+        run: python3 scripts/validate_content_matrix.py
+
+      - name: Run factory tests
+        run: python3 -m unittest discover tests
+
+      - name: Cap batch size
+        id: size
+        run: |
+          set -eu
+          size="${{ github.event.inputs.batch_size }}"
+          if [ -z "$size" ]; then size=50; fi
+          case "$size" in (*[!0-9]*|'') size=50;; esac
+          if [ "$size" -gt 50 ]; then size=50; fi
+          if [ "$size" -lt 1 ]; then size=1; fi
+          echo "size=$size" >> "$GITHUB_OUTPUT"
+          echo "Batch size: $size (hard max 50)"
+
+      - name: Prepare batch (claim rows + manifest)
+        id: prepare
+        run: |
+          set -eu
+          mkdir -p data/batches reports/batches
+          if [ -n "${{ github.event.inputs.batch_id }}" ]; then
+            set +e
+            python3 scripts/run_article_batch.py \
+              --batch "${{ github.event.inputs.batch_id }}" \
+              --batch-size "${{ steps.size.outputs.size }}" \
+              --prepare > prepare.log 2>&1
+            code=$?
+            set -e
+          else
+            set +e
+            python3 scripts/run_article_batch.py \
+              --next --batch-size "${{ steps.size.outputs.size }}" \
+              --prepare > prepare.log 2>&1
+            code=$?
+            set -e
+          fi
+          cat prepare.log
+          if [ "$code" -eq 5 ]; then
+            echo "result=WRITER_NOT_CONFIGURED" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          exit "$code"
+
+      - name: Report writer status
+        if: steps.prepare.outputs.result == 'WRITER_NOT_CONFIGURED'
+        run: |
+          echo "::notice::WRITER_NOT_CONFIGURED — batch manifest prepared; no AI writer provider is configured, so no content was generated. Wire an authorized writer provider (credentials via GitHub Actions secrets only) before running a real batch."
+
+      - name: Upload batch manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-manifest
+          path: data/batches/*.json
+          if-no-files-found: ignore
