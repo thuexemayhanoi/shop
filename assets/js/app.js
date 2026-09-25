@@ -679,25 +679,16 @@
 
         statusWidget() {
             const checkTime = () => {
-                const now = new Date();
-                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
-                
-                const isOpen = hours >= 8 && hours < 17;
+                const isOpen = true; // shop hours unverified in config - neutral placeholder, no open/closed inference
                 
                 const updateUI = (dotId, textId) => {
                     const dot = document.getElementById(dotId);
                     const text = document.getElementById(textId);
                     if (!dot || !text) return;
 
-                    if (isOpen) {
-                         dot.className = 'status-dot open';
-                         text.innerText = 'Cửa hàng đang mở (8h-17h)';
-                         text.className = 'status-text text-open';
-                    } else {
-                         dot.className = 'status-dot online';
-                         text.innerText = 'Hỗ trợ Online 24/7';
-                         text.className = 'status-text text-online';
-                    }
+                    dot.className = 'status-dot online';
+                    text.innerText = 'Liên hệ để xác nhận thời gian hỗ trợ';
+                    text.className = 'status-text text-online';
                 };
                 
                 updateUI('status-dot', 'status-text');

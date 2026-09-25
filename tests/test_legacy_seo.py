@@ -181,5 +181,93 @@ class TestHomepageAndSpecialists(unittest.TestCase):
                 self.assertIn(kw, t, "%s body lost intent %r" % (p, kw))
 
 
+
+class TestConfigAwareFactSafety(unittest.TestCase):
+    """Pass 3: config-aware fact-safety gate for unverified owner facts.
+
+    config/business-facts.json keeps opening_hours, support_hours,
+    delivery_or_pickup and late_return_policy as null (unverified). While a
+    field is null, hard claims about it must FAIL the gate; neutral
+    conditional wording must PASS.
+    """
+
+    def test_unverified_fields_stay_null(self):
+        conf = audit.load_owner_confirmation()
+        for field in ("opening_hours", "support_hours",
+                      "delivery_or_pickup", "late_return_policy"):
+            self.assertIsNone(conf.get(field),
+                              "%s must stay null until owner-confirmed" % field)
+
+    def test_unverified_opening_hours_claims_fail(self):
+        conf = audit.load_owner_confirmation()
+        for text in ("8h-17h", "8h–17h", "giờ mở cửa",
+                     "Cửa hàng đang mở (8h-17h)", "08:00 – 17:00"):
+            self.assertIn("unverified_opening_hours",
+                          audit.fact_safety_flags(text, conf), text)
+
+    def test_unverified_support_hours_claims_fail(self):
+        conf = audit.load_owner_confirmation()
+        for text in ("Hỗ trợ 24/7", "Hỗ trợ Online 24/7", "phản hồi siêu tốc"):
+            self.assertIn("unverified_support_hours",
+                          audit.fact_safety_flags(text, conf), text)
+
+    def test_unverified_delivery_claims_fail(self):
+        conf = audit.load_owner_confirmation()
+        for text in ("Giao xe tận sảnh khách sạn theo lịch hẹn trong giờ mở cửa.",
+                     "Mr Tú hỗ trợ giao xe tận nơi khu vực Long Biên.",
+                     "Giao xe nhanh tại Nguyễn Trãi.",
+                     "Chi nhánh Long Biên giúp giao xe phía bên kia sông Hồng."):
+            self.assertIn("unverified_delivery",
+                          audit.fact_safety_flags(text, conf), text)
+
+    def test_conditional_delivery_wording_passes(self):
+        conf = audit.load_owner_confirmation()
+        for text in ("Liên hệ để xác nhận khả năng giao/nhận xe tại khu vực của bạn.",
+                     "Vui lòng liên hệ trước để sắp xếp.",
+                     "Giao/nhận xe theo thỏa thuận với Mr Tú."):
+            self.assertEqual(audit.fact_safety_flags(text, conf), [], text)
+
+    def test_unverified_late_return_claims_fail(self):
+        conf = audit.load_owner_confirmation()
+        for text in ("Trả xe trễ tính thêm phí theo giờ",
+                     "Trả xe muộn sẽ tính phí phụ thu 20.000đ - 30.000đ/giờ.",
+                     "phí phạt quá giờ"):
+            self.assertIn("unverified_late_return",
+                          audit.fact_safety_flags(text, conf), text)
+
+    def test_conditional_late_return_wording_passes(self):
+        conf = audit.load_owner_confirmation()
+        for text in ("Nếu cần gia hạn, vui lòng liên hệ trước để xác nhận điều kiện áp dụng.",
+                     "Nếu cần gia hạn hoặc thay đổi thời gian trả xe, vui lòng liên hệ trước để xác nhận điều kiện áp dụng."):
+            self.assertEqual(audit.fact_safety_flags(text, conf), [], text)
+
+    def test_hard_hours_not_excused_by_conditional_wording(self):
+        conf = audit.load_owner_confirmation()
+        text = "Liên hệ Mr Tú (giờ mở cửa 8h-17h) hoặc xem bảng giá."
+        self.assertIn("unverified_opening_hours",
+                      audit.fact_safety_flags(text, conf))
+
+    def test_zero_fact_safety_flags_on_all_root_pages(self):
+        conf = audit.load_owner_confirmation()
+        for p in PAGES:
+            raw = read(p)
+            self.assertEqual(audit.fact_safety_flags(raw, conf), [],
+                             "%s contains hard claims about unverified facts" % p)
+
+    def test_status_widget_neutral_everywhere(self):
+        for p in PAGES:
+            raw = read(p)
+            self.assertNotIn("Cửa hàng đang mở", raw,
+                             "%s status widget asserts unverified open state" % p)
+            self.assertNotIn("Ngoài giờ mở cửa", raw,
+                             "%s status widget asserts unverified hours" % p)
+            self.assertNotIn("hours >= 8 && hours < 17", raw,
+                             "%s infers open/closed from unverified hours" % p)
+
+    def test_phone_preserved(self):
+        for p in ("index.html", "lienhe.html", "hoankiem.html"):
+            self.assertIn("081.665.9199", read(p), "%s lost the trusted phone" % p)
+
+
 if __name__ == "__main__":
     unittest.main()

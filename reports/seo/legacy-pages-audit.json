@@ -1185,5 +1185,43 @@
       "status": "PASS",
       "changes_made": "calculator H3->H2"
     }
-  ]
+  ],
+  "pass_3_fact_safety": {
+    "baseline_main_sha": "0445e584e918ace0ebd2c9e189c6dcc5cded99ab",
+    "config": "config/business-facts.json",
+    "policy": "opening_hours, support_hours, delivery_or_pickup, late_return_policy remain null (unverified); NOT promoted to trusted. Hard claims neutralized; audit script now config-aware.",
+    "unverified_fields": [
+      "delivery_or_pickup",
+      "late_return_policy",
+      "opening_hours",
+      "support_hours"
+    ],
+    "summary": {
+      "pages_with_unverified_fact_claims_before": 29,
+      "pages_with_unverified_fact_claims_after": 0,
+      "unverified_opening_hours_pages_before": 21,
+      "unverified_delivery_pages_before": 21,
+      "unverified_late_return_pages_before": 4,
+      "unverified_support_hours_pages_before": 2,
+      "status_widgets_neutralized": [
+        "caugiay.html",
+        "dongda.html",
+        "faq.html",
+        "gioithieu.html",
+        "index.html",
+        "longbien.html",
+        "nhap.html",
+        "phoco.html",
+        "assets/js/app.js",
+        "assets/js/app-info.js",
+        "assets/js/app-rental.js"
+      ]
+    },
+    "tests": {
+      "before": 116,
+      "added": 11,
+      "after": 127,
+      "result": "PASS"
+    }
+  }
 }

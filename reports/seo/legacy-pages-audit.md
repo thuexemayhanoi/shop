@@ -57,3 +57,50 @@ All 30 root HTML pages audited by `scripts/audit_legacy_pages.py`. `lienhe.html`
 
 - `nhap.html` keeps its homepage canonical (legacy entry page, not in sitemap). No `noindex` added without evidence.
 
+---
+
+# Pass 3 — Fact-Safety Cleanup (config-aware)
+
+Baseline MAIN SHA: `0445e584e918ace0ebd2c9e189c6dcc5cded99ab`
+
+`config/business-facts.json` still keeps `opening_hours`, `support_hours`,
+`delivery_or_pickup`, `late_return_policy` as `null` (unverified). They were
+NOT promoted to trusted. All hard claims about them were neutralized on the
+30 root pages, and `scripts/audit_legacy_pages.py` now builds its stale-fact
+checks from the config (no more false negatives).
+
+## Summary (config-aware detection)
+
+| Metric | Before | After |
+|---|---|---|
+| pages with unverified-fact claims | 29 | 0 |
+| unverified opening-hours claims | 21 pages | 0 |
+| unverified delivery/pickup claims | 21 pages | 0 |
+| unverified late-return fee claims | 4 pages | 0 |
+| unverified support-hours claims | 2 pages | 0 |
+| status widgets inferring open/closed from 8h-17h | 8 pages + assets/js app*.js | 0 (neutral: "Liên hệ để xác nhận thời gian hỗ trợ") |
+
+## Removed claim categories
+
+- Hard hours: `8h-17h`, `8h–17h`, `08:00 – 17:00`, `giờ mở cửa`, `Cửa hàng đang mở (8h-17h)`, `Ngoài giờ mở cửa – liên hệ Zalo`, footer `Cửa hàng: 08:00 – 17:00`.
+- Hard delivery: `giao xe tận sảnh`, `giao (xe) tận nơi/nhà/cửa`, `giao xe theo lịch hẹn`, `Giao xe nhanh ...`, `Chi nhánh Long Biên`, `Có điểm giao xe`, `Miễn phí giao xe bán kính 3km`, `Đón khách tại Ga ...`.
+- Late-return fees: `Trả xe trễ tính thêm phí theo giờ`, `Trả xe muộn sẽ tính phí phụ thu 20.000đ - 30.000đ/giờ`, `phí phạt quá giờ`.
+- Support speed: `Phản hồi siêu tốc`, `Hỗ trợ Online 24/7`.
+
+All replaced with neutral conditional wording (allowlisted), e.g.
+"Vui lòng liên hệ trước để xác nhận thời gian và hình thức nhận xe.",
+"Liên hệ để xác nhận khả năng giao/nhận xe ...",
+"Nếu cần gia hạn hoặc thay đổi thời gian trả xe, vui lòng liên hệ trước để xác nhận điều kiện áp dụng."
+
+## Status widget
+
+The inline JS (8 root pages) and `assets/js/app.js`, `app-info.js`,
+`app-rental.js` no longer infer open/closed from hard-coded 8–17 hours.
+They now always show the neutral "Liên hệ để xác nhận thời gian hỗ trợ".
+
+## Validation
+
+- `python3 scripts/audit_legacy_pages.py` -> 30 pages, no blocking issues, stale fact pages (config-aware) = 0
+- `python3 scripts/validate_content_matrix.py` -> 2000 production rows, 40 batches x 50, all PLANNED
+- `python3 -m unittest discover tests` -> 127 tests PASS (116 before + 11 new config-aware fact-safety tests)
+- Manual grep safety check on root HTML: 0 unsupported hits for 8h-17h / 8h–17h / 08:00 / 17:00 / giờ mở cửa / cửa hàng đang mở / ngoài giờ mở cửa / giao xe tận sảnh / trả xe trễ (fee claims) / phí theo giờ

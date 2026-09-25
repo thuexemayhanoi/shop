@@ -22,6 +22,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(ROOT, "reports", "seo")
 SITE = "https://thuexemayhanoi.github.io/shop/"
+FACTS_CONFIG = os.path.join(ROOT, "config", "business-facts.json")
 
 # Pages whose canonical intentionally points at the homepage.
 INTENTIONAL_HOME_CANONICAL = {"nhap.html"}
@@ -46,6 +47,81 @@ STALE_PATTERNS = [
 ]
 # Benign sentences allowed to contain timing words (customer advice, not promises).
 BENIGN = [re.compile(r"dành 5 phút để kiểm tra", re.I)]
+
+# ---------------------------------------------------------------------------
+# Config-aware fact-safety checks (pass 3).
+#
+# Fields under requires_owner_confirmation that are still null are UNVERIFIED:
+# production pages must not assert them as hard facts. The checks below are
+# built dynamically from config/business-facts.json so the gate can never
+# report a false "stale fact pages = 0" while unverified claims remain.
+# ---------------------------------------------------------------------------
+# Neutral conditional wording that is always allowed (allowlist).
+FACT_SAFETY_ALLOWLIST = re.compile(
+    r"liên hệ[^.]{0,60}xác nhận"
+    r"|vui lòng liên hệ trước"
+    r"|xác nhận khả năng giao/nhận"
+    r"|xác nhận thời gian hỗ trợ"
+    r"|xác nhận điều kiện áp dụng"
+    r"|xác nhận hình thức nhận xe"
+    r"|theo thỏa thuận", re.I)
+# Hard numeric/hour tokens are never excused by nearby conditional wording.
+FACT_SAFETY_HARD = re.compile(r"8h\s*[-–]\s*17h|08\s*:\s*00|17\s*:\s*00", re.I)
+
+
+def load_owner_confirmation(path=FACTS_CONFIG):
+    """Return the requires_owner_confirmation mapping from business-facts.json."""
+    try:
+        with io.open(path, encoding="utf-8") as f:
+            cfg = json.load(f)
+        return cfg.get("requires_owner_confirmation") or {}
+    except Exception:
+        return {}
+
+
+def fact_safety_patterns(conf):
+    """Build (flag_key, regex) checks for every unverified (null) fact field."""
+    pats = []
+    if conf.get("opening_hours") is None:
+        pats.append(("unverified_opening_hours", re.compile(
+            r"8h\s*[-–]\s*17h|08\s*:\s*00|17\s*:\s*00|giờ mở cửa|"
+            r"cửa hàng đang mở|ngoài giờ mở cửa|mở cửa hằng ngày", re.I)))
+    if conf.get("support_hours") is None:
+        pats.append(("unverified_support_hours", re.compile(
+            r"hỗ trợ\s*24/7|24/7|hỗ trợ online 24|hotline 24|"
+            r"phản hồi siêu tốc", re.I)))
+    if conf.get("delivery_or_pickup") is None:
+        pats.append(("unverified_delivery", re.compile(
+            r"giao xe tận sảnh|tận sảnh|giao xe? tận nơi|giao tận nơi|giao tận nhà|"
+            r"giao tận cửa|giao xe tận cửa|giao xe theo lịch hẹn|"
+            r"giao nhận xe theo lịch hẹn|mạng lưới giao xe|"
+            r"khu vực giao xe|giao xe nhanh|giao xe tại|"
+            r"đón khách tại|chi nhánh", re.I)))
+    if conf.get("late_return_policy") is None:
+        pats.append(("unverified_late_return", re.compile(
+            r"trả xe trễ[^.]{0,50}(phí|theo giờ|tính)|trả xe muộn[^.]{0,50}(phí|tính)|"
+            r"phí theo giờ|phí phạt quá giờ|late fee", re.I)))
+    return pats
+
+
+def fact_safety_flags(text, conf=None):
+    """Flag hard claims about unverified facts in any text segment.
+
+    A match is excused only when the surrounding context uses the neutral
+    conditional allowlist AND the match is not a hard hour/number token.
+    """
+    if conf is None:
+        conf = load_owner_confirmation()
+    flags = []
+    for key, pat in fact_safety_patterns(conf):
+        for m in pat.finditer(text):
+            frag = text[max(0, m.start() - 100):m.end() + 100]
+            if FACT_SAFETY_ALLOWLIST.search(frag) and not FACT_SAFETY_HARD.search(frag):
+                continue
+            flags.append(key)
+            break
+    return flags
+
 
 INTENTS = {
     "index.html": "thuê xe máy hà nội (umbrella)",
@@ -160,6 +236,19 @@ def audit_page(path, texts, local_files):
                 flags.append(label + ":" + key)
                 break
 
+    # Config-aware fact-safety checks (unverified business facts),
+    # applied to every content segment AND inline JavaScript (status
+    # widgets, chatbot strings) so JS-rendered claims cannot hide.
+    conf = load_owner_confirmation()
+    for label, seg in segments.items():
+        for key in fact_safety_flags(seg, conf):
+            flags.append(label + ":" + key)
+    inline_js = " ".join(
+        blk for blk in re.findall(r"<script[^>]*>([\s\S]*?)</script>", raw, re.I)
+        if "application/ld+json" not in blk)
+    for key in fact_safety_flags(inline_js, conf):
+        flags.append("js:" + key)
+
     jsonld_valid = True
     for blk in re.findall(r'<script type="application/ld\+json">([\s\S]*?)</script>', raw, re.I):
         try:
@@ -273,7 +362,19 @@ def main():
             r["status"] = "REVIEW"
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    report = {"generated_by": "scripts/audit_legacy_pages.py", "pages_audited": len(results), "pages": results}
+    fact_keys = {r["path"]: sorted({f.split(":", 1)[1] for f in r["business_fact_flags"]
+                                    if f.split(":", 1)[1].startswith("unverified_")})
+                 for r in results}
+    report = {
+        "generated_by": "scripts/audit_legacy_pages.py",
+        "fact_safety": {
+            "config": "config/business-facts.json",
+            "unverified_fields": [k for k, v in sorted(load_owner_confirmation().items()) if v is None],
+            "pages_with_fact_safety_flags": {k: v for k, v in fact_keys.items() if v},
+        },
+        "pages_audited": len(results),
+        "pages": results,
+    }
     with io.open(os.path.join(OUT_DIR, "legacy-pages-audit-run.json"), "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
@@ -286,6 +387,12 @@ def main():
             print("      flags: %s" % (r["business_fact_flags"],))
     else:
         print("no blocking issues")
+        fs = [r["path"] for r in results
+              if any(f.split(":", 1)[1].startswith("unverified_") for f in r["business_fact_flags"])]
+        print("stale fact pages (config-aware): %d" % len(fs))
+        for r in results:
+            if r["path"] in fs:
+                print("  %s: %s" % (r["path"], sorted({f.split(":", 1)[1] for f in r["business_fact_flags"]})))
     return 0 if not blocking else 1
 
 
