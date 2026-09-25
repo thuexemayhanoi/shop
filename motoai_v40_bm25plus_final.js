@@ -17,7 +17,7 @@
     avatar: "👩‍💼",
     themeColor: "#007AFF",
 
-    autolearn: true,
+    autolearn: false,
     viOnly: true,
     deepContext: true,
     maxContextTurns: 8,
@@ -35,10 +35,10 @@
     smart: {
       semanticSearch: true,
       extractiveQA:   true,
-      autoPriceLearn: true,
+      autoPriceLearn: false,
       searchThreshold: 1.0 // Tuned for better recall
     },
-    debug: true,
+    debug: false,
     noLinksInReply: true,
     noMarkdownReply: true
   };
@@ -966,12 +966,12 @@
 
     // Thủ tục / Policy
     if(topIntent === 'needDocs'){
-      const ans = polite(`thủ tục đơn giản: cần CCCD gắn chip hoặc Passport + tiền cọc (2–3tr xe số, 3–5tr xe ga). Có giấy tờ đầy đủ có thể giảm cọc ạ.`);
+      const ans = polite(`thủ tục đơn giản: cần CCCD gắn chip hoặc Passport. Yêu cầu giấy tờ và mức đặt cọc tùy trường hợp thuê, thường khoảng 2.000.000 – 5.000.000đ tùy xe và điều kiện. Vui lòng liên hệ Mr Tú để xác nhận trước khi nhận xe ạ.`);
       pushCtx({from:"bot", raw:ans, state:null});
       return ans;
     }
     if(topIntent === 'needPolicy'){
-      const ans = polite(`đặt cọc: xe số khoảng 2–3tr, xe ga 3–5tr. Lỗi máy móc do xe bên em chịu, các phát sinh như xịt lốp, ngã xe thì khách phụ giúp chi phí ạ.`);
+      const ans = polite(`mức đặt cọc tùy trường hợp thuê, thường khoảng 2.000.000 – 5.000.000đ tùy xe và điều kiện. Vui lòng liên hệ Mr Tú để xác nhận trước khi nhận xe. Lỗi máy móc do xe bên em chịu, các phát sinh như xịt lốp, ngã xe thì khách phụ giúp chi phí ạ.`);
       pushCtx({from:"bot", raw:ans, state:null});
       return ans;
     }
