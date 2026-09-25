@@ -45,17 +45,17 @@ jobs:
           # Production articles: files listed in the content matrix
           if [ -f data/content-matrix.csv ]; then
             python3 - <<'PY'
-            import csv, os, shutil
-            os.makedirs('/tmp/candidates', exist_ok=True)
-            with open('data/content-matrix.csv', encoding='utf-8') as f:
-                for row in csv.DictReader(f):
-                    p = (row.get('output_path') or '').strip()
-                    aid = row.get('article_id') or ''
-                    if p.startswith('tests/') or aid.startswith('SAMPLE'):
-                        continue  # fixtures and samples are not production articles
-                    if p and os.path.isfile(p):
-                        shutil.copy(p, '/tmp/candidates/' + os.path.basename(p))
-            PY
+          import csv, os, shutil
+          os.makedirs('/tmp/candidates', exist_ok=True)
+          with open('data/content-matrix.csv', encoding='utf-8') as f:
+              for row in csv.DictReader(f):
+                  p = (row.get('output_path') or '').strip()
+                  aid = row.get('article_id') or ''
+                  if p.startswith('tests/') or aid.startswith('SAMPLE'):
+                      continue  # fixtures and samples are not production articles
+                  if p and os.path.isfile(p):
+                      shutil.copy(p, '/tmp/candidates/' + os.path.basename(p))
+          PY
           fi
           # Also include any changed/new files under the article directory
           if [ -d data/articles ]; then
