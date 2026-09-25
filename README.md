@@ -112,6 +112,16 @@ The plan is now concrete: **2,000 production articles** in **40 batches** of
 AT 300, XM 350, DL 400, CD 300, HD 300) plus 8 SAMPLE fixture rows that do not
 count toward the total. Production articles are NOT written yet.
 
+**Production article standard (Mr Tú Content Factory — internal editorial
+standard, not a Google requirement):** every production article targets
+**1,600–2,000 Vietnamese words** of main editorial content (1,200–1,599 or
+2,001–2,300 → REVIEW; <1,200 or >2,300 → FAIL; padding never counts) and
+exactly **3–5 contextual internal links** including the required **parent
+category hub** link, with descriptive diverse anchors and at most 1
+commercial landing-page link. Public URLs live under the GitHub Pages base
+path `/shop/` (source: `config/site.json`); generated bare-root
+`/cam-nang/...` links are forbidden.
+
 Policy per article:
 
 - `PASS` → publishable immediately after QA.
@@ -121,8 +131,9 @@ Policy per article:
 
 Writing requires a real AI writer or human author. `scripts/article_writer.py`
 is the provider interface; without an authorized provider it stops with
-`WRITER_NOT_CONFIGURED` (exit 5). Never fabricate template content, never
-commit API keys.
+`WRITER_NOT_CONFIGURED` (exit 5) — no article body is generated and no fake
+durable WRITING claims are left in the matrix. Never fabricate template
+content, never commit API keys.
 
 Lifecycle, URL architecture, resume and lock behavior:
 [docs/CONTENT-FACTORY.md](docs/CONTENT-FACTORY.md). Writing rules:
@@ -140,8 +151,24 @@ Lifecycle, URL architecture, resume and lock behavior:
 7. `config/seo-ownership.json`
 8. `data/content-matrix.csv`
 
-Then select exactly ONE eligible (PLANNED) matrix row. After writing, run the
-quality gate. An article is NOT publishable until final status is PASS.
+Then select exactly ONE eligible (PLANNED) matrix row. For every production
+article, an agent MUST:
+
+1. write **1,600–2,000 useful Vietnamese words** (main content only; no filler)
+2. exactly **1 primary search intent**
+3. exactly **1 H1**
+4. **3–5 contextual internal links** in the editorial body (nav/footer/breadcrumb links do not count)
+5. include the **parent category hub** link
+6. use **descriptive, diverse anchors** (no "xem thêm"/"click here"; no repeated exact-match anchors)
+7. **no broken links** (only link PUBLISHED articles or same-batch articles)
+8. **Article schema** (JSON-LD)
+9. **breadcrumb** + author/date metadata
+10. **source section** when the row has `requires_sources=true`
+11. run the **full QA** (validator + cannibalization + scorer)
+12. **publish only PASS**
+
+After writing, run the quality gate. An article is NOT publishable until
+final status is PASS.
 
 ## 8. Quality-gate commands
 

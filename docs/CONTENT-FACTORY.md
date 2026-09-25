@@ -5,6 +5,25 @@ deterministic quality gate, in 40 batches of exactly 50 articles. The plan
 (2,000 rows) is complete; production article bodies are NOT written yet and
 must come from an authorized AI writer or a human author — never templates.
 
+## Production article standard (final)
+
+Every production article must satisfy ALL of:
+
+- **1,600–2,000 Vietnamese words** of main editorial content
+  (1,200–1,599 / 2,001–2,300 = REVIEW; <1,200 / >2,300 = FAIL;
+  body-only word counting: article/main container minus nav, header,
+  footer, breadcrumb, chatbot, scripts, styles; padding/filler detected
+  separately)
+- **exactly 1 primary search intent**
+- **exactly 1 H1**, self canonical, unique title + meta description
+- **3–5 contextual internal links** in the editorial body, including the
+  required **parent category hub** link; max 1 commercial landing-page link
+- descriptive, diverse anchors; no generic or repeated exact-match anchors
+- Article schema, breadcrumb, author/date metadata, related content
+- source section when `requires_sources=true`
+- full QA: PASS (score ≥ 90, no critical failures, no review flags) BEFORE
+  publication — see docs/ARTICLE-RULES.md for the full standard
+
 ## Scale architecture
 
 - **2,000 production articles** planned in `data/content-matrix.csv`
@@ -15,8 +34,15 @@ must come from an authorized AI writer or a human author — never templates.
 
 ## Article URL architecture
 
+This is a GitHub Pages **project site**: the public base path is `/shop/`
+(machine-readable source: `config/site.json` — `site_url` =
+`https://thuexemayhanoi.github.io/shop`). All generated URLs must resolve
+under `/shop/`; bare-root links like `href="/cam-nang/..."` are forbidden
+(they would resolve against the host root and 404).
+
 Production articles live at `cam-nang/<category-dir>/<slug>.html` with
-`slug = <prefix>-<NNNN>-<slugified-title>` (e.g. `cam-nang/kinh-nghiem/kn-0017-….html`).
+`slug = <prefix>-<NNNN>-<slugified-title>` (public URL:
+`https://thuexemayhanoi.github.io/shop/cam-nang/kinh-nghiem/kn-0017-….html`).
 The six hub URLs (`kinhnghiem.html`, `antoan.html`, `xemay.html`,
 `dulich.html`, `cungduong.html`, `hoidap.html`) are unchanged and remain the
 parent hub for each article. This is a flat `.html` pattern — no Jekyll
@@ -76,18 +102,32 @@ python3 scripts/run_article_batch.py --batch BATCH-001 --mark-published
 ```
 
 - `--prepare` writes `data/batches/BATCH-XXX.json`, a machine-readable
-  manifest (article_id, keyword(s), intent, title, slug, output_path, parent
-  hub, requires_sources, link targets) that an external AI writer (e.g. a
-  Mistral agent) consumes. Manifests/locks are gitignored;
-  `data/content-matrix.csv` stays the single ledger.
+  manifest (writer_context with the full production standard — target word
+  range, contextual-link rules, parent hub, allowed targets, commercial
+  limit, business facts, protected intents — plus per-article fields) that
+  an external AI writer (e.g. a Mistral agent) consumes.
+- **No writer configured → no durable claims**: with
+  WRITER_NOT_CONFIGURED the manifest is still produced but the matrix rows
+  stay PLANNED (nothing pretends content was written). Rows are claimed
+  WRITING only when a real writer provider is configured.
+- **State persistence**: GitHub Actions runner-local changes are NOT
+  persistent unless committed. `data/content-matrix.csv` on MAIN is the
+  single durable ledger; the production flow persists PLANNED → WRITING →
+  QA → PASS → PUBLISHED transitions to MAIN once a real writer is connected.
+- Manifests/locks are gitignored; `data/content-matrix.csv` stays the ledger.
 - The batch size is capped at 50 — a larger `--batch-size` is clamped, never
   silently exceeded.
 - **Resume safety**: PASS/PUBLISHED rows are never re-claimed or rewritten;
   interrupted batches continue from the unfinished rows. The matrix state is
   the source of truth.
 - **Concurrency lock**: `data/batches/BATCH-XXX.lock` (24h TTL) prevents two
-  runners from claiming the same batch; rows already WRITING/QA/PASS/PUBLISHED
-  are skipped by any other runner.
+  runners on the SAME machine/workspace from claiming the same batch. Inside
+  GitHub Actions this local lock is NOT sufficient (separate runners have
+  separate workspaces and cannot see each other's lock files), so the
+  `article-batch.yml` workflow additionally enforces a GLOBAL
+  `article-batch-production` concurrency group with
+  `cancel-in-progress: false` — only one batch run may execute at a time,
+  across all batch IDs and future scheduled runs.
 - Every run writes `reports/batches/BATCH-XXX.json`:
   requested / written / pass / published / review / fail / blocked + per-article
   results. Reports are gitignored.
@@ -108,11 +148,19 @@ Actions secrets only, and none are configured yet.
 - `scripts/generate_category_index.py` — deterministic category listing
   pages under `cam-nang/<category>/index.html`, **50 articles per page**
   (`page-2.html`, …). Pages are generated only when a category actually has
-  PUBLISHED articles; empty index pages are never committed.
+  PUBLISHED articles; empty index pages are never committed. All generated
+  links carry the GitHub Pages base path from `config/site.json`
+  (`/shop/cam-nang/…`, `/shop/kinhnghiem.html`); bare-root
+  `href="/cam-nang/…"` links are forbidden. The page skeleton exposes
+  header/footer partial mount points so the existing site design system can
+  be included later without redesign.
 - `scripts/generate_sitemap.py` — merges the current `sitemap.xml` (every
   existing public URL is preserved) with PUBLISHED production articles only.
-  No SAMPLEs, no PLANNED/WRITING/REVIEW/FAIL/BLOCKED, no duplicates, valid
-  XML. `--check` verifies freshness.
+  Article URLs are built from `config/site.json` → `site_url`
+  (`https://thuexemayhanoi.github.io/shop/cam-nang/<category>/<slug>.html`),
+  never from the bare host origin. No SAMPLEs, no
+  PLANNED/WRITING/REVIEW/FAIL/BLOCKED, no duplicates, valid XML.
+  `--check` verifies freshness.
 
 ## CI / workflows
 

@@ -1,18 +1,68 @@
 # Article Rules
 
+## PRODUCTION ARTICLE STANDARD (Mr Tú Content Factory)
+
+This is the site's internal editorial standard. It is NOT a Google
+requirement — it is the owner-selected quality bar for this factory.
+
+- TARGET LENGTH: **1,600–2,000 Vietnamese words** of main editorial content
+  - 1,600–2,000 = length requirement satisfied
+  - 1,200–1,599 or 2,001–2,300 = REVIEW (cannot PASS without repair)
+  - <1,200 or >2,300 = FAIL
+  - Words are counted from the article MAIN CONTENT only: the
+    `<article>`/`<main>` container minus navigation, header, footer,
+    breadcrumb, chatbot, scripts and styles. Padding never satisfies the
+    standard: repeated sentences/paragraphs, duplicate sections and filler
+    are detected separately and block PASS.
+- CONTEXTUAL INTERNAL LINKS: exactly **3–5** inside the editorial body
+  - menu, footer, breadcrumb, logo, chatbot, pagination, social and
+    external links never count
+  - exactly 1 link to the article's parent category hub is REQUIRED
+    (Kinh nghiệm → `kinhnghiem.html`, An toàn → `antoan.html`,
+    Xe máy → `xemay.html`, Du lịch → `dulich.html`, Cung đường →
+    `cungduong.html`, Hỏi đáp → `hoidap.html`)
+  - at most 1 contextual commercial landing-page link by default
+  - 0 contextual links, missing parent hub, <3 or >5 links: cannot PASS
+- PRIMARY INTENT: exactly 1 per article
+- H1: exactly 1
+- CANONICAL: self-referencing
+- SCHEMA: Article (JSON-LD)
+- BREADCRUMB: required
+- AUTHOR/DATE metadata: required
+- RELATED CONTENT: useful related-article links (count toward the 3–5 total)
+- ANCHORS: descriptive and diverse — "kinh nghiệm kiểm tra xe trước khi
+  nhận" is good; "xem thêm", "tại đây", "bấm vào đây", "click here",
+  "link này" are flagged. The same exact-match anchor must not repeat; the
+  same exact-match COMMERCIAL anchor repeated is a strong REVIEW.
+- SOURCES: required for legal/safety topics with `requires_sources=true`
+- BROKEN LINKS: any broken required internal link = FAIL; articles may only
+  link to PUBLISHED articles (or articles publishing in the same validated
+  batch)
+- QUALITY GATE: PASS requires score ≥ 90, no critical failures, no review
+  flags, 1,600–2,000 words, 3–5 contextual links, parent hub present, no
+  broken links, no protected-intent conflict, fact-safety pass and legal
+  sources satisfied
+
 Requirements every article must satisfy before it can score PASS. The scorer
 (`scripts/score_article.py`) measures these deterministically. Quality >
 length; no arbitrary keyword-density rules exist in this factory.
 
 ## Intent & structure
 
-- One clear search intent; one primary topic per article.
-- The useful answer appears early in the article.
-- Exactly one H1; useful H2/H3 hierarchy; no skipped heading levels.
-- No duplicate sections; no filler written only to pad word count.
-- No exact word-count requirement. Only the configurable thin-content
-  threshold applies (`thin_content_min_words`, default 300, in
-  `config/article-rubric.json`).
+- One clear search intent; one primary topic per article. The 1,600–2,000
+  word budget must answer that intent deeply — never mix unrelated intents
+  or add unrelated sections just to reach the word count.
+- The useful answer appears early in the article (answer the intent in the
+  introduction; avoid long generic Hanoi/tourism preambles).
+- Exactly one H1; useful H2/H3 hierarchy; no skipped heading levels
+  (H1 → H3 without H2 is flagged).
+- Readable paragraphs; avoid giant text walls.
+- No duplicate sections; no filler written only to pad word count
+  (detected and blocked).
+- No exact word-count requirement for SAMPLE fixtures. For production rows
+  the 1,600–2,000 standard above applies. The configurable thin-content
+  threshold (`thin_content_min_words`, default 300) still applies to all
+  articles.
 
 ## Truthfulness (critical failures otherwise)
 
@@ -44,13 +94,20 @@ approval.
 
 ## Internal linking
 
-- Link to the parent category hub.
-- Link to relevant related content (sibling hubs, relevant commercial pages)
-  only where semantically natural.
-- Natural anchor text ("cẩm nang an toàn", "kinh nghiệm đi xe máy"); never
-  repeated exact commercial anchors like "thuê xe máy Hà Nội" unless the
-  context genuinely targets that commercial page.
-- No broken internal links, no self-link spam.
+- 3–5 contextual internal links inside the editorial body (counted from
+  the main content container only; navigation/footer/breadcrumb links are
+  excluded by the tools).
+- Link to the parent category hub (required, see standard above).
+- Link to relevant informational articles (siblings, related categories)
+  where semantically natural.
+- At most 1 contextual commercial landing-page link; repeated commercial
+  links or repeated exact-match commercial anchors are flagged REVIEW.
+- Natural, descriptive, diverse anchor text; generic anchors
+  ("xem thêm", "tại đây", "click here") are flagged; never repeat the same
+  exact-match anchor.
+- No broken internal links, no self-link spam. Article links may only
+  target already-PUBLISHED articles or articles publishing in the same
+  validated batch.
 
 ## Metadata & SEO
 
