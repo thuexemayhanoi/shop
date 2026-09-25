@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "total_score": 100,
   "thresholds": {
     "PASS": {"min": 90, "max": 100, "requires_no_critical_failures": true},
@@ -8,6 +8,17 @@
   },
   "any_critical_failure_is_fail": true,
   "thin_content_min_words": 300,
+  "article_length": {
+    "target_min_words": 1600,
+    "target_max_words": 2000,
+    "review_min_words": 1200,
+    "review_max_words": 2300
+  },
+  "contextual_internal_links": {
+    "min": 3,
+    "max": 5
+  },
+  "commercial_links_max": 1,
   "sections": {
     "technical_seo": 15,
     "search_intent": 15,
@@ -37,11 +48,15 @@
     "obvious placeholder/template text",
     "article empty or severely truncated",
     "malformed HTML/front matter that prevents rendering",
-    "unsupported legal claim in requires_sources article without source evidence"
+    "unsupported legal claim in requires_sources article without source evidence",
+    "production article below review_min_words",
+    "production article above review_max_words",
+    "production article with zero contextual internal links"
   ],
   "notes": {
     "keyword_density": "NOT USED. No arbitrary density thresholds; only obvious stuffing/duplication is detected.",
-    "word_count": "No exact word count required. Only the thin-content threshold applies; quality > length.",
+    "word_count": "Mr Tú Content Factory production standard: every production article targets 1,600–2,000 meaningful Vietnamese words counted from the article MAIN CONTENT only (article/main container minus navigation, header, footer, breadcrumb, chatbot, scripts, styles). This is an internal editorial standard — NOT a Google requirement. 1,600–2,000 = satisfied; 1,200–1,599 or 2,001–2,300 = REVIEW; <1,200 or >2,300 = FAIL. Padding is never rewarded: repeated sentences/paragraphs, duplicate sections and filler are detected separately. SAMPLE/compact test fixtures are exempt.",
+    "contextual_internal_links": "Every production article must contain 3–5 contextual internal links inside the editorial body (menu, footer, breadcrumb, logo, chatbot, pagination, social and external links never count). Exactly one link to the article's parent category hub is required; at most 1 contextual commercial landing-page link by default. Anchors must describe their destination; generic anchors and repeated exact-match anchors are flagged.",
     "legal_content": "Articles covering law/fines/licence/insurance with requires_sources=true must include a source/reference section; otherwise REVIEW or FAIL."
   }
 }
