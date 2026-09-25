@@ -96,9 +96,20 @@ class TestMetaAndCanonical(unittest.TestCase):
 
 class TestLinksAndSchema(unittest.TestCase):
     def test_no_broken_local_links(self):
+        # local targets include EVERY .html file committed in the repo —
+        # factory hubs legitimately link to published cam-nang articles,
+        # so the file set must grow with production, not stay legacy-only
+        local_files = set(PAGES)
+        for dirpath, _dirs, files in os.walk(ROOT):
+            if os.path.relpath(dirpath, ROOT).startswith("."):
+                continue
+            for f in files:
+                if f.endswith(".html"):
+                    local_files.add(os.path.relpath(
+                        os.path.join(dirpath, f), ROOT).replace(os.sep, "/"))
         texts = audit.collect_texts(PAGES)
         for p in PAGES:
-            res = audit.audit_page(os.path.join(ROOT, p), texts, set(PAGES))
+            res = audit.audit_page(os.path.join(ROOT, p), texts, local_files)
             self.assertEqual(res["broken_links"], [], "%s broken links: %s" % (p, res["broken_links"]))
 
     def test_valid_jsonld(self):

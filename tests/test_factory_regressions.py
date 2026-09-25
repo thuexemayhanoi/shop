@@ -336,7 +336,10 @@ class SourcePolicyTests(RegrBase):
 class BatchResolutionTests(RegrBase):
     def test_next_resumes_active_batch_first(self):
         rows = [dict(r) for r in self.prod]
-        # BATCH-002 has a WRITING row; BATCH-001 still all PLANNED
+        # synthetic pre-production state so the test never depends on real
+        # batch progress; BATCH-002 has a WRITING row, BATCH-001 all PLANNED
+        for r in rows:
+            r["status"] = "PLANNED"
         for r in rows:
             if r["batch_id"] == "BATCH-002":
                 r["status"] = "WRITING"

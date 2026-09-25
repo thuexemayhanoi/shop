@@ -225,6 +225,28 @@ class PublishPolicyTests(FactoryTestCase):
         self.assertLess(rb.MAX_REPAIR_ATTEMPTS, 4)
 
 
+def reset_matrix_to_planned(path):
+    """Rewrite a SANDBOX copy of content-matrix.csv with every production
+    row reset to PLANNED (published_date cleared), so runner tests
+    exercise the claim/publish mechanism itself and stay independent of
+    REAL production progress. SAMPLE rows are left untouched."""
+    with io.open(path, encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        header = list(reader.fieldnames)
+        rows = list(reader)
+    for r in rows:
+        if lib.is_sample_row(r):
+            continue
+        r["status"] = "PLANNED"
+        if "published_date" in r:
+            r["published_date"] = ""
+    with io.open(path, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=header)
+        w.writeheader()
+        for r in rows:
+            w.writerow(r)
+
+
 class RunnerCLITests(FactoryTestCase):
     """CLI smoke tests against a sandbox copy of the repo data dir."""
 
@@ -234,6 +256,8 @@ class RunnerCLITests(FactoryTestCase):
         shutil.copytree(os.path.join(ROOT, "config"), os.path.join(tmp, "config"))
         shutil.copy(os.path.join(ROOT, "data", "content-matrix.csv"),
                     os.path.join(tmp, "data", "content-matrix.csv"))
+        reset_matrix_to_planned(os.path.join(tmp, "data",
+                                             "content-matrix.csv"))
         return tmp
 
     def test_prepare_agent_claims_50_writing_and_manifest(self):
@@ -326,10 +350,37 @@ class SitemapTests(FactoryTestCase):
         import generate_sitemap as gs
         existing = gs.current_urls(os.path.join(ROOT, "sitemap.xml"))
         self.assertGreater(len(existing), 10)
-        published = gs.published_article_urls(self.matrix)
-        self.assertEqual(published, [])  # nothing published yet
-        merged = gs.current_urls(os.path.join(ROOT, "sitemap.xml"))[:]
-        self.assertEqual(set(existing), set(merged))
+        # Regenerate inside a sandbox: every URL currently in sitemap.xml
+        # must survive, and every PUBLISHED article must be included —
+        # regardless of how far real production has progressed.
+        published = gs.published_article_urls(
+            self.matrix, site_url_base=lib.load_site_config()["site_url"])
+        tmp = tempfile.mkdtemp()
+        try:
+            os.makedirs(os.path.join(tmp, "data"))
+            shutil.copytree(os.path.join(ROOT, "config"),
+                            os.path.join(tmp, "config"))
+            shutil.copy(os.path.join(ROOT, "data", "content-matrix.csv"),
+                        os.path.join(tmp, "data", "content-matrix.csv"))
+            shutil.copy(os.path.join(ROOT, "sitemap.xml"),
+                        os.path.join(tmp, "sitemap.xml"))
+            code = subprocess.call(
+                [sys.executable, "-c", """
+import sys
+sys.path.insert(0, %r)
+import generate_sitemap as gs, article_lib as lib
+lib.ROOT = %r
+raise SystemExit(gs.main())
+""" % (SCRIPTS, tmp)],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            self.assertEqual(code, 0)
+            merged = gs.current_urls(os.path.join(tmp, "sitemap.xml"))
+            self.assertTrue(set(existing) <= set(merged),
+                            "legacy URLs dropped by regeneration")
+            self.assertTrue(set(published) <= set(merged),
+                            "PUBLISHED article URLs missing from sitemap")
+        finally:
+            shutil.rmtree(tmp, True)
 
     def test_sitemap_includes_only_published(self):
         sys.path.insert(0, SCRIPTS)

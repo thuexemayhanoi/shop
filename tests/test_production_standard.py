@@ -316,12 +316,39 @@ class ConcurrencyTests(unittest.TestCase):
             self.assertNotIn("cron:", "%s has cron" % wf)
 
 
-class MatrixStillPlannedTests(unittest.TestCase):
-    def test_all_production_rows_planned(self):
+class MatrixStatusTests(unittest.TestCase):
+    """Production started: rows legitimately move PLANNED -> WRITING ->
+    PUBLISHED, but only through valid factory statuses, and only inside
+    the currently active batch (statuses must never drift outside the
+    factory's own pipeline)."""
+
+    VALID = {"PLANNED", "WRITING", "QA", "REVIEW",
+             "PASS", "PUBLISHED", "FAIL", "BLOCKED"}
+
+    def test_all_production_rows_valid_status(self):
         rows = [r for r in lib.load_matrix() if not lib.is_sample_row(r)]
         self.assertEqual(len(rows), 2000)
-        statuses = set(r.get("status") for r in rows)
-        self.assertEqual(statuses, {"PLANNED"})
+        bad = sorted(set((r.get("status") or "").strip()
+                         for r in rows) - self.VALID)
+        self.assertEqual(bad, [], "unknown statuses in production matrix")
+
+    def test_non_planned_rows_confined_to_active_batch(self):
+        import run_article_batch as rb
+        rows = [r for r in lib.load_matrix() if not lib.is_sample_row(r)]
+        active = rb.active_batch_id(rows)
+        # in-flight statuses must live only inside the active batch;
+        # terminal statuses (PUBLISHED/FAIL/BLOCKED) legitimately persist
+        # in batches that already finished
+        in_flight = {"WRITING", "QA", "REVIEW", "PASS"}
+        moved = [r for r in rows
+                 if (r.get("status") or "").strip() in in_flight]
+        if active is None:
+            self.assertFalse(moved)
+        else:
+            stray = [r["article_id"] for r in moved
+                     if r["batch_id"] != active]
+            self.assertEqual(stray, [],
+                             "statuses changed outside the active batch")
 
 
 class UrlNormalizationTests(unittest.TestCase):

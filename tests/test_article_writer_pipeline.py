@@ -29,6 +29,30 @@ import run_article_batch as rb
 
 _SITE = lib.load_site_config()["site_url"].rstrip("/")
 
+
+def reset_matrix_to_planned(path):
+    """Rewrite a SANDBOX copy of content-matrix.csv with every production
+    row reset to PLANNED (published_date cleared), so runner tests
+    exercise the claim/publish mechanism itself and stay independent of
+    REAL production progress. SAMPLE rows are left untouched."""
+    import csv
+    with io.open(path, encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        header = list(reader.fieldnames)
+        rows = list(reader)
+    for r in rows:
+        if lib.is_sample_row(r):
+            continue
+        r["status"] = "PLANNED"
+        if "published_date" in r:
+            r["published_date"] = ""
+    with io.open(path, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=header)
+        w.writeheader()
+        for r in rows:
+            w.writerow(r)
+
+
 _WORD_BANK = [
     "thuê xe máy", "mũ bảo hiểm", "kiểm tra xe", "giấy tờ tùy thân",
     "đi trong phố cổ", "lộ trình dài", "bảo dưỡng xe", "ánh sáng xe",
@@ -370,14 +394,19 @@ class AgentPipelineTests(PipelineTestCase):
 
     def test_next_resolution_consistency(self):
         """--next resolves ONE batch id; claim/QA/publish all use it."""
-        bid = rb.next_batch_id(self.matrix)
+        # synthetic pre-production matrix so the test never depends on
+        # real production progress
+        rows = [dict(r) for r in self.prod]
+        for r in rows:
+            r["status"] = "PLANNED"
+        bid = rb.next_batch_id(rows)
         self.assertEqual(bid, "BATCH-001")
-        rows = rb.batch_rows(self.matrix, bid)
-        claim = rb.select_claim_rows(rows)
+        batch = rb.batch_rows(rows, bid)
+        claim = rb.select_claim_rows(batch)
         self.assertEqual(len(claim), 50)
         self.assertTrue(all(r["batch_id"] == bid for r in claim))
         # a resumed active batch wins over a fresh PLANNED one
-        rows2 = [dict(r) for r in self.prod]
+        rows2 = [dict(r) for r in rows]
         for r in rows2:
             if r["batch_id"] == "BATCH-002":
                 r["status"] = "QA"
@@ -399,6 +428,8 @@ class AgentPipelineTests(PipelineTestCase):
                         os.path.join(tmp, "config"))
         shutil.copy(os.path.join(ROOT, "data", "content-matrix.csv"),
                     os.path.join(tmp, "data", "content-matrix.csv"))
+        reset_matrix_to_planned(os.path.join(
+            tmp, "data", "content-matrix.csv"))
         p = subprocess.run(
             [sys.executable, "-c", """
 import sys
@@ -449,6 +480,11 @@ class NoApiArchitectureTests(PipelineTestCase):
                         os.path.join(tmp, "config"))
         shutil.copy(os.path.join(ROOT, "data", "content-matrix.csv"),
                     os.path.join(tmp, "data", "content-matrix.csv"))
+        reset_matrix_to_planned(os.path.join(
+            tmp, "data", "content-matrix.csv"))
+        real_matrix_path = os.path.join(ROOT, "data",
+                                        "content-matrix.csv")
+        real_before = io.open(real_matrix_path, encoding="utf-8").read()
         env = {k: v for k, v in os.environ.items()
                if not k.startswith(("MISTRAL", "WRITER", "OPENAI",
                                     "ANTHROPIC"))}
@@ -469,12 +505,11 @@ raise SystemExit(rb.main_func(['--batch', 'BATCH-001', '--prepare-agent']))
             os.path.join(tmp, "data", "batches", "BATCH-001.json"),
             encoding="utf-8"))
         self.assertEqual(len(manifest["articles"]), 50)
-        # SANDBOX: the real repository matrix is untouched
-        with io.open(os.path.join(ROOT, "data", "content-matrix.csv"),
-                     encoding="utf-8") as f:
-            import csv as _csv
-            real = list(_csv.DictReader(f))
-        self.assertFalse([r for r in real if r["status"] == "WRITING"],
+        # SANDBOX: the real repository matrix is byte-identical after the
+        # sandbox run (before/after comparison — independent of the real
+        # batch legitimately carrying WRITING/PUBLISHED rows)
+        real_after = io.open(real_matrix_path, encoding="utf-8").read()
+        self.assertEqual(real_after, real_before,
                          "real matrix contaminated by sandbox run")
 
     def test_writer_not_configured(self):
