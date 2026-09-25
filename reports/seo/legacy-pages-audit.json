@@ -1,443 +1,1189 @@
 {
-  "generated_by": "reports/seo legacy audit",
-  "excluded": [
-    "lienhe.html"
-  ],
+  "generated_by": "scripts/audit_legacy_pages.py (pass 2: heading hierarchy + stale claims + lienhe.html)",
+  "baseline_main_sha": "18dbe5c619187930553b768413c0be94a7ad0a59",
+  "pages_audited": 30,
+  "excluded": [],
+  "summary": {
+    "pages_audited": 30,
+    "h1_errors_before": 0,
+    "h1_errors_after": 0,
+    "heading_hierarchy_errors_before": 28,
+    "heading_hierarchy_errors_after": 0,
+    "missing_title_before": 0,
+    "missing_title_after": 0,
+    "missing_meta_before": 0,
+    "missing_meta_after": 0,
+    "canonical_errors_before": 0,
+    "canonical_errors_after": 0,
+    "broken_links_before": 0,
+    "broken_links_after": 0,
+    "invalid_jsonld_before": 0,
+    "invalid_jsonld_after": 0,
+    "stale_fact_pages_before": 25,
+    "stale_fact_pages_after": 0,
+    "pages_needing_review_before": 25,
+    "pages_needing_review_after": 0
+  },
+  "intentional_canonical_exceptions": {
+    "nhap.html": "legacy entry page, canonicalizes to homepage, not in sitemap; intentionally preserved (no noindex added: no evidence for a major indexing change)"
+  },
   "pages": [
     {
       "path": "antoan.html",
-      "primary_intent": "an toàn khi đi xe máy",
+      "primary_intent": "an toàn giao thông",
       "title": "An Toàn Giao Thông & Luật Xe Máy | Cẩm Nang Mr Tú",
-      "h1": "An Toàn Giao Thông   Luật Xe Máy & Pháp Lý",
+      "meta_description": "Cẩm nang an toàn giao thông: luật xe máy, giấy phép lái xe, mức phạt, bảo hiểm và mẹo lái xe an toàn tại Hà Nội.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "An Toàn Giao Thông \n                     Luật Xe Máy & Pháp Lý",
       "canonical": "https://thuexemayhanoi.github.io/shop/antoan.html",
-      "visible_word_count_before": 266,
-      "visible_word_count_after": 691,
-      "contextual_links_before": 8,
-      "contextual_links_after": 11,
-      "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": true,
-      "status": "PASS"
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [],
+      "heading_errors_after": [],
+      "visible_word_count_before": 729,
+      "visible_word_count_after": 729,
+      "contextual_links_before": 13,
+      "contextual_links_after": 13,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [
+        {
+          "page": "cungduong.html",
+          "fragment": "Cần hỗ trợ nhanh? Gọi Mr Tú: 081.665.9199 (giờ mở cửa 8h-17h"
+        }
+      ],
+      "business_fact_flags_before": [],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "PASS",
+      "changes_made": "calculator H3->H2"
     },
     {
       "path": "badinh.html",
       "primary_intent": "thuê xe máy ba đình",
-      "title": "Thuê Xe Máy Ba Đình Giao Tận Nơi, Xe Mới 100% - Mr Tú",
-      "h1": "Cho thuê xe máy Ba Đình đầy đủ xe số, xe ga, 50cc -  Mr Tú",
+      "title": "Thuê Xe Máy Ba Đình Giá Rẻ - Mr Tú | Xe Số, Xe Ga",
+      "meta_description": "Dịch vụ cho thuê xe máy Ba Đình với đầy đủ xe ga, xe số. Giao xe tại Lăng Bác, Kim Mã, Đội Cấn theo lịch hẹn. Thủ tục đơn giản, vui lòng liên hệ để đặt xe.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Cho thuê xe máy Ba Đình đầy đủ xe số, xe ga - \n                         Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/badinh.html",
-      "visible_word_count_before": 888,
-      "visible_word_count_after": 869,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 899,
+      "visible_word_count_after": 903,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "title:xe_moi_100",
+        "body:fixed_timing"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "title Xe Moi 100% removed; H1/keywords 50cc removed; 'giao xe 5-10 phut' -> giao xe theo lich hen; calculator H3->H2"
     },
     {
       "path": "banggia.html",
       "primary_intent": "giá thuê xe máy hà nội",
       "title": "Bảng Giá Thuê Xe Máy Hà Nội | Giá Thuê Theo Ngày, Tuần, Tháng - Mr Tú",
-      "h1": "Bảng Giá Thuê Xe Máy Hà Nội   Cập Nhật Mới - Mr Tú",
+      "meta_description": "Tham khảo bảng giá thuê xe máy Hà Nội theo loại xe và thời gian thuê. Kiểm tra mức giá, điều kiện thuê và liên hệ Mr Tú để xác nhận chi phí hiện hành.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Bảng Giá Thuê Xe Máy Hà Nội \n                         Cập Nhật Mới - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/banggia.html",
-      "visible_word_count_before": 767,
-      "visible_word_count_after": 778,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 817,
+      "visible_word_count_after": 821,
       "contextual_links_before": 9,
       "contextual_links_after": 9,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "calculator H3->H2; 'Mien phi thay dau' -> bao duong dinh ky"
     },
     {
       "path": "caugiay.html",
       "primary_intent": "thuê xe máy cầu giấy",
-      "title": "Thuê Xe Máy Cầu Giấy | Thủ Tục Cọc 2 - 5 Triệu | Giao Xe 15P",
-      "h1": "Thuê Xe Máy Cầu Giấy –    Thủ tục đặt cọc 2 triệu đến 5 triệu",
+      "title": "Thuê Xe Máy Cầu Giấy Giá Rẻ - Mr Tú | Xe Số, Xe Ga",
+      "meta_description": "Dịch vụ thuê xe máy Cầu Giấy của Mr Tú. Xe được bảo dưỡng định kỳ, thủ tục minh bạch, đặt cọc 2-5 triệu tùy xe và điều kiện. Giao xe khu vực Xuân Thủy, Hồ Tùng Mậu theo lịch hẹn.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê Xe Máy Cầu Giấy –  \n                         Thủ tục đặt cọc 2 triệu đến 5 triệu",
       "canonical": "https://thuexemayhanoi.github.io/shop/caugiay.html",
-      "visible_word_count_before": 862,
-      "visible_word_count_after": 785,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 810,
+      "visible_word_count_after": 796,
       "contextual_links_before": 7,
       "contextual_links_after": 7,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "title:fixed_15p",
+        "title:fixed_p",
+        "meta:xe_moi_100",
+        "body:fixed_15p",
+        "body:fixed_timing"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "title Giao Xe 15P removed; meta (Xe moi 2024, dam bao) rewritten; twitter cleaned; body cocc/15-20 phut fixed; calculator H3->H2"
     },
     {
       "path": "chinhsach.html",
       "primary_intent": "chính sách bảo mật",
       "title": "Chính Sách Bảo Mật - Thuê Xe Máy Mr Tú | Thông Tin Cá Nhân",
-      "h1": "Chính Sách Bảo Mật   Thuê Xe Máy - Mr Tú",
+      "meta_description": "Chính sách bảo mật của Mr Tú giải thích cách thông tin khách hàng được thu thập, sử dụng và bảo vệ khi liên hệ hoặc sử dụng dịch vụ thuê xe máy.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Chính Sách Bảo Mật \n                         Thuê Xe Máy - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/chinhsach.html",
-      "visible_word_count_before": 908,
-      "visible_word_count_after": 915,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 943,
+      "visible_word_count_after": 940,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fixed_timing",
+        "body:support_hours"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "calculator H3->H2; '(chi 5 phut)' removed"
     },
     {
       "path": "cungduong.html",
-      "primary_intent": "cung đường phượt hà nội",
+      "primary_intent": "cung đường phượt",
       "title": "Cung Đường Phượt Từ Hà Nội | Cẩm Nang Mr Tú",
-      "h1": "Cung Đường Phượt   Từ Hà Nội Đi Tỉnh",
+      "meta_description": "Cẩm nang cung đường phượt: tuyến đường từ Hà Nội đi các tỉnh, tình trạng đường, lập kế hoạch và chuẩn bị chuyến đi.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Cung Đường Phượt \n                     Từ Hà Nội Đi Tỉnh",
       "canonical": "https://thuexemayhanoi.github.io/shop/cungduong.html",
-      "visible_word_count_before": 254,
-      "visible_word_count_after": 562,
-      "contextual_links_before": 8,
-      "contextual_links_after": 11,
-      "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": true,
-      "status": "PASS"
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [],
+      "heading_errors_after": [],
+      "visible_word_count_before": 601,
+      "visible_word_count_after": 601,
+      "contextual_links_before": 13,
+      "contextual_links_after": 13,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [
+        {
+          "page": "antoan.html",
+          "fragment": "Cần hỗ trợ nhanh? Gọi Mr Tú: 081.665.9199 (giờ mở cửa 8h-17h"
+        }
+      ],
+      "business_fact_flags_before": [],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "PASS",
+      "changes_made": "calculator H3->H2"
     },
     {
       "path": "dieukhoan.html",
-      "primary_intent": "điều khoản thuê xe",
+      "primary_intent": "điều khoản sử dụng",
       "title": "Điều khoản sử dụng thuê xe máy Hà Nội - Mr Tú | Minh Bạch, An Toàn",
-      "h1": "Điều khoản sử dụng   Thuê Xe Máy Hà Nội - Mr Tú",
+      "meta_description": "Chi tiết điều khoản sử dụng dịch vụ thuê xe máy Hà Nội tại Mr Tú. Quy định rõ ràng về thủ tục, tiền cọc, trách nhiệm và bảo hiểm. Đọc kỹ để đảm bảo quyền lợi khi thuê xe Phố Cổ.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Điều khoản sử dụng \n                         Thuê Xe Máy Hà Nội - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/dieukhoan.html",
-      "visible_word_count_before": 999,
-      "visible_word_count_after": 1003,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 1039,
+      "visible_word_count_after": 1039,
       "contextual_links_before": 5,
       "contextual_links_after": 5,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "calculator H3->H2"
     },
     {
       "path": "dongda.html",
       "primary_intent": "thuê xe máy đống đa",
       "title": "Cho Thuê Xe Máy Đống Đa Giá Rẻ, Giao Nhanh - Mr Tú",
-      "h1": "Cho Thuê Xe Máy   Đống Đa - Mr Tú",
+      "meta_description": "Dịch vụ cho thuê xe máy Đống Đa của Mr Tú, giá từ 150.000đ/ngày. Xe được bảo dưỡng định kỳ, thủ tục đơn giản, giao xe khu vực Thái Hà, Chùa Bộc, Láng theo lịch hẹn. Liên hệ ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Cho Thuê Xe Máy \n                         Đống Đa - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/dongda.html",
-      "visible_word_count_before": 976,
-      "visible_word_count_after": 952,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 990,
+      "visible_word_count_after": 989,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "meta:fixed_timing",
+        "og:fixed_p",
+        "body:xe_moi_100",
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "meta 'giao ... trong 10 phut' -> theo lich hen; og:title 10P removed; og desc 'giao xe sieu toc' softened; 'dan xe moi 100%' removed; calculator H3->H2"
     },
     {
       "path": "dulich.html",
       "primary_intent": "du lịch hà nội",
       "title": "Du Lịch Hà Nội | Cẩm Nang Mr Tú",
-      "h1": "Du Lịch Hà Nội   Điểm Đến & Lịch Trình",
+      "meta_description": "Cẩm nang du lịch Hà Nội: điểm đến, ẩm thực, lưu trú, lịch trình và khám phá các khu phố dành cho du khách.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Du Lịch Hà Nội \n                     Điểm Đến & Lịch Trình",
       "canonical": "https://thuexemayhanoi.github.io/shop/dulich.html",
-      "visible_word_count_before": 242,
-      "visible_word_count_after": 560,
-      "contextual_links_before": 8,
-      "contextual_links_after": 11,
-      "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": true,
-      "status": "PASS"
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [],
+      "heading_errors_after": [],
+      "visible_word_count_before": 601,
+      "visible_word_count_after": 601,
+      "contextual_links_before": 13,
+      "contextual_links_after": 13,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [
+        {
+          "page": "antoan.html",
+          "fragment": "Cần hỗ trợ nhanh? Gọi Mr Tú: 081.665.9199 (giờ mở cửa 8h-17h"
+        }
+      ],
+      "business_fact_flags_before": [],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "PASS",
+      "changes_made": "calculator H3->H2"
     },
     {
       "path": "faq.html",
-      "primary_intent": "câu hỏi thường gặp thuê xe máy",
+      "primary_intent": "faq",
       "title": "Hỏi Đáp Thuê Xe Máy Hà Nội Cho Khách Du Lịch | Mr Tú",
-      "h1": "Hỏi Đáp Thuê Xe Máy Ở Hà Nội   Cho Khách Du Lịch - Mr Tú",
+      "meta_description": "Tổng hợp FAQ hỏi đáp thuê xe máy ở Hà Nội cho khách du lịch. Giải đáp chi tiết về giá, thủ tục, mũ bảo hiểm & cứu hộ. Hỏi Mr Tú ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Hỏi Đáp Thuê Xe Máy Ở Hà Nội \n                         Cho Khách Du Lịch - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/faq.html",
-      "visible_word_count_before": 1115,
-      "visible_word_count_after": 1116,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 1168,
+      "visible_word_count_after": 1167,
       "contextual_links_before": 8,
       "contextual_links_after": 8,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fake_promo",
+        "body:support_hours"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "MIEN PHI/30-phut rescue claim softened; 'ke ca 2h sang' removed; calculator H3->H2"
     },
     {
       "path": "gahn.html",
       "primary_intent": "thuê xe máy ga hà nội",
       "title": "Thuê Xe Máy Ga Hà Nội - Mr Tú | Tặng Mũ, Áo Mưa & Giao Tận Nơi",
-      "h1": "Cho Thuê Xe Máy Ga Hà Nội   Uy Tín - Mr Tú",
+      "meta_description": "Dịch vụ thuê xe máy Ga Hà Nội. Giá từ 150.000đ/ngày, kèm 2 mũ bảo hiểm & áo mưa. Giao xe gần ga Lê Duẩn theo lịch hẹn. Gọi Mr Tú ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Cho Thuê Xe Máy Ga Hà Nội \n                         Uy Tín - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/gahn.html",
-      "visible_word_count_before": 746,
-      "visible_word_count_after": 745,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 775,
+      "visible_word_count_after": 774,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "og:fixed_timing",
+        "body:fixed_timing",
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "og:title Giao Xe 5 Phut removed; og desc 'Vua xuong tau la co xe' softened; hero badge 5 Phut Co Xe -> theo lich hen; 'giao xe mien phi' removed; calculator H3->H2"
     },
     {
       "path": "gioithieu.html",
-      "primary_intent": "giới thiệu Mr Tú",
-      "title": "Giới Thiệu Thuê Xe Máy Hà Nội - Mr Tú | Uy Tín, Giao Xe 15P",
-      "h1": "Giới Thiệu Dịch Vụ   Thuê Xe Máy Phố Cổ",
+      "primary_intent": "giới thiệu",
+      "title": "Giới Thiệu Thuê Xe Máy Hà Nội - Mr Tú",
+      "meta_description": "Tìm hiểu về Mr Tú - Dịch vụ cho thuê xe máy Hà Nội tại Phố Cổ. Giá chỉ từ 150.000đ/ngày, giao xe tận nơi Hoàn Kiếm theo lịch hẹn, thủ tục đơn giản. Xem ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Giới Thiệu Dịch Vụ \n                         Thuê Xe Máy Phố Cổ",
       "canonical": "https://thuexemayhanoi.github.io/shop/gioithieu.html",
-      "visible_word_count_before": 856,
-      "visible_word_count_after": 846,
-      "contextual_links_before": 5,
-      "contextual_links_after": 5,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 882,
+      "visible_word_count_after": 880,
+      "contextual_links_before": 6,
+      "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "title:fixed_15p",
+        "title:fixed_p",
+        "body:fixed_15p"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "title Giao Xe 15P removed; '15-20 phut' li -> theo lich hen; calculator H3->H2"
     },
     {
       "path": "haibatrung.html",
       "primary_intent": "thuê xe máy hai bà trưng",
-      "title": "Thuê Xe Máy Hai Bà Trưng | Giao Xe 5 Phút, Thủ Tục Nhanh - Mr Tú",
-      "h1": "Cho thuê xe máy Hai Bà Trưng   Thủ tục đơn giản, nhận xe nhanh - Mr Tú",
+      "title": "Thuê Xe Máy Hai Bà Trưng | Thủ Tục Nhanh - Mr Tú",
+      "meta_description": "Dịch vụ thuê xe máy Hai Bà Trưng. Giao xe tận nơi Phố Huế, Bà Triệu, Bách Mai theo lịch hẹn. Mũ bảo hiểm sạch, thủ tục đơn giản. Gọi Mr Tú ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Cho thuê xe máy Hai Bà Trưng \n                         Thủ tục đơn giản, nhận xe nhanh - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/haibatrung.html",
-      "visible_word_count_before": 757,
-      "visible_word_count_after": 757,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 792,
+      "visible_word_count_after": 794,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "title:fixed_timing",
+        "og:fixed_timing",
+        "body:fixed_timing"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "title/og Giao Xe 5 Phut removed; twitter cleaned; 'co xe ngay sau 5-10 phut' & '5-10 phut' body claims -> lich hen; calculator H3->H2"
     },
     {
       "path": "hoankiem.html",
       "primary_intent": "thuê xe máy hoàn kiếm",
       "title": "Cho Thuê Xe Máy Hoàn Kiếm Giao Tận Nơi - Mr Tú | Giá Rẻ & Uy Tín",
-      "h1": "Cho Thuê Xe Máy    Hoàn Kiếm & Phố Cổ",
+      "meta_description": "Dịch vụ thuê xe máy Hoàn Kiếm của Mr Tú, hỗ trợ giao nhận tại khu vực trung tâm Hà Nội. Xem loại xe, thông tin thuê và liên hệ để kiểm tra tình trạng xe.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Cho Thuê Xe Máy  \n                         Hoàn Kiếm & Phố Cổ",
       "canonical": "https://thuexemayhanoi.github.io/shop/hoankiem.html",
-      "visible_word_count_before": 1042,
-      "visible_word_count_after": 1044,
-      "contextual_links_before": 6,
-      "contextual_links_after": 6,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 1073,
+      "visible_word_count_after": 1070,
+      "contextual_links_before": 7,
+      "contextual_links_after": 7,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "twitter:fixed_timing",
+        "body:fixed_timing",
+        "body:uy_tin_so_1"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "twitter:title Giao Xe 5 Phut removed; 'uy tin nhat' -> uy tin; '5-10 phut' -> lich hen; calculator H3->H2"
     },
     {
       "path": "hoidap.html",
-      "primary_intent": "hỏi đáp thuê xe máy",
+      "primary_intent": "hỏi đáp",
       "title": "Hỏi Đáp Tình Huống Thuê Xe Máy | Cẩm Nang Mr Tú",
-      "h1": "Hỏi Đáp   Tình Huống Thuê Xe",
+      "meta_description": "Cẩm nang hỏi đáp: các câu hỏi thực tế về thuê xe máy, tình huống của khách du lịch và người nước ngoài khi đi Hà Nội.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Hỏi Đáp \n                     Tình Huống Thuê Xe",
       "canonical": "https://thuexemayhanoi.github.io/shop/hoidap.html",
-      "visible_word_count_before": 254,
-      "visible_word_count_after": 611,
-      "contextual_links_before": 9,
-      "contextual_links_after": 12,
-      "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": true,
-      "status": "PASS"
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [],
+      "heading_errors_after": [],
+      "visible_word_count_before": 647,
+      "visible_word_count_after": 647,
+      "contextual_links_before": 14,
+      "contextual_links_after": 14,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [
+        {
+          "page": "antoan.html",
+          "fragment": "Cần hỗ trợ nhanh? Gọi Mr Tú: 081.665.9199 (giờ mở cửa 8h-17h"
+        }
+      ],
+      "business_fact_flags_before": [],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "PASS",
+      "changes_made": "calculator H3->H2"
     },
     {
       "path": "index.html",
-      "primary_intent": "thuê xe máy hà nội",
+      "primary_intent": "thuê xe máy hà nội (umbrella)",
       "title": "Thuê Xe Máy Hà Nội, Phố Cổ & Hoàn Kiếm | Mr Tú",
-      "h1": "Thuê Xe Máy Hà Nội   Hoàn Kiếm & Phố Cổ",
+      "meta_description": "Thuê xe máy Hà Nội của Mr Tú: xe số, xe ga, thuê theo ngày, tuần, tháng, phục vụ khu Phố Cổ, Hoàn Kiếm và nhiều khu vực nội thành. Xem giá thuê xe máy Hà Nội và liên hệ đặt xe qua điện thoại hoặc Zalo.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê Xe Máy Hà Nội \n                         Hoàn Kiếm & Phố Cổ",
       "canonical": "https://thuexemayhanoi.github.io/shop/",
-      "visible_word_count_before": 1421,
-      "visible_word_count_after": 2287,
-      "contextual_links_before": 23,
-      "contextual_links_after": 23,
-      "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": true,
-      "status": "PASS"
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3",
+        "H2->H4"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 2376,
+      "visible_word_count_after": 2378,
+      "contextual_links_before": 29,
+      "contextual_links_after": 29,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [
+        {
+          "page": "nhap.html",
+          "fragment": "100% xe được bảo dưỡng định kỳ tại hãng. Mũ bảo hiểm sạch, đ"
+        },
+        {
+          "page": "nhap.html",
+          "fragment": "Nhận xe tại Hoàn Kiếm, Phố Cổ, Tây Hồ theo lịch hẹn trong gi"
+        },
+        {
+          "page": "nhap.html",
+          "fragment": "Giá thuê xe máy Hà Nội cạnh tranh, niêm yết công khai, không"
+        },
+        {
+          "page": "nhap.html",
+          "fragment": "Chỉ cần CCCD hoặc hộ chiếu. Giấy tờ và mức đặt cọc tùy trườn"
+        },
+        {
+          "page": "nhap.html",
+          "fragment": "Dòng xe ga quốc dân, nhỏ gọn, cốp rộng, tiết kiệm xăng. Phù "
+        }
+      ],
+      "business_fact_flags_before": [
+        "body:fixed_15p",
+        "body:fixed_p",
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "Cam Ket H4->H3 x4; calculator H3->H2; AI comparison card 15 Phut/45-60p -> Theo hen/Khong cam ket"
     },
     {
       "path": "kinhnghiem.html",
-      "primary_intent": "kinh nghiệm thuê xe máy",
+      "primary_intent": "cẩm nang kinh nghiệm",
       "title": "Kinh Nghiệm Thuê Xe Máy Hà Nội | Từ A-Z Cho Khách Du Lịch - Mr Tú",
-      "h1": "Kinh Nghiệm Thuê Xe Máy Hà Nội   Từ A-Z Cho Khách Du Lịch",
+      "meta_description": "Chia sẻ kinh nghiệm thuê xe máy Hà Nội từ A-Z cho khách du lịch. Mẹo chọn xe ngon, tránh công an, chỗ gửi xe & lịch trình phượt Phố Cổ. Xem ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Kinh Nghiệm Thuê Xe Máy Hà Nội \n                         Từ A-Z Cho Khách Du Lịch",
       "canonical": "https://thuexemayhanoi.github.io/shop/kinhnghiem.html",
-      "visible_word_count_before": 1162,
-      "visible_word_count_after": 1162,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 1203,
+      "visible_word_count_after": 1203,
       "contextual_links_before": 11,
       "contextual_links_after": 11,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fake_promo",
+        "body:support_hours"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "calculator H3->H2 (benign 'danh 5 phut kiem tra xe' kept)"
+    },
+    {
+      "path": "lienhe.html",
+      "primary_intent": "liên hệ thuê xe máy",
+      "title": "Liên Hệ Thuê Xe Máy Hà Nội - Mr Tú | 081.665.9199",
+      "meta_description": "Liên hệ Mr Tú qua 081.665.9199 (hotline/Zalo) để hỏi giá thuê xe máy, loại xe và điều kiện nhận xe tại Hà Nội. Gửi thời gian thuê để được xác nhận nhanh.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Liên Hệ & Hỗ Trợ \n                         Thuê Xe Máy Hà Nội - Mr Tú",
+      "canonical": "https://thuexemayhanoi.github.io/shop/lienhe.html",
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3",
+        "H2->H4"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 508,
+      "visible_word_count_after": 684,
+      "contextual_links_before": 5,
+      "contextual_links_after": 11,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [],
+      "business_fact_flags_before": [
+        "title:24_7",
+        "meta:24_7",
+        "meta:address_seo",
+        "og:24_7",
+        "og:fixed_15p",
+        "og:fixed_timing",
+        "twitter:24_7",
+        "body:24_7",
+        "body:fixed_15p",
+        "body:fake_promo",
+        "body:address_seo",
+        "body:support_hours"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "FULL CLEANUP: title/meta/og/twitter de-24/7 + 15 phut; keywords de-addressed; geo/ICBM address metas removed; hero badge/paragraph de-24/7; contact cards H4->H3 with (24/7) removed; unverified 17 Phuc Tan address replaced by contact-to-confirm wording (map kept as reference); 24h email reply claim removed; 'cuu ho sau 15-30 phut' softened; footer de-24/7 + de-addressed; +2 useful H2 sections (Thong Tin Nen Gui / Xac Nhan Gia Va Dieu Kien) with trusted deposit wording; calculator H3->H2"
     },
     {
       "path": "longbien.html",
       "primary_intent": "thuê xe máy long biên",
-      "title": "Thuê Xe Máy Long Biên Giá Rẻ | Xe Mới, Giao Tận Nơi 5P",
-      "h1": "Thuê Xe Máy Long Biên   Chạy Phố & Đi Tỉnh",
+      "title": "Thuê Xe Máy Long Biên Giá Rẻ | Giao Tận Nơi Theo Lịch Hẹn - Mr Tú",
+      "meta_description": "Dịch vụ thuê xe máy Long Biên. Xe được bảo dưỡng định kỳ, giao xe tận nơi, thủ tục đơn giản. Liên hệ để đặt xe đi Phố Cổ hoặc đi tỉnh. Giá từ 150.000đ/ngày.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê Xe Máy Long Biên \n                         Chạy Phố & Đi Tỉnh",
       "canonical": "https://thuexemayhanoi.github.io/shop/longbien.html",
-      "visible_word_count_before": 822,
-      "visible_word_count_after": 834,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 881,
+      "visible_word_count_after": 878,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "title:fixed_p",
+        "body:uy_tin_so_1"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "title Xe Moi/Giao Tan Noi 5P -> theo lich hen; 'uy tin nhat' -> removed superlative; calculator H3->H2"
     },
     {
       "path": "mangxahoi.html",
-      "primary_intent": "mạng xã hội Mr Tú",
+      "primary_intent": "mạng xã hội",
       "title": "Mạng Xã Hội Thuê Xe Máy Hà Nội Mr Tú | App Đặt Xe & Review",
-      "h1": "Mạng Xã Hội & App   Thuê Xe Máy Hà Nội - Mr Tú",
+      "meta_description": "Kết nối cộng đồng App cho thuê xe máy Hà Nội - Mr Tú. Cập nhật khuyến mãi, review xe thực tế & hướng dẫn phượt trên Facebook, TikTok, YouTube, Reddit, Threads. Tham gia ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Mạng Xã Hội & App \n                         Thuê Xe Máy Hà Nội - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/mangxahoi.html",
-      "visible_word_count_before": 901,
-      "visible_word_count_after": 902,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 974,
+      "visible_word_count_after": 976,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "voucher claim removed; calculator H3->H2"
     },
     {
       "path": "ngay.html",
       "primary_intent": "thuê xe máy theo ngày",
       "title": "Thuê Xe Máy Theo Ngày Hà Nội Giá Rẻ | Chỉ 150k - Mr Tú",
-      "h1": "Thuê Xe Máy Theo Ngày   Giá Rẻ & Uy Tín - Mr Tú",
+      "meta_description": "Dịch vụ thuê xe máy theo ngày Hà Nội tại Mr Tú. Giá chỉ từ 150.000đ/ngày, giao tận nơi Phố Cổ theo lịch hẹn. Thủ tục nhanh gọn. Đặt ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê Xe Máy Theo Ngày \n                         Giá Rẻ & Uy Tín - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/ngay.html",
-      "visible_word_count_before": 628,
-      "visible_word_count_after": 641,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 667,
+      "visible_word_count_after": 663,
       "contextual_links_before": 5,
       "contextual_links_after": 5,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "og:fixed_timing",
+        "body:fixed_timing"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "og 10-phut claim removed; hero '5 phut' -> nhanh gon; '(chi mat khoang 5 phut)' -> nhanh gon; calculator H3->H2"
     },
     {
       "path": "nhap.html",
-      "primary_intent": "landing entry (canonical về trang chủ)",
+      "primary_intent": "trang nhập (entry, non-canonical)",
       "title": "Thuê Xe Máy Hà Nội - Mr Tú | Xe Số, Xe Ga, Thuê Ngày/Tuần/Tháng",
-      "h1": "Thuê Xe Máy Hà Nội   Hoàn Kiếm & Phố Cổ",
+      "meta_description": "Dịch vụ thuê xe máy Hà Nội của Mr Tú với xe số, xe ga và các gói thuê theo ngày, tuần, tháng. Giao xe tại Hoàn Kiếm, Tây Hồ theo lịch hẹn. Liên hệ để đặt xe.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê Xe Máy Hà Nội \n                         Hoàn Kiếm & Phố Cổ",
       "canonical": "https://thuexemayhanoi.github.io/shop/",
-      "visible_word_count_before": 1373,
-      "visible_word_count_after": 1425,
+      "canonical_status": "intentional_home",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3",
+        "H4"
+      ],
+      "heading_errors_before": [
+        "H1->H3",
+        "H2->H4"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 1507,
+      "visible_word_count_after": 1507,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
-      "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": true,
-      "status": "PASS"
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [
+        {
+          "page": "index.html",
+          "fragment": "100% xe được bảo dưỡng định kỳ tại hãng. Mũ bảo hiểm sạch, đ"
+        },
+        {
+          "page": "index.html",
+          "fragment": "Nhận xe tại Hoàn Kiếm, Phố Cổ, Tây Hồ theo lịch hẹn trong gi"
+        },
+        {
+          "page": "index.html",
+          "fragment": "Giá thuê xe máy Hà Nội cạnh tranh, niêm yết công khai, không"
+        },
+        {
+          "page": "index.html",
+          "fragment": "Chỉ cần CCCD hoặc hộ chiếu. Giấy tờ và mức đặt cọc tùy trườn"
+        },
+        {
+          "page": "index.html",
+          "fragment": "Dòng xe ga quốc dân, nhỏ gọn, cốp rộng, tiết kiệm xăng. Phù "
+        }
+      ],
+      "business_fact_flags_before": [
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "Cam Ket H4->H3 x4; calculator H3->H2; homepage canonical intentionally retained (entry page, not in sitemap)"
     },
     {
       "path": "phoco.html",
       "primary_intent": "thuê xe máy phố cổ",
       "title": "Thuê Xe Máy Phố Cổ Uy Tín, Thủ Tục Nhanh - Mr Tú 081.665.9199",
+      "meta_description": "Dịch vụ thuê xe máy Phố Cổ Hà Nội của Mr Tú. Xe số, xe ga, giao tận nơi theo lịch hẹn, thủ tục nhanh gọn. Vi vu Bờ Hồ, 36 phố phường. Gọi Mr Tú 081.665.9199!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
       "h1": "Dịch vụ cho thuê xe máy Phố Cổ uy tín, thủ tục nhanh -  Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/phoco.html",
-      "visible_word_count_before": 896,
-      "visible_word_count_after": 908,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 972,
+      "visible_word_count_after": 971,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fixed_timing"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "'giao xe 10 phut' & 'giao nhan xe 5-10 phut' -> theo lich hen; calculator H3->H2"
     },
     {
       "path": "tayho.html",
       "primary_intent": "thuê xe máy tây hồ",
-      "title": "Thuê Xe Máy Tây Hồ Giá Rẻ | Giao Tận Nơi 5P - Mr Tú",
-      "h1": "Thuê xe máy Tây Hồ đi làm, đi chơi linh hoạt mỗi ngày   - Mr Tú",
+      "title": "Thuê Xe Máy Tây Hồ Giá Rẻ | Giao Tận Nơi Theo Lịch Hẹn - Mr Tú",
+      "meta_description": "Thuê xe máy Tây Hồ chỉ từ 150k/ngày. Xe mới, mũ xịn, giao xe tận nơi Yên Phụ, Xuân Diệu, Lạc Long Quân. Thủ tục nhanh gọn. Gọi Mr Tú 081.665.9199!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê xe máy Tây Hồ đi làm, đi chơi linh hoạt mỗi ngày \n                         - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/tayho.html",
-      "visible_word_count_before": 989,
-      "visible_word_count_after": 995,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 1026,
+      "visible_word_count_after": 1029,
       "contextual_links_before": 7,
       "contextual_links_after": 7,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "title:fixed_p",
+        "og:fixed_timing",
+        "og:uy_tin_so_1",
+        "body:fixed_15p",
+        "body:fixed_timing",
+        "body:uy_tin_so_1",
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "title Giao Tan Noi 5P -> theo lich hen; og 'uy tin so 1 / thu tuc 5 phut' cleaned; twitter 'Gia Tot Nhat' -> Gia Tot; body 'uy tin nhat/5 phut/giao xe mien phi/15-30 phut' claims cleaned; h2 '(Chi 5 phut)' removed; calculator H3->H2"
     },
     {
       "path": "thang.html",
       "primary_intent": "thuê xe máy theo tháng",
       "title": "Thuê Xe Máy Theo Tháng Hà Nội | Giá Từ 900k - Mr Tú",
-      "h1": "Thuê Xe Máy Theo Tháng Hà Nội   Hợp Đồng Linh Hoạt - Mr Tú",
+      "meta_description": "Dịch vụ thuê xe máy theo tháng tại Hà Nội, giá từ 900.000đ/tháng với xe số. Hợp đồng linh hoạt, xe được bảo dưỡng định kỳ. Liên hệ Mr Tú để xác nhận giá hiện tại.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê Xe Máy Theo Tháng Hà Nội \n                         Hợp Đồng Linh Hoạt - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/thang.html",
-      "visible_word_count_before": 892,
-      "visible_word_count_after": 895,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 922,
+      "visible_word_count_after": 924,
       "contextual_links_before": 4,
       "contextual_links_after": 4,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "meta:fake_promo",
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "meta 'mien phi thay dau' removed; h3 'Mien Phi Thay Dau & Bao Duong' -> Bao Duong Xe; body free-oil claim -> lien he de xac nhan; calculator H3->H2"
     },
     {
       "path": "thanhxuan.html",
       "primary_intent": "thuê xe máy thanh xuân",
       "title": "Thuê Xe Máy Thanh Xuân Giá Rẻ Cho Sinh Viên & Người Đi Làm | Mr Tú",
-      "h1": "Thuê Xe Máy Thanh Xuân   Cho Sinh Viên & Người Đi Làm  - Mr Tú",
+      "meta_description": "Dịch vụ thuê xe máy Thanh Xuân của Mr Tú. Giá từ 150.000đ/ngày, giao xe khu vực Ngã Tư Sở, Nguyễn Trãi, Royal City theo lịch hẹn. Thủ tục đơn giản. Liên hệ ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thuê Xe Máy Thanh Xuân \n                         Cho Sinh Viên & Người Đi Làm  - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/thanhxuan.html",
-      "visible_word_count_before": 897,
-      "visible_word_count_after": 892,
-      "contextual_links_before": 5,
-      "contextual_links_after": 5,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 933,
+      "visible_word_count_after": 932,
+      "contextual_links_before": 6,
+      "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "meta:xe_moi_100",
+        "meta:uy_tin_so_1",
+        "og:fixed_p",
+        "body:fixed_timing"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "meta (uy tin so 1, 5 phut, xe moi 2024) rewritten; og:title 10p removed; twitter cleaned; 'nhan xe sau 5 phut' -> nhanh chong nhan xe; calculator H3->H2"
     },
     {
       "path": "thutuc.html",
       "primary_intent": "thủ tục thuê xe máy",
       "title": "Thủ Tục Thuê Xe Máy Phố Cổ | Đơn Giản - Minh Bạch - Mr Tú",
-      "h1": "Thủ Tục Thuê Xe Máy Phố Cổ   Nhanh Gọn, Minh Bạch - Mr Tú",
+      "meta_description": "Thủ tục thuê xe máy Phố Cổ tại Mr Tú cực đơn giản: chỉ cần CCCD/Passport, giấy tờ và mức đặt cọc tùy trường hợp thuê. Xem hướng dẫn chi tiết!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Thủ Tục Thuê Xe Máy Phố Cổ \n                         Nhanh Gọn, Minh Bạch - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/thutuc.html",
-      "visible_word_count_before": 1043,
-      "visible_word_count_after": 1051,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 1085,
+      "visible_word_count_after": 1085,
       "contextual_links_before": 9,
       "contextual_links_after": 9,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fixed_timing"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "meta/twitter '5 phut nhan xe' removed; hero badge -> nhanh gon; '5-10 phut' -> nhanh gon trong gio mo cua; calculator H3->H2"
     },
     {
       "path": "tuan.html",
       "primary_intent": "thuê xe máy theo tuần",
       "title": "Giá Thuê Xe Máy Theo Tuần Phố Cổ | Tiết Kiệm - Mr Tú",
-      "h1": "Giá Thuê Xe Máy Theo Tuần Phố Cổ   Tổng Chi Phí Tiết Kiệm - Mr Tú",
+      "meta_description": "Bảng giá thuê xe máy theo tuần Phố Cổ mới nhất. Gói tuần chỉ từ ~100k/ngày, xe mới, giao xe tận nơi Hoàn Kiếm. Tiết kiệm so với thuê lẻ. Gọi Mr Tú ngay!",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Giá Thuê Xe Máy Theo Tuần Phố Cổ \n                         Tổng Chi Phí Tiết Kiệm - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/tuan.html",
-      "visible_word_count_before": 831,
-      "visible_word_count_after": 842,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 865,
+      "visible_word_count_after": 871,
       "contextual_links_before": 7,
       "contextual_links_after": 7,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "og:fake_promo",
+        "body:fixed_timing",
+        "body:fake_promo",
+        "body:support_hours"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "og 'combo gia cuc soc, mien phi' cleaned; 'thu tuc 5 phut' -> nhanh gon; '5-10 phut' -> nhanh gon; 'doi xe mien phi' -> lien he ho tro; calculator H3->H2"
     },
     {
       "path": "uudai.html",
-      "primary_intent": "ưu đãi thuê xe máy",
+      "primary_intent": "ưu đãi thuê xe",
       "title": "Giá Thuê Xe Máy Hà Nội: Ưu Đãi Thuê Dài Hạn | Mr Tú",
-      "h1": "Giá Thuê Xe Máy Hà Nội   Ưu Đãi Thuê Dài Hạn - Mr Tú",
+      "meta_description": "Giá thuê xe máy Hà Nội theo gói tuần/tháng ưu đãi hơn thuê theo ngày. Xe được bảo dưỡng định kỳ. Liên hệ Mr Tú để xác nhận ưu đãi hiện tại.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Giá Thuê Xe Máy Hà Nội \n                         Ưu Đãi Thuê Dài Hạn - Mr Tú",
       "canonical": "https://thuexemayhanoi.github.io/shop/uudai.html",
-      "visible_word_count_before": 734,
-      "visible_word_count_after": 696,
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [
+        "H1->H3"
+      ],
+      "heading_errors_after": [],
+      "visible_word_count_before": 724,
+      "visible_word_count_after": 732,
       "contextual_links_before": 6,
       "contextual_links_after": 6,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
       "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": false,
-      "status": "PASS"
+      "business_fact_flags_before": [
+        "body:fake_promo"
+      ],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "FIXED",
+      "changes_made": "'So luong xe uu dai co han' fake scarcity -> uu dai tuy thoi diem, lien he xac nhan; calculator H3->H2"
     },
     {
       "path": "xemay.html",
-      "primary_intent": "các loại xe máy",
+      "primary_intent": "cẩm nang xe máy",
       "title": "Xe Máy & Hướng Dẫn Bảo Dưỡng | Cẩm Nang Mr Tú",
-      "h1": "Xe Máy   Hướng Dẫn & Bảo Dưỡng",
+      "meta_description": "Cẩm nang xe máy: hướng dẫn sử dụng và bảo dưỡng Honda Wave, Sirius, Vision, Air Blade, Click, Mio và xe điện.",
+      "h1_count_before": 1,
+      "h1_count_after": 1,
+      "h1": "Xe Máy \n                     Hướng Dẫn & Bảo Dưỡng",
       "canonical": "https://thuexemayhanoi.github.io/shop/xemay.html",
-      "visible_word_count_before": 246,
-      "visible_word_count_after": 591,
-      "contextual_links_before": 8,
-      "contextual_links_after": 11,
-      "duplicate_content_flags": [],
-      "business_fact_flags": [],
-      "content_added": true,
-      "status": "PASS"
+      "canonical_status": "self",
+      "heading_levels": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "heading_errors_before": [],
+      "heading_errors_after": [],
+      "visible_word_count_before": 630,
+      "visible_word_count_after": 630,
+      "contextual_links_before": 13,
+      "contextual_links_after": 13,
+      "broken_links": [],
+      "duplicate_title": null,
+      "duplicate_meta": null,
+      "duplicate_content_flags": [
+        {
+          "page": "antoan.html",
+          "fragment": "Cần hỗ trợ nhanh? Gọi Mr Tú: 081.665.9199 (giờ mở cửa 8h-17h"
+        }
+      ],
+      "business_fact_flags_before": [],
+      "business_fact_flags_after": [],
+      "jsonld_valid": true,
+      "status": "PASS",
+      "changes_made": "calculator H3->H2"
     }
   ]
 }
