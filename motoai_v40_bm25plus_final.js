@@ -378,7 +378,7 @@
     {k:'50cc',      re:/\b50\s*cc\b|\b50cc\b/i,               canon:'50cc'},
     {k:'xe điện',   re:/xe\s*điện|vinfast|yadea|dibao|gogo|klara/i, canon:'xe điện'},
     {k:'xe ga',     re:/\bxe\s*ga\b/i,                        canon:'xe ga'},
-    {k:'xe số',     re:/\bxe\s*số\b/i,                        canon:'xe số'}
+    {k:'xe số',     re:/\bxe\s*số/i,                        canon:'xe số'}
   ];
   function detectType(t){
     const raw = String(t||'');
@@ -415,7 +415,7 @@
   function detectIntent(t){
     const text = (t||"").toLowerCase();
     const rules = {
-      needPrice:   [/giá\b/,/bao nhiêu/,/thuê\b/,/\brent\b/,/tính tiền/,/cost/,/price/],
+      needPrice:   [/giá/,/bao nhiêu/,/thuê/,/\brent\b/,/tính tiền/,/cost/,/price/],
       needDocs:    [/thủ tục/,/giấy tờ/,/cccd/,/passport/,/hộ chiếu/],
       needContact: [/liên hệ/,/\bzalo\b/,/gọi/,/hotline/,/\bsđt\b/,/\bsdt\b/,/phone/],
       needDelivery:[/giao/,/ship/,/tận nơi/,/đưa xe/,/mang xe/,/địa điểm/,/địa chỉ/],
@@ -429,69 +429,70 @@
     return scores;
   }
 
-  /* ====== PRICE TABLE ====== */
-  const PRICE_TABLE = {
-    'xe số':      { day:[150000],          week:[600000,700000], month:[850000,1200000] },
-    'xe ga':      { day:[150000,200000],   week:[600000,1000000], month:[1100000,2000000] },
-    'air blade':  { day:[200000],          week:[800000], month:[1600000,1800000] },
-    'vision':     { day:[200000],          week:[700000,850000], month:[1400000,1900000] },
-    'xe điện':    { day:[170000],          week:[800000], month:[1600000] },
-    '50cc':       { day:[200000],          week:[800000], month:[1700000] },
-    'xe côn tay': { day:[300000],          week:[1200000], month:null }
+  /* ====== PRICE LAYER — source of truth: assets/js/prices.js (window.MotoTusPrices.MODELS, owner-approved).
+     Unapproved models (50cc, Lead, Janus, Attila, NVX, SH, côn/PKL...) NEVER get a quoted price. ====== */
+  const CONTACT_PRICE_MSG = 'Liên hệ để xác nhận giá hiện tại';
+  const PRICE_TABLE = {}; // kept as inert sink for auto-learn writes; NOT used for answers
+  const APPROVED_FALLBACK = {
+    wave:     { name:'Honda Wave',      daily:150000, week:700000,  monthMin:900000,  monthMax:1200000 },
+    sirius:   { name:'Yamaha Sirius',  daily:150000, week:700000,  monthMin:900000,  monthMax:1200000 },
+    click:    { name:'Honda Click',    daily:150000, week:700000,  monthMin:900000,  monthMax:1200000 },
+    mio:      { name:'Yamaha Mio',     daily:150000, week:700000,  monthMin:900000,  monthMax:1200000 },
+    vision:   { name:'Honda Vision',   daily:200000, week:1000000, monthMin:1800000, monthMax:2000000 },
+    airblade: { name:'Honda Air Blade',daily:200000, week:1000000, monthMin:1500000, monthMax:1500000 },
+    ebike:    { name:'Xe điện',        daily:200000, week:1000000, monthMin:1500000, monthMax:1500000 }
   };
-  ['wave','sirius','blade','jupiter'].forEach(k=> PRICE_TABLE[k] = PRICE_TABLE[k]||PRICE_TABLE['xe số']);
-  ['lead','liberty','vespa','grande','janus'].forEach(k=> PRICE_TABLE[k] = PRICE_TABLE[k]||PRICE_TABLE['xe ga']);
-  PRICE_TABLE['sh'] = { day:[450000], week:[1800000], month:[4500000] };
-
-  function modelFamily(model){
-    const m = (model||'').toLowerCase();
-    if(['vision','air blade','lead','liberty','vespa','grande','janus','sh'].includes(m)) return 'xe ga';
-    if(['wave','sirius','blade','jupiter','future','dream'].includes(m)) return 'xe số';
-    return null;
-  }
-  function baseForModel(model, unit){
-    if(!model) return null;
-    const key = unit==="tuần"?"week":(unit==="tháng"?"month":"day");
-    const entry = PRICE_TABLE[model] || PRICE_TABLE[modelFamily(model)];
-    if(entry && entry[key]) return (Array.isArray(entry[key])?entry[key][0]:entry[key]);
-    return null;
+  function approvedPrice(model){
+    const m = String(model||'').toLowerCase().replace(/\s+/g,' ').trim();
+    const alias = {
+      'wave':'wave','sirius':'sirius','click':'click','mio':'mio','vision':'vision',
+      'air blade':'airblade','airblade':'airblade','blade':'airblade',
+      'xe điện':'ebike','xe dien':'ebike',
+      'xe số':'_so','xe so':'_so','xe ga':'_ga'
+    };
+    const key = alias[m] || null;
+    if(!key) return null;
+    const MP = (window.MotoTusPrices && window.MotoTusPrices.MODELS) ? window.MotoTusPrices.MODELS : APPROVED_FALLBACK;
+    if(key==='_so'){ const w = MP.wave||MP.sirius; return {name:'xe số (Wave / Sirius / Click / Mio)', day:w.daily, week:w.week, monthMin:w.monthMin, monthMax:w.monthMax}; }
+    if(key==='_ga'){ const v = MP.vision||MP.airblade; return {name:'xe ga (Vision / Air Blade)', day:v.daily, week:v.week, monthMin:(MP.airblade||v).monthMin, monthMax:v.monthMax}; }
+    const p = MP[key]; if(!p) return null;
+    return {name:p.name, day:p.daily, week:p.week, monthMin:p.monthMin, monthMax:p.monthMax};
   }
 
   function composePrice(model, qty){
-    // Overview: chỉ có model
-    if(model && !qty){
-      const m = PRICE_TABLE[model] || PRICE_TABLE[modelFamily(model)] || PRICE_TABLE['xe số'];
-      if(!m) return naturalize(`Giá ${model} bên em linh động, anh/chị nhắn Zalo ${CFG.phone} để em báo chi tiết.`);
-      const day = Array.isArray(m.day)?m.day[0]:m.day;
-      const week = m.week ? (Array.isArray(m.week)?m.week[0]:m.week) : null;
-      const month= m.month? (Array.isArray(m.month)?m.month[0]:m.month): null;
-      let parts = [];
-      if(day)   parts.push(`ngày khoảng ${nfVND(day)}đ`);
-      if(week)  parts.push(`tuần từ ${nfVND(week)}đ`);
-      if(month) parts.push(`tháng từ ${nfVND(month)}đ`);
-      return naturalize(`Giá thuê ${model} ${parts.join(", ")}. Anh/chị thuê mấy ngày ạ?`);
+    const ap = model ? approvedPrice(model) : null;
+    if(model && !ap){
+      // Unapproved/unknown model — never quote a stale price.
+      return naturalize(`Dòng ${model} bên em chưa niêm yết giá. ${CONTACT_PRICE_MSG}, anh/chị nhắn Zalo ${CFG.phone} giúp em ạ.`);
     }
-
+    if(ap && !qty){
+      const parts = [`ngày ${nfVND(ap.day)}đ`, `tuần ${nfVND(ap.week)}đ`];
+      parts.push(ap.monthMin===ap.monthMax ? `tháng ${nfVND(ap.monthMin)}đ` : `tháng ${nfVND(ap.monthMin)}–${nfVND(ap.monthMax)}đ`);
+      return naturalize(`Giá thuê ${ap.name}: ${parts.join(', ')}. Anh/chị thuê mấy ngày ạ?`);
+    }
     if(!model && !qty) return naturalize(`Anh/chị định thuê xe gì và trong bao lâu để em tính giá ạ?`);
-
-    const unitLabel = qty ? (qty.unit==="tuần"?"tuần":(qty.unit==="tháng"?"tháng":"ngày")) : "ngày";
-    const base = qty ? baseForModel(model||'xe số', qty.unit) : null;
-    if(qty && !base){
-      if(!model) return naturalize(`Anh/chị cho em xin mẫu xe (vision, air blade, wave...) để em tính giá chính xác.`);
-      return naturalize(`Giá thuê ${model} theo ${qty.unit} cần check kho. Anh/chị nhắn Zalo ${CFG.phone} giúp em.`);
-    }
     if(!qty){
       return naturalize(`Anh/chị định thuê ${model||'xe'} trong bao lâu (1–2 ngày, 1 tuần, 1 tháng...) để em tính giá tốt nhất.`);
     }
-
+    if(!ap){
+      if(!model) return naturalize(`Anh/chị cho em xin mẫu xe (vision, air blade, wave...) để em tính giá chính xác.`);
+      return naturalize(`Giá thuê ${model} theo ${qty.unit} cần check kho. Anh/chị nhắn Zalo ${CFG.phone} giúp em.`);
+    }
+    const unitLabel = qty.unit==="tuần"?"tuần":(qty.unit==="tháng"?"tháng":"ngày");
+    const base = unitLabel==="ngày" ? ap.day : (unitLabel==="tuần" ? ap.week : ap.monthMin);
     const total = base * qty.n;
     let text;
     if(qty.n===1){
-      text = `Giá thuê ${model||'xe'} 1 ${unitLabel} là khoảng ${nfVND(base)}đ.`;
+      if(unitLabel==="tháng" && ap.monthMin!==ap.monthMax){
+        text = `Giá thuê ${ap.name} 1 tháng khoảng ${nfVND(ap.monthMin)}–${nfVND(ap.monthMax)}đ (tùy dòng xe và điều kiện thuê).`;
+      }else{
+        text = `Giá thuê ${ap.name} 1 ${unitLabel} là ${nfVND(base)}đ.`;
+      }
     }else{
-      text = `Tổng tiền thuê ${model||'xe'} ${qty.n} ${unitLabel} khoảng ${nfVND(total)}đ.`;
+      text = `Tổng tiền thuê ${ap.name} ${qty.n} ${unitLabel} khoảng ${nfVND(total)}đ.`;
+      if(unitLabel==="tháng" && ap.monthMin!==ap.monthMax) text += ` (giá tháng dao động ${nfVND(ap.monthMin)}–${nfVND(ap.monthMax)}đ, em tạm tính theo mức thấp)`;
     }
-    if(qty.unit==="ngày" && qty.n>=3 && qty.n<7) text += " Thuê tuần sẽ rẻ hơn đấy ạ.";
+    if(unitLabel==="ngày" && qty.n>=3 && qty.n<7) text += " Thuê tuần sẽ rẻ hơn đấy ạ.";
     return naturalize(`${text} Anh/chị chốt thì báo em giữ xe nhé.`);
   }
 

@@ -922,8 +922,8 @@
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
                                 <span class="app-label">Địa Điểm</span></button>
                             
-                            <!-- AI Guide (Fallback script handles race condition) -->
-                            <button type="button" class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                            <!-- AI: MotoAI v40 (lazy-loaded on first tap) -->
+                            <button type="button" class="app-item" data-accent="ai" onclick="MotoAI_v40_Home.open()">
                                 <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                                 <span class="app-label">AI Tour Guide ✨</span></button>
 
@@ -992,7 +992,7 @@
                         <h2>Mr Tú - Đơn Vị Cho Thuê Xe Máy Hàng Đầu Hà Nội</h2>
                     </div>
                     <p>
-                        Chào mừng bạn đến với <strong>Mr Tú</strong>, dịch vụ <a href="ngay.html" class="seo-link">cho thuê xe máy Hà Nội</a> uy tín và chuyên nghiệp. Với hơn 10 năm kinh nghiệm phục vụ hàng ngàn lượt khách du lịch trong nước và quốc tế, chúng tôi tự hào mang đến những trải nghiệm di chuyển tuyệt vời nhất trên những cung đường Thủ đô.
+                        Chào mừng bạn đến với <strong>Mr Tú</strong>, dịch vụ <a href="ngay.html" class="seo-link">cho thuê xe máy Hà Nội</a> uy tín và chuyên nghiệp. Với hơn 10 năm kinh nghiệm phục vụ hàng ngàn lượt khách du lịch trong nước và quốc tế, chúng tôi tự hào mang đến những trải nghiệm di chuyển tuyệt vời nhất trên những cung đường Thủ đô. Tìm hiểu thêm về <a href="gioithieu.html" class="seo-link">câu chuyện và đội ngũ của Mr Tú</a>.
                     </p>
                     <div class="feature-grid" style="margin-top: 40px;">
                         <div class="feature-card glass-panel">
@@ -1135,18 +1135,23 @@
                     </div>
                     <div class="glass-panel fade-in-up" style="padding: 24px; border-radius: 20px; text-align: center; transition-delay: 100ms;">
                         <i class="fa-solid fa-water" style="font-size: 40px; color: var(--primary); margin-bottom: 16px;"></i>
-                        <h3>Tây Hồ & Ba Đình</h3>
+                        <h3><a href="tayho.html" class="seo-link">Tây Hồ</a> & <a href="badinh.html" class="seo-link">Ba Đình</a></h3>
                         <p style="font-size: 0.9rem;">Phục vụ cư dân và khách nước ngoài khu Hồ Tây, Quảng An, Xuân Diệu.</p>
                     </div>
                     <div class="glass-panel fade-in-up" style="padding: 24px; border-radius: 20px; text-align: center; transition-delay: 200ms;">
                         <i class="fa-solid fa-train-subway" style="font-size: 40px; color: var(--primary); margin-bottom: 16px;"></i>
-                        <h3>Ga Hà Nội & Bến Xe</h3>
+                        <h3><a href="gahn.html" class="seo-link">Ga Hà Nội</a> & Bến Xe</h3>
                         <p style="font-size: 0.9rem;">Đón khách tại Ga Trần Quý Cáp/Lê Duẩn, hỗ trợ giao xe tại Mỹ Đình, Giáp Bát.</p>
                     </div>
                     <div class="glass-panel fade-in-up" style="padding: 24px; border-radius: 20px; text-align: center; transition-delay: 300ms;">
                         <i class="fa-solid fa-city" style="font-size: 40px; color: var(--primary); margin-bottom: 16px;"></i>
-                        <h3>Long Biên & Gia Lâm</h3>
+                        <h3><a href="longbien.html" class="seo-link">Long Biên</a> & Gia Lâm</h3>
                         <p style="font-size: 0.9rem;">Chi nhánh Long Biên giúp giao xe phía bên kia sông Hồng thuận tiện hơn.</p>
+                    </div>
+                    <div class="glass-panel fade-in-up" style="padding: 24px; border-radius: 20px; text-align: center; transition-delay: 400ms;">
+                        <i class="fa-solid fa-city" style="font-size: 40px; color: var(--primary); margin-bottom: 16px;"></i>
+                        <h3>Các Quận Nội Thành Khác</h3>
+                        <p style="font-size: 0.9rem;">Giao xe nhanh tại <a href="caugiay.html" class="seo-link">Cầu Giấy</a>, <a href="dongda.html" class="seo-link">Đống Đa</a>, <a href="thanhxuan.html" class="seo-link">Thanh Xuân</a>, <a href="haibatrung.html" class="seo-link">Hai Bà Trưng</a>.</p>
                     </div>
                 </div>
             </div>
@@ -1350,6 +1355,50 @@
         </section>
 
         <!-- ========================================================== -->
+        <!-- CẨM NANG HỮU ÍCH (static crawlable hub links)              -->
+        <!-- ========================================================== -->
+        <section class="section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 40px;">Cẩm nang hữu ích</h2>
+                <p style="text-align: center; max-width: 640px; margin: -20px auto 36px auto; color: var(--text-sub);">
+                    Tham khảo thêm các chuyên mục hướng dẫn của Mr Tú trước khi khởi hành.
+                </p>
+                <div class="feature-grid">
+                    <a href="kinhnghiem.html" class="iti-card" style="text-decoration:none;">
+                        <span class="material-symbols-rounded iti-icon-lg">tips_and_updates</span>
+                        <h3>Kinh nghiệm</h3>
+                        <p>Tips thuê xe, giấy tờ, kiểm tra xe trước khi nhận.</p>
+                    </a>
+                    <a href="antoan.html" class="iti-card" style="text-decoration:none;">
+                        <span class="material-symbols-rounded iti-icon-lg">health_and_safety</span>
+                        <h3>An toàn</h3>
+                        <p>Luật giao thông, mũ bảo hiểm và kỹ năng lái xe an toàn.</p>
+                    </a>
+                    <a href="xemay.html" class="iti-card" style="text-decoration:none;">
+                        <span class="material-symbols-rounded iti-icon-lg">two_wheeler</span>
+                        <h3>Xe máy</h3>
+                        <p>Đặc điểm, cách vận hành và bảo dưỡng từng dòng xe.</p>
+                    </a>
+                    <a href="dulich.html" class="iti-card" style="text-decoration:none;">
+                        <span class="material-symbols-rounded iti-icon-lg">tour_vr</span>
+                        <h3>Du lịch</h3>
+                        <p>Gợi ý điểm đến và lịch trình vi vu quanh Hà Nội.</p>
+                    </a>
+                    <a href="cungduong.html" class="iti-card" style="text-decoration:none;">
+                        <span class="material-symbols-rounded iti-icon-lg">route</span>
+                        <h3>Cung đường</h3>
+                        <p>Các cung đường phượt đẹp xuất phát từ Hà Nội.</p>
+                    </a>
+                    <a href="hoidap.html" class="iti-card" style="text-decoration:none;">
+                        <span class="material-symbols-rounded iti-icon-lg">contact_support</span>
+                        <h3>Hỏi đáp</h3>
+                        <p>Giải đáp nhanh những thắc mắc thường gặp khi thuê xe.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
         <!-- AI SYSTEM COMPARISON DASHBOARD                             -->
         <!-- ========================================================== -->
         <section class="section section-bg ai-comp-section">
@@ -1500,23 +1549,7 @@
     </div>
 </footer>
 
-<!-- AI MODAL 1: TOUR GUIDE (ACCESSIBILITY FIXED: Added role, aria-modal, aria-labelledby) -->
-<div class="ai-modal-overlay" id="ai-overlay"></div>
-<div class="ai-modal" id="ai-modal" role="dialog" aria-modal="true" aria-labelledby="ai-modal-title">
-    <div class="ai-header">
-        <h3 id="ai-modal-title"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--primary)"></i> Mr Tú AI Guide ✨</h3>
-        <button class="ai-close" id="ai-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="ai-chat-area" id="ai-chat-box" role="log" aria-live="polite">
-        <div class="chat-msg msg-bot">
-            Xin chào! Tôi là <strong>Mr Tú AI</strong>. Tôi có thể giúp bạn lên lịch trình đi phượt, tìm quán ăn ngon ở Phố Cổ, hay chọn xe phù hợp. Bạn cần giúp gì nào? 🛵🍜
-        </div>
-    </div>
-    <div class="ai-input-area">
-        <input type="text" id="ai-input" class="ai-input" placeholder="Hỏi tôi về địa điểm, món ăn...">
-        <button id="ai-send" class="ai-send" aria-label="Gửi"><i class="fa-solid fa-paper-plane"></i></button>
-    </div>
-</div>
+<!-- AI CHATBOT: MotoAI v40 (lazy-injected script, see loader below) -->
 
 <!-- AI MODAL 2: BIKE MATCHMAKER (ACCESSIBILITY FIXED) -->
 <div class="ai-modal-overlay" id="mm-overlay"></div>
@@ -1598,98 +1631,93 @@
 <!-- JS ENGINE -->
 <script src="assets/js/prices.js"></script>
 <script>
-// --- FALLBACK TO PREVENT RACE CONDITION ERRORS ---
-// Added to ensure buttons don't throw errors if clicked before full load
-window.AI_Guide = window.AI_Guide || { open: function () {
-  const modal = document.getElementById('ai-modal');
-  const overlay = document.getElementById('ai-overlay');
-  if (modal && overlay) { modal.classList.add('active'); overlay.classList.add('active'); modal.querySelector('input')?.focus(); }
-} };
+// --- MATCHMAKER FALLBACK (race condition guard) ---
 window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
   const modal = document.getElementById('mm-modal');
   const overlay = document.getElementById('mm-overlay');
   if (modal && overlay) { modal.classList.add('active'); overlay.classList.add('active'); }
 } };
+
+// --- MOTOAI v40 LAZY LOADER (primary homepage chatbot) ---
+// Injected ONLY on first explicit AI interaction. No startup cost, no background crawling.
+window.MotoAI_v40_Home = (function () {
+  let loadPromise = null;
+  function ensureConfig() {
+    // Homepage: NO autolearn, NO autoPriceLearn — approved prices come from assets/js/prices.js
+    window.MotoAI_CONFIG = {
+      autolearn: false,
+      debug: false,
+      smart: { autoPriceLearn: false }
+    };
+  }
+  function loadOnce() {
+    if (window.MotoAI_v40) return Promise.resolve();
+    if (!loadPromise) {
+      loadPromise = new Promise(function (resolve, reject) {
+        var sc = document.createElement('script');
+        sc.src = 'motoai_v40_bm25plus_final.js';
+        sc.onload = function () { resolve(); };
+        sc.onerror = function () { loadPromise = null; reject(new Error('MotoAI v40 load failed')); };
+        document.head.appendChild(sc);
+      });
+    }
+    return loadPromise;
+  }
+  return {
+    open: function () {
+      ensureConfig();
+      loadOnce().then(function () {
+        if (window.MotoAI_v40) window.MotoAI_v40.open();
+      }).catch(function () {
+        alert('Trợ lý AI đang bận, bạn thử lại sau hoặc nhắn Zalo 081.665.9199 nhé!');
+      });
+    }
+  };
+})();
 </script>
 
 <script>
-    /* ===== MotoAI Local Smart Upgrade (Lite – Offline) ===== */
-    const MOTO_AI_CTX = {
-      purpose: null,
-      days: null,
-      people: null,
-      asked: {}
-    };
-
-    let MOTO_AI_ACTION_LOCK = false;
-
-    function motoAI_Action(type) {
-      if (MOTO_AI_ACTION_LOCK) return; 
-
-      const callBtn = document.querySelector('.u-phone, .fab-call');
-      const zaloBtn = document.querySelector('.u-zalo, .fab-zalo');
-
-      if (type === "call" && callBtn) {
-        MOTO_AI_ACTION_LOCK = true; 
-        callBtn.classList.add("pulse");
-        callBtn.click();
+    /* ===== BIKE MATCHMAKER: pure local logic (3 inputs: experience, destination, height) ===== */
+    function motoMatchmake(exp, dest, height) {
+      /* exp: newbie|ok|pro - dest: city|trip|long - height: short|mid|tall
+         Only approved shop models: Wave / Sirius, Vision, Air Blade. No invented prices. */
+      function result(bike, reason) {
+        return 'Gợi ý phù hợp: ' + bike + '. ' + reason +
+          ' Nếu anh/chị muốn chắc chắn hơn, nhắn Zalo 081.665.9199 để Mr Tú tư vấn trực tiếp theo lịch trình của bạn.';
+      }
+      function contact(reason) {
+        return reason + ' Anh/chị nhắn Zalo 081.665.9199 để Mr Tú tư vấn mẫu xe phù hợp tay lái thực tế nhé.';
       }
 
-      if (type === "zalo" && zaloBtn) {
-        MOTO_AI_ACTION_LOCK = true; 
-        zaloBtn.classList.add("pulse");
-        zaloBtn.click();
+      if (exp === 'newbie') {
+        if (dest === 'long') {
+          // New rider + long mountain routes: uncertain — do not fabricate certainty.
+          return contact('Với lộ trình đèo xa, sự an toàn phụ thuộc tay lái thực tế của bạn hơn là mẫu xe.');
+        }
+        if (height === 'tall') {
+          return result('Honda Vision', 'Xe ga nhẹ, dễ điều khiển, yên xe thoải mái hơn với người cao.');
+        }
+        return result('Honda Wave / Yamaha Sirius', 'Xe số nhẹ, yên thấp, chân chạm đất vững vàng — rất dễ làm quen cho người mới.');
       }
+
+      if (exp === 'ok') {
+        if (dest === 'city') return result('Honda Vision', 'Nhỏ gọn, cốp rộng, luồn lách phố thoải mái.');
+        if (dest === 'trip') {
+          if (height === 'tall') return result('Honda Air Blade', 'Dáng xe rộng rãi hơn cho người cao, máy khỏe đủ cho phượt gần.');
+          return result('Honda Vision', 'Đủ êm và bền cho các chuyến ngoại thành như Bát Tràng, Ba Vì.');
+        }
+        return result('Honda Air Blade', 'Máy khỏe, phanh đầm, phù hợp lộ trình dài và đi đèo.');
+      }
+
+      // exp === 'pro'
+      if (dest === 'city') {
+        if (height === 'short') return result('Honda Vision', 'Gọn nhẹ, dễ xoay xở trong phố với người không cao.');
+        return result('Honda Air Blade', 'Tay lái vững thì Air Blade cho trải nghiệm chắc chắn nhất trong danh mục của shop.');
+      }
+      return result('Honda Air Blade', 'Máy khỏe và ổn định nhất trong danh mục cho các cung đường dài.');
     }
 
-    function motoAI_Upgrade(userText) {
-      const t = userText.toLowerCase();
-
-      /* --- AUTO ACTION TRIGGER --- */
-      if (/giữ xe|đặt xe|thuê luôn|lấy xe|chốt xe|lấy xe ngay|đồng ý/i.test(t)) {
-          setTimeout(() => motoAI_Action("zalo"), 1000); 
-      }
-      if (/gọi|call|điện thoại/i.test(t)) {
-          setTimeout(() => motoAI_Action("call"), 1000);
-      }
-
-      if (/du lịch|đi chơi|phượt/.test(t)) MOTO_AI_CTX.purpose = "travel";
-      if (/đi làm|công việc|đi làm hằng ngày/.test(t)) MOTO_AI_CTX.purpose = "work";
-      if (/2 người|hai người/.test(t)) MOTO_AI_CTX.people = 2;
-      if (/\d+\s*(ngày|tháng)/.test(t)) {
-        MOTO_AI_CTX.days = t.match(/\d+\s*(ngày|tháng)/)[0];
-      }
-
-      /* --- HỎI NGƯỢC THÔNG MINH --- */
-      if (!MOTO_AI_CTX.purpose && !MOTO_AI_CTX.asked.purpose) {
-        MOTO_AI_CTX.asked.purpose = true;
-        return "Anh/chị thuê xe để đi làm hay du lịch ạ?";
-      }
-
-      if (!MOTO_AI_CTX.days && !MOTO_AI_CTX.asked.days) {
-        MOTO_AI_CTX.asked.days = true;
-        return "Mình dự định thuê xe trong bao lâu ạ (theo ngày hay tháng)?";
-      }
-
-      /* --- ĐỀ XUẤT XE --- */
-      if (MOTO_AI_CTX.purpose === "travel") {
-        return `MotoAI gợi ý:
-    • Xe ga (Honda Vision)
-    • Êm, cốp rộng, phù hợp đi chơi
-    • Giá từ 200.000đ/ngày
-
-    Anh/chị muốn em giữ xe hôm nay không ạ?`;
-      }
-
-      if (MOTO_AI_CTX.purpose === "work") {
-        return `MotoAI gợi ý:
-    • Xe số (Wave / Sirius)
-    • Tiết kiệm xăng, dễ đi hằng ngày
-    • Giá từ 150.000đ/ngày
-
-    Anh/chị cần em giữ xe hay gửi địa chỉ nhận xe ạ?`;
-      }
-
+    function _legacy_removed_motoAI_Upgrade(userText) {
       return "";
     }
 
@@ -1816,194 +1844,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             this.statusWidget();
             this.setupPWA();
             this.ultraApp();
-            this.setupAI();
             this.setupMatchmaker();
-        },
-
-        // --- CORE: FAKE "GEMINI" OFFLINE, KHÔNG CẦN API ---
-        async callGeminiWithRetry(prompt, systemInstruction, onLoading, onSuccess, onError) {
-            try {
-                onLoading();
-
-                const pRaw = String(prompt || "");
-                const sRaw = String(systemInstruction || "");
-                const text = (pRaw + " " + sRaw).toLowerCase();
-                
-                const smartReply = motoAI_Upgrade(text);
-                if (smartReply) {
-                    setTimeout(() => onSuccess(smartReply), 600);
-                    return;
-                }
-
-                const delay = 500 + Math.floor(Math.random() * 700);
-
-                function wrap(msg) {
-                    return msg.replace(/\s+/g, " ").trim();
-                }
-
-                let answer = "";
-
-                // Logic AI (Simulated)
-                if (/hà giang|ha giang|sapa|sa pa|đi xa|highway|mountain|đèo|đi đèo/.test(text)) {
-                    answer = wrap(
-                        "Đi Hà Giang, Sa Pa hoặc cung đèo dài thì anh nên chạy xe số hoặc XR150: máy khỏe, phanh đầm, leo dốc an toàn. " +
-                        "Nếu chở đồ nhiều, ưu tiên Wave / XR150, hạn chế xe ga yếu phanh và nhanh nóng máy."
-                    );
-                }
-                else if (/phố cổ|pho co|old quarter|hoàn kiếm|hoan kiem|center|city center/.test(text)) {
-                    answer = wrap(
-                        "Chạy trong Phố Cổ, Hoàn Kiếm thì Vision hoặc Wave là hợp lý: xe nhỏ gọn, dễ luồn lách, gửi khách sạn cũng tiện. " +
-                        "Đi 1–2 ngày chơi quanh phố thì chọn Vision nhìn lịch sự, Wave thì siêu tiết kiệm xăng."
-                    );
-                }
-                else if (/hồ tây|ho tay|west lake|cafe|coffee|date|hẹn hò/.test(text)) {
-                    answer = wrap(
-                        "Đi chơi Hồ Tây, cafe, hẹn hò thì Vision hoặc Airblade là đẹp: dáng xe gọn, ngồi 2 người thoải mái, máy êm. " +
-                        "Nếu thích êm ái dễ lái thì Vision, cần khỏe máy hơn chút thì Airblade 160."
-                    );
-                }
-                else if (/ăn gì|ăn ở đâu|food|street food|đặc sản|mon an|món ăn|bún chả|phở|bun cha|pho/.test(text)) {
-                    answer = wrap(
-                        "Khu Phố Cổ anh thử combo: sáng phở Bát Đàn / Lý Quốc Sư, trưa bún chả Hàng Quạt hoặc Đắc Kim, tối bia / đồ nướng Tạ Hiện. " +
-                        "Đi bằng xe máy thì gửi xe ở các bãi Trần Nhật Duật hoặc ven hồ Hoàn Kiếm rồi đi bộ vào cho đỡ đông."
-                    );
-                }
-                else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
-                    answer = wrap(
-                        "Tạm tính: xe số 150.000đ/ngày, xe ga Vision/Air Blade 200.000đ/ngày. Các dòng xe khác: Liên hệ để xác nhận giá hiện tại. " +
-                        "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
-                    );
-                }
-                else {
-                    answer = wrap(
-                        "Em là trợ lý Mr Tú AI. Anh cho em biết: anh đi đâu, mấy ngày, thích xe số hay xe ga, em gợi ý luôn mẫu xe + tầm giá hợp lý, thêm vài gợi ý quán ăn/nghỉ cho tiện cung đường."
-                    );
-                }
-
-                 if (/trình độ lái|tay đua lụa|newbie|tay ga|côn tay|xr150|vision|airblade|wave alpha/.test(text)) {
-                      const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
-                      
-                      let bike = "Honda Vision";
-                      let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
-                      
-                      if (/xa|leo núi|hà giang|sapa/i.test(destMatch[1] || "")) { bike = "Honda XR150"; reason = "leo đèo khoẻ."; }
-                      
-                      answer = `Xe chân ái của bạn là: **${bike}**. Lý do: ${reason} Nếu cần em giữ sẵn 1 xe, anh nhắn Zalo **081.665.9199** là em hỗ trợ luôn.`;
-                 }
-
-                setTimeout(() => {
-                    onSuccess(answer);
-                }, delay);
-            } catch (err) {
-                if (onError) onError(err.message || "Local AI error");
-            }
-        },
-        
-
-        setupAI() {
-            const modal = document.getElementById('ai-modal');
-            const overlay = document.getElementById('ai-overlay');
-            const closeBtn = document.getElementById('ai-close');
-            const chatBox = document.getElementById('ai-chat-box');
-            const input = document.getElementById('ai-input');
-            const sendBtn = document.getElementById('ai-send');
-            
-            const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-            
-            window.AI_Guide = {
-                open: () => {
-                    modal.classList.add('active');
-                    overlay.classList.add('active');
-                    input.focus();
-                }
-            };
-
-            const close = () => {
-                modal.classList.remove('active');
-                overlay.classList.remove('active');
-            };
-
-            modal.addEventListener('keydown', (e) => {
-                const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
-                if (e.key === 'Escape') close();
-                if (!isTabPressed) return;
-                
-                const focusableContent = modal.querySelectorAll(focusableElements);
-                if (!focusableContent || focusableContent.length === 0) return; 
-
-                const firstFocusableElement = focusableContent[0];
-                const lastFocusableElement = focusableContent[focusableContent.length - 1];
-
-                if (e.shiftKey) { 
-                    if (document.activeElement === firstFocusableElement) {
-                        lastFocusableElement.focus();
-                        e.preventDefault();
-                    }
-                } else { 
-                    if (document.activeElement === lastFocusableElement) {
-                        firstFocusableElement.focus();
-                        e.preventDefault();
-                    }
-                }
-            });
-
-            closeBtn.addEventListener('click', close);
-            overlay.addEventListener('click', close);
-
-            const addMsg = (text, isUser = false) => {
-                const div = document.createElement('div');
-                div.className = `chat-msg ${isUser ? 'msg-user' : 'msg-bot'}`;
-                
-                if (isUser) {
-                    div.textContent = text;
-                } else {
-                    const parts = text.split(/\*\*(.*?)\*\*/g);
-                    parts.forEach((part, index) => {
-                        if (index % 2 === 1) { 
-                            const strong = document.createElement('strong');
-                            strong.textContent = part;
-                            div.appendChild(strong);
-                        } else {
-                            div.appendChild(document.createTextNode(part));
-                        }
-                    });
-                }
-                chatBox.appendChild(div);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            };
-
-            const showLoader = () => {
-                const div = document.createElement('div');
-                div.className = 'chat-msg msg-bot';
-                div.id = 'ai-loader';
-                const dots = document.createElement('div');
-                dots.className = 'typing-dots';
-                for(let i=0; i<3; i++) {
-                    const dot = document.createElement('span');
-                    dot.className = 'dot';
-                    dots.appendChild(dot);
-                }
-                div.appendChild(dots);
-                chatBox.appendChild(div);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            };
-
-            const removeLoader = () => {
-                const loader = document.getElementById('ai-loader');
-                if (loader) loader.remove();
-            };
-
-            const handleSend = () => {
-                const text = input.value.trim();
-                if (!text) return;
-                addMsg(text, true);
-                input.value = '';
-                const systemPrompt = "Bạn là Mr Tú, hướng dẫn viên Hà Nội. Hotline Zalo là 081.665.9199. Hãy tư vấn ngắn gọn.";
-                Render.callGeminiWithRetry(text, systemPrompt, showLoader, (response) => { removeLoader(); addMsg(response); }, (error) => { removeLoader(); addMsg("Mạng đang bận, bạn thử lại chút nữa nhé! 😅"); });
-            };
-
-            sendBtn.addEventListener('click', handleSend);
-            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
         },
 
         setupMatchmaker() {
@@ -2034,37 +1875,17 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             overlay.addEventListener('click', close);
 
             submitBtn.addEventListener('click', () => {
-                const exp = document.getElementById('mm-exp').options[document.getElementById('mm-exp').selectedIndex].text;
-                const dest = document.getElementById('mm-dest').options[document.getElementById('mm-dest').selectedIndex].text;
-                const height = document.getElementById('mm-height').options[document.getElementById('mm-height').selectedIndex].text;
-
-                const userPrompt = `Người dùng có thông số sau: Trình độ lái: ${exp}. Điểm đến: ${dest}. Chiều cao: ${height}.`;
-                const systemPrompt = "Tư vấn xe máy. Nhắn Zalo 081.665.9199.";
+                // All 3 answers drive the recommendation: experience, destination, height.
+                const exp = document.getElementById('mm-exp').value;
+                const dest = document.getElementById('mm-dest').value;
+                const height = document.getElementById('mm-height').value;
 
                 resultBox.style.display = 'block';
-                resultText.textContent = "Đang phân tích...";
+                resultText.textContent = 'Đang phân tích...';
 
-                Render.callGeminiWithRetry(
-                    userPrompt,
-                    systemPrompt,
-                    () => {}, 
-                    (text) => {
-                        resultText.innerHTML = ''; 
-                        const parts = text.split(/\*\*(.*?)\*\*/g);
-                        parts.forEach((part, index) => {
-                            if (index % 2 === 1) {
-                                const strong = document.createElement('strong');
-                                strong.textContent = part;
-                                resultText.appendChild(strong);
-                            } else {
-                                resultText.appendChild(document.createTextNode(part));
-                            }
-                        });
-                    },
-                    (error) => {
-                        resultText.textContent = "Hệ thống đang bận, nhưng mình đoán là Honda Vision sẽ hợp với mọi người! 😂";
-                    }
-                );
+                setTimeout(() => {
+                    resultText.textContent = motoMatchmake(exp, dest, height);
+                }, 300);
             });
         },
 
