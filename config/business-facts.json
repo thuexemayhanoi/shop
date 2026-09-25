@@ -1,40 +1,48 @@
 {
-  "schema_version": 1,
-  "business": {
-    "name": "Mr Tú Motorbike Rental",
-    "city": "Hà Nội",
-    "address": "17 Phúc Tân, Hoàn Kiếm, Hà Nội",
-    "phone": "0816659199",
-    "email": "nguyentuantu2482@gmail.com",
-    "opening_hours": "08:00-17:00 daily"
+  "schema_version": 2,
+  "trusted": {
+    "business": {
+      "name": "Mr Tú Motorbike Rental",
+      "city": "Hà Nội",
+      "phone": "0816659199"
+    },
+    "currency": "VND",
+    "approved_models": {
+      "wave":     { "name": "Honda Wave",      "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
+      "sirius":   { "name": "Yamaha Sirius",   "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
+      "click":    { "name": "Honda Click",     "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
+      "mio":      { "name": "Yamaha Mio",       "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
+      "vision":   { "name": "Honda Vision",    "daily": 200000, "week": 1000000, "monthMin": 1800000, "monthMax": 2000000 },
+      "airblade": { "name": "Honda Air Blade", "daily": 200000, "week": 1000000, "monthMin": 1500000, "monthMax": 1500000 },
+      "ebike":    { "name": "Xe điện",          "daily": 200000, "week": 1000000, "monthMin": 1500000, "monthMax": 1500000 }
+    },
+    "unapproved_models": ["50cc", "Lead", "Janus", "Attila", "NVX", "SH", "côn tay", "PKL", "Exciter", "Winner", "XR150", "Liberty", "Vespa", "Grande", "Future", "Jupiter", "HD", "Dream"],
+    "unapproved_price_message": "Liên hệ để xác nhận giá hiện tại",
+    "deposit_policy": {
+      "range_vnd": [2000000, 5000000],
+      "standard_wording": "Yêu cầu giấy tờ và mức đặt cọc tùy trường hợp thuê, thường 2.000.000 – 5.000.000đ tùy xe và điều kiện. Vui lòng liên hệ để xác nhận trước khi nhận xe.",
+      "forbidden_claims": [
+        "miễn cọc", "không cần cọc", "không phải cọc",
+        "500k - 1 triệu", "500k-1 triệu", "500.000đ - 1.000.000đ",
+        "1–2 triệu", "1-2 triệu",
+        "2–3 triệu", "2-3 triệu", "2–3tr", "2-3tr",
+        "3–5 triệu", "3-5 triệu", "3–5tr", "3-5tr",
+        "2–3tr xe số", "3–5tr xe ga",
+        "giảm cọc", "cọc 100%", "cọc 0đ", "cọc 0 đồng"
+      ]
+    }
   },
-  "currency": "VND",
-  "approved_models": {
-    "wave":     { "name": "Honda Wave",      "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
-    "sirius":   { "name": "Yamaha Sirius",   "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
-    "click":    { "name": "Honda Click",     "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
-    "mio":      { "name": "Yamaha Mio",       "daily": 150000, "week": 700000,  "monthMin": 900000,  "monthMax": 1200000 },
-    "vision":   { "name": "Honda Vision",    "daily": 200000, "week": 1000000, "monthMin": 1800000, "monthMax": 2000000 },
-    "airblade": { "name": "Honda Air Blade", "daily": 200000, "week": 1000000, "monthMin": 1500000, "monthMax": 1500000 },
-    "ebike":    { "name": "Xe điện",         "daily": 200000, "week": 1000000, "monthMin": 1500000, "monthMax": 1500000 }
+  "requires_owner_confirmation": {
+    "address": null,
+    "email": null,
+    "opening_hours": null,
+    "late_return_policy": null,
+    "insurance_policy": null,
+    "licence_rule": null,
+    "delivery_or_pickup": null,
+    "promotions": null,
+    "guarantees": null,
+    "support_hours": null
   },
-  "unapproved_models": ["50cc", "Lead", "Janus", "Attila", "NVX", "SH", "côn tay", "PKL", "Exciter", "Winner", "XR150", "Liberty", "Vespa", "Grande", "Future", "Jupiter", "HD", "Dream"],
-  "unapproved_price_message": "Liên hệ để xác nhận giá hiện tại",
-  "deposit_policy": {
-    "range_vnd": [2000000, 5000000],
-    "standard_wording": "Yêu cầu giấy tờ và mức đặt cọc tùy trường hợp thuê, thường 2.000.000 – 5.000.000đ tùy xe và điều kiện. Vui lòng liên hệ để xác nhận trước khi nhận xe.",
-    "forbidden_claims": [
-      "miễn cọc", "không cần cọc", "không phải cọc",
-      "500k - 1 triệu", "500k-1 triệu", "500.000đ - 1.000.000đ",
-      "1–2 triệu", "1-2 triệu",
-      "2–3 triệu", "2-3 triệu", "2–3tr", "2-3tr",
-      "3–5 triệu", "3-5 triệu", "3–5tr", "3-5tr",
-      "2–3tr xe số", "3–5tr xe ga",
-      "giảm cọc", "cọc 100%", "cọc 0đ", "cọc 0 đồng"
-    ]
-  },
-  "licence_rule": "Motorcycles over 50cc require an appropriate valid driving licence under Vietnamese traffic law.",
-  "insurance_rule": "Customers are responsible for obtaining any required insurance. The shop does not provide or claim to include rental insurance.",
-  "late_return": "20.000đ per hour; more than 6 hours late is charged as one additional rental day at the vehicle's daily rate.",
-  "notes": "Do not invent other owner facts. Any fact not in this file must be confirmed with Mr Tú before publication."
+  "notes": "TRUSTED facts only under 'trusted'. The article writer must NEVER publish a null/unverified fact from 'requires_owner_confirmation'; those must be confirmed with Mr Tú (0816659199) first. Do not invent other owner facts. schema_version 2 moves unverified fields out of the trusted path; tooling reads only 'trusted'."
 }

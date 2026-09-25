@@ -65,7 +65,14 @@ def load_rubric():
 
 
 def load_business_facts():
-    return load_json(repo_path("config", "business-facts.json"))
+    facts = load_json(repo_path("config", "business-facts.json"))
+    # schema v2: only the 'trusted' section is owner-confirmed production truth.
+    if "trusted" in facts:
+        facts = dict(facts["trusted"])
+        facts["requires_owner_confirmation"] = load_json(
+            repo_path("config", "business-facts.json")).get(
+            "requires_owner_confirmation", {})
+    return facts
 
 
 def load_ownership():
