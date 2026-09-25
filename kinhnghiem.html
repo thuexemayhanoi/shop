@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <!-- SEO ULTRA MODE: OPTIMIZED META TAGS FOR "KINH NGHIỆM" -->
-<title>Kinh Nghiệm Thuê Xe Máy Hà Nội 2025 | Từ A-Z Cho Khách Du Lịch - Mr Tú</title>
-<meta name="description" content="Chia sẻ kinh nghiệm thuê xe máy Hà Nội từ A-Z cho khách du lịch 2025. Mẹo chọn xe ngon, tránh công an, chỗ gửi xe & lịch trình phượt Phố Cổ. Xem ngay!">
-<meta name="keywords" content="kinh nghiệm thuê xe máy hà nội, thuê xe máy hà nội cho khách du lịch, lưu ý khi thuê xe máy hà nội, phượt hà nội bằng xe máy, thuê xe máy không cọc, Mr Tú">
+<title>Kinh Nghiệm Thuê Xe Máy Hà Nội | Từ A-Z Cho Khách Du Lịch - Mr Tú</title>
+<meta name="description" content="Chia sẻ kinh nghiệm thuê xe máy Hà Nội từ A-Z cho khách du lịch. Mẹo chọn xe ngon, tránh công an, chỗ gửi xe & lịch trình phượt Phố Cổ. Xem ngay!">
+<meta name="keywords" content="kinh nghiệm thuê xe máy hà nội, thuê xe máy hà nội cho khách du lịch, lưu ý khi thuê xe máy hà nội, phượt hà nội bằng xe máy, thuê xe máy giá rẻ, Mr Tú">
 <meta name="author" content="Mr Tú">
 <meta name="theme-color" content="#000000">
 <meta name="robots" content="index, follow">
@@ -17,7 +17,7 @@
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://thuexemayhanoi.github.io/shop/kinhnghiem.html">
-<meta property="og:title" content="Kinh Nghiệm Thuê Xe Máy Hà Nội 2025 | Cẩm Nang Bỏ Túi">
+<meta property="og:title" content="Kinh Nghiệm Thuê Xe Máy Hà Nội | Cẩm Nang Bỏ Túi">
 <meta property="og:description" content="Hướng dẫn chi tiết cách thuê xe máy tại Hà Nội: Thủ tục, giá cả, luật giao thông và các địa điểm phượt không thể bỏ qua.">
 <meta property="og:image" content="https://raw.githubusercontent.com/thuexemayhanoi/shop/main/IMG_0618.jpeg">
 
@@ -361,6 +361,10 @@
         cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .app-item:hover { transform: translateY(-12px) scale(1.05); }
+    /* Accessibility: semantic quick-action controls */
+    a.app-item, button.app-item { background: none; border: none; padding: 0; font: inherit; color: inherit; text-decoration: none; cursor: pointer; }
+    button.app-item { appearance: none; -webkit-appearance: none; }
+
     
     .app-icon {
         width: 68px; height: 68px; border-radius: 22px;
@@ -531,7 +535,7 @@
                 <div class="fade-in-up">
                     <div class="hero-badge">
                         <span class="material-symbols-rounded" style="font-size:16px;">explore</span>
-                        Cẩm nang du lịch 2025
+                        Cẩm nang du lịch
                     </div>
                     
                     <!-- H1 TITLE: CHỨA TỪ KHÓA CHÍNH -->
@@ -547,32 +551,26 @@
                     <div>
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Tiện ích nhanh</div>
                         <div class="mini-apps">
-                            <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
+                            <a class="app-item" data-accent="green" href="tel:+84816659199">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
-                                <span class="app-label">Gọi Ngay</span>
-                            </div>
-                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
+                                <span class="app-label">Gọi Ngay</span></a>
+                            <a class="app-item" data-accent="blue" href="https://zalo.me/0816659199" target="_blank" rel="noopener,noreferrer">
                                 <div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
-                                <span class="app-label">Zalo</span>
-                            </div>
-                            <div class="app-item" data-accent="yellow" onclick="window.location.href='banggia.html'">
+                                <span class="app-label">Zalo</span></a>
+                            <a class="app-item" data-accent="yellow" href="banggia.html">
                                 <div class="app-icon"><i class="fa-solid fa-tag"></i></div>
-                                <span class="app-label">Bảng Giá</span>
-                            </div>
-                            <div class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
+                                <span class="app-label">Bảng Giá</span></a>
+                            <button type="button" class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                                <span class="app-label">Địa Điểm</span>
-                            </div>
+                                <span class="app-label">Địa Điểm</span></button>
                             
-                            <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                            <button type="button" class="app-item" data-accent="ai" onclick="AI_Guide.open()">
                                 <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                                <span class="app-label">AI Guide ✨</span>
-                            </div>
+                                <span class="app-label">AI Guide ✨</span></button>
 
-                            <div class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
+                            <button type="button" class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
                                 <div class="app-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                                <span class="app-label">Tìm Xe ✨</span>
-                            </div>
+                                <span class="app-label">Tìm Xe ✨</span></button>
                         </div>
                     </div>
                 </div>
@@ -587,10 +585,9 @@
                     <div class="form-group">
                         <label class="form-label" for="c-type">Loại xe</label>
                         <select class="form-input" id="c-type">
-                            <option value="120000">Xe số (Wave/Sirius) - 120k</option>
-                            <option value="150000">Xe ga (Vision/Lead) - 150k</option>
-                            <option value="200000">Xe ga (Airblade/SH) - 200k</option>
-                            <option value="350000">Xe côn/PKL - 350k</option>
+                            <option value="150000" selected>Xe số (Wave/Sirius) - 150.000</option>
+                            <option value="200000">Xe ga (Vision/Air Blade) - 200.000</option>
+                            <option value="0">Xe côn/PKL - Liên hệ</option>
                         </select>
                     </div>
 
@@ -601,7 +598,7 @@
 
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px; padding-top:16px; border-top:1px dashed var(--glass-border);">
                         <span style="font-size:0.95rem; color:var(--text-sub); font-weight:600;">Tạm tính:</span>
-                        <span style="font-size:1.6rem; font-weight:800; color:var(--primary)" id="c-total">120.000đ</span>
+                        <span style="font-size:1.6rem; font-weight:800; color:var(--primary)" id="c-total">150.000đ</span>
                     </div>
 
                     <button class="btn-3d" style="width:100%; margin-top:24px;" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
@@ -621,22 +618,22 @@
                 
                 <h2>1. Tại sao nên thuê xe máy khi du lịch Hà Nội?</h2>
                 <p>Hà Nội có 36 phố phường với những con ngõ nhỏ chằng chịt mà ô tô hay taxi khó lòng len lỏi vào được. Việc <strong>thuê xe máy ở Hà Nội</strong> không chỉ giúp bạn chủ động về thời gian mà còn mang lại trải nghiệm tự do, tiết kiệm chi phí tối đa. Bạn có thể tạt ngang ăn bát phở gánh, hay lượn lờ hóng gió Hồ Tây bất cứ lúc nào.</p>
-                <p>Đặc biệt với khách du lịch, chi phí cho việc di chuyển bằng Grab/Taxi cả ngày có thể lên tới 500k-700k, trong khi thuê một chiếc xe số tại Mr Tú chỉ từ <strong>100k/ngày</strong>. Quá hời phải không nào?</p>
+                <p>Đặc biệt với khách du lịch, chi phí cho việc di chuyển bằng Grab/Taxi cả ngày có thể lên tới 500k-700k, trong khi thuê một chiếc xe số tại Mr Tú chỉ từ <strong>150k/ngày</strong>. Quá hời phải không nào?</p>
 
                 <h2>2. Thời điểm và giá thuê xe máy hợp lý</h2>
                 <p>Bạn có thể thuê xe bất cứ lúc nào, nhưng nên đặt trước nếu đến Hà Nội vào các dịp lễ hoặc cuối tuần. Giá thuê xe máy tại Hà Nội thường dao động như sau:</p>
                 <ul>
-                    <li><strong>Xe số (Wave, Sirius):</strong> 100.000đ - 120.000đ/ngày. Phù hợp leo dốc, đi ngoại thành hoặc tiết kiệm chi phí.</li>
-                    <li><strong>Xe ga (Vision, Lead):</strong> 130.000đ - 150.000đ/ngày. Cốp rộng, dễ lái, thích hợp đi dạo phố, chụp ảnh đẹp.</li>
+                    <li><strong>Xe số (Wave, Sirius):</strong> 150.000đ/ngày. Phù hợp leo dốc, đi ngoại thành hoặc tiết kiệm chi phí.</li>
+                    <li><strong>Xe ga (Vision):</strong> 200.000đ/ngày – các dòng khác: Liên hệ để xác nhận giá hiện tại. Cốp rộng, dễ lái, thích hợp đi dạo phố, chụp ảnh đẹp.</li>
                     <li><strong>Xe tay côn/PKL:</strong> 300.000đ - 500.000đ/ngày. Dành cho các tay lái đam mê trải nghiệm mạnh.</li>
                 </ul>
-                <p>Để có giá tốt nhất và tránh bị "chặt chém", bạn nên tham khảo trước <a href="banggia.html" class="seo-link">Bảng giá thuê xe máy Hà Nội 2025</a> được niêm yết công khai.</p>
+                <p>Để có giá tốt nhất và tránh bị "chặt chém", bạn nên tham khảo trước <a href="banggia.html" class="seo-link">Bảng giá thuê xe máy Hà Nội</a> được niêm yết công khai.</p>
 
                 <h2>3. Thủ tục thuê xe cần những giấy tờ gì?</h2>
                 <p>Khác với nhiều nơi khác yêu cầu giữ lại giấy tờ tùy thân gốc, tại <strong>Mr Tú</strong>, chúng tôi tối giản hóa thủ tục để bạn thoải mái nhất:</p>
                 
                 <h3>3.1. Đối với khách du lịch</h3>
-                <p>Bạn chỉ cần chụp ảnh CCCD/Hộ chiếu và cung cấp vé máy bay khứ hồi hoặc mã đặt phòng khách sạn. Đa số trường hợp sẽ <strong>không cần đặt cọc tiền mặt</strong>. Đây là điểm cộng lớn giúp bạn không bị "giam tiền" khi đi chơi.</p>
+                <p>Bạn chỉ cần chụp ảnh CCCD/Hộ chiếu và cung cấp vé máy bay khứ hồi hoặc mã đặt phòng khách sạn. Mức đặt cọc và giấy tờ yêu cầu tùy trường hợp thuê (thường 2.000.000 – 5.000.000đ tùy xe và điều kiện). Vui lòng liên hệ Mr Tú để xác nhận trước khi nhận xe.</p>
 
                 <h3>3.2. Đối với người đi làm/sinh viên</h3>
                 <p>Cần có CCCD gắn chip chính chủ và có thể cần cọc một khoản nhỏ (từ 500k - 1 triệu đồng) tùy dòng xe. Chi tiết xem tại bài viết: <a href="thutuc.html" class="seo-link">Thủ tục thuê xe chi tiết</a>.</p>
@@ -693,6 +690,7 @@
 </main>
 
 {% include footer.html %}{% include ai-modals.html %}{% include contact-fab.html %}<!-- JS ENGINE -->
+<script src="assets/js/prices.js"></script>
 <script src="assets/js/fallback.js"></script>
 
 <script src="assets/js/app.js"></script>

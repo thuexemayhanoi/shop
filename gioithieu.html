@@ -8,7 +8,7 @@
 
 <!-- SEO ULTRA MODE -->
 <title>Giới Thiệu Thuê Xe Máy Hà Nội - Mr Tú | Uy Tín, Giao Xe 15P</title>
-<meta name="description" content="Tìm hiểu về Mr Tú - Dịch vụ cho thuê xe máy Hà Nội uy tín số 1 Phố Cổ. Xe mới 2024, giá chỉ từ 100k, giao xe tận nơi Hoàn Kiếm 15p, thủ tục đơn giản. Xem ngay!">
+<meta name="description" content="Tìm hiểu về Mr Tú - Dịch vụ cho thuê xe máy Hà Nội uy tín số 1 Phố Cổ. Xe mới 2024, giá chỉ từ 150k, giao xe tận nơi Hoàn Kiếm 15p, thủ tục đơn giản. Xem ngay!">
 <meta name="keywords" content="giới thiệu thuê xe máy hà nội, thuê xe máy phố cổ mr tú, thuê xe máy hoàn kiếm uy tín, dịch vụ thuê xe máy hà nội, mr tú bike rental">
 <meta name="author" content="Mr Tú">
 <meta name="theme-color" content="#000000">
@@ -359,6 +359,10 @@
         cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .app-item:hover { transform: translateY(-12px) scale(1.05); }
+    /* Accessibility: semantic quick-action controls */
+    a.app-item, button.app-item { background: none; border: none; padding: 0; font: inherit; color: inherit; text-decoration: none; cursor: pointer; }
+    button.app-item { appearance: none; -webkit-appearance: none; }
+
     
     .app-icon {
         width: 68px; height: 68px; border-radius: 22px;
@@ -559,34 +563,28 @@
                     <div>
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Kết nối ngay</div>
                         <div class="mini-apps">
-                            <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
+                            <a class="app-item" data-accent="green" href="tel:+84816659199">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
-                                <span class="app-label">Gọi Ngay</span>
-                            </div>
-                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
+                                <span class="app-label">Gọi Ngay</span></a>
+                            <a class="app-item" data-accent="blue" href="https://zalo.me/0816659199" target="_blank" rel="noopener,noreferrer">
                                 <div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
-                                <span class="app-label">Zalo</span>
-                            </div>
-                            <div class="app-item" data-accent="yellow" onclick="window.location.href='banggia.html'">
+                                <span class="app-label">Zalo</span></a>
+                            <a class="app-item" data-accent="yellow" href="banggia.html">
                                 <div class="app-icon"><i class="fa-solid fa-tag"></i></div>
-                                <span class="app-label">Bảng Giá</span>
-                            </div>
-                            <div class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
+                                <span class="app-label">Bảng Giá</span></a>
+                            <button type="button" class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                                <span class="app-label">Địa Điểm</span>
-                            </div>
+                                <span class="app-label">Địa Điểm</span></button>
                             
                             <!-- AI Guide -->
-                            <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                            <button type="button" class="app-item" data-accent="ai" onclick="AI_Guide.open()">
                                 <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                                <span class="app-label">AI Tour Guide ✨</span>
-                            </div>
+                                <span class="app-label">AI Tour Guide ✨</span></button>
 
                              <!-- Bike Matchmaker -->
-                            <div class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
+                            <button type="button" class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
                                 <div class="app-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                                <span class="app-label">Tìm Xe Chân Ái ✨</span>
-                            </div>
+                                <span class="app-label">Tìm Xe Chân Ái ✨</span></button>
                         </div>
                     </div>
                 </div>
@@ -602,7 +600,7 @@
                         <select class="form-input" id="c-type">
                             <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
                             <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
-                            <option value="350000">Xe côn/PKL - 350.000</option>
+                            <option value="0">Xe côn/PKL - Liên hệ</option>
                         </select>
                     </div>
 
@@ -651,7 +649,7 @@
                     <ul>
                         <li><strong>Chất lượng xe đỉnh cao:</strong> 100% xe được bảo dưỡng định kỳ chính hãng. Xe luôn được rửa sạch, kiểm tra phanh, lốp, dầu nhớt kỹ càng trước khi giao cho khách.</li>
                         <li><strong>Giao xe siêu tốc:</strong> Với đội ngũ nhân viên thông thạo địa hình, chúng tôi cam kết giao xe tận nơi trong khu vực <a href="hoankiem.html" class="seo-link">Phố Cổ & Hoàn Kiếm</a> chỉ trong vòng 15-20 phút.</li>
-                        <li><strong>Thủ tục tối giản:</strong> Chúng tôi hiểu bạn đi du lịch không muốn rườm rà giấy tờ. Tại Mr Tú, bạn chỉ cần để lại CCCD hoặc hộ chiếu (có thể chụp ảnh lại), không cần đặt cọc tiền mặt lớn. Xem chi tiết tại trang <a href="thutuc.html" class="seo-link">thủ tục thuê xe</a>.</li>
+                        <li><strong>Thủ tục tối giản:</strong> Chúng tôi hiểu bạn đi du lịch không muốn rườm rà giấy tờ. Tại Mr Tú, bạn chỉ cần để lại CCCD hoặc hộ chiếu (có thể chụp ảnh lại), mức đặt cọc tùy trường hợp thuê (thường 2.000.000 – 5.000.000đ). Xem chi tiết tại trang <a href="thutuc.html" class="seo-link">thủ tục thuê xe</a>.</li>
                         <li><strong>Hỗ trợ 24/7:</strong> Dù là 12 giờ đêm hay 5 giờ sáng, nếu xe gặp sự cố, đội cứu hộ của chúng tôi sẽ có mặt hoặc đổi xe mới ngay lập tức cho bạn.</li>
                     </ul>
 
@@ -664,7 +662,7 @@
                         <div class="feature-card glass-panel">
                             <div class="f-icon"><span class="material-symbols-rounded">price_check</span></div>
                             <h3>Giá Rẻ Niêm Yết</h3>
-                            <p>Giá thuê chỉ từ 100k/ngày. Không phí ẩn, không tăng giá ngày lễ nếu đã đặt trước.</p>
+                            <p>Giá thuê chỉ từ 150k/ngày. Không phí ẩn, không tăng giá ngày lễ nếu đã đặt trước.</p>
                         </div>
                     </div>
 
@@ -726,6 +724,7 @@
 </div>
 
 <!-- JS ENGINE -->
+<script src="assets/js/prices.js"></script>
 <script>
 window.AI_Guide = window.AI_Guide || { open: function () {
   const modal = document.getElementById('ai-modal');
@@ -810,7 +809,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
         return `MotoAI gợi ý:
     • Xe số (Wave / Sirius)
     • Tiết kiệm xăng, dễ đi hằng ngày
-    • Giá từ 120.000đ/ngày
+    • Giá từ 150.000đ/ngày
 
     Anh/chị cần em giữ xe hay gửi địa chỉ nhận xe ạ?`;
       }
@@ -835,7 +834,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             { 
                 t: "Dịch vụ", l: "#", i: ICONS.tag,
                 sub: [
-                    {t: "Bảng giá 2025", l: "banggia.html", i: ICONS.tag},
+                    {t: "Bảng giá", l: "banggia.html", i: ICONS.tag},
                     {t: "Thuê xe theo ngày", l: "ngay.html", i: ICONS.doc},
                     {t: "Thuê xe theo tuần", l: "tuan.html", i: ICONS.doc},
                     {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
@@ -973,7 +972,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
                 }
                 else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
                     answer = wrap(
-                        "Tạm tính: xe số khoảng 120.000/ngày, xe ga Vision ~150.000–180.000/ngày, xe ga cao cấp từ 230.000–250.000/ngày. " +
+                        "Tạm tính: xe số 150.000đ/ngày, xe ga Vision/Air Blade 200.000đ/ngày. Các dòng xe khác: Liên hệ để xác nhận giá hiện tại. " +
                         "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
                     );
                 }
@@ -1410,7 +1409,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
         statusWidget() {
             const checkTime = () => {
                 const now = new Date();
-                const hours = now.getHours();
+                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
                 
                 const isOpen = hours >= 8 && hours < 17;
                 
@@ -1445,8 +1444,9 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             const run = () => {
                 let d = parseInt(days.value, 10) || 1;
                 if (d < 1) d = 1;
-                const price = (parseInt(type.value, 10) || 0) * d;
-                total.innerText = price.toLocaleString('vi-VN') + 'đ';
+                const daily = parseInt(type.value, 10) || 0;
+                if (daily === 0) { total.innerText = 'Liên hệ để xác nhận giá hiện tại'; return; }
+                total.innerText = window.MotoTusPrices ? window.MotoTusPrices.calcEstimate(d, daily) : (daily * d).toLocaleString('vi-VN') + 'đ';
             };
             
             if (type && days && total) {

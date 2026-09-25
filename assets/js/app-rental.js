@@ -70,7 +70,7 @@
         return `MotoAI gợi ý:
     • Xe số (Wave / Sirius)
     • Tiết kiệm xăng, dễ đi hằng ngày
-    • Giá từ 120.000đ/ngày
+    • Giá từ 150.000đ/ngày
 
     Anh/chị cần em giữ xe hay gửi địa chỉ nhận xe ạ?`;
       }
@@ -95,7 +95,7 @@
             { 
                 t: "Dịch vụ", l: "#", i: ICONS.tag,
                 sub: [
-                    {t: "Bảng giá 2025", l: "banggia.html", i: ICONS.tag},
+                    {t: "Bảng giá", l: "banggia.html", i: ICONS.tag},
                     {t: "Thuê xe theo ngày", l: "ngay.html", i: ICONS.doc},
                     {t: "Thuê xe theo tuần", l: "tuan.html", i: ICONS.doc},
                     {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
@@ -233,7 +233,7 @@
                 }
                 else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
                     answer = wrap(
-                        "Tạm tính: xe số khoảng 120.000/ngày, xe ga Vision ~150.000–180.000/ngày, xe ga cao cấp từ 230.000–250.000/ngày. " +
+                        "Tạm tính: xe số 150.000đ/ngày, xe ga Vision/Air Blade 200.000đ/ngày. Các dòng xe khác: Liên hệ để xác nhận giá hiện tại. " +
                         "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
                     );
                 }
@@ -670,7 +670,7 @@
         statusWidget() {
             const checkTime = () => {
                 const now = new Date();
-                const hours = now.getHours();
+                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
                 
                 const isOpen = hours >= 8 && hours < 17;
                 
@@ -705,8 +705,9 @@
             const run = () => {
                 let d = parseInt(days.value, 10) || 1;
                 if (d < 1) d = 1;
-                const price = (parseInt(type.value, 10) || 0) * d;
-                total.innerText = price.toLocaleString('vi-VN') + 'đ';
+                const daily = parseInt(type.value, 10) || 0;
+                if (daily === 0) { total.innerText = 'Liên hệ để xác nhận giá hiện tại'; return; }
+                total.innerText = window.MotoTusPrices ? window.MotoTusPrices.calcEstimate(d, daily) : (daily * d).toLocaleString('vi-VN') + 'đ';
             };
             
             if (type && days && total) {

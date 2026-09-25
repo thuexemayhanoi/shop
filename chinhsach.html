@@ -81,32 +81,26 @@
                     <div>
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Tiện ích nhanh</div>
                         <div class="mini-apps">
-                            <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
+                            <a class="app-item" data-accent="green" href="tel:+84816659199">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
-                                <span class="app-label">Gọi Ngay</span>
-                            </div>
-                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
+                                <span class="app-label">Gọi Ngay</span></a>
+                            <a class="app-item" data-accent="blue" href="https://zalo.me/0816659199" target="_blank" rel="noopener,noreferrer">
                                 <div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
-                                <span class="app-label">Zalo</span>
-                            </div>
-                            <div class="app-item" data-accent="yellow" onclick="window.location.href='banggia.html'">
+                                <span class="app-label">Zalo</span></a>
+                            <a class="app-item" data-accent="yellow" href="banggia.html">
                                 <div class="app-icon"><i class="fa-solid fa-tag"></i></div>
-                                <span class="app-label">Bảng Giá</span>
-                            </div>
-                            <div class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
+                                <span class="app-label">Bảng Giá</span></a>
+                            <button type="button" class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                                <span class="app-label">Địa Điểm</span>
-                            </div>
+                                <span class="app-label">Địa Điểm</span></button>
                             
-                            <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                            <button type="button" class="app-item" data-accent="ai" onclick="AI_Guide.open()">
                                 <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                                <span class="app-label">AI Guide ✨</span>
-                            </div>
+                                <span class="app-label">AI Guide ✨</span></button>
 
-                            <div class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
+                            <button type="button" class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
                                 <div class="app-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                                <span class="app-label">Tìm Xe ✨</span>
-                            </div>
+                                <span class="app-label">Tìm Xe ✨</span></button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +116,7 @@
                         <select class="form-input" id="c-type">
                             <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
                             <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
-                            <option value="350000">Xe côn/PKL - 350.000</option>
+                            <option value="0">Xe côn/PKL - Liên hệ</option>
                         </select>
                     </div>
 
@@ -213,6 +207,7 @@
 </main>
 
 {% include footer.html %}{% include ai-modals.html %}{% include contact-fab.html %}<!-- JS ENGINE -->
+<script src="assets/js/prices.js"></script>
 <script src="assets/js/fallback.js"></script>
 
 <script src="assets/js/app.js"></script>

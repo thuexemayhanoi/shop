@@ -118,7 +118,7 @@
       "itemOffered": {
         "@type": "Service",
         "name": "Cho thuê xe máy Phố Cổ Hà Nội",
-        "description": "Thuê xe máy Phố Cổ giao tận nơi 15 phút, xe đời mới, không giữ giấy tờ gốc, hỗ trợ 24/7."
+        "description": "Thuê xe máy Phố Cổ giao tận nơi 15 phút, xe đời mới, hỗ trợ trong giờ mở cửa 8h-17h."
       }
     }
   }
@@ -438,6 +438,10 @@
         cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .app-item:hover { transform: translateY(-12px) scale(1.05); }
+    /* Accessibility: semantic quick-action controls */
+    a.app-item, button.app-item { background: none; border: none; padding: 0; font: inherit; color: inherit; text-decoration: none; cursor: pointer; }
+    button.app-item { appearance: none; -webkit-appearance: none; }
+
     
     .app-icon {
         width: 68px; height: 68px; border-radius: 22px;
@@ -905,34 +909,28 @@
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Truy cập nhanh</div>
                         <div class="mini-apps">
                             <!-- FIXED: tel links with +84 -->
-                            <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
+                            <a class="app-item" data-accent="green" href="tel:+84816659199">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
-                                <span class="app-label">Gọi Ngay</span>
-                            </div>
-                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
+                                <span class="app-label">Gọi Ngay</span></a>
+                            <a class="app-item" data-accent="blue" href="https://zalo.me/0816659199" target="_blank" rel="noopener,noreferrer">
                                 <div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
-                                <span class="app-label">Zalo</span>
-                            </div>
-                            <div class="app-item" data-accent="yellow" onclick="window.location.href='banggia.html'">
+                                <span class="app-label">Zalo</span></a>
+                            <a class="app-item" data-accent="yellow" href="banggia.html">
                                 <div class="app-icon"><i class="fa-solid fa-tag"></i></div>
-                                <span class="app-label">Bảng Giá</span>
-                            </div>
-                            <div class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
+                                <span class="app-label">Bảng Giá</span></a>
+                            <button type="button" class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                                <span class="app-label">Địa Điểm</span>
-                            </div>
+                                <span class="app-label">Địa Điểm</span></button>
                             
                             <!-- AI Guide (Fallback script handles race condition) -->
-                            <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                            <button type="button" class="app-item" data-accent="ai" onclick="AI_Guide.open()">
                                 <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                                <span class="app-label">AI Tour Guide ✨</span>
-                            </div>
+                                <span class="app-label">AI Tour Guide ✨</span></button>
 
                              <!-- Bike Matchmaker -->
-                            <div class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
+                            <button type="button" class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
                                 <div class="app-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                                <span class="app-label">Tìm Xe Chân Ái ✨</span>
-                            </div>
+                                <span class="app-label">Tìm Xe Chân Ái ✨</span></button>
                         </div>
                     </div>
                 </div>
@@ -948,7 +946,7 @@
                         <select class="form-input" id="c-type">
                             <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
                             <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
-                            <option value="350000">Xe côn/PKL - 350.000</option>
+                            <option value="0">Xe côn/PKL - Liên hệ</option>
                         </select>
                     </div>
 
@@ -1015,7 +1013,7 @@
                         <div class="feature-card glass-panel">
                             <div class="f-icon"><span class="material-symbols-rounded">assignment_turned_in</span></div>
                             <h3>Thủ Tục Đơn Giản</h3>
-                            <p>Chỉ cần CCCD hoặc hộ chiếu. Không giữ giấy tờ gốc, linh hoạt cho khách du lịch.</p>
+                            <p>Chỉ cần CCCD hoặc hộ chiếu. Giấy tờ và mức đặt cọc tùy trường hợp thuê, linh hoạt cho khách du lịch.</p>
                         </div>
                     </div>
                 </div>
@@ -1090,30 +1088,30 @@
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe số Honda Wave</td>
                                     <td style="padding: 16px;">150.000đ</td>
-                                    <td style="padding: 16px;">600.000 - 700.000đ</td>
-                                    <td style="padding: 16px;">1.200.000đ</td>
-                                    <td style="padding: 16px;">2.000.000 - 3.000.000đ</td>
+                                    <td style="padding: 16px;">700.000đ</td>
+                                    <td style="padding: 16px;">900.000 - 1.200.000đ</td>
+                                    <td style="padding: 16px;">2.000.000 - 5.000.000đ</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe ga Honda Vision</td>
                                     <td style="padding: 16px;">200.000đ</td>
-                                    <td style="padding: 16px;">800.000 - 1.000.000đ</td>
+                                    <td style="padding: 16px;">1.000.000đ</td>
                                     <td style="padding: 16px;">1.800.000 - 2.000.000đ</td>
-                                    <td style="padding: 16px;">4.000.000 - 5.000.000đ</td>
+                                    <td style="padding: 16px;">2.000.000 - 5.000.000đ</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe ga Air Blade</td>
                                     <td style="padding: 16px;">200.000đ</td>
-                                    <td style="padding: 16px;">800.000đ</td>
-                                    <td style="padding: 16px;">1.400.000đ</td>
-                                    <td style="padding: 16px;">3.000.000đ</td>
+                                    <td style="padding: 16px;">1.000.000đ</td>
+                                    <td style="padding: 16px;">1.500.000đ</td>
+                                    <td style="padding: 16px;">2.000.000 - 5.000.000đ</td>
                                 </tr>
                                 <tr style="border-bottom: 1px solid var(--glass-border);">
                                     <td style="padding: 16px;">Xe ga giá rẻ (Click/Mio)</td>
                                     <td style="padding: 16px;">150.000đ</td>
-                                    <td style="padding: 16px;">600.000 - 700.000đ</td>
-                                    <td style="padding: 16px;">1.000.000 - 1.200.000đ</td>
-                                    <td style="padding: 16px;">2.000.000đ</td>
+                                    <td style="padding: 16px;">700.000đ</td>
+                                    <td style="padding: 16px;">900.000 - 1.200.000đ</td>
+                                    <td style="padding: 16px;">2.000.000 - 5.000.000đ</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1176,7 +1174,7 @@
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">3</div>
                                 <div>
-                                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem;">Không giữ giấy tờ gốc</h4>
+                                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem;">Giấy tờ linh hoạt</h4>
                                     <p style="margin: 0; font-size: 0.95rem;">Hỗ trợ khách du lịch chụp ảnh giấy tờ, đặt cọc nhỏ, không lo thất lạc giấy tờ tùy thân.</p>
                                 </div>
                             </div>
@@ -1228,7 +1226,7 @@
                                 <div class="faq-icon-toggle"><i class="fa-solid fa-plus"></i></div>
                             </summary>
                             <div class="faq-content-body">
-                                Mr Tú hỗ trợ linh hoạt: Bạn có thể xem thêm tại trang <a href="thutuc.html" class="seo-link">Thủ tục thuê xe</a>, thường chỉ cần để lại CCCD/Hộ chiếu hoặc đặt cọc 1-2 triệu đồng.
+                                Mr Tú hỗ trợ linh hoạt: Bạn có thể xem thêm tại trang <a href="thutuc.html" class="seo-link">Thủ tục thuê xe</a>, thường chỉ cần để lại CCCD/Hộ chiếu; mức đặt cọc tùy trường hợp thuê (thường 2.000.000 – 5.000.000đ).
                             </div>
                         </details>
 
@@ -1413,7 +1411,6 @@
                                 <span class="ai-val val-good">24/7 AI+Human</span>
                             </li>
                         </ul>
-                        <div class="ai-score-badge">ĐỘ KHỚP: <span id="score-mrtu">0</span>%</div>
                     </div>
 
                 </div>
@@ -1596,6 +1593,7 @@
 </div>
 
 <!-- JS ENGINE -->
+<script src="assets/js/prices.js"></script>
 <script>
 // --- FALLBACK TO PREVENT RACE CONDITION ERRORS ---
 // Added to ensure buttons don't throw errors if clicked before full load
@@ -1684,7 +1682,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
         return `MotoAI gợi ý:
     • Xe số (Wave / Sirius)
     • Tiết kiệm xăng, dễ đi hằng ngày
-    • Giá từ 120.000đ/ngày
+    • Giá từ 150.000đ/ngày
 
     Anh/chị cần em giữ xe hay gửi địa chỉ nhận xe ạ?`;
       }
@@ -1709,7 +1707,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             { 
                 t: "Dịch vụ", l: "#", i: ICONS.tag,
                 sub: [
-                    {t: "Bảng giá 2025", l: "banggia.html", i: ICONS.tag},
+                    {t: "Bảng giá", l: "banggia.html", i: ICONS.tag},
                     {t: "Thuê xe theo ngày", l: "ngay.html", i: ICONS.doc},
                     {t: "Thuê xe theo tuần", l: "tuan.html", i: ICONS.doc},
                     {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
@@ -1807,7 +1805,6 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             this.ultraApp();
             this.setupAI();
             this.setupMatchmaker();
-            this.aiScoreAnimation(); 
         },
 
         // --- CORE: FAKE "GEMINI" OFFLINE, KHÔNG CẦN API ---
@@ -1860,7 +1857,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
                 }
                 else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
                     answer = wrap(
-                        "Tạm tính: xe số khoảng 120.000/ngày, xe ga Vision ~150.000–180.000/ngày, xe ga cao cấp từ 230.000–250.000/ngày. " +
+                        "Tạm tính: xe số 150.000đ/ngày, xe ga Vision/Air Blade 200.000đ/ngày. Các dòng xe khác: Liên hệ để xác nhận giá hiện tại. " +
                         "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
                     );
                 }
@@ -1889,36 +1886,6 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             }
         },
         
-        aiScoreAnimation() {
-            const mrtuScore = document.getElementById('score-mrtu');
-            
-            if(!mrtuScore) return;
-
-            const animateValue = (obj, start, end, duration) => {
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    obj.innerHTML = Math.floor(progress * (end - start) + start);
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateValue(mrtuScore, 0, 99, 2500); 
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            const section = document.querySelector('.ai-comp-section');
-            if(section) observer.observe(section);
-        },
 
         setupAI() {
             const modal = document.getElementById('ai-modal');
@@ -2328,7 +2295,7 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
         statusWidget() {
             const checkTime = () => {
                 const now = new Date();
-                const hours = now.getHours();
+                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
                 
                 const isOpen = hours >= 8 && hours < 17;
                 
@@ -2363,8 +2330,9 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             const run = () => {
                 let d = parseInt(days.value, 10) || 1;
                 if (d < 1) d = 1;
-                const price = (parseInt(type.value, 10) || 0) * d;
-                total.innerText = price.toLocaleString('vi-VN') + 'đ';
+                const daily = parseInt(type.value, 10) || 0;
+                if (daily === 0) { total.innerText = 'Liên hệ để xác nhận giá hiện tại'; return; }
+                total.innerText = window.MotoTusPrices ? window.MotoTusPrices.calcEstimate(d, daily) : (daily * d).toLocaleString('vi-VN') + 'đ';
             };
             
             if (type && days && total) {

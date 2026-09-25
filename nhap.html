@@ -8,7 +8,7 @@
 
 <!-- 1. SEO ULTRA MODE: META TAGS OPTIMIZED -->
 <title>Thuê Xe Máy Phố Cổ Hà Nội - Mr Tú | Giao Xe 15p, Giá Rẻ</title>
-<meta name="description" content="Dịch vụ thuê xe máy Phố Cổ Hà Nội uy tín số 1 Mr Tú. Giao xe tận nơi Hoàn Kiếm, Tây Hồ chỉ 15p. Xe mới 2024, giá từ 100k, cứu hộ 24/7. Đặt xe ngay!">
+<meta name="description" content="Dịch vụ thuê xe máy Phố Cổ Hà Nội uy tín số 1 Mr Tú. Giao xe tận nơi Hoàn Kiếm, Tây Hồ chỉ 15p. Xe mới 2024, giá từ 150k, cứu hộ 24/7. Đặt xe ngay!">
 <meta name="keywords" content="thuê xe máy phố cổ hà nội, thuê xe máy hoàn kiếm, thuê xe máy hà nội mr tú, cho thuê xe máy hà nội giá rẻ">
 <meta name="author" content="Mr Tú ">
 <meta name="theme-color" content="#000000">
@@ -272,6 +272,10 @@
         cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .app-item:hover { transform: translateY(-12px) scale(1.05); }
+    /* Accessibility: semantic quick-action controls */
+    a.app-item, button.app-item { background: none; border: none; padding: 0; font: inherit; color: inherit; text-decoration: none; cursor: pointer; }
+    button.app-item { appearance: none; -webkit-appearance: none; }
+
     
     .app-icon {
         width: 68px; height: 68px; border-radius: 22px;
@@ -977,34 +981,28 @@
                     <div>
                         <div style="text-transform:uppercase; font-size:0.75rem; font-weight:800; color:var(--text-sub); letter-spacing:1px; margin-bottom:12px;">Quick Access</div>
                         <div class="mini-apps">
-                            <div class="app-item" data-accent="green" onclick="window.location.href='tel:+84816659199'">
+                            <a class="app-item" data-accent="green" href="tel:+84816659199">
                                 <div class="app-icon"><i class="fa-solid fa-phone"></i></div>
-                                <span class="app-label">Gọi Ngay</span>
-                            </div>
-                            <div class="app-item" data-accent="blue" onclick="window.open('https://zalo.me/0816659199', '_blank', 'noopener,noreferrer')">
+                                <span class="app-label">Gọi Ngay</span></a>
+                            <a class="app-item" data-accent="blue" href="https://zalo.me/0816659199" target="_blank" rel="noopener,noreferrer">
                                 <div class="app-icon"><i class="fa-solid fa-comment-dots"></i></div>
-                                <span class="app-label">Zalo</span>
-                            </div>
-                            <div class="app-item" data-accent="yellow" onclick="window.location.href='banggia.html'">
+                                <span class="app-label">Zalo</span></a>
+                            <a class="app-item" data-accent="yellow" href="banggia.html">
                                 <div class="app-icon"><i class="fa-solid fa-tag"></i></div>
-                                <span class="app-label">Bảng Giá</span>
-                            </div>
-                            <div class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
+                                <span class="app-label">Bảng Giá</span></a>
+                            <button type="button" class="app-item" data-accent="purple" onclick="const ft = document.getElementById('footer-target'); if(ft) ft.scrollIntoView({behavior:'smooth'})">
                                 <div class="app-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                                <span class="app-label">Địa Điểm</span>
-                            </div>
+                                <span class="app-label">Địa Điểm</span></button>
                             
                             <!-- GEMINI FEATURE 1: AI GUIDE -->
-                            <div class="app-item" data-accent="ai" onclick="AI_Guide.open()">
+                            <button type="button" class="app-item" data-accent="ai" onclick="AI_Guide.open()">
                                 <div class="app-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                                <span class="app-label">AI Tour Guide ✨</span>
-                            </div>
+                                <span class="app-label">AI Tour Guide ✨</span></button>
 
                              <!-- GEMINI FEATURE 2: BIKE MATCHMAKER -->
-                            <div class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
+                            <button type="button" class="app-item" data-accent="love" onclick="AI_Matchmaker.open()">
                                 <div class="app-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                                <span class="app-label">Tìm Xe Chân Ái ✨</span>
-                            </div>
+                                <span class="app-label">Tìm Xe Chân Ái ✨</span></button>
                         </div>
                     </div>
                 </div>
@@ -1021,7 +1019,7 @@
                         <select class="form-input" id="c-type">
                             <option value="150000">Xe số (Wave/Sirius) - 150.000</option>
                             <option value="200000">Xe ga (Vision/Airblade) - 200.000</option>
-                            <option value="350000">Xe côn/PKL - 350.000</option>
+                            <option value="0">Xe côn/PKL - Liên hệ</option>
                         </select>
                     </div>
 
@@ -1090,7 +1088,7 @@
                         <div class="feature-card glass-panel">
                             <div class="f-icon"><span class="material-symbols-rounded">assignment_turned_in</span></div>
                             <h3>Thủ Tục Đơn Giản</h3>
-                            <p>Chỉ cần CCCD hoặc hộ chiếu. Không giữ giấy tờ gốc, linh hoạt cho khách du lịch.</p>
+                            <p>Chỉ cần CCCD hoặc hộ chiếu. Giấy tờ và mức đặt cọc tùy trường hợp thuê, linh hoạt cho khách du lịch.</p>
                         </div>
                     </div>
                 </div>
@@ -1259,7 +1257,7 @@
                             <div style="display: flex; gap: 16px; align-items: flex-start;">
                                 <div style="background: var(--primary); color: var(--text-on-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight:700;">3</div>
                                 <div>
-                                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem;">Không giữ giấy tờ gốc</h4>
+                                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem;">Giấy tờ linh hoạt</h4>
                                     <p style="margin: 0; font-size: 0.95rem;">Hỗ trợ khách du lịch chụp ảnh giấy tờ, đặt cọc nhỏ, không lo thất lạc giấy tờ tùy thân.</p>
                                 </div>
                             </div>
@@ -1315,7 +1313,7 @@
                                 <div class="faq-icon-toggle"><i class="fa-solid fa-plus"></i></div>
                             </summary>
                             <div class="faq-content-body">
-                                Mr Tú hỗ trợ linh hoạt: Bạn có thể xem thêm tại trang <a href="thutuc.html" class="seo-link">Thủ tục thuê xe</a>, thường chỉ cần để lại CCCD/Hộ chiếu hoặc đặt cọc 1-2 triệu đồng.
+                                Mr Tú hỗ trợ linh hoạt: Bạn có thể xem thêm tại trang <a href="thutuc.html" class="seo-link">Thủ tục thuê xe</a>, thường chỉ cần để lại CCCD/Hộ chiếu; mức đặt cọc tùy trường hợp thuê (thường 2.000.000 – 5.000.000đ).
                             </div>
                         </details>
 
@@ -1654,6 +1652,7 @@
 </div>
 
 <!-- JS ENGINE -->
+<script src="assets/js/prices.js"></script>
 <script>
     // --- ICONS (SVG) ---
     const ICONS = {
@@ -1672,7 +1671,7 @@
             { 
                 t: "Dịch vụ", l: "#", i: ICONS.tag,
                 sub: [
-                    {t: "Bảng giá 2025", l: "banggia.html", i: ICONS.tag},
+                    {t: "Bảng giá", l: "banggia.html", i: ICONS.tag},
                     {t: "Thuê xe theo ngày", l: "ngay.html", i: ICONS.doc},
                     {t: "Thuê xe theo tuần", l: "tuan.html", i: ICONS.doc},
                     {t: "Thuê xe theo tháng", l: "thang.html", i: ICONS.doc},
@@ -2235,7 +2234,7 @@
         statusWidget() {
             const checkTime = () => {
                 const now = new Date();
-                const hours = now.getHours();
+                const hours = parseInt(new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Ho_Chi_Minh' }).format(now), 10);
                 
                 // Logic: 08:00 - 17:00 is OPEN (Green)
                 // Logic: 17:00 - 08:00 is SUPPORT ONLINE (Orange/Yellow) -> KHÔNG BAO GIỜ HIỆN CLOSED
@@ -2273,8 +2272,9 @@
             const run = () => {
                 let d = parseInt(days.value, 10) || 1;
                 if (d < 1) d = 1;
-                const price = (parseInt(type.value, 10) || 0) * d;
-                total.innerText = price.toLocaleString('vi-VN') + 'đ';
+                const daily = parseInt(type.value, 10) || 0;
+                if (daily === 0) { total.innerText = 'Liên hệ để xác nhận giá hiện tại'; return; }
+                total.innerText = window.MotoTusPrices ? window.MotoTusPrices.calcEstimate(d, daily) : (daily * d).toLocaleString('vi-VN') + 'đ';
             };
             
             if (type && days && total) {

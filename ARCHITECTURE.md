@@ -60,3 +60,8 @@ GitHub Pages chạy Jekyll mặc định (không có `.nojekyll`). Nội dung tr
 4. JS của 8 trang (caugiay, dongda, faq, gioithieu, index, longbien, nhap,
    phoco) vẫn inline vì có khác biệt nội dung từng trang (câu trả lời chatbot,
    giá...). Phase sau có thể đồng nhất nếu chấp nhận rủi ro hành vi.
+
+
+## robots.txt hosting limitation
+
+The site is served at https://thuexemayhanoi.github.io/shop/. A robots.txt file is only honored at the hostname root (https://thuexemayhanoi.github.io/robots.txt), which is outside this repository. /shop/robots.txt is kept valid but is not guaranteed to be fetched by crawlers; this is a GitHub Pages hosting limitation, not a repository bug.
