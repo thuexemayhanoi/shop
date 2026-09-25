@@ -5,7 +5,8 @@
       "path": "index.html",
       "role": "homepage",
       "primary_intents": ["thuê xe máy hà nội", "thue xe may ha noi"],
-      "notes": "Homepage owns the head commercial term for the whole city."
+      "secondary_intents": ["thuê xe máy phố cổ", "thuê xe máy hoàn kiếm", "giá thuê xe máy hà nội"],
+      "notes": "Homepage owns the head commercial term for the whole city and supports secondary location/pricing terms without owning them. Secondary intents are supportive only: they do not create conflicts for articles, and articles must not target them as primary."
     },
     {
       "path": "phoco.html",
