@@ -1,8 +1,8 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T17:05:36
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T00:06:00
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 2 | pass: 2 | published: 0
+- processed: 50 | written: 2 | pass: 0 | published: 2
 - writing: 48 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99 | min 99 | max 99 | repair_count: 0
 - source_gate: pass 1 | blocked 0
@@ -10,7 +10,7 @@
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0026 | cam-nang/an-toan/at-0026-loi-dung-do-xe-may-sai-quy-dinh-o-do-thi.html | PASS | 99 | 0 |  |
+| AT-0026 | cam-nang/an-toan/at-0026-loi-dung-do-xe-may-sai-quy-dinh-o-do-thi.html | PUBLISHED | 99 | 0 |  |
 | AT-0027 | cam-nang/an-toan/at-0027-xe-may-khong-dang-ky-bi-xu-ly-the-nao.html | WRITING |  | 0 |  |
 | AT-0028 | cam-nang/an-toan/at-0028-kiem-tra-xe-may-da-bi-phat-nguoi-o-dau.html | WRITING |  | 0 |  |
 | AT-0029 | cam-nang/an-toan/at-0029-cach-nop-phat-nguoi-cho-xe-may.html | WRITING |  | 0 |  |
@@ -43,7 +43,7 @@
 | HD-0031 | cam-nang/hoi-dap/hd-0031-cong-an-kiem-tra-giay-to-gom-nhung-loai-nao.html | WRITING |  | 0 |  |
 | HD-0032 | cam-nang/hoi-dap/hd-0032-den-hau-xe-may-bi-chay-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0033 | cam-nang/hoi-dap/hd-0033-xe-may-di-lan-lan-co-bi-ghi-phat-nguoi-khong.html | WRITING |  | 0 |  |
-| KN-0026 | cam-nang/kinh-nghiem/kn-0026-kinh-nghiem-de-xe-va-giu-thang-bang-voi-yamaha-sirius.html | PASS | 99 | 0 |  |
+| KN-0026 | cam-nang/kinh-nghiem/kn-0026-kinh-nghiem-de-xe-va-giu-thang-bang-voi-yamaha-sirius.html | PUBLISHED | 99 | 0 |  |
 | KN-0027 | cam-nang/kinh-nghiem/kn-0027-chay-yamaha-sirius-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | WRITING |  | 0 |  |
 | KN-0028 | cam-nang/kinh-nghiem/kn-0028-kinh-nghiem-cho-do-du-lich-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | KN-0029 | cam-nang/kinh-nghiem/kn-0029-yamaha-sirius-co-thich-hop-chay-duong-deo-khong.html | WRITING |  | 0 |  |
