@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-002",
   "started_at": "2026-09-26T12:08:30",
-  "finished_at": "2026-09-26T14:10:45",
+  "finished_at": "2026-09-26T21:11:09",
   "writer": "external-agent",
   "processed": 50,
   "written": 32,
-  "pass": 4,
-  "published": 28,
+  "pass": 0,
+  "published": 32,
   "writing": 18,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 6,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0010",
@@ -91,7 +91,7 @@
     {
       "article_id": "AT-0016",
       "output_path": "cam-nang/an-toan/at-0016-xe-may-khong-co-guong-hau-co-bi-phat-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
@@ -266,7 +266,7 @@
     {
       "article_id": "DL-0016",
       "output_path": "cam-nang/du-lich/dl-0016-canh-quan-dep-nhat-o-van-mieu-quoc-tu-giam-theo-nguoi-chay-x.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -426,7 +426,7 @@
     {
       "article_id": "KN-0016",
       "output_path": "cam-nang/kinh-nghiem/kn-0016-khi-nao-nen-chon-honda-wave-thay-vi-cac-xe-khac.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -527,7 +527,7 @@
     {
       "article_id": "XM-0016",
       "output_path": "cam-nang/xe-may/xm-0016-khi-nao-can-kiem-tra-cong-to-met-tren-honda-wave.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
