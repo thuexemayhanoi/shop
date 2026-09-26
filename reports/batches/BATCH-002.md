@@ -1,10 +1,10 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:06:42
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:10:45
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 32 | pass: 3 | published: 28
-- writing: 18 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 97.9 | min 90 | max 100 | repair_count: 0
+- processed: 50 | written: 32 | pass: 4 | published: 28
+- writing: 18 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 6 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -49,7 +49,7 @@
 | KN-0013 | cam-nang/kinh-nghiem/kn-0013-honda-wave-co-thich-hop-chay-duong-deo-khong.html | PUBLISHED | 98 | 0 |  |
 | KN-0014 | cam-nang/kinh-nghiem/kn-0014-cach-dieu-chinh-guong-va-yen-khi-chay-honda-wave.html | PUBLISHED | 99 | 0 |  |
 | KN-0015 | cam-nang/kinh-nghiem/kn-0015-kinh-nghiem-chup-anh-lai-tinh-trang-honda-wave-khi-thue.html | PUBLISHED | 99 | 0 |  |
-| KN-0016 | cam-nang/kinh-nghiem/kn-0016-khi-nao-nen-chon-honda-wave-thay-vi-cac-xe-khac.html | FAIL | 90 | 0 | wrong price for Honda Vision: found 0 near 'nda Vision cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và khoảng 1.80'; wrong price for Honda Click: found 0 near 'ần. Honda Click và Yamaha Mio cũng cho thuê với giá 150.000đ/ngày và 700.000đ/tu' |
+| KN-0016 | cam-nang/kinh-nghiem/kn-0016-khi-nao-nen-chon-honda-wave-thay-vi-cac-xe-khac.html | PASS | 100 | 0 | wrong price for Honda Vision: found 0 near 'nda Vision cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và khoảng 1.80'; wrong price for Honda Click: found 0 near 'ần. Honda Click và Yamaha Mio cũng cho thuê với giá 150.000đ/ngày và 700.000đ/tu' |
 | KN-0017 | cam-nang/kinh-nghiem/kn-0017-kinh-nghiem-thue-yamaha-sirius-o-ha-noi-cho-nguoi-moi.html | WRITING |  | 0 |  |
 | XM-0009 | cam-nang/xe-may/xm-0009-khi-nao-can-kiem-tra-den-hau-tren-honda-wave.html | PUBLISHED | 95 | 0 |  |
 | XM-0010 | cam-nang/xe-may/xm-0010-dau-hieu-guong-gap-van-de-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
