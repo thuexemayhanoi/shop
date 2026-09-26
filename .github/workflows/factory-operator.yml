@@ -1,0 +1,122 @@
+name: Factory Operator Tooling
+
+# WHY THIS EXISTS: the external operator runtime (the Mistral agent) has no
+# local Node/Python/git and no direct network access, so it cannot run
+# scripts/js/factory.mjs on its own machine. This workflow is the operator's
+# HANDS ONLY: it reads one whitelisted, deterministic command from
+# data/batches/operator-command.json (pushed by the operator) and executes
+# ONLY canonical repository tooling. It never writes article content, never
+# invents facts, contains no AI, no cron, no secrets beyond the default
+# GITHUB_TOKEN, and pushes only the deterministic outputs of the canonical
+# scripts (matrix ledger state, category hubs, sitemap.xml, batch reports and
+# exported per-row writer manifests under reports/batches/<batch>/rows/).
+# The operator (AI or human) remains the sole writer of article bodies.
+
+on:
+  push:
+    branches: [main]
+    paths: ['data/batches/operator-command.json']
+
+concurrency:
+  group: article-batch-production
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  operate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Read and validate operator command
+        run: |
+          set -eu
+          CMD=data/batches/operator-command.json
+          OP="$(jq -r '.op // ""' "$CMD")"
+          case "$OP" in
+            prepare-next|qa|publish|consistency|recover) ;;
+            *) echo "::error::unsupported op: $OP"; exit 1 ;;
+          esac
+          echo "op=$OP" >> "$GITHUB_ENV"
+          BATCH="$(jq -r '.batch // ""' "$CMD" | tr -cd 'A-Z0-9-')"
+          IDS="$(jq -r '.ids // ""' "$CMD" | tr -cd 'A-Z0-9,-')"
+          DATE="$(jq -r '.date // ""' "$CMD" | tr -cd '0-9-')"
+          echo "batch=$BATCH" >> "$GITHUB_ENV"
+          echo "ids=$IDS" >> "$GITHUB_ENV"
+          echo "date=$DATE" >> "$GITHUB_ENV"
+
+      - name: Matrix invariant (never bypassed)
+        run: python3 scripts/validate_content_matrix.py
+
+      - name: Recover any pending transaction before mutations
+        run: node scripts/js/factory.mjs --recover
+
+      - name: Node consistency check (pre-op)
+        run: node scripts/js/factory.mjs --consistency
+
+      - name: prepare-next - claim next batch, export per-row writer manifests
+        if: env.op == 'prepare-next'
+        run: |
+          set -eu
+          python3 scripts/run_article_batch.py --next --prepare-agent
+          python3 scripts/export_batch_rows.py
+
+      - name: qa - deterministic QA of the active batch
+        if: env.op == 'qa'
+        run: |
+          code=0
+          python3 scripts/run_article_batch.py --batch "$batch" --qa || code=$?
+          echo "qa exit code: $code (3=FAIL rows, 4=REVIEW/BLOCKED rows are recorded, not fatal)"
+
+      - name: publish - flip PASS rows to PUBLISHED, regen hubs/sitemap/reports
+        if: env.op == 'publish'
+        run: |
+          set -eu
+          if [ -z "$ids" ]; then echo "::error::publish requires ids"; exit 1; fi
+          date_args=()
+          if [ -n "$date" ]; then date_args=(--date "$date"); fi
+          node scripts/js/factory.mjs --publish "$ids" --dry-run "${date_args[@]}"
+          node scripts/js/factory.mjs --publish "$ids" "${date_args[@]}"
+          node scripts/js/factory.mjs --consistency
+
+      - name: Canonical generator freshness (python vs node byte-equality)
+        if: env.op == 'publish'
+        run: |
+          set -eu
+          python3 scripts/generate_sitemap.py --check
+          python3 scripts/generate_category_pages.py --check
+
+      - name: Full test suites after a publish (tests are never disabled)
+        if: env.op == 'publish'
+        run: |
+          set -eu
+          python3 -m unittest discover tests
+          node --test tests/js/factory.test.mjs
+
+      - name: Commit and push deterministic outputs
+        run: |
+          set -eu
+          git config user.name "factory-operator-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f --ignore-unmatch --quiet data/batches/operator-command.json || true
+          rm -f data/batches/operator-command.json
+          if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "nothing to commit"
+            exit 0
+          fi
+          git add -A
+          git commit -m "factory-operator: ${op} (deterministic outputs of canonical tooling only)"
+          git push
