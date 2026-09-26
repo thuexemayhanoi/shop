@@ -47,7 +47,7 @@ jobs:
           CMD=data/batches/operator-command.json
           OP="$(jq -r '.op // ""' "$CMD")"
           case "$OP" in
-            prepare-next|qa|publish|consistency|recover|unittest) ;;
+            prepare-next|qa|publish|consistency|recover|requeue|unittest) ;;
             *) echo "::error::unsupported op: $OP"; exit 1 ;;
           esac
           echo "op=$OP" >> "$GITHUB_ENV"
@@ -74,6 +74,12 @@ jobs:
           python3 scripts/run_article_batch.py --next --prepare-agent
           python3 scripts/export_batch_rows.py
 
+      - name: requeue - FAIL -> REPAIR after operator repair (budget enforced)
+        if: env.op == 'requeue'
+        run: |
+          set -eu
+          if [ -z "$ids" ]; then echo "::error::requeue requires ids"; exit 1; fi
+          python3 scripts/requeue_rows.py --ids "$ids"
       - name: qa - deterministic QA of the active batch
         if: env.op == 'qa'
         run: |
