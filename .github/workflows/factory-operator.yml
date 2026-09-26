@@ -47,7 +47,7 @@ jobs:
           CMD=data/batches/operator-command.json
           OP="$(jq -r '.op // ""' "$CMD")"
           case "$OP" in
-            prepare-next|qa|publish|consistency|recover) ;;
+            prepare-next|qa|publish|consistency|recover|unittest) ;;
             *) echo "::error::unsupported op: $OP"; exit 1 ;;
           esac
           echo "op=$OP" >> "$GITHUB_ENV"
@@ -102,9 +102,20 @@ jobs:
       - name: Full test suites after a publish (tests are never disabled)
         if: env.op == 'publish'
         run: |
-          set -eu
-          python3 -m unittest discover tests
+          code=0
+          python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
+          if [ "$code" != "0" ]; then tail -n 80 reports/batches/unittest-output.txt; exit 1; fi
           node --test tests/js/factory.test.mjs
+
+      - name: unittest - run the full python suite verbosely and dump output
+        if: env.op == 'unittest'
+        run: |
+          mkdir -p reports/batches
+          code=0
+          python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
+          echo "unittest exit code: $code"
+          tail -n 60 reports/batches/unittest-output.txt || true
+          exit 0
 
       - name: Commit and push deterministic outputs
         run: |
