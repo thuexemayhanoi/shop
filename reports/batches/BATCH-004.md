@@ -1,10 +1,10 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T01:25:20
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:27:29
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 18 | pass: 0 | published: 18
-- writing: 32 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.8 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 19 | pass: 1 | published: 18
+- writing: 31 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 4 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -22,7 +22,7 @@
 | CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 95 | 0 |  |
 | CD-0027 | cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 95 | 0 |  |
 | CD-0028 | cam-nang/cung-duong/cd-0028-cung-duong-vong-qua-moc-chau-co-gi-khac.html | PUBLISHED | 97 | 0 | wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'; wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000' |
-| CD-0029 | cam-nang/cung-duong/cd-0029-lich-trinh-moc-chau-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |
+| CD-0029 | cam-nang/cung-duong/cd-0029-lich-trinh-moc-chau-danh-cho-nhom-di-phuot.html | PASS | 95 | 0 |  |
 | CD-0030 | cam-nang/cung-duong/cd-0030-diem-dung-trua-tren-duong-di-moc-chau.html | WRITING |  | 0 |  |
 | CD-0031 | cam-nang/cung-duong/cd-0031-cung-duong-di-xe-may-tu-ha-noi-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
 | CD-0032 | cam-nang/cung-duong/cd-0032-lich-trinh-2-ngay-1-dem-di-xe-may-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
