@@ -1,10 +1,10 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T23:37:24
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T16:39:43
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 40 | pass: 0 | published: 40
-- writing: 10 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 42 | pass: 1 | published: 40
+- writing: 8 | review: 0 | repair: 1 | fail: 0 | blocked: 0
+- scores: avg 98.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 13 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -51,7 +51,7 @@
 | KN-0022 | cam-nang/kinh-nghiem/kn-0022-cac-loi-hay-gap-tren-yamaha-sirius-da-chay-nhieu-nam.html | PUBLISHED | 100 | 0 |  |
 | KN-0023 | cam-nang/kinh-nghiem/kn-0023-chay-yamaha-sirius-cho-them-mot-nguoi-co-on-khong.html | PUBLISHED | 100 | 0 |  |
 | KN-0024 | cam-nang/kinh-nghiem/kn-0024-kinh-nghiem-giu-an-toan-cho-yamaha-sirius-khi-gui-xe-qua-dem.html | WRITING |  | 0 |  |
-| KN-0025 | cam-nang/kinh-nghiem/kn-0025-di-thu-yamaha-sirius-quanh-pho-truoc-khi-thue-can-kiem-tra-g.html | WRITING |  | 0 |  |
+| KN-0025 | cam-nang/kinh-nghiem/kn-0025-di-thu-yamaha-sirius-quanh-pho-truoc-khi-thue-can-kiem-tra-g.html | REPAIR | 98 | 0 |  |
 | XM-0018 | cam-nang/xe-may/xm-0018-cach-kiem-tra-day-con-tren-honda-wave.html | PUBLISHED | 98 | 0 |  |
 | XM-0019 | cam-nang/xe-may/xm-0019-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-honda-wave.html | PUBLISHED | 100 | 0 |  |
 | XM-0020 | cam-nang/xe-may/xm-0020-bao-duong-ban-dap-cua-honda-wave-dung-cach.html | PUBLISHED | 96 | 0 |  |
@@ -59,4 +59,4 @@
 | XM-0022 | cam-nang/xe-may/xm-0022-khi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html | PUBLISHED | 96 | 0 |  |
 | XM-0023 | cam-nang/xe-may/xm-0023-dau-hieu-lop-truoc-gap-van-de-tren-yamaha-sirius.html | PUBLISHED | 96 | 0 |  |
 | XM-0024 | cam-nang/xe-may/xm-0024-bao-duong-lop-sau-cua-yamaha-sirius-dung-cach.html | WRITING |  | 0 |  |
-| XM-0025 | cam-nang/xe-may/xm-0025-cach-kiem-tra-bo-phanh-tren-yamaha-sirius.html | WRITING |  | 0 |  |
+| XM-0025 | cam-nang/xe-may/xm-0025-cach-kiem-tra-bo-phanh-tren-yamaha-sirius.html | PASS | 96 | 0 |  |
