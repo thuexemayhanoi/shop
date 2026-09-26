@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-002",
   "started_at": "2026-09-26T12:08:30",
-  "finished_at": "2026-09-26T14:29:01",
+  "finished_at": "2026-09-26T21:29:39",
   "writer": "external-agent",
   "processed": 50,
   "written": 40,
-  "pass": 4,
-  "published": 36,
+  "pass": 0,
+  "published": 40,
   "writing": 10,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 6,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0010",
@@ -143,7 +143,7 @@
     {
       "article_id": "CD-0012",
       "output_path": "cam-nang/cung-duong/cd-0012-cho-ngam-canh-giua-duong-den-viet-tri.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -153,7 +153,7 @@
     {
       "article_id": "CD-0013",
       "output_path": "cam-nang/cung-duong/cd-0013-cung-duong-ha-noi-thanh-pho-phu-tho-cho-nguoi-moi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -163,7 +163,7 @@
     {
       "article_id": "CD-0014",
       "output_path": "cam-nang/cung-duong/cd-0014-nghi-dem-o-thanh-pho-phu-tho-khi-di-xe-may-chon-dau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -173,7 +173,7 @@
     {
       "article_id": "CD-0015",
       "output_path": "cam-nang/cung-duong/cd-0015-bai-do-an-toan-doc-duong-di-thanh-pho-phu-tho.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
