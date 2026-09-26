@@ -1,11 +1,11 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T01:41:51
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:45:02
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 28 | pass: 0 | published: 28
-- writing: 22 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.4 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 4 | blocked 0
+- processed: 50 | written: 30 | pass: 2 | published: 28
+- writing: 20 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.5 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 5 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -13,7 +13,7 @@
 | AT-0026 | cam-nang/an-toan/at-0026-loi-dung-do-xe-may-sai-quy-dinh-o-do-thi.html | PUBLISHED | 99 | 0 |  |
 | AT-0027 | cam-nang/an-toan/at-0027-xe-may-khong-dang-ky-bi-xu-ly-the-nao.html | PUBLISHED | 99 | 0 |  |
 | AT-0028 | cam-nang/an-toan/at-0028-kiem-tra-xe-may-da-bi-phat-nguoi-o-dau.html | PUBLISHED | 99 | 0 |  |
-| AT-0029 | cam-nang/an-toan/at-0029-cach-nop-phat-nguoi-cho-xe-may.html | WRITING |  | 0 |  |
+| AT-0029 | cam-nang/an-toan/at-0029-cach-nop-phat-nguoi-cho-xe-may.html | PASS | 100 | 0 |  |
 | AT-0030 | cam-nang/an-toan/at-0030-xe-thue-bi-phat-nguoi-thi-ai-chiu-trach-nhiem.html | WRITING |  | 0 |  |
 | AT-0031 | cam-nang/an-toan/at-0031-quy-dinh-lap-them-phu-kien-cho-xe-may.html | WRITING |  | 0 |  |
 | AT-0032 | cam-nang/an-toan/at-0032-xe-may-chay-tren-via-he-bi-phat-nhu-the-nao.html | WRITING |  | 0 |  |
@@ -38,7 +38,7 @@
 | HD-0026 | cam-nang/hoi-dap/hd-0026-phat-nguoi-gom-nhung-loi-xe-may-nao.html | PUBLISHED | 99 | 0 |  |
 | HD-0027 | cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html | PUBLISHED | 99 | 0 | deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ); deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ) |
 | HD-0028 | cam-nang/hoi-dap/hd-0028-xe-may-co-duoc-di-vao-duong-cao-toc-khong.html | PUBLISHED | 99 | 0 |  |
-| HD-0029 | cam-nang/hoi-dap/hd-0029-xe-may-di-vao-ham-duong-bo-duoc-phep-khong.html | WRITING |  | 0 |  |
+| HD-0029 | cam-nang/hoi-dap/hd-0029-xe-may-di-vao-ham-duong-bo-duoc-phep-khong.html | PASS | 99 | 0 |  |
 | HD-0030 | cam-nang/hoi-dap/hd-0030-tre-em-ngoi-truoc-xe-may-co-duoc-khong.html | WRITING |  | 0 |  |
 | HD-0031 | cam-nang/hoi-dap/hd-0031-cong-an-kiem-tra-giay-to-gom-nhung-loai-nao.html | WRITING |  | 0 |  |
 | HD-0032 | cam-nang/hoi-dap/hd-0032-den-hau-xe-may-bi-chay-co-bi-phat-khong.html | WRITING |  | 0 |  |
