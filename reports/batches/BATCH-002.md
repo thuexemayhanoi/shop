@@ -1,10 +1,10 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T21:11:09
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:16:54
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 32 | pass: 0 | published: 32
-- writing: 18 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 36 | pass: 0 | published: 32
+- writing: 14 | review: 0 | repair: 4 | fail: 0 | blocked: 0
+- scores: avg 98.1 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 6 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -19,8 +19,8 @@
 | AT-0016 | cam-nang/an-toan/at-0016-xe-may-khong-co-guong-hau-co-bi-phat-khong.html | PUBLISHED | 99 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | AT-0017 | cam-nang/an-toan/at-0017-quy-dinh-den-xe-may-khi-chay-ban-dem.html | WRITING |  | 0 |  |
 | CD-0009 | cam-nang/cung-duong/cd-0009-tram-dung-nghi-ven-duong-toi-thai-nguyen.html | PUBLISHED | 97 | 0 |  |
-| CD-0010 | cam-nang/cung-duong/cd-0010-ha-noi-den-viet-tri-quoc-lo-nao-nen-chon.html | WRITING |  | 0 |  |
-| CD-0011 | cam-nang/cung-duong/cd-0011-hai-ngay-o-viet-tri-lich-trinh-goi-y-cho-nguoi-di-xe.html | WRITING |  | 0 |  |
+| CD-0010 | cam-nang/cung-duong/cd-0010-ha-noi-den-viet-tri-quoc-lo-nao-nen-chon.html | REPAIR | 95 | 0 |  |
+| CD-0011 | cam-nang/cung-duong/cd-0011-hai-ngay-o-viet-tri-lich-trinh-goi-y-cho-nguoi-di-xe.html | REPAIR | 96 | 0 |  |
 | CD-0012 | cam-nang/cung-duong/cd-0012-cho-ngam-canh-giua-duong-den-viet-tri.html | WRITING |  | 0 |  |
 | CD-0013 | cam-nang/cung-duong/cd-0013-cung-duong-ha-noi-thanh-pho-phu-tho-cho-nguoi-moi.html | WRITING |  | 0 |  |
 | CD-0014 | cam-nang/cung-duong/cd-0014-nghi-dem-o-thanh-pho-phu-tho-khi-di-xe-may-chon-dau.html | WRITING |  | 0 |  |
@@ -36,13 +36,13 @@
 | DL-0016 | cam-nang/du-lich/dl-0016-canh-quan-dep-nhat-o-van-mieu-quoc-tu-giam-theo-nguoi-chay-x.html | PUBLISHED | 99 | 0 |  |
 | DL-0017 | cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-lon.html | WRITING |  | 0 |  |
 | HD-0009 | cam-nang/hoi-dap/hd-0009-mu-bao-hiem-can-dat-tieu-chuan-nao.html | PUBLISHED | 98 | 0 |  |
-| HD-0010 | cam-nang/hoi-dap/hd-0010-xe-may-chay-toi-da-bao-nhieu-km-mot-gio-trong-pho.html | WRITING |  | 0 |  |
+| HD-0010 | cam-nang/hoi-dap/hd-0010-xe-may-chay-toi-da-bao-nhieu-km-mot-gio-trong-pho.html | REPAIR | 99 | 0 |  |
 | HD-0011 | cam-nang/hoi-dap/hd-0011-nguoi-ngoi-sau-khong-doi-mu-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0012 | cam-nang/hoi-dap/hd-0012-xe-may-het-han-dang-kiem-con-chay-duoc-khong.html | WRITING |  | 0 |  |
 | HD-0013 | cam-nang/hoi-dap/hd-0013-bang-lai-a1-dung-duoc-bao-nhieu-nam.html | WRITING |  | 0 |  |
 | HD-0014 | cam-nang/hoi-dap/hd-0014-mat-giay-dang-ky-xe-phai-lam-sao.html | WRITING |  | 0 |  |
 | HD-0015 | cam-nang/hoi-dap/hd-0015-doi-mu-bao-hiem-khong-cai-day-co-bi-phat-khong.html | WRITING |  | 0 |  |
-| HD-0016 | cam-nang/hoi-dap/hd-0016-xe-may-co-can-guong-hai-ben-khong.html | WRITING |  | 0 |  |
+| HD-0016 | cam-nang/hoi-dap/hd-0016-xe-may-co-can-guong-hai-ben-khong.html | REPAIR | 99 | 0 |  |
 | KN-0010 | cam-nang/kinh-nghiem/kn-0010-kinh-nghiem-de-xe-va-giu-thang-bang-voi-honda-wave.html | PUBLISHED | 100 | 0 |  |
 | KN-0011 | cam-nang/kinh-nghiem/kn-0011-chay-honda-wave-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | PUBLISHED | 100 | 0 |  |
 | KN-0012 | cam-nang/kinh-nghiem/kn-0012-kinh-nghiem-cho-do-du-lich-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
