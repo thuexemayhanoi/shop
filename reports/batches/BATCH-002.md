@@ -1,10 +1,10 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T20:02:11
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:05:06
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 28 | pass: 0 | published: 28
-- writing: 22 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.1 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 32 | pass: 2 | published: 28
+- writing: 18 | review: 0 | repair: 0 | fail: 2 | blocked: 0
+- scores: avg 97.8 | min 90 | max 100 | repair_count: 0
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -16,7 +16,7 @@
 | AT-0013 | cam-nang/an-toan/at-0013-quy-dinh-ve-mu-bao-hiem-cho-nguoi-ngoi-sau-xe-may.html | PUBLISHED | 100 | 0 |  |
 | AT-0014 | cam-nang/an-toan/at-0014-bao-hiem-trach-nhiem-dan-su-xe-may-bat-buoc-nhu-the-nao.html | PUBLISHED | 99 | 0 |  |
 | AT-0015 | cam-nang/an-toan/at-0015-khong-mang-theo-giay-to-xe-bi-xu-ly-ra-sao.html | PUBLISHED | 99 | 0 |  |
-| AT-0016 | cam-nang/an-toan/at-0016-xe-may-khong-co-guong-hau-co-bi-phat-khong.html | WRITING |  | 0 |  |
+| AT-0016 | cam-nang/an-toan/at-0016-xe-may-khong-co-guong-hau-co-bi-phat-khong.html | FAIL | 98 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | AT-0017 | cam-nang/an-toan/at-0017-quy-dinh-den-xe-may-khi-chay-ban-dem.html | WRITING |  | 0 |  |
 | CD-0009 | cam-nang/cung-duong/cd-0009-tram-dung-nghi-ven-duong-toi-thai-nguyen.html | PUBLISHED | 97 | 0 |  |
 | CD-0010 | cam-nang/cung-duong/cd-0010-ha-noi-den-viet-tri-quoc-lo-nao-nen-chon.html | WRITING |  | 0 |  |
@@ -33,7 +33,7 @@
 | DL-0013 | cam-nang/du-lich/dl-0013-di-trong-ngay-den-van-mieu-quoc-tu-giam-bang-xe-may-co-dang.html | PUBLISHED | 100 | 0 |  |
 | DL-0014 | cam-nang/du-lich/dl-0014-mua-hoa-nao-no-dep-o-van-mieu-quoc-tu-giam-khi-di-xe-may.html | PUBLISHED | 99 | 0 |  |
 | DL-0015 | cam-nang/du-lich/dl-0015-an-sang-o-dau-truoc-khi-chay-xe-den-van-mieu-quoc-tu-giam.html | PUBLISHED | 99 | 0 |  |
-| DL-0016 | cam-nang/du-lich/dl-0016-canh-quan-dep-nhat-o-van-mieu-quoc-tu-giam-theo-nguoi-chay-x.html | WRITING |  | 0 |  |
+| DL-0016 | cam-nang/du-lich/dl-0016-canh-quan-dep-nhat-o-van-mieu-quoc-tu-giam-theo-nguoi-chay-x.html | PASS | 99 | 0 |  |
 | DL-0017 | cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-lon.html | WRITING |  | 0 |  |
 | HD-0009 | cam-nang/hoi-dap/hd-0009-mu-bao-hiem-can-dat-tieu-chuan-nao.html | PUBLISHED | 98 | 0 |  |
 | HD-0010 | cam-nang/hoi-dap/hd-0010-xe-may-chay-toi-da-bao-nhieu-km-mot-gio-trong-pho.html | WRITING |  | 0 |  |
@@ -49,7 +49,7 @@
 | KN-0013 | cam-nang/kinh-nghiem/kn-0013-honda-wave-co-thich-hop-chay-duong-deo-khong.html | PUBLISHED | 98 | 0 |  |
 | KN-0014 | cam-nang/kinh-nghiem/kn-0014-cach-dieu-chinh-guong-va-yen-khi-chay-honda-wave.html | PUBLISHED | 99 | 0 |  |
 | KN-0015 | cam-nang/kinh-nghiem/kn-0015-kinh-nghiem-chup-anh-lai-tinh-trang-honda-wave-khi-thue.html | PUBLISHED | 99 | 0 |  |
-| KN-0016 | cam-nang/kinh-nghiem/kn-0016-khi-nao-nen-chon-honda-wave-thay-vi-cac-xe-khac.html | WRITING |  | 0 |  |
+| KN-0016 | cam-nang/kinh-nghiem/kn-0016-khi-nao-nen-chon-honda-wave-thay-vi-cac-xe-khac.html | FAIL | 90 | 0 | wrong price for Honda Vision: found 0 near '00đ mỗi tuần, trong khi Honda Vision là 200.000đ mỗi ngày và 1.000.0'; wrong price for Honda Wave: found 0 near '00đ mỗi tuần. Nếu thuê theo tháng, Wave dao động khoảng 900.000đ đến 1.200.000đ, còn' |
 | KN-0017 | cam-nang/kinh-nghiem/kn-0017-kinh-nghiem-thue-yamaha-sirius-o-ha-noi-cho-nguoi-moi.html | WRITING |  | 0 |  |
 | XM-0009 | cam-nang/xe-may/xm-0009-khi-nao-can-kiem-tra-den-hau-tren-honda-wave.html | PUBLISHED | 95 | 0 |  |
 | XM-0010 | cam-nang/xe-may/xm-0010-dau-hieu-guong-gap-van-de-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
@@ -58,5 +58,5 @@
 | XM-0013 | cam-nang/xe-may/xm-0013-dau-hieu-chia-khoa-gap-van-de-tren-honda-wave.html | PUBLISHED | 98 | 0 |  |
 | XM-0014 | cam-nang/xe-may/xm-0014-bao-duong-may-de-cua-honda-wave-dung-cach.html | PUBLISHED | 96 | 0 |  |
 | XM-0015 | cam-nang/xe-may/xm-0015-cach-kiem-tra-van-lop-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
-| XM-0016 | cam-nang/xe-may/xm-0016-khi-nao-can-kiem-tra-cong-to-met-tren-honda-wave.html | WRITING |  | 0 |  |
+| XM-0016 | cam-nang/xe-may/xm-0016-khi-nao-can-kiem-tra-cong-to-met-tren-honda-wave.html | PASS | 98 | 0 |  |
 | XM-0017 | cam-nang/xe-may/xm-0017-bao-duong-tam-chan-bun-cua-honda-wave-dung-cach.html | WRITING |  | 0 |  |
