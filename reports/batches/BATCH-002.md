@@ -1,16 +1,16 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T12:18:26
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T12:24:04
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 8 | pass: 2 | published: 4
-- writing: 42 | review: 0 | repair: 0 | fail: 2 | blocked: 0
-- scores: avg 95 | min 86 | max 100 | repair_count: 0
+- processed: 50 | written: 8 | pass: 3 | published: 4
+- writing: 42 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- scores: avg 96.2 | min 89 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0010 | cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html | FAIL | 89 | 0 | wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade và xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000'; wrong price for Honda Wave: found 0 near 'thuê theo tháng, Honda Wave có mức từ 900.000đ đến 1.200.000đ, Honda Vision từ 1.' |
+| AT-0010 | cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html | FAIL | 89 | 0 | wrong price for Honda Vision: found 0 near 'và khoảng 900.000đ đến 1.200.000đ/tháng. Honda Vision'; wrong price for Honda Air Blade: found 0 near 'g. Honda Air Blade cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và 1.500.000đ/' |
 | AT-0011 | cam-nang/an-toan/at-0011-do-tuoi-duoc-cap-giay-phep-lai-xe-may.html | WRITING |  | 0 |  |
 | AT-0012 | cam-nang/an-toan/at-0012-nguoi-nuoc-ngoai-lai-xe-may-o-viet-nam-can-giay-to-gi.html | WRITING |  | 0 |  |
 | AT-0013 | cam-nang/an-toan/at-0013-quy-dinh-ve-mu-bao-hiem-cho-nguoi-ngoi-sau-xe-may.html | WRITING |  | 0 |  |
@@ -27,7 +27,7 @@
 | CD-0015 | cam-nang/cung-duong/cd-0015-bai-do-an-toan-doc-duong-di-thanh-pho-phu-tho.html | WRITING |  | 0 |  |
 | CD-0016 | cam-nang/cung-duong/cd-0016-chay-xe-may-tu-ha-noi-ra-vinh-yen-nen-di-luc-nao.html | WRITING |  | 0 |  |
 | DL-0009 | cam-nang/du-lich/dl-0009-lo-trinh-di-xe-may-tu-ha-noi-den-chua-tran-quoc.html | PUBLISHED | 99 | 0 |  |
-| DL-0010 | cam-nang/du-lich/dl-0010-di-xe-may-den-chua-tran-quoc-cuoi-tuan-hay-ngay-thuong.html | FAIL | 86 | 0 | wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000'; wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000' |
+| DL-0010 | cam-nang/du-lich/dl-0010-di-xe-may-den-chua-tran-quoc-cuoi-tuan-hay-ngay-thuong.html | PASS | 96 | 0 | wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000'; wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000' |
 | DL-0011 | cam-nang/du-lich/dl-0011-quan-an-noi-tieng-gan-chua-tran-quoc-cho-khach-di-xe-may.html | WRITING |  | 0 |  |
 | DL-0012 | cam-nang/du-lich/dl-0012-chup-anh-sang-som-o-chua-tran-quoc-co-gi-dep.html | WRITING |  | 0 |  |
 | DL-0013 | cam-nang/du-lich/dl-0013-di-trong-ngay-den-van-mieu-quoc-tu-giam-bang-xe-may-co-dang.html | WRITING |  | 0 |  |
