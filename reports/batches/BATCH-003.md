@@ -1,11 +1,11 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T15:26:31
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T15:30:28
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 12 | pass: 2 | published: 6
-- writing: 38 | review: 0 | repair: 2 | fail: 2 | blocked: 0
-- scores: avg 96.8 | min 92 | max 100 | repair_count: 0
-- source_gate: pass 2 | blocked 0
+- processed: 50 | written: 12 | pass: 4 | published: 6
+- writing: 38 | review: 0 | repair: 0 | fail: 2 | blocked: 0
+- scores: avg 97.4 | min 92 | max 100 | repair_count: 0
+- source_gate: pass 3 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -36,7 +36,7 @@
 | DL-0024 | cam-nang/du-lich/dl-0024-goc-view-ven-duong-khi-chay-xe-den-cot-co-ha-noi.html | WRITING |  | 0 |  |
 | DL-0025 | cam-nang/du-lich/dl-0025-chuyen-cuoi-tuan-den-bao-tang-dan-toc-hoc-viet-nam-bang-xe-m.html | WRITING |  | 0 |  |
 | HD-0017 | cam-nang/hoi-dap/hd-0017-nop-phat-nguoi-online-o-dau.html | PUBLISHED | 100 | 0 |  |
-| HD-0018 | cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html | REPAIR | 96 | 0 |  |
+| HD-0018 | cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html | PASS | 100 | 0 |  |
 | HD-0019 | cam-nang/hoi-dap/hd-0019-xe-may-dien-bi-phat-nguoi-duoc-khong.html | WRITING |  | 0 |  |
 | HD-0020 | cam-nang/hoi-dap/hd-0020-den-xi-nhan-xe-may-hong-co-bi-nhac-nho-khong.html | WRITING |  | 0 |  |
 | HD-0021 | cam-nang/hoi-dap/hd-0021-co-duoc-keo-xe-may-bang-xe-may-khac-khong.html | WRITING |  | 0 |  |
@@ -53,7 +53,7 @@
 | KN-0024 | cam-nang/kinh-nghiem/kn-0024-kinh-nghiem-giu-an-toan-cho-yamaha-sirius-khi-gui-xe-qua-dem.html | WRITING |  | 0 |  |
 | KN-0025 | cam-nang/kinh-nghiem/kn-0025-di-thu-yamaha-sirius-quanh-pho-truoc-khi-thue-can-kiem-tra-g.html | WRITING |  | 0 |  |
 | XM-0018 | cam-nang/xe-may/xm-0018-cach-kiem-tra-day-con-tren-honda-wave.html | PUBLISHED | 98 | 0 |  |
-| XM-0019 | cam-nang/xe-may/xm-0019-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-honda-wave.html | REPAIR | 96 | 0 |  |
+| XM-0019 | cam-nang/xe-may/xm-0019-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-honda-wave.html | PASS | 100 | 0 |  |
 | XM-0020 | cam-nang/xe-may/xm-0020-bao-duong-ban-dap-cua-honda-wave-dung-cach.html | WRITING |  | 0 |  |
 | XM-0021 | cam-nang/xe-may/xm-0021-cach-kiem-tra-bugi-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | XM-0022 | cam-nang/xe-may/xm-0022-khi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html | WRITING |  | 0 |  |
