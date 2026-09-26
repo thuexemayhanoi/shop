@@ -1,10 +1,10 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T00:09:20
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T17:11:41
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 4 | pass: 0 | published: 4
-- writing: 46 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 95 | max 99 | repair_count: 0
+- processed: 50 | written: 6 | pass: 2 | published: 4
+- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.8 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -27,7 +27,7 @@
 | CD-0031 | cam-nang/cung-duong/cd-0031-cung-duong-di-xe-may-tu-ha-noi-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
 | CD-0032 | cam-nang/cung-duong/cd-0032-lich-trinh-2-ngay-1-dem-di-xe-may-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
 | CD-0033 | cam-nang/cung-duong/cd-0033-diem-dung-chan-dep-tren-cung-duong-ha-noi-thanh-pho-son-la.html | WRITING |  | 0 |  |
-| DL-0026 | cam-nang/du-lich/dl-0026-sang-som-hay-chieu-muon-den-bao-tang-dan-toc-hoc-viet-nam-de.html | WRITING |  | 0 |  |
+| DL-0026 | cam-nang/du-lich/dl-0026-sang-som-hay-chieu-muon-den-bao-tang-dan-toc-hoc-viet-nam-de.html | PASS | 99 | 0 |  |
 | DL-0027 | cam-nang/du-lich/dl-0027-quan-an-gan-bai-xe-o-bao-tang-dan-toc-hoc-viet-nam.html | WRITING |  | 0 |  |
 | DL-0028 | cam-nang/du-lich/dl-0028-chup-anh-doan-xe-o-bao-tang-dan-toc-hoc-viet-nam-o-dau-dep.html | WRITING |  | 0 |  |
 | DL-0029 | cam-nang/du-lich/dl-0029-di-xe-may-den-bao-tang-lich-su-quan-su-viet-nam-co-kho-tim-d.html | WRITING |  | 0 |  |
@@ -52,7 +52,7 @@
 | KN-0032 | cam-nang/kinh-nghiem/kn-0032-khi-nao-nen-chon-yamaha-sirius-thay-vi-cac-xe-khac.html | WRITING |  | 0 |  |
 | KN-0033 | cam-nang/kinh-nghiem/kn-0033-kinh-nghiem-kiem-tra-yamaha-sirius-truoc-khi-nhan-xe.html | WRITING |  | 0 |  |
 | KN-0034 | cam-nang/kinh-nghiem/kn-0034-kinh-nghiem-cho-do-du-lich-tren-honda-click.html | WRITING |  | 0 |  |
-| XM-0026 | cam-nang/xe-may/xm-0026-khi-nao-can-kiem-tra-giam-xoc-tren-yamaha-sirius.html | WRITING |  | 0 |  |
+| XM-0026 | cam-nang/xe-may/xm-0026-khi-nao-can-kiem-tra-giam-xoc-tren-yamaha-sirius.html | PASS | 96 | 0 |  |
 | XM-0027 | cam-nang/xe-may/xm-0027-dau-hieu-ac-quy-gap-van-de-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | XM-0028 | cam-nang/xe-may/xm-0028-bao-duong-day-xich-cua-yamaha-sirius-dung-cach.html | WRITING |  | 0 |  |
 | XM-0029 | cam-nang/xe-may/xm-0029-khi-nao-can-kiem-tra-den-hau-tren-yamaha-sirius.html | WRITING |  | 0 |  |
