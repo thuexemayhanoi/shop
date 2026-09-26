@@ -1,17 +1,17 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T00:06:00
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T17:08:54
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 2 | pass: 0 | published: 2
-- writing: 48 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99 | min 99 | max 99 | repair_count: 0
+- processed: 50 | written: 4 | pass: 2 | published: 2
+- writing: 46 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0026 | cam-nang/an-toan/at-0026-loi-dung-do-xe-may-sai-quy-dinh-o-do-thi.html | PUBLISHED | 99 | 0 |  |
-| AT-0027 | cam-nang/an-toan/at-0027-xe-may-khong-dang-ky-bi-xu-ly-the-nao.html | WRITING |  | 0 |  |
+| AT-0027 | cam-nang/an-toan/at-0027-xe-may-khong-dang-ky-bi-xu-ly-the-nao.html | PASS | 99 | 0 |  |
 | AT-0028 | cam-nang/an-toan/at-0028-kiem-tra-xe-may-da-bi-phat-nguoi-o-dau.html | WRITING |  | 0 |  |
 | AT-0029 | cam-nang/an-toan/at-0029-cach-nop-phat-nguoi-cho-xe-may.html | WRITING |  | 0 |  |
 | AT-0030 | cam-nang/an-toan/at-0030-xe-thue-bi-phat-nguoi-thi-ai-chiu-trach-nhiem.html | WRITING |  | 0 |  |
@@ -19,7 +19,7 @@
 | AT-0032 | cam-nang/an-toan/at-0032-xe-may-chay-tren-via-he-bi-phat-nhu-the-nao.html | WRITING |  | 0 |  |
 | AT-0033 | cam-nang/an-toan/at-0033-uong-mot-lon-bia-roi-chay-xe-may-co-vuot-nguong-con-khong.html | WRITING |  | 0 |  |
 | AT-0034 | cam-nang/an-toan/at-0034-muc-phat-nong-do-con-voi-xe-may-hien-hanh.html | WRITING |  | 0 |  |
-| CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | WRITING |  | 0 |  |
+| CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | PASS | 95 | 0 |  |
 | CD-0027 | cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html | WRITING |  | 0 |  |
 | CD-0028 | cam-nang/cung-duong/cd-0028-cung-duong-vong-qua-moc-chau-co-gi-khac.html | WRITING |  | 0 |  |
 | CD-0029 | cam-nang/cung-duong/cd-0029-lich-trinh-moc-chau-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |
