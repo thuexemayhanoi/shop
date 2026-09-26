@@ -1,10 +1,10 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T23:56:13
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T16:57:09
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 44 | pass: 0 | published: 44
-- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 46 | pass: 2 | published: 44
+- writing: 4 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 13 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -26,14 +26,14 @@
 | CD-0022 | cam-nang/cung-duong/cd-0022-duong-tu-ha-noi-vao-thanh-pho-hoa-binh-doan-nao-kho-di.html | PUBLISHED | 97 | 0 |  |
 | CD-0023 | cam-nang/cung-duong/cd-0023-ke-hoach-3-ngay-2-dem-o-thanh-pho-hoa-binh-cho-nguoi-chay-xe.html | PUBLISHED | 97 | 0 |  |
 | CD-0024 | cam-nang/cung-duong/cd-0024-noi-tiep-nuoc-va-nghi-giai-lao-di-thanh-pho-hoa-binh.html | PUBLISHED | 97 | 0 |  |
-| CD-0025 | cam-nang/cung-duong/cd-0025-ra-mai-chau-bang-xe-may-di-trong-ngay-duoc-khong.html | WRITING |  | 0 |  |
+| CD-0025 | cam-nang/cung-duong/cd-0025-ra-mai-chau-bang-xe-may-di-trong-ngay-duoc-khong.html | PASS | 95 | 0 |  |
 | DL-0018 | cam-nang/du-lich/dl-0018-troi-mua-co-dang-di-hoang-thanh-thang-long-bang-xe-may-khong.html | PUBLISHED | 97 | 0 |  |
 | DL-0019 | cam-nang/du-lich/dl-0019-nghi-trua-an-gi-khi-di-hoang-thanh-thang-long-bang-xe-may.html | PUBLISHED | 97 | 0 | broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html'; broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html' |
 | DL-0020 | cam-nang/du-lich/dl-0020-vi-tri-chup-anh-o-hoang-thanh-thang-long-it-nguoi-biet.html | PUBLISHED | 98 | 0 |  |
 | DL-0021 | cam-nang/du-lich/dl-0021-di-xe-may-den-cot-co-ha-noi-lan-dau-can-biet-gi.html | PUBLISHED | 100 | 0 |  |
 | DL-0022 | cam-nang/du-lich/dl-0022-mua-dong-den-cot-co-ha-noi-bang-xe-may-co-lanh-lam-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0023 | cam-nang/du-lich/dl-0023-mon-gi-dang-mua-ve-tu-cot-co-ha-noi.html | PUBLISHED | 100 | 0 |  |
-| DL-0024 | cam-nang/du-lich/dl-0024-goc-view-ven-duong-khi-chay-xe-den-cot-co-ha-noi.html | WRITING |  | 0 |  |
+| DL-0024 | cam-nang/du-lich/dl-0024-goc-view-ven-duong-khi-chay-xe-den-cot-co-ha-noi.html | PASS | 99 | 0 |  |
 | DL-0025 | cam-nang/du-lich/dl-0025-chuyen-cuoi-tuan-den-bao-tang-dan-toc-hoc-viet-nam-bang-xe-m.html | WRITING |  | 0 |  |
 | HD-0017 | cam-nang/hoi-dap/hd-0017-nop-phat-nguoi-online-o-dau.html | PUBLISHED | 100 | 0 |  |
 | HD-0018 | cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html | PUBLISHED | 100 | 0 |  |
