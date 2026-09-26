@@ -1,17 +1,17 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T15:30:28
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T15:32:37
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 12 | pass: 4 | published: 6
-- writing: 38 | review: 0 | repair: 0 | fail: 2 | blocked: 0
-- scores: avg 97.4 | min 92 | max 100 | repair_count: 0
-- source_gate: pass 3 | blocked 0
+- processed: 50 | written: 12 | pass: 6 | published: 6
+- writing: 38 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 4 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0018 | cam-nang/an-toan/at-0018-cho-tre-em-duoi-10-tuoi-tren-xe-may-quy-dinh-the-nao.html | PUBLISHED | 99 | 0 |  |
-| AT-0019 | cam-nang/an-toan/at-0019-xe-may-het-dang-kiem-co-bi-giu-xe-khong.html | FAIL | 94 | 0 | broken internal link: 'cam-nang/an-toan/antoan.html'; broken internal link: 'cam-nang/hoidap.html' |
+| AT-0019 | cam-nang/an-toan/at-0019-xe-may-het-dang-kiem-co-bi-giu-xe-khong.html | PASS | 100 | 0 | broken internal link: 'cam-nang/an-toan/antoan.html'; broken internal link: 'cam-nang/hoidap.html' |
 | AT-0020 | cam-nang/an-toan/at-0020-doi-giay-phep-lai-xe-may-het-han-o-dau.html | WRITING |  | 0 |  |
 | AT-0021 | cam-nang/an-toan/at-0021-giay-phep-lai-quoc-te-dung-cho-xe-may-o-viet-nam.html | WRITING |  | 0 |  |
 | AT-0022 | cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html | WRITING |  | 0 |  |
@@ -28,7 +28,7 @@
 | CD-0024 | cam-nang/cung-duong/cd-0024-noi-tiep-nuoc-va-nghi-giai-lao-di-thanh-pho-hoa-binh.html | WRITING |  | 0 |  |
 | CD-0025 | cam-nang/cung-duong/cd-0025-ra-mai-chau-bang-xe-may-di-trong-ngay-duoc-khong.html | WRITING |  | 0 |  |
 | DL-0018 | cam-nang/du-lich/dl-0018-troi-mua-co-dang-di-hoang-thanh-thang-long-bang-xe-may-khong.html | PUBLISHED | 97 | 0 |  |
-| DL-0019 | cam-nang/du-lich/dl-0019-nghi-trua-an-gi-khi-di-hoang-thanh-thang-long-bang-xe-may.html | FAIL | 92 | 0 | broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html'; broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html' |
+| DL-0019 | cam-nang/du-lich/dl-0019-nghi-trua-an-gi-khi-di-hoang-thanh-thang-long-bang-xe-may.html | PASS | 97 | 0 | broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html'; broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html' |
 | DL-0020 | cam-nang/du-lich/dl-0020-vi-tri-chup-anh-o-hoang-thanh-thang-long-it-nguoi-biet.html | WRITING |  | 0 |  |
 | DL-0021 | cam-nang/du-lich/dl-0021-di-xe-may-den-cot-co-ha-noi-lan-dau-can-biet-gi.html | WRITING |  | 0 |  |
 | DL-0022 | cam-nang/du-lich/dl-0022-mua-dong-den-cot-co-ha-noi-bang-xe-may-co-lanh-lam-khong.html | WRITING |  | 0 |  |
