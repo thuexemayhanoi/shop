@@ -1,9 +1,9 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T01:45:31
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:46:46
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 30 | pass: 0 | published: 30
-- writing: 20 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 32 | pass: 2 | published: 30
+- writing: 18 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
@@ -46,7 +46,7 @@
 | KN-0026 | cam-nang/kinh-nghiem/kn-0026-kinh-nghiem-de-xe-va-giu-thang-bang-voi-yamaha-sirius.html | PUBLISHED | 99 | 0 |  |
 | KN-0027 | cam-nang/kinh-nghiem/kn-0027-chay-yamaha-sirius-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | PUBLISHED | 100 | 0 |  |
 | KN-0028 | cam-nang/kinh-nghiem/kn-0028-kinh-nghiem-cho-do-du-lich-tren-yamaha-sirius.html | PUBLISHED | 99 | 0 |  |
-| KN-0029 | cam-nang/kinh-nghiem/kn-0029-yamaha-sirius-co-thich-hop-chay-duong-deo-khong.html | WRITING |  | 0 |  |
+| KN-0029 | cam-nang/kinh-nghiem/kn-0029-yamaha-sirius-co-thich-hop-chay-duong-deo-khong.html | PASS | 99 | 0 |  |
 | KN-0030 | cam-nang/kinh-nghiem/kn-0030-cach-dieu-chinh-guong-va-yen-khi-chay-yamaha-sirius.html | WRITING |  | 0 |  |
 | KN-0031 | cam-nang/kinh-nghiem/kn-0031-kinh-nghiem-chup-anh-lai-tinh-trang-yamaha-sirius-khi-thue.html | WRITING |  | 0 |  |
 | KN-0032 | cam-nang/kinh-nghiem/kn-0032-khi-nao-nen-chon-yamaha-sirius-thay-vi-cac-xe-khac.html | WRITING |  | 0 |  |
@@ -55,7 +55,7 @@
 | XM-0026 | cam-nang/xe-may/xm-0026-khi-nao-can-kiem-tra-giam-xoc-tren-yamaha-sirius.html | PUBLISHED | 96 | 0 |  |
 | XM-0027 | cam-nang/xe-may/xm-0027-dau-hieu-ac-quy-gap-van-de-tren-yamaha-sirius.html | PUBLISHED | 96 | 0 |  |
 | XM-0028 | cam-nang/xe-may/xm-0028-bao-duong-day-xich-cua-yamaha-sirius-dung-cach.html | PUBLISHED | 96 | 0 |  |
-| XM-0029 | cam-nang/xe-may/xm-0029-khi-nao-can-kiem-tra-den-hau-tren-yamaha-sirius.html | WRITING |  | 0 |  |
+| XM-0029 | cam-nang/xe-may/xm-0029-khi-nao-can-kiem-tra-den-hau-tren-yamaha-sirius.html | PASS | 95 | 0 |  |
 | XM-0030 | cam-nang/xe-may/xm-0030-dau-hieu-guong-gap-van-de-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | XM-0031 | cam-nang/xe-may/xm-0031-cach-kiem-tra-binh-xang-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | XM-0032 | cam-nang/xe-may/xm-0032-dau-hieu-chia-khoa-gap-van-de-tren-yamaha-sirius.html | WRITING |  | 0 |  |
