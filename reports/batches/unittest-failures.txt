@@ -1,0 +1,14 @@
+FAIL: test_fail_blocked_do_not_prevent_next_batch (test_factory_regressions.BatchResolutionTests.test_fail_blocked_do_not_prevent_next_batch)
+FAIL: test_next_resolved_batch_stays_consistent (test_factory_regressions.BatchResolutionTests.test_next_resolved_batch_stays_consistent)
+Traceback (most recent call last):
+  File "/home/runner/work/shop/shop/tests/test_factory_regressions.py", line 478, in test_fail_blocked_do_not_prevent_next_batch
+    self.assertIsNone(rb.active_batch_id(rows))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'BATCH-002' is not None
+
+Traceback (most recent call last):
+  File "/home/runner/work/shop/shop/tests/test_factory_regressions.py", line 512, in test_next_resolved_batch_stays_consistent
+    self.assertEqual(len(claim), 50)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+AssertionError: 0 != 50
+
