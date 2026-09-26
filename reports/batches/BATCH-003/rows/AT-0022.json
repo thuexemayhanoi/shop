@@ -1,0 +1,171 @@
+{
+ "article_id": "AT-0022",
+ "batch_id": "BATCH-003",
+ "category": "An toàn",
+ "category_label": "An toàn",
+ "working_title": "Mức phạt cho xe máy đi ngược chiều",
+ "primary_keyword": "mức phạt cho xe máy đi ngược chiều",
+ "secondary_keywords": "mức phạt cho xe máy đi ngược chiều",
+ "search_intent": "informational",
+ "slug": "at-0022-muc-phat-cho-xe-may-di-nguoc-chieu",
+ "output_path": "cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html",
+ "parent_hub": "antoan.html",
+ "eligible_internal_link_targets": "antoan.html,  kinhnghiem.html,  hoidap.html",
+ "commercial_link_target": "banggia.html",
+ "requires_sources": "true",
+ "source_notes": "Xác minh theo nguồn chính thức trước khi xuất bản",
+ "source_requirements": "cite >=1 approved official source URL (config/source-policy.json) in a visible 'Nguồn tham khảo' section; verify via web research; if unavailable BLOCK the article",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1600,
+  "target_max_words": 2000,
+  "review_min_words": 1200,
+  "review_max_words": 2300,
+  "scope": "main editorial content only"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 5,
+  "parent_hub_link_required": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html",
+ "date_published": "2026-09-26",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "AT-0001",
+   "title": "Nồng độ cồn khi lái xe máy: mức xử phạt hiện hành"
+  },
+  {
+   "article_id": "AT-0002",
+   "title": "Tốc độ tối đa cho xe máy trong khu đô thị"
+  },
+  {
+   "article_id": "AT-0003",
+   "title": "Các lỗi phạt nguội xe máy hay gặp"
+  },
+  {
+   "article_id": "AT-0004",
+   "title": "Lỗi không đội mũ bảo hiểm bị phạt như thế nào"
+  },
+  {
+   "article_id": "AT-0005",
+   "title": "Chở quá số người quy định trên xe máy bị phạt ra sao"
+  },
+  {
+   "article_id": "AT-0006",
+   "title": "Lùi xe trên đường một chiều có bị phạt không"
+  }
+ ]
+}
