@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-004",
   "started_at": "2026-09-26T17:05:35",
-  "finished_at": "2026-09-26T18:14:02",
+  "finished_at": "2026-09-27T01:14:32",
   "writer": "external-agent",
   "processed": 50,
   "written": 12,
-  "pass": 4,
-  "published": 8,
+  "pass": 1,
+  "published": 11,
   "writing": 38,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 3,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 1,
   "articles": [
     {
       "article_id": "AT-0026",
@@ -124,7 +124,7 @@
     {
       "article_id": "CD-0027",
       "output_path": "cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -284,7 +284,7 @@
     {
       "article_id": "HD-0027",
       "output_path": "cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
@@ -457,7 +457,7 @@
     {
       "article_id": "XM-0027",
       "output_path": "cam-nang/xe-may/xm-0027-dau-hieu-ac-quy-gap-van-de-tren-yamaha-sirius.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
