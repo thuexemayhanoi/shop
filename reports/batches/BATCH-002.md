@@ -1,17 +1,17 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T12:31:52
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T12:33:01
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 12 | pass: 3 | published: 8
-- writing: 38 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 97.6 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 2 | blocked 0
+- processed: 50 | written: 12 | pass: 4 | published: 8
+- writing: 38 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.7 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 3 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0010 | cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html | PUBLISHED | 99 | 0 | wrong price for Honda Vision: found 0 near 'và khoảng 900.000đ đến 1.200.000đ/tháng. Honda Vision'; wrong price for Honda Air Blade: found 0 near 'g. Honda Air Blade cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và 1.500.000đ/' |
-| AT-0011 | cam-nang/an-toan/at-0011-do-tuoi-duoc-cap-giay-phep-lai-xe-may.html | FAIL | 99 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
+| AT-0011 | cam-nang/an-toan/at-0011-do-tuoi-duoc-cap-giay-phep-lai-xe-may.html | PASS | 100 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | AT-0012 | cam-nang/an-toan/at-0012-nguoi-nuoc-ngoai-lai-xe-may-o-viet-nam-can-giay-to-gi.html | WRITING |  | 0 |  |
 | AT-0013 | cam-nang/an-toan/at-0013-quy-dinh-ve-mu-bao-hiem-cho-nguoi-ngoi-sau-xe-may.html | WRITING |  | 0 |  |
 | AT-0014 | cam-nang/an-toan/at-0014-bao-hiem-trach-nhiem-dan-su-xe-may-bat-buoc-nhu-the-nao.html | WRITING |  | 0 |  |
