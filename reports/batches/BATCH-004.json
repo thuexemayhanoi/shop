@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-004",
   "started_at": "2026-09-26T17:05:35",
-  "finished_at": "2026-09-26T18:46:46",
+  "finished_at": "2026-09-27T01:55:16",
   "writer": "external-agent",
   "processed": 50,
   "written": 32,
-  "pass": 2,
-  "published": 30,
+  "pass": 0,
+  "published": 32,
   "writing": 18,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0026",
@@ -393,7 +393,7 @@
     {
       "article_id": "KN-0029",
       "output_path": "cam-nang/kinh-nghiem/kn-0029-yamaha-sirius-co-thich-hop-chay-duong-deo-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -483,7 +483,7 @@
     {
       "article_id": "XM-0029",
       "output_path": "cam-nang/xe-may/xm-0029-khi-nao-can-kiem-tra-den-hau-tren-yamaha-sirius.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
