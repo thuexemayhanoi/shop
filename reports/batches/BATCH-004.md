@@ -1,10 +1,10 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:04:08
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T01:04:54
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 8 | pass: 2 | published: 6
+- processed: 50 | written: 8 | pass: 0 | published: 8
 - writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -35,7 +35,7 @@
 | DL-0031 | cam-nang/du-lich/dl-0031-do-an-vat-duong-pho-o-bao-tang-lich-su-quan-su-viet-nam-the.html | WRITING |  | 0 |  |
 | DL-0032 | cam-nang/du-lich/dl-0032-diem-dung-chup-anh-giua-duong-den-bao-tang-lich-su-quan-su-v.html | WRITING |  | 0 |  |
 | DL-0033 | cam-nang/du-lich/dl-0033-trai-nghiem-mot-ngay-o-bao-tang-ha-noi-bang-xe-may.html | WRITING |  | 0 |  |
-| HD-0026 | cam-nang/hoi-dap/hd-0026-phat-nguoi-gom-nhung-loi-xe-may-nao.html | PASS | 99 | 0 |  |
+| HD-0026 | cam-nang/hoi-dap/hd-0026-phat-nguoi-gom-nhung-loi-xe-may-nao.html | PUBLISHED | 99 | 0 |  |
 | HD-0027 | cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html | WRITING |  | 0 |  |
 | HD-0028 | cam-nang/hoi-dap/hd-0028-xe-may-co-duoc-di-vao-duong-cao-toc-khong.html | WRITING |  | 0 |  |
 | HD-0029 | cam-nang/hoi-dap/hd-0029-xe-may-di-vao-ham-duong-bo-duoc-phep-khong.html | WRITING |  | 0 |  |
@@ -44,7 +44,7 @@
 | HD-0032 | cam-nang/hoi-dap/hd-0032-den-hau-xe-may-bi-chay-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0033 | cam-nang/hoi-dap/hd-0033-xe-may-di-lan-lan-co-bi-ghi-phat-nguoi-khong.html | WRITING |  | 0 |  |
 | KN-0026 | cam-nang/kinh-nghiem/kn-0026-kinh-nghiem-de-xe-va-giu-thang-bang-voi-yamaha-sirius.html | PUBLISHED | 99 | 0 |  |
-| KN-0027 | cam-nang/kinh-nghiem/kn-0027-chay-yamaha-sirius-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | PASS | 100 | 0 |  |
+| KN-0027 | cam-nang/kinh-nghiem/kn-0027-chay-yamaha-sirius-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | PUBLISHED | 100 | 0 |  |
 | KN-0028 | cam-nang/kinh-nghiem/kn-0028-kinh-nghiem-cho-do-du-lich-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | KN-0029 | cam-nang/kinh-nghiem/kn-0029-yamaha-sirius-co-thich-hop-chay-duong-deo-khong.html | WRITING |  | 0 |  |
 | KN-0030 | cam-nang/kinh-nghiem/kn-0030-cach-dieu-chinh-guong-va-yen-khi-chay-yamaha-sirius.html | WRITING |  | 0 |  |
