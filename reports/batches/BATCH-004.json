@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-004",
   "started_at": "2026-09-26T17:05:35",
-  "finished_at": "2026-09-26T18:58:29",
+  "finished_at": "2026-09-27T01:58:56",
   "writer": "external-agent",
   "processed": 50,
   "written": 34,
-  "pass": 2,
-  "published": 32,
+  "pass": 0,
+  "published": 34,
   "writing": 16,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 6,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0026",
@@ -64,7 +64,7 @@
     {
       "article_id": "AT-0030",
       "output_path": "cam-nang/an-toan/at-0030-xe-thue-bi-phat-nguoi-thi-ai-chiu-trach-nhiem.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -323,7 +323,7 @@
     {
       "article_id": "HD-0030",
       "output_path": "cam-nang/hoi-dap/hd-0030-tre-em-ngoi-truoc-xe-may-co-duoc-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
