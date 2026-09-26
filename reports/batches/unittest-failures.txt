@@ -1,0 +1,1 @@
+ERROR: AT-0001 is not a PASS row of BATCH-001 with an existing file — refusing the whole publish scope.
