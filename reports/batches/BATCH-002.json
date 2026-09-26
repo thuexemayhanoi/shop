@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-002",
   "started_at": "2026-09-26T12:08:30",
-  "finished_at": "2026-09-26T14:33:21",
+  "finished_at": "2026-09-26T21:34:51",
   "writer": "external-agent",
   "processed": 50,
   "written": 44,
-  "pass": 4,
-  "published": 40,
+  "pass": 0,
+  "published": 44,
   "writing": 6,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 6,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0010",
@@ -183,7 +183,7 @@
     {
       "article_id": "CD-0016",
       "output_path": "cam-nang/cung-duong/cd-0016-chay-xe-may-tu-ha-noi-ra-vinh-yen-nen-di-luc-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -276,7 +276,7 @@
     {
       "article_id": "DL-0017",
       "output_path": "cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-lon.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -447,7 +447,7 @@
     {
       "article_id": "KN-0017",
       "output_path": "cam-nang/kinh-nghiem/kn-0017-kinh-nghiem-thue-yamaha-sirius-o-ha-noi-cho-nguoi-moi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -537,7 +537,7 @@
     {
       "article_id": "XM-0017",
       "output_path": "cam-nang/xe-may/xm-0017-bao-duong-tam-chan-bun-cua-honda-wave-dung-cach.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
