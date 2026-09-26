@@ -471,6 +471,10 @@ class BatchResolutionTests(RegrBase):
 
     def test_fail_blocked_do_not_prevent_next_batch(self):
         rows = [dict(r) for r in self.prod]
+        # synthetic pre-production state so the test never depends on
+        # real batch progress (same pattern as test_next_resumes_active_batch_first)
+        for r in rows:
+            r["status"] = "PLANNED"
         for r in rows:
             if r["batch_id"] == "BATCH-001":
                 r["status"] = "FAIL" if r["article_id"].endswith("1") \
@@ -501,6 +505,10 @@ class BatchResolutionTests(RegrBase):
         """Once resolved, the SAME batch id is used for prepare, qa, publish
         and mark-published — never a ${bid:-BATCH-001} style default."""
         rows = [dict(r) for r in self.prod]
+        # synthetic pre-production state so the test never depends on
+        # real batch progress (same pattern as test_next_resumes_active_batch_first)
+        for r in rows:
+            r["status"] = "PLANNED"
         for r in rows:
             if r["batch_id"] == "BATCH-001":
                 r["status"] = "PUBLISHED"
