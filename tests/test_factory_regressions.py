@@ -327,6 +327,43 @@ class CumulativeBatchReportTests(unittest.TestCase):
                 "BATCH-X", rows2, [], "2026-09-26T00:00:00", tmp)
             self.assertEqual(rep2["articles"][0]["repair_attempts"], 2)
 
+    def test_published_commit_sha_derived_from_progress_checkpoint(self):
+        """A cumulative report rebuild must not leave published_commit_sha
+        null when a publish checkpoint exists: derive it from
+        factory-progress.json, and let a recorded report value (audit
+        trail) win once set. Mirrors the Node implementation."""
+        with tempfile.TemporaryDirectory() as tmp:
+            rows = [self._row("AA-0001", "PUBLISHED", "96")]
+            # no prior report, no progress file -> None
+            rep = rb.build_cumulative_report(
+                "BATCH-X", rows, [], "2026-09-26T00:00:00", tmp)
+            self.assertIsNone(rep["published_commit_sha"])
+            # publish checkpoint in factory-progress.json -> derived
+            os.makedirs(os.path.join(tmp, "reports", "batches"),
+                        exist_ok=True)
+            with io.open(os.path.join(tmp, "reports", "batches",
+                                      "factory-progress.json"), "w",
+                        encoding="utf-8") as f:
+                json.dump({"published_commit_sha":
+                           "286fcfc39a9650b00917e38226ec1c4ae72bfe76"},
+                          f)
+            rep = rb.build_cumulative_report(
+                "BATCH-X", rows, [], "2026-09-26T00:00:00", tmp)
+            self.assertEqual(rep["published_commit_sha"],
+                             "286fcfc39a9650b00917e38226ec1c4ae72bfe76")
+            # recorded report value (audit trail) beats the progress file
+            with io.open(os.path.join(tmp, "reports", "batches",
+                                      "BATCH-X.json"), "w",
+                        encoding="utf-8") as f:
+                json.dump({"batch_id": "BATCH-X",
+                           "published_commit_sha":
+                           "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                           "articles": []}, f)
+            rep = rb.build_cumulative_report(
+                "BATCH-X", rows, [], "2026-09-26T00:00:00", tmp)
+            self.assertEqual(rep["published_commit_sha"],
+                             "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
 
 
 class SourcePolicyTests(RegrBase):

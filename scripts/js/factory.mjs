@@ -310,6 +310,24 @@ function batchMembers(rows, batchId) {
 }
 
 /**
+ * Resolve the durable published_commit_sha for a batch report, in order:
+ *   1. the previous batch report's recorded value (audit trail wins once set)
+ *   2. the publish checkpoint recorded in factory-progress.json
+ *   3. null
+ * Mirrors run_article_batch.py _resolve_published_sha().
+ */
+export function resolvePublishedSha(prevReport) {
+  const prevSha = (prevReport && prevReport.published_commit_sha) || null;
+  if (prevSha) return prevSha;
+  const p = path.join(REPO, 'reports', 'batches', 'factory-progress.json');
+  try {
+    return (JSON.parse(fs.readFileSync(p, 'utf8')) || {}).published_commit_sha || null;
+  } catch (_) {
+    return null;
+  }
+}
+
+/**
  * CUMULATIVE batch report, derived from the matrix rows of the batch.
  * Every reserved member of the batch appears (not just the rows of the
  * latest run); all state counts, scores and pass_publishable_now are
@@ -373,7 +391,7 @@ export function rebuildBatchReport(batchId, rowsAfter, articleResults, generated
     repair_count: articles.reduce((s, a) => s + (a.repair_attempts || 0), 0),
     source_gate_pass: members.filter((r) => requiresSources(r) && ['PASS', 'PUBLISHED'].includes((r.status || '').trim())).length,
     source_gate_blocked: members.filter((r) => requiresSources(r) && (r.status || '').trim() === 'BLOCKED').length,
-    published_commit_sha: (prev && prev.published_commit_sha) || null,
+    published_commit_sha: resolvePublishedSha(prev),
     pass_publishable_now: members.filter((r) =>
       (r.status || '').trim() === 'PASS' &&
       fs.existsSync(path.join(REPO, (r.output_path || '').replace(/^\/+/, '')))).length,
@@ -867,11 +885,24 @@ function main() {
     const allWrites = [{ path: matrixPath(), content: matrixOut.text }, ...writes];
     writeTxnMarker('publish', { batch: batchId, ids: [...updates.keys()], published_date: date }, allWrites, generated);
     commitWrites(allWrites);
-    clearTxnMarker();
     for (const r of results) console.error(`PUBLISHED ${r.article_id} -> ${r.output_path} (published_date=${date})`);
+    // The marker is removed ONLY AFTER the full transaction is verified
+    // consistent. On failure the marker and planned recovery data stay
+    // intact so --recover / manual investigation can finish the job.
     const postRows = toRowObjects(fs.readFileSync(matrixPath(), 'utf8'));
-    const postProblems = consistencyCheck(postRows, site, { expectedRows: args.expectRows || 2000 });
-    if (postProblems.length) return 3;
+    let postProblems = consistencyCheck(postRows, site, { expectedRows: args.expectRows || 2000 });
+    // TEST-ONLY hook (never set in production): simulate a post-write
+    // consistency failure to prove the marker survives it.
+    if (process.env.FACTORY_TEST_FAIL_POST_CONSISTENCY === '1') {
+      postProblems = [...postProblems, 'test-injected post-write inconsistency'];
+    }
+    if (postProblems.length) {
+      console.error('PUBLISH INCONSISTENT after commit; transaction marker KEPT:');
+      for (const p of postProblems) console.error('  ! ' + p);
+      console.error('  marker + planned recovery data kept at data/batches/txn/ — run --recover (or investigate manually).');
+      return 3;
+    }
+    clearTxnMarker();
     return 0;
   }
 

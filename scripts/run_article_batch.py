@@ -443,6 +443,22 @@ def _parse_score(v):
         return None
 
 
+def _resolve_published_sha(repo_root, prev):
+    """Resolve the durable published_commit_sha for a batch report, in
+    order: the previous batch report's recorded value (audit trail wins
+    once set), then the publish checkpoint in factory-progress.json, then
+    None. Mirrors scripts/js/factory.mjs resolvePublishedSha()."""
+    if prev.get("published_commit_sha"):
+        return prev.get("published_commit_sha")
+    p = os.path.join(repo_root, "reports", "batches",
+                     "factory-progress.json")
+    try:
+        with io.open(p, encoding="utf-8") as f:
+            return (json.load(f) or {}).get("published_commit_sha")
+    except Exception:
+        return None
+
+
 def build_cumulative_report(batch_id, rows, run_articles, started_at,
                             repo_root):
     """CUMULATIVE batch report derived from the matrix rows of the batch.
@@ -521,7 +537,7 @@ def build_cumulative_report(batch_id, rows, run_articles, started_at,
         "source_gate_blocked": sum(
             1 for r in members if req_sources(r)
             and (r.get("status") or "").strip() == "BLOCKED"),
-        "published_commit_sha": prev.get("published_commit_sha"),
+        "published_commit_sha": _resolve_published_sha(repo_root, prev),
         "pass_publishable_now": len(pub),
         "articles": articles,
     }

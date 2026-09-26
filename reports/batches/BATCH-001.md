@@ -1,12 +1,12 @@
 # Batch report BATCH-001
 
-- started_at: 2026-09-26T02:10:31 | finished_at: 2026-09-26T12:41:03
+- started_at: 2026-09-26T02:10:31 | finished_at: 2026-09-26T15:34:51
 - writer: external-agent | batch resolved once: BATCH-001
 - processed: 50 | written: 6 | pass: 0 | published: 6
 - writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
-- published_commit_sha: null
+- published_commit_sha: 286fcfc39a9650b00917e38226ec1c4ae72bfe76
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|

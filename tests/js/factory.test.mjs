@@ -451,3 +451,80 @@ test('--recover with no pending transaction is a clean no-op', () => {
   const out = runFactory(dir, ['--recover']);
   assert.match(out, /no pending transaction/);
 });
+
+// --------------------------- transaction marker lifecycle (regression)
+
+test('marker lifecycle: successful publish removes the marker only after consistency passes (A)', () => {
+  const dir = makeSandbox();
+  const out = runFactory(dir, ['--publish', 'KN-0102', '--date', '2026-09-26']);
+  assert.match(out, /PUBLISHED KN-0102/);
+  // marker (and pending recovery data) fully removed on success
+  assert.ok(!fs.existsSync(path.join(dir, 'data', 'batches', 'txn')),
+    'marker must be removed after a consistent publish');
+  runFactory(dir, ['--consistency']);
+});
+
+test('marker lifecycle: post-write consistency failure keeps the marker (B), mutations are refused (C), --recover finishes and removes it (D)', () => {
+  const dir = makeSandbox();
+  const txnMarker = path.join(dir, 'data', 'batches', 'txn', 'txn.json');
+  const pendingDir = path.join(dir, 'data', 'batches', 'txn', 'pending');
+  // (B) simulate a post-write consistency failure: exit 3, marker intact
+  let r = spawnSync('node', [FACTORY, '--publish', 'KN-0102', '--date', '2026-09-26', '--repo', dir, '--expect-rows', '6'], {
+    encoding: 'utf8',
+    env: Object.assign({}, process.env, { FACTORY_TEST_FAIL_POST_CONSISTENCY: '1' }),
+  });
+  assert.strictEqual(r.status, 3, 'publish must fail with exit 3');
+  assert.match(r.stderr, /transaction marker KEPT/);
+  assert.ok(fs.existsSync(txnMarker), 'marker file must remain after failed consistency');
+  const marker = JSON.parse(fs.readFileSync(txnMarker, 'utf8'));
+  assert.strictEqual(marker.state, 'PENDING');
+  assert.strictEqual(marker.kind, 'publish');
+  assert.ok(marker.files.length > 1, 'planned recovery data must remain');
+  assert.ok(fs.existsSync(pendingDir), 'pending content dir must remain');
+  // the transaction itself was applied to disk (recover will verify it)
+  const led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
+  assert.strictEqual(led.rows.find((x) => x.fields[0] === 'KN-0102').fields[1], 'PUBLISHED');
+  // (C) all mutations are refused while the marker is pending
+  assert.throws(() => runFactory(dir, ['--publish', 'XM-0101']), /pending transaction marker/);
+  assert.throws(() => runFactory(dir, ['--qa-record', 'KN-0101=95:PASS']), /pending transaction marker/);
+  assert.throws(() => runFactory(dir, ['--rebuild-report', 'BATCH-001']), /pending transaction marker/);
+  // read-only --consistency still works (it does not mutate)
+  runFactory(dir, ['--consistency']);
+  // (D) --recover finishes/verifies the transaction and ONLY THEN removes the marker
+  const rec = runFactory(dir, ['--recover']);
+  assert.match(rec, /RECOVER OK/);
+  assert.match(rec, /already applied: data\/content-matrix\.csv/);
+  assert.ok(!fs.existsSync(path.join(dir, 'data', 'batches', 'txn')),
+    'marker must be removed after successful recovery');
+  runFactory(dir, ['--consistency']);
+  // normal mutation flow resumes after recovery
+  runFactory(dir, ['--publish', 'XM-0101', '--date', '2026-09-26']);
+  runFactory(dir, ['--consistency']);
+  assert.ok(!fs.existsSync(path.join(dir, 'data', 'batches', 'txn')));
+});
+
+test('rebuildBatchReport derives published_commit_sha from factory-progress.json when the report lacks one', () => {
+  const dir = makeSandbox();
+  setRepo(dir);
+  // no sha in the existing BATCH-001 report (null) and no progress file yet
+  let out = rebuildBatchReport('BATCH-001',
+    [{ article_id: 'XM-0100', output_path: 'cam-nang/x/xm-0100.html', status: 'PUBLISHED', score: '96', batch_id: 'BATCH-001', notes: '', requires_sources: 'no' }],
+    [], '2026-09-26T00:00:00');
+  assert.strictEqual(JSON.parse(out[0].content).published_commit_sha, null);
+  // write a publish checkpoint into factory-progress.json -> derived
+  fs.writeFileSync(path.join(dir, 'reports', 'batches', 'factory-progress.json'),
+    JSON.stringify({ published_commit_sha: '286fcfc39a9650b00917e38226ec1c4ae72bfe76' }, null, 2) + '\n', 'utf8');
+  out = rebuildBatchReport('BATCH-001',
+    [{ article_id: 'XM-0100', output_path: 'cam-nang/x/xm-0100.html', status: 'PUBLISHED', score: '96', batch_id: 'BATCH-001', notes: '', requires_sources: 'no' }],
+    [], '2026-09-26T00:00:00');
+  assert.strictEqual(JSON.parse(out[0].content).published_commit_sha, '286fcfc39a9650b00917e38226ec1c4ae72bfe76');
+  // audit trail wins once set: a recorded report sha beats the progress file
+  const repPath = path.join(dir, 'reports', 'batches', 'BATCH-001.json');
+  const rep = JSON.parse(fs.readFileSync(repPath, 'utf8'));
+  rep.published_commit_sha = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+  fs.writeFileSync(repPath, JSON.stringify(rep, null, 2) + '\n', 'utf8');
+  out = rebuildBatchReport('BATCH-001',
+    [{ article_id: 'XM-0100', output_path: 'cam-nang/x/xm-0100.html', status: 'PUBLISHED', score: '96', batch_id: 'BATCH-001', notes: '', requires_sources: 'no' }],
+    [], '2026-09-26T00:00:00');
+  assert.strictEqual(JSON.parse(out[0].content).published_commit_sha, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+});
