@@ -84,6 +84,42 @@ step).
   be papered over.
 - **One failed article never blocks the other PASS articles of its batch.**
 
+## Node fallback tooling (publish without Python)
+
+`scripts/js/` is a dependency-free Node >= 18 fallback for the ledger /
+publish operations, so the interactive AI runtime (which usually has
+Node but not Python) is never blocked again:
+
+- `scripts/js/ledger.mjs` — byte-preserving RFC 4180 ledger reader/writer
+  for `data/content-matrix.csv`. Reads the full ~990 KB file in one pass,
+  keeps the RAW text of every row and re-emits unedited rows verbatim
+  (unrelated rows/columns preserved byte-semantically); edited rows are
+  re-serialized exactly like Python `csv` (QUOTE_MINIMAL, CRLF).
+- `scripts/js/factory.mjs` — the transactional CLI:
+  - `--qa-record "ID=SCORE:OUTCOME,..."` — record external QA results in
+    the ledger with full state-machine validation (WRITING→QA/PASS/
+    REVIEW/FAIL, repair budget, PASS requires score ≥ 90)
+  - `--publish "ID,ID"` — PASS→PUBLISHED only (file must exist, one batch
+    only, score ≥ 90), then regenerates hub ARTICLE-LIST blocks,
+    sitemap.xml, factory-progress.json and the batch report
+  - `--consistency` — verify matrix/hubs/sitemap agreement, no writes
+  - `--dry-run`, `--date`, `--repo`, `--expect-rows` options
+  - every output is computed and validated BEFORE the first write; writes
+    are a two-phase commit (all tmp files first, then renames), so a
+    failing or interrupted run never leaves partial publication state
+- `tests/js/factory.test.mjs` — `node --test` suite (round-trip on the
+  real ledger, byte-preservation, state machine, dry-run, full publish
+  transaction on a sandbox, interrupted-run rollback, drift detection).
+
+The Node generators are byte-equal to the canonical Python ones
+(generate_category_pages.py / generate_sitemap.py are no-ops after a
+Node publish). Python scripts stay canonical; the Node tool is the
+fallback for restricted runtimes and is cross-validated by CI
+(`.github/workflows/article-quality.yml` runs the Node tests and
+`--consistency` on every push; `.github/workflows/factory-publish-verify.yml`
+is a manually dispatchable, read-only end-to-end verification with both
+Python and Node installed).
+
 ## Batch orchestration
 
 `scripts/run_article_batch.py` orchestrates ONE batch of at most 50 articles.
@@ -225,6 +261,11 @@ deterministic planner / validator / ledger / CI.
    PUBLISHED) and sitemap.xml (PUBLISHED articles only) → push hubs +
    cam-nang/ + sitemap.xml → write the batch report +
    factory-progress.json.
+   PYTHON-LESS RUNTIME: replace steps 8's ledger flip + hub/sitemap/report
+   regeneration with one atomic Node transaction:
+   `node scripts/js/factory.mjs --publish "ID,ID" --date YYYY-MM-DD`
+   (dry-run first with `--dry-run`; verify with `--consistency`).
+   Never hand-edit the 990 KB ledger.
 
 ## Rules recap
 

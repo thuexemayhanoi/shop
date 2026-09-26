@@ -1,0 +1,76 @@
+name: Factory Publish Verify
+
+# Manually dispatchable verification of a publish transaction in a
+# fully-tooled environment (Python + Node). READ-ONLY on the repository:
+# it never pushes, never writes content, never claims rows. The external
+# operator (Mistral agent or human) runs this to verify that the intended
+# publish ids are PASS with files, that the full transaction DRY-RUNS
+# cleanly, and that matrix/hubs/sitemap are consistent; it then commits
+# and pushes from its own authenticated environment.
+#
+# NO CRON. NO SECRETS. NO AI CALLS. NO WRITES.
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_ids:
+        description: "Comma-separated article ids to dry-run publish, e.g. KN-0002,XM-0002,DL-0001 (empty = consistency only)"
+        required: false
+        default: ""
+      date:
+        description: "published_date / sitemap lastmod (empty = today, Asia/Ho_Chi_Minh)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: article-batch-production
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Python factory test suite
+        run: python3 -m unittest discover tests
+
+      - name: Validate content matrix
+        run: python3 scripts/validate_content_matrix.py
+
+      - name: Node fallback tooling tests
+        run: node --test tests/js/factory.test.mjs
+
+      - name: Node consistency check (matrix / hubs / sitemap)
+        run: node scripts/js/factory.mjs --consistency
+
+      - name: Dry-run the intended publish transaction
+        if: github.event.inputs.publish_ids != ''
+        run: |
+          set -eu
+          args="--publish '${{ github.event.inputs.publish_ids }}' --dry-run"
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            args="$args --date ${{ github.event.inputs.date }}"
+          fi
+          # shellcheck disable=SC2086
+          node scripts/js/factory.mjs $args
+
+      - name: Sitemap freshness (canonical Python generator)
+        run: python3 scripts/generate_sitemap.py --check
+
+      - name: Category hub freshness (canonical Python generator)
+        run: python3 scripts/generate_category_pages.py --check

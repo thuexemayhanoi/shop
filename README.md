@@ -227,3 +227,14 @@ separate and must not be modified casually.
 - Motorcycles over 50cc require a valid driving licence; never encourage
   traffic-law violations.
 - Insurance is the customer's responsibility; never claim included insurance.
+
+## Node fallback tooling
+
+If Python is unavailable, `scripts/js/factory.mjs` (Node >= 18, zero
+dependencies) performs the same ledger/publish transaction safely:
+
+    node scripts/js/factory.mjs --consistency
+    node scripts/js/factory.mjs --publish "KN-0002,XM-0002,DL-0001" --dry-run
+    node scripts/js/factory.mjs --publish "KN-0002,XM-0002,DL-0001"
+
+See `docs/CONTENT-FACTORY.md` and `tests/js/factory.test.mjs`.
