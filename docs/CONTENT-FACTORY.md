@@ -280,6 +280,62 @@ deterministic planner / validator / ledger / CI.
    (dry-run first with `--dry-run`; verify with `--consistency`).
    Never hand-edit the 990 KB ledger.
 
+## Chunked writer mode (canonical scheduled-run behavior)
+
+The batch of 50 stays canonical; the WRITER works inside it in chunks.
+
+- Chunk size: default 5, allowed 5–10, hard max 10 (clamped; going higher
+  needs an explicit owner override).
+- Chunk selection: `--next-chunk N` deterministically returns the next N
+  WRITING rows (matrix order) whose article file does NOT exist yet.
+  PUBLISHED/PASS rows are never re-claimed; FAIL/BLOCKED only via
+  `scripts/requeue_rows.py`; REPAIR/REVIEW belong to the repair path; a
+  WRITING row that already has a file goes to scoped QA, never a rewrite.
+- Checkpoint: `data/batches/writer-checkpoint.json` (gitignored, schema v1):
+  batch, head_at_start, chunk_size, current/completed/pending-qa/
+  pending-repair/pending-publish ids, last_completed_step. On every rerun
+  it is reconciled with the matrix — the MATRIX always wins.
+- Writer lock: `data/batches/writer-lock.json` (gitignored, schema v1,
+  120-minute TTL, session-scoped). Fresh lock held by another writer →
+  abort cleanly (exit 2). Stale lock → recover only after reconciling
+  matrix/HEAD truth. Release on graceful completion. This guards EXTERNAL
+  writers; GitHub's `article-batch-production` concurrency group only
+  guards Actions runners. Never run two writer sessions on one batch.
+- Scoped QA: `--ids A,B --qa` runs the full deterministic gate
+  (validate + cannibalization + scorer, business facts, source gate,
+  schema, links, matrix invariants) on exactly those rows. Full-batch
+  consistency runs before the first chunk, after each grouped publish and
+  at batch completion.
+- Grouped publish: all PASS rows of the chunk in ONE
+  `factory.mjs --publish ID1,...,IDN` transaction (dry-run first, recovery
+  marker, hubs + sitemap + progress regenerated once per chunk). Python
+  `--publish --ids ...` prints the verified scope and the exact commands.
+- Repair: unchanged budget (max 3, factual → legal/source → schema →
+  structure → style; never a full rewrite for one wrong claim;
+  exhausted → REVIEW/BLOCKED; independent rows continue).
+- Throughput: `reports/batches/factory-throughput.json` (committed) holds
+  honest tool-verified counters per batch. No estimated rates are written.
+
+Canonical scheduled writer run:
+
+```
+A. READ HEAD (verify SHA before editing)
+B. RECOVER pending transaction (factory.mjs --recover)
+C. VERIFY writer lock (--writer-lock-status; acquire for this session)
+D. RESUME checkpoint (--checkpoint; matrix truth wins)
+E. TAKE 5 rows   (--next-chunk 5 [--time-budget-remaining MIN])
+F. WRITE 5 article files (external writer only)
+G. QA 5          (--ids <chunk> --qa)
+H. REPAIR failed/review rows (bounded), re-run scoped QA
+I. PUBLISH all PASS together (factory.mjs --publish ID,... after --dry-run)
+J. CHECKPOINT    (--chunk-complete; release the writer lock)
+K. CONTINUE with the next chunk while runtime budget remains
+```
+
+If no errors: continue automatically. On a blocker: record state in the
+checkpoint and stop safely. Never reset the active batch on every
+scheduled run; resume it.
+
 ## Rules recap
 
 - One article task at a time per agent; stable IDs, never reused/renumbered.

@@ -216,7 +216,55 @@ flow belongs to the external agent, never to GitHub Actions. Legacy
 special-purpose workflows `recover-phoco.yml` and `seo-phoco.yml` are
 separate and must not be modified casually.
 
-## 9. Hard rules recap
+## 9. CONTENT FACTORY — CHUNKED WRITER MODE
+
+Speed-oriented orchestration for the 2,000-article run. Quality gates,
+business-fact safeguards, matrix invariants and the publish policy are
+UNCHANGED — only the shape of a writer run changes.
+
+- **Canonical batch max stays 50.** Chunking happens INSIDE a batch.
+- **Writer chunk default = 5 articles; allowed 5–10; never more than 10**
+  without an explicit owner override (the CLI clamps to 10).
+- **One chunk loop**: resolve the active batch once → take the next 5
+  unwritten WRITING rows (`--next-chunk 5`) → write all 5 files → run
+  scoped QA on exactly those 5 (`--ids ... --qa`) → repair failed/review
+  rows (same 3-attempt budget) → publish ALL PASS rows of the chunk in ONE
+  grouped publish (`node scripts/js/factory.mjs --publish ID1,...,ID5`,
+  dry-run first) → `--chunk-complete` → continue while runtime budget
+  remains. Do NOT write one article and immediately publish it unless
+  only one remains.
+- **Resume-safe checkpoint**: `data/batches/writer-checkpoint.json`
+  (schema v1) records the current chunk, pending QA/repair/publish ids.
+  On rerun it is reconciled with the matrix — THE MATRIX ALWAYS WINS; a
+  stale checkpoint never overrides actual row statuses. `--checkpoint`
+  prints it reconciled; `--checkpoint-reset` discards it.
+- **Writer lock**: `data/batches/writer-lock.json` (schema v1, 120-minute
+  TTL) prevents two EXTERNAL writer sessions on the same active batch.
+  A fresh lock owned by another session aborts cleanly (exit 2); a stale
+  lock is recovered only after reconciling with matrix/HEAD truth. This
+  complements the GitHub Actions `article-batch-production` concurrency
+  group, which cannot see external sessions. **Never run two writer
+  sessions on the same active batch.**
+- **Scoped QA**: `--ids A,B --qa` checks exactly those rows; full-batch
+  consistency still runs before the first chunk, after each grouped
+  publish and at batch completion. PASS/PUBLISHED rows are never re-QA'd.
+- **Grouped publish**: one `factory.mjs --publish` per chunk (transaction,
+  recovery marker, hubs + sitemap + progress regenerated ONCE per chunk).
+- **Repair budget unchanged**: max 3 meaningful repairs per row, repair
+  order factual → legal/source → schema/metadata → structure → style;
+  never rewrite a full article for one wrong claim; exhausted → REVIEW/
+  BLOCKED per the canonical rules; safe independent rows always continue.
+- **Runtime budget**: pass `--time-budget-remaining MIN` to `--next-chunk`;
+  at ≤ 0 the run stops cleanly with the checkpoint saved, never mid-write.
+- **Throughput reporting**: `reports/batches/factory-throughput.json`
+  accumulates honest, tool-verified counters (articles written / QA
+  checked / published, chunks, publish operations, repairs, average QA
+  score). No fake benchmarks; per-hour rates are derived from real elapsed
+  time only.
+- **GitHub Actions never writes prose.** No AI API, no provider secrets,
+  no cron: the external Mistral writer remains the sole content author.
+
+## 10. Hard rules recap
 
 - Never change existing public URLs, titles/H1/canonicals of commercial pages
   (especially `phoco.html`, `hoankiem.html`, `index.html`).
