@@ -1,0 +1,171 @@
+{
+ "article_id": "DL-0017",
+ "batch_id": "BATCH-002",
+ "category": "Du lịch",
+ "category_label": "Du lịch",
+ "working_title": "Nên xuất phát mấy giờ để đi xe máy đến Hoàng thành Thăng Long",
+ "primary_keyword": "nên xuất phát mấy giờ để đi xe máy đến hoàng thành thăng long",
+ "secondary_keywords": "nên xuất phát mấy giờ để đi xe máy đến hoàng thành thăng long",
+ "search_intent": "informational",
+ "slug": "dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-lon",
+ "output_path": "cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-lon.html",
+ "parent_hub": "dulich.html",
+ "eligible_internal_link_targets": "dulich.html,  cungduong.html,  kinhnghiem.html",
+ "commercial_link_target": "banggia.html",
+ "requires_sources": "false",
+ "source_notes": "Không bắt buộc nguồn chính thức",
+ "source_requirements": "none",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1600,
+  "target_max_words": 2000,
+  "review_min_words": 1200,
+  "review_max_words": 2300,
+  "scope": "main editorial content only"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 5,
+  "parent_hub_link_required": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-lon.html",
+ "date_published": "2026-09-26",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "DL-0001",
+   "title": "Kinh nghiệm đi xe máy đến Hồ Tây từ Hà Nội"
+  },
+  {
+   "article_id": "DL-0002",
+   "title": "Đi xe máy đến Hồ Tây mùa nào đẹp nhất"
+  },
+  {
+   "article_id": "DL-0003",
+   "title": "Ăn gì khi du lịch Hồ Tây bằng xe máy"
+  },
+  {
+   "article_id": "DL-0004",
+   "title": "Những góc chụp ảnh đẹp ở Hồ Tây cho người đi xe máy"
+  },
+  {
+   "article_id": "DL-0005",
+   "title": "Đi xe máy đến Hồ Hoàn Kiếm: cần chuẩn bị gì"
+  },
+  {
+   "article_id": "DL-0006",
+   "title": "Tháng nào nên đi Hồ Hoàn Kiếm bằng xe máy"
+  }
+ ]
+}

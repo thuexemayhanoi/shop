@@ -1,0 +1,171 @@
+{
+ "article_id": "HD-0013",
+ "batch_id": "BATCH-002",
+ "category": "Hỏi đáp",
+ "category_label": "Hỏi đáp",
+ "working_title": "Bằng lái A1 dùng được bao nhiêu năm",
+ "primary_keyword": "bằng lái a1 dùng được bao nhiêu năm",
+ "secondary_keywords": "bằng lái a1 dùng được bao nhiêu năm",
+ "search_intent": "informational",
+ "slug": "hd-0013-bang-lai-a1-dung-duoc-bao-nhieu-nam",
+ "output_path": "cam-nang/hoi-dap/hd-0013-bang-lai-a1-dung-duoc-bao-nhieu-nam.html",
+ "parent_hub": "hoidap.html",
+ "eligible_internal_link_targets": "hoidap.html,  faq.html,  kinhnghiem.html",
+ "commercial_link_target": "thutuc.html",
+ "requires_sources": "true",
+ "source_notes": "Xác minh theo nguồn chính thức trước khi xuất bản",
+ "source_requirements": "cite >=1 approved official source URL (config/source-policy.json) in a visible 'Nguồn tham khảo' section; verify via web research; if unavailable BLOCK the article",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1600,
+  "target_max_words": 2000,
+  "review_min_words": 1200,
+  "review_max_words": 2300,
+  "scope": "main editorial content only"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 5,
+  "parent_hub_link_required": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/hoi-dap/hd-0013-bang-lai-a1-dung-duoc-bao-nhieu-nam.html",
+ "date_published": "2026-09-26",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "HD-0001",
+   "title": "Có cần bằng lái để chạy xe máy 50cc không"
+  },
+  {
+   "article_id": "HD-0002",
+   "title": "Khách nước ngoài chạy xe máy ở Việt Nam cần giấy tờ gì"
+  },
+  {
+   "article_id": "HD-0003",
+   "title": "Xe máy điện có cần đăng ký biển số không"
+  },
+  {
+   "article_id": "HD-0004",
+   "title": "Bảo hiểm TNDS xe máy là gì"
+  },
+  {
+   "article_id": "HD-0005",
+   "title": "Xe máy chở được mấy người theo quy định"
+  },
+  {
+   "article_id": "HD-0006",
+   "title": "Bao nhiêu tuổi được lái xe máy dưới 50cc"
+  }
+ ]
+}
