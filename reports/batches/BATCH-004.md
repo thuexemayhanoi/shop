@@ -1,10 +1,10 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T01:39:04
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:41:17
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 26 | pass: 0 | published: 26
-- writing: 24 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.3 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 28 | pass: 2 | published: 26
+- writing: 22 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 4 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -33,8 +33,8 @@
 | DL-0029 | cam-nang/du-lich/dl-0029-di-xe-may-den-bao-tang-lich-su-quan-su-viet-nam-co-kho-tim-d.html | PUBLISHED | 95 | 0 |  |
 | DL-0030 | cam-nang/du-lich/dl-0030-dip-le-den-bao-tang-lich-su-quan-su-viet-nam-co-dong-nguoi-k.html | PUBLISHED | 95 | 0 |  |
 | DL-0031 | cam-nang/du-lich/dl-0031-do-an-vat-duong-pho-o-bao-tang-lich-su-quan-su-viet-nam-the.html | PUBLISHED | 99 | 0 |  |
-| DL-0032 | cam-nang/du-lich/dl-0032-diem-dung-chup-anh-giua-duong-den-bao-tang-lich-su-quan-su-v.html | WRITING |  | 0 |  |
-| DL-0033 | cam-nang/du-lich/dl-0033-trai-nghiem-mot-ngay-o-bao-tang-ha-noi-bang-xe-may.html | WRITING |  | 0 |  |
+| DL-0032 | cam-nang/du-lich/dl-0032-diem-dung-chup-anh-giua-duong-den-bao-tang-lich-su-quan-su-v.html | PASS | 99 | 0 |  |
+| DL-0033 | cam-nang/du-lich/dl-0033-trai-nghiem-mot-ngay-o-bao-tang-ha-noi-bang-xe-may.html | PASS | 98 | 0 |  |
 | HD-0026 | cam-nang/hoi-dap/hd-0026-phat-nguoi-gom-nhung-loi-xe-may-nao.html | PUBLISHED | 99 | 0 |  |
 | HD-0027 | cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html | PUBLISHED | 99 | 0 | deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ); deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ) |
 | HD-0028 | cam-nang/hoi-dap/hd-0028-xe-may-co-duoc-di-vao-duong-cao-toc-khong.html | PUBLISHED | 99 | 0 |  |
