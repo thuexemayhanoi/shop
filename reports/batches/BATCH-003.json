@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-003",
   "started_at": "2026-09-26T15:19:08",
-  "finished_at": "2026-09-26T15:32:37",
+  "finished_at": "2026-09-26T22:33:02",
   "writer": "external-agent",
   "processed": 50,
   "written": 12,
-  "pass": 6,
-  "published": 6,
+  "pass": 0,
+  "published": 12,
   "writing": 38,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 4,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 6,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0018",
@@ -34,7 +34,7 @@
     {
       "article_id": "AT-0019",
       "output_path": "cam-nang/an-toan/at-0019-xe-may-het-dang-kiem-co-bi-giu-xe-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -119,7 +119,7 @@
     {
       "article_id": "CD-0018",
       "output_path": "cam-nang/cung-duong/cd-0018-quan-ca-phe-dung-chan-tren-duong-vinh-yen.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -209,7 +209,7 @@
     {
       "article_id": "DL-0019",
       "output_path": "cam-nang/du-lich/dl-0019-nghi-trua-an-gi-khi-di-hoang-thanh-thang-long-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [
@@ -292,7 +292,7 @@
     {
       "article_id": "HD-0018",
       "output_path": "cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -382,7 +382,7 @@
     {
       "article_id": "KN-0019",
       "output_path": "cam-nang/kinh-nghiem/kn-0019-yamaha-sirius-co-phu-hop-voi-nguoi-moi-tap-lai-xe-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -462,7 +462,7 @@
     {
       "article_id": "XM-0019",
       "output_path": "cam-nang/xe-may/xm-0019-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-honda-wave.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
