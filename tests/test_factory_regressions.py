@@ -243,6 +243,91 @@ class WorkflowFileTests(unittest.TestCase):
         self.assertIn("output_path", y)
         self.assertIn("os.path.isfile", y)
 
+    def test_publish_verify_inputs_never_interpolated_into_shell(self):
+        """factory-publish-verify.yml must pass dispatch inputs through
+        environment variables and quoted CLI arguments — never by building
+        an args string with unquoted ${{ }} expansion (command injection)."""
+        y = self._read(".github/workflows/factory-publish-verify.yml")
+        self.assertNotIn("$args", y)
+        self.assertNotIn("shellcheck disable", y)
+        self.assertIn("PUBLISH_IDS: ${{ github.event.inputs.publish_ids }}", y)
+        self.assertIn("PUBLISH_DATE: ${{ github.event.inputs.date }}", y)
+        self.assertIn('--publish "$publish_ids"', y)
+        self.assertIn('--date "$PUBLISH_DATE"', y)
+        # non-empty publish_ids enforced inside the step (defence in depth
+        # beyond the `if:` gate)
+        self.assertIn("publish_ids must be a non-empty", y)
+
+
+class CumulativeBatchReportTests(unittest.TestCase):
+    """The batch report is CUMULATIVE: every reserved member of the batch
+    appears, and all counts are derived from the matrix rows of the batch
+    (never just the rows of the latest run)."""
+
+    @staticmethod
+    def _row(aid, status, score="", notes="", batch="BATCH-X",
+             path="cam-nang/x/x.html", sources="no"):
+        return {"article_id": aid, "status": status, "score": score,
+                "notes": notes, "batch_id": batch, "output_path": path,
+                "requires_sources": sources}
+
+    def test_counts_and_members_derive_from_matrix(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            rows = [
+                self._row("AA-0001", "PUBLISHED", "100"),
+                self._row("AA-0002", "PUBLISHED", "96"),
+                self._row("AA-0003", "WRITING"),
+                self._row("AA-0004", "PLANNED"),
+            ]
+            rep = rb.build_cumulative_report(
+                "BATCH-X", rows, [
+                    {"article_id": "AA-0001", "outcome": "PASS",
+                     "score": 100, "repair_attempts": 0,
+                     "quality_failures": [], "cannibalization_failures": [],
+                     "cannibalization_warnings": []},
+                ], "2026-09-26T00:00:00", tmp)
+            self.assertEqual(len(rep["articles"]), 4)
+            self.assertEqual(rep["published"], 2)
+            self.assertEqual(rep["writing"], 1)
+            self.assertEqual(rep["pass"], 0)
+            self.assertEqual(rep["processed"], 3)  # minus 1 PLANNED
+            self.assertEqual(rep["written"], 2)     # minus PLANNED/WRITING
+            self.assertEqual(rep["average_score"], 98)  # int-normalized (matches Node)
+            self.assertEqual(rep["min_score"], 96)
+            self.assertEqual(rep["max_score"], 100)
+            by_id = {a["article_id"]: a for a in rep["articles"]}
+            self.assertEqual(by_id["AA-0003"]["outcome"], "WRITING")
+            self.assertEqual(by_id["AA-0004"]["outcome"], "PLANNED")
+
+    def test_run_details_merge_and_prior_report_is_preserved(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            os.makedirs(os.path.join(tmp, "reports", "batches"),
+                        exist_ok=True)
+            prior = {"batch_id": "BATCH-X", "started_at": "2026-09-01T00:00:00",
+                     "writer": "external-agent",
+                     "published_commit_sha": "deadbeef",
+                     "articles": [{"article_id": "AA-0002",
+                                   "cannibalization_warnings": ["w"]}]}
+            with io.open(os.path.join(tmp, "reports", "batches",
+                                      "BATCH-X.json"), "w",
+                        encoding="utf-8") as f:
+                json.dump(prior, f)
+            # AA-0002 already terminal in the matrix: cumulative report must
+            # keep the prior audit SHA and carry the warning over
+            rows = [self._row("AA-0002", "PUBLISHED", "96")]
+            rep = rb.build_cumulative_report(
+                "BATCH-X", rows, [], "2026-09-26T00:00:00", tmp)
+            self.assertEqual(rep["published_commit_sha"], "deadbeef")
+            self.assertEqual(rep["started_at"], "2026-09-01T00:00:00")
+            self.assertEqual(rep["articles"][0]["cannibalization_warnings"],
+                             ["w"])
+            # repair attempts also derive from ledger notes
+            rows2 = [self._row("AA-0003", "REPAIR", notes="repair:2")]
+            rep2 = rb.build_cumulative_report(
+                "BATCH-X", rows2, [], "2026-09-26T00:00:00", tmp)
+            self.assertEqual(rep2["articles"][0]["repair_attempts"], 2)
+
+
 
 class SourcePolicyTests(RegrBase):
     def _policy(self):

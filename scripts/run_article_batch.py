@@ -51,6 +51,7 @@ import datetime
 import io
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -419,6 +420,113 @@ def write_report(repo_root, report):
     return md
 
 
+def _existing_report(repo_root, batch_id):
+    p = os.path.join(repo_root, "reports", "batches", batch_id + ".json")
+    if os.path.isfile(p):
+        try:
+            with io.open(p, encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return None
+    return None
+
+
+def _repair_attempts_from_notes(notes):
+    m = re.search(r"repair:(\d+)", notes or "")
+    return int(m.group(1)) if m else 0
+
+
+def _parse_score(v):
+    try:
+        return int(str(v or "").strip())
+    except ValueError:
+        return None
+
+
+def build_cumulative_report(batch_id, rows, run_articles, started_at,
+                            repo_root):
+    """CUMULATIVE batch report derived from the matrix rows of the batch.
+
+    Every reserved member of the batch appears (not just the rows of the
+    latest run); all state counts, scores and pass_publishable_now are
+    computed from the CURRENT matrix truth, so the report can never claim
+    fewer (or more) members than the ledger reserves. Run-level details of
+    the current QA run are merged in; durable per-article details and the
+    published_commit_sha audit trail are carried over from the previous
+    report. Mirrors scripts/js/factory.mjs rebuildBatchReport().
+    """
+    prev = _existing_report(repo_root, batch_id) or {}
+    prev_by_id = {a.get("article_id"): a
+                  for a in (prev.get("articles") or [])}
+    run_by_id = {a.get("article_id"): a for a in (run_articles or [])}
+    members = sorted(rows, key=lambda r: r.get("article_id") or "")
+    req_sources = lambda r: str(r.get("requires_sources") or "").strip().lower() in ("true", "yes", "1")  # noqa: E731
+    articles = []
+    for r in members:
+        old = prev_by_id.get(r.get("article_id")) or {}
+        run = run_by_id.get(r.get("article_id")) or {}
+        articles.append({
+            "article_id": r.get("article_id"),
+            "output_path": r.get("output_path"),
+            "outcome": (r.get("status") or "").strip(),
+            "score": _parse_score(r.get("score")),
+            "repair_attempts": (run.get("repair_attempts")
+                                if run.get("repair_attempts") is not None
+                                else (old.get("repair_attempts")
+                                      if old.get("repair_attempts") is not None
+                                      else _repair_attempts_from_notes(
+                                          r.get("notes")))),
+            "quality_failures": (run.get("quality_failures")
+                                 or old.get("quality_failures") or []),
+            "cannibalization_failures": (run.get("cannibalization_failures")
+                                         or old.get(
+                                             "cannibalization_failures")
+                                         or []),
+            "cannibalization_warnings": (old.get("cannibalization_warnings")
+                                         or []),
+        })
+    count = lambda st: sum(1 for r in members
+                          if (r.get("status") or "").strip() == st)  # noqa: E731
+    planned = count("PLANNED")
+    writing = count("WRITING")
+    scores = [a["score"] for a in articles if isinstance(a["score"], int)]
+    scores_sum = sum(scores)
+    avg = round(scores_sum / len(scores), 1) if scores else None
+    if isinstance(avg, float) and avg == int(avg):
+        avg = int(avg)  # match Node JSON (98.0 -> 98)
+    pub = select_publish_rows(members, repo_root)
+    return {
+        "batch_id": batch_id,
+        "started_at": prev.get("started_at") or started_at,
+        "finished_at": datetime.datetime.now().isoformat(
+            timespec="seconds"),
+        "writer": prev.get("writer") or "external-agent",
+        "processed": len(members) - planned,
+        "written": len(members) - planned - writing,
+        "pass": count("PASS"),
+        "published": count("PUBLISHED"),
+        "writing": writing,
+        "review": count("REVIEW"),
+        "repair": count("REPAIR"),
+        "fail": count("FAIL"),
+        "blocked": count("BLOCKED"),
+        "average_score": avg,
+        "min_score": min(scores) if scores else None,
+        "max_score": max(scores) if scores else None,
+        "repair_count": sum((a["repair_attempts"] or 0)
+                            for a in articles),
+        "source_gate_pass": sum(
+            1 for r in members if req_sources(r)
+            and (r.get("status") or "").strip() in ("PASS", "PUBLISHED")),
+        "source_gate_blocked": sum(
+            1 for r in members if req_sources(r)
+            and (r.get("status") or "").strip() == "BLOCKED"),
+        "published_commit_sha": prev.get("published_commit_sha"),
+        "pass_publishable_now": len(pub),
+        "articles": articles,
+    }
+
+
 def report_markdown(report):
     L = ["# Batch report %s" % report.get("batch_id"), ""]
     L.append("- started_at: %s | finished_at: %s" %
@@ -428,22 +536,26 @@ def report_markdown(report):
     L.append("- processed: %s | written: %s | pass: %s | published: %s" %
              (report.get("processed"), report.get("written"),
               report.get("pass"), report.get("published")))
-    L.append("- review: %s | repair: %s | fail: %s | blocked: %s" %
-             (report.get("review"), report.get("repair"), report.get("fail"),
+    L.append("- writing: %s | review: %s | repair: %s | fail: %s | blocked: %s" %
+             (report.get("writing", 0), report.get("review"),
+              report.get("repair"), report.get("fail"),
               report.get("blocked")))
     L.append("- scores: avg %s | min %s | max %s | repair_count: %s" %
              (report.get("average_score"), report.get("min_score"),
               report.get("max_score"), report.get("repair_count")))
     L.append("- source_gate: pass %s | blocked %s" %
              (report.get("source_gate_pass"), report.get("source_gate_blocked")))
-    L.append("- published_commit_sha: %s" % report.get("published_commit_sha"))
+    L.append("- published_commit_sha: %s" % (
+        report.get("published_commit_sha")
+        if report.get("published_commit_sha") is not None else "null"))
     L.append("")
     L.append("| article_id | output_path | status | score | repairs | notes |")
     L.append("|---|---|---|---|---|---|")
     for a in report.get("articles", []):
         L.append("| %s | %s | %s | %s | %s | %s |" % (
             a.get("article_id"), a.get("output_path"), a.get("outcome"),
-            a.get("score"), a.get("repair_attempts"),
+            a.get("score") if a.get("score") is not None else "",
+            a.get("repair_attempts"),
             "; ".join((a.get("quality_failures") or [])[:2])))
     return "\n".join(L) + "\n"
 
@@ -662,50 +774,27 @@ def main_func(argv=None):
             matrix = lib.load_matrix()
             rows = batch_rows(matrix, batch_id)
             pub = select_publish_rows(rows, repo_root)
-            scores = [a["score"] for a in articles
-                      if isinstance(a.get("score"), (int, float))]
-            report = {
-                "batch_id": batch_id,
-                "started_at": started_at,
-                "finished_at": datetime.datetime.now().isoformat(
-                    timespec="seconds"),
-                "writer": "external-agent",
-                "processed": len(qa_rows),
-                "written": len([a for a in articles
-                                if a["outcome"] != "NOT_WRITTEN"]),
-                "pass": len([a for a in articles if a["outcome"] == "PASS"]),
-                "published": 0,
-                "review": len([a for a in articles
-                               if a["outcome"] == "REVIEW"]),
-                "repair": sum(a.get("repair_attempts") or 0
-                              for a in articles),
-                "fail": len([a for a in articles if a["outcome"] == "FAIL"]),
-                "blocked": len([a for a in articles
-                                if a["outcome"] == "BLOCKED"]),
-                "average_score": round(sum(scores) / len(scores), 1)
-                if scores else None,
-                "min_score": min(scores) if scores else None,
-                "max_score": max(scores) if scores else None,
-                "repair_count": sum(a.get("repair_attempts") or 0
-                                    for a in articles),
-                "source_gate_pass": len([a for a in articles
-                    if a["outcome"] == "PASS" and
-                    str((next((r["requires_sources"] for r in rows
-                               if r["article_id"] == a["article_id"]), "false")
-                         )).lower() in ("true", "yes", "1")]),
-                "source_gate_blocked": 0,
-                "published_commit_sha": None,
-                "pass_publishable_now": len(pub),
-                "articles": articles,
-            }
+            # CUMULATIVE batch report: every reserved member of the batch,
+            # counts derived from the current matrix truth (never just the
+            # rows of this run)
+            report = build_cumulative_report(
+                batch_id, rows, articles, started_at, repo_root)
             write_report(repo_root, report)
             print(json.dumps({k: v for k, v in report.items()
                               if k != "articles"}, ensure_ascii=False))
             if args.progress:
                 write_factory_progress(repo_root, matrix)
-            if report["fail"]:
+            # exit codes reflect THIS RUN's QA outcomes (not cumulative
+            # history) so a clean run of an older batch is not penalised
+            run_fail = len([a for a in articles
+                            if a["outcome"] == "FAIL"])
+            run_review = len([a for a in articles
+                              if a["outcome"] == "REVIEW"])
+            run_blocked = len([a for a in articles
+                               if a["outcome"] == "BLOCKED"])
+            if run_fail:
                 return EXIT_FAILS
-            if report["review"] or report["blocked"]:
+            if run_review or run_blocked:
                 return EXIT_ISSUES
             return EXIT_OK
 

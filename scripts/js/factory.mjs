@@ -12,6 +12,12 @@
 //   --publish "ID,ID,..."                PASS -> PUBLISHED (+published_date),
 //                                        regenerate hub ARTICLE-LIST blocks +
 //                                        sitemap.xml + batch report + progress
+//   --rebuild-report BATCH               rewrite the CUMULATIVE batch report
+//                                        from current matrix truth (all
+//                                        members, matrix-derived counts)
+//   --recover                            finish/verify an interrupted
+//                                        multi-file transaction using the
+//                                        recovery marker in data/batches/txn/
 //   --consistency                        verify matrix/hubs/sitemap agreement
 //                                        without writing anything
 //
@@ -32,6 +38,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { parseLedger, serializeRow, applyUpdates, toRowObjects, isSampleRow } from './ledger.mjs';
 
@@ -218,12 +225,37 @@ function regenerateSitemap(matrixRows, site, date) {
 
 // ------------------------------------------------------ reports / progress
 
-function factoryProgress(rows, generated) {
+// Mirror of scripts/run_article_batch.py write_factory_progress(): ALL counts,
+// including completed_batches, are derived from the matrix rows — nothing
+// here is hard-coded.
+export function factoryProgress(rows, generated, publishedCommitSha = null) {
   const production = rows.filter((r) => !isSampleRowFields(r));
   const counts = {};
+  const perBatch = new Map();
   for (const r of production) {
     const st = ((r.status || '').trim().toLowerCase() || 'unknown');
     counts[st] = (counts[st] || 0) + 1;
+    const stU = (r.status || '').trim();
+    const bid = (r.batch_id || '').trim();
+    let b = perBatch.get(bid);
+    if (!b) {
+      b = { total: 0, planned: 0, active: 0, pass: 0, published: 0, fail: 0, blocked: 0 };
+      perBatch.set(bid, b);
+    }
+    b.total += 1;
+    if (stU === 'PLANNED') b.planned += 1;
+    else if (ACTIVE_STATUSES.has(stU)) b.active += 1;
+    else if (stU === 'PASS') b.pass += 1;
+    else if (stU === 'PUBLISHED') b.published += 1;
+    else if (stU === 'FAIL') b.fail += 1;
+    else if (stU === 'BLOCKED') b.blocked += 1;
+  }
+  // A batch is complete only when EVERY reserved row is terminal
+  // (PUBLISHED/FAIL/BLOCKED). PLANNED/unassigned rows belong to the "" pseudo
+  // batch and can never complete it, matching the Python implementation.
+  let completed = 0;
+  for (const b of perBatch.values()) {
+    if (b.total > 0 && b.published + b.fail + b.blocked === b.total) completed += 1;
   }
   let activeBatch = null;
   let nextBatch = null;
@@ -252,10 +284,10 @@ function factoryProgress(rows, generated) {
     published: counts.published || 0,
     fail: counts.fail || 0,
     blocked: counts.blocked || 0,
-    completed_batches: 0,
+    completed_batches: completed,
     active_batch: activeBatch,
     next_batch: nextBatch,
-    published_commit_sha: null,
+    published_commit_sha: publishedCommitSha,
   };
 }
 
@@ -263,31 +295,104 @@ function jsonDump(obj) {
   return JSON.stringify(obj, null, 2) + '\n';
 }
 
-function updateBatchReport(batchId, rowsAfter, articleResults) {
+function repairAttemptsFromNotes(notes) {
+  const m = /repair:(\d+)/.exec(notes || '');
+  return m ? parseInt(m[1], 10) : 0;
+}
+
+function parseScore(v) {
+  const n = parseInt(String(v ?? '').trim(), 10);
+  return Number.isFinite(n) ? n : null;
+}
+
+function batchMembers(rows, batchId) {
+  return rows.filter((r) => !isSampleRowFields(r) && (r.batch_id || '').trim() === batchId);
+}
+
+/**
+ * CUMULATIVE batch report, derived from the matrix rows of the batch.
+ * Every reserved member of the batch appears (not just the rows of the
+ * latest run); all state counts, scores and pass_publishable_now are
+ * computed from the CURRENT matrix truth, so the report can never claim
+ * fewer (or more) members than the ledger reserves. Run-level details
+ * (quality/cannibalization findings of the current publish run) are
+ * merged in; durable per-article details are carried over from the
+ * previous report; published_commit_sha is preserved as the audit trail.
+ */
+export function rebuildBatchReport(batchId, rowsAfter, articleResults, generated) {
+  const members = batchMembers(rowsAfter, batchId);
+  if (!members.length) throw new Error(`no rows reserved for batch ${batchId} in the ledger`);
   const jsonPath = path.join(REPO, 'reports', 'batches', batchId + '.json');
   const mdPath = path.join(REPO, 'reports', 'batches', batchId + '.md');
-  if (!fs.existsSync(jsonPath)) return null;
-  const report = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-  report.published = articleResults.length;
-  report.pass_publishable_now = 0;
-  for (const a of report.articles || []) {
-    const res = articleResults.find((x) => x.article_id === a.article_id);
-    if (res) a.outcome = 'PUBLISHED';
+  let prev = null;
+  if (fs.existsSync(jsonPath)) {
+    try { prev = JSON.parse(fs.readFileSync(jsonPath, 'utf8')); } catch (_) { prev = null; }
   }
+  const prevById = new Map((prev && prev.articles ? prev.articles : []).map((a) => [a.article_id, a]));
+  const runById = new Map((articleResults || []).map((a) => [a.article_id, a]));
+
+  const articles = [...members]
+    .sort((a, b) => (a.article_id || '').localeCompare(b.article_id || ''))
+    .map((r) => {
+      const old = prevById.get(r.article_id) || {};
+      const run = runById.get(r.article_id) || {};
+      return {
+        article_id: r.article_id,
+        output_path: r.output_path,
+        outcome: (r.status || '').trim(),
+        score: parseScore(r.score),
+        repair_attempts: run.repair_attempts ?? old.repair_attempts ?? repairAttemptsFromNotes(r.notes),
+        quality_failures: run.quality_failures ?? old.quality_failures ?? [],
+        cannibalization_failures: run.cannibalization_failures ?? old.cannibalization_failures ?? [],
+        cannibalization_warnings: old.cannibalization_warnings ?? [],
+      };
+    });
+
+  const count = (st) => members.filter((r) => (r.status || '').trim() === st).length;
+  const planned = count('PLANNED');
+  const writing = count('WRITING');
+  const scores = articles.map((a) => a.score).filter((s) => typeof s === 'number');
+  const requiresSources = (r) => String(r.requires_sources || '').trim().toLowerCase() === 'true';
+  const report = {
+    batch_id: batchId,
+    started_at: (prev && prev.started_at) || generated,
+    finished_at: generated,
+    writer: (prev && prev.writer) || 'external-agent',
+    processed: members.length - planned,
+    written: members.length - planned - writing,
+    pass: count('PASS'),
+    published: count('PUBLISHED'),
+    writing,
+    review: count('REVIEW'),
+    repair: count('REPAIR'),
+    fail: count('FAIL'),
+    blocked: count('BLOCKED'),
+    average_score: scores.length ? Math.round((scores.reduce((s, x) => s + x, 0) / scores.length) * 10) / 10 : null,
+    min_score: scores.length ? Math.min(...scores) : null,
+    max_score: scores.length ? Math.max(...scores) : null,
+    repair_count: articles.reduce((s, a) => s + (a.repair_attempts || 0), 0),
+    source_gate_pass: members.filter((r) => requiresSources(r) && ['PASS', 'PUBLISHED'].includes((r.status || '').trim())).length,
+    source_gate_blocked: members.filter((r) => requiresSources(r) && (r.status || '').trim() === 'BLOCKED').length,
+    published_commit_sha: (prev && prev.published_commit_sha) || null,
+    pass_publishable_now: members.filter((r) =>
+      (r.status || '').trim() === 'PASS' &&
+      fs.existsSync(path.join(REPO, (r.output_path || '').replace(/^\/+/, '')))).length,
+    articles,
+  };
   // canonical markdown table, preserving any trailing manual sections
   const L = [`# Batch report ${batchId}`, ''];
   L.push(`- started_at: ${report.started_at} | finished_at: ${report.finished_at}`);
   L.push(`- writer: ${report.writer} | batch resolved once: ${report.batch_id}`);
   L.push(`- processed: ${report.processed} | written: ${report.written} | pass: ${report.pass} | published: ${report.published}`);
-  L.push(`- review: ${report.review} | repair: ${report.repair} | fail: ${report.fail} | blocked: ${report.blocked}`);
+  L.push(`- writing: ${report.writing} | review: ${report.review} | repair: ${report.repair} | fail: ${report.fail} | blocked: ${report.blocked}`);
   L.push(`- scores: avg ${report.average_score} | min ${report.min_score} | max ${report.max_score} | repair_count: ${report.repair_count}`);
   L.push(`- source_gate: pass ${report.source_gate_pass} | blocked ${report.source_gate_blocked}`);
   L.push(`- published_commit_sha: ${report.published_commit_sha}`);
   L.push('');
   L.push('| article_id | output_path | status | score | repairs | notes |');
   L.push('|---|---|---|---|---|---|');
-  for (const a of report.articles || []) {
-    L.push(`| ${a.article_id} | ${a.output_path} | ${a.outcome} | ${a.score} | ${a.repair_attempts} | ${(a.quality_failures || []).slice(0, 2).join('; ')} |`);
+  for (const a of report.articles) {
+    L.push(`| ${a.article_id} | ${a.output_path} | ${a.outcome} | ${a.score ?? ''} | ${a.repair_attempts} | ${(a.quality_failures || []).slice(0, 2).join('; ')} |`);
   }
   let md = L.join('\n') + '\n';
   if (fs.existsSync(mdPath)) {
@@ -349,13 +454,137 @@ function commitWrites(files) {
     for (const t of tmps) { try { fs.rmSync(t, { force: true }); } catch (_) {} }
     throw e;
   }
+  // TEST-ONLY crash simulation hook (never set in production): hard-exit
+  // mid-transaction, leaving exactly the on-disk state a power loss
+  // between renames would leave — no cleanup, no marker removal.
+  const crashAfter = parseInt(process.env.FACTORY_TEST_CRASH_AFTER_RENAMES ?? '', 10);
   for (let i = 0; i < tmps.length; i++) {
+    if (Number.isFinite(crashAfter) && i === crashAfter) process.exit(70);
     fs.renameSync(tmps[i], files[i].path);
   }
 }
 
 function atomicWrite(file) {
   commitWrites([file]);
+}
+
+// ------------------------------------------- transaction / recovery marker
+//
+// True cross-file atomicity is impossible on a plain filesystem: renaming
+// N files one by one can be interrupted between renames, leaving the
+// matrix updated but hubs/sitemap/reports stale (or vice versa). To make
+// the publish transaction recoverable, every multi-file mutation writes a
+// PENDING marker under data/batches/txn/ (gitignored) that records, for
+// EACH planned file, the sha256 of its pre-transaction content and of its
+// planned content — plus the planned content itself. --recover can then
+// finish or verify an interrupted transaction deterministically:
+//   - on-disk sha == after  -> rename already happened
+//   - on-disk sha == before -> rename never happened; re-apply planned content
+//   - anything else        -> the file diverged after the crash: refuse,
+//                             keep the marker, demand manual resolution.
+// The marker is removed only after the transaction is fully applied AND
+// the consistency check passes.
+
+const txnDir = () => path.join(REPO, 'data', 'batches', 'txn');
+const TXN_MARKER = 'txn.json';
+
+function sha256(text) {
+  return crypto.createHash('sha256').update(text, 'utf8').digest('hex');
+}
+
+export function writeTxnMarker(kind, meta, files, generated) {
+  const dir = txnDir();
+  const pending = path.join(dir, 'pending');
+  fs.rmSync(pending, { recursive: true, force: true });
+  fs.mkdirSync(pending, { recursive: true });
+  const entries = [];
+  files.forEach((f, i) => {
+    fs.writeFileSync(path.join(pending, i + '.content'), f.content, 'utf8');
+    let before = null;
+    try { before = sha256(fs.readFileSync(f.path, 'utf8')); } catch (_) { before = null; }
+    entries.push({
+      path: f.path,
+      before_sha256: before,
+      after_sha256: sha256(f.content),
+    });
+  });
+  const marker = Object.assign({ state: 'PENDING', kind, started: generated, files: entries }, meta || {});
+  atomicWrite({ path: path.join(dir, TXN_MARKER), content: jsonDump(marker) });
+  return marker;
+}
+
+export function readTxnMarker() {
+  const p = path.join(txnDir(), TXN_MARKER);
+  if (!fs.existsSync(p)) return null;
+  try {
+    const m = JSON.parse(fs.readFileSync(p, 'utf8'));
+    return m && m.state === 'PENDING' && Array.isArray(m.files) ? m : { state: 'CORRUPT' };
+  } catch (_) {
+    return { state: 'CORRUPT' };
+  }
+}
+
+export function clearTxnMarker() {
+  fs.rmSync(txnDir(), { recursive: true, force: true });
+}
+
+export function recoverTransaction(site, { expectedRows = 2000 } = {}) {
+  const marker = readTxnMarker();
+  if (!marker) {
+    console.error('RECOVER: no pending transaction marker; repository state is clean.');
+    return 0;
+  }
+  if (marker.state !== 'PENDING') {
+    console.error('RECOVER FAIL: transaction marker is corrupt; manual resolution required.');
+    console.error('  marker kept at data/batches/txn/ — inspect it and re-run the transaction manually.');
+    return 3;
+  }
+  const pending = path.join(txnDir(), 'pending');
+  const actions = [];
+  for (let i = 0; i < marker.files.length; i++) {
+    const f = marker.files[i];
+    const cf = path.join(pending, i + '.content');
+    if (!fs.existsSync(cf)) {
+      console.error(`RECOVER FAIL: planned content missing for ${f.path}`);
+      console.error('  marker kept at data/batches/txn/ — manual resolution required.');
+      return 3;
+    }
+    const planned = fs.readFileSync(cf, 'utf8');
+    if (sha256(planned) !== f.after_sha256) {
+      console.error(`RECOVER FAIL: planned content hash mismatch for ${f.path} (marker/ pending content diverged)`);
+      console.error('  marker kept at data/batches/txn/ — manual resolution required.');
+      return 3;
+    }
+    let cur = null;
+    try { cur = fs.readFileSync(f.path, 'utf8'); } catch (_) { cur = null; }
+    const curSha = cur === null ? null : sha256(cur);
+    const rel = path.relative(REPO, f.path);
+    if (curSha === f.after_sha256) {
+      actions.push(`already applied: ${rel}`);
+      continue;
+    }
+    if (curSha === f.before_sha256) {
+      atomicWrite({ path: f.path, content: planned });
+      actions.push(`re-applied:    ${rel}`);
+      continue;
+    }
+    console.error(`RECOVER REFUSED: ${rel} is neither pre- nor post-transaction content.`);
+    console.error('  the file changed after the interruption; refusing to overwrite.');
+    console.error('  marker kept at data/batches/txn/ — manual resolution required.');
+    return 2;
+  }
+  const rows = toRowObjects(fs.readFileSync(matrixPath(), 'utf8'));
+  const problems = consistencyCheck(rows, site, { expectedRows });
+  if (problems.length) {
+    console.error('RECOVER FAIL: transaction applied but consistency still reports problems:');
+    for (const p of problems) console.error('  ! ' + p);
+    console.error('  marker kept at data/batches/txn/ — manual resolution required.');
+    return 3;
+  }
+  clearTxnMarker();
+  for (const a of actions) console.error('  - ' + a);
+  console.error(`RECOVER OK: transaction '${marker.kind}' completed/verified; marker removed.`);
+  return 0;
 }
 
 // ------------------------------------------------------ CLI
@@ -366,6 +595,8 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === '--dry-run') args.dryRun = true;
     else if (a === '--consistency') args.consistency = true;
+    else if (a === '--recover') args.recover = true;
+    else if (a === '--rebuild-report') args.rebuildReport = argv[++i];
     else if (a === '--qa-record') args.qaRecord = argv[++i];
     else if (a === '--publish') args.publish = argv[++i];
     else if (a === '--date') args.date = argv[++i];
@@ -444,6 +675,7 @@ function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.repo) REPO = path.resolve(args.repo);
   const date = args.date || hanoiToday();
+  const generated = new Date(Date.now() + 7 * 3600 * 1000).toISOString().slice(0, 19);
   const { site, kill } = readConfig();
   if (kill && kill.enabled === false) {
     console.error('FACTORY_PAUSED: config/content-factory.json enabled=false.');
@@ -452,13 +684,49 @@ function main() {
   const { raw, led, rows } = loadMatrix();
   validateInvariants(led, rows, args.expectRows || 2000);
 
+  // A pending transaction marker means a previous multi-file mutation was
+  // interrupted. Read-only modes warn; mutations are refused until --recover.
+  const pendingTxn = readTxnMarker();
+  const isMutation = (args.publish !== undefined && !args.dryRun)
+    || (args.qaRecord !== undefined && !args.dryRun)
+    || (args.rebuildReport !== undefined && !args.dryRun);
+  if (pendingTxn && isMutation) {
+    console.error('REFUSED: a pending transaction marker exists (data/batches/txn/).');
+    console.error('  An earlier multi-file mutation was interrupted. Run --recover first.');
+    return 2;
+  }
+  if (pendingTxn && !args.recover) {
+    console.error('WARNING: pending transaction marker present (data/batches/txn/); run --recover when convenient.');
+  }
+
+  if (args.recover) {
+    return recoverTransaction(site, { expectedRows: args.expectRows || 2000 });
+  }
+
   if (args.consistency) {
     const problems = consistencyCheck(rows, site, { expectedRows: args.expectRows || 2000 });
     return problems.length ? 2 : 0;
   }
 
-  if (args.qaRecord) {
-    const specs = args.qaRecord.split(',').map((s) => s.trim()).filter(Boolean);
+  if (args.rebuildReport !== undefined) {
+    const batchId = (args.rebuildReport || '').trim();
+    if (!batchId) { console.error('refused: --rebuild-report needs a batch id'); return 1; }
+    const members = rows.filter((r) => !isSampleRowFields(r) && (r.batch_id || '').trim() === batchId);
+    if (!members.length) { console.error(`refused: no rows reserved for batch ${batchId}`); return 2; }
+    const reportFiles = rebuildBatchReport(batchId, rows, [], generated);
+    if (args.dryRun) {
+      console.error(`DRY RUN rebuild-report ${batchId}: would rewrite ${reportFiles.map((f) => path.relative(REPO, f.path)).join(', ')}`);
+      return 0;
+    }
+    commitWrites(reportFiles);
+    const report = JSON.parse(reportFiles[0].content);
+    console.error(`REBUILD-REPORT ${batchId}: ${members.length} member(s), published=${report.published}, writing=${report.writing}, pass=${report.pass}`);
+    return 0;
+  }
+
+  if (args.qaRecord !== undefined) {
+    const specs = (args.qaRecord || '').split(',').map((s) => s.trim()).filter(Boolean);
+    if (!specs.length) { console.error('refused: --qa-record needs a non-empty ID=SCORE:OUTCOME list'); return 1; }
     const updates = new Map();
     const qaRows = [];
     for (const spec of specs) {
@@ -503,8 +771,12 @@ function main() {
     return problems.length ? 3 : 0;
   }
 
-  if (args.publish) {
-    const ids = args.publish.split(',').map((s) => s.trim()).filter(Boolean);
+  if (args.publish !== undefined) {
+    const ids = (args.publish || '').split(',').map((s) => s.trim()).filter(Boolean);
+    if (!ids.length) {
+      console.error('refused: --publish needs a non-empty comma-separated article id list');
+      return 1;
+    }
     if (ids.length !== new Set(ids).size) {
       console.error('refused: duplicate article ids in --publish list');
       return 2;
@@ -553,9 +825,17 @@ function main() {
       const hubFile = regenerateHub(hub, byCat.get(cat), site.baseurl, hub);
       if (hubFile) writes.push(hubFile);
     }
-    const progress = factoryProgress(rowsAfter, new Date(Date.now() + 7 * 3600 * 1000).toISOString().slice(0, 19));
-    writes.push({ path: path.join(REPO, 'reports', 'batches', 'factory-progress.json'), content: jsonDump(progress) });
-    const reportFiles = updateBatchReport(batchId, rowsAfter, results);
+    // carry the recorded published_commit_sha forward: it is the durable
+    // audit trail of the last pushed publish transaction and must not be
+    // silently reset to null by a later publish run
+    const progressPath = path.join(REPO, 'reports', 'batches', 'factory-progress.json');
+    let prevSha = null;
+    if (fs.existsSync(progressPath)) {
+      try { prevSha = (JSON.parse(fs.readFileSync(progressPath, 'utf8')) || {}).published_commit_sha || null; } catch (_) { prevSha = null; }
+    }
+    const progress = factoryProgress(rowsAfter, generated, prevSha);
+    writes.push({ path: progressPath, content: jsonDump(progress) });
+    const reportFiles = rebuildBatchReport(batchId, rowsAfter, results, generated);
     if (reportFiles) writes.push(...reportFiles);
 
     // pre-write consistency on the computed state
@@ -582,7 +862,12 @@ function main() {
       return 0;
     }
 
-    commitWrites([{ path: matrixPath(), content: matrixOut.text }, ...writes]);
+    // multi-file transaction: write the recovery marker FIRST so an
+    // interruption between renames is always recoverable via --recover
+    const allWrites = [{ path: matrixPath(), content: matrixOut.text }, ...writes];
+    writeTxnMarker('publish', { batch: batchId, ids: [...updates.keys()], published_date: date }, allWrites, generated);
+    commitWrites(allWrites);
+    clearTxnMarker();
     for (const r of results) console.error(`PUBLISHED ${r.article_id} -> ${r.output_path} (published_date=${date})`);
     const postRows = toRowObjects(fs.readFileSync(matrixPath(), 'utf8'));
     const postProblems = consistencyCheck(postRows, site, { expectedRows: args.expectRows || 2000 });
@@ -590,8 +875,14 @@ function main() {
     return 0;
   }
 
-  console.error('nothing to do: use --qa-record, --publish or --consistency');
+  console.error('nothing to do: use --qa-record, --publish, --rebuild-report, --recover or --consistency');
   return 1;
 }
 
-process.exit(main());
+export function setRepo(p) {
+  REPO = path.resolve(p);
+}
+
+// run as CLI only when executed directly (tests import the pure functions)
+const isDirect = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isDirect) process.exit(main());

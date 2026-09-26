@@ -60,14 +60,24 @@ jobs:
 
       - name: Dry-run the intended publish transaction
         if: github.event.inputs.publish_ids != ''
+        env:
+          # pass user input through ENVIRONMENT variables and quote them at
+          # the CLI boundary — never interpolate inputs into an unquoted
+          # args string (no ${{ }} inside run:)
+          PUBLISH_IDS: ${{ github.event.inputs.publish_ids }}
+          PUBLISH_DATE: ${{ github.event.inputs.date }}
         run: |
           set -eu
-          args="--publish '${{ github.event.inputs.publish_ids }}' --dry-run"
-          if [ -n "${{ github.event.inputs.date }}" ]; then
-            args="$args --date ${{ github.event.inputs.date }}"
+          publish_ids="$(printf '%s' "$PUBLISH_IDS" | tr -d '[:space:]')"
+          if [ -z "$publish_ids" ]; then
+            echo "::error::publish_ids must be a non-empty comma-separated article id list"
+            exit 1
           fi
-          # shellcheck disable=SC2086
-          node scripts/js/factory.mjs $args
+          date_args=()
+          if [ -n "$PUBLISH_DATE" ]; then
+            date_args=(--date "$PUBLISH_DATE")
+          fi
+          node scripts/js/factory.mjs --publish "$publish_ids" --dry-run "${date_args[@]}"
 
       - name: Sitemap freshness (canonical Python generator)
         run: python3 scripts/generate_sitemap.py --check

@@ -236,5 +236,16 @@ dependencies) performs the same ledger/publish transaction safely:
     node scripts/js/factory.mjs --consistency
     node scripts/js/factory.mjs --publish "KN-0002,XM-0002,DL-0001" --dry-run
     node scripts/js/factory.mjs --publish "KN-0002,XM-0002,DL-0001"
+    node scripts/js/factory.mjs --rebuild-report BATCH-001
+    node scripts/js/factory.mjs --recover
+
+- Batch reports are CUMULATIVE: every reserved member of the batch appears
+  and all counts derive from the matrix rows of that batch.
+- Multi-file publishes write a transaction/recovery marker under
+  `data/batches/txn/` (gitignored); if a commit is interrupted, `--recover`
+  finishes or verifies it (mutations are refused until recovered).
+- `completed_batches` in factory-progress.json is computed from matrix
+  state: a batch is complete only when every reserved row is terminal
+  (PUBLISHED/FAIL/BLOCKED).
 
 See `docs/CONTENT-FACTORY.md` and `tests/js/factory.test.mjs`.

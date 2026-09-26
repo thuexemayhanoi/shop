@@ -9,3 +9,6 @@ Thumbs.db
 # trail of each production run.
 data/batches/*.json
 data/batches/*.lock
+# Transaction/recovery marker for interrupted multi-file factory
+# mutations (scripts/js/factory.mjs --publish / --recover)
+data/batches/txn/

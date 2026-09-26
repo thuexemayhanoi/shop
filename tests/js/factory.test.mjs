@@ -17,8 +17,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { parseLedger, serializeRow, roundTrip, applyUpdates, findRows } from '../../scripts/js/ledger.mjs';
+import { factoryProgress, rebuildBatchReport, setRepo } from '../../scripts/js/factory.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const REAL_MATRIX = fs.readFileSync(path.join(REPO, 'data', 'content-matrix.csv'), 'utf8');
@@ -191,8 +192,15 @@ function makeSandbox() {
   return dir;
 }
 
-function runFactory(dir, args) {
-  return execFileSync('node', [FACTORY, ...args, '--repo', dir, '--expect-rows', '6'], { encoding: 'utf8' });
+function runFactory(dir, args, env = {}) {
+  const r = spawnSync('node', [FACTORY, ...args, '--repo', dir, '--expect-rows', '6'], {
+    encoding: 'utf8',
+    env: Object.assign({}, process.env, env),
+  });
+  if (r.status !== 0) {
+    throw new Error(`factory exited ${r.status}\n${r.stdout}\n${r.stderr}`);
+  }
+  return r.stdout + r.stderr;
 }
 
 function snapshot(dir) {
@@ -271,14 +279,31 @@ test('publish transaction updates matrix + hubs + sitemap consistently', () => {
   assert.ok(locs.includes('https://thuexemayhanoi.github.io/shop/cam-nang/x/xm-0101.html'));
   assert.ok(locs.includes('https://thuexemayhanoi.github.io/shop/'));
   assert.strictEqual(new Set(locs).size, locs.length, 'no duplicate URLs');
-  // reports updated
+  // reports updated — CUMULATIVE batch report derived from matrix truth:
+  // all 6 BATCH-001 members present, counts from the ledger
   const rep = JSON.parse(fs.readFileSync(path.join(dir, 'reports/batches/BATCH-001.json'), 'utf8'));
-  assert.strictEqual(rep.published, 2);
-  assert.ok(rep.articles.every((a) => a.outcome === 'PUBLISHED'));
+  assert.strictEqual(rep.articles.length, 6, 'every batch member appears');
+  assert.strictEqual(rep.published, 3); // XM-0100 (earlier) + KN-0102 + XM-0101
+  assert.strictEqual(rep.writing, 1);   // KN-0101
+  assert.strictEqual(rep.pass, 0);
+  assert.strictEqual(rep.processed, 6 - 2); // minus 2 PLANNED (KN-0100, DL-0100)
+  const byId = Object.fromEntries(rep.articles.map((a) => [a.article_id, a]));
+  assert.strictEqual(byId['KN-0102'].outcome, 'PUBLISHED');
+  assert.strictEqual(byId['XM-0101'].outcome, 'PUBLISHED');
+  assert.strictEqual(byId['XM-0100'].outcome, 'PUBLISHED');
+  assert.strictEqual(byId['KN-0101'].outcome, 'WRITING');
+  assert.strictEqual(byId['KN-0100'].outcome, 'PLANNED');
+  assert.ok(rep.articles.every((a) => ['PLANNED', 'WRITING', 'PUBLISHED'].includes(a.outcome)));
+  // cumulative progress: completed_batches derived, not hard-coded
+  const prog = JSON.parse(fs.readFileSync(path.join(dir, 'reports/batches/factory-progress.json'), 'utf8'));
+  assert.strictEqual(prog.published, 3);
+  assert.strictEqual(prog.completed_batches, 0); // batch has non-terminal rows
   // batch md canonical table preserved trailing operator section
   const md = fs.readFileSync(path.join(dir, 'reports/batches/BATCH-001.md'), 'utf8');
   assert.ok(md.includes('## Operator notes') && md.includes('Preserve me.'));
-  assert.ok(md.includes('| KN-0102 | cam-nang/x/kn-0102.html | PUBLISHED | 100 |'));
+  assert.ok(md.includes('| KN-0102 | cam-nang/x/kn-0102.html | PUBLISHED | 95 |'));
+  // no pending transaction marker is left behind
+  assert.ok(!fs.existsSync(path.join(dir, 'data', 'batches', 'txn')), 'txn marker removed after successful commit');
   // final consistency check passes
   runFactory(dir, ['--consistency']);
 });
@@ -310,4 +335,119 @@ test('consistency check detects drift', () => {
     : r.raw);
   fs.writeFileSync(matrixPath, led.header.join(',') + '\r\n' + rows.join(''), 'utf8');
   assert.throws(() => runFactory(dir, ['--consistency']), /CONSISTENCY FAIL/);
+});
+
+// ----------------------------------------- cumulative batch reporting
+
+test('factoryProgress derives completed_batches from matrix state (not hard-coded)', () => {
+  const row = (id, status, batch) => ({ article_id: id, status, batch_id: batch });
+  // BATCH-A fully terminal (2 PUBLISHED + 1 FAIL); BATCH-B has active rows;
+  // unassigned PLANNED rows form the "" pseudo-batch (never complete)
+  const rows = [
+    row('AA-0001', 'PUBLISHED', 'BATCH-A'),
+    row('AA-0002', 'PUBLISHED', 'BATCH-A'),
+    row('AA-0003', 'FAIL', 'BATCH-A'),
+    row('BB-0001', 'PUBLISHED', 'BATCH-B'),
+    row('BB-0002', 'WRITING', 'BATCH-B'),
+    row('CC-0001', 'PLANNED', ''),
+    row('CC-0002', 'PLANNED', ''),
+  ];
+  const p = factoryProgress(rows, '2026-09-26T00:00:00');
+  assert.strictEqual(p.completed_batches, 1); // BATCH-A only
+  assert.strictEqual(p.published, 3);
+  assert.strictEqual(p.writing, 1);
+  assert.strictEqual(p.planned, 2);
+  assert.strictEqual(p.active_batch, 'BATCH-B');
+  // all-terminal universe: every batch complete
+  const done = [
+    row('AA-0001', 'PUBLISHED', 'BATCH-A'),
+    row('BB-0001', 'BLOCKED', 'BATCH-B'),
+  ];
+  assert.strictEqual(factoryProgress(done, 't').completed_batches, 2);
+});
+
+test('empty --publish list is refused', () => {
+  const dir = makeSandbox();
+  assert.throws(() => runFactory(dir, ['--publish', '']), /non-empty comma-separated/);
+  assert.throws(() => runFactory(dir, ['--publish', ',,']), /non-empty comma-separated/);
+});
+
+test('--rebuild-report regenerates the cumulative batch report from matrix truth', () => {
+  const dir = makeSandbox();
+  const matrixBefore = fs.readFileSync(path.join(dir, 'data/content-matrix.csv'), 'utf8');
+  runFactory(dir, ['--rebuild-report', 'BATCH-001']);
+  // ledger untouched
+  assert.strictEqual(fs.readFileSync(path.join(dir, 'data/content-matrix.csv'), 'utf8'), matrixBefore);
+  const rep = JSON.parse(fs.readFileSync(path.join(dir, 'reports/batches/BATCH-001.json'), 'utf8'));
+  assert.strictEqual(rep.articles.length, 6, 'all batch members');
+  assert.strictEqual(rep.published, 1); // XM-0100
+  assert.strictEqual(rep.pass, 2);      // KN-0102 + XM-0101 (files present)
+  assert.strictEqual(rep.pass_publishable_now, 2);
+  assert.strictEqual(rep.writing, 1);   // KN-0101
+  assert.strictEqual(rep.processed, 4);
+  assert.strictEqual(rep.written, 3);
+  // md keeps operator notes and gains the full member table
+  const md = fs.readFileSync(path.join(dir, 'reports/batches/BATCH-001.md'), 'utf8');
+  assert.ok(md.includes('## Operator notes') && md.includes('Preserve me.'));
+  assert.ok(md.includes('| DL-0100 | cam-nang/x/dl-0100.html | PLANNED |'));
+  assert.ok(md.includes('| XM-0100 | cam-nang/x/xm-0100.html | PUBLISHED |'));
+});
+
+test('rebuildBatchReport (unit) preserves run details and audit SHA', () => {
+  const dir = makeSandbox();
+  setRepo(dir);
+  const rows = [
+    { article_id: 'ZZ-0001', output_path: 'cam-nang/x/zz-0001.html', status: 'PUBLISHED', score: '96', batch_id: 'BATCH-Z', notes: '', requires_sources: 'no' },
+    { article_id: 'ZZ-0002', output_path: 'cam-nang/x/zz-0002.html', status: 'WRITING', score: '', batch_id: 'BATCH-Z', notes: 'repair:2', requires_sources: 'no' },
+  ];
+  const out = rebuildBatchReport('BATCH-Z', rows, [
+    { article_id: 'ZZ-0001', repair_attempts: 1, quality_failures: ['x'] },
+  ], '2026-09-26T00:00:00');
+  const rep = JSON.parse(out[0].content);
+  assert.strictEqual(rep.published, 1);
+  assert.strictEqual(rep.writing, 1);
+  const byId = Object.fromEntries(rep.articles.map((a) => [a.article_id, a]));
+  assert.deepStrictEqual(byId['ZZ-0001'].quality_failures, ['x']);
+  assert.strictEqual(byId['ZZ-0002'].repair_attempts, 2); // from notes repair:2
+  assert.strictEqual(rep.min_score, 96);
+  assert.strictEqual(rep.average_score, 96);
+});
+
+// ------------------------------------- transaction recovery (--recover)
+
+test('interrupted publish is recoverable via --recover (transaction marker)', () => {
+  const dir = makeSandbox();
+  // simulate a power loss mid-transaction: crash after the FIRST rename
+  // (matrix applied, sitemap/hubs/reports still pre-transaction)
+  assert.throws(
+    () => runFactory(dir, ['--publish', 'KN-0102', '--date', '2026-09-26'],
+      { FACTORY_TEST_CRASH_AFTER_RENAMES: '1' }),
+    /factory exited 70/);
+  // partial state: matrix says PUBLISHED but sitemap/hubs/reports are stale
+  const led = parseLedger(fs.readFileSync(path.join(dir, 'data/content-matrix.csv'), 'utf8'));
+  assert.strictEqual(led.rows.find((r) => r.fields[0] === 'KN-0102').fields[1], 'PUBLISHED');
+  assert.throws(() => runFactory(dir, ['--consistency']), /CONSISTENCY FAIL/);
+  // pending transaction marker present
+  assert.ok(fs.existsSync(path.join(dir, 'data', 'batches', 'txn', 'txn.json')));
+  // further mutations are refused while the marker is pending
+  assert.throws(() => runFactory(dir, ['--publish', 'XM-0101']), /pending transaction marker/);
+  // recover the interrupted transaction
+  const out = runFactory(dir, ['--recover']);
+  assert.match(out, /RECOVER OK/);
+  // transaction fully applied and consistent; marker removed
+  runFactory(dir, ['--consistency']);
+  assert.ok(!fs.existsSync(path.join(dir, 'data', 'batches', 'txn')));
+  const sm = fs.readFileSync(path.join(dir, 'sitemap.xml'), 'utf8');
+  assert.ok(sm.includes('kn-0102.html'));
+  const rep = JSON.parse(fs.readFileSync(path.join(dir, 'reports/batches/BATCH-001.json'), 'utf8'));
+  assert.strictEqual(rep.published, 2); // XM-0100 + recovered KN-0102
+  // normal operation resumes afterwards
+  runFactory(dir, ['--publish', 'XM-0101', '--date', '2026-09-26']);
+  runFactory(dir, ['--consistency']);
+});
+
+test('--recover with no pending transaction is a clean no-op', () => {
+  const dir = makeSandbox();
+  const out = runFactory(dir, ['--recover']);
+  assert.match(out, /no pending transaction/);
 });

@@ -102,11 +102,24 @@ Node but not Python) is never blocked again:
   - `--publish "ID,ID"` — PASS→PUBLISHED only (file must exist, one batch
     only, score ≥ 90), then regenerates hub ARTICLE-LIST blocks,
     sitemap.xml, factory-progress.json and the batch report
+  - `--rebuild-report BATCH` — rewrite the CUMULATIVE batch report from
+    current matrix truth (all reserved members, matrix-derived counts)
+  - `--recover` — finish/verify an interrupted multi-file transaction
   - `--consistency` — verify matrix/hubs/sitemap agreement, no writes
   - `--dry-run`, `--date`, `--repo`, `--expect-rows` options
   - every output is computed and validated BEFORE the first write; writes
-    are a two-phase commit (all tmp files first, then renames), so a
-    failing or interrupted run never leaves partial publication state
+    are a two-phase commit (all tmp files first, then renames). Because
+    true cross-file atomicity is impossible on a plain filesystem, the
+    publish transaction also writes a recovery marker under
+    `data/batches/txn/` (gitignored) with the sha256 of each file's
+    pre/post content plus the planned content itself; an interruption
+    between renames is recovered deterministically by `--recover`
+    (mutations are refused while a marker is pending)
+  - batch reports are CUMULATIVE (all reserved members of the batch,
+    counts derived from the matrix — never just the latest run's rows);
+    `completed_batches` in factory-progress.json is derived from matrix
+    state: a batch counts as complete only when every reserved row is
+    terminal (PUBLISHED/FAIL/BLOCKED)
 - `tests/js/factory.test.mjs` — `node --test` suite (round-trip on the
   real ledger, byte-preservation, state machine, dry-run, full publish
   transaction on a sandbox, interrupted-run rollback, drift detection).
