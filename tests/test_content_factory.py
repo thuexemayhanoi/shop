@@ -59,7 +59,8 @@ class MatrixTests(FactoryTestCase):
     def test_valid_categories_and_hubs(self):
         for r in self.prod:
             self.assertIn(r["category"], lib.CATEGORIES)
-            self.assertEqual(r["parent_hub"], lib.CATEGORIES[r["category"]])
+            self.assertEqua
+l(r["parent_hub"], lib.CATEGORIES[r["category"]])
 
     def test_production_ids_match_pattern(self):
         import re
@@ -105,7 +106,8 @@ class BatchSelectionTests(FactoryTestCase):
     def test_select_claim_rows_max_50(self):
         rows = self.prod[:120]
         for r in rows:
-            r["status"] = "PLANNED"
+            r["status"] = "PLANNED
+"
         self.assertEqual(len(rb.select_claim_rows(rows, 50)), 50)
         self.assertEqual(len(rb.select_claim_rows(rows, 200)), 50)  # capped
 
@@ -145,16 +147,28 @@ class BatchSelectionTests(FactoryTestCase):
         self.assertEqual(len(b1), 50)
         self.assertTrue(all(r["batch_id"] == "BATCH-001" for r in b1))
         terminal = {"PUBLISHED", "FAIL", "BLOCKED"}
-        expected = "BATCH-001"
-        for r in self.matrix:
-            if r.get("batch_id") == "BATCH-001" and r["status"] not in terminal:
+        self.assertTrue(all(r["status"] in terminal for r in
+                            rb.batch_rows(self.matrix, "BATCH-001")))
+        # Expected --next resolution is DERIVED from live matrix state,
+        # never hard-coded: resume the first active batch, else the first
+        # batch with PLANNED rows, else None. Keeps the test valid as
+        # production advances past any given batch (e.g. once BATCH-002
+        # completes, --next must resolve to BATCH-003, not BATCH-002).
+        active = None
+        planned = None
+        for r in self.prod:
+            st = (r["status"] or "").strip()
+            if active is None and st in rb.ACTIVE_STATUSES:
+                active = r["batch_id"]
+            if planned is None and st == "PLANNED":
+                planned = r["batch_id"]
+            if active is not None and planned is not None:
                 break
-        else:
-            expected = "BATCH-002"
-        self.assertEqual(rb.next_batch_id(self.matrix), expected)
+        self.assertEqual(rb.next_batch_id(self.matrix), active or planned)
         done = [dict(r) for r in self.prod]
         for r in done:
-            r["status"] = "PUBLISHED"
+     
+       r["status"] = "PUBLISHED"
         self.assertIsNone(rb.next_batch_id(done + self.samples))
 
 
@@ -199,7 +213,8 @@ class PublishPolicyTests(FactoryTestCase):
     def test_review_article_not_published(self):
         ownership, facts, rubric = self._qa_env()
         row = self._row_for_fixture("review_weak_links.html", "ZZ-9997")
-        updates, articles = rb.run_qa_for_batch([row], self.matrix, ownership,
+  
+      updates, articles = rb.run_qa_for_batch([row], self.matrix, ownership,
                                                facts, rubric, ROOT)
         self.assertEqual(articles[0]["outcome"], "REVIEW")
         self.assertNotEqual(updates["ZZ-9997"]["status"], "PASS")
@@ -237,7 +252,8 @@ def reset_matrix_to_planned(path):
     row reset to PLANNED (published_date cleared), so runner tests
     exercise the claim/publish mechanism itself and stay independent of
     REAL production progress. SAMPLE rows are left untouched."""
-    with io.open(path, encoding="utf-8") as f:
+    with io.open
+(path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         header = list(reader.fieldnames)
         rows = list(reader)
@@ -286,7 +302,8 @@ rb.main_func(['--batch', 'BATCH-001', '--prepare-agent'])
             env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         try:
             manifest = os.path.join(tmp, "data", "batches", "BATCH-001.json")
-            self.assertEqual(code, 0)
+            
+self.assertEqual(code, 0)
             self.assertTrue(os.path.exists(manifest))
             data = json.load(io.open(manifest, encoding="utf-8"))
             self.assertEqual(len(data["articles"]), 50)
@@ -322,7 +339,8 @@ rb.main_func(['--batch', 'BATCH-001', '--prepare-agent'])
             [sys.executable, "-c", """
 import sys
 sys.path.insert(0, %r)
-import run_article_batch as rb, article_lib as lib
+import run_article_batch as rb, article_li
+b as lib
 lib.ROOT = %r
 rb.main_func(['--batch', 'BATCH-001', '--prepare-agent'])
 """ % (SCRIPTS, tmp)],
@@ -368,7 +386,8 @@ class SitemapTests(FactoryTestCase):
             shutil.copytree(os.path.join(ROOT, "config"),
                             os.path.join(tmp, "config"))
             shutil.copy(os.path.join(ROOT, "data", "content-matrix.csv"),
-                        os.path.join(tmp, "data", "content-matrix.csv"))
+                        os.path.join(tmp, "data", "content-ma
+trix.csv"))
             shutil.copy(os.path.join(ROOT, "sitemap.xml"),
                         os.path.join(tmp, "sitemap.xml"))
             code = subprocess.call(
