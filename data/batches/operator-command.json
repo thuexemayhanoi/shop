@@ -1,5 +1,6 @@
 {
-  "op": "requeue",
-  "ids": "AT-0023",
+  "op": "publish",
+  "batch": "BATCH-003",
+  "ids": "AT-0022,CD-0021,CD-0022,DL-0022,DL-0023,HD-0021,HD-0022,KN-0022,KN-0023,XM-0022,XM-0023",
   "date": "2026-09-26"
 }
