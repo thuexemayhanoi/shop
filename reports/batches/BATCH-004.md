@@ -1,11 +1,11 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:11:02
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:14:02
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 12 | pass: 3 | published: 8
-- writing: 38 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 97.1 | min 89 | max 100 | repair_count: 0
-- source_gate: pass 2 | blocked 0
+- processed: 50 | written: 12 | pass: 4 | published: 8
+- writing: 38 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.9 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 3 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -36,7 +36,7 @@
 | DL-0032 | cam-nang/du-lich/dl-0032-diem-dung-chup-anh-giua-duong-den-bao-tang-lich-su-quan-su-v.html | WRITING |  | 0 |  |
 | DL-0033 | cam-nang/du-lich/dl-0033-trai-nghiem-mot-ngay-o-bao-tang-ha-noi-bang-xe-may.html | WRITING |  | 0 |  |
 | HD-0026 | cam-nang/hoi-dap/hd-0026-phat-nguoi-gom-nhung-loi-xe-may-nao.html | PUBLISHED | 99 | 0 |  |
-| HD-0027 | cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html | FAIL | 89 | 0 | deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ); deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ) |
+| HD-0027 | cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html | PASS | 99 | 0 | deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ); deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ) |
 | HD-0028 | cam-nang/hoi-dap/hd-0028-xe-may-co-duoc-di-vao-duong-cao-toc-khong.html | WRITING |  | 0 |  |
 | HD-0029 | cam-nang/hoi-dap/hd-0029-xe-may-di-vao-ham-duong-bo-duoc-phep-khong.html | WRITING |  | 0 |  |
 | HD-0030 | cam-nang/hoi-dap/hd-0030-tre-em-ngoi-truoc-xe-may-co-duoc-khong.html | WRITING |  | 0 |  |
