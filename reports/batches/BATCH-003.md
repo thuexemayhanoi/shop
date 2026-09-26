@@ -1,10 +1,10 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T16:36:51
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T23:37:24
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 40 | pass: 5 | published: 35
+- processed: 50 | written: 40 | pass: 0 | published: 40
 - writing: 10 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.5 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 13 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -15,9 +15,9 @@
 | AT-0020 | cam-nang/an-toan/at-0020-doi-giay-phep-lai-xe-may-het-han-o-dau.html | PUBLISHED | 100 | 0 |  |
 | AT-0021 | cam-nang/an-toan/at-0021-giay-phep-lai-quoc-te-dung-cho-xe-may-o-viet-nam.html | PUBLISHED | 100 | 0 |  |
 | AT-0022 | cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html | PUBLISHED | 100 | 0 | wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như'; wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như' |
-| AT-0023 | cam-nang/an-toan/at-0023-xe-may-cho-hang-cong-kenh-vuot-quy-dinh-bi-phat-khong.html | PASS | 99 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
+| AT-0023 | cam-nang/an-toan/at-0023-xe-may-cho-hang-cong-kenh-vuot-quy-dinh-bi-phat-khong.html | PUBLISHED | 99 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | AT-0024 | cam-nang/an-toan/at-0024-nghi-dinh-xu-phat-vi-pham-giao-thong-duong-bo-voi-xe-may.html | WRITING |  | 0 |  |
-| AT-0025 | cam-nang/an-toan/at-0025-quy-dinh-ve-coi-va-tin-hieu-bao-re-tren-xe-may.html | PASS | 99 | 0 |  |
+| AT-0025 | cam-nang/an-toan/at-0025-quy-dinh-ve-coi-va-tin-hieu-bao-re-tren-xe-may.html | PUBLISHED | 99 | 0 |  |
 | CD-0017 | cam-nang/cung-duong/cd-0017-lich-trinh-chi-tiet-cho-chuyen-vinh-yen-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
 | CD-0018 | cam-nang/cung-duong/cd-0018-quan-ca-phe-dung-chan-tren-duong-vinh-yen.html | PUBLISHED | 95 | 0 |  |
 | CD-0019 | cam-nang/cung-duong/cd-0019-cung-duong-ngam-canh-tu-ha-noi-len-son-tay.html | PUBLISHED | 96 | 0 |  |
@@ -41,9 +41,9 @@
 | HD-0020 | cam-nang/hoi-dap/hd-0020-den-xi-nhan-xe-may-hong-co-bi-nhac-nho-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0021 | cam-nang/hoi-dap/hd-0021-co-duoc-keo-xe-may-bang-xe-may-khac-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0022 | cam-nang/hoi-dap/hd-0022-cho-binh-ga-tren-xe-may-co-duoc-khong.html | PUBLISHED | 100 | 0 |  |
-| HD-0023 | cam-nang/hoi-dap/hd-0023-su-dung-coi-am-i-tren-xe-may-co-bi-xu-phat-khong.html | PASS | 100 | 0 |  |
-| HD-0024 | cam-nang/hoi-dap/hd-0024-chay-xe-may-tren-via-he-luc-ngap-nuoc-co-bi-phat-khong.html | PASS | 100 | 0 |  |
-| HD-0025 | cam-nang/hoi-dap/hd-0025-khong-doi-mu-bao-hiem-bi-phat-bao-nhieu-tien.html | PASS | 99 | 0 |  |
+| HD-0023 | cam-nang/hoi-dap/hd-0023-su-dung-coi-am-i-tren-xe-may-co-bi-xu-phat-khong.html | PUBLISHED | 100 | 0 |  |
+| HD-0024 | cam-nang/hoi-dap/hd-0024-chay-xe-may-tren-via-he-luc-ngap-nuoc-co-bi-phat-khong.html | PUBLISHED | 100 | 0 |  |
+| HD-0025 | cam-nang/hoi-dap/hd-0025-khong-doi-mu-bao-hiem-bi-phat-bao-nhieu-tien.html | PUBLISHED | 99 | 0 |  |
 | KN-0018 | cam-nang/kinh-nghiem/kn-0018-thue-yamaha-sirius-di-duong-dai-nen-chuan-bi-nhung-gi.html | PUBLISHED | 99 | 0 |  |
 | KN-0019 | cam-nang/kinh-nghiem/kn-0019-yamaha-sirius-co-phu-hop-voi-nguoi-moi-tap-lai-xe-khong.html | PUBLISHED | 99 | 0 |  |
 | KN-0020 | cam-nang/kinh-nghiem/kn-0020-kinh-nghiem-tiet-kiem-xang-khi-chay-yamaha-sirius.html | PUBLISHED | 100 | 0 |  |
