@@ -1,10 +1,10 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T01:30:45
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:35:29
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 22 | pass: 0 | published: 22
-- writing: 28 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.4 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 24 | pass: 2 | published: 22
+- writing: 26 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.3 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 4 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -24,8 +24,8 @@
 | CD-0028 | cam-nang/cung-duong/cd-0028-cung-duong-vong-qua-moc-chau-co-gi-khac.html | PUBLISHED | 97 | 0 | wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'; wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000' |
 | CD-0029 | cam-nang/cung-duong/cd-0029-lich-trinh-moc-chau-danh-cho-nhom-di-phuot.html | PUBLISHED | 95 | 0 |  |
 | CD-0030 | cam-nang/cung-duong/cd-0030-diem-dung-trua-tren-duong-di-moc-chau.html | PUBLISHED | 97 | 0 |  |
-| CD-0031 | cam-nang/cung-duong/cd-0031-cung-duong-di-xe-may-tu-ha-noi-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
-| CD-0032 | cam-nang/cung-duong/cd-0032-lich-trinh-2-ngay-1-dem-di-xe-may-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
+| CD-0031 | cam-nang/cung-duong/cd-0031-cung-duong-di-xe-may-tu-ha-noi-den-thanh-pho-son-la.html | PASS | 97 | 0 |  |
+| CD-0032 | cam-nang/cung-duong/cd-0032-lich-trinh-2-ngay-1-dem-di-xe-may-den-thanh-pho-son-la.html | PASS | 97 | 0 |  |
 | CD-0033 | cam-nang/cung-duong/cd-0033-diem-dung-chan-dep-tren-cung-duong-ha-noi-thanh-pho-son-la.html | WRITING |  | 0 |  |
 | DL-0026 | cam-nang/du-lich/dl-0026-sang-som-hay-chieu-muon-den-bao-tang-dan-toc-hoc-viet-nam-de.html | PUBLISHED | 99 | 0 |  |
 | DL-0027 | cam-nang/du-lich/dl-0027-quan-an-gan-bai-xe-o-bao-tang-dan-toc-hoc-viet-nam.html | PUBLISHED | 99 | 0 |  |
