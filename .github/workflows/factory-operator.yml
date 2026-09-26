@@ -104,6 +104,7 @@ jobs:
         run: |
           code=0
           python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
+          grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
           if [ "$code" != "0" ]; then tail -n 80 reports/batches/unittest-output.txt; exit 1; fi
           node --test tests/js/factory.test.mjs
 
@@ -113,8 +114,10 @@ jobs:
           mkdir -p reports/batches
           code=0
           python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
+          grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
+          sed -n "/^Traceback/,/^$/p" reports/batches/unittest-output.txt | tail -n 120 >> reports/batches/unittest-failures.txt || true
           echo "unittest exit code: $code"
-          tail -n 60 reports/batches/unittest-output.txt || true
+          cat reports/batches/unittest-failures.txt || true
           exit 0
 
       - name: Commit and push deterministic outputs
@@ -122,6 +125,7 @@ jobs:
           set -eu
           git config user.name "factory-operator-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -r -q --cached scripts/__pycache__ tests/__pycache__ 2>/dev/null || true
           git rm -f --ignore-unmatch --quiet data/batches/operator-command.json || true
           rm -f data/batches/operator-command.json
           if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then

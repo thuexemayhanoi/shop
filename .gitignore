@@ -12,3 +12,7 @@ data/batches/*.lock
 # Transaction/recovery marker for interrupted multi-file factory
 # mutations (scripts/js/factory.mjs --publish / --recover)
 data/batches/txn/
+
+# Python bytecode caches (never commit)
+__pycache__/
+*.pyc
