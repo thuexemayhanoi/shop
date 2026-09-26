@@ -1,11 +1,11 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:42:44
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:45:37
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 45 | pass: 1 | published: 44
-- writing: 5 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 50 | pass: 6 | published: 44
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 7 | blocked 0
+- source_gate: pass 12 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -37,11 +37,11 @@
 | DL-0017 | cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-lon.html | PUBLISHED | 97 | 0 |  |
 | HD-0009 | cam-nang/hoi-dap/hd-0009-mu-bao-hiem-can-dat-tieu-chuan-nao.html | PUBLISHED | 98 | 0 |  |
 | HD-0010 | cam-nang/hoi-dap/hd-0010-xe-may-chay-toi-da-bao-nhieu-km-mot-gio-trong-pho.html | PUBLISHED | 99 | 0 |  |
-| HD-0011 | cam-nang/hoi-dap/hd-0011-nguoi-ngoi-sau-khong-doi-mu-co-bi-phat-khong.html | WRITING |  | 0 |  |
-| HD-0012 | cam-nang/hoi-dap/hd-0012-xe-may-het-han-dang-kiem-con-chay-duoc-khong.html | WRITING |  | 0 |  |
-| HD-0013 | cam-nang/hoi-dap/hd-0013-bang-lai-a1-dung-duoc-bao-nhieu-nam.html | WRITING |  | 0 |  |
-| HD-0014 | cam-nang/hoi-dap/hd-0014-mat-giay-dang-ky-xe-phai-lam-sao.html | WRITING |  | 0 |  |
-| HD-0015 | cam-nang/hoi-dap/hd-0015-doi-mu-bao-hiem-khong-cai-day-co-bi-phat-khong.html | WRITING |  | 0 |  |
+| HD-0011 | cam-nang/hoi-dap/hd-0011-nguoi-ngoi-sau-khong-doi-mu-co-bi-phat-khong.html | PASS | 99 | 0 |  |
+| HD-0012 | cam-nang/hoi-dap/hd-0012-xe-may-het-han-dang-kiem-con-chay-duoc-khong.html | PASS | 97 | 0 |  |
+| HD-0013 | cam-nang/hoi-dap/hd-0013-bang-lai-a1-dung-duoc-bao-nhieu-nam.html | PASS | 97 | 0 |  |
+| HD-0014 | cam-nang/hoi-dap/hd-0014-mat-giay-dang-ky-xe-phai-lam-sao.html | PASS | 99 | 0 |  |
+| HD-0015 | cam-nang/hoi-dap/hd-0015-doi-mu-bao-hiem-khong-cai-day-co-bi-phat-khong.html | PASS | 99 | 0 |  |
 | HD-0016 | cam-nang/hoi-dap/hd-0016-xe-may-co-can-guong-hai-ben-khong.html | PUBLISHED | 99 | 0 |  |
 | KN-0010 | cam-nang/kinh-nghiem/kn-0010-kinh-nghiem-de-xe-va-giu-thang-bang-voi-honda-wave.html | PUBLISHED | 100 | 0 |  |
 | KN-0011 | cam-nang/kinh-nghiem/kn-0011-chay-honda-wave-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | PUBLISHED | 100 | 0 |  |
