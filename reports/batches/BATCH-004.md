@@ -1,8 +1,8 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:28:01
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T01:28:27
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 20 | pass: 2 | published: 18
+- processed: 50 | written: 20 | pass: 0 | published: 20
 - writing: 30 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 4 | blocked 0
@@ -22,7 +22,7 @@
 | CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 95 | 0 |  |
 | CD-0027 | cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 95 | 0 |  |
 | CD-0028 | cam-nang/cung-duong/cd-0028-cung-duong-vong-qua-moc-chau-co-gi-khac.html | PUBLISHED | 97 | 0 | wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'; wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000' |
-| CD-0029 | cam-nang/cung-duong/cd-0029-lich-trinh-moc-chau-danh-cho-nhom-di-phuot.html | PASS | 95 | 0 |  |
+| CD-0029 | cam-nang/cung-duong/cd-0029-lich-trinh-moc-chau-danh-cho-nhom-di-phuot.html | PUBLISHED | 95 | 0 |  |
 | CD-0030 | cam-nang/cung-duong/cd-0030-diem-dung-trua-tren-duong-di-moc-chau.html | WRITING |  | 0 |  |
 | CD-0031 | cam-nang/cung-duong/cd-0031-cung-duong-di-xe-may-tu-ha-noi-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
 | CD-0032 | cam-nang/cung-duong/cd-0032-lich-trinh-2-ngay-1-dem-di-xe-may-den-thanh-pho-son-la.html | WRITING |  | 0 |  |
@@ -30,7 +30,7 @@
 | DL-0026 | cam-nang/du-lich/dl-0026-sang-som-hay-chieu-muon-den-bao-tang-dan-toc-hoc-viet-nam-de.html | PUBLISHED | 99 | 0 |  |
 | DL-0027 | cam-nang/du-lich/dl-0027-quan-an-gan-bai-xe-o-bao-tang-dan-toc-hoc-viet-nam.html | PUBLISHED | 99 | 0 |  |
 | DL-0028 | cam-nang/du-lich/dl-0028-chup-anh-doan-xe-o-bao-tang-dan-toc-hoc-viet-nam-o-dau-dep.html | PUBLISHED | 95 | 0 | wrong price for Honda Vision: found 0 near 'tuần, còn Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'; wrong price for Honda Vision: found 0 near 'tuần, còn Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000' |
-| DL-0029 | cam-nang/du-lich/dl-0029-di-xe-may-den-bao-tang-lich-su-quan-su-viet-nam-co-kho-tim-d.html | PASS | 95 | 0 |  |
+| DL-0029 | cam-nang/du-lich/dl-0029-di-xe-may-den-bao-tang-lich-su-quan-su-viet-nam-co-kho-tim-d.html | PUBLISHED | 95 | 0 |  |
 | DL-0030 | cam-nang/du-lich/dl-0030-dip-le-den-bao-tang-lich-su-quan-su-viet-nam-co-dong-nguoi-k.html | WRITING |  | 0 |  |
 | DL-0031 | cam-nang/du-lich/dl-0031-do-an-vat-duong-pho-o-bao-tang-lich-su-quan-su-viet-nam-the.html | WRITING |  | 0 |  |
 | DL-0032 | cam-nang/du-lich/dl-0032-diem-dung-chup-anh-giua-duong-den-bao-tang-lich-su-quan-su-v.html | WRITING |  | 0 |  |
