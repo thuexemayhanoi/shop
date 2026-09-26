@@ -1,19 +1,19 @@
 {
   "batch_id": "BATCH-004",
   "started_at": "2026-09-26T17:05:35",
-  "finished_at": "2026-09-27T01:19:09",
+  "finished_at": "2026-09-26T18:22:27",
   "writer": "external-agent",
   "processed": 50,
-  "written": 16,
+  "written": 18,
   "pass": 0,
   "published": 16,
-  "writing": 34,
+  "writing": 32,
   "review": 0,
   "repair": 0,
-  "fail": 0,
+  "fail": 2,
   "blocked": 0,
-  "average_score": 98,
-  "min_score": 95,
+  "average_score": 96.7,
+  "min_score": 85,
   "max_score": 100,
   "repair_count": 0,
   "source_gate_pass": 4,
@@ -134,10 +134,13 @@
     {
       "article_id": "CD-0028",
       "output_path": "cam-nang/cung-duong/cd-0028-cung-duong-vong-qua-moc-chau-co-gi-khac.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 87,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'",
+        "wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
@@ -214,10 +217,13 @@
     {
       "article_id": "DL-0028",
       "output_path": "cam-nang/du-lich/dl-0028-chup-anh-doan-xe-o-bao-tang-dan-toc-hoc-viet-nam-o-dau-dep.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 85,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "wrong price for Honda Vision: found 0 near 'tuần, còn Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'",
+        "wrong price for Honda Vision: found 0 near 'tuần, còn Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
