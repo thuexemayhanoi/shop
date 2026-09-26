@@ -1,17 +1,17 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T22:19:50
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T15:26:31
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 6 | pass: 0 | published: 6
-- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.2 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 12 | pass: 2 | published: 6
+- writing: 38 | review: 0 | repair: 2 | fail: 2 | blocked: 0
+- scores: avg 96.8 | min 92 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0018 | cam-nang/an-toan/at-0018-cho-tre-em-duoi-10-tuoi-tren-xe-may-quy-dinh-the-nao.html | PUBLISHED | 99 | 0 |  |
-| AT-0019 | cam-nang/an-toan/at-0019-xe-may-het-dang-kiem-co-bi-giu-xe-khong.html | WRITING |  | 0 |  |
+| AT-0019 | cam-nang/an-toan/at-0019-xe-may-het-dang-kiem-co-bi-giu-xe-khong.html | FAIL | 94 | 0 | broken internal link: 'cam-nang/an-toan/antoan.html'; broken internal link: 'cam-nang/hoidap.html' |
 | AT-0020 | cam-nang/an-toan/at-0020-doi-giay-phep-lai-xe-may-het-han-o-dau.html | WRITING |  | 0 |  |
 | AT-0021 | cam-nang/an-toan/at-0021-giay-phep-lai-quoc-te-dung-cho-xe-may-o-viet-nam.html | WRITING |  | 0 |  |
 | AT-0022 | cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html | WRITING |  | 0 |  |
@@ -19,7 +19,7 @@
 | AT-0024 | cam-nang/an-toan/at-0024-nghi-dinh-xu-phat-vi-pham-giao-thong-duong-bo-voi-xe-may.html | WRITING |  | 0 |  |
 | AT-0025 | cam-nang/an-toan/at-0025-quy-dinh-ve-coi-va-tin-hieu-bao-re-tren-xe-may.html | WRITING |  | 0 |  |
 | CD-0017 | cam-nang/cung-duong/cd-0017-lich-trinh-chi-tiet-cho-chuyen-vinh-yen-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
-| CD-0018 | cam-nang/cung-duong/cd-0018-quan-ca-phe-dung-chan-tren-duong-vinh-yen.html | WRITING |  | 0 |  |
+| CD-0018 | cam-nang/cung-duong/cd-0018-quan-ca-phe-dung-chan-tren-duong-vinh-yen.html | PASS | 95 | 0 |  |
 | CD-0019 | cam-nang/cung-duong/cd-0019-cung-duong-ngam-canh-tu-ha-noi-len-son-tay.html | WRITING |  | 0 |  |
 | CD-0020 | cam-nang/cung-duong/cd-0020-mot-ngay-mot-dem-o-son-tay-co-du-khong.html | WRITING |  | 0 |  |
 | CD-0021 | cam-nang/cung-duong/cd-0021-diem-check-in-doc-cung-duong-den-son-tay.html | WRITING |  | 0 |  |
@@ -28,7 +28,7 @@
 | CD-0024 | cam-nang/cung-duong/cd-0024-noi-tiep-nuoc-va-nghi-giai-lao-di-thanh-pho-hoa-binh.html | WRITING |  | 0 |  |
 | CD-0025 | cam-nang/cung-duong/cd-0025-ra-mai-chau-bang-xe-may-di-trong-ngay-duoc-khong.html | WRITING |  | 0 |  |
 | DL-0018 | cam-nang/du-lich/dl-0018-troi-mua-co-dang-di-hoang-thanh-thang-long-bang-xe-may-khong.html | PUBLISHED | 97 | 0 |  |
-| DL-0019 | cam-nang/du-lich/dl-0019-nghi-trua-an-gi-khi-di-hoang-thanh-thang-long-bang-xe-may.html | WRITING |  | 0 |  |
+| DL-0019 | cam-nang/du-lich/dl-0019-nghi-trua-an-gi-khi-di-hoang-thanh-thang-long-bang-xe-may.html | FAIL | 92 | 0 | broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html'; broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html' |
 | DL-0020 | cam-nang/du-lich/dl-0020-vi-tri-chup-anh-o-hoang-thanh-thang-long-it-nguoi-biet.html | WRITING |  | 0 |  |
 | DL-0021 | cam-nang/du-lich/dl-0021-di-xe-may-den-cot-co-ha-noi-lan-dau-can-biet-gi.html | WRITING |  | 0 |  |
 | DL-0022 | cam-nang/du-lich/dl-0022-mua-dong-den-cot-co-ha-noi-bang-xe-may-co-lanh-lam-khong.html | WRITING |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0024 | cam-nang/du-lich/dl-0024-goc-view-ven-duong-khi-chay-xe-den-cot-co-ha-noi.html | WRITING |  | 0 |  |
 | DL-0025 | cam-nang/du-lich/dl-0025-chuyen-cuoi-tuan-den-bao-tang-dan-toc-hoc-viet-nam-bang-xe-m.html | WRITING |  | 0 |  |
 | HD-0017 | cam-nang/hoi-dap/hd-0017-nop-phat-nguoi-online-o-dau.html | PUBLISHED | 100 | 0 |  |
-| HD-0018 | cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html | WRITING |  | 0 |  |
+| HD-0018 | cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html | REPAIR | 96 | 0 |  |
 | HD-0019 | cam-nang/hoi-dap/hd-0019-xe-may-dien-bi-phat-nguoi-duoc-khong.html | WRITING |  | 0 |  |
 | HD-0020 | cam-nang/hoi-dap/hd-0020-den-xi-nhan-xe-may-hong-co-bi-nhac-nho-khong.html | WRITING |  | 0 |  |
 | HD-0021 | cam-nang/hoi-dap/hd-0021-co-duoc-keo-xe-may-bang-xe-may-khac-khong.html | WRITING |  | 0 |  |
@@ -45,7 +45,7 @@
 | HD-0024 | cam-nang/hoi-dap/hd-0024-chay-xe-may-tren-via-he-luc-ngap-nuoc-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0025 | cam-nang/hoi-dap/hd-0025-khong-doi-mu-bao-hiem-bi-phat-bao-nhieu-tien.html | WRITING |  | 0 |  |
 | KN-0018 | cam-nang/kinh-nghiem/kn-0018-thue-yamaha-sirius-di-duong-dai-nen-chuan-bi-nhung-gi.html | PUBLISHED | 99 | 0 |  |
-| KN-0019 | cam-nang/kinh-nghiem/kn-0019-yamaha-sirius-co-phu-hop-voi-nguoi-moi-tap-lai-xe-khong.html | WRITING |  | 0 |  |
+| KN-0019 | cam-nang/kinh-nghiem/kn-0019-yamaha-sirius-co-phu-hop-voi-nguoi-moi-tap-lai-xe-khong.html | PASS | 99 | 0 |  |
 | KN-0020 | cam-nang/kinh-nghiem/kn-0020-kinh-nghiem-tiet-kiem-xang-khi-chay-yamaha-sirius.html | WRITING |  | 0 |  |
 | KN-0021 | cam-nang/kinh-nghiem/kn-0021-nhan-biet-yamaha-sirius-cu-ky-truoc-khi-thue-nhu-the-nao.html | WRITING |  | 0 |  |
 | KN-0022 | cam-nang/kinh-nghiem/kn-0022-cac-loi-hay-gap-tren-yamaha-sirius-da-chay-nhieu-nam.html | WRITING |  | 0 |  |
@@ -53,7 +53,7 @@
 | KN-0024 | cam-nang/kinh-nghiem/kn-0024-kinh-nghiem-giu-an-toan-cho-yamaha-sirius-khi-gui-xe-qua-dem.html | WRITING |  | 0 |  |
 | KN-0025 | cam-nang/kinh-nghiem/kn-0025-di-thu-yamaha-sirius-quanh-pho-truoc-khi-thue-can-kiem-tra-g.html | WRITING |  | 0 |  |
 | XM-0018 | cam-nang/xe-may/xm-0018-cach-kiem-tra-day-con-tren-honda-wave.html | PUBLISHED | 98 | 0 |  |
-| XM-0019 | cam-nang/xe-may/xm-0019-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-honda-wave.html | WRITING |  | 0 |  |
+| XM-0019 | cam-nang/xe-may/xm-0019-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-honda-wave.html | REPAIR | 96 | 0 |  |
 | XM-0020 | cam-nang/xe-may/xm-0020-bao-duong-ban-dap-cua-honda-wave-dung-cach.html | WRITING |  | 0 |  |
 | XM-0021 | cam-nang/xe-may/xm-0021-cach-kiem-tra-bugi-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | XM-0022 | cam-nang/xe-may/xm-0022-khi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html | WRITING |  | 0 |  |
