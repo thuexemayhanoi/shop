@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-004",
   "started_at": "2026-09-26T17:05:35",
-  "finished_at": "2026-09-26T18:38:31",
+  "finished_at": "2026-09-27T01:39:04",
   "writer": "external-agent",
   "processed": 50,
   "written": 26,
-  "pass": 2,
-  "published": 24,
+  "pass": 0,
+  "published": 26,
   "writing": 24,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 4,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0026",
@@ -187,7 +187,7 @@
     {
       "article_id": "CD-0033",
       "output_path": "cam-nang/cung-duong/cd-0033-diem-dung-chan-dep-tren-cung-duong-ha-noi-thanh-pho-son-la.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -250,7 +250,7 @@
     {
       "article_id": "DL-0031",
       "output_path": "cam-nang/du-lich/dl-0031-do-an-vat-duong-pho-o-bao-tang-lich-su-quan-su-viet-nam-the.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
