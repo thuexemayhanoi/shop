@@ -13,5 +13,5 @@
   "completed_batches": 0,
   "active_batch": "BATCH-001",
   "next_batch": "BATCH-001",
-  "published_commit_sha": null
+  "published_commit_sha": "28b8c3f0bf7dc03e2d90709f481befc846d7fee4"
 }
