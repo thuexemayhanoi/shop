@@ -661,10 +661,43 @@ def find_price_claims(text):
     return claims
 
 
+
+
+def check_legal_regressions(text):
+    """Return list of legal-truth regression failures (CRITICAL).
+
+    Rejects superseded/incorrect legal claims about motorcycles:
+    1. motorcycle speed outside populated areas = 90/80 km/h (automobile limits)
+    2. ordinary motorcycles on expressways at 100 km/h
+    3. current licence for 125-175cc motorcycles = A2 (superseded; Law 36/2024 uses A1/A)
+    4. blanket claim that every foreign IDP must be exchanged/legalized
+    """
+    failures = []
+    pats = [
+        (r"ngo[ài]i khu[^.\n]{0,120}(?:90|80)\s*km/h",
+         "motorcycle outside-populated-area speed 90/80 km/h (automobile limits)"),
+        (r"(?:90|80)\s*km/h[^.\n]{0,60}ngo[àa]i khu",
+         "motorcycle outside-populated-area speed 90/80 km/h (automobile limits)"),
+        (r"cao t[ốo]c[^.\n]{0,160}100\s*km/h",
+         "ordinary motorcycle expressway use at 100 km/h"),
+        (r"100\s*km/h[^.\n]{0,80}cao t[ốo]c",
+         "ordinary motorcycle expressway use at 100 km/h"),
+        (r"(?:h[ạa]ng\s*A2[^.\n]{0,100}(?:125|175))|(?:(?:125|175)[^.\n]{0,100}h[ạa]ng\s*A2)",
+         "superseded licence classification A2 for 125-175cc motorcycles"),
+        (r"gi[ấa]y ph[éa]p l[ái]i xe qu[ốo]c t[ếe][^.\n]{0,120}(?:h[ợo]p ph[áa]p h[óo]a|[đd][ổo]i sang|ph[ẳa]i [đd][ổo]i)",
+         "blanket claim that every foreign IDP must be exchanged/legalized"),
+    ]
+    for pat, msg in pats:
+        if re.search(pat, text, re.I):
+            failures.append("legal regression: %s" % msg)
+    return failures
+
+
 def check_fact_safety(article, facts):
     """Return (failures, warnings). failures are CRITICAL."""
     failures, warnings = [], []
     text = article.body_text
+    failures.extend(check_legal_regressions(text))
     approved = facts["approved_models"]
     unknown_models = [m.lower() for m in facts.get("unapproved_models", [])]
     deposit_msg = facts["deposit_policy"]["standard_wording"]
