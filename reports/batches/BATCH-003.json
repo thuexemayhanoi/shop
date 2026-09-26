@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-003",
   "started_at": "2026-09-26T15:19:08",
-  "finished_at": "2026-09-26T16:06:26",
+  "finished_at": "2026-09-26T16:10:24",
   "writer": "external-agent",
   "processed": 50,
   "written": 30,
-  "pass": 2,
+  "pass": 5,
   "published": 24,
   "writing": 20,
   "review": 0,
-  "repair": 3,
+  "repair": 0,
   "fail": 1,
   "blocked": 0,
   "average_score": 98.1,
@@ -19,7 +19,7 @@
   "source_gate_pass": 7,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 5,
   "articles": [
     {
       "article_id": "AT-0018",
@@ -152,7 +152,7 @@
     {
       "article_id": "CD-0021",
       "output_path": "cam-nang/cung-duong/cd-0021-diem-check-in-doc-cung-duong-den-son-tay.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -245,7 +245,7 @@
     {
       "article_id": "DL-0022",
       "output_path": "cam-nang/du-lich/dl-0022-mua-dong-den-cot-co-ha-noi-bang-xe-may-co-lanh-lam-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -495,7 +495,7 @@
     {
       "article_id": "XM-0022",
       "output_path": "cam-nang/xe-may/xm-0022-khi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
