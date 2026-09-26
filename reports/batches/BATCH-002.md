@@ -1,11 +1,11 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T21:34:51
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:42:44
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 44 | pass: 0 | published: 44
-- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 45 | pass: 1 | published: 44
+- writing: 5 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 6 | blocked 0
+- source_gate: pass 7 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -17,7 +17,7 @@
 | AT-0014 | cam-nang/an-toan/at-0014-bao-hiem-trach-nhiem-dan-su-xe-may-bat-buoc-nhu-the-nao.html | PUBLISHED | 99 | 0 |  |
 | AT-0015 | cam-nang/an-toan/at-0015-khong-mang-theo-giay-to-xe-bi-xu-ly-ra-sao.html | PUBLISHED | 99 | 0 |  |
 | AT-0016 | cam-nang/an-toan/at-0016-xe-may-khong-co-guong-hau-co-bi-phat-khong.html | PUBLISHED | 99 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
-| AT-0017 | cam-nang/an-toan/at-0017-quy-dinh-den-xe-may-khi-chay-ban-dem.html | WRITING |  | 0 |  |
+| AT-0017 | cam-nang/an-toan/at-0017-quy-dinh-den-xe-may-khi-chay-ban-dem.html | PASS | 97 | 0 |  |
 | CD-0009 | cam-nang/cung-duong/cd-0009-tram-dung-nghi-ven-duong-toi-thai-nguyen.html | PUBLISHED | 97 | 0 |  |
 | CD-0010 | cam-nang/cung-duong/cd-0010-ha-noi-den-viet-tri-quoc-lo-nao-nen-chon.html | PUBLISHED | 95 | 0 |  |
 | CD-0011 | cam-nang/cung-duong/cd-0011-hai-ngay-o-viet-tri-lich-trinh-goi-y-cho-nguoi-di-xe.html | PUBLISHED | 96 | 0 |  |
