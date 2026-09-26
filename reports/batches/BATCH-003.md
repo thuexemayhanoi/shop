@@ -1,11 +1,11 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T15:43:09
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T15:50:38
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 18 | pass: 3 | published: 12
-- writing: 32 | review: 0 | repair: 3 | fail: 0 | blocked: 0
+- processed: 50 | written: 18 | pass: 6 | published: 12
+- writing: 32 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.2 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 5 | blocked 0
+- source_gate: pass 6 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -29,7 +29,7 @@
 | CD-0025 | cam-nang/cung-duong/cd-0025-ra-mai-chau-bang-xe-may-di-trong-ngay-duoc-khong.html | WRITING |  | 0 |  |
 | DL-0018 | cam-nang/du-lich/dl-0018-troi-mua-co-dang-di-hoang-thanh-thang-long-bang-xe-may-khong.html | PUBLISHED | 97 | 0 |  |
 | DL-0019 | cam-nang/du-lich/dl-0019-nghi-trua-an-gi-khi-di-hoang-thanh-thang-long-bang-xe-may.html | PUBLISHED | 97 | 0 | broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html'; broken internal link: 'cam-nang/du-lich/dl-0017-nen-xuat-phat-may-gio-de-di-xe-may-den-hoang-thanh-thang-long.html' |
-| DL-0020 | cam-nang/du-lich/dl-0020-vi-tri-chup-anh-o-hoang-thanh-thang-long-it-nguoi-biet.html | REPAIR | 98 | 0 |  |
+| DL-0020 | cam-nang/du-lich/dl-0020-vi-tri-chup-anh-o-hoang-thanh-thang-long-it-nguoi-biet.html | PASS | 98 | 0 |  |
 | DL-0021 | cam-nang/du-lich/dl-0021-di-xe-may-den-cot-co-ha-noi-lan-dau-can-biet-gi.html | WRITING |  | 0 |  |
 | DL-0022 | cam-nang/du-lich/dl-0022-mua-dong-den-cot-co-ha-noi-bang-xe-may-co-lanh-lam-khong.html | WRITING |  | 0 |  |
 | DL-0023 | cam-nang/du-lich/dl-0023-mon-gi-dang-mua-ve-tu-cot-co-ha-noi.html | WRITING |  | 0 |  |
@@ -37,7 +37,7 @@
 | DL-0025 | cam-nang/du-lich/dl-0025-chuyen-cuoi-tuan-den-bao-tang-dan-toc-hoc-viet-nam-bang-xe-m.html | WRITING |  | 0 |  |
 | HD-0017 | cam-nang/hoi-dap/hd-0017-nop-phat-nguoi-online-o-dau.html | PUBLISHED | 100 | 0 |  |
 | HD-0018 | cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html | PUBLISHED | 100 | 0 |  |
-| HD-0019 | cam-nang/hoi-dap/hd-0019-xe-may-dien-bi-phat-nguoi-duoc-khong.html | REPAIR | 98 | 0 |  |
+| HD-0019 | cam-nang/hoi-dap/hd-0019-xe-may-dien-bi-phat-nguoi-duoc-khong.html | PASS | 98 | 0 |  |
 | HD-0020 | cam-nang/hoi-dap/hd-0020-den-xi-nhan-xe-may-hong-co-bi-nhac-nho-khong.html | WRITING |  | 0 |  |
 | HD-0021 | cam-nang/hoi-dap/hd-0021-co-duoc-keo-xe-may-bang-xe-may-khac-khong.html | WRITING |  | 0 |  |
 | HD-0022 | cam-nang/hoi-dap/hd-0022-cho-binh-ga-tren-xe-may-co-duoc-khong.html | WRITING |  | 0 |  |
@@ -46,7 +46,7 @@
 | HD-0025 | cam-nang/hoi-dap/hd-0025-khong-doi-mu-bao-hiem-bi-phat-bao-nhieu-tien.html | WRITING |  | 0 |  |
 | KN-0018 | cam-nang/kinh-nghiem/kn-0018-thue-yamaha-sirius-di-duong-dai-nen-chuan-bi-nhung-gi.html | PUBLISHED | 99 | 0 |  |
 | KN-0019 | cam-nang/kinh-nghiem/kn-0019-yamaha-sirius-co-phu-hop-voi-nguoi-moi-tap-lai-xe-khong.html | PUBLISHED | 99 | 0 |  |
-| KN-0020 | cam-nang/kinh-nghiem/kn-0020-kinh-nghiem-tiet-kiem-xang-khi-chay-yamaha-sirius.html | REPAIR | 100 | 0 |  |
+| KN-0020 | cam-nang/kinh-nghiem/kn-0020-kinh-nghiem-tiet-kiem-xang-khi-chay-yamaha-sirius.html | PASS | 100 | 0 |  |
 | KN-0021 | cam-nang/kinh-nghiem/kn-0021-nhan-biet-yamaha-sirius-cu-ky-truoc-khi-thue-nhu-the-nao.html | WRITING |  | 0 |  |
 | KN-0022 | cam-nang/kinh-nghiem/kn-0022-cac-loi-hay-gap-tren-yamaha-sirius-da-chay-nhieu-nam.html | WRITING |  | 0 |  |
 | KN-0023 | cam-nang/kinh-nghiem/kn-0023-chay-yamaha-sirius-cho-them-mot-nguoi-co-on-khong.html | WRITING |  | 0 |  |
