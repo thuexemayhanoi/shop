@@ -1,8 +1,8 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T12:27:26
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T19:27:51
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 8 | pass: 4 | published: 4
+- processed: 50 | written: 8 | pass: 0 | published: 8
 - writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
@@ -10,7 +10,7 @@
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0010 | cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html | PASS | 99 | 0 | wrong price for Honda Vision: found 0 near 'và khoảng 900.000đ đến 1.200.000đ/tháng. Honda Vision'; wrong price for Honda Air Blade: found 0 near 'g. Honda Air Blade cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và 1.500.000đ/' |
+| AT-0010 | cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html | PUBLISHED | 99 | 0 | wrong price for Honda Vision: found 0 near 'và khoảng 900.000đ đến 1.200.000đ/tháng. Honda Vision'; wrong price for Honda Air Blade: found 0 near 'g. Honda Air Blade cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và 1.500.000đ/' |
 | AT-0011 | cam-nang/an-toan/at-0011-do-tuoi-duoc-cap-giay-phep-lai-xe-may.html | WRITING |  | 0 |  |
 | AT-0012 | cam-nang/an-toan/at-0012-nguoi-nuoc-ngoai-lai-xe-may-o-viet-nam-can-giay-to-gi.html | WRITING |  | 0 |  |
 | AT-0013 | cam-nang/an-toan/at-0013-quy-dinh-ve-mu-bao-hiem-cho-nguoi-ngoi-sau-xe-may.html | WRITING |  | 0 |  |
@@ -27,7 +27,7 @@
 | CD-0015 | cam-nang/cung-duong/cd-0015-bai-do-an-toan-doc-duong-di-thanh-pho-phu-tho.html | WRITING |  | 0 |  |
 | CD-0016 | cam-nang/cung-duong/cd-0016-chay-xe-may-tu-ha-noi-ra-vinh-yen-nen-di-luc-nao.html | WRITING |  | 0 |  |
 | DL-0009 | cam-nang/du-lich/dl-0009-lo-trinh-di-xe-may-tu-ha-noi-den-chua-tran-quoc.html | PUBLISHED | 99 | 0 |  |
-| DL-0010 | cam-nang/du-lich/dl-0010-di-xe-may-den-chua-tran-quoc-cuoi-tuan-hay-ngay-thuong.html | PASS | 96 | 0 | wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000'; wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000' |
+| DL-0010 | cam-nang/du-lich/dl-0010-di-xe-may-den-chua-tran-quoc-cuoi-tuan-hay-ngay-thuong.html | PUBLISHED | 96 | 0 | wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000'; wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000' |
 | DL-0011 | cam-nang/du-lich/dl-0011-quan-an-noi-tieng-gan-chua-tran-quoc-cho-khach-di-xe-may.html | WRITING |  | 0 |  |
 | DL-0012 | cam-nang/du-lich/dl-0012-chup-anh-sang-som-o-chua-tran-quoc-co-gi-dep.html | WRITING |  | 0 |  |
 | DL-0013 | cam-nang/du-lich/dl-0013-di-trong-ngay-den-van-mieu-quoc-tu-giam-bang-xe-may-co-dang.html | WRITING |  | 0 |  |
@@ -43,7 +43,7 @@
 | HD-0014 | cam-nang/hoi-dap/hd-0014-mat-giay-dang-ky-xe-phai-lam-sao.html | WRITING |  | 0 |  |
 | HD-0015 | cam-nang/hoi-dap/hd-0015-doi-mu-bao-hiem-khong-cai-day-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0016 | cam-nang/hoi-dap/hd-0016-xe-may-co-can-guong-hai-ben-khong.html | WRITING |  | 0 |  |
-| KN-0010 | cam-nang/kinh-nghiem/kn-0010-kinh-nghiem-de-xe-va-giu-thang-bang-voi-honda-wave.html | PASS | 100 | 0 |  |
+| KN-0010 | cam-nang/kinh-nghiem/kn-0010-kinh-nghiem-de-xe-va-giu-thang-bang-voi-honda-wave.html | PUBLISHED | 100 | 0 |  |
 | KN-0011 | cam-nang/kinh-nghiem/kn-0011-chay-honda-wave-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | WRITING |  | 0 |  |
 | KN-0012 | cam-nang/kinh-nghiem/kn-0012-kinh-nghiem-cho-do-du-lich-tren-honda-wave.html | WRITING |  | 0 |  |
 | KN-0013 | cam-nang/kinh-nghiem/kn-0013-honda-wave-co-thich-hop-chay-duong-deo-khong.html | WRITING |  | 0 |  |
@@ -52,7 +52,7 @@
 | KN-0016 | cam-nang/kinh-nghiem/kn-0016-khi-nao-nen-chon-honda-wave-thay-vi-cac-xe-khac.html | WRITING |  | 0 |  |
 | KN-0017 | cam-nang/kinh-nghiem/kn-0017-kinh-nghiem-thue-yamaha-sirius-o-ha-noi-cho-nguoi-moi.html | WRITING |  | 0 |  |
 | XM-0009 | cam-nang/xe-may/xm-0009-khi-nao-can-kiem-tra-den-hau-tren-honda-wave.html | PUBLISHED | 95 | 0 |  |
-| XM-0010 | cam-nang/xe-may/xm-0010-dau-hieu-guong-gap-van-de-tren-honda-wave.html | PASS | 96 | 0 |  |
+| XM-0010 | cam-nang/xe-may/xm-0010-dau-hieu-guong-gap-van-de-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
 | XM-0011 | cam-nang/xe-may/xm-0011-cach-kiem-tra-binh-xang-tren-honda-wave.html | WRITING |  | 0 |  |
 | XM-0012 | cam-nang/xe-may/xm-0012-khi-nao-can-kiem-tra-loc-gio-tren-honda-wave.html | WRITING |  | 0 |  |
 | XM-0013 | cam-nang/xe-may/xm-0013-dau-hieu-chia-khoa-gap-van-de-tren-honda-wave.html | WRITING |  | 0 |  |

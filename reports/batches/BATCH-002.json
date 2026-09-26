@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-002",
   "started_at": "2026-09-26T12:08:30",
-  "finished_at": "2026-09-26T12:27:26",
+  "finished_at": "2026-09-26T19:27:51",
   "writer": "external-agent",
   "processed": 50,
   "written": 8,
-  "pass": 4,
-  "published": 4,
+  "pass": 0,
+  "published": 8,
   "writing": 42,
   "review": 0,
   "repair": 0,
@@ -19,12 +19,12 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0010",
       "output_path": "cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
@@ -199,7 +199,7 @@
     {
       "article_id": "DL-0010",
       "output_path": "cam-nang/du-lich/dl-0010-di-xe-may-den-chua-tran-quoc-cuoi-tuan-hay-ngay-thuong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
@@ -362,7 +362,7 @@
     {
       "article_id": "KN-0010",
       "output_path": "cam-nang/kinh-nghiem/kn-0010-kinh-nghiem-de-xe-va-giu-thang-bang-voi-honda-wave.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -452,7 +452,7 @@
     {
       "article_id": "XM-0010",
       "output_path": "cam-nang/xe-may/xm-0010-dau-hieu-guong-gap-van-de-tren-honda-wave.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
