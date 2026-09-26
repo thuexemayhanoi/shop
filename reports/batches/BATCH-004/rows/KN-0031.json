@@ -1,0 +1,171 @@
+{
+ "article_id": "KN-0031",
+ "batch_id": "BATCH-004",
+ "category": "Kinh nghiệm",
+ "category_label": "Kinh nghiệm",
+ "working_title": "Kinh nghiệm chụp ảnh lại tình trạng Yamaha Sirius khi thuê",
+ "primary_keyword": "kinh nghiệm chụp ảnh lại tình trạng yamaha sirius khi thuê",
+ "secondary_keywords": "kinh nghiệm chụp ảnh lại tình trạng yamaha sirius khi thuê",
+ "search_intent": "informational",
+ "slug": "kn-0031-kinh-nghiem-chup-anh-lai-tinh-trang-yamaha-sirius-khi-thue",
+ "output_path": "cam-nang/kinh-nghiem/kn-0031-kinh-nghiem-chup-anh-lai-tinh-trang-yamaha-sirius-khi-thue.html",
+ "parent_hub": "kinhnghiem.html",
+ "eligible_internal_link_targets": "kinhnghiem.html,  thutuc.html,  hoidap.html",
+ "commercial_link_target": "thutuc.html",
+ "requires_sources": "false",
+ "source_notes": "Không bắt buộc nguồn chính thức",
+ "source_requirements": "none",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1600,
+  "target_max_words": 2000,
+  "review_min_words": 1200,
+  "review_max_words": 2300,
+  "scope": "main editorial content only"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 5,
+  "parent_hub_link_required": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/kinh-nghiem/kn-0031-kinh-nghiem-chup-anh-lai-tinh-trang-yamaha-sirius-khi-thue.html",
+ "date_published": "2026-09-26",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "KN-0001",
+   "title": "Kinh nghiệm thuê Honda Wave ở Hà Nội cho người mới"
+  },
+  {
+   "article_id": "KN-0002",
+   "title": "Thuê Honda Wave đi đường dài nên chuẩn bị những gì"
+  },
+  {
+   "article_id": "KN-0003",
+   "title": "Honda Wave có phù hợp với người mới tập lái xe không"
+  },
+  {
+   "article_id": "KN-0004",
+   "title": "Kinh nghiệm tiết kiệm xăng khi chạy Honda Wave"
+  },
+  {
+   "article_id": "KN-0005",
+   "title": "Nhận biết Honda Wave cũ kỹ trước khi thuê như thế nào"
+  },
+  {
+   "article_id": "KN-0006",
+   "title": "Các lỗi hay gặp trên Honda Wave đã chạy nhiều năm"
+  }
+ ]
+}
