@@ -1,10 +1,10 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:05:42
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-26T18:11:02
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 10 | pass: 1 | published: 8
-- writing: 40 | review: 0 | repair: 1 | fail: 0 | blocked: 0
-- scores: avg 97.7 | min 92 | max 100 | repair_count: 0
+- processed: 50 | written: 12 | pass: 3 | published: 8
+- writing: 38 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- scores: avg 97.1 | min 89 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
@@ -20,7 +20,7 @@
 | AT-0033 | cam-nang/an-toan/at-0033-uong-mot-lon-bia-roi-chay-xe-may-co-vuot-nguong-con-khong.html | WRITING |  | 0 |  |
 | AT-0034 | cam-nang/an-toan/at-0034-muc-phat-nong-do-con-voi-xe-may-hien-hanh.html | WRITING |  | 0 |  |
 | CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 95 | 0 |  |
-| CD-0027 | cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html | WRITING |  | 0 |  |
+| CD-0027 | cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html | PASS | 95 | 0 |  |
 | CD-0028 | cam-nang/cung-duong/cd-0028-cung-duong-vong-qua-moc-chau-co-gi-khac.html | WRITING |  | 0 |  |
 | CD-0029 | cam-nang/cung-duong/cd-0029-lich-trinh-moc-chau-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |
 | CD-0030 | cam-nang/cung-duong/cd-0030-diem-dung-trua-tren-duong-di-moc-chau.html | WRITING |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0032 | cam-nang/du-lich/dl-0032-diem-dung-chup-anh-giua-duong-den-bao-tang-lich-su-quan-su-v.html | WRITING |  | 0 |  |
 | DL-0033 | cam-nang/du-lich/dl-0033-trai-nghiem-mot-ngay-o-bao-tang-ha-noi-bang-xe-may.html | WRITING |  | 0 |  |
 | HD-0026 | cam-nang/hoi-dap/hd-0026-phat-nguoi-gom-nhung-loi-xe-may-nao.html | PUBLISHED | 99 | 0 |  |
-| HD-0027 | cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html | WRITING |  | 0 |  |
+| HD-0027 | cam-nang/hoi-dap/hd-0027-nong-do-con-bao-nhieu-la-bi-xu-phat-voi-xe-may.html | FAIL | 89 | 0 | deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ); deposit amount outside approved range: 2 (cọc theo thỏa thuận, mức phổ biến từ 2 đ) |
 | HD-0028 | cam-nang/hoi-dap/hd-0028-xe-may-co-duoc-di-vao-duong-cao-toc-khong.html | WRITING |  | 0 |  |
 | HD-0029 | cam-nang/hoi-dap/hd-0029-xe-may-di-vao-ham-duong-bo-duoc-phep-khong.html | WRITING |  | 0 |  |
 | HD-0030 | cam-nang/hoi-dap/hd-0030-tre-em-ngoi-truoc-xe-may-co-duoc-khong.html | WRITING |  | 0 |  |
@@ -53,7 +53,7 @@
 | KN-0033 | cam-nang/kinh-nghiem/kn-0033-kinh-nghiem-kiem-tra-yamaha-sirius-truoc-khi-nhan-xe.html | WRITING |  | 0 |  |
 | KN-0034 | cam-nang/kinh-nghiem/kn-0034-kinh-nghiem-cho-do-du-lich-tren-honda-click.html | WRITING |  | 0 |  |
 | XM-0026 | cam-nang/xe-may/xm-0026-khi-nao-can-kiem-tra-giam-xoc-tren-yamaha-sirius.html | PUBLISHED | 96 | 0 |  |
-| XM-0027 | cam-nang/xe-may/xm-0027-dau-hieu-ac-quy-gap-van-de-tren-yamaha-sirius.html | REPAIR | 92 | 0 |  |
+| XM-0027 | cam-nang/xe-may/xm-0027-dau-hieu-ac-quy-gap-van-de-tren-yamaha-sirius.html | PASS | 96 | 0 |  |
 | XM-0028 | cam-nang/xe-may/xm-0028-bao-duong-day-xich-cua-yamaha-sirius-dung-cach.html | WRITING |  | 0 |  |
 | XM-0029 | cam-nang/xe-may/xm-0029-khi-nao-can-kiem-tra-den-hau-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | XM-0030 | cam-nang/xe-may/xm-0030-dau-hieu-guong-gap-van-de-tren-yamaha-sirius.html | WRITING |  | 0 |  |
