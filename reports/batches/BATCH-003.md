@@ -1,11 +1,11 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T16:10:24
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T16:16:55
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 30 | pass: 5 | published: 24
-- writing: 20 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 98.1 | min 90 | max 100 | repair_count: 0
-- source_gate: pass 7 | blocked 0
+- processed: 50 | written: 32 | pass: 7 | published: 24
+- writing: 18 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 8 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -14,8 +14,8 @@
 | AT-0019 | cam-nang/an-toan/at-0019-xe-may-het-dang-kiem-co-bi-giu-xe-khong.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/an-toan/antoan.html'; broken internal link: 'cam-nang/hoidap.html' |
 | AT-0020 | cam-nang/an-toan/at-0020-doi-giay-phep-lai-xe-may-het-han-o-dau.html | PUBLISHED | 100 | 0 |  |
 | AT-0021 | cam-nang/an-toan/at-0021-giay-phep-lai-quoc-te-dung-cho-xe-may-o-viet-nam.html | PUBLISHED | 100 | 0 |  |
-| AT-0022 | cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html | FAIL | 90 | 0 | wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như'; wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như' |
-| AT-0023 | cam-nang/an-toan/at-0023-xe-may-cho-hang-cong-kenh-vuot-quy-dinh-bi-phat-khong.html | WRITING |  | 0 |  |
+| AT-0022 | cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html | PASS | 100 | 0 | wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như'; wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như' |
+| AT-0023 | cam-nang/an-toan/at-0023-xe-may-cho-hang-cong-kenh-vuot-quy-dinh-bi-phat-khong.html | FAIL | 99 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | AT-0024 | cam-nang/an-toan/at-0024-nghi-dinh-xu-phat-vi-pham-giao-thong-duong-bo-voi-xe-may.html | WRITING |  | 0 |  |
 | AT-0025 | cam-nang/an-toan/at-0025-quy-dinh-ve-coi-va-tin-hieu-bao-re-tren-xe-may.html | WRITING |  | 0 |  |
 | CD-0017 | cam-nang/cung-duong/cd-0017-lich-trinh-chi-tiet-cho-chuyen-vinh-yen-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
@@ -23,7 +23,7 @@
 | CD-0019 | cam-nang/cung-duong/cd-0019-cung-duong-ngam-canh-tu-ha-noi-len-son-tay.html | PUBLISHED | 96 | 0 |  |
 | CD-0020 | cam-nang/cung-duong/cd-0020-mot-ngay-mot-dem-o-son-tay-co-du-khong.html | PUBLISHED | 96 | 0 |  |
 | CD-0021 | cam-nang/cung-duong/cd-0021-diem-check-in-doc-cung-duong-den-son-tay.html | PASS | 96 | 0 |  |
-| CD-0022 | cam-nang/cung-duong/cd-0022-duong-tu-ha-noi-vao-thanh-pho-hoa-binh-doan-nao-kho-di.html | WRITING |  | 0 |  |
+| CD-0022 | cam-nang/cung-duong/cd-0022-duong-tu-ha-noi-vao-thanh-pho-hoa-binh-doan-nao-kho-di.html | PASS | 97 | 0 |  |
 | CD-0023 | cam-nang/cung-duong/cd-0023-ke-hoach-3-ngay-2-dem-o-thanh-pho-hoa-binh-cho-nguoi-chay-xe.html | WRITING |  | 0 |  |
 | CD-0024 | cam-nang/cung-duong/cd-0024-noi-tiep-nuoc-va-nghi-giai-lao-di-thanh-pho-hoa-binh.html | WRITING |  | 0 |  |
 | CD-0025 | cam-nang/cung-duong/cd-0025-ra-mai-chau-bang-xe-may-di-trong-ngay-duoc-khong.html | WRITING |  | 0 |  |

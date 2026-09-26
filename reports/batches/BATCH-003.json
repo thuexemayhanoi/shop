@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-003",
   "started_at": "2026-09-26T15:19:08",
-  "finished_at": "2026-09-26T16:10:24",
+  "finished_at": "2026-09-26T16:16:55",
   "writer": "external-agent",
   "processed": 50,
-  "written": 30,
-  "pass": 5,
+  "written": 32,
+  "pass": 7,
   "published": 24,
-  "writing": 20,
+  "writing": 18,
   "review": 0,
   "repair": 0,
   "fail": 1,
   "blocked": 0,
-  "average_score": 98.1,
-  "min_score": 90,
+  "average_score": 98.4,
+  "min_score": 95,
   "max_score": 100,
   "repair_count": 0,
-  "source_gate_pass": 7,
+  "source_gate_pass": 8,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 7,
   "articles": [
     {
       "article_id": "AT-0018",
@@ -69,8 +69,8 @@
     {
       "article_id": "AT-0022",
       "output_path": "cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html",
-      "outcome": "FAIL",
-      "score": 90,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như'",
@@ -82,10 +82,12 @@
     {
       "article_id": "AT-0023",
       "output_path": "cam-nang/an-toan/at-0023-xe-may-cho-hang-cong-kenh-vuot-quy-dinh-bi-phat-khong.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 99,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess."
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
@@ -162,8 +164,8 @@
     {
       "article_id": "CD-0022",
       "output_path": "cam-nang/cung-duong/cd-0022-duong-tu-ha-noi-vao-thanh-pho-hoa-binh-doan-nao-kho-di.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "PASS",
+      "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
