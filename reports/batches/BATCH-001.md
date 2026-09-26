@@ -1,11 +1,11 @@
 # Batch report BATCH-001
 
-- started_at: 2026-09-26T02:10:31 | finished_at: 2026-09-26T17:18:47
+- started_at: 2026-09-26T02:10:31 | finished_at: 2026-09-26T17:26:06
 - writer: external-agent | batch resolved once: BATCH-001
-- processed: 50 | written: 46 | pass: 0 | published: 46
-- writing: 4 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.5 | min 93 | max 100 | repair_count: 0
-- source_gate: pass 11 | blocked 0
+- processed: 50 | written: 50 | pass: 0 | published: 50
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.4 | min 93 | max 100 | repair_count: 0
+- source_gate: pass 12 | blocked 0
 - published_commit_sha: 286fcfc39a9650b00917e38226ec1c4ae72bfe76
 
 | article_id | output_path | status | score | repairs | notes |
@@ -18,7 +18,7 @@
 | AT-0006 | cam-nang/an-toan/at-0006-lui-xe-tren-duong-mot-chieu-co-bi-phat-khong.html | PUBLISHED | 99 | 0 |  |
 | AT-0007 | cam-nang/an-toan/at-0007-vuot-den-do-xe-may-bi-xu-phat-the-nao.html | PUBLISHED | 99 | 0 |  |
 | AT-0008 | cam-nang/an-toan/at-0008-di-vao-lan-duong-cua-o-to-bang-xe-may-bi-phat-khong.html | PUBLISHED | 97 | 0 |  |
-| AT-0009 | cam-nang/an-toan/at-0009-dung-dien-thoai-khi-dang-lai-xe-may-co-bi-phat-khong.html | WRITING |  | 0 |  |
+| AT-0009 | cam-nang/an-toan/at-0009-dung-dien-thoai-khi-dang-lai-xe-may-co-bi-phat-khong.html | PUBLISHED | 97 | 0 |  |
 | CD-0001 | cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html | PUBLISHED | 96 | 0 |  |
 | CD-0002 | cam-nang/cung-duong/cd-0002-lich-trinh-2-ngay-1-dem-di-xe-may-den-bac-ninh.html | PUBLISHED | 96 | 0 |  |
 | CD-0003 | cam-nang/cung-duong/cd-0003-diem-dung-chan-dep-tren-cung-duong-ha-noi-bac-ninh.html | PUBLISHED | 96 | 0 |  |
@@ -26,7 +26,7 @@
 | CD-0005 | cam-nang/cung-duong/cd-0005-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-bac-giang.html | PUBLISHED | 96 | 0 |  |
 | CD-0006 | cam-nang/cung-duong/cd-0006-quan-an-ngon-doc-duong-den-bac-giang.html | PUBLISHED | 96 | 0 |  |
 | CD-0007 | cam-nang/cung-duong/cd-0007-tuyen-duong-dep-tu-ha-noi-den-thai-nguyen.html | PUBLISHED | 95 | 0 |  |
-| CD-0008 | cam-nang/cung-duong/cd-0008-trai-nghiem-mot-ngay-o-thai-nguyen-bang-xe-may.html | WRITING |  | 0 |  |
+| CD-0008 | cam-nang/cung-duong/cd-0008-trai-nghiem-mot-ngay-o-thai-nguyen-bang-xe-may.html | PUBLISHED | 95 | 0 |  |
 | DL-0001 | cam-nang/du-lich/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html | PUBLISHED | 96 | 0 |  |
 | DL-0002 | cam-nang/du-lich/dl-0002-di-xe-may-den-ho-tay-mua-nao-dep-nhat.html | PUBLISHED | 95 | 0 |  |
 | DL-0003 | cam-nang/du-lich/dl-0003-an-gi-khi-du-lich-ho-tay-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
@@ -34,7 +34,7 @@
 | DL-0005 | cam-nang/du-lich/dl-0005-di-xe-may-den-ho-hoan-kiem-can-chuan-bi-gi.html | PUBLISHED | 100 | 0 |  |
 | DL-0006 | cam-nang/du-lich/dl-0006-thang-nao-nen-di-ho-hoan-kiem-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | DL-0007 | cam-nang/du-lich/dl-0007-dac-san-ho-hoan-kiem-nao-phai-thu-khi-di-xe-may.html | PUBLISHED | 99 | 0 |  |
-| DL-0008 | cam-nang/du-lich/dl-0008-diem-ngam-hoang-hon-o-ho-hoan-kiem-khi-di-xe-may.html | WRITING |  | 0 |  |
+| DL-0008 | cam-nang/du-lich/dl-0008-diem-ngam-hoang-hon-o-ho-hoan-kiem-khi-di-xe-may.html | PUBLISHED | 97 | 0 |  |
 | HD-0001 | cam-nang/hoi-dap/hd-0001-co-can-bang-lai-de-chay-xe-may-50cc-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0002 | cam-nang/hoi-dap/hd-0002-khach-nuoc-ngoai-chay-xe-may-o-viet-nam-can-giay-to-gi.html | PUBLISHED | 100 | 0 |  |
 | HD-0003 | cam-nang/hoi-dap/hd-0003-xe-may-dien-co-can-dang-ky-bien-so-khong.html | PUBLISHED | 99 | 0 |  |
@@ -51,7 +51,7 @@
 | KN-0006 | cam-nang/kinh-nghiem/kn-0006-cac-loi-hay-gap-tren-honda-wave-da-chay-nhieu-nam.html | PUBLISHED | 100 | 0 |  |
 | KN-0007 | cam-nang/kinh-nghiem/kn-0007-chay-honda-wave-cho-them-mot-nguoi-co-on-khong.html | PUBLISHED | 97 | 0 |  |
 | KN-0008 | cam-nang/kinh-nghiem/kn-0008-kinh-nghiem-giu-an-toan-cho-honda-wave-khi-gui-xe-qua-dem.html | PUBLISHED | 95 | 0 |  |
-| KN-0009 | cam-nang/kinh-nghiem/kn-0009-di-thu-honda-wave-quanh-pho-truoc-khi-thue-can-kiem-tra-gi.html | WRITING |  | 0 |  |
+| KN-0009 | cam-nang/kinh-nghiem/kn-0009-di-thu-honda-wave-quanh-pho-truoc-khi-thue-can-kiem-tra-gi.html | PUBLISHED | 97 | 0 |  |
 | XM-0001 | cam-nang/xe-may/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
 | XM-0002 | cam-nang/xe-may/xm-0002-khi-nao-can-kiem-tra-nhot-may-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
 | XM-0003 | cam-nang/xe-may/xm-0003-dau-hieu-lop-truoc-gap-van-de-tren-honda-wave.html | PUBLISHED | 96 | 0 |  |
