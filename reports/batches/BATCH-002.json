@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-002",
   "started_at": "2026-09-26T12:08:30",
-  "finished_at": "2026-09-26T12:33:01",
+  "finished_at": "2026-09-26T19:33:24",
   "writer": "external-agent",
   "processed": 50,
   "written": 12,
-  "pass": 4,
-  "published": 8,
+  "pass": 0,
+  "published": 12,
   "writing": 38,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 3,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0010",
@@ -39,7 +39,7 @@
     {
       "article_id": "AT-0011",
       "output_path": "cam-nang/an-toan/at-0011-do-tuoi-duoc-cap-giay-phep-lai-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -214,7 +214,7 @@
     {
       "article_id": "DL-0011",
       "output_path": "cam-nang/du-lich/dl-0011-quan-an-noi-tieng-gan-chua-tran-quoc-cho-khach-di-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -374,7 +374,7 @@
     {
       "article_id": "KN-0011",
       "output_path": "cam-nang/kinh-nghiem/kn-0011-chay-honda-wave-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -464,7 +464,7 @@
     {
       "article_id": "XM-0011",
       "output_path": "cam-nang/xe-may/xm-0011-cach-kiem-tra-binh-xang-tren-honda-wave.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
