@@ -1,17 +1,17 @@
 # Batch report BATCH-001
 
-- started_at: 2026-09-26T02:10:31 | finished_at: 2026-09-26T15:34:51
+- started_at: 2026-09-26T02:10:31 | finished_at: 2026-09-26T09:01:14
 - writer: external-agent | batch resolved once: BATCH-001
-- processed: 50 | written: 6 | pass: 0 | published: 6
-- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 1 | blocked 0
+- processed: 50 | written: 11 | pass: 5 | published: 6
+- writing: 39 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.5 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 3 | blocked 0
 - published_commit_sha: 286fcfc39a9650b00917e38226ec1c4ae72bfe76
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0001 | cam-nang/an-toan/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html | PUBLISHED | 100 | 0 |  |
-| AT-0002 | cam-nang/an-toan/at-0002-toc-do-toi-da-cho-xe-may-trong-khu-do-thi.html | WRITING |  | 0 |  |
+| AT-0002 | cam-nang/an-toan/at-0002-toc-do-toi-da-cho-xe-may-trong-khu-do-thi.html | PASS | 99 | 0 |  |
 | AT-0003 | cam-nang/an-toan/at-0003-cac-loi-phat-nguoi-xe-may-hay-gap.html | WRITING |  | 0 |  |
 | AT-0004 | cam-nang/an-toan/at-0004-loi-khong-doi-mu-bao-hiem-bi-phat-nhu-the-nao.html | WRITING |  | 0 |  |
 | AT-0005 | cam-nang/an-toan/at-0005-cho-qua-so-nguoi-quy-dinh-tren-xe-may-bi-phat-ra-sao.html | WRITING |  | 0 |  |
@@ -19,8 +19,8 @@
 | AT-0007 | cam-nang/an-toan/at-0007-vuot-den-do-xe-may-bi-xu-phat-the-nao.html | WRITING |  | 0 |  |
 | AT-0008 | cam-nang/an-toan/at-0008-di-vao-lan-duong-cua-o-to-bang-xe-may-bi-phat-khong.html | WRITING |  | 0 |  |
 | AT-0009 | cam-nang/an-toan/at-0009-dung-dien-thoai-khi-dang-lai-xe-may-co-bi-phat-khong.html | WRITING |  | 0 |  |
-| CD-0001 | cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html | WRITING |  | 0 |  |
-| CD-0002 | cam-nang/cung-duong/cd-0002-lich-trinh-2-ngay-1-dem-di-xe-may-den-bac-ninh.html | WRITING |  | 0 |  |
+| CD-0001 | cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html | PASS | 96 | 0 |  |
+| CD-0002 | cam-nang/cung-duong/cd-0002-lich-trinh-2-ngay-1-dem-di-xe-may-den-bac-ninh.html | PASS | 96 | 0 |  |
 | CD-0003 | cam-nang/cung-duong/cd-0003-diem-dung-chan-dep-tren-cung-duong-ha-noi-bac-ninh.html | WRITING |  | 0 |  |
 | CD-0004 | cam-nang/cung-duong/cd-0004-di-xe-may-tu-ha-noi-den-bac-giang-mat-bao-lau.html | WRITING |  | 0 |  |
 | CD-0005 | cam-nang/cung-duong/cd-0005-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-bac-giang.html | WRITING |  | 0 |  |
@@ -28,14 +28,14 @@
 | CD-0007 | cam-nang/cung-duong/cd-0007-tuyen-duong-dep-tu-ha-noi-den-thai-nguyen.html | WRITING |  | 0 |  |
 | CD-0008 | cam-nang/cung-duong/cd-0008-trai-nghiem-mot-ngay-o-thai-nguyen-bang-xe-may.html | WRITING |  | 0 |  |
 | DL-0001 | cam-nang/du-lich/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html | PUBLISHED | 96 | 0 |  |
-| DL-0002 | cam-nang/du-lich/dl-0002-di-xe-may-den-ho-tay-mua-nao-dep-nhat.html | WRITING |  | 0 |  |
+| DL-0002 | cam-nang/du-lich/dl-0002-di-xe-may-den-ho-tay-mua-nao-dep-nhat.html | PASS | 95 | 0 |  |
 | DL-0003 | cam-nang/du-lich/dl-0003-an-gi-khi-du-lich-ho-tay-bang-xe-may.html | WRITING |  | 0 |  |
 | DL-0004 | cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe-may.html | WRITING |  | 0 |  |
 | DL-0005 | cam-nang/du-lich/dl-0005-di-xe-may-den-ho-hoan-kiem-can-chuan-bi-gi.html | WRITING |  | 0 |  |
 | DL-0006 | cam-nang/du-lich/dl-0006-thang-nao-nen-di-ho-hoan-kiem-bang-xe-may.html | WRITING |  | 0 |  |
 | DL-0007 | cam-nang/du-lich/dl-0007-dac-san-ho-hoan-kiem-nao-phai-thu-khi-di-xe-may.html | WRITING |  | 0 |  |
 | DL-0008 | cam-nang/du-lich/dl-0008-diem-ngam-hoang-hon-o-ho-hoan-kiem-khi-di-xe-may.html | WRITING |  | 0 |  |
-| HD-0001 | cam-nang/hoi-dap/hd-0001-co-can-bang-lai-de-chay-xe-may-50cc-khong.html | WRITING |  | 0 |  |
+| HD-0001 | cam-nang/hoi-dap/hd-0001-co-can-bang-lai-de-chay-xe-may-50cc-khong.html | PASS | 99 | 0 |  |
 | HD-0002 | cam-nang/hoi-dap/hd-0002-khach-nuoc-ngoai-chay-xe-may-o-viet-nam-can-giay-to-gi.html | WRITING |  | 0 |  |
 | HD-0003 | cam-nang/hoi-dap/hd-0003-xe-may-dien-co-can-dang-ky-bien-so-khong.html | WRITING |  | 0 |  |
 | HD-0004 | cam-nang/hoi-dap/hd-0004-bao-hiem-tnds-xe-may-la-gi.html | WRITING |  | 0 |  |
@@ -60,22 +60,3 @@
 | XM-0006 | cam-nang/xe-may/xm-0006-khi-nao-can-kiem-tra-giam-xoc-tren-honda-wave.html | WRITING |  | 0 |  |
 | XM-0007 | cam-nang/xe-may/xm-0007-dau-hieu-ac-quy-gap-van-de-tren-honda-wave.html | WRITING |  | 0 |  |
 | XM-0008 | cam-nang/xe-may/xm-0008-bao-duong-day-xich-cua-honda-wave-dung-cach.html | WRITING |  | 0 |  |
-
-## Publish transaction — 2026-09-26 (scheduled recovery run)
-- Canonical QA (scripts/run_article_batch.py --batch BATCH-001 --qa):
-  KN-0002 = 100, XM-0002 = 96, DL-0001 = 96 — all PASS (avg 97.3).
-- Publish executed via the new Node fallback (scripts/js/factory.mjs
-  --publish "KN-0002,XM-0002,DL-0001" --date 2026-09-26): matrix rows
-  flipped PASS -> PUBLISHED with published_date=2026-09-26; hub
-  ARTICLE-LIST blocks regenerated (kinhnghiem 2 cards, xemay 2 cards,
-  dulich 1 card, antoan unchanged); sitemap.xml rebuilt to 35 URLs
-  (29 legacy + 6 published articles); factory-progress.json refreshed.
-- Cross-validated: canonical generate_category_pages.py and
-  generate_sitemap.py are byte-level no-ops after the Node transaction.
-- Previous corruption fixes and manual QA for these 3 articles are
-  recorded in commit e4df684 (the Python --qa rewrite of this file
-  replaced the earlier Resume QA section; see git history).
-- Disposition of the 44 file-less WRITING rows: legitimate BATCH-001
-  reservations per the documented crash-recovery rule (file-less rows
-  stay claimable/resumable); unchanged, to be written by the external
-  writer in later runs.
