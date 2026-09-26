@@ -1,9 +1,9 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T21:27:44
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T14:29:01
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 36 | pass: 0 | published: 36
-- writing: 14 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 40 | pass: 4 | published: 36
+- writing: 10 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.1 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 6 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
@@ -21,10 +21,10 @@
 | CD-0009 | cam-nang/cung-duong/cd-0009-tram-dung-nghi-ven-duong-toi-thai-nguyen.html | PUBLISHED | 97 | 0 |  |
 | CD-0010 | cam-nang/cung-duong/cd-0010-ha-noi-den-viet-tri-quoc-lo-nao-nen-chon.html | PUBLISHED | 95 | 0 |  |
 | CD-0011 | cam-nang/cung-duong/cd-0011-hai-ngay-o-viet-tri-lich-trinh-goi-y-cho-nguoi-di-xe.html | PUBLISHED | 96 | 0 |  |
-| CD-0012 | cam-nang/cung-duong/cd-0012-cho-ngam-canh-giua-duong-den-viet-tri.html | WRITING |  | 0 |  |
-| CD-0013 | cam-nang/cung-duong/cd-0013-cung-duong-ha-noi-thanh-pho-phu-tho-cho-nguoi-moi.html | WRITING |  | 0 |  |
-| CD-0014 | cam-nang/cung-duong/cd-0014-nghi-dem-o-thanh-pho-phu-tho-khi-di-xe-may-chon-dau.html | WRITING |  | 0 |  |
-| CD-0015 | cam-nang/cung-duong/cd-0015-bai-do-an-toan-doc-duong-di-thanh-pho-phu-tho.html | WRITING |  | 0 |  |
+| CD-0012 | cam-nang/cung-duong/cd-0012-cho-ngam-canh-giua-duong-den-viet-tri.html | PASS | 99 | 0 |  |
+| CD-0013 | cam-nang/cung-duong/cd-0013-cung-duong-ha-noi-thanh-pho-phu-tho-cho-nguoi-moi.html | PASS | 99 | 0 |  |
+| CD-0014 | cam-nang/cung-duong/cd-0014-nghi-dem-o-thanh-pho-phu-tho-khi-di-xe-may-chon-dau.html | PASS | 99 | 0 |  |
+| CD-0015 | cam-nang/cung-duong/cd-0015-bai-do-an-toan-doc-duong-di-thanh-pho-phu-tho.html | PASS | 95 | 0 |  |
 | CD-0016 | cam-nang/cung-duong/cd-0016-chay-xe-may-tu-ha-noi-ra-vinh-yen-nen-di-luc-nao.html | WRITING |  | 0 |  |
 | DL-0009 | cam-nang/du-lich/dl-0009-lo-trinh-di-xe-may-tu-ha-noi-den-chua-tran-quoc.html | PUBLISHED | 99 | 0 |  |
 | DL-0010 | cam-nang/du-lich/dl-0010-di-xe-may-den-chua-tran-quoc-cuoi-tuan-hay-ngay-thuong.html | PUBLISHED | 96 | 0 | wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000'; wrong price for Honda Air Blade: found 0 near 'ion, Honda Air Blade hoặc xe máy điện với giá 200.000đ mỗi ngày hoặc 1.000' |
