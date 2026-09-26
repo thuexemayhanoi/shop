@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-004",
   "started_at": "2026-09-26T17:05:35",
-  "finished_at": "2026-09-26T18:16:07",
+  "finished_at": "2026-09-27T01:16:37",
   "writer": "external-agent",
   "processed": 50,
   "written": 14,
-  "pass": 3,
-  "published": 11,
+  "pass": 1,
+  "published": 13,
   "writing": 36,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 4,
   "source_gate_blocked": 0,
   "published_commit_sha": "7c20f48bf95873749bdc92a7d8a4e2707a50e46e",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 1,
   "articles": [
     {
       "article_id": "AT-0026",
@@ -44,7 +44,7 @@
     {
       "article_id": "AT-0028",
       "output_path": "cam-nang/an-toan/at-0028-kiem-tra-xe-may-da-bi-phat-nguoi-o-dau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -297,7 +297,7 @@
     {
       "article_id": "HD-0028",
       "output_path": "cam-nang/hoi-dap/hd-0028-xe-may-co-duoc-di-vao-duong-cao-toc-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
