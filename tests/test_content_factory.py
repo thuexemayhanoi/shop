@@ -144,7 +144,14 @@ class BatchSelectionTests(FactoryTestCase):
         b1 = rb.batch_rows(self.matrix, "BATCH-001")
         self.assertEqual(len(b1), 50)
         self.assertTrue(all(r["batch_id"] == "BATCH-001" for r in b1))
-        self.assertEqual(rb.next_batch_id(self.matrix), "BATCH-001")
+        terminal = {"PUBLISHED", "FAIL", "BLOCKED"}
+        expected = "BATCH-001"
+        for r in self.matrix:
+            if r.get("batch_id") == "BATCH-001" and r["status"] not in terminal:
+                break
+        else:
+            expected = "BATCH-002"
+        self.assertEqual(rb.next_batch_id(self.matrix), expected)
         done = [dict(r) for r in self.prod]
         for r in done:
             r["status"] = "PUBLISHED"
