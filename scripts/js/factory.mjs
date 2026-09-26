@@ -455,6 +455,38 @@ function assertTransition(from, to) {
 // ------------------------------------------------------ atomic writes
 
 /**
+ * Cumulative throughput counters (reports/batches/factory-throughput.json).
+ * Mirrors scripts/run_article_batch.py update_throughput(): every counter is
+ * incremented only by deterministic tooling with the exact number of rows
+ * it verified — no estimated numbers are ever written.
+ */
+function updateThroughput(batchId, deltas) {
+  const p = path.join(REPO, 'reports', 'batches', 'factory-throughput.json');
+  let data = null;
+  if (fs.existsSync(p)) {
+    try { data = JSON.parse(fs.readFileSync(p, 'utf8')) || null; } catch (_) { data = null; }
+  }
+  if (!data || data.schema_version !== 1 || typeof data.batches !== 'object') {
+    data = { schema_version: 1, batches: {} };
+  }
+  const b = data.batches[batchId] || {
+    articles_written: 0, articles_qa_checked: 0, articles_published: 0,
+    chunks_completed: 0, publish_operations: 0, repair_count: 0,
+    qa_score_sum: 0, qa_score_count: 0, average_qa_score: null,
+  };
+  for (const k of ['articles_written', 'articles_qa_checked', 'articles_published',
+                   'chunks_completed', 'publish_operations', 'repair_count',
+                   'qa_score_sum', 'qa_score_count']) {
+    if (deltas[k]) b[k] = (b[k] || 0) + deltas[k];
+  }
+  b.average_qa_score = b.qa_score_count ? Math.round((b.qa_score_sum / b.qa_score_count) * 10) / 10 : null;
+  data.batches[batchId] = b;
+  data.updated_at = new Date().toISOString().slice(0, 19);
+  fs.mkdirSync(path.dirname(p), { recursive: true });
+  fs.writeFileSync(p, jsonDump(data) + '\n', 'utf8');
+}
+
+/**
  * Two-phase commit: write EVERY tmp file first (any failure here leaves
  * all originals untouched and removes the tmps), then rename all tmps
  * into place. An interrupted or failing operation therefore cannot
@@ -903,6 +935,8 @@ function main() {
       return 3;
     }
     clearTxnMarker();
+    // grouped publish succeeded: record the honest throughput counters
+    updateThroughput(batchId, { articles_published: updates.size, publish_operations: 1 });
     return 0;
   }
 

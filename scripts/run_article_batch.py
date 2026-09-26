@@ -28,11 +28,22 @@ Hard invariants:
 Modes:
   --batch BATCH-001 | --next | --pilot (BATCH-001 only, max 50)
   --prepare-agent    claim PLANNED rows as WRITING + write the manifest
+  --next-chunk N     chunked writer mode: select the NEXT N (5 default,
+                     10 max) unwritten WRITING rows deterministically,
+                     write the chunk manifest + checkpoint (no re-claim)
+  --chunk-complete   mark the current chunk terminal (checkpoint / --ids)
   --qa               deterministic QA of the batch's written files
+                     (scoped to --ids when given)
   --publish          list the batch's PASS files (publish scope)
+                     (scoped to --ids when given)
   --mark-published   flip the batch's PASS rows (files verified
                      present) to PUBLISHED + stamp published_date=today;
                      run ONLY after the push reached remote MAIN
+  --acquire-writer-lock | --release-writer-lock | --writer-lock-status
+                     writer-side logical lock (external writers)
+  --checkpoint | --checkpoint-reset
+                     show (reconciled with matrix truth) / delete the
+                     resume checkpoint (data/batches/writer-checkpoint.json)
   --dry-run          show what would run, change nothing durable
   --progress         write reports/batches/factory-progress.json
 
@@ -60,6 +71,16 @@ import article_lib as lib
 MAX_BATCH_SIZE = 50
 MAX_REPAIR_ATTEMPTS = 3
 ACTIVE_STATUSES = ("WRITING", "QA", "REPAIR", "REVIEW")
+
+# Chunked writer mode: the external writer works in small chunks instead of
+# write->publish per article. Default chunk 5, hard ceiling 10 (an explicit
+# override is required to go higher; the CLI clamps to MAX_CHUNK_SIZE).
+DEFAULT_CHUNK_SIZE = 5
+MAX_CHUNK_SIZE = 10
+# Writer-side logical lock TTL (minutes). The batch .lock file only guards a
+# single machine/workspace; the writer lock guards concurrent EXTERNAL
+# writers (e.g. two Mistral sessions) on the same active batch.
+WRITER_LOCK_TTL_MINUTES = 120
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -633,6 +654,262 @@ def write_factory_progress(repo_root, matrix, published_commit_sha=None):
 
 
 # ---------------------------------------------------------------------------
+# Chunked writer mode: chunk selection, checkpoint, writer lock, throughput
+# ---------------------------------------------------------------------------
+
+class ChunkError(Exception):
+    """Deterministic tooling error (unknown id, wrong batch, wrong status)."""
+
+
+def clamp_chunk_size(chunk_size):
+    try:
+        n = int(chunk_size)
+    except (TypeError, ValueError):
+        n = DEFAULT_CHUNK_SIZE
+    return max(1, min(n, MAX_CHUNK_SIZE))
+
+
+def select_next_chunk_rows(rows, repo_root, chunk_size=DEFAULT_CHUNK_SIZE):
+    """NEXT WRITER CHUNK (deterministic, matrix order).
+
+    Eligible rows: status WRITING whose article file does NOT exist yet.
+    Skipped forever: PUBLISHED / PASS (never rewritten or re-claimed),
+    FAIL / BLOCKED (unless explicitly requeued), REPAIR / REVIEW (repair
+    path). WRITING rows that ALREADY have a file are NOT selected here:
+    they belong to the scoped QA stage, not to a fresh write chunk.
+    """
+    n = clamp_chunk_size(chunk_size)
+    out = []
+    for r in rows:
+        if len(out) >= n:
+            break
+        st = (r.get("status") or "").strip()
+        path = (r.get("output_path") or "").strip()
+        if st == "WRITING" and path \
+                and not os.path.isfile(os.path.join(repo_root, path)):
+            out.append(r)
+    return out
+
+
+def select_qa_rows_by_ids(rows, ids, repo_root):
+    """Scoped QA selection for explicit article ids (this batch only).
+
+    Errors (ChunkError): unknown id, id of another batch, duplicate id,
+    PASS/PUBLISHED row (never re-QA'd), active row without a written file.
+    """
+    by_id = {}
+    for r in rows:
+        by_id.setdefault(r.get("article_id"), r)
+    seen = set()
+    out = []
+    for i in ids:
+        i = (i or "").strip()
+        if not i:
+            continue
+        if i in seen:
+            raise ChunkError("duplicate id in --ids: %s" % i)
+        seen.add(i)
+        r = by_id.get(i)
+        if r is None:
+            raise ChunkError("unknown article_id (or not in this batch): %s" % i)
+        st = (r.get("status") or "").strip()
+        path = (r.get("output_path") or "").strip()
+        if st in ("PASS", "PUBLISHED"):
+            raise ChunkError(
+                "%s is %s — PASS/PUBLISHED rows are never re-QA'd" % (i, st))
+        if st not in ACTIVE_STATUSES:
+            raise ChunkError(
+                "%s is %s — only active rows can be QA'd (requeue FAIL/"
+                "BLOCKED explicitly via scripts/requeue_rows.py)" % (i, st))
+        if not path or not os.path.isfile(os.path.join(repo_root, path)):
+            raise ChunkError("%s has no written file at %s — write it first"
+                             % (i, path or "(empty output_path)"))
+        out.append(r)
+    return out
+
+
+def checkpoint_path(repo_root):
+    return os.path.join(batches_dir(repo_root), "writer-checkpoint.json")
+
+
+def empty_checkpoint(batch_id, chunk_size=DEFAULT_CHUNK_SIZE):
+    return {
+        "schema_version": 1,
+        "batch": batch_id,
+        "head_at_start": None,
+        "chunk_size": clamp_chunk_size(chunk_size),
+        "current_chunk_ids": [],
+        "completed_ids": [],
+        "pending_qa_ids": [],
+        "pending_repair_ids": [],
+        "pending_publish_ids": [],
+        "last_completed_step": None,
+        "updated_at": None,
+        "writer_session": None,
+    }
+
+
+def load_checkpoint(repo_root):
+    p = checkpoint_path(repo_root)
+    if not os.path.isfile(p):
+        return None
+    try:
+        with io.open(p, encoding="utf-8") as f:
+            cp = json.load(f)
+        if isinstance(cp, dict) and cp.get("schema_version") == 1:
+            return cp
+    except ValueError:
+        pass
+    return None
+
+
+def reconcile_checkpoint(cp, matrix, batch_id):
+    """Reconcile a checkpoint against matrix truth. THE MATRIX ALWAYS WINS:
+    a checkpoint row whose matrix status moved on (e.g. checkpoint says
+    WRITING but the matrix says PUBLISHED) is dropped from the pending
+    lists; a stale checkpoint of another batch is discarded entirely."""
+    if not cp or cp.get("batch") != batch_id or cp.get("schema_version") != 1:
+        cp = empty_checkpoint(batch_id,
+                              (cp or {}).get("chunk_size")
+                              if cp else DEFAULT_CHUNK_SIZE)
+    rows = {r.get("article_id"): r for r in batch_rows(matrix, batch_id)}
+
+    def keep(ids, statuses):
+        out = []
+        for i in ids or []:
+            r = rows.get(i)
+            if r is not None and (r.get("status") or "").strip() in statuses:
+                out.append(i)
+        return out
+
+    cp["current_chunk_ids"] = keep(cp.get("current_chunk_ids"), ("WRITING",))
+    cp["pending_qa_ids"] = keep(cp.get("pending_qa_ids"), ACTIVE_STATUSES)
+    cp["pending_repair_ids"] = keep(cp.get("pending_repair_ids"),
+                                    ("REPAIR", "REVIEW"))
+    cp["pending_publish_ids"] = keep(cp.get("pending_publish_ids"), ("PASS",))
+    cp["completed_ids"] = [i for i in (cp.get("completed_ids") or [])
+                           if i in rows]
+    return cp
+
+
+def save_checkpoint(repo_root, cp):
+    cp = dict(cp)
+    cp["updated_at"] = datetime.datetime.now().isoformat(timespec="seconds")
+    return write_json(checkpoint_path(repo_root), cp)
+
+
+def writer_lock_path(repo_root):
+    return os.path.join(batches_dir(repo_root), "writer-lock.json")
+
+
+def writer_lock_status(repo_root, now=None):
+    """Returns (lock_dict_or_None, fresh_bool). A lock is fresh while
+    younger than WRITER_LOCK_TTL_MINUTES; a stale lock may be recovered
+    (after the caller reconciles with matrix/HEAD truth)."""
+    p = writer_lock_path(repo_root)
+    if not os.path.isfile(p):
+        return None, False
+    try:
+        with io.open(p, encoding="utf-8") as f:
+            lock = json.load(f)
+    except ValueError:
+        return None, False
+    if not isinstance(lock, dict) or not lock.get("writer_session"):
+        return None, False
+    now = now or datetime.datetime.now()
+    try:
+        age = now - datetime.datetime.fromisoformat(lock.get("updated_at"))
+    except (TypeError, ValueError):
+        return lock, False
+    return lock, age < datetime.timedelta(minutes=WRITER_LOCK_TTL_MINUTES)
+
+
+def acquire_writer_lock(repo_root, batch_id, writer_session=None, head=None,
+                        now=None):
+    """Writer-side logical lock for EXTERNAL writers (outside GitHub
+    Actions). Refuses when a FRESH lock is owned by another session.
+    Recovers a stale lock (matrix truth wins; the caller has reconciled
+    the checkpoint before mutating anything). Returns (bool_acquired, lock).
+    """
+    os.makedirs(batches_dir(repo_root), exist_ok=True)
+    now = now or datetime.datetime.now()
+    session = (writer_session or "").strip() or ("writer-%s"
+                                                 % now.strftime("%Y%m%dT%H%M%S"))
+    lock, fresh = writer_lock_status(repo_root, now=now)
+    if lock and fresh and lock.get("writer_session") != session:
+        return False, lock
+    new_lock = {
+        "schema_version": 1,
+        "batch": batch_id,
+        "writer_session": session,
+        "started_at": (lock or {}).get("started_at")
+        if lock and lock.get("writer_session") == session
+        else now.isoformat(timespec="seconds"),
+        "updated_at": now.isoformat(timespec="seconds"),
+        "head": head,
+    }
+    write_json(writer_lock_path(repo_root), new_lock)
+    return True, new_lock
+
+
+def release_writer_lock(repo_root, writer_session=None):
+    """Idempotent release. With a session, only clears a lock owned by that
+    session (never another writer's fresh lock)."""
+    lock, _fresh = writer_lock_status(repo_root)
+    if lock is None:
+        return True
+    if writer_session and lock.get("writer_session") != writer_session:
+        return False
+    try:
+        os.remove(writer_lock_path(repo_root))
+    except OSError:
+        pass
+    return True
+
+
+def throughput_path(repo_root):
+    return os.path.join(repo_root, "reports", "batches",
+                        "factory-throughput.json")
+
+
+def update_throughput(repo_root, batch_id, **deltas):
+    """Lightweight cumulative throughput counters. Honest by construction:
+    every counter is incremented only by deterministic tooling with the
+    exact number of rows it verified. No estimated numbers are written."""
+    p = throughput_path(repo_root)
+    data = {}
+    if os.path.isfile(p):
+        try:
+            with io.open(p, encoding="utf-8") as f:
+                data = json.load(f) or {}
+        except ValueError:
+            data = {}
+    if data.get("schema_version") != 1:
+        data = {"schema_version": 1, "batches": {}}
+    b = data["batches"].setdefault(batch_id, {
+        "articles_written": 0, "articles_qa_checked": 0,
+        "articles_published": 0, "chunks_completed": 0,
+        "publish_operations": 0, "repair_count": 0,
+        "qa_score_sum": 0, "qa_score_count": 0,
+    })
+    for k in ("articles_written", "articles_qa_checked", "articles_published",
+              "chunks_completed", "publish_operations", "repair_count"):
+        if deltas.get(k):
+            b[k] = b.get(k, 0) + int(deltas[k])
+    if deltas.get("qa_score_sum"):
+        b["qa_score_sum"] = b.get("qa_score_sum", 0) + int(deltas["qa_score_sum"])
+        b["qa_score_count"] = b.get("qa_score_count", 0) + int(
+            deltas.get("qa_score_count") or (1 if deltas.get("qa_score_sum")
+                                             else 0))
+    b["average_qa_score"] = (round(b["qa_score_sum"] / b["qa_score_count"], 1)
+                             if b.get("qa_score_count") else None)
+    data["updated_at"] = datetime.datetime.now().isoformat(
+        timespec="seconds")
+    write_json(p, data)
+    return data
+
+
+# ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
@@ -669,6 +946,34 @@ def main_func(argv=None):
     ap.add_argument("--progress", action="store_true",
                     help="write reports/batches/factory-progress.json")
     ap.add_argument("--batch-size", type=int, default=MAX_BATCH_SIZE)
+    # ---- chunked writer mode ----
+    ap.add_argument("--next-chunk", type=int, default=None, metavar="N",
+                    help="chunked writer mode: deterministically select the "
+                         "next N (default 5, max 10) unwritten WRITING rows "
+                         "and write the chunk manifest + checkpoint")
+    ap.add_argument("--chunk-complete", action="store_true",
+                    help="mark the current chunk (checkpoint or --ids) as "
+                         "completed and update throughput counters")
+    ap.add_argument("--ids",
+                    help="explicit article ids (comma-separated) for scoped "
+                         "--qa / --publish / --chunk-complete")
+    ap.add_argument("--writer-session",
+                    help="writer session identity for the writer lock")
+    ap.add_argument("--acquire-writer-lock", action="store_true",
+                    help="acquire data/batches/writer-lock.json for this "
+                         "batch/session")
+    ap.add_argument("--release-writer-lock", action="store_true",
+                    help="release the writer lock (graceful completion)")
+    ap.add_argument("--writer-lock-status", action="store_true",
+                    help="print the current writer lock and freshness")
+    ap.add_argument("--checkpoint", action="store_true",
+                    help="print the checkpoint reconciled with matrix truth")
+    ap.add_argument("--checkpoint-reset", action="store_true",
+                    help="delete the checkpoint (matrix truth wins anyway)")
+    ap.add_argument("--time-budget-remaining", type=int, default=None,
+                    metavar="MIN",
+                    help="remaining runtime budget in minutes; <=0 stops "
+                         "cleanly before starting a new chunk")
     args = ap.parse_args(argv)
 
     repo_root = lib.ROOT
@@ -699,10 +1004,53 @@ def main_func(argv=None):
         print("ERROR: %s" % e)
         return EXIT_ERROR
 
+    # -------- writer-lock / checkpoint utilities (no batch mutation) -----
+    util_batch = args.batch or next_batch_id(matrix)
+    if args.writer_lock_status:
+        lock, fresh = writer_lock_status(repo_root)
+        print(json.dumps({"lock": lock, "fresh": fresh}, ensure_ascii=False))
+        return EXIT_OK
+    if args.release_writer_lock:
+        if not release_writer_lock(repo_root, args.writer_session):
+            print("WRITER-LOCK: not released (owned by another writer "
+                  "session).")
+            return EXIT_USAGE
+        print("WRITER-LOCK: released.")
+        return EXIT_OK
+    if args.acquire_writer_lock:
+        if not util_batch:
+            print("ERROR: writer lock needs a batch (--batch or --next).")
+            return EXIT_USAGE
+        ok, lock = acquire_writer_lock(repo_root, util_batch,
+                                       args.writer_session)
+        print(json.dumps({"acquired": ok, "lock": lock},
+                         ensure_ascii=False))
+        if not ok:
+            return EXIT_USAGE
+        return EXIT_OK
+    if args.checkpoint:
+        if not util_batch:
+            print("ERROR: --checkpoint needs a batch (--batch or --next).")
+            return EXIT_USAGE
+        cp = reconcile_checkpoint(load_checkpoint(repo_root), matrix,
+                                  util_batch)
+        save_checkpoint(repo_root, cp)
+        print(json.dumps(cp, ensure_ascii=False))
+        return EXIT_OK
+    if args.checkpoint_reset:
+        try:
+            os.remove(checkpoint_path(repo_root))
+        except OSError:
+            pass
+        print("CHECKPOINT: reset (the matrix remains the source of truth).")
+        return EXIT_OK
+
     # -------- resolve batch identity ONCE --------
     if args.pilot:
         batch_id = "BATCH-001"
-    elif args.next or (not args.batch and (args.prepare_agent or args.qa)):
+    elif (args.next or args.next_chunk is not None
+          or (not args.batch and (args.prepare_agent or args.qa
+                                  or args.chunk_complete))):
         batch_id = next_batch_id(matrix)
         if not batch_id:
             if args.progress:
@@ -714,6 +1062,11 @@ def main_func(argv=None):
                   "batch. Nothing to do.")
             return EXIT_OK
         if args.next:
+            active = active_batch_id(matrix)
+            print("resolved batch: %s%s" %
+                  (batch_id, " (resumed active batch)" if active == batch_id
+                   else " (first with PLANNED rows)"))
+        if args.next_chunk is not None:
             active = active_batch_id(matrix)
             print("resolved batch: %s%s" %
                   (batch_id, " (resumed active batch)" if active == batch_id
@@ -736,10 +1089,16 @@ def main_func(argv=None):
         claim = select_claim_rows(rows, batch_size)
         qa = select_qa_rows(rows, repo_root, batch_size)
         pub = select_publish_rows(rows, repo_root)
+        chunk = (select_next_chunk_rows(rows, repo_root, args.next_chunk)
+                 if args.next_chunk is not None else None)
         print("DRY RUN %s: %d PLANNED claimable, %d QA-able, %d PASS "
               "publishable, statuses: %s" %
               (batch_id, len(claim), len(qa), len(pub),
                sorted({(r.get("status") or "?") for r in rows})))
+        if chunk is not None:
+            print("DRY RUN %s: next writer chunk = %d row(s): %s" %
+                  (batch_id, len(chunk),
+                   ",".join(r["article_id"] for r in chunk)))
         if args.progress:
             write_factory_progress(repo_root, matrix)
         return EXIT_OK
@@ -776,9 +1135,105 @@ def main_func(argv=None):
                   (batch_id, len(claim), batch_id))
             return EXIT_OK
 
-        # ---------------- QA ----------------
+        # ---------------- next-chunk (chunked writer mode) ----------------
+        if args.next_chunk is not None:
+            cp = reconcile_checkpoint(load_checkpoint(repo_root), matrix,
+                                      batch_id)
+            if (args.time_budget_remaining is not None
+                    and args.time_budget_remaining <= 0):
+                cp["last_completed_step"] = "time-budget-stop"
+                save_checkpoint(repo_root, cp)
+                print("TIME-BUDGET: no runtime budget remaining — "
+                      "checkpoint saved, NOT starting a new chunk.")
+                return EXIT_OK
+            if args.writer_session:
+                ok, lock = acquire_writer_lock(repo_root, batch_id,
+                                               args.writer_session)
+                if not ok:
+                    print("WRITER-LOCK: %s is owned by fresh session %s. "
+                          "Aborting cleanly (never two writers on one "
+                          "batch). Checkpoint untouched." %
+                          (batch_id, lock.get("writer_session")))
+                    return EXIT_USAGE
+            chunk = select_next_chunk_rows(rows, repo_root, args.next_chunk)
+            if not chunk:
+                cp["last_completed_step"] = "no-eligible-chunk"
+                save_checkpoint(repo_root, cp)
+                print("NO-CHUNK: no unwritten WRITING rows in %s. Run "
+                      "scoped QA on the written ones (--ids ... --qa), "
+                      "publish the PASS rows together, or --prepare-agent "
+                      "if PLANNED rows remain." % batch_id)
+                return EXIT_OK
+            cp["chunk_size"] = clamp_chunk_size(args.next_chunk)
+            cp["current_chunk_ids"] = [r["article_id"] for r in chunk]
+            # ordered, duplicate-free union (deterministic matrix order)
+            cp["pending_qa_ids"] = list(dict.fromkeys(
+                (cp.get("pending_qa_ids") or [])
+                + cp["current_chunk_ids"]))
+            cp["last_completed_step"] = "chunk-prepared"
+            save_checkpoint(repo_root, cp)
+            manifest = build_manifest(batch_id, chunk, matrix, ownership,
+                                      facts, rubric, site, repo_root)
+            manifest["chunk"] = {
+                "chunk_size": len(chunk),
+                "chunk_ids": list(cp["current_chunk_ids"]),
+            }
+            write_json(os.path.join(batches_dir(repo_root),
+                                    batch_id + "-chunk.json"), manifest)
+            print("CHUNK-PREPARED %s: %d row(s): %s. Manifest: "
+                  "data/batches/%s-chunk.json. Write these files, then run "
+                  "scoped QA: --ids %s --qa" %
+                  (batch_id, len(chunk), ",".join(cp["current_chunk_ids"]),
+                   batch_id, ",".join(cp["current_chunk_ids"])))
+            return EXIT_OK
+
+        # ---------------- chunk-complete ----------------
+        if args.chunk_complete:
+            cp = reconcile_checkpoint(load_checkpoint(repo_root), matrix,
+                                      batch_id)
+            ids = ([s.strip() for s in (args.ids or "").split(",")
+                    if s.strip()] or cp.get("current_chunk_ids") or [])
+            if not ids:
+                print("CHUNK-COMPLETE: nothing to complete (no --ids, no "
+                      "current chunk in the checkpoint).")
+                return EXIT_OK
+            by_id = {r.get("article_id"): r for r in rows}
+            terminal = ("PASS", "PUBLISHED", "FAIL", "BLOCKED")
+            done = [i for i in ids
+                    if (by_id.get(i) or {}).get("status", "").strip()
+                    in terminal]
+            cp["completed_ids"] = sorted(
+                set(cp.get("completed_ids") or []) | set(done))
+            cp["current_chunk_ids"] = [i for i in
+                                       cp.get("current_chunk_ids") or []
+                                       if i not in done]
+            cp["pending_qa_ids"] = [i for i in
+                                    cp.get("pending_qa_ids") or []
+                                    if i not in done]
+            cp["last_completed_step"] = "chunk-completed"
+            save_checkpoint(repo_root, cp)
+            if done:
+                update_throughput(repo_root, batch_id,
+                                  articles_written=len(done), chunks_completed=1)
+                if args.writer_session:
+                    release_writer_lock(repo_root, args.writer_session)
+            print("CHUNK-COMPLETE %s: %d row(s) terminal: %s" %
+                  (batch_id, len(done), ",".join(done)))
+            return EXIT_OK
+
+        # ---------------- QA (batch-wide or scoped --ids) ----------------
         if args.qa:
-            qa_rows = select_qa_rows(rows, repo_root, batch_size)
+            if args.ids:
+                try:
+                    qa_rows = select_qa_rows_by_ids(
+                        rows,
+                        [s.strip() for s in args.ids.split(",") if s.strip()],
+                        repo_root)
+                except ChunkError as e:
+                    print("ERROR: %s" % e)
+                    return EXIT_USAGE
+            else:
+                qa_rows = select_qa_rows(rows, repo_root, batch_size)
             if not qa_rows:
                 print("Nothing to QA in %s (no written files for active "
                       "rows). Run --prepare-agent and write the articles "
@@ -790,6 +1245,37 @@ def main_func(argv=None):
             matrix = lib.load_matrix()
             rows = batch_rows(matrix, batch_id)
             pub = select_publish_rows(rows, repo_root)
+            # checkpoint: matrix truth wins; QA'd ids leave pending_qa,
+            # PASS ids become pending_publish, REPAIR/REVIEW pending_repair
+            cp = reconcile_checkpoint(load_checkpoint(repo_root), matrix,
+                                      batch_id)
+            qa_ids = {r.get("article_id") for r in qa_rows}
+            status_by_id = {r.get("article_id"):
+                            (r.get("status") or "").strip() for r in rows}
+            cp["pending_qa_ids"] = [i for i in
+                                    cp.get("pending_qa_ids") or []
+                                    if i not in qa_ids]
+            for i in sorted(qa_ids):
+                st = status_by_id.get(i, "")
+                if st == "PASS":
+                    cp["pending_publish_ids"] = sorted(
+                        set(cp.get("pending_publish_ids") or []) | {i})
+                elif st in ("REPAIR", "REVIEW"):
+                    cp["pending_repair_ids"] = sorted(
+                        set(cp.get("pending_repair_ids") or []) | {i})
+            cp["last_completed_step"] = "qa-completed"
+            save_checkpoint(repo_root, cp)
+            score_sum = sum(a.get("score") for a in articles
+                            if isinstance(a.get("score"), int))
+            score_n = sum(1 for a in articles
+                          if isinstance(a.get("score"), int))
+            repairs = sum(1 for a in articles
+                          if a.get("outcome") in ("REVIEW", "BLOCKED"))
+            update_throughput(repo_root, batch_id,
+                              articles_qa_checked=len(articles),
+                              qa_score_sum=score_sum,
+                              qa_score_count=score_n,
+                              repair_count=repairs)
             # CUMULATIVE batch report: every reserved member of the batch,
             # counts derived from the current matrix truth (never just the
             # rows of this run)
@@ -817,10 +1303,32 @@ def main_func(argv=None):
         # ---------------- publish (scope: THIS batch) ----------------
         if args.publish:
             pub = select_publish_rows(rows, repo_root)
+            if args.ids:
+                wanted = [s.strip() for s in args.ids.split(",")
+                          if s.strip()]
+                known = {r.get("article_id") for r in rows}
+                for i in wanted:
+                    if i not in known:
+                        print("ERROR: %s is not a row of %s — refusing the "
+                              "whole publish scope." % (i, batch_id))
+                        return EXIT_USAGE
+                    if i not in {r.get("article_id") for r in pub}:
+                        print("ERROR: %s is not a PASS row of %s with an "
+                              "existing file — refusing the whole publish "
+                              "scope." % (i, batch_id))
+                        return EXIT_USAGE
+                pub = [r for r in pub
+                       if r.get("article_id") in set(wanted)]
             for r in pub:
                 print(r["output_path"])
             print("# publish scope: %s (%d PASS files; other batches' PASS "
                   "rows are NEVER included)" % (batch_id, len(pub)))
+            if pub:
+                print("# grouped publish (all ids in ONE operation):")
+                print("node scripts/js/factory.mjs --publish %s --dry-run"
+                      % ",".join(r["article_id"] for r in pub))
+                print("node scripts/js/factory.mjs --publish %s"
+                      % ",".join(r["article_id"] for r in pub))
             return EXIT_OK
 
         # ---------------- mark-published (scope: THIS batch) --------

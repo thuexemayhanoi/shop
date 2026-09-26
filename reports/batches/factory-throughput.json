@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "batches": {},
+  "updated_at": "2026-09-26T18:45:00",
+  "note": "Cumulative throughput counters for chunked writer mode. Every counter is incremented only by deterministic tooling (run_article_batch.py --qa/--chunk-complete, factory.mjs --publish) with the exact number of rows it verified. Historical per-article runs before chunked mode are NOT backfilled — measurement starts from the chunked orchestration commit. No estimated numbers are ever written; effective_articles_per_hour is derived by the operator from elapsed wall time, never fabricated here."
+}
