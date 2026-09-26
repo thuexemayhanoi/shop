@@ -1,11 +1,11 @@
 # Batch report BATCH-003
 
-- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T23:59:30
+- started_at: 2026-09-26T15:19:08 | finished_at: 2026-09-26T17:00:26
 - writer: external-agent | batch resolved once: BATCH-003
-- processed: 50 | written: 48 | pass: 0 | published: 48
-- writing: 2 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 50 | pass: 2 | published: 48
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.3 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 13 | blocked 0
+- source_gate: pass 14 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
@@ -16,7 +16,7 @@
 | AT-0021 | cam-nang/an-toan/at-0021-giay-phep-lai-quoc-te-dung-cho-xe-may-o-viet-nam.html | PUBLISHED | 100 | 0 |  |
 | AT-0022 | cam-nang/an-toan/at-0022-muc-phat-cho-xe-may-di-nguoc-chieu.html | PUBLISHED | 100 | 0 | wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như'; wrong price for Xe điện: found 4000000 near 'ù là xe điện thì hành vi đi ngược chiều vẫn nằm trong khung 4 đến 6 triệu đồng như' |
 | AT-0023 | cam-nang/an-toan/at-0023-xe-may-cho-hang-cong-kenh-vuot-quy-dinh-bi-phat-khong.html | PUBLISHED | 99 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
-| AT-0024 | cam-nang/an-toan/at-0024-nghi-dinh-xu-phat-vi-pham-giao-thong-duong-bo-voi-xe-may.html | WRITING |  | 0 |  |
+| AT-0024 | cam-nang/an-toan/at-0024-nghi-dinh-xu-phat-vi-pham-giao-thong-duong-bo-voi-xe-may.html | PASS | 99 | 0 |  |
 | AT-0025 | cam-nang/an-toan/at-0025-quy-dinh-ve-coi-va-tin-hieu-bao-re-tren-xe-may.html | PUBLISHED | 99 | 0 |  |
 | CD-0017 | cam-nang/cung-duong/cd-0017-lich-trinh-chi-tiet-cho-chuyen-vinh-yen-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
 | CD-0018 | cam-nang/cung-duong/cd-0018-quan-ca-phe-dung-chan-tren-duong-vinh-yen.html | PUBLISHED | 95 | 0 |  |
@@ -34,7 +34,7 @@
 | DL-0022 | cam-nang/du-lich/dl-0022-mua-dong-den-cot-co-ha-noi-bang-xe-may-co-lanh-lam-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0023 | cam-nang/du-lich/dl-0023-mon-gi-dang-mua-ve-tu-cot-co-ha-noi.html | PUBLISHED | 100 | 0 |  |
 | DL-0024 | cam-nang/du-lich/dl-0024-goc-view-ven-duong-khi-chay-xe-den-cot-co-ha-noi.html | PUBLISHED | 99 | 0 |  |
-| DL-0025 | cam-nang/du-lich/dl-0025-chuyen-cuoi-tuan-den-bao-tang-dan-toc-hoc-viet-nam-bang-xe-m.html | WRITING |  | 0 |  |
+| DL-0025 | cam-nang/du-lich/dl-0025-chuyen-cuoi-tuan-den-bao-tang-dan-toc-hoc-viet-nam-bang-xe-m.html | PASS | 99 | 0 |  |
 | HD-0017 | cam-nang/hoi-dap/hd-0017-nop-phat-nguoi-online-o-dau.html | PUBLISHED | 100 | 0 |  |
 | HD-0018 | cam-nang/hoi-dap/hd-0018-bi-phat-nguoi-o-tinh-khac-xu-ly-the-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0019 | cam-nang/hoi-dap/hd-0019-xe-may-dien-bi-phat-nguoi-duoc-khong.html | PUBLISHED | 98 | 0 |  |
