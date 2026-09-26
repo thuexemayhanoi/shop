@@ -1,16 +1,16 @@
 # Batch report BATCH-002
 
-- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T12:24:04
+- started_at: 2026-09-26T12:08:30 | finished_at: 2026-09-26T12:27:26
 - writer: external-agent | batch resolved once: BATCH-002
-- processed: 50 | written: 8 | pass: 3 | published: 4
-- writing: 42 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 96.2 | min 89 | max 100 | repair_count: 0
-- source_gate: pass 1 | blocked 0
+- processed: 50 | written: 8 | pass: 4 | published: 4
+- writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.5 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 2 | blocked 0
 - published_commit_sha: 7c20f48bf95873749bdc92a7d8a4e2707a50e46e
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0010 | cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html | FAIL | 89 | 0 | wrong price for Honda Vision: found 0 near 'và khoảng 900.000đ đến 1.200.000đ/tháng. Honda Vision'; wrong price for Honda Air Blade: found 0 near 'g. Honda Air Blade cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và 1.500.000đ/' |
+| AT-0010 | cam-nang/an-toan/at-0010-bang-lai-a1-chay-duoc-nhung-loai-xe-may-nao.html | PASS | 99 | 0 | wrong price for Honda Vision: found 0 near 'và khoảng 900.000đ đến 1.200.000đ/tháng. Honda Vision'; wrong price for Honda Air Blade: found 0 near 'g. Honda Air Blade cho thuê với giá 200.000đ/ngày, 1.000.000đ/tuần và 1.500.000đ/' |
 | AT-0011 | cam-nang/an-toan/at-0011-do-tuoi-duoc-cap-giay-phep-lai-xe-may.html | WRITING |  | 0 |  |
 | AT-0012 | cam-nang/an-toan/at-0012-nguoi-nuoc-ngoai-lai-xe-may-o-viet-nam-can-giay-to-gi.html | WRITING |  | 0 |  |
 | AT-0013 | cam-nang/an-toan/at-0013-quy-dinh-ve-mu-bao-hiem-cho-nguoi-ngoi-sau-xe-may.html | WRITING |  | 0 |  |
