@@ -53,5 +53,42 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./lighthouserc.generated.json
-          uploadArtifacts: false
+          uploadArtifacts: true
           temporaryPublicStorage: false
+
+      - name: Report LHCI scores + failed assertions (annotations)
+        if: always()
+        run: |
+          set -u
+          if [ ! -d .lighthouseci ]; then
+            echo "::error::LHCI produced no .lighthouseci output"
+            exit 0
+          fi
+          python3 - <<'PY'
+          import json, glob
+          # scores
+          for f in sorted(glob.glob('.lighthouseci/lhr-*.json'))[:7]:
+              try:
+                  d = json.load(open(f))
+                  print(f"::notice::LH {d.get('finalDisplayedUrl','?')[:70]} "
+                        f"perf={d['categories']['performance']['score']} "
+                        f"a11y={d['categories']['accessibility']['score']} "
+                        f"bp={d['categories']['best-practices']['score']} "
+                        f"seo={d['categories']['seo']['score']}")
+              except Exception as e:
+                  pass
+          f = '.lighthouseci/assertion-results.json'
+          try:
+              data = json.load(open(f))
+          except Exception:
+              print("::error::no assertion-results.json produced")
+              raise SystemExit
+          fails = 0
+          for r in data:
+              for k, v in (r.get('assertions') or {}).items():
+                  if not v.get('passed'):
+                      fails += 1
+                      print(f"::error::LHCI FAIL {r.get('url','')[:60]} {k} "
+                            f"expected={v.get('expected')} actual={v.get('actual')}")
+          print(f"::error::LHCI failing assertions: {fails}")
+          PY

@@ -33,6 +33,13 @@ exclude = [
   '^tel:',
   # expected redirects (github.io base)
   '^https://github\.com/thuexemayhanoi/shop$',
+  # Vietnamese government/legal citation sites referenced by articles:
+  # they block or rate-limit automated HEAD/GET requests. Approved ignore
+  # list — the articles keep the links; we do not fail CI on their bot
+  # filtering. Transient external failures get retries + cache instead.
+  '^https://ttpvhcc\.hanoi\.gov\.vn/',
+  '^https://mt\.gov\.vn/',
+  '^https://badinh\.hanoi\.gov\.vn/',
   # external social/embeds frequently rate-limit crawlers — kept in ignore
   '^https://www\.facebook\.com/',
   '^https://zalo\.me/',
