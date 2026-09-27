@@ -88,33 +88,33 @@ test_missing_canonical_hard_error (test_article_quality.ValidatorTests.test_miss
 test_missing_h1_hard_error (test_article_quality.ValidatorTests.test_missing_h1_hard_error) ... ok
 test_validator_cli (test_article_quality.ValidatorTests.test_validator_cli) ... ok
 test_crash_resume_picks_only_rows_with_files (test_article_writer_pipeline.AgentPipelineTests.test_crash_resume_picks_only_rows_with_files)
-Runner crashed mid-batch: only active rows whose files exist are ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpbv_x527j/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+Runner crashed mid-batch: only active rows whose files exist are ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp76o7kmz1/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpbv_x527j/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp76o7kmz1/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpbv_x527j/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp76o7kmz1/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_dry_run_subprocess_changes_nothing (test_article_writer_pipeline.AgentPipelineTests.test_dry_run_subprocess_changes_nothing) ... ok
-test_fail_does_not_block_pass (test_article_writer_pipeline.AgentPipelineTests.test_fail_does_not_block_pass) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpud1srphm/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+test_fail_does_not_block_pass (test_article_writer_pipeline.AgentPipelineTests.test_fail_does_not_block_pass) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmp5nty3z/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpud1srphm/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmp5nty3z/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:293: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpud1srphm/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:293: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmp5nty3z/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
   html = io.open(path, encoding="utf-8").read().replace(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:296: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpud1srphm/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:296: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmp5nty3z/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(html)
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpud1srphm/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmp5nty3z/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpud1srphm/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmp5nty3z/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -122,88 +122,88 @@ test_max_batch_size_capped_at_50 (test_article_writer_pipeline.AgentPipelineTest
 test_next_resolution_consistency (test_article_writer_pipeline.AgentPipelineTests.test_next_resolution_consistency)
 --next resolves ONE batch id; claim/QA/publish all use it. ... ok
 test_partial_batch_publish (test_article_writer_pipeline.AgentPipelineTests.test_partial_batch_publish)
-Some PASS, some FAIL — exactly the PASS rows are publishable. ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx404ezxg/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+Some PASS, some FAIL — exactly the PASS rows are publishable. ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpczwyc959/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx404ezxg/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpczwyc959/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:368: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx404ezxg/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:368: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpczwyc959/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
   html = io.open(path, encoding="utf-8").read().replace(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:371: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx404ezxg/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:371: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpczwyc959/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(html)
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx404ezxg/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpczwyc959/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx404ezxg/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpczwyc959/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_pass_and_published_rows_never_rewritten (test_article_writer_pipeline.AgentPipelineTests.test_pass_and_published_rows_never_rewritten) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpnuz7t1ib/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+test_pass_and_published_rows_never_rewritten (test_article_writer_pipeline.AgentPipelineTests.test_pass_and_published_rows_never_rewritten) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpbk4yyt51/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpnuz7t1ib/cam-nang-test/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpbk4yyt51/cam-nang-test/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_publish_scope_is_batch_only (test_article_writer_pipeline.AgentPipelineTests.test_publish_scope_is_batch_only) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp12278o7y/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+test_publish_scope_is_batch_only (test_article_writer_pipeline.AgentPipelineTests.test_publish_scope_is_batch_only) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp7wk_oaw7/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp12278o7y/cam-nang-test/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp7wk_oaw7/cam-nang-test/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp12278o7y/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp7wk_oaw7/cam-nang-test/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp12278o7y/cam-nang-test/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp7wk_oaw7/cam-nang-test/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_requires_sources_row_fails_qa_without_sources (test_article_writer_pipeline.AgentPipelineTests.test_requires_sources_row_fails_qa_without_sources)
-AT-0001 requires_sources=true: no 'Nguồn tham khảo' section with ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp4sf2zb8b/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='w' encoding='utf-8'>
+AT-0001 requires_sources=true: no 'Nguồn tham khảo' section with ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpsc345att/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp4sf2zb8b/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpsc345att/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_requires_sources_row_passes_qa_with_approved_source (test_article_writer_pipeline.AgentPipelineTests.test_requires_sources_row_passes_qa_with_approved_source) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpqnluzi3v/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='w' encoding='utf-8'>
+test_requires_sources_row_passes_qa_with_approved_source (test_article_writer_pipeline.AgentPipelineTests.test_requires_sources_row_passes_qa_with_approved_source) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp672ep69k/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpqnluzi3v/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp672ep69k/cam-nang-test/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_review_after_max_repairs_blocked (test_article_writer_pipeline.AgentPipelineTests.test_review_after_max_repairs_blocked)
 A REVIEW row with repair:2 in its notes (two attempts spent) gets ... ok
 test_review_repair_then_pass (test_article_writer_pipeline.AgentPipelineTests.test_review_repair_then_pass)
-Weak-links draft => REVIEW (repair:1 stamped); after the agent ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmmp35i4k/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+Weak-links draft => REVIEW (repair:1 stamped); after the agent ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpvz2hty3b/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:308: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmmp35i4k/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:308: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpvz2hty3b/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   html = io.open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:313: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmmp35i4k/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:313: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpvz2hty3b/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(html)
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpmmp35i4k/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpvz2hty3b/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_unwritten_row_isolated_from_written_rows (test_article_writer_pipeline.AgentPipelineTests.test_unwritten_row_isolated_from_written_rows) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmphb8v1nz0/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+test_unwritten_row_isolated_from_written_rows (test_article_writer_pipeline.AgentPipelineTests.test_unwritten_row_isolated_from_written_rows) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp13h18lxr/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmphb8v1nz0/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp13h18lxr/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_writer_context_carries_full_standard (test_article_writer_pipeline.AgentPipelineTests.test_writer_context_carries_full_standard) ... ok
-test_written_article_passes_qa (test_article_writer_pipeline.AgentPipelineTests.test_written_article_passes_qa) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpnwnkobw2/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
+test_written_article_passes_qa (test_article_writer_pipeline.AgentPipelineTests.test_written_article_passes_qa) ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:210: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpb9uc65ks/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='w' encoding='utf-8'>
   io.open(path, "w", encoding="utf-8").write(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpnwnkobw2/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpb9uc65ks/cam-nang-test/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -213,7 +213,7 @@ test_prepare_agent_subprocess_sandboxed (test_article_writer_pipeline.NoApiArchi
 --prepare-agent works with NO secret in the environment and ... /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:487: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/data/content-matrix.csv' mode='r' encoding='utf-8'>
   real_before = io.open(real_matrix_path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:504: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmphfygcoy5/data/batches/BATCH-001.json' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:504: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpzowge_ha/data/batches/BATCH-001.json' mode='r' encoding='utf-8'>
   manifest = json.load(io.open(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_article_writer_pipeline.py:511: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/data/content-matrix.csv' mode='r' encoding='utf-8'>
@@ -223,33 +223,33 @@ ok
 test_writer_cli_exit_5 (test_article_writer_pipeline.NoApiArchitectureTests.test_writer_cli_exit_5) ... ok
 test_writer_not_configured (test_article_writer_pipeline.NoApiArchitectureTests.test_writer_not_configured) ... ok
 test_checkpoint_of_other_batch_is_discarded (test_chunked_writer.CheckpointTests.test_checkpoint_of_other_batch_is_discarded) ... ok
-test_chunk_complete_updates_checkpoint_and_throughput (test_chunked_writer.CheckpointTests.test_chunk_complete_updates_checkpoint_and_throughput) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:323: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp78mrijie/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
+test_chunk_complete_updates_checkpoint_and_throughput (test_chunked_writer.CheckpointTests.test_chunk_complete_updates_checkpoint_and_throughput) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:323: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpam4mibyz/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
   cp = json.load(io.open(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_chunked_writer.py:330: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp78mrijie/reports/batches/factory-throughput.json' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_chunked_writer.py:330: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpam4mibyz/reports/batches/factory-throughput.json' mode='r' encoding='utf-8'>
   tp = json.load(io.open(os.path.join(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_matrix_wins_over_stale_checkpoint (test_chunked_writer.CheckpointTests.test_matrix_wins_over_stale_checkpoint) ... ok
 test_resume_checkpoint_roundtrip (test_chunked_writer.CheckpointTests.test_resume_checkpoint_roundtrip) ... ok
-test_scoped_qa_updates_checkpoint (test_chunked_writer.CheckpointTests.test_scoped_qa_updates_checkpoint) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpl_d64p6e/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+test_scoped_qa_updates_checkpoint (test_chunked_writer.CheckpointTests.test_scoped_qa_updates_checkpoint) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1ywsibn0/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpl_d64p6e/cam-nang/an-toan/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1ywsibn0/cam-nang/an-toan/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpl_d64p6e/cam-nang/xe-may/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1ywsibn0/cam-nang/xe-may/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_chunked_writer.py:297: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpl_d64p6e/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_chunked_writer.py:297: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1ywsibn0/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
   cp = json.load(io.open(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_chunk_size_clamped_to_10 (test_chunked_writer.ChunkSelectionTests.test_chunk_size_clamped_to_10) ... ok
-test_next_chunk_cli_writes_manifest_and_checkpoint (test_chunked_writer.ChunkSelectionTests.test_next_chunk_cli_writes_manifest_and_checkpoint) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:155: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmps2ung27b/data/batches/BATCH-001-chunk.json' mode='r' encoding='utf-8'>
+test_next_chunk_cli_writes_manifest_and_checkpoint (test_chunked_writer.ChunkSelectionTests.test_next_chunk_cli_writes_manifest_and_checkpoint) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:155: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpdd75ryvl/data/batches/BATCH-001-chunk.json' mode='r' encoding='utf-8'>
   manifest = json.load(io.open(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_chunked_writer.py:160: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmps2ung27b/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_chunked_writer.py:160: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpdd75ryvl/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
   cp = json.load(io.open(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -258,7 +258,7 @@ test_published_pass_fail_blocked_never_reselected (test_chunked_writer.ChunkSele
 test_scoped_qa_rejects_pass_and_published (test_chunked_writer.ChunkSelectionTests.test_scoped_qa_rejects_pass_and_published) ... ok
 test_scoped_qa_rejects_unknown_duplicate_and_unwritten (test_chunked_writer.ChunkSelectionTests.test_scoped_qa_rejects_unknown_duplicate_and_unwritten) ... ok
 test_selects_exactly_n_rows_in_matrix_order (test_chunked_writer.ChunkSelectionTests.test_selects_exactly_n_rows_in_matrix_order) ... ok
-test_time_budget_stops_cleanly_before_new_chunk (test_chunked_writer.ChunkSelectionTests.test_time_budget_stops_cleanly_before_new_chunk) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:190: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp0115zgit/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
+test_time_budget_stops_cleanly_before_new_chunk (test_chunked_writer.ChunkSelectionTests.test_time_budget_stops_cleanly_before_new_chunk) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:190: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2gcbqnhq/data/batches/writer-checkpoint.json' mode='r' encoding='utf-8'>
   cp = json.load(io.open(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -269,23 +269,23 @@ test_kill_switch_semantics_unchanged (test_chunked_writer.InvariantTests.test_ki
   cfg = json.load(io.open(os.path.join(ROOT, "config",
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_matrix_invariants_preserved_by_orchestration (test_chunked_writer.InvariantTests.test_matrix_invariants_preserved_by_orchestration) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmps9pzu68z/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
+test_matrix_invariants_preserved_by_orchestration (test_chunked_writer.InvariantTests.test_matrix_invariants_preserved_by_orchestration) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2j1ldf5c/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmps9pzu68z/cam-nang/an-toan/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2j1ldf5c/cam-nang/an-toan/at-0001-nong-do-con-khi-lai-xe-may-muc-xu-phat-hien-hanh.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmps9pzu68z/cam-nang/xe-may/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2j1ldf5c/cam-nang/xe-may/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmps9pzu68z/cam-nang/du-lich/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2j1ldf5c/cam-nang/du-lich/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmps9pzu68z/cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2j1ldf5c/cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_throughput_counters_accumulate (test_chunked_writer.ThroughputTests.test_throughput_counters_accumulate) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:378: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpkph38zs2/reports/batches/factory-throughput.json' mode='r' encoding='utf-8'>
+test_throughput_counters_accumulate (test_chunked_writer.ThroughputTests.test_throughput_counters_accumulate) ... /home/runner/work/shop/shop/tests/test_chunked_writer.py:378: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp3dfs8nmi/reports/batches/factory-throughput.json' mode='r' encoding='utf-8'>
   tp = json.load(io.open(os.path.join(
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -315,7 +315,7 @@ test_pass_article_is_publishable (test_content_factory.PublishPolicyTests.test_p
 test_review_after_max_repairs_blocked (test_content_factory.PublishPolicyTests.test_review_after_max_repairs_blocked) ... ok
 test_review_article_not_published (test_content_factory.PublishPolicyTests.test_review_article_not_published) ... ok
 test_prepare_agent_claims_50_writing_and_manifest (test_content_factory.RunnerCLITests.test_prepare_agent_claims_50_writing_and_manifest)
---prepare-agent claims exactly the batch's PLANNED rows as ... /home/runner/work/shop/shop/tests/test_content_factory.py:302: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpdms5iuz0/data/batches/BATCH-001.json' mode='r' encoding='utf-8'>
+--prepare-agent claims exactly the batch's PLANNED rows as ... /home/runner/work/shop/shop/tests/test_content_factory.py:302: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp9rm9e_y4/data/batches/BATCH-001.json' mode='r' encoding='utf-8'>
   data = json.load(io.open(manifest, encoding="utf-8"))
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -329,23 +329,23 @@ test_fail_blocked_do_not_prevent_next_batch (test_factory_regressions.BatchResol
 test_next_resolved_batch_stays_consistent (test_factory_regressions.BatchResolutionTests.test_next_resolved_batch_stays_consistent)
 Once resolved, the SAME batch id is used for prepare, qa, publish ... ok
 test_next_resumes_active_batch_first (test_factory_regressions.BatchResolutionTests.test_next_resumes_active_batch_first) ... ok
-test_publish_scope_is_batch_only (test_factory_regressions.BatchResolutionTests.test_publish_scope_is_batch_only) ... /home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1qf8f2qe/fixture/KN-0001.html' mode='w' encoding='utf-8'>
+test_publish_scope_is_batch_only (test_factory_regressions.BatchResolutionTests.test_publish_scope_is_batch_only) ... /home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmplguw5ar7/fixture/KN-0001.html' mode='w' encoding='utf-8'>
   io.open(p, "w", encoding="utf-8").write("<html></html>")
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1qf8f2qe/fixture/AT-0001.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmplguw5ar7/fixture/AT-0001.html' mode='w' encoding='utf-8'>
   io.open(p, "w", encoding="utf-8").write("<html></html>")
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1qf8f2qe/fixture/XM-0009.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmplguw5ar7/fixture/XM-0009.html' mode='w' encoding='utf-8'>
   io.open(p, "w", encoding="utf-8").write("<html></html>")
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1qf8f2qe/fixture/DL-0009.html' mode='w' encoding='utf-8'>
+/home/runner/work/shop/shop/tests/test_factory_regressions.py:496: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmplguw5ar7/fixture/DL-0009.html' mode='w' encoding='utf-8'>
   io.open(p, "w", encoding="utf-8").write("<html></html>")
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_category_hubs_are_not_commercial (test_factory_regressions.CommercialClassificationTests.test_category_hubs_are_not_commercial) ... ok
 test_commercial_flag_independent_of_protection (test_factory_regressions.CommercialClassificationTests.test_commercial_flag_independent_of_protection) ... ok
 test_explicit_flag_wins_over_role (test_factory_regressions.CommercialClassificationTests.test_explicit_flag_wins_over_role) ... ok
-test_hub_links_do_not_burn_the_commercial_budget (test_factory_regressions.CommercialClassificationTests.test_hub_links_do_not_burn_the_commercial_budget) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp6rdbc96n/a.html' mode='r' encoding='utf-8'>
+test_hub_links_do_not_burn_the_commercial_budget (test_factory_regressions.CommercialClassificationTests.test_hub_links_do_not_burn_the_commercial_budget) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpe05fnexj/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -365,42 +365,42 @@ test_targets_exist_and_parent_hub_included (test_factory_regressions.MatrixLinkT
 test_matrix_has_published_date_ledger_column (test_factory_regressions.NoApiArchitectureTests.test_matrix_has_published_date_ledger_column) ... ok
 test_no_api_key_dependency_in_sources (test_factory_regressions.NoApiArchitectureTests.test_no_api_key_dependency_in_sources) ... ok
 test_no_providers_directory (test_factory_regressions.NoApiArchitectureTests.test_no_providers_directory) ... ok
-test_hub_block_injection_idempotent (test_factory_regressions.RootHubStagingTests.test_hub_block_injection_idempotent) ... /home/runner/work/shop/shop/scripts/generate_category_pages.py:88: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp_kw7osbx/kinhnghiem.html' mode='r' encoding='utf-8'>
+test_hub_block_injection_idempotent (test_factory_regressions.RootHubStagingTests.test_hub_block_injection_idempotent) ... /home/runner/work/shop/shop/scripts/generate_category_pages.py:104: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpj38qmjka/kinhnghiem.html' mode='r' encoding='utf-8'>
   text = io.open(hub_path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_published_by_category_only_published (test_factory_regressions.RootHubStagingTests.test_published_by_category_only_published) ... ok
 test_six_root_hubs_exist_in_repo (test_factory_regressions.RootHubStagingTests.test_six_root_hubs_exist_in_repo) ... ok
-test_approved_domain_passes (test_factory_regressions.SourcePolicyTests.test_approved_domain_passes) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpby2oft3d/a.html' mode='r' encoding='utf-8'>
+test_approved_domain_passes (test_factory_regressions.SourcePolicyTests.test_approved_domain_passes) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp9_f46tiz/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_approved_subdomain_passes (test_factory_regressions.SourcePolicyTests.test_approved_subdomain_passes) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp8ojo8uw8/a.html' mode='r' encoding='utf-8'>
+test_approved_subdomain_passes (test_factory_regressions.SourcePolicyTests.test_approved_subdomain_passes) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp0cu8ov5v/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_heading_without_url_fails (test_factory_regressions.SourcePolicyTests.test_heading_without_url_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2of3409h/a.html' mode='r' encoding='utf-8'>
+test_heading_without_url_fails (test_factory_regressions.SourcePolicyTests.test_heading_without_url_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp445vv_ap/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_malformed_url_fails (test_factory_regressions.SourcePolicyTests.test_malformed_url_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpka8skk54/a.html' mode='r' encoding='utf-8'>
+test_malformed_url_fails (test_factory_regressions.SourcePolicyTests.test_malformed_url_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpkxmsocgw/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_no_source_section_fails (test_factory_regressions.SourcePolicyTests.test_no_source_section_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmppsxw0e6a/a.html' mode='r' encoding='utf-8'>
+test_no_source_section_fails (test_factory_regressions.SourcePolicyTests.test_no_source_section_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpe7q50hx9/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_non_approved_domain_fails (test_factory_regressions.SourcePolicyTests.test_non_approved_domain_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp90f2cm4e/a.html' mode='r' encoding='utf-8'>
+test_non_approved_domain_fails (test_factory_regressions.SourcePolicyTests.test_non_approved_domain_fails) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp5zl2u8lw/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_policy_has_approved_official_domains (test_factory_regressions.SourcePolicyTests.test_policy_has_approved_official_domains) ... ok
-test_requires_sources_false_not_forced (test_factory_regressions.SourcePolicyTests.test_requires_sources_false_not_forced) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1at8zqjv/a.html' mode='r' encoding='utf-8'>
+test_requires_sources_false_not_forced (test_factory_regressions.SourcePolicyTests.test_requires_sources_false_not_forced) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp3d3bk3d1/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_sample_rows_exempt_from_source_gate (test_factory_regressions.SourcePolicyTests.test_sample_rows_exempt_from_source_gate) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpbzbi6pyu/a.html' mode='r' encoding='utf-8'>
+test_sample_rows_exempt_from_source_gate (test_factory_regressions.SourcePolicyTests.test_sample_rows_exempt_from_source_gate) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp81w02tnl/a.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -472,53 +472,53 @@ test_workflow_has_global_concurrency (test_production_standard.ConcurrencyTests.
   text = io.open(p, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_broken_link_fail (test_production_standard.ContextualLinkTests.test_broken_link_fail) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmperoarhv4/synth-1700.html' mode='r' encoding='utf-8'>
+test_broken_link_fail (test_production_standard.ContextualLinkTests.test_broken_link_fail) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpli_g8yk0/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_duplicate_anchors_detected (test_production_standard.ContextualLinkTests.test_duplicate_anchors_detected) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpf71o4i5r/synth-1700.html' mode='r' encoding='utf-8'>
+test_duplicate_anchors_detected (test_production_standard.ContextualLinkTests.test_duplicate_anchors_detected) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp9avene2z/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_generic_anchors_warned (test_production_standard.ContextualLinkTests.test_generic_anchors_warned) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpxtzxt0jv/synth-1700.html' mode='r' encoding='utf-8'>
+test_generic_anchors_warned (test_production_standard.ContextualLinkTests.test_generic_anchors_warned) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpat0pznkk/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_link_count_2_review (test_production_standard.ContextualLinkTests.test_link_count_2_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmphozxodke/synth-1700.html' mode='r' encoding='utf-8'>
+test_link_count_2_review (test_production_standard.ContextualLinkTests.test_link_count_2_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmptnhtnviv/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_link_count_6_review (test_production_standard.ContextualLinkTests.test_link_count_6_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp8nu_5t4v/synth-1700.html' mode='r' encoding='utf-8'>
+test_link_count_6_review (test_production_standard.ContextualLinkTests.test_link_count_6_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpg5j07sdc/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_link_counts_3_4_5_valid (test_production_standard.ContextualLinkTests.test_link_counts_3_4_5_valid) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp1q0q99bi/synth-1700.html' mode='r' encoding='utf-8'>
+test_link_counts_3_4_5_valid (test_production_standard.ContextualLinkTests.test_link_counts_3_4_5_valid) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmprvoafo35/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmppg1b5flr/synth-1700.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpuxlk9r60/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpeahq_t8p/synth-1700.html' mode='r' encoding='utf-8'>
-  self.raw = io.open(path, encoding="utf-8", errors="replace").read()
-ResourceWarning: Enable tracemalloc to get the object allocation traceback
-ok
-test_missing_parent_hub_review (test_production_standard.ContextualLinkTests.test_missing_parent_hub_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmppv7atw7d/synth-1700.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2fctff1y/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_nav_footer_breadcrumb_links_excluded (test_production_standard.ContextualLinkTests.test_nav_footer_breadcrumb_links_excluded) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx89lnr0m/synth-1700.html' mode='r' encoding='utf-8'>
+test_missing_parent_hub_review (test_production_standard.ContextualLinkTests.test_missing_parent_hub_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpzklpmh_6/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_parent_hub_detection (test_production_standard.ContextualLinkTests.test_parent_hub_detection) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpf1culkqj/synth-1700.html' mode='r' encoding='utf-8'>
+test_nav_footer_breadcrumb_links_excluded (test_production_standard.ContextualLinkTests.test_nav_footer_breadcrumb_links_excluded) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpo7fg4pcl/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_repeated_commercial_anchor_strong_review (test_production_standard.ContextualLinkTests.test_repeated_commercial_anchor_strong_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpj03b28cp/synth-1700.html' mode='r' encoding='utf-8'>
+test_parent_hub_detection (test_production_standard.ContextualLinkTests.test_parent_hub_detection) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmptn7zkwdn/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_zero_links_never_pass (test_production_standard.ContextualLinkTests.test_zero_links_never_pass) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmppq5tyidg/synth-1700.html' mode='r' encoding='utf-8'>
+test_repeated_commercial_anchor_strong_review (test_production_standard.ContextualLinkTests.test_repeated_commercial_anchor_strong_review) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpm_czspgq/synth-1700.html' mode='r' encoding='utf-8'>
+  self.raw = io.open(path, encoding="utf-8", errors="replace").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_zero_links_never_pass (test_production_standard.ContextualLinkTests.test_zero_links_never_pass) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpizcmzno4/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -539,7 +539,7 @@ test_fixtures_have_schema_breadcrumb (test_production_standard.SeoStructureTests
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_heading_structure_reports_skips (test_production_standard.SeoStructureTests.test_heading_structure_reports_skips) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp9p4mqrbd/synth-1700.html' mode='r' encoding='utf-8'>
+test_heading_structure_reports_skips (test_production_standard.SeoStructureTests.test_heading_structure_reports_skips) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpiuc36lwa/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -550,34 +550,34 @@ test_external_and_special_not_internal (test_production_standard.UrlNormalizatio
 test_relative_forms (test_production_standard.UrlNormalizationTests.test_relative_forms) ... ok
 test_shop_prefixed_article (test_production_standard.UrlNormalizationTests.test_shop_prefixed_article) ... ok
 test_shop_prefixed_hub (test_production_standard.UrlNormalizationTests.test_shop_prefixed_hub) ... ok
-test_sample_rows_exempt (test_production_standard.WordCountTests.test_sample_rows_exempt) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpcazueh86/synth-400.html' mode='r' encoding='utf-8'>
+test_sample_rows_exempt (test_production_standard.WordCountTests.test_sample_rows_exempt) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp5xtr69ar/synth-400.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
-test_word_boundaries (test_production_standard.WordCountTests.test_word_boundaries) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpxqyr8bnn/synth-1600.html' mode='r' encoding='utf-8'>
+test_word_boundaries (test_production_standard.WordCountTests.test_word_boundaries) ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp4mimv_g8/synth-1600.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp2mq_8m84/synth-1800.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpna_qg8de/synth-1800.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp18_cxux4/synth-2000.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpp5fl883d/synth-2000.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp7ir3pt_0/synth-1599.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp01oen8pl/synth-1599.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpndfl1yhi/synth-2001.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp7e5zjyms/synth-2001.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpeynrhe7f/synth-1199.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpc_7ifnet/synth-1199.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
-/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpekewstrr/synth-2301.html' mode='r' encoding='utf-8'>
+/home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpah67du14/synth-2301.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_word_count_is_body_only (test_production_standard.WordCountTests.test_word_count_is_body_only)
-Nav/footer/breadcrumb boilerplate must not inflate the count. ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpqq3ttnnn/synth-1700.html' mode='r' encoding='utf-8'>
+Nav/footer/breadcrumb boilerplate must not inflate the count. ... /home/runner/work/shop/shop/scripts/article_lib.py:226: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp7q2bwxtx/synth-1700.html' mode='r' encoding='utf-8'>
   self.raw = io.open(path, encoding="utf-8", errors="replace").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
@@ -590,6 +590,7 @@ test_snippet_matches_generator_output (test_publish_gate.CompactFooterTests.test
   current = open(SNIPPET_PATH, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
+test_page2_carries_footer_embed_and_hub_link (test_publish_gate.PaginationPageTests.test_page2_carries_footer_embed_and_hub_link) ... ok
 test_drafts_never_hold_published_rows (test_publish_gate.PublishGateTests.test_drafts_never_hold_published_rows) ... ok
 test_published_rows_have_public_files (test_publish_gate.PublishGateTests.test_published_rows_have_public_files) ... ok
 test_sitemap_carries_exactly_published_articles (test_publish_gate.PublishGateTests.test_sitemap_carries_exactly_published_articles) ... ok
@@ -1227,6 +1228,12 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/an-toan/at-0050-muc-phat-cho-ba-nguoi-tren-xe-may.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/an-toan/at-0051-giay-to-photo-co-duoc-dung-khi-bi-kiem-tra-xe-khong.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/an-toan/page-2.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/chu-de/at-chay-dem-den-xe.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
@@ -1548,6 +1555,12 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/cung-duong/cd-0050-diem-check-in-doc-cung-duong-den-dong-van.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/cung-duong/cd-0051-duong-tu-ha-noi-vao-meo-vac-doan-nao-kho-di.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/cung-duong/page-2.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/du-lich/dl-0001-kinh-nghiem-di-xe-may-den-ho-tay-tu-ha-noi.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
@@ -1696,6 +1709,12 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/du-lich/dl-0050-di-xe-may-den-chua-tay-phuong-mua-nao-dep-nhat.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/du-lich/dl-0051-an-gi-khi-du-lich-chua-tay-phuong-bang-xe-may.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/du-lich/page-2.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/hoi-dap/hd-0001-co-can-bang-lai-de-chay-xe-may-50cc-khong.html' mode='r' encoding='utf-8'>
@@ -1848,6 +1867,12 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/hoi-dap/hd-0050-khi-thue-xe-may-nen-hoi-chu-xe-nhung-cau-hoi-nao.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/hoi-dap/hd-0051-xe-thue-bi-hong-nho-giua-chung-nen-tu-sua-hay-goi-chu-xe.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/hoi-dap/page-2.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
@@ -1998,6 +2023,15 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/kinh-nghiem/kn-0050-kinh-nghiem-cho-do-tren-xe-may-dien.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/kinh-nghiem/kn-0051-xe-may-dien-co-chay-duoc-duong-deo-khong.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/kinh-nghiem/page-2.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/xe-may/page-2.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/xe-may/xm-0001-cach-kiem-tra-bugi-tren-honda-wave.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
@@ -2146,6 +2180,9 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/xe-may/xm-0050-cach-kiem-tra-van-lop-tren-honda-click.html' mode='r' encoding='utf-8'>
+  html = open(page, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/xe-may/xm-0051-cach-kiem-tra-bo-ly-hop-tren-honda-click.html' mode='r' encoding='utf-8'>
   html = open(page, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:177: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/caugiay.html' mode='r' encoding='utf-8'>
@@ -3131,6 +3168,24 @@ ResourceWarning: Enable tracemalloc to get the object allocation traceback
 /home/runner/work/shop/shop/tests/test_ui_integration.py:231: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/hoi-dap/hd-0050-khi-thue-xe-may-nen-hoi-chu-xe-nhung-cau-hoi-nao.html' mode='r' encoding='utf-8'>
   html = open(path, encoding="utf-8").read()
 ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:231: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/kinh-nghiem/kn-0051-xe-may-dien-co-chay-duoc-duong-deo-khong.html' mode='r' encoding='utf-8'>
+  html = open(path, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:231: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/an-toan/at-0051-giay-to-photo-co-duoc-dung-khi-bi-kiem-tra-xe-khong.html' mode='r' encoding='utf-8'>
+  html = open(path, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:231: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/xe-may/xm-0051-cach-kiem-tra-bo-ly-hop-tren-honda-click.html' mode='r' encoding='utf-8'>
+  html = open(path, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:231: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/du-lich/dl-0051-an-gi-khi-du-lich-chua-tay-phuong-bang-xe-may.html' mode='r' encoding='utf-8'>
+  html = open(path, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:231: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/cung-duong/cd-0051-duong-tu-ha-noi-vao-meo-vac-doan-nao-kho-di.html' mode='r' encoding='utf-8'>
+  html = open(path, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/runner/work/shop/shop/tests/test_ui_integration.py:231: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/shop/shop/cam-nang/hoi-dap/hd-0051-xe-thue-bi-hong-nho-giua-chung-nen-tu-sua-hay-goi-chu-xe.html' mode='r' encoding='utf-8'>
+  html = open(path, encoding="utf-8").read()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
 ok
 test_writer_rules_require_embed (test_ui_integration.ChatbotTests.test_writer_rules_require_embed) ... ok
 test_matrix_untouched_shape (test_ui_integration.FactorySafetyTests.test_matrix_untouched_shape) ... ok
@@ -3334,11 +3389,11 @@ test_six_parents (test_ui_integration.TaxonomySourceTests.test_six_parents) ... 
 test_topic_index_exists (test_ui_integration.TaxonomySourceTests.test_topic_index_exists) ... ok
 
 ----------------------------------------------------------------------
-Ran 281 tests in 20.537s
+Ran 282 tests in 15.964s
 
 OK
 CHUNK-COMPLETE BATCH-001: 2 row(s) terminal: KN-0001,AT-0001
-{"batch_id": "BATCH-001", "started_at": "2026-09-27T17:04:28", "finished_at": "2026-09-27T17:04:28", "writer": "external-agent", "processed": 50, "written": 3, "pass": 0, "published": 0, "writing": 47, "review": 0, "repair": 0, "fail": 3, "blocked": 0, "average_score": 94, "min_score": 42, "max_score": 100, "repair_count": 0, "source_gate_pass": 0, "source_gate_blocked": 0, "published_commit_sha": null, "pass_publishable_now": 0}
+{"batch_id": "BATCH-001", "started_at": "2026-09-27T17:16:43", "finished_at": "2026-09-27T17:16:43", "writer": "external-agent", "processed": 50, "written": 3, "pass": 0, "published": 0, "writing": 47, "review": 0, "repair": 0, "fail": 3, "blocked": 0, "average_score": 94, "min_score": 42, "max_score": 100, "repair_count": 0, "source_gate_pass": 0, "source_gate_blocked": 0, "published_commit_sha": null, "pass_publishable_now": 0}
 No PLANNED rows in BATCH-001 (statuses: ['WRITING'])
 resolved batch: BATCH-001 (resumed active batch)
 CHUNK-PREPARED BATCH-001: 5 row(s): KN-0001,AT-0001,XM-0001,DL-0001,CD-0001. Manifest: data/batches/BATCH-001-chunk.json. Write these files, then run scoped QA: --ids KN-0001,AT-0001,XM-0001,DL-0001,CD-0001 --qa
@@ -3348,7 +3403,7 @@ ERROR: AT-0001 is not a PASS row of BATCH-001 with an existing file — refusing
 No PLANNED rows in BATCH-001 (statuses: ['WRITING'])
 resolved batch: BATCH-001 (resumed active batch)
 CHUNK-PREPARED BATCH-001: 5 row(s): KN-0001,AT-0001,XM-0001,DL-0001,CD-0001. Manifest: data/batches/BATCH-001-chunk.json. Write these files, then run scoped QA: --ids KN-0001,AT-0001,XM-0001,DL-0001,CD-0001 --qa
-{"batch_id": "BATCH-001", "started_at": "2026-09-27T17:04:29", "finished_at": "2026-09-27T17:04:30", "writer": "external-agent", "processed": 50, "written": 5, "pass": 0, "published": 0, "writing": 45, "review": 0, "repair": 0, "fail": 5, "blocked": 0, "average_score": 91.9, "min_score": 42, "max_score": 100, "repair_count": 0, "source_gate_pass": 0, "source_gate_blocked": 0, "published_commit_sha": null, "pass_publishable_now": 0}
+{"batch_id": "BATCH-001", "started_at": "2026-09-27T17:16:44", "finished_at": "2026-09-27T17:16:44", "writer": "external-agent", "processed": 50, "written": 5, "pass": 0, "published": 0, "writing": 45, "review": 0, "repair": 0, "fail": 5, "blocked": 0, "average_score": 91.9, "min_score": 42, "max_score": 100, "repair_count": 0, "source_gate_pass": 0, "source_gate_blocked": 0, "published_commit_sha": null, "pass_publishable_now": 0}
 No PLANNED rows in BATCH-001 (statuses: ['WRITING'])
 resolved batch: BATCH-001 (resumed active batch)
 WRITER-LOCK: BATCH-001 is owned by fresh session session-A. Aborting cleanly (never two writers on one batch). Checkpoint untouched.
