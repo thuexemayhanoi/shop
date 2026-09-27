@@ -1,6 +1,4 @@
 {
-  "op": "publish",
-  "batch": "BATCH-006",
-  "ids": "HD-0042,KN-0043",
-  "date": "2026-09-27"
+  "op": "qa",
+  "batch": "BATCH-006"
 }
