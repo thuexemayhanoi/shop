@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T11:58:34
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T11:59:50
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 19 | pass: 2 | published: 16
-- writing: 31 | review: 0 | repair: 0 | fail: 0 | blocked: 1
-- scores: avg 98.2 | min 95 | max 100 | repair_count: 2
+- processed: 50 | written: 21 | pass: 4 | published: 16
+- writing: 29 | review: 0 | repair: 0 | fail: 0 | blocked: 1
+- scores: avg 98 | min 95 | max 100 | repair_count: 2
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -27,7 +27,7 @@
 | CD-0048 | cam-nang/cung-duong/cd-0048-cung-duong-ngam-canh-tu-ha-noi-len-dong-van.html | PUBLISHED | 96 | 0 |  |
 | CD-0049 | cam-nang/cung-duong/cd-0049-mot-ngay-mot-dem-o-dong-van-co-du-khong.html | PUBLISHED | 96 | 0 |  |
 | CD-0050 | cam-nang/cung-duong/cd-0050-diem-check-in-doc-cung-duong-den-dong-van.html | PUBLISHED | 96 | 0 |  |
-| DL-0043 | cam-nang/du-lich/dl-0043-ca-phe-sang-o-chua-huong-quan-nao-dep.html | WRITING |  | 0 |  |
+| DL-0043 | cam-nang/du-lich/dl-0043-ca-phe-sang-o-chua-huong-quan-nao-dep.html | PASS | 98 | 0 |  |
 | DL-0044 | cam-nang/du-lich/dl-0044-khung-canh-dac-sac-nhat-o-chua-huong.html | WRITING |  | 0 |  |
 | DL-0045 | cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html | WRITING |  | 0 |  |
 | DL-0046 | cam-nang/du-lich/dl-0046-mua-he-den-chua-thay-bang-xe-may-nen-di-luc-nao.html | WRITING |  | 0 |  |
@@ -52,7 +52,7 @@
 | KN-0048 | cam-nang/kinh-nghiem/kn-0048-kinh-nghiem-giu-thang-bang-tren-xe-may-dien.html | WRITING |  | 0 |  |
 | KN-0049 | cam-nang/kinh-nghiem/kn-0049-chay-xe-may-dien-trong-gio-tan-tam-nen-luu-y-gi.html | WRITING |  | 0 |  |
 | KN-0050 | cam-nang/kinh-nghiem/kn-0050-kinh-nghiem-cho-do-tren-xe-may-dien.html | WRITING |  | 0 |  |
-| XM-0043 | cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html | WRITING |  | 0 |  |
+| XM-0043 | cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html | PASS | 96 | 0 |  |
 | XM-0044 | cam-nang/xe-may/xm-0044-bao-duong-day-xich-cua-honda-click-dung-cach.html | WRITING |  | 0 |  |
 | XM-0045 | cam-nang/xe-may/xm-0045-khi-nao-can-kiem-tra-den-hau-tren-honda-click.html | WRITING |  | 0 |  |
 | XM-0046 | cam-nang/xe-may/xm-0046-dau-hieu-guong-gap-van-de-tren-honda-click.html | WRITING |  | 0 |  |
