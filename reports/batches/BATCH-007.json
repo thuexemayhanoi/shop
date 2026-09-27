@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T21:18:28",
+  "finished_at": "2026-09-28T04:19:28",
   "writer": "external-agent",
   "processed": 50,
   "written": 39,
-  "pass": 5,
-  "published": 34,
+  "pass": 0,
+  "published": 39,
   "writing": 11,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0051",
@@ -345,7 +345,7 @@
     {
       "article_id": "HD-0054",
       "output_path": "cam-nang/hoi-dap/hd-0054-thue-xe-ga-va-xe-so-thu-tuc-co-khac-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -362,7 +362,7 @@
     {
       "article_id": "HD-0055",
       "output_path": "cam-nang/hoi-dap/hd-0055-khach-du-lich-nuoc-ngoai-thue-xe-may-can-chuan-bi-gi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -379,7 +379,7 @@
     {
       "article_id": "HD-0056",
       "output_path": "cam-nang/hoi-dap/hd-0056-co-nen-thue-hai-xe-cho-nhom-bon-nguoi-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -394,7 +394,7 @@
     {
       "article_id": "HD-0057",
       "output_path": "cam-nang/hoi-dap/hd-0057-xe-thue-truoc-khi-di-phuot-can-kiem-tra-gi-them.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -404,7 +404,7 @@
     {
       "article_id": "HD-0058",
       "output_path": "cam-nang/hoi-dap/hd-0058-cho-hanh-ly-nhieu-khi-thue-xe-nen-chon-xe-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
