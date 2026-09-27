@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T19:20:43",
+  "finished_at": "2026-09-27T19:23:10",
   "writer": "external-agent",
   "processed": 50,
   "written": 21,
-  "pass": 3,
+  "pass": 5,
   "published": 16,
   "writing": 29,
   "review": 0,
-  "repair": 2,
+  "repair": 0,
   "fail": 0,
   "blocked": 0,
   "average_score": 98.4,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 5,
   "articles": [
     {
       "article_id": "AT-0051",
@@ -153,7 +153,7 @@
     {
       "article_id": "CD-0053",
       "output_path": "cam-nang/cung-duong/cd-0053-noi-tiep-nuoc-va-nghi-giai-lao-di-meo-vac.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -332,7 +332,7 @@
     {
       "article_id": "HD-0053",
       "output_path": "cam-nang/hoi-dap/hd-0053-thue-xe-may-theo-thang-gia-co-re-hon-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
