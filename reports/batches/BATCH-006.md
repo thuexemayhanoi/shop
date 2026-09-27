@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T22:08:59
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T15:12:40
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 44 | pass: 0 | published: 44
-- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.8 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 50 | pass: 6 | published: 44
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -54,9 +54,9 @@
 | KN-0050 | cam-nang/kinh-nghiem/kn-0050-kinh-nghiem-cho-do-tren-xe-may-dien.html | PUBLISHED | 100 | 0 |  |
 | XM-0043 | cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html | PUBLISHED | 96 | 0 |  |
 | XM-0044 | cam-nang/xe-may/xm-0044-bao-duong-day-xich-cua-honda-click-dung-cach.html | PUBLISHED | 96 | 0 | broken internal link: 'cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html'; broken internal link: 'cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html' |
-| XM-0045 | cam-nang/xe-may/xm-0045-khi-nao-can-kiem-tra-den-hau-tren-honda-click.html | WRITING |  | 0 |  |
-| XM-0046 | cam-nang/xe-may/xm-0046-dau-hieu-guong-gap-van-de-tren-honda-click.html | WRITING |  | 0 |  |
-| XM-0047 | cam-nang/xe-may/xm-0047-cach-kiem-tra-binh-xang-tren-honda-click.html | WRITING |  | 0 |  |
-| XM-0048 | cam-nang/xe-may/xm-0048-khi-nao-can-kiem-tra-loc-gio-tren-honda-click.html | WRITING |  | 0 |  |
-| XM-0049 | cam-nang/xe-may/xm-0049-bao-duong-may-de-cua-honda-click-dung-cach.html | WRITING |  | 0 |  |
-| XM-0050 | cam-nang/xe-may/xm-0050-cach-kiem-tra-van-lop-tren-honda-click.html | WRITING |  | 0 |  |
+| XM-0045 | cam-nang/xe-may/xm-0045-khi-nao-can-kiem-tra-den-hau-tren-honda-click.html | PASS | 96 | 0 |  |
+| XM-0046 | cam-nang/xe-may/xm-0046-dau-hieu-guong-gap-van-de-tren-honda-click.html | PASS | 96 | 0 |  |
+| XM-0047 | cam-nang/xe-may/xm-0047-cach-kiem-tra-binh-xang-tren-honda-click.html | PASS | 96 | 0 |  |
+| XM-0048 | cam-nang/xe-may/xm-0048-khi-nao-can-kiem-tra-loc-gio-tren-honda-click.html | PASS | 96 | 0 |  |
+| XM-0049 | cam-nang/xe-may/xm-0049-bao-duong-may-de-cua-honda-click-dung-cach.html | PASS | 96 | 0 |  |
+| XM-0050 | cam-nang/xe-may/xm-0050-cach-kiem-tra-van-lop-tren-honda-click.html | PASS | 96 | 0 |  |
