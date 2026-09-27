@@ -5,11 +5,14 @@ name: Factory Operator Tooling
 # scripts/js/factory.mjs on its own machine. This workflow is the operator's
 # HANDS ONLY: it reads one whitelisted, deterministic command from
 # data/batches/operator-command.json (pushed by the operator) and executes
-# ONLY canonical repository tooling. It never writes article content, never
-# invents facts, contains no AI, no cron, no secrets beyond the default
-# GITHUB_TOKEN, and pushes only the deterministic outputs of the canonical
-# scripts (matrix ledger state, category hubs, sitemap.xml, batch reports and
-# exported per-row writer manifests under reports/batches/<batch>/rows/).
+# ONLY canonical repository tooling. It never writes editorial article
+# content, never invents facts, contains no AI, no cron, no secrets beyond
+# the default GITHUB_TOKEN, and pushes only the deterministic outputs of
+# the canonical scripts (matrix ledger state, category hubs, sitemap.xml,
+# batch reports, exported per-row writer manifests under
+# reports/batches/<batch>/rows/ and — for the apply-article-shell op — the
+# presentation-structure shell produced by scripts/apply_article_shell.py,
+# which is forbidden from touching prose, links, canonicals or dates).
 # The operator (AI or human) remains the sole writer of article bodies.
 
 on:
@@ -47,7 +50,7 @@ jobs:
           CMD=data/batches/operator-command.json
           OP="$(jq -r '.op // ""' "$CMD")"
           case "$OP" in
-            prepare-next|qa|publish|consistency|recover|requeue|unittest) ;;
+            prepare-next|qa|publish|consistency|recover|requeue|unittest|apply-article-shell) ;;
             *) echo "::error::unsupported op: $OP"; exit 1 ;;
           esac
           echo "op=$OP" >> "$GITHUB_ENV"
@@ -114,6 +117,18 @@ jobs:
           if [ "$code" != "0" ]; then tail -n 80 reports/batches/unittest-output.txt; exit 1; fi
           node --test tests/js/factory.test.mjs
 
+      - name: apply-article-shell - migrate article shells to the shared design system
+        if: env.op == 'apply-article-shell'
+        run: |
+          set -eu
+          # Deterministic presentation-structure migration ONLY (never
+          # editorial content): canonical tooling, no AI, no invented
+          # facts. Prose, links, canonicals, dates and matrix state are
+          # untouched (enforced by tests/test_article_shell.py).
+          python3 scripts/apply_article_shell.py --drafts
+          python3 scripts/gate_published_articles.py
+          node scripts/js/factory.mjs --consistency
+
       - name: unittest - run the full python suite verbosely and dump output
         if: env.op == 'unittest'
         run: |
@@ -121,7 +136,7 @@ jobs:
           code=0
           python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
           grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
-          sed -n "/^Traceback/,/^$/p" reports/batches/unittest-output.txt | tail -n 120 >> reports/batches/unittest-failures.txt || true
+          sed -n "/^Traceback/,^$/p" reports/batches/unittest-output.txt | tail -n 120 >> reports/batches/unittest-failures.txt || true
           echo "unittest exit code: $code"
           cat reports/batches/unittest-failures.txt || true
           exit 0
