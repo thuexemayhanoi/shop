@@ -31,22 +31,18 @@ CHATBOT_URL = "https://thuexemayhanoi.github.io/aichatbot/"
 EMBED_JS = "assets/js/chatbot-embed.js"
 EMBED_CSS = "assets/css/chatbot-embed.css"
 
-
 def read(path):
     with open(os.path.join(ROOT, path), encoding="utf-8") as f:
         return f.read()
 
-
 def root_pages():
     return sorted(p for p in glob.glob(os.path.join(ROOT, "*.html")))
-
 
 def all_public_pages():
     pages = [p for p in root_pages()]
     pages += glob.glob(os.path.join(ROOT, "cam-nang", "**", "*.html"),
                        recursive=True)
     return sorted(pages)
-
 
 class TaxonomySourceTests(unittest.TestCase):
     @classmethod
@@ -57,8 +53,7 @@ class TaxonomySourceTests(unittest.TestCase):
     def test_data_copy_is_byte_identical(self):
         self.assertEqual(read("_data/content_taxonomy.json"),
                          read("data/content-taxonomy.json"),
-                         "_dat
-a/content_taxonomy.json must stay a "
+                         "_data/content_taxonomy.json must stay a "
                          "byte-identical copy of data/content-taxonomy.json")
 
     def test_six_parents(self):
@@ -88,7 +83,6 @@ a/content_taxonomy.json must stay a "
     def test_topic_index_exists(self):
         self.assertTrue(os.path.isfile(
             os.path.join(ROOT, "cam-nang", "chu-de", "index.html")))
-
 
 class FooterTests(unittest.TestCase):
     @classmethod
@@ -125,7 +119,6 @@ class FooterTests(unittest.TestCase):
             self.assertNotIn("24/7", html,
                              "%s must not claim 24/7 support" % page)
 
-
 class MenuTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -155,13 +148,11 @@ class MenuTests(unittest.TestCase):
                               "%s must not render a second taxonomy footer "
                               "column" % js)
 
-
 class ChatbotTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.embed_js = read(EMBED_JS)
-        cls.include 
-= read("_includes/chatbot-embed.html")
+        cls.include = read("_includes/chatbot-embed.html")
 
     def test_embed_assets_exist(self):
         self.assertTrue(os.path.isfile(os.path.join(ROOT, EMBED_JS)))
@@ -203,8 +194,7 @@ class ChatbotTests(unittest.TestCase):
         # guard against double init
         self.assertIn("window.MotoAIEmbedCanonical", src)
         # accessibility
-        self.a
-ssertIn("Escape", src)
+        self.assertIn("Escape", src)
         self.assertIn("aria-label", src)
         self.assertIn("aria-modal", src)
         # fallback link
@@ -246,13 +236,11 @@ ssertIn("Escape", src)
     def test_factory_template_requires_embed(self):
         self.assertIn("CHATBOT_SNIPPET", read("scripts/js/factory.mjs"))
 
-    def test_writer_r
-ules_require_embed(self):
+    def test_writer_rules_require_embed(self):
         rules = read("docs/ARTICLE-RULES.md")
         self.assertIn(EMBED_JS, rules)
         manifest_src = read("scripts/run_article_batch.py")
         self.assertIn("chatbot_embed_snippet", manifest_src)
-
 
 class FactorySafetyTests(unittest.TestCase):
     def test_matrix_untouched_shape(self):
@@ -266,7 +254,6 @@ class FactorySafetyTests(unittest.TestCase):
         for parent in ("kinhnghiem", "antoan", "xemay", "dulich",
                        "cungduong", "hoidap"):
             self.assertIn("/%s.html" % parent, sm)
-
 
 if __name__ == "__main__":
     unittest.main()
