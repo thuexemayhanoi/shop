@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T17:28:15
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T11:58:34
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 17 | pass: 0 | published: 16
-- writing: 33 | review: 0 | repair: 0 | fail: 0 | blocked: 1
-- scores: avg 97.9 | min 95 | max 100 | repair_count: 2
+- processed: 50 | written: 19 | pass: 2 | published: 16
+- writing: 31 | review: 0 | repair: 0 | fail: 0 | blocked: 1
+- scores: avg 98.2 | min 95 | max 100 | repair_count: 2
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -35,7 +35,7 @@
 | DL-0048 | cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html | WRITING |  | 0 |  |
 | DL-0049 | cam-nang/du-lich/dl-0049-kinh-nghiem-di-xe-may-den-chua-tay-phuong-tu-ha-noi.html | WRITING |  | 0 |  |
 | DL-0050 | cam-nang/du-lich/dl-0050-di-xe-may-den-chua-tay-phuong-mua-nao-dep-nhat.html | WRITING |  | 0 |  |
-| HD-0042 | cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html | WRITING |  | 0 |  |
+| HD-0042 | cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html | PASS | 100 | 0 |  |
 | HD-0043 | cam-nang/hoi-dap/hd-0043-xe-may-thue-chay-duoc-bao-nhieu-km-moi-ngay-thong-thuong.html | WRITING |  | 0 |  |
 | HD-0044 | cam-nang/hoi-dap/hd-0044-tra-xe-may-thue-muon-hon-gio-hen-thi-sao.html | WRITING |  | 0 |  |
 | HD-0045 | cam-nang/hoi-dap/hd-0045-xe-thue-het-xang-giua-duong-ai-chiu-chi-phi.html | WRITING |  | 0 |  |
@@ -44,7 +44,7 @@
 | HD-0048 | cam-nang/hoi-dap/hd-0048-xe-thue-bi-va-quet-nhe-khi-gui-phai-lam-sao.html | WRITING |  | 0 |  |
 | HD-0049 | cam-nang/hoi-dap/hd-0049-mat-chia-khoa-xe-thue-phai-boi-thuong-the-nao.html | WRITING |  | 0 |  |
 | HD-0050 | cam-nang/hoi-dap/hd-0050-khi-thue-xe-may-nen-hoi-chu-xe-nhung-cau-hoi-nao.html | WRITING |  | 0 |  |
-| KN-0043 | cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html | WRITING |  | 0 |  |
+| KN-0043 | cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html | PASS | 100 | 0 |  |
 | KN-0044 | cam-nang/kinh-nghiem/kn-0044-nhan-biet-xe-may-dien-cu-ky-truoc-khi-thue.html | WRITING |  | 0 |  |
 | KN-0045 | cam-nang/kinh-nghiem/kn-0045-chay-xe-may-dien-cho-nguoi-lon-co-on-khong.html | WRITING |  | 0 |  |
 | KN-0046 | cam-nang/kinh-nghiem/kn-0046-kinh-nghiem-giu-an-toan-cho-xe-may-dien-khi-gui-qua-dem.html | WRITING |  | 0 |  |
