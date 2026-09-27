@@ -42,4 +42,14 @@ jobs:
             exit 0
           fi
           git commit -m "ci: restore canonical factory-operator.yml from 7253a3cd (one-shot repair)"
-          git push origin HEAD:main || (git pull --rebase origin main && git push origin HEAD:main)
+          if git push origin HEAD:main; then
+            exit 0
+          fi
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+          exit 1
