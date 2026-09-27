@@ -253,12 +253,29 @@ batch workflow `.github/workflows/article-batch.yml` is `workflow_dispatch`
 only (inputs: batch_id, batch_size default 50, hard max 50); it validates the
 matrix and dry-runs the batch scope, optionally runs deterministic QA on
 the files in the checkout, and uploads reports as artifacts (read-only:
-contents: read). NO CRON is attached to any workflow — the hourly operator
-flow belongs to the external agent, never to GitHub Actions. Legacy
+contents: read). No autonomous AI writer or AI-generation cron may run inside GitHub
+Actions (no AI API keys/secrets for article generation either). The
+deterministic Factory Operator / QA / publish tooling stays in GitHub;
+the WRITER is an external AI agent or human. External scheduling of that
+writer/operator is allowed, provided each scheduled invocation resumes
+repository truth and obeys the canonical lock, transaction, QA, publish
+and checkpoint contract Legacy
 special-purpose workflows `recover-phoco.yml` and `seo-phoco.yml` are
 separate and must not be modified casually.
 
 ## 9. CONTENT FACTORY — CHUNKED WRITER MODE
+
+Definitions (not contradictory): a **BATCH** is a canonical group of 50
+matrix rows (2,000 production articles = 40 batches x 50; `prepare-next`
+claims/exports the canonical active batch). A **CHUNK** is a small
+resumable writing/QA/publish unit INSIDE that batch, normally 5-10 rows —
+the external writer does NOT write all 50 at once. Operating model per
+invocation: inspect repository truth -> resume unfinished work first ->
+select the next 5-10 unfinished WRITING rows -> write -> local QA ->
+official QA -> repair if needed -> publish PASS -> verify -> checkpoint ->
+repeat. Never start a fresh batch merely because a new scheduled
+invocation begins; transition only after the current batch reaches its
+legitimate terminal state per the factory contract.
 
 Speed-oriented orchestration for the 2,000-article run. Quality gates,
 business-fact safeguards, matrix invariants and the publish policy are
@@ -307,7 +324,10 @@ operator-loop implementation of this mode (operator-command workflow +
   score). No fake benchmarks; per-hour rates are derived from real elapsed
   time only.
 - **GitHub Actions never writes prose.** No AI API, no provider secrets,
-  no cron: the external Mistral writer remains the sole content author.
+  no AI-generation cron in GitHub Actions: the external Mistral writer
+  remains the sole content author and may be scheduled externally, as long
+  as each invocation resumes repository truth and never bypasses the lock,
+  transaction, QA or publish gates.
 
 ## 10. Hard rules recap
 
