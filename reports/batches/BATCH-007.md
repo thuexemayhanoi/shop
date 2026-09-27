@@ -1,9 +1,9 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-28T02:10:53
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T19:20:43
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 16 | pass: 0 | published: 16
-- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 21 | pass: 3 | published: 16
+- writing: 29 | review: 0 | repair: 2 | fail: 0 | blocked: 0
 - scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -21,7 +21,7 @@
 | AT-0059 | cam-nang/an-toan/at-0059-chay-xe-may-tren-duong-tron-truot.html | WRITING |  | 0 |  |
 | CD-0051 | cam-nang/cung-duong/cd-0051-duong-tu-ha-noi-vao-meo-vac-doan-nao-kho-di.html | PUBLISHED | 96 | 0 | broken internal link: 'index.h\ntml'; word broken across newline: 'h\ntml' |
 | CD-0052 | cam-nang/cung-duong/cd-0052-ke-hoach-3-ngay-2-dem-o-meo-vac-cho-nguoi-chay-xe.html | PUBLISHED | 95 | 0 |  |
-| CD-0053 | cam-nang/cung-duong/cd-0053-noi-tiep-nuoc-va-nghi-giai-lao-di-meo-vac.html | WRITING |  | 0 |  |
+| CD-0053 | cam-nang/cung-duong/cd-0053-noi-tiep-nuoc-va-nghi-giai-lao-di-meo-vac.html | REPAIR | 96 | 0 |  |
 | CD-0054 | cam-nang/cung-duong/cd-0054-ra-bao-lac-bang-xe-may-di-trong-ngay-duoc-khong.html | WRITING |  | 0 |  |
 | CD-0055 | cam-nang/cung-duong/cd-0055-chuyen-bao-lac-hai-ngay-xuat-phat-va-nghi-o-dau.html | WRITING |  | 0 |  |
 | CD-0056 | cam-nang/cung-duong/cd-0056-duong-den-bao-lac-nen-dung-o-dau-de-chup-anh.html | WRITING |  | 0 |  |
@@ -29,7 +29,7 @@
 | CD-0058 | cam-nang/cung-duong/cd-0058-lich-trinh-thanh-pho-cao-bang-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |
 | DL-0051 | cam-nang/du-lich/dl-0051-an-gi-khi-du-lich-chua-tay-phuong-bang-xe-may.html | PUBLISHED | 98 | 0 | word broken across newline: 'T\nrang'; word broken across newline: 'nhi\nều' |
 | DL-0052 | cam-nang/du-lich/dl-0052-di-xe-may-den-lang-co-duong-lam-can-chuan-bi-gi.html | PUBLISHED | 100 | 0 | word broken across newline: 'tron\ng'; word broken across newline: 'k\nịp' |
-| DL-0053 | cam-nang/du-lich/dl-0053-thang-nao-nen-di-lang-co-duong-lam-bang-xe-may.html | WRITING |  | 0 |  |
+| DL-0053 | cam-nang/du-lich/dl-0053-thang-nao-nen-di-lang-co-duong-lam-bang-xe-may.html | PASS | 100 | 0 |  |
 | DL-0054 | cam-nang/du-lich/dl-0054-dac-san-lang-co-duong-lam-nao-phai-thu-khi-di-xe-may.html | WRITING |  | 0 |  |
 | DL-0055 | cam-nang/du-lich/dl-0055-diem-ngam-hoang-hon-o-lang-co-duong-lam-khi-di-xe-may.html | WRITING |  | 0 |  |
 | DL-0056 | cam-nang/du-lich/dl-0056-lo-trinh-di-xe-may-tu-ha-noi-den-nui-ba-vi.html | WRITING |  | 0 |  |
@@ -37,7 +37,7 @@
 | DL-0058 | cam-nang/du-lich/dl-0058-quan-an-noi-tieng-gan-nui-ba-vi-cho-khach-di-xe-may.html | WRITING |  | 0 |  |
 | HD-0051 | cam-nang/hoi-dap/hd-0051-xe-thue-bi-hong-nho-giua-chung-nen-tu-sua-hay-goi-chu-xe.html | PUBLISHED | 100 | 0 | word broken across newline: 'breadcrum\nb'; word broken across newline: 'g\niá' |
 | HD-0052 | cam-nang/hoi-dap/hd-0052-co-duoc-roi-khoi-khu-vuc-voi-xe-thue-khong.html | PUBLISHED | 99 | 0 |  |
-| HD-0053 | cam-nang/hoi-dap/hd-0053-thue-xe-may-theo-thang-gia-co-re-hon-khong.html | WRITING |  | 0 |  |
+| HD-0053 | cam-nang/hoi-dap/hd-0053-thue-xe-may-theo-thang-gia-co-re-hon-khong.html | REPAIR | 100 | 0 |  |
 | HD-0054 | cam-nang/hoi-dap/hd-0054-thue-xe-ga-va-xe-so-thu-tuc-co-khac-khong.html | WRITING |  | 0 |  |
 | HD-0055 | cam-nang/hoi-dap/hd-0055-khach-du-lich-nuoc-ngoai-thue-xe-may-can-chuan-bi-gi.html | WRITING |  | 0 |  |
 | HD-0056 | cam-nang/hoi-dap/hd-0056-co-nen-thue-hai-xe-cho-nhom-bon-nguoi-khong.html | WRITING |  | 0 |  |
@@ -45,7 +45,7 @@
 | HD-0058 | cam-nang/hoi-dap/hd-0058-cho-hanh-ly-nhieu-khi-thue-xe-nen-chon-xe-nao.html | WRITING |  | 0 |  |
 | KN-0051 | cam-nang/kinh-nghiem/kn-0051-xe-may-dien-co-chay-duoc-duong-deo-khong.html | PUBLISHED | 99 | 0 |  |
 | KN-0052 | cam-nang/kinh-nghiem/kn-0052-cach-dieu-chinh-guong-va-yen-tren-xe-may-dien.html | PUBLISHED | 100 | 0 | broken internal link: 'index\n.html'; word broken across newline: 'củ\na' |
-| KN-0053 | cam-nang/kinh-nghiem/kn-0053-kinh-nghiem-kiem-tra-pin-xe-may-dien-khi-thue.html | WRITING |  | 0 |  |
+| KN-0053 | cam-nang/kinh-nghiem/kn-0053-kinh-nghiem-kiem-tra-pin-xe-may-dien-khi-thue.html | PASS | 100 | 0 |  |
 | KN-0054 | cam-nang/kinh-nghiem/kn-0054-khi-nao-nen-chon-xe-may-dien-thay-vi-xe-xang.html | WRITING |  | 0 |  |
 | KN-0055 | cam-nang/kinh-nghiem/kn-0055-chup-anh-xe-may-truoc-khi-thue-de-lam-gi.html | WRITING |  | 0 |  |
 | KN-0056 | cam-nang/kinh-nghiem/kn-0056-nhung-dieu-nen-doc-ky-trong-hop-dong-thue-xe-may.html | WRITING |  | 0 |  |
@@ -54,7 +54,7 @@
 | KN-0059 | cam-nang/kinh-nghiem/kn-0059-nen-thue-xe-may-vao-khung-gio-nao-o-ha-noi.html | WRITING |  | 0 |  |
 | XM-0051 | cam-nang/xe-may/xm-0051-cach-kiem-tra-bo-ly-hop-tren-honda-click.html | PUBLISHED | 96 | 0 |  |
 | XM-0052 | cam-nang/xe-may/xm-0052-khi-nao-can-kiem-tra-cop-xe-tren-honda-click.html | PUBLISHED | 96 | 0 | word broken across newline: 'đượ\nc'; newline inside HTML tag |
-| XM-0053 | cam-nang/xe-may/xm-0053-dau-hieu-khoa-cop-gap-van-de-tren-honda-click.html | WRITING |  | 0 |  |
+| XM-0053 | cam-nang/xe-may/xm-0053-dau-hieu-khoa-cop-gap-van-de-tren-honda-click.html | PASS | 96 | 0 |  |
 | XM-0054 | cam-nang/xe-may/xm-0054-bao-duong-bo-de-dien-cua-honda-click-dung-cach.html | WRITING |  | 0 |  |
 | XM-0055 | cam-nang/xe-may/xm-0055-cach-kiem-tra-den-pha-tren-yamaha-mio.html | WRITING |  | 0 |  |
 | XM-0056 | cam-nang/xe-may/xm-0056-bao-duong-yen-xe-cua-yamaha-mio-dung-cach.html | WRITING |  | 0 |  |
