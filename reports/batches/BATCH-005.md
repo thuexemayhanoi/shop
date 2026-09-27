@@ -1,9 +1,9 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T13:29:52
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T06:31:05
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 22 | pass: 0 | published: 22
-- writing: 28 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 25 | pass: 3 | published: 22
+- writing: 25 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 6 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -32,9 +32,9 @@
 | DL-0037 | cam-nang/du-lich/dl-0037-di-xe-may-den-cong-vien-thu-le-theo-nhom-ban.html | PUBLISHED | 99 | 0 |  |
 | DL-0038 | cam-nang/du-lich/dl-0038-san-may-o-cong-vien-thu-le-mua-nao-bang-xe-may.html | PUBLISHED | 99 | 0 |  |
 | DL-0039 | cam-nang/du-lich/dl-0039-bua-trua-ngon-doc-duong-den-cong-vien-thu-le.html | PUBLISHED | 99 | 0 |  |
-| DL-0040 | cam-nang/du-lich/dl-0040-chup-dem-o-cong-vien-thu-le-co-dep-khong.html | WRITING |  | 0 |  |
-| DL-0041 | cam-nang/du-lich/dl-0041-chuyen-sang-som-den-chua-huong-bang-xe-may.html | WRITING |  | 0 |  |
-| DL-0042 | cam-nang/du-lich/dl-0042-cuoi-thu-di-chua-huong-bang-xe-may-co-dep-khong.html | WRITING |  | 0 |  |
+| DL-0040 | cam-nang/du-lich/dl-0040-chup-dem-o-cong-vien-thu-le-co-dep-khong.html | PASS | 99 | 0 |  |
+| DL-0041 | cam-nang/du-lich/dl-0041-chuyen-sang-som-den-chua-huong-bang-xe-may.html | PASS | 97 | 0 |  |
+| DL-0042 | cam-nang/du-lich/dl-0042-cuoi-thu-di-chua-huong-bang-xe-may-co-dep-khong.html | PASS | 97 | 0 |  |
 | HD-0034 | cam-nang/hoi-dap/hd-0034-qua-den-vang-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0035 | cam-nang/hoi-dap/hd-0035-xe-may-can-mua-loai-bao-hiem-nao.html | WRITING |  | 0 |  |
 | HD-0036 | cam-nang/hoi-dap/hd-0036-bao-hiem-xe-may-het-han-co-bi-phat-khong.html | WRITING |  | 0 |  |
