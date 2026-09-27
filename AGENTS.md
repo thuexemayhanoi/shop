@@ -139,3 +139,33 @@ memory), commits pushed, CI + Pages results, live-verify evidence
 (HTTP status + byte comparison), and the exact resume commands if stopping.
 Mark claims VERIFIED only with evidence (curl output, CI run, matrix row);
 everything else must be labeled NOT VERIFIED or TODO.
+
+## SEO Maintenance layer (hardening, read-only by contract)
+
+FACTORY OWNS: content production, `data/content-matrix.csv`, the writer
+checkpoint, batch state, `_drafts/`, publication transactions, locks.
+
+SEO/MAINTENANCE OWNS: read-only audits (`scripts/seo/seo_audit.py`),
+the Fix Matrix (`reports/seo/fix-matrix.*`), the regression baseline
+(`reports/seo/baseline.json`), checker results, and isolated safe-fix PRs.
+
+Non-negotiable rules for the SEO/maintenance layer:
+
+- repo truth > memory > old reports. Always re-read current repo state.
+- Never restart the factory casually, never skip an unfinished batch,
+  never rewrite PUBLISHED content without a separately verified defect.
+- Never weaken QA, never baseline a real defect to make CI green
+  (`scripts/seo/seo_regression.py` refuses baselining while P0/P1 exist).
+- Never auto-change business facts, prices, opening hours or legal content.
+- Never mutate factory state (matrix rows, checkpoint, transactions,
+  locks, drafts) from SEO maintenance. Checker workflows are read-only
+  with respect to factory state and use their own concurrency groups
+  (`seo-readonly-checks`, `lighthouse-readonly`, `lychee-readonly`,
+  `codeql-readonly`) that can never cancel the production publisher.
+- Safe auto-fix (`scripts/seo/safe_fix.py`) is EXTREMELY NARROW and
+  allowlisted: canonical '/shop/shop' repair, root-relative
+  self-canonical absolutization, sitemap duplicate dedup, `_config.yml`
+  exclude additions. Everything else is REVIEW / Fix Matrix / issue.
+- All fixes go through an isolated PR verified by
+  `scripts/seo/pr_verify.py` (audit + fix matrix + regression guard on
+  the EXACT candidate tree) plus the full factory test suite.

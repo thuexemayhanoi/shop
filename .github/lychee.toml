@@ -1,0 +1,65 @@
+# Lychee configuration — independent link checker.
+# Read-only: it never modifies files. Transient external failures are
+# handled by retries + a generous timeout; a small external failure budget
+# is accepted to avoid blocking on third-party downtime.
+
+# -------------------------
+# Parsing
+# -------------------------
+timeout = 30
+retry_wait_time = 15
+max_retries = 3
+
+# -------------------------
+# Exclusions — operational files are not public pages
+# -------------------------
+exclude = [
+  # operational trees never deployed to Pages
+  '^tests/',
+  '^docs/',
+  '^reports/',
+  '^scripts/',
+  '^config/',
+  '^data/',
+  '^\.github/',
+  '^_data/',
+  '^_includes/',
+  '^_snippets/',
+  '^AGENTS\.md',
+  '^README\.md',
+  '^ARCHITECTURE\.md',
+  # expected: mail/phone
+  '^mailto:',
+  '^tel:',
+  # expected redirects (github.io base)
+  '^https://github\.com/thuexemayhanoi/shop$',
+  # external social/embeds frequently rate-limit crawlers — kept in ignore
+  '^https://www\.facebook\.com/',
+  '^https://zalo\.me/',
+  '^https://wa\.me/',
+  '^https://m\.me/',
+  '^https://t\.me/',
+]
+
+exclude_path = [
+  "tests",
+  "docs",
+  "reports",
+  "scripts",
+  "config",
+  "data",
+  "_data",
+  "_includes",
+  "_snippets",
+  ".github/scripts",
+]
+
+# -------------------------
+# Behavior
+# -------------------------
+method = "get"
+accept = ["200", "204", "301", "302", "429"]
+max_concurrency = 8
+cache = true
+max_cache_age = "1d"
+max_response_time = 20

@@ -1,0 +1,46 @@
+name: CodeQL
+
+# Security analysis of repository code only (factory/QA/SEO scripts,
+# frontend JS, workflow helper scripts). NOT a content review.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - '.github/scripts/**'
+      - 'assets/**'
+      - '_includes/**'
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - '.github/scripts/**'
+      - 'assets/**'
+      - '_includes/**'
+  schedule:
+    - cron: "0 3 * * 1"
+
+permissions:
+  security-events: write
+  contents: read
+
+concurrency:
+  group: codeql-readonly
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript-typescript, python]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended
+      - uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"

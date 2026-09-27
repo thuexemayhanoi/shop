@@ -1,0 +1,73 @@
+name: SEO Audit + Regression Guard (PR Verifier)
+
+# READ-ONLY maintenance checks. Never writes factory-owned state
+# (content matrix, batches, drafts, locks, transactions). Its own
+# concurrency group: it must never cancel or be cancelled by the
+# production publisher.
+
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - '_config.yml'
+      - 'scripts/seo/**'
+      - 'tests/**'
+      - '.github/workflows/seo-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-readonly-checks
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR tree
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Factory non-interference snapshot (before)
+        run: |
+          md5sum data/content-matrix.csv reports/batches/factory-progress.json > /tmp/factory-before.txt || true
+          ls -la data/batches/ > /tmp/batches-before.txt || true
+
+      - name: Factory unit tests (existing QA, unchanged)
+        run: python3 -m unittest discover tests
+
+      - name: Matrix validation
+        run: python3 scripts/validate_content_matrix.py
+
+      - name: Legacy fact-safety audit (existing)
+        run: python3 scripts/audit_legacy_pages.py
+
+      - name: New tooling tests (SEO engine / fix matrix / regression / safe-fix)
+        run: python3 -m unittest discover -s tests -p "test_seo_*.py"
+
+      - name: PR Verifier (SEO audit + fix matrix + regression guard, exact tree)
+        run: python3 scripts/seo/pr_verify.py
+
+      - name: Factory non-interference snapshot (after)
+        run: |
+          md5sum data/content-matrix.csv reports/batches/factory-progress.json > /tmp/factory-after.txt || true
+          ls -la data/batches/ > /tmp/batches-after.txt || true
+          diff /tmp/factory-before.txt /tmp/factory-after.txt && diff /tmp/batches-before.txt /tmp/batches-after.txt
+
+      - name: Upload SEO reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-reports
+          path: reports/seo/
+          if-no-files-found: ignore

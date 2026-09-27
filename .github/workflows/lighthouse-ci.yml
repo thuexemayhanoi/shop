@@ -1,0 +1,67 @@
+name: Lighthouse CI (lab)
+
+# Representative-page lab performance check. Lab scores only — NOT field
+# Core Web Vitals. Blocks on regression with tolerance to avoid failing the
+# repo for tiny score noise. Never modifies article prose.
+
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - 'assets/**'
+      - '_includes/**'
+      - '_snippets/**'
+      - '_config.yml'
+      - '.github/workflows/lighthouse-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lighthouse-readonly
+  cancel-in-progress: false
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Resolve representative pages
+        run: |
+          set -eu
+          {
+            echo "index.html"
+            echo "banggia.html"
+            echo "xemay.html"
+            echo "cam-nang/chu-de/kn-honda-wave.html"
+            echo "cam-nang/hoi-dap/hd-0004-bao-hiem-tnds-xe-may-la-gi.html"
+            FIRST=$(ls cam-nang/kinh-nghiem/*.html | head -1)
+            LAST=$(ls cam-nang/cung-duong/*.html | tail -1)
+            echo "$FIRST"
+            echo "$LAST"
+          } | grep -E '\.html$' | grep -vE '^\.|^_' > lighthouse-urls.txt
+          echo "pages:"; cat lighthouse-urls.txt
+
+      - name: Build site (Jekyll, Pages-compatible)
+        run: |
+          gem install bundler || true
+          if [ ! -f Gemfile ]; then
+            # Use the GitHub Pages gem-less fallback: plain jekyll build with the
+            # same excludes as Pages.
+            gem install jekyll --no-document
+            jekyll build --destination _site
+          else
+            bundle install && bundle exec jekyll build
+          fi
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: .github/lighthouserc.json
+          uploadArtifacts: false
+          temporaryPublicStorage: false

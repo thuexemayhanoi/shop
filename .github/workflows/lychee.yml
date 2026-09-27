@@ -1,0 +1,36 @@
+name: Lychee link check (readonly)
+
+# Independent link checker. Read-only. Never edits articles because one
+# external site timed out; transient external failures are retried and
+# tolerate a limited failure budget via config .github/lychee.toml.
+
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - 'sitemap.xml'
+      - '.github/lychee.toml'
+      - '.github/workflows/lychee.yml'
+  schedule:
+    - cron: "0 20 * * 1"  # weekly, off-peak UTC, read-only
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lychee-readonly
+  cancel-in-progress: false
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config .github/lychee.toml --verbose --no-progress './**/*.html' './sitemap.xml' './robots.txt'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
