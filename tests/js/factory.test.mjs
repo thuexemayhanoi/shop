@@ -528,3 +528,87 @@ test('rebuildBatchReport derives published_commit_sha from factory-progress.json
     [], '2026-09-26T00:00:00');
   assert.strictEqual(JSON.parse(out[0].content).published_commit_sha, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 });
+
+// --------------------------------------------- child topic hubs (taxonomy)
+//
+// The canonical taxonomy (data/content-taxonomy.json + -map.csv) adds child
+// topic hub pages under cam-nang/chu-de/. Repositories WITHOUT taxonomy
+// files keep the legacy behaviour (all earlier tests above). With taxonomy
+// files present: publish regenerates the child hubs in the same
+// transaction, the sitemap permanently includes hub URLs, and
+// --consistency detects hub drift; --rebuild-child-hubs repairs it.
+
+function writeTaxonomy(dir) {
+  const parents = [
+    {
+      parent_id: 'KINH_NGHIEM', parent_title: 'Kinh nghiệm',
+      parent_slug: 'kinh-nghiem', parent_hub: '/shop/kinhnghiem.html',
+      children: [
+        { child_id: 'KN_A', child_title: 'Topic A', child_slug: 'kn-a',
+          child_hub_url: '/shop/cam-nang/chu-de/kn-a.html',
+          description: 'desc a', article_count: 3, status: 'active' },
+      ],
+    },
+    {
+      parent_id: 'XE_MAY', parent_title: 'Xe máy',
+      parent_slug: 'xe-may', parent_hub: '/shop/xemay.html',
+      children: [
+        { child_id: 'XM_A', child_title: 'Topic X', child_slug: 'xm-a',
+          child_hub_url: '/shop/cam-nang/chu-de/xm-a.html',
+          description: 'desc x', article_count: 2, status: 'active' },
+      ],
+    },
+    {
+      parent_id: 'DU_LICH', parent_title: 'Du lịch',
+      parent_slug: 'du-lich', parent_hub: '/shop/dulich.html',
+      children: [
+        { child_id: 'DL_A', child_title: 'Topic D', child_slug: 'dl-a',
+          child_hub_url: '/shop/cam-nang/chu-de/dl-a.html',
+          description: 'desc d', article_count: 1, status: 'active' },
+      ],
+    },
+  ];
+  fs.writeFileSync(path.join(dir, 'data', 'content-taxonomy.json'),
+    JSON.stringify({ taxonomy_version: '1.0.0', total_production_rows: 6, parents }, null, 2) + '\n', 'utf8');
+  const map = [
+    'article_id,parent_id,child_id,child_hub,taxonomy_version',
+    'KN-0100,KINH_NGHIEM,KN_A,/shop/cam-nang/chu-de/kn-a.html,1.0.0',
+    'KN-0101,KINH_NGHIEM,KN_A,/shop/cam-nang/chu-de/kn-a.html,1.0.0',
+    'KN-0102,KINH_NGHIEM,KN_A,/shop/cam-nang/chu-de/kn-a.html,1.0.0',
+    'XM-0100,XE_MAY,XM_A,/shop/cam-nang/chu-de/xm-a.html,1.0.0',
+    'XM-0101,XE_MAY,XM_A,/shop/cam-nang/chu-de/xm-a.html,1.0.0',
+    'DL-0100,DU_LICH,DL_A,/shop/cam-nang/chu-de/dl-a.html,1.0.0',
+  ].join('\n') + '\n';
+  fs.writeFileSync(path.join(dir, 'data', 'content-taxonomy-map.csv'), map, 'utf8');
+}
+
+test('child hubs: publish regenerates hubs + sitemap, consistency detects drift, --rebuild-child-hubs repairs', () => {
+  const dir = makeSandbox();
+  writeTaxonomy(dir);
+  // publish one PASS row -> its child hub must gain the article card
+  runFactory(dir, ['--publish', 'KN-0102', '--date', '2026-09-26']);
+  const knHub = fs.readFileSync(path.join(dir, 'cam-nang/chu-de/kn-a.html'), 'utf8');
+  assert.ok(knHub.includes('<h1>Topic A</h1>'));
+  assert.ok(knHub.includes('/shop/cam-nang/x/kn-0102.html'), 'published article listed in its child hub');
+  assert.ok(knHub.includes('href="/shop/kinhnghiem.html"'), 'links parent hub');
+  assert.ok(knHub.includes('rel="canonical"'), 'self canonical');
+  // sitemap: child hub URLs + topic index permanently included
+  const sm = fs.readFileSync(path.join(dir, 'sitemap.xml'), 'utf8');
+  const locs = [...sm.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
+  assert.ok(locs.includes('https://thuexemayhanoi.github.io/shop/cam-nang/chu-de/kn-a.html'));
+  assert.ok(locs.includes('https://thuexemayhanoi.github.io/shop/cam-nang/chu-de/'));
+  assert.ok(fs.existsSync(path.join(dir, 'cam-nang/chu-de/index.html')));
+  // no marker left; consistency green
+  assert.ok(!fs.existsSync(path.join(dir, 'data', 'batches', 'txn')));
+  runFactory(dir, ['--consistency']);
+  // drift: stale child hub must be detected
+  fs.appendFileSync(path.join(dir, 'cam-nang/chu-de/kn-a.html'), '<!-- manual drift -->\n', 'utf8');
+  assert.throws(() => runFactory(dir, ['--consistency']), /child-hub stale/);
+  // repair: --rebuild-child-hubs restores expected content
+  runFactory(dir, ['--rebuild-child-hubs']);
+  const repaired = fs.readFileSync(path.join(dir, 'cam-nang/chu-de/kn-a.html'), 'utf8');
+  assert.ok(!repaired.includes('manual drift'));
+  runFactory(dir, ['--consistency']);
+  assert.ok(!fs.existsSync(path.join(dir, 'data', 'batches', 'txn')));
+  fs.rmSync(dir, { recursive: true, force: true });
+});

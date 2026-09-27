@@ -92,14 +92,29 @@ Exactly ONE primary category per article:
 Do not create additional top-level Cẩm nang categories without explicit owner
 approval.
 
+### Child topic clusters (taxonomy — AUTHORITATIVE)
+
+Every production article also belongs to exactly ONE child topic cluster
+defined by `data/content-taxonomy.json` +
+`data/content-taxonomy-map.csv` (built and validated by
+`scripts/build_taxonomy.py` / `scripts/validate_taxonomy.py`). The
+taxonomy is authoritative: writers MUST NOT invent categories, clusters or
+hub pages. The prepare-agent manifest carries the article's
+`taxonomy.child_cluster`, `child_title` and `child_hub` — use them as
+given.
+
 ## Internal linking
 
 - 3–5 contextual internal links inside the editorial body (counted from
   the main content container only; navigation/footer/breadcrumb links are
   excluded by the tools).
 - Link to the parent category hub (required, see standard above).
+- When the manifest's `taxonomy.child_hub` is non-empty, link the article's
+  CHILD TOPIC HUB (`/shop/cam-nang/chu-de/<child-slug>.html`) contextually —
+  it counts within the same 3-5 link budget, alongside the parent hub link.
 - Link to relevant informational articles (siblings, related categories)
-  where semantically natural.
+  where semantically natural. Sibling articles in the SAME child cluster are
+  the preferred contextual targets.
 - At most 1 contextual commercial landing-page link; repeated commercial
   links or repeated exact-match commercial anchors are flagged REVIEW.
 - Natural, descriptive, diverse anchor text; generic anchors

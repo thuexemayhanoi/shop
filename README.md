@@ -100,6 +100,8 @@ Detailed MotoAI technical documentation: [docs/MOTOAI.md](docs/MOTOAI.md).
 | `config/seo-ownership.json` | protected search intents per commercial page |
 | `config/article-rubric.json` | scoring weights, thresholds, critical-fail rules |
 | `data/content-matrix.csv` | the article backlog (status tracking) |
+| `data/content-taxonomy.json` | canonical parent/child topic taxonomy (built by `scripts/build_taxonomy.py`) |
+| `data/content-taxonomy-map.csv` | article_id -> parent/child cluster mapping (1 row per production article) |
 
 Never contradict these files. Anything not in them must be confirmed with
 Mr Tú (phone 0816659199) before publication.
@@ -147,10 +149,21 @@ Lifecycle, URL architecture, resume and lock behavior:
 2. `docs/CONTENT-FACTORY.md`
 3. `docs/ARTICLE-RULES.md`
 4. `docs/SEO-OWNERSHIP.md`
-5. `config/business-facts.json`
-6. `config/article-rubric.json`
-7. `config/seo-ownership.json`
-8. `data/content-matrix.csv`
+5. `data/content-taxonomy.json` + `data/content-taxonomy-map.csv`
+6. `config/business-facts.json`
+7. `config/article-rubric.json`
+8. `config/seo-ownership.json`
+9. `data/content-matrix.csv`
+10. `reports/batches/factory-progress.json`
+
+The taxonomy is AUTHORITATIVE for article placement: it determines each
+article's parent category and child topic cluster. Writers MUST NOT invent
+categories or hubs. Every prepare-agent manifest carries a `taxonomy` block
+(parent + child cluster + child hub URL); when `child_hub` is non-empty,
+link the parent hub AND the child hub contextually within the 3-5 link
+budget. Child hub pages live under `/shop/cam-nang/chu-de/` and list only
+PUBLISHED articles; `node scripts/js/factory.mjs --rebuild-child-hubs`
+regenerates them (publish regenerates them automatically).
 
 Then select exactly ONE eligible (PLANNED) matrix row. For every production
 article, an agent MUST:
@@ -159,7 +172,8 @@ article, an agent MUST:
 2. exactly **1 primary search intent**
 3. exactly **1 H1**
 4. **3–5 contextual internal links** in the editorial body (nav/footer/breadcrumb links do not count)
-5. include the **parent category hub** link
+5. include the **parent category hub** link and (when the manifest's
+   `taxonomy.child_hub` is non-empty) the **child topic hub** link
 6. use **descriptive, diverse anchors** (no "xem thêm"/"click here"; no repeated exact-match anchors)
 7. **no broken links** (only link PUBLISHED articles or same-batch articles)
 8. **Article schema** (JSON-LD)

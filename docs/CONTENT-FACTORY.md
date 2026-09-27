@@ -228,6 +228,26 @@ the agent cannot write an article honestly, it stays unwritten.
   PLANNED/WRITING/REVIEW/FAIL/BLOCKED, no duplicates, valid XML.
   `--check` verifies freshness.
 
+## Taxonomy & child topic hubs
+
+- `scripts/build_taxonomy.py` builds the canonical taxonomy
+  (`data/content-taxonomy.json` + `data/content-taxonomy-map.csv` +
+  `reports/seo/content-taxonomy.md`) from the 2,000-row matrix. Every
+  production row maps to exactly ONE of the 6 parent categories and ONE
+  child topic cluster. `scripts/validate_taxonomy.py` enforces this
+  (exit 0/4, same convention as `validate_content_matrix.py`).
+- Child hub pages live at `cam-nang/chu-de/<child-slug>.html` (+ a
+  `cam-nang/chu-de/index.html` topic index) and list ONLY PUBLISHED
+  articles, so future publications appear in their hub automatically.
+  Regenerate with `node scripts/js/factory.mjs --rebuild-child-hubs`;
+  `--publish` regenerates the affected hubs in the same transaction, and
+  `--consistency` verifies all child hub files against expected content.
+- Child hub URLs (and the topic index) are permanent sitemap entries in
+  both `scripts/generate_sitemap.py` and the Node fallback tool.
+- The prepare-agent / chunk manifests merge the taxonomy map: every
+  article context carries a `taxonomy` block (parent, child cluster,
+  child hub URL) and writers MUST NOT invent categories or hubs.
+
 ## CI / workflows
 
 - `.github/workflows/article-quality.yml` — tests (`python3 -m unittest
