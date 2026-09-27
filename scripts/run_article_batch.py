@@ -67,6 +67,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import article_lib as lib
+import taxonomy_lib as tlib
 
 MAX_BATCH_SIZE = 50
 MAX_REPAIR_ATTEMPTS = 3
@@ -194,7 +195,9 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
             protected.append({"page": p.get("path"), "intent": intent})
     trusted = dict(facts or {})
     trusted.pop("requires_owner_confirmation", None)  # never leak unverified
-    return {
+    tax_fields = tlib.writer_taxonomy_fields(
+        row.get("article_id"), repo_root or lib.ROOT) or {}
+    out = {
         "article_id": row.get("article_id"),
         "batch_id": row.get("batch_id"),
         "category": row.get("category"),
@@ -228,10 +231,25 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
             "review_max_words": int(length_cfg.get("review_max_words", 2300)),
             "scope": "main editorial content only",
         },
+        "taxonomy": {
+            "parent_id": tax_fields.get("parent_id", ""),
+            "parent_title": tax_fields.get("parent_title", ""),
+            "parent_hub": tax_fields.get("parent_hub", ""),
+            "child_cluster": tax_fields.get("child_cluster", ""),
+            "child_title": tax_fields.get("child_title", ""),
+            "child_slug": tax_fields.get("child_slug", ""),
+            "child_hub": tax_fields.get("child_hub", ""),
+            "taxonomy_version": tax_fields.get("taxonomy_version", ""),
+            "policy": ("taxonomy is authoritative: the writer MUST NOT "
+                       "invent categories or hubs; when child_hub is "
+                       "non-empty, link the parent hub AND the child hub "
+                       "contextually within the 3-5 link budget"),
+        },
         "link_standard": {
             "contextual_internal_links_min": int(link_cfg.get("min", 3)),
             "contextual_internal_links_max": int(link_cfg.get("max", 5)),
             "parent_hub_link_required": True,
+            "child_hub_link_recommended": bool(tax_fields.get("child_hub")),
             "commercial_links_max": int(rubric.get("commercial_links_max", 1)),
             "anchors": "descriptive, diverse; no generic anchors",
         },
@@ -244,6 +262,7 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
         "author": row.get("author") or "Mr Tú",
         "neighbor_topics": neighboring_topics(matrix, row),
     }
+    return out
 
 
 def neighboring_topics(matrix, row, limit=6):

@@ -20,6 +20,9 @@
 //                                        recovery marker in data/batches/txn/
 //   --consistency                        verify matrix/hubs/sitemap agreement
 //                                        without writing anything
+//   --rebuild-child-hubs                 regenerate /cam-nang/chu-de/ topic
+//                                        hub pages (+ index, sitemap) from the
+//                                        canonical taxonomy (no-op without it)
 //
 // Options:
 //   --dry-run        compute everything, write nothing
@@ -178,6 +181,194 @@ function regenerateHub(hubFile, rows, baseurl, hub) {
   return { path: p, content: next };
 }
 
+// -------------------------------------------------- child topic hubs
+//
+// The canonical taxonomy (data/content-taxonomy.json + -map.csv, built by
+// scripts/build_taxonomy.py) groups the 2000 production rows into child
+// topic clusters under the 6 parent categories. Every child cluster gets
+// ONE hub page under cam-nang/chu-de/<child-slug>.html listing only
+// PUBLISHED articles, so future factory publications appear in their hub
+// automatically. When the taxonomy files are absent (legacy repos, test
+// fixtures) ALL child-hub behaviour degrades to a no-op.
+
+const CHILD_HUB_DIR = 'cam-nang/chu-de';
+
+function loadTaxonomy() {
+  let tax = null;
+  try {
+    tax = JSON.parse(fs.readFileSync(path.join(REPO, 'data', 'content-taxonomy.json'), 'utf8'));
+  } catch (_) { tax = null; }
+  if (!tax || !Array.isArray(tax.parents)) return null;
+  const map = new Map();
+  try {
+    const text = fs.readFileSync(path.join(REPO, 'data', 'content-taxonomy-map.csv'), 'utf8');
+    for (const line of text.split('\n').filter(Boolean).slice(1)) {
+      const cols = line.split(',');
+      if (cols.length >= 4 && cols[0] && cols[2]) {
+        map.set(cols[0].trim(), { parent_id: cols[1].trim(), child_id: cols[2].trim(), child_hub: cols[3].trim() });
+      }
+    }
+  } catch (_) { return null; }
+  if (!map.size) return null;
+  return { tax, map };
+}
+
+function childHubFilePath(childHubUrl, baseurl) {
+  const base = (baseurl || '/shop').replace(/\/+$/, '');
+  const p = childHubUrl.startsWith(base) ? childHubUrl.slice(base.length) : childHubUrl;
+  return p.replace(/^\/+/, '');
+}
+
+function childHubPublished(rows, map, childId) {
+  const out = [];
+  for (const r of rows) {
+    if (isSampleRowFields(r)) continue;
+    if ((r.status || '').trim() !== 'PUBLISHED') continue;
+    const e = map.get((r.article_id || '').trim());
+    if (e && e.child_id === childId) out.push(r);
+  }
+  out.sort((a, b) => (a.article_id || '').localeCompare(b.article_id || ''));
+  return out;
+}
+
+function childHubContent(parent, child, articles, site, siblings) {
+  const base = (site.baseurl || '/shop').replace(/\/+$/, '');
+  const siteBase = site.site_url.replace(/\/+$/, '');
+  const rel = childHubFilePath(child.child_hub_url, site.baseurl);
+  const canonical = `${siteBase}/${rel}`;
+  const title = `${child.child_title} | Cẩm nang ${parent.parent_title} - Mr Tú`;
+  const description = `${child.description} Tổng hợp bài viết thuộc chủ đề ${child.child_title.toLowerCase()} trong cẩm nang thuê xe máy Hà Nội của Mr Tú, cập nhật liên tục.`;
+  const crumb = `<p class="breadcrumb"><a href="${base}/">Trang chủ</a> › <a href="${base}/${CHILD_HUB_DIR}/">Cẩm nang</a> › <a href="${parent.parent_hub}">${parent.parent_title}</a> › <span>${htmlEscape(child.child_title)}</span></p>`;
+  const ld = `{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"${siteBase}/"},{"@type":"ListItem","position":2,"name":"Cẩm nang","item":"${siteBase}/${CHILD_HUB_DIR}/"},{"@type":"ListItem","position":3,"name":"${htmlEscape(parent.parent_title)}","item":"${siteBase}/${childHubFilePath(parent.parent_hub, site.baseurl)}"},{"@type":"ListItem","position":4,"name":"${htmlEscape(child.child_title)}","item":"${canonical}"}]}`;
+  const list = articles.length
+    ? `<ul class="article-list">\n${articles.map((r) => `<li class="article-card"><a href="${base}/${(r.output_path || '').replace(/^\/+/, '')}">${htmlEscape(r.working_title || r.slug)}</a></li>`).join('\n')}\n</ul>`
+    : `<p>Chủ đề này nằm trong kế hoạch nội dung của Mr Tú. Các bài viết sẽ xuất hiện tại đây ngay khi được xuất bản.</p>`;
+  const sib = siblings.length
+    ? `<h2>Các chủ đề khác trong ${parent.parent_title}</h2>\n<ul class="article-list">\n${siblings.map((s) => `<li class="article-card"><a href="${s.child_hub_url}">${htmlEscape(s.child_title)}</a></li>`).join('\n')}\n</ul>\n<p><a href="${parent.parent_hub}">Xem tất cả bài viết ${parent.parent_title}</a></p>`
+    : '';
+  return `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${htmlEscape(title)}</title>
+<meta name="description" content="${htmlEscape(description)}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="${canonical}">
+<script type="application/ld+json">${ld}</script>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;line-height:1.6;margin:0;background:#050505;color:#f5f5f7}
+main{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+.breadcrumb{font-size:14px;color:#aeaeb2}
+.breadcrumb a{color:#409cff;text-decoration:none}
+.article-list{list-style:none;padding-left:0}
+.article-card{margin:8px 0;padding:12px 14px;background:#1c1c1e;border:1px solid #2c2c2e;border-radius:10px}
+.article-card a{color:#f5f5f7;text-decoration:none;font-weight:600}
+.article-card a:hover{color:#ff6b00}
+h1{font-size:26px}
+h2{font-size:20px;margin-top:28px}
+</style>
+</head>
+<body>
+<main>
+${crumb}
+<h1>${htmlEscape(child.child_title)}</h1>
+<p>${htmlEscape(child.description)} Đây là trang tổng hợp chủ đề <strong>${htmlEscape(child.child_title.toLowerCase())}</strong> trong mục ${parent.parent_title} của cẩm nang thuê xe máy Hà Nội Mr Tú.</p>
+<p>Chủ đề hiện có <strong>${articles.length}</strong> bài viết đã xuất bản.</p>
+<h2>Bài viết trong chủ đề</h2>
+${list}
+${sib}
+</main>
+</body>
+</html>
+`;
+}
+
+function childHubIndexContent(tax, rows, site, map) {
+  const base = (site.baseurl || '/shop').replace(/\/+$/, '');
+  const siteBase = site.site_url.replace(/\/+$/, '');
+  const canonical = `${siteBase}/${CHILD_HUB_DIR}/`;
+  const sections = [];
+  for (const parent of tax.parents || []) {
+    const items = (parent.children || []).map((c) => {
+      const pub = childHubPublished(rows, map, c.child_id).length;
+      return `<li class="article-card"><a href="${c.child_hub_url}">${htmlEscape(c.child_title)}</a> <span>(${c.article_count} bài, ${pub} đã xuất bản)</span></li>`;
+    }).join('\n');
+    sections.push(`<h2>${parent.parent_title}</h2>\n<ul class="article-list">\n${items}\n</ul>`);
+  }
+  const ld = `{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"${siteBase}/"},{"@type":"ListItem","position":2,"name":"Cẩm nang","item":"${canonical}"}]}`;
+  return `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tất cả chủ đề cẩm nang thuê xe máy Hà Nội - Mr Tú</title>
+<meta name="description" content="Danh mục đầy đủ các chủ đề cẩm nang thuê xe máy Hà Nội của Mr Tú: kinh nghiệm, an toàn, xe máy, du lịch, cung đường và hỏi đáp.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="${canonical}">
+<script type="application/ld+json">${ld}</script>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;line-height:1.6;margin:0;background:#050505;color:#f5f5f7}
+main{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+.breadcrumb{font-size:14px;color:#aeaeb2}
+.breadcrumb a{color:#409cff;text-decoration:none}
+.article-list{list-style:none;padding-left:0}
+.article-card{margin:8px 0;padding:12px 14px;background:#1c1c1e;border:1px solid #2c2c2e;border-radius:10px}
+.article-card a{color:#f5f5f7;text-decoration:none;font-weight:600}
+.article-card a:hover{color:#ff6b00}
+.article-card span{color:#aeaeb2;font-size:13px}
+h1{font-size:26px}
+h2{font-size:20px;margin-top:28px}
+</style>
+</head>
+<body>
+<main>
+<p class="breadcrumb"><a href="${base}/">Trang chủ</a> › <span>Cẩm nang</span></p>
+<h1>Tất cả chủ đề cẩm nang</h1>
+<p>Toàn bộ chủ đề cẩm nang thuê xe máy Hà Nội của Mr Tú, xếp theo từng mục lớn. Mỗi chủ đề tổng hợp các bài viết đã xuất bản trong chuyên mục đó.</p>
+${sections.join('\n')}
+</main>
+</body>
+</html>
+`;
+}
+
+export function buildChildHubWrites(rows, taxonomy, site) {
+  if (!taxonomy) return [];
+  const writes = [];
+  for (const parent of taxonomy.tax.parents || []) {
+    for (const child of parent.children || []) {
+      const arts = childHubPublished(rows, taxonomy.map, child.child_id);
+      const siblings = (parent.children || []).filter((s) => s.child_id !== child.child_id);
+      writes.push({
+        path: path.join(REPO, childHubFilePath(child.child_hub_url, site.baseurl)),
+        content: childHubContent(parent, child, arts, site, siblings),
+      });
+    }
+  }
+  writes.push({
+    path: path.join(REPO, CHILD_HUB_DIR, 'index.html'),
+    content: childHubIndexContent(taxonomy.tax, rows, site, taxonomy.map),
+  });
+  // only files whose planned content actually differs from disk
+  return writes.filter((w) => {
+    try { return fs.readFileSync(w.path, 'utf8') !== w.content; } catch (_) { return true; }
+  });
+}
+
+function childHubSitemapUrls(taxonomy, site) {
+  if (!taxonomy) return [];
+  const siteBase = site.site_url.replace(/\/+$/, '');
+  const urls = [];
+  for (const parent of taxonomy.tax.parents || []) {
+    for (const child of parent.children || []) {
+      urls.push(`${siteBase}/${childHubFilePath(child.child_hub_url, site.baseurl)}`);
+    }
+  }
+  urls.push(`${siteBase}/${CHILD_HUB_DIR}/`);
+  return urls;
+}
+
 // ---------------------------------------------------- sitemap regeneration
 
 function currentSitemapUrls(sitemapPath) {
@@ -206,7 +397,10 @@ function regenerateSitemap(matrixRows, site, date) {
   const sitemapPath = path.join(REPO, 'sitemap.xml');
   const existing = currentSitemapUrls(sitemapPath);
   const factoryPrefix = site.site_url.replace(/\/+$/, '') + '/cam-nang/';
-  const legacy = existing.filter((u) => !u.startsWith(factoryPrefix));
+  // child topic hub URLs are structural pages: preserved like legacy
+  // commercial URLs even when the taxonomy files are temporarily absent
+  const legacy = existing.filter((u) => !u.startsWith(factoryPrefix)
+    || u.startsWith(factoryPrefix + 'chu-de'));
   const published = [];
   for (const r of matrixRows) {
     if (isSampleRowFields(r)) continue;
@@ -217,6 +411,9 @@ function regenerateSitemap(matrixRows, site, date) {
   }
   const wanted = [...legacy];
   for (const p of published) if (!wanted.includes(p)) wanted.push(p);
+  for (const u of childHubSitemapUrls(loadTaxonomy(), site)) {
+    if (!wanted.includes(u)) wanted.push(u);
+  }
   const content = buildUrlset(wanted, date);
   const cur = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8') : '';
   if (content === cur) return null;
@@ -647,6 +844,7 @@ function parseArgs(argv) {
     else if (a === '--consistency') args.consistency = true;
     else if (a === '--recover') args.recover = true;
     else if (a === '--rebuild-report') args.rebuildReport = argv[++i];
+    else if (a === '--rebuild-child-hubs') args.rebuildChildHubs = true;
     else if (a === '--qa-record') args.qaRecord = argv[++i];
     else if (a === '--publish') args.publish = argv[++i];
     else if (a === '--date') args.date = argv[++i];
@@ -678,7 +876,10 @@ function consistencyCheck(rows, site, { quiet = false, expectedRows = 2000 } = {
   const sitemapPath = path.join(REPO, 'sitemap.xml');
   const existing = currentSitemapUrls(sitemapPath);
   const factoryPrefix = site.site_url.replace(/\/+$/, '') + '/cam-nang/';
-  const legacy = existing.filter((u) => !u.startsWith(factoryPrefix));
+  // child topic hub URLs are structural pages: preserved like legacy
+  // commercial URLs even when the taxonomy files are temporarily absent
+  const legacy = existing.filter((u) => !u.startsWith(factoryPrefix)
+    || u.startsWith(factoryPrefix + 'chu-de'));
   const published = [];
   for (const r of production) {
     if ((r.status || '').trim() === 'PUBLISHED') {
@@ -687,6 +888,15 @@ function consistencyCheck(rows, site, { quiet = false, expectedRows = 2000 } = {
   }
   const wanted = [...legacy];
   for (const p of published) if (!wanted.includes(p)) wanted.push(p);
+  const taxonomy = loadTaxonomy();
+  if (taxonomy) {
+    for (const u of childHubSitemapUrls(taxonomy, site)) {
+      if (!wanted.includes(u)) wanted.push(u);
+    }
+    if (taxonomy.map.size !== production.length) {
+      problems.push(`taxonomy map rows ${taxonomy.map.size} != production rows ${production.length}`);
+    }
+  }
   const missing = wanted.filter((u) => !existing.includes(u));
   const stale = existing.filter((u) => u.startsWith(factoryPrefix) && !wanted.includes(u));
   if (missing.length) problems.push(`sitemap missing ${missing.length} URL(s): ${missing.slice(0, 3).join(' ')}`);
@@ -709,6 +919,25 @@ function consistencyCheck(rows, site, { quiet = false, expectedRows = 2000 } = {
       const current = START + text.split(START)[1].split(END)[0] + END;
       if (current !== block) problems.push(`hub ${hub}: ARTICLE-LIST block stale`);
     }
+  }
+  if (taxonomy) {
+    for (const parent of taxonomy.tax.parents || []) {
+      for (const child of parent.children || []) {
+        const arts = childHubPublished(rows, taxonomy.map, child.child_id);
+        const siblings = (parent.children || []).filter((s) => s.child_id !== child.child_id);
+        const expected = childHubContent(parent, child, arts, site, siblings);
+        const p = path.join(REPO, childHubFilePath(child.child_hub_url, site.baseurl));
+        let cur = null;
+        try { cur = fs.readFileSync(p, 'utf8'); } catch (_) { cur = null; }
+        if (cur === null) problems.push(`child-hub missing: ${child.child_id}`);
+        else if (cur !== expected) problems.push(`child-hub stale: ${child.child_id}`);
+      }
+    }
+    const idxExpected = childHubIndexContent(taxonomy.tax, rows, site, taxonomy.map);
+    let idxCur = null;
+    try { idxCur = fs.readFileSync(path.join(REPO, CHILD_HUB_DIR, 'index.html'), 'utf8'); } catch (_) { idxCur = null; }
+    if (idxCur === null) problems.push('child-hub missing: chu-de index');
+    else if (idxCur !== idxExpected) problems.push('child-hub stale: chu-de index');
   }
   if (!quiet) {
     if (problems.length) {
@@ -739,7 +968,8 @@ function main() {
   const pendingTxn = readTxnMarker();
   const isMutation = (args.publish !== undefined && !args.dryRun)
     || (args.qaRecord !== undefined && !args.dryRun)
-    || (args.rebuildReport !== undefined && !args.dryRun);
+    || (args.rebuildReport !== undefined && !args.dryRun)
+    || (args.rebuildChildHubs && !args.dryRun);
   if (pendingTxn && isMutation) {
     console.error('REFUSED: a pending transaction marker exists (data/batches/txn/).');
     console.error('  An earlier multi-file mutation was interrupted. Run --recover first.');
@@ -756,6 +986,37 @@ function main() {
   if (args.consistency) {
     const problems = consistencyCheck(rows, site, { expectedRows: args.expectRows || 2000 });
     return problems.length ? 2 : 0;
+  }
+
+  if (args.rebuildChildHubs) {
+    const taxonomy = loadTaxonomy();
+    if (!taxonomy) {
+      console.error('refused: data/content-taxonomy.json not found (run scripts/build_taxonomy.py first)');
+      return 2;
+    }
+    const writes = buildChildHubWrites(rows, taxonomy, site);
+    const sitemapOut = regenerateSitemap(rows, site, date);
+    if (sitemapOut) writes.push(sitemapOut);
+    if (args.dryRun || !writes.length) {
+      console.error(args.dryRun
+        ? `DRY RUN rebuild-child-hubs: would write ${writes.length} file(s)`
+        : `CHILD-HUBS: ${writes.length} write(s) needed; files already current otherwise.`);
+      for (const w of writes) console.error(`  ${path.relative(REPO, w.path)} (${w.content.length} bytes)`);
+      return 0;
+    }
+    for (const w of writes) fs.mkdirSync(path.dirname(w.path), { recursive: true });
+    writeTxnMarker('rebuild-child-hubs', {}, writes, generated);
+    commitWrites(writes);
+    const postRows = toRowObjects(fs.readFileSync(matrixPath(), 'utf8'));
+    const postProblems = consistencyCheck(postRows, site, { expectedRows: args.expectRows || 2000 });
+    if (postProblems.length) {
+      console.error('REBUILD-CHILD-HUBS INCONSISTENT after commit; transaction marker KEPT:');
+      for (const p of postProblems) console.error('  ! ' + p);
+      return 3;
+    }
+    clearTxnMarker();
+    console.error(`REBUILD-CHILD-HUBS OK: ${writes.length} file(s) written; child hubs + sitemap consistent.`);
+    return 0;
   }
 
   if (args.rebuildReport !== undefined) {
@@ -875,6 +1136,8 @@ function main() {
       const hubFile = regenerateHub(hub, byCat.get(cat), site.baseurl, hub);
       if (hubFile) writes.push(hubFile);
     }
+    const childWrites = buildChildHubWrites(rowsAfter, loadTaxonomy(), site);
+    if (childWrites.length) writes.push(...childWrites);
     // carry the recorded published_commit_sha forward: it is the durable
     // audit trail of the last pushed publish transaction and must not be
     // silently reset to null by a later publish run
@@ -894,7 +1157,7 @@ function main() {
     const problems = [];
     const plannedContent = new Map(writes.map((w) => [w.path, w.content]));
     for (const p of simProblems) {
-      if (p.startsWith('hub ') || p.startsWith('sitemap')) {
+      if (p.startsWith('hub ') || p.startsWith('sitemap') || p.startsWith('child-hub')) {
         // resolved by a planned write? re-check below after writes
         continue;
       }
@@ -915,6 +1178,7 @@ function main() {
     // multi-file transaction: write the recovery marker FIRST so an
     // interruption between renames is always recoverable via --recover
     const allWrites = [{ path: matrixPath(), content: matrixOut.text }, ...writes];
+    for (const w of allWrites) fs.mkdirSync(path.dirname(w.path), { recursive: true });
     writeTxnMarker('publish', { batch: batchId, ids: [...updates.keys()], published_date: date }, allWrites, generated);
     commitWrites(allWrites);
     for (const r of results) console.error(`PUBLISHED ${r.article_id} -> ${r.output_path} (published_date=${date})`);

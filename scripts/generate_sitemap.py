@@ -102,13 +102,34 @@ def main():
     # STALE URL ACCUMULATION FIX: factory article URLs are REBUILT from the
     # CURRENT matrix on every generation — never preserved from the old
     # sitemap. Only non-factory (legacy/commercial) URLs are retained.
-    legacy = [u for u in existing if not u.startswith(factory_prefix)]
+    # child topic hub URLs are structural pages: preserved like legacy
+    # commercial URLs even when the taxonomy files are temporarily absent
+    legacy = [u for u in existing
+              if not u.startswith(factory_prefix)
+              or u.startswith(factory_prefix + "chu-de")]
     published = published_article_urls(matrix, site["site_url"])
 
     wanted = legacy[:]
     for p in published:
         if p not in wanted:
             wanted.append(p)
+
+    # canonical taxonomy child hub pages (structure, not articles):
+    # always present so regeneration never drops them as "stale factory"
+    try:
+        import taxonomy_lib as tlib
+        tax = tlib.load_taxonomy()
+    except Exception:
+        tax = {}
+    base = site["site_url"].rstrip("/")
+    for parent in (tax or {}).get("parents", []):
+        for c in parent.get("children", []):
+            u = base + c["child_hub_url"][len(site.get("baseurl", "/shop")):]
+            if u not in wanted:
+                wanted.append(u)
+    idx = base + "/cam-nang/chu-de/"
+    if idx not in wanted:
+        wanted.append(idx)
 
     new_count = len(wanted) - len(legacy)
     if args.check:

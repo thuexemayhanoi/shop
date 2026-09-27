@@ -268,6 +268,8 @@ def audit_page(path, texts, local_files):
         norm = re.sub(r"^(\./|/shop/|/)", "", target)
         if norm in ("", "."):
             norm = "index.html"
+        if norm.endswith("/"):
+            norm += "index.html"
         if norm not in local_files:
             broken.append(href)
         if not re.search(r'class="[^"\']*f-link|class="[^"\']*app-item', m.group(0)):
