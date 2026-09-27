@@ -1,0 +1,5 @@
+{
+  "op": "requeue",
+  "batch": "BATCH-006",
+  "ids": "CD-0044,CD-0045,CD-0046"
+}
