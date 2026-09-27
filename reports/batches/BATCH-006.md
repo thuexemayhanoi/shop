@@ -1,8 +1,8 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T14:06:31
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T21:07:15
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 38 | pass: 5 | published: 33
+- processed: 50 | written: 38 | pass: 0 | published: 38
 - writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 5 | blocked 0
@@ -39,11 +39,11 @@
 | HD-0043 | cam-nang/hoi-dap/hd-0043-xe-may-thue-chay-duoc-bao-nhieu-km-moi-ngay-thong-thuong.html | PUBLISHED | 99 | 0 | broken internal link: 'cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html'; broken internal link: 'cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html' |
 | HD-0044 | cam-nang/hoi-dap/hd-0044-tra-xe-may-thue-muon-hon-gio-hen-thi-sao.html | PUBLISHED | 100 | 0 |  |
 | HD-0045 | cam-nang/hoi-dap/hd-0045-xe-thue-het-xang-giua-duong-ai-chiu-chi-phi.html | PUBLISHED | 100 | 0 |  |
-| HD-0046 | cam-nang/hoi-dap/hd-0046-co-nen-dat-coc-bang-tien-mat-khi-thue-xe-may-khong.html | PASS | 100 | 0 | stale deposit-policy claim: 'giảm cọc'; stale deposit-policy claim: 'giảm cọc' |
-| HD-0047 | cam-nang/hoi-dap/hd-0047-chup-hinh-xe-thue-de-lam-gi-truoc-khi-lay.html | PASS | 100 | 0 |  |
-| HD-0048 | cam-nang/hoi-dap/hd-0048-xe-thue-bi-va-quet-nhe-khi-gui-phai-lam-sao.html | PASS | 100 | 0 |  |
-| HD-0049 | cam-nang/hoi-dap/hd-0049-mat-chia-khoa-xe-thue-phai-boi-thuong-the-nao.html | PASS | 100 | 0 |  |
-| HD-0050 | cam-nang/hoi-dap/hd-0050-khi-thue-xe-may-nen-hoi-chu-xe-nhung-cau-hoi-nao.html | PASS | 100 | 0 |  |
+| HD-0046 | cam-nang/hoi-dap/hd-0046-co-nen-dat-coc-bang-tien-mat-khi-thue-xe-may-khong.html | PUBLISHED | 100 | 0 | stale deposit-policy claim: 'giảm cọc'; stale deposit-policy claim: 'giảm cọc' |
+| HD-0047 | cam-nang/hoi-dap/hd-0047-chup-hinh-xe-thue-de-lam-gi-truoc-khi-lay.html | PUBLISHED | 100 | 0 |  |
+| HD-0048 | cam-nang/hoi-dap/hd-0048-xe-thue-bi-va-quet-nhe-khi-gui-phai-lam-sao.html | PUBLISHED | 100 | 0 |  |
+| HD-0049 | cam-nang/hoi-dap/hd-0049-mat-chia-khoa-xe-thue-phai-boi-thuong-the-nao.html | PUBLISHED | 100 | 0 |  |
+| HD-0050 | cam-nang/hoi-dap/hd-0050-khi-thue-xe-may-nen-hoi-chu-xe-nhung-cau-hoi-nao.html | PUBLISHED | 100 | 0 |  |
 | KN-0043 | cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html | PUBLISHED | 100 | 0 |  |
 | KN-0044 | cam-nang/kinh-nghiem/kn-0044-nhan-biet-xe-may-dien-cu-ky-truoc-khi-thue.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html'; broken internal link: 'cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html' |
 | KN-0045 | cam-nang/kinh-nghiem/kn-0045-chay-xe-may-dien-cho-nguoi-lon-co-on-khong.html | WRITING |  | 0 |  |
