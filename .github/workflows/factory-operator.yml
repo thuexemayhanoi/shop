@@ -10,7 +10,7 @@ name: Factory Operator Tooling
 # the default GITHUB_TOKEN, and pushes only the deterministic outputs of
 # the canonical scripts (matrix ledger state, category hubs, sitemap.xml,
 # batch reports, exported per-row writer manifests under
-# reports/batches/<batch>/rows/ and — for the apply-article-shell op — the
+# reports/batches/<batch>/rows/ and â for the apply-article-shell op â the
 # presentation-structure shell produced by scripts/apply_article_shell.py,
 # which is forbidden from touching prose, links, canonicals or dates).
 # The operator (AI or human) remains the sole writer of article bodies.
@@ -48,111 +48,4 @@ jobs:
         run: |
           set -eu
           CMD=data/batches/operator-command.json
-          OP="$(jq -r '.op // ""' "$CMD")"
-          case "$OP" in
-            prepare-next|qa|publish|consistency|recover|requeue|unittest|apply-article-shell) ;;
-            *) echo "::error::unsupported op: $OP"; exit 1 ;;
-          esac
-          echo "op=$OP" >> "$GITHUB_ENV"
-          BATCH="$(jq -r '.batch // ""' "$CMD" | tr -cd 'A-Z0-9-')"
-          IDS="$(jq -r '.ids // ""' "$CMD" | tr -cd 'A-Z0-9,-')"
-          DATE="$(jq -r '.date // ""' "$CMD" | tr -cd '0-9-')"
-          echo "batch=$BATCH" >> "$GITHUB_ENV"
-          echo "ids=$IDS" >> "$GITHUB_ENV"
-          echo "date=$DATE" >> "$GITHUB_ENV"
-
-      - name: Matrix invariant (never bypassed)
-        run: python3 scripts/validate_content_matrix.py
-
-      - name: Recover any pending transaction before mutations
-        run: node scripts/js/factory.mjs --recover
-
-      - name: Node consistency check (pre-op)
-        run: node scripts/js/factory.mjs --consistency
-
-      - name: prepare-next - claim next batch, export per-row writer manifests
-        if: env.op == 'prepare-next'
-        run: |
-          set -eu
-          python3 scripts/run_article_batch.py --next --prepare-agent
-          python3 scripts/export_batch_rows.py
-
-      - name: requeue - FAIL -> REPAIR after operator repair (budget enforced)
-        if: env.op == 'requeue'
-        run: |
-          set -eu
-          if [ -z "$ids" ]; then echo "::error::requeue requires ids"; exit 1; fi
-          python3 scripts/requeue_rows.py --ids "$ids"
-      - name: qa - deterministic QA of the active batch
-        if: env.op == 'qa'
-        run: |
-          code=0
-          python3 scripts/run_article_batch.py --batch "$batch" --qa || code=$?
-          echo "qa exit code: $code (3=FAIL rows, 4=REVIEW/BLOCKED rows are recorded, not fatal)"
-
-      - name: publish - flip PASS rows to PUBLISHED, regen hubs/sitemap/reports
-        if: env.op == 'publish'
-        run: |
-          set -eu
-          if [ -z "$ids" ]; then echo "::error::publish requires ids"; exit 1; fi
-          date_args=()
-          if [ -n "$date" ]; then date_args=(--date "$date"); fi
-          node scripts/js/factory.mjs --publish "$ids" --dry-run "${date_args[@]}"
-          node scripts/js/factory.mjs --publish "$ids" "${date_args[@]}"
-          node scripts/js/factory.mjs --consistency
-
-      - name: Canonical generator freshness (python vs node byte-equality)
-        if: env.op == 'publish'
-        run: |
-          set -eu
-          python3 scripts/generate_sitemap.py --check
-          python3 scripts/generate_category_pages.py --check
-
-      - name: Full test suites after a publish (tests are never disabled)
-        if: env.op == 'publish'
-        run: |
-          code=0
-          python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
-          grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
-          if [ "$code" != "0" ]; then tail -n 80 reports/batches/unittest-output.txt; exit 1; fi
-          node --test tests/js/factory.test.mjs
-
-      - name: apply-article-shell - migrate article shells to the shared design system
-        if: env.op == 'apply-article-shell'
-        run: |
-          set -eu
-          # Deterministic presentation-structure migration ONLY (never
-          # editorial content): canonical tooling, no AI, no invented
-          # facts. Prose, links, canonicals, dates and matrix state are
-          # untouched (enforced by tests/test_article_shell.py).
-          python3 scripts/apply_article_shell.py --drafts
-          python3 scripts/gate_published_articles.py
-          node scripts/js/factory.mjs --consistency
-
-      - name: unittest - run the full python suite verbosely and dump output
-        if: env.op == 'unittest'
-        run: |
-          mkdir -p reports/batches
-          code=0
-          python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
-          grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
-          sed -n "/^Traceback","/^$/p" reports/batches/unittest-output.txt | tail -n 120 >> reports/batches/unittest-failures.txt || true
-          echo "unittest exit code: $code"
-          cat reports/batches/unittest-failures.txt || true
-          exit 0
-
-      - name: Commit and push deterministic outputs
-        run: |
-          set -eu
-          git config user.name "factory-operator-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -r -q --cached scripts/__pycache__ tests/__pycache__ 2>/dev/null || true
-          git rm -f --ignore-unmatch --quiet data/batches/operator-command.json || true
-          rm -f data/batches/operator-command.json
-          if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
-            echo "nothing to commit"
-            exit 0
-          fi
-          git add -A
-          git commit -m "factory-operator: ${op} (deterministic outputs of canonical tooling only)"
-          git push
+          OP="$(jq -r '.op // ""' "$CMD"),(Í=@¥¸(ÁÉÁÉµ¹áÑñÅñÁÕ±¥Í¡ñ½¹Í¥ÍÑ¹åñÉ½ÙÉñÉÅÕÕñÕ¹¥ÑÑÍÑñÁÁ±äµÉÑ¥±µÍ¡±°¤ìì(¨¤¡¼èéÉÉ½ÈèéÕ¹ÍÕÁÁ½ÉÑ½Àè=@ìá¥ÐÄìì(Í(¡¼½Àô=@øø%Q!U	}9X(	Q ô¡©ÄµÈ¹Ñ ¼¼5ðÑÈµµhÀ´ä´¤(%Lô¡©ÄµÈ¹¥Ì¼¼5ðÑÈµµhÀ´ä°´¤(Qô¡©ÄµÈ¹Ñ¼¼5ðÑÈµÀ´ä´¤(¡¼Ñ ô	Q øø%Q!U	}9X(¡¼¥Ìô%Løø%Q!U	}9X(¡¼ÑôQøø%Q!U	}9X((´¹µè5ÑÉ¥à¥¹ÙÉ¥¹Ð¡¹ÙÈåÁÍÍ¤(ÉÕ¸èÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½Ù±¥Ñ}½¹Ñ¹Ñ}µÑÉ¥à¹Áä((´¹µèI½ÙÈ¹äÁ¹¥¹ÑÉ¹ÍÑ¥½¸½ÉµÕÑÑ¥½¹Ì(ÉÕ¸è¹½ÍÉ¥ÁÑÌ½©Ì½Ñ½Éä¹µ©Ì´µÉ½ÙÈ((´¹µè9½½¹Í¥ÍÑ¹ä¡¬¡ÁÉµ½À¤(ÉÕ¸è¹½ÍÉ¥ÁÑÌ½©Ì½Ñ½Éä¹µ©Ì´µ½¹Í¥ÍÑ¹ä((´¹µèÁÉÁÉµ¹áÐ´±¥´¹áÐÑ °áÁ½ÉÐÁÈµÉ½ÜÝÉ¥ÑÈµ¹¥ÍÑÌ(¥è¹Ø¹½ÀôôÁÉÁÉµ¹áÐ(ÉÕ¸èð(ÍÐµÔ(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½ÉÕ¹}ÉÑ¥±}Ñ ¹Áä´µ¹áÐ´µÁÉÁÉµ¹Ð(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½áÁ½ÉÑ}Ñ¡}É½ÝÌ¹Áä((´¹µèÉÅÕÕ´%0´øIA%HÑÈ½ÁÉÑ½ÈÉÁ¥È¡ÕÐ¹½É¤(¥è¹Ø¹½ÀôôÉÅÕÕ(ÉÕ¸èð(ÍÐµÔ(¥lµè¥ÌtìÑ¡¸¡¼èéÉÉ½ÈèéÉÅÕÕÉÅÕ¥ÉÌ¥Ììá¥ÐÄì¤(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½ÉÅÕÕ}É½ÝÌ¹Áä´µ¥Ì¥Ì(´¹µèÅ´ÑÉµ¥¹¥ÍÑ¥E½Ñ¡Ñ¥ÙÑ (¥è¹Ø¹½ÀôôÅ(ÉÕ¸èð(½ôÀ(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½ÉÕ¹}ÉÑ¥±}Ñ ¹Áä´µÑ Ñ ´µÅñð½ôü(¡¼Åá¥Ð½è½ Ìõ%0É½ÝÌ°ÐõIY%\½	1=-É½ÝÌÉÉ½É°¹½ÐÑ°¤((´¹µèÁÕ±¥Í ´±¥ÀAMLÉ½ÝÌÑ¼AU	1%M!°É¸¡ÕÌ½Í¥ÑµÀ½ÉÁ½ÉÑÌ(¥è¹Ø¹½ÀôôÁÕ±¥Í (ÉÕ¸èð(ÍÐµÔ(¥lµè¥ÌtìÑ¡¸¡¼èéÉÉ½ÈèéÁÕ±¥Í ÉÅÕ¥ÉÌ¥Ììá¥ÐÄì¤(Ñ}ÉÌô ¤(¥lµ¸ÑtìÑ¡¸Ñ}ÉÌô ´µÑÑ¤ì¤(¹½ÍÉ¥ÁÑÌ½©Ì½Ñ½Éä¹µ©ÌµÁÕ±¥Í ¥Ì´µÉäµÉÕ¸íÑ}ÉÍmuô(¹½ÍÉ¥ÁÑÌ½©Ì½Ñ½Éä¹µ©Ì´µÁÕ±¥Í ¥ÌíÑ}ÉÍmuô(¹½ÍÉ¥ÁÑÌ½©Ì½Ñ½Éä¹µ©Ì´µ½¹Í¥ÍÑ¹ä((´¹µè¹½¹¥°¹ÉÑ½ÈÉÍ¡¹ÍÌ¡ÁåÑ¡½¸ÙÌ¹½åÑµÅÕ±¥Ñä¤(¥è¹Ø¹½ÀôôÁÕ±¥Í (ÉÕ¸èð(ÍÐµÔ(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½¹ÉÑ}Í¥ÑµÀ¹Áä´µ¡¬(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½¹ÉÑ}Ñ½Éå}ÁÌ¹Áä´µ¡¬((´¹µèÕ±°ÑÍÐÍÕ¥ÑÌÑÈÁÕ±¥Í ¡ÑÍÑÌÉ¹ÙÈ¥Í±¤(¥è¹Ø¹½ÀôôÁÕ±¥Í (ÉÕ¸èð(½ôÀ(ÁåÑ¡½¸Ìµ´Õ¹¥ÑÑÍÐ¥Í½ÙÈØÑÍÑÌøÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ½ÕÑÁÕÐ¹ÑáÐÈøÄñð½ôü(ÉÀµx¡%1ñII=H¤èÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ½ÕÑÁÕÐ¹ÑáÐøÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÍÐµ¥±ÕÉÌ¹ÑáÐñðÑÉÕ(¥l½ôÀtìÑ¡¸Ñ¥°µ¸àÀÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ½ÕÑÁÕÐ¹ÑáÐìá¥ÐÄì¤(¹½´µÑÍÐÑÍÑÌ½©Ì½Ñ½Éä¹ÑÍÐ¹µ©Ì((´¹µèÁÁ±äµÉÑ¥±µÍ¡±°´µ¥ÉÑÉÑ¥±Í¡±±ÌÑ¼Ñ¡Í¡ÉÍ¥¸ÍåÍÑ´(¥è¹Ø¹½ÀôôÁÁ±äµÉÑ¥±µÍ¡±°(ÉÕ¸èð(ÍÐµÔ(ÑÉµ¥¹¥ÍÑ¥ÁÉÍ¹ÑÑ¥½¸µÍÑÉÕÑÕÉµ¥ÉÑ¥½¸=91d¡¹ÙÈ(¥Ñ½É¥°½¹Ñ¹Ð¤è¹½¹¥°Ñ½½±¥¹°¹¼$°¹¼¥¹Ù¹Ñ(ÑÌ¸AÉ½Í°±¥¹­Ì°¹½¹¥±Ì°ÑÌ¹µÑÉ¥àÍÑÑÉ(Õ¹Ñ½Õ¡¡¹½ÉäÑÍÑÌ½ÑÍÑ}ÉÑ¥±}Í¡±°¹Áä¤¸(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½ÁÁ±å}ÉÑ¥±}Í¡±°¹Áä´µÉÑÌ(ÁåÑ¡½¸ÌÍÉ¥ÁÑÌ½Ñ}ÁÕ±¥Í¡}ÉÑ¥±Ì¹Áä(¹½ÍÉ¥ÁÑÌ½©Ì½Ñ½Éä¹µ©Ì´µ½¹Í¥ÍÑ¹ä((´¹µèÕ¹¥ÑÑÍÐ´ÉÕ¸Ñ¡Õ±°ÁåÑ¡½¸ÍÕ¥ÑÙÉ½Í±ä¹ÕµÀ½ÕÑÁÕÐ(¥è¹Ø¹½ÀôôÕ¹¥ÑÑÍÐ(ÉÕ¸èð(µ­¥ÈµÀÉÁ½ÉÑÌ½Ñ¡Ì(½ôÀ(ÁåÑ¡½¸Ìµ´Õ¹¥ÑÑÍÐ¥Í½ÙÈµØÑÍÑÌøÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ½ÕÑÁÕÐ¹ÑáÐÈøÄñð½ôü(ÉÀµx¡%1ñII=H¤èÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ½ÕÑÁÕÐ¹ÑáÐøÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÍÐµ¥±ÕÉÌ¹ÑáÐñðÑÉÕ(Íµ¸½yQÉ¬¼°½x½ÀÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ½ÕÑÁÕÐ¹ÑáÐðÑ¥°µ¸ÄÈÀøøÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ¥±ÕÉÌ¹ÑáÐñðÑÉÕ(¡¼Õ¹¥ÑÑÍÐá¥Ð½è½(ÐÉÁ½ÉÑÌ½Ñ¡Ì½Õ¹¥ÑÑÍÐµ¥±ÕÉÌ¹ÑáÐñðÑÉÕ(á¥ÐÀ((´¹µè½µµ¥Ð¹ÁÕÍ ÑÉµ¥¹¥ÍÑ¥½ÕÑÁÕÑÌ(ÉÕ¸èð(ÍÐµÔ(¥Ð½¹¥ÕÍÈ¹¹µÑ½Éäµ½ÁÉÑ½Èµ½Ð(¥Ð½¹¥ÕÍÈ¹µ¥°ÐÄàäàÈàÈ­¥Ñ¡ÕµÑ¥½¹Ím½ÑuÕÍÉÌ¹¹½Áä¹¥Ñ¡Õ¹½´(¥ÐÉ´µÈµÄ´µ¡ÍÉ¥ÁÑÌ½}}Áå¡}|ÑÍÑÌ½}}Áå¡}|Èø½Ø½¹Õ±°ñðÑÉÕ(¥ÐÉ´µ´µ¥¹½ÉµÕ¹µÑ ´µÅÕ¥ÐÑ½Ñ¡Ì½½ÁÉÑ½Èµ½µµ¹¹©Í½¸ñðÑÉÕ(É´µÑ½Ñ¡Ì½½ÁÉÑ½Èµ½µµ¹¹©Í½¸(¥¥Ð¥´µÅÕ¥Ð¥Ð¥´µ¡´µÅÕ¥Ðlµè¡¥Ð±Ìµ¥±Ì´µ½Ñ¡ÉÌ´µá±ÕµÍÑ¹É¤tìÑ¡¸(¡¼¹½Ñ¡¥¹Ñ¼½µµ¥Ð(á¥ÐÀ(¤(¥Ðµ(¥Ð½µµ¥Ðµ´Ñ½Éäµ½ÁÉÑ½Èèí½Áô¡ÑÉµ¥¹¥ÍÑ¥½ÕÑÁÕÑÌ½¹½¹¥°Ñ½½±¥¹½¹±ä¤(¥ÐÁÕÍ (
