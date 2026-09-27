@@ -2,7 +2,9 @@
 
 Static site for Mr Tú Motorbike Rental in Hanoi, served via GitHub Pages at
 `https://thuexemayhanoi.github.io/shop/`. This README is the ENTRY POINT for
-humans and AI agents working on this repository.
+humans and AI agents working on this repository. For the operating manual
+(procedures, SEO, evidence rules, acceptance checklist), start at
+`AGENTS.md`, which routes to every procedure under `docs/`.
 
 **Language: nội dung tiếng Việt / tooling tiếng Anh.**
 
@@ -131,7 +133,11 @@ The plan is now concrete: **2,000 production articles** in **40 batches** of
 **exactly 50 articles each**. The matrix
 (`data/content-matrix.csv`) holds all 2,000 planned rows (categories: KN 350,
 AT 300, XM 350, DL 400, CD 300, HD 300) plus 8 SAMPLE fixture rows that do not
-count toward the total. Production articles are NOT written yet.
+count toward the total. Production is IN PROGRESS: read current progress
+from `reports/batches/factory-progress.json` and the matrix statuses —
+never hardcode counts here. Unpublished article drafts live under
+`_drafts/` (never deployed; promoted to their public path only by the
+publish transaction — see `docs/PROC-PUBLISH.md`).
 
 **Production article standard (Mr Tú Content Factory — internal editorial
 standard, not a Google requirement):** every production article targets
@@ -163,6 +169,9 @@ Lifecycle, URL architecture, resume and lock behavior:
 [docs/SEO-OWNERSHIP.md](docs/SEO-OWNERSHIP.md).
 
 ## 7. AGENT READ ORDER — read BEFORE writing ANY article
+
+0. `AGENTS.md` (operating manual: procedures, evidence rules, acceptance
+   checklist — the entry point for agents)
 
 1. `README.md` (this file)
 2. `docs/CONTENT-FACTORY.md`
@@ -253,7 +262,10 @@ separate and must not be modified casually.
 
 Speed-oriented orchestration for the 2,000-article run. Quality gates,
 business-fact safeguards, matrix invariants and the publish policy are
-UNCHANGED — only the shape of a writer run changes.
+UNCHANGED — only the shape of a writer run changes. The verified
+operator-loop implementation of this mode (operator-command workflow +
+`_drafts/` deploy gate) is documented step-by-step in
+`docs/PROC-PUBLISH.md`.
 
 - **Canonical batch max stays 50.** Chunking happens INSIDE a batch.
 - **Writer chunk default = 5 articles; allowed 5–10; never more than 10**

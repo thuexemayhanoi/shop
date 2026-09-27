@@ -2,8 +2,12 @@
 
 Infrastructure that produces up to 2,000 informational articles behind a
 deterministic quality gate, in 40 batches of exactly 50 articles. The plan
-(2,000 rows) is complete; production article bodies are NOT written yet and
-must come from an authorized AI writer or a human author — never templates.
+(2,000 rows) is complete; production is IN PROGRESS — read current
+progress from `reports/batches/factory-progress.json`, never from this
+file. Article bodies come from an authorized AI writer or a human author —
+never templates. The operator run loop (operator-command workflow +
+`_drafts/` deploy gate) is documented step-by-step in
+`docs/PROC-PUBLISH.md`.
 
 ## Production article standard (final)
 
@@ -83,6 +87,20 @@ step).
   use the same 3-attempt budget, but critical fact/legal failures must never
   be papered over.
 - **One failed article never blocks the other PASS articles of its batch.**
+
+## Deploy gate (`_drafts/`) — drafts are never deployed
+
+Article files for rows that are NOT yet PUBLISHED live at
+`_drafts/<output_path>`. Jekyll never copies underscore directories to
+the deployed site, so QA-passed drafts stay private. The publish
+transaction (`factory.mjs --publish`, also used by the Factory Operator
+workflow) promotes each QA-passed draft to its public `output_path` in
+the SAME commit that flips the row to PUBLISHED, then removes the draft.
+`--consistency` flags any unpublished row whose file leaked to its public
+path (`unpublished row leaked to public path: <id>`), and
+`tests/test_publish_gate.py` enforces the PUBLISHED ⇔ public-file
+invariant and the sitemap-equals-PUBLISHED invariant. Full operator loop
+with verified commands: `docs/PROC-PUBLISH.md`.
 
 ## Node fallback tooling (publish without Python)
 
@@ -267,13 +285,24 @@ the agent cannot write an article honestly, it stays unwritten.
 ## External-agent operating model (hourly operator flow)
 
 The Mistral agent IS the writer and the publisher; GitHub is the
-deterministic planner / validator / ledger / CI.
+deterministic planner / validator / ledger / CI. The VERIFIED execution
+path for steps 2, 3, 5, 6, 7, 8 is the "Factory Operator Tooling"
+workflow (`.github/workflows/factory-operator.yml`, trigger: a push of
+`data/batches/operator-command.json`): the agent pushes one whitelisted
+command (`prepare-next` / `qa` / `publish` / `consistency` / `recover` /
+`requeue` / `unittest`) and the workflow runs ONLY canonical repository
+tooling, then commits the deterministic outputs (matrix ledger, hubs,
+sitemap, reports) and deletes the command file. It never writes prose
+and contains no AI. Full step-by-step with verified commands and
+expected outputs: `docs/PROC-PUBLISH.md`. Summary:
 
 1. Fetch CURRENT MAIN; verify the SHA before editing.
 2. Run `--next --dry-run` to resolve the batch ONCE (an active unfinished
    batch is resumed before any new PLANNED batch; FAIL/BLOCKED never block).
 3. `--prepare-agent` (max 50 rows) → manifest `data/batches/BATCH-XXX.json`.
-4. Write each article per `docs/ARTICLE-RULES.md` at its output_path:
+4. Write each article per `docs/ARTICLE-RULES.md` at its DRAFT path
+   `_drafts/<output_path>` (the manifest's `draft_output_path`; the deploy
+   gate above keeps it off the live site):
    1600-2000 Vietnamese words, 1 H1, self canonical, Article +
    BreadcrumbList JSON-LD, lang="vi", author "Mr Tú", datePublished = the
    manifest's date_published (ACTUAL date, never planned_date), 3-5

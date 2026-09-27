@@ -1,0 +1,141 @@
+# PROC-PUBLISH — Write & Publish an Article Chunk
+
+## Objective
+
+Produce 5–10 gate-PASS articles per chunk inside the active batch
+(max 50 per batch) and publish them to the live site WITHOUT ever exposing
+unpublished drafts. The external AI agent is the writer; GitHub Actions
+("Factory Operator Tooling") is the operator's hands for ledger/QA/publish
+mutations; deterministic scripts are the gate.
+
+## Preconditions
+
+- Current MAIN checkout; remote HEAD verified before editing.
+- `config/content-factory.json` → `enabled: true` (kill switch check).
+- No pending transaction: `node scripts/js/factory.mjs --recover` → clean.
+- Writer lock free: `python3 scripts/run_article_batch.py
+  --writer-lock-status` → `{"lock": null, ...}` (verified command).
+- Read `README.md`, `docs/CONTENT-FACTORY.md`, `docs/ARTICLE-RULES.md`,
+  `docs/SEO-OWNERSHIP.md`, `AGENTS.md` hard rules.
+
+## Canonical data sources
+
+| Need | Source |
+|---|---|
+| Row scope, keywords, output paths, draft paths, dates, taxonomy, link targets | `reports/batches/<BATCH>/rows/<ID>.json` (exported by operator `prepare-next`) |
+| Ledger state | `data/content-matrix.csv` (read-only for the writer; NEVER hand-edit) |
+| Business facts | `config/business-facts.json` (trusted section only) |
+| Legal sources | `config/source-policy.json` (approved domains, min 1 URL for `requires_sources=true`) |
+| Protected intents | `config/seo-ownership.json` |
+| Article shell (footer/chatbot) | `_snippets/footer-compact.html` + chatbot snippet per `docs/ARTICLE-RULES.md` |
+
+## Steps (verified operator loop)
+
+1. **Claim the batch / export manifests** — push
+   `data/batches/operator-command.json` = `{"op":"prepare-next"}`.
+   The Factory Operator workflow claims ≤50 PLANNED rows → WRITING and
+   exports per-row manifests. (Verified: BATCH-005 claim, 50 manifests.)
+   If manifests already exist for the active batch, skip this step.
+2. **Write drafts** at the manifest's `draft_output_path`
+   (`_drafts/<output_path>`) — NEVER at the public `output_path`.
+   Follow `docs/ARTICLE-RULES.md`: 1,600–2,000 words main content, 1 H1,
+   self-canonical = `canonical_url` from the manifest, Article +
+   BreadcrumbList JSON-LD, `datePublished` = manifest `date_published`
+   (never `planned_date`), 3–5 contextual internal links (parent hub
+   required; child hub when the manifest's `taxonomy.child_hub` is
+   non-empty; ≤1 commercial), "Nguồn tham khảo" section with ≥1 approved
+   official URL for `requires_sources=true` rows (verify via web research
+   first; if unverifiable → leave unwritten or BLOCK, never guess).
+3. **Local pre-gate** (verified commands, run in the repo root):
+
+   ```bash
+   python3 scripts/score_article.py _drafts/cam-nang/<cat>/<slug>.html
+   ```
+
+   Repeat until `status: PASS` (exit 0). Also available:
+   `python3 scripts/validate_article.py <file>` (exit 0 = valid) and
+   `python3 scripts/check_cannibalization.py <file>` (exit 0 = no conflict).
+   Check hard invariants before pushing: slug == manifest slug, canonical ==
+   manifest `canonical_url`, meta date == manifest `date_published`.
+4. **Push drafts** (one commit per chunk, paths under `_drafts/`). Jekyll
+   never deploys underscore directories (live-proven: drafts return 404).
+5. **Official QA** — push operator command
+   `{"op":"qa","batch":"<BATCH>"}`. The workflow runs the deterministic QA
+   (validator + cannibalization + scorer + source gate + business facts)
+   on the batch's unfinished rows and records scores/outcomes in the matrix.
+   (Verified: BATCH-005 chunk 1 → 5×PASS score 99.)
+6. **Repair loop** (only for REVIEW/FAIL rows): edit the DRAFT, re-run the
+   local gate, push, re-run operator `qa`. Max 3 meaningful repairs per row
+   (factual → legal/source → schema → structure → style order); exhausted →
+   the row becomes BLOCKED with the reason recorded. One bad row never
+   blocks the chunk's PASS rows. `FAIL→REPAIR` requeue uses operator op
+   `requeue` with `ids` (implemented in the workflow; do not hand-edit).
+7. **Publish PASS rows** — push operator command
+   `{"op":"publish","batch":"<BATCH>","ids":"ID1,ID2,...","date":"YYYY-MM-DD"}`.
+   The workflow: `factory.mjs --publish --dry-run` → real `--publish`
+   (promotes each QA-passed draft `_drafts/<output_path>` → public
+   `output_path` inside one transaction, flips rows PUBLISHED, regenerates
+   category hubs, child hubs, sitemap, batch report) → `--consistency` →
+   generator freshness checks → full test suites. (Verified: BATCH-005
+   chunk 1 publish workflow success.)
+8. **Live verification** (verified command patterns):
+
+   ```bash
+   curl -s -o /dev/null -w "%{http_code}" https://thuexemayhanoi.github.io/shop/cam-nang/<cat>/<slug>.html   # expect 200
+   curl -s https://thuexemayhanoi.github.io/shop/cam-nang/<cat>/<slug>.html | md5sum   # compare with local file
+   curl -s https://thuexemayhanoi.github.io/shop/sitemap.xml | grep -c "<loc>"        # count must match --consistency output
+   curl -s -o /dev/null -w "%{http_code}" https://thuexemayhanoi.github.io/shop/_drafts/cam-nang/<cat>/<slug>.html   # expect 404
+   ```
+
+9. **Checkpoint & report** — chunk boundary: matrix statuses, scores,
+   progress (from `reports/batches/factory-progress.json`), commits, CI +
+   Pages results, live evidence, resume commands.
+
+## Expected results
+
+- Chunk of 5–10: drafts written → all PASS at score ≥ 90 → PUBLISHED at
+  their public URLs, in sitemap, listed on parent + child hubs.
+- Drafts removed from the repo by the publish transaction (raw 404).
+- CI (Article Quality Gate) and the Pages build both green on HEAD.
+
+## PASS/FAIL criteria
+
+- PASS chunk: every intended row PUBLISHED with live 200 + byte-identical
+  content + sitemap entry + green CI. No leaked drafts.
+- FAIL chunk (block the chain): any draft reachable publicly, canonical or
+  slug mismatch, missing sitemap entry, red CI, or consistency drift —
+  stop, repair, re-verify; do not start the next chunk with an open defect.
+
+## Error handling
+
+| Symptom | Action |
+|---|---|
+| Local scorer REVIEW (score 80–89 or review flags) | Fix per its report (word count 1,600–2,000, link count 3–5, parent hub, sources…) and re-score. |
+| `canonical inconsistent with slug` / `article not in content matrix` | Draft filename must equal the manifest slug exactly; canonical must equal the manifest `canonical_url`. |
+| QA workflow reports FAIL/REVIEW rows | Bounded repair (max 3), else BLOCKED with reason. Never publish a non-PASS row. |
+| Publish workflow interrupted | `node scripts/js/factory.mjs --recover` (locally or via operator op `recover`) finishes/verifies the transaction. Never mutate while a marker is pending. |
+| Writer lock held by a fresh session | Abort cleanly (exit 2). Never two writers on one batch. |
+| Pushed bytes differ from local (integrity) | Re-fetch MAIN, byte-compare, fix from local truth; suspect transport truncation — re-push from a full checkout. |
+
+## Checkpoint
+
+- Durable state: `data/content-matrix.csv` on MAIN (statuses + scores).
+- Chunk state: `data/batches/writer-checkpoint.json`
+  (`python3 scripts/run_article_batch.py --checkpoint` prints it
+  reconciled with the matrix — verified command; THE MATRIX ALWAYS WINS).
+- Lock: `--writer-lock-status` / `--acquire-writer-lock` /
+  `--release-writer-lock` (verified: status + clean abort on foreign lock).
+- Resume = repeat steps 3–9 for the next 5 unwritten WRITING rows; PASS/
+  PUBLISHED rows are never re-claimed or re-QA'd.
+
+## Rollback
+
+- Publishing is FORWARD-ONLY by policy: no deletes, no slug changes, no
+  noindex on published articles. A published defect is fixed by a new
+  commit (repair-in-place), never by removal.
+- Interrupted publish → `--recover` (two-phase commit + recovery marker
+  under `data/batches/txn/`); mutations are refused until recovered.
+- Wrongly claimed batch/rows → owner decision (requeue via `requeue_rows.py`
+  / operator `requeue`); the agent must not silently renumber or reset.
+- Factory-wide stop → set `config/content-factory.json` `enabled=false`
+  (kill switch) and report.
