@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T22:32:23",
+  "finished_at": "2026-09-28T05:33:37",
   "writer": "external-agent",
   "processed": 50,
   "written": 44,
-  "pass": 5,
-  "published": 39,
+  "pass": 0,
+  "published": 44,
   "writing": 6,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0051",
@@ -453,7 +453,7 @@
     {
       "article_id": "KN-0054",
       "output_path": "cam-nang/kinh-nghiem/kn-0054-khi-nao-nen-chon-xe-may-dien-thay-vi-xe-xang.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -468,7 +468,7 @@
     {
       "article_id": "KN-0055",
       "output_path": "cam-nang/kinh-nghiem/kn-0055-chup-anh-xe-may-truoc-khi-thue-de-lam-gi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -478,7 +478,7 @@
     {
       "article_id": "KN-0056",
       "output_path": "cam-nang/kinh-nghiem/kn-0056-nhung-dieu-nen-doc-ky-trong-hop-dong-thue-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -488,7 +488,7 @@
     {
       "article_id": "KN-0057",
       "output_path": "cam-nang/kinh-nghiem/kn-0057-di-thu-xe-quanh-quan-truoc-khi-quyet-dinh-thue.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -498,7 +498,7 @@
     {
       "article_id": "KN-0058",
       "output_path": "cam-nang/kinh-nghiem/kn-0058-kinh-nghiem-lay-xe-buoi-sang-va-tra-xe-cuoi-ngay.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
