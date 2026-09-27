@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T20:26:42",
+  "finished_at": "2026-09-28T03:27:14",
   "writer": "external-agent",
   "processed": 50,
   "written": 34,
-  "pass": 8,
-  "published": 26,
+  "pass": 0,
+  "published": 34,
   "writing": 16,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 8,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0051",
@@ -183,7 +183,7 @@
     {
       "article_id": "CD-0056",
       "output_path": "cam-nang/cung-duong/cd-0056-duong-den-bao-lac-nen-dung-o-dau-de-chup-anh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -193,7 +193,7 @@
     {
       "article_id": "CD-0057",
       "output_path": "cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -203,7 +203,7 @@
     {
       "article_id": "CD-0058",
       "output_path": "cam-nang/cung-duong/cd-0058-lich-trinh-thanh-pho-cao-bang-danh-cho-nhom-di-phuot.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
@@ -260,7 +260,7 @@
     {
       "article_id": "DL-0054",
       "output_path": "cam-nang/du-lich/dl-0054-dac-san-lang-co-duong-lam-nao-phai-thu-khi-di-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -270,7 +270,7 @@
     {
       "article_id": "DL-0055",
       "output_path": "cam-nang/du-lich/dl-0055-diem-ngam-hoang-hon-o-lang-co-duong-lam-khi-di-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -280,7 +280,7 @@
     {
       "article_id": "DL-0056",
       "output_path": "cam-nang/du-lich/dl-0056-lo-trinh-di-xe-may-tu-ha-noi-den-nui-ba-vi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -290,7 +290,7 @@
     {
       "article_id": "DL-0057",
       "output_path": "cam-nang/du-lich/dl-0057-di-xe-may-den-nui-ba-vi-cuoi-tuan-hay-ngay-thuong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -300,7 +300,7 @@
     {
       "article_id": "DL-0058",
       "output_path": "cam-nang/du-lich/dl-0058-quan-an-noi-tieng-gan-nui-ba-vi-cho-khach-di-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
