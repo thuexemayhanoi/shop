@@ -57,7 +57,8 @@ class TaxonomySourceTests(unittest.TestCase):
     def test_data_copy_is_byte_identical(self):
         self.assertEqual(read("_data/content_taxonomy.json"),
                          read("data/content-taxonomy.json"),
-                         "_data/content_taxonomy.json must stay a "
+                         "_dat
+a/content_taxonomy.json must stay a "
                          "byte-identical copy of data/content-taxonomy.json")
 
     def test_six_parents(self):
@@ -95,18 +96,21 @@ class FooterTests(unittest.TestCase):
         cls.footer = read("_includes/footer.html")
         cls.tax = json.loads(read("data/content-taxonomy.json"))
 
-    def test_footer_renders_canonical_taxonomy_data(self):
-        self.assertIn("site.data.content_taxonomy.parents", self.footer)
-        self.assertIn("{{ parent.parent_hub }}", self.footer)
-        self.assertIn("{{ child.child_hub_url }}", self.footer)
-
-    def test_footer_has_topic_index_link(self):
+    def test_footer_compact_cam_nang_section(self):
+        # Compact contract: SIX parent category links + the topic-index
+        # link only. The 56 child topics must NOT be inlined in the footer.
+        self.assertIn("footer-taxonomy", self.footer)
         self.assertIn("Xem tất cả chủ đề", self.footer)
         self.assertIn("/shop/cam-nang/chu-de/", self.footer)
+        for hub in ("kinhnghiem.html", "antoan.html", "xemay.html",
+                    "dulich.html", "cungduong.html", "hoidap.html"):
+            self.assertIn("/shop/%s" % hub, self.footer)
 
-    def test_footer_uses_collapsible_semantic_groups(self):
-        self.assertIn("<details", self.footer)
-        self.assertIn("<summary", self.footer)
+    def test_footer_does_not_inline_child_taxonomy(self):
+        # The full taxonomy stays on category pages / topic index, never
+        # as a wall of child links in the footer.
+        self.assertNotIn("<details", self.footer)
+        self.assertNotIn("child_hub_url", self.footer)
 
     def test_every_root_page_uses_canonical_footer_include(self):
         for page in root_pages():
@@ -156,7 +160,8 @@ class ChatbotTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.embed_js = read(EMBED_JS)
-        cls.include = read("_includes/chatbot-embed.html")
+        cls.include 
+= read("_includes/chatbot-embed.html")
 
     def test_embed_assets_exist(self):
         self.assertTrue(os.path.isfile(os.path.join(ROOT, EMBED_JS)))
@@ -198,7 +203,8 @@ class ChatbotTests(unittest.TestCase):
         # guard against double init
         self.assertIn("window.MotoAIEmbedCanonical", src)
         # accessibility
-        self.assertIn("Escape", src)
+        self.a
+ssertIn("Escape", src)
         self.assertIn("aria-label", src)
         self.assertIn("aria-modal", src)
         # fallback link
@@ -240,7 +246,8 @@ class ChatbotTests(unittest.TestCase):
     def test_factory_template_requires_embed(self):
         self.assertIn("CHATBOT_SNIPPET", read("scripts/js/factory.mjs"))
 
-    def test_writer_rules_require_embed(self):
+    def test_writer_r
+ules_require_embed(self):
         rules = read("docs/ARTICLE-RULES.md")
         self.assertIn(EMBED_JS, rules)
         manifest_src = read("scripts/run_article_batch.py")
