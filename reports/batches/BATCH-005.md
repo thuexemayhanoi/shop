@@ -1,11 +1,11 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T08:06:54
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T08:11:30
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 38 | pass: 1 | published: 33
-- writing: 12 | review: 0 | repair: 2 | fail: 1 | blocked: 1
-- scores: avg 98.1 | min 95 | max 100 | repair_count: 2
-- source_gate: pass 10 | blocked 0
+- processed: 50 | written: 42 | pass: 6 | published: 33
+- writing: 8 | review: 0 | repair: 0 | fail: 2 | blocked: 1
+- scores: avg 98 | min 91 | max 100 | repair_count: 2
+- source_gate: pass 11 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
 | article_id | output_path | status | score | repairs | notes |
@@ -41,17 +41,17 @@
 | HD-0037 | cam-nang/hoi-dap/hd-0037-bang-lai-a1-bi-thu-hoi-khi-nao.html | PUBLISHED | 99 | 0 |  |
 | HD-0038 | cam-nang/hoi-dap/hd-0038-xe-may-cua-nguoi-khac-khong-giay-to-co-chay-duoc-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0039 | cam-nang/hoi-dap/hd-0039-bien-so-mo-khong-doc-duoc-co-bi-xu-ly-khong.html | PASS | 100 | 0 |  |
-| HD-0040 | cam-nang/hoi-dap/hd-0040-doi-mu-bao-hiem-sai-tieu-chuan-co-bi-phat-khong.html | REPAIR | 100 | 0 |  |
+| HD-0040 | cam-nang/hoi-dap/hd-0040-doi-mu-bao-hiem-sai-tieu-chuan-co-bi-phat-khong.html | PASS | 100 | 0 |  |
 | HD-0041 | cam-nang/hoi-dap/hd-0041-lay-xe-may-thue-can-mang-theo-nhung-gi.html | PUBLISHED | 100 | 0 |  |
 | KN-0035 | cam-nang/kinh-nghiem/kn-0035-honda-click-co-thich-hop-chay-duong-deo-khong.html | BLOCKED | 98 | 2 | invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày,; invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày, |
 | KN-0036 | cam-nang/kinh-nghiem/kn-0036-kinh-nghiem-kiem-tra-honda-vision-truoc-khi-nhan-xe.html | PUBLISHED | 96 | 0 |  |
 | KN-0037 | cam-nang/kinh-nghiem/kn-0037-kinh-nghiem-cho-do-du-lich-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
-| KN-0038 | cam-nang/kinh-nghiem/kn-0038-kinh-nghiem-kiem-tra-honda-air-blade-truoc-khi-nhan-xe.html | REPAIR | 98 | 0 |  |
+| KN-0038 | cam-nang/kinh-nghiem/kn-0038-kinh-nghiem-kiem-tra-honda-air-blade-truoc-khi-nhan-xe.html | PASS | 98 | 0 |  |
 | KN-0039 | cam-nang/kinh-nghiem/kn-0039-xe-may-dien-thue-di-trong-pho-kinh-nghiem-lua-chon.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/kinh-nghiem/kn-0040-kinh-nghiem-thue-xe-may-dien-o-ha-noi.html'; broken internal link: 'cam-nang/kinh-nghiem/kn-0041-thue-xe-may-dien-di-duong-xa-nen-chuan-bi-gi.html' |
-| KN-0040 | cam-nang/kinh-nghiem/kn-0040-kinh-nghiem-thue-xe-may-dien-o-ha-noi.html | WRITING |  | 0 |  |
-| KN-0041 | cam-nang/kinh-nghiem/kn-0041-thue-xe-may-dien-di-duong-xa-nen-chuan-bi-gi.html | WRITING |  | 0 |  |
-| KN-0042 | cam-nang/kinh-nghiem/kn-0042-xe-may-dien-co-phu-hop-voi-nguoi-moi-lai-khong.html | WRITING |  | 0 |  |
-| XM-0034 | cam-nang/xe-may/xm-0034-cach-kiem-tra-van-lop-tren-yamaha-sirius.html | WRITING |  | 0 |  |
+| KN-0040 | cam-nang/kinh-nghiem/kn-0040-kinh-nghiem-thue-xe-may-dien-o-ha-noi.html | PASS | 98 | 0 |  |
+| KN-0041 | cam-nang/kinh-nghiem/kn-0041-thue-xe-may-dien-di-duong-xa-nen-chuan-bi-gi.html | PASS | 100 | 0 |  |
+| KN-0042 | cam-nang/kinh-nghiem/kn-0042-xe-may-dien-co-phu-hop-voi-nguoi-moi-lai-khong.html | PASS | 100 | 0 |  |
+| XM-0034 | cam-nang/xe-may/xm-0034-cach-kiem-tra-van-lop-tren-yamaha-sirius.html | FAIL | 91 | 0 | broken internal link: 'kinhnghiem.htm\nl'; broken internal link: 'kinhnghiem.htm\nl' |
 | XM-0035 | cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html | WRITING |  | 0 |  |
 | XM-0036 | cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html | WRITING |  | 0 |  |
 | XM-0037 | cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html | WRITING |  | 0 |  |
