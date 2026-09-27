@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T10:17:01",
+  "finished_at": "2026-09-27T17:17:29",
   "writer": "external-agent",
   "processed": 50,
   "written": 13,
-  "pass": 2,
-  "published": 10,
+  "pass": 0,
+  "published": 12,
   "writing": 37,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -127,7 +127,7 @@
     {
       "article_id": "CD-0044",
       "output_path": "cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [
@@ -140,7 +140,7 @@
     {
       "article_id": "CD-0045",
       "output_path": "cam-nang/cung-duong/cd-0045-bai-do-an-toan-doc-duong-di-quan-ba.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [

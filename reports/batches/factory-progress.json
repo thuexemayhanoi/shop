@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-27T17:14:22",
+  "generated": "2026-09-27T17:17:29",
   "total": 2000,
   "planned": 1700,
   "writing": 37,
@@ -7,8 +7,8 @@
   "review": 0,
   "repair": 0,
   "pass": 0,
-  "published": 254,
-  "fail": 3,
+  "published": 256,
+  "fail": 1,
   "blocked": 6,
   "completed_batches": 5,
   "active_batch": "BATCH-006",
