@@ -8,7 +8,8 @@
 
 .cb-launcher {
     position: fixed;
-    left: max(16px, env(safe-area-inset-left));
+    right: max(16px, env(safe-area-inset-right));
+    left: auto;
     bottom: max(16px, env(safe-area-inset-bottom));
     z-index: 9000;
     display: inline-flex;
@@ -46,7 +47,8 @@
 
 .cb-panel {
     position: fixed;
-    left: max(16px, env(safe-area-inset-left));
+    right: max(16px, env(safe-area-inset-right));
+    left: auto;
     bottom: max(76px, env(safe-area-inset-bottom));
     z-index: 9100;
     width: min(420px, calc(100vw - 32px));
@@ -72,7 +74,8 @@
     gap: 12px;
     padding: 12px 16px;
     background: #1c1c1e;
-    border-bottom: 1px solid #2c2c2e;
+    border
+-bottom: 1px solid #2c2c2e;
     flex: 0 0 auto;
 }
 
@@ -178,5 +181,47 @@ body.cb-no-scroll {
 
     .cb-panel.cb-open {
         display: flex;
+    }
+}
+
+
+/* ---------- launcher label + touch targets ---------- */
+.cb-launcher .cb-launcher-label {
+    white-space: nowrap;
+}
+
+.cb-launcher,
+.cb-close {
+    /* minimum comfortable touch target */
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* ---------- mobile: compact round launcher, right side, safe-area aware ---------- */
+@media (max-width: 640px) {
+    .cb-launcher {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        justify-content: center;
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+        font-size: 0; /* hide text label, keep icon sized below */
+    }
+    .cb-launcher .cb-launcher-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 1.25rem;
+    }
+    .cb-launcher .cb-launcher-label {
+        display: none;
+    }
+}
+
+/* ---------- desktop panel anchored right, above launcher ---------- */
+@media (min-width: 641px) {
+    .cb-panel {
+        right: max(16px, env(safe-area-inset-right));
+        left: auto;
     }
 }

@@ -46,9 +46,10 @@
         launcher.setAttribute('aria-controls', 'chatbot-panel');
 
         var icon = el('span', 'cb-launcher-icon', '💬');
-        icon.setAttribute('aria-hidden', 'true');
+      
+  icon.setAttribute('aria-hidden', 'true');
         launcher.appendChild(icon);
-        launcher.appendChild(el('span', null, 'Hỗ trợ Agent'));
+        launcher.appendChild(el('span', 'cb-launcher-label', 'Hỗ trợ Agent'));
         launcher.addEventListener('click', function () { open(); });
         document.body.appendChild(launcher);
     }
@@ -90,6 +91,45 @@
         panel.appendChild(fallback);
         document.body.appendChild(panel);
 
+        // Focus trap: Tab (and Shift+Tab) cycle inside the dialog while open.
+        function focusables() {
+            return [panel].concat(
+                Array.prototype.slice.call(panel.querySelectorAll('button, a[href], iframe'))
+            );
+        }
+        panel.addEventListener('keydown', function (ev) {
+            if (ev.key !== 'Tab') { return; }
+            var items = focusables().filter(function (n) { return n.offsetParent !== null || n === panel; });
+            if (!items.length) { return; }
+            var first = items[0];
+            var last = items[items.length - 1];
+            if (ev.shiftKey && document.activeElement === first) {
+                ev.preventDefault(); last.focus();
+            } else if (!ev.shiftKey && document.activeElement === last) {
+                ev.preventDefault(); first.focus();
+            } else if (!panel.contains(document.activeElement)) {
+                ev.preventDefault(); first.focus();
+            }
+        });
+
+        // Keep the sheet inside the visual viewport when the mobile keyboard
+        // opens/ closes, Safari's toolbar collapses, or the device rotates.
+        if (window.visualViewport) {
+            var vv = window.visualViewport;
+            var fit = function () {
+                if (!panel.classList.contains('cb-open')) { return; }
+                var small = window.matchMedia('(max-width: 640px)').matches;
+                if (small) {
+                    panel.style.height = vv.height + 'px';
+                } else {
+                    panel.style.height = '';
+                }
+            };
+            vv.addEventListener('resize', fit);
+            vv.addEventListener('scroll', fit);
+            window.addEventListener('orientationchange', fit);
+        }
+
         document.addEventListener('keydown', function (ev) {
             if (ev.key === 'Escape' && panel.classList.contains('cb-open')) {
                 close();
@@ -100,7 +140,8 @@
     function ensureIframe() {
         if (iframe) { return; }
         var body = document.getElementById('chatbot-body');
-        if (!body) { return; }
+ 
+       if (!body) { return; }
         iframe = document.createElement('iframe');
         iframe.title = 'Hỗ trợ Agent';
         iframe.loading = 'lazy';
@@ -127,6 +168,7 @@
     function close() {
         if (!panel || !panel.classList.contains('cb-open')) { return; }
         panel.classList.remove('cb-open');
+        panel.style.height = '';
         document.body.classList.remove('cb-no-scroll');
         if (launcher) { launcher.setAttribute('aria-expanded', 'false'); }
         if (lastFocus && typeof lastFocus.focus === 'function') {
