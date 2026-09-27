@@ -1,0 +1,46 @@
+name: Restore gioithieu.html (one-shot)
+
+# WHY: a tool-side fetch limit truncated gioithieu.html during a manual
+# patch push (commit 9ae2b0ca, -909 lines). This one-shot workflow restores
+# the known-good blob from git history, re-applies the intended desktop
+# header-wrap fix deterministically, commits, and removes itself.
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/restore-gioithieu.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: restore-gioithieu
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore known-good blob + apply header fix
+        run: |
+          set -eu
+          GOOD_BLOB=97c421d6d7ff6adb171b76a2d91670e04f1f8ff9
+          git cat-file blob "$GOOD_BLOB" > gioithieu.html
+          python3 .github/scripts/restore_gioithieu_patch.py
+
+      - name: Commit, remove this workflow, push
+        run: |
+          set -eu
+          git config user.name "factory-restore-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gioithieu.html
+          git rm -q .github/workflows/restore-gioithieu.yml
+          git rm -q .github/scripts/restore_gioithieu_patch.py
+          if git diff --cached --quiet; then echo "nothing to change"; exit 0; fi
+          git commit -m "restore: gioithieu.html known-good blob + deterministic desktop header wrap fix (one-shot)"
+          git push
