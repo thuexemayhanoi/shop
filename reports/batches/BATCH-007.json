@@ -1,7 +1,7 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T16:21:43",
+  "finished_at": "2026-09-27T16:28:58",
   "writer": "external-agent",
   "processed": 50,
   "written": 6,
@@ -12,9 +12,9 @@
   "repair": 0,
   "fail": 4,
   "blocked": 0,
-  "average_score": 91.5,
-  "min_score": 86,
-  "max_score": 99,
+  "average_score": 97.3,
+  "min_score": 91,
+  "max_score": 100,
   "repair_count": 0,
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
@@ -25,13 +25,14 @@
       "article_id": "AT-0051",
       "output_path": "cam-nang/an-toan/at-0051-giay-to-photo-co-duoc-dung-khi-bi-kiem-tra-xe-khong.html",
       "outcome": "FAIL",
-      "score": 90,
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
-        "invented fixed price for unapproved model 'sh': hận lại giấy tờ trong khung giờ nào, vì shop làm việc từ 08:00 đến 17:00 mỗi ngày. B",
-        "wrong price for Honda Vision: found 0 near 'đ mỗi tuần, Honda Vision 200.000đ mỗi ngày và 1.000.000đ mỗi tuần, kèm đặt c'",
-        "invented fixed price for unapproved model 'sh': hận lại giấy tờ trong khung giờ nào, vì shop làm việc từ 08:00 đến 17:00 mỗi ngày. B",
-        "wrong price for Honda Vision: found 0 near 'đ mỗi tuần, Honda Vision 200.000đ mỗi ngày và 1.000.000đ mỗi tuần, kèm đặt c'"
+        "word broken across newline: 'la\\nbel'",
+        "word broken across newline: 'tắ\\nc'",
+        "word broken across newline: 'nhữ\\nng'",
+        "word broken across newline: 'H\\nộ'",
+        "newline inside HTML tag"
       ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
@@ -120,11 +121,15 @@
       "article_id": "CD-0051",
       "output_path": "cam-nang/cung-duong/cd-0051-duong-tu-ha-noi-vao-meo-vac-doan-nao-kho-di.html",
       "outcome": "FAIL",
-      "score": 86,
+      "score": 91,
       "repair_attempts": 0,
       "quality_failures": [
-        "wrong price for Honda Air Blade: found 0 near 'sion, Honda Air Blade cũng đi được nếu bạn quen xe ga, giá 200.000đ mỗi ngày và 1.000.0'",
-        "wrong price for Honda Air Blade: found 0 near 'sion, Honda Air Blade cũng đi được nếu bạn quen xe ga, giá 200.000đ mỗi ngày và 1.000.0'"
+        "broken internal link: 'index.h\\ntml'",
+        "word broken across newline: 'h\\ntml'",
+        "word broken across newline: 'V\\nạc'",
+        "word broken across newline: 'đố\\ni'",
+        "newline inside HTML tag",
+        "broken internal link: 'index.h\\ntml'"
       ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
@@ -203,11 +208,15 @@
       "article_id": "DL-0051",
       "output_path": "cam-nang/du-lich/dl-0051-an-gi-khi-du-lich-chua-tay-phuong-bang-xe-may.html",
       "outcome": "FAIL",
-      "score": 88,
+      "score": 98,
       "repair_attempts": 0,
       "quality_failures": [
-        "wrong price for Honda Vision: found 0 near 'đ mỗi tuần, Honda Vision 200.000đ mỗi ngày và 1.000.000đ mỗi tuần, kèm đặt c'",
-        "wrong price for Honda Vision: found 0 near 'đ mỗi tuần, Honda Vision 200.000đ mỗi ngày và 1.000.000đ mỗi tuần, kèm đặt c'"
+        "word broken across newline: 'T\\nrang'",
+        "word broken across newline: 'nhi\\nều'",
+        "word broken across newline: 'buồ\\nn'",
+        "word broken across newline: 'nh\\nẹ'",
+        "word broken across newline: 'Khoản\\ng'",
+        "newline inside HTML tag"
       ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
@@ -286,11 +295,13 @@
       "article_id": "HD-0051",
       "output_path": "cam-nang/hoi-dap/hd-0051-xe-thue-bi-hong-nho-giua-chung-nen-tu-sua-hay-goi-chu-xe.html",
       "outcome": "FAIL",
-      "score": 90,
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
-        "wrong price for Honda Vision: found 0 near 'đ mỗi tuần; Honda Vision, Honda Air Blade và xe máy điện 200.000đ mỗi ngày, kèm đặt c'",
-        "wrong price for Honda Vision: found 0 near 'đ mỗi tuần; Honda Vision, Honda Air Blade và xe máy điện 200.000đ mỗi ngày, kèm đặt c'"
+        "word broken across newline: 'breadcrum\\nb'",
+        "word broken across newline: 'g\\niá'",
+        "word broken across newline: 'đơ\\nn'",
+        "newline inside HTML tag"
       ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
