@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T14:05:19
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T14:06:31
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 38 | pass: 4 | published: 33
-- writing: 12 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 98.4 | min 90 | max 100 | repair_count: 0
+- processed: 50 | written: 38 | pass: 5 | published: 33
+- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -39,7 +39,7 @@
 | HD-0043 | cam-nang/hoi-dap/hd-0043-xe-may-thue-chay-duoc-bao-nhieu-km-moi-ngay-thong-thuong.html | PUBLISHED | 99 | 0 | broken internal link: 'cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html'; broken internal link: 'cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html' |
 | HD-0044 | cam-nang/hoi-dap/hd-0044-tra-xe-may-thue-muon-hon-gio-hen-thi-sao.html | PUBLISHED | 100 | 0 |  |
 | HD-0045 | cam-nang/hoi-dap/hd-0045-xe-thue-het-xang-giua-duong-ai-chiu-chi-phi.html | PUBLISHED | 100 | 0 |  |
-| HD-0046 | cam-nang/hoi-dap/hd-0046-co-nen-dat-coc-bang-tien-mat-khi-thue-xe-may-khong.html | FAIL | 90 | 0 | stale deposit-policy claim: 'giảm cọc'; stale deposit-policy claim: 'giảm cọc' |
+| HD-0046 | cam-nang/hoi-dap/hd-0046-co-nen-dat-coc-bang-tien-mat-khi-thue-xe-may-khong.html | PASS | 100 | 0 | stale deposit-policy claim: 'giảm cọc'; stale deposit-policy claim: 'giảm cọc' |
 | HD-0047 | cam-nang/hoi-dap/hd-0047-chup-hinh-xe-thue-de-lam-gi-truoc-khi-lay.html | PASS | 100 | 0 |  |
 | HD-0048 | cam-nang/hoi-dap/hd-0048-xe-thue-bi-va-quet-nhe-khi-gui-phai-lam-sao.html | PASS | 100 | 0 |  |
 | HD-0049 | cam-nang/hoi-dap/hd-0049-mat-chia-khoa-xe-thue-phai-boi-thuong-the-nao.html | PASS | 100 | 0 |  |
