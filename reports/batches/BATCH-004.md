@@ -1,10 +1,10 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T09:14:07
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T09:17:12
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 42 | pass: 0 | published: 42
-- writing: 8 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.6 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 45 | pass: 0 | published: 45
+- writing: 5 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.7 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 6 | blocked 0
 - published_commit_sha: 8427d75316068f562aa50b965eae273c40cd52a9
 
@@ -17,7 +17,7 @@
 | AT-0030 | cam-nang/an-toan/at-0030-xe-thue-bi-phat-nguoi-thi-ai-chiu-trach-nhiem.html | PUBLISHED | 100 | 0 |  |
 | AT-0031 | cam-nang/an-toan/at-0031-quy-dinh-lap-them-phu-kien-cho-xe-may.html | WRITING |  | 0 |  |
 | AT-0032 | cam-nang/an-toan/at-0032-xe-may-chay-tren-via-he-bi-phat-nhu-the-nao.html | WRITING |  | 0 |  |
-| AT-0033 | cam-nang/an-toan/at-0033-uong-mot-lon-bia-roi-chay-xe-may-co-vuot-nguong-con-khong.html | WRITING |  | 0 |  |
+| AT-0033 | cam-nang/an-toan/at-0033-uong-mot-lon-bia-roi-chay-xe-may-co-vuot-nguong-con-khong.html | PUBLISHED | 99 | 0 |  |
 | AT-0034 | cam-nang/an-toan/at-0034-muc-phat-nong-do-con-voi-xe-may-hien-hanh.html | WRITING |  | 0 |  |
 | CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 95 | 0 |  |
 | CD-0027 | cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 95 | 0 |  |
@@ -40,7 +40,7 @@
 | HD-0028 | cam-nang/hoi-dap/hd-0028-xe-may-co-duoc-di-vao-duong-cao-toc-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0029 | cam-nang/hoi-dap/hd-0029-xe-may-di-vao-ham-duong-bo-duoc-phep-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0030 | cam-nang/hoi-dap/hd-0030-tre-em-ngoi-truoc-xe-may-co-duoc-khong.html | PUBLISHED | 100 | 0 |  |
-| HD-0031 | cam-nang/hoi-dap/hd-0031-cong-an-kiem-tra-giay-to-gom-nhung-loai-nao.html | WRITING |  | 0 |  |
+| HD-0031 | cam-nang/hoi-dap/hd-0031-cong-an-kiem-tra-giay-to-gom-nhung-loai-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0032 | cam-nang/hoi-dap/hd-0032-den-hau-xe-may-bi-chay-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0033 | cam-nang/hoi-dap/hd-0033-xe-may-di-lan-lan-co-bi-ghi-phat-nguoi-khong.html | WRITING |  | 0 |  |
 | KN-0026 | cam-nang/kinh-nghiem/kn-0026-kinh-nghiem-de-xe-va-giu-thang-bang-voi-yamaha-sirius.html | PUBLISHED | 99 | 0 |  |
@@ -59,4 +59,4 @@
 | XM-0030 | cam-nang/xe-may/xm-0030-dau-hieu-guong-gap-van-de-tren-yamaha-sirius.html | PUBLISHED | 96 | 0 |  |
 | XM-0031 | cam-nang/xe-may/xm-0031-cach-kiem-tra-binh-xang-tren-yamaha-sirius.html | PUBLISHED | 95 | 0 |  |
 | XM-0032 | cam-nang/xe-may/xm-0032-dau-hieu-chia-khoa-gap-van-de-tren-yamaha-sirius.html | PUBLISHED | 98 | 0 |  |
-| XM-0033 | cam-nang/xe-may/xm-0033-bao-duong-may-de-cua-yamaha-sirius-dung-cach.html | WRITING |  | 0 |  |
+| XM-0033 | cam-nang/xe-may/xm-0033-bao-duong-may-de-cua-yamaha-sirius-dung-cach.html | PUBLISHED | 95 | 0 |  |
