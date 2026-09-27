@@ -1,8 +1,8 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T20:09:04
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-28T03:09:32
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 26 | pass: 5 | published: 21
+- processed: 50 | written: 26 | pass: 0 | published: 26
 - writing: 24 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
@@ -16,14 +16,14 @@
 | AT-0054 | cam-nang/an-toan/at-0054-quy-dinh-ve-bien-bao-tam-thoi-khi-thi-cong-duong.html | PUBLISHED | 99 | 0 | broken internal link: 'cam-nang/an-toan/at-0053-cach-tra-qua-trinh-vi-pham-cua-xe-may-online.html'; broken internal link: 'cam-nang/an-toan/at-0053-cach-tra-qua-trinh-vi-pham-cua-xe-may-online.html' |
 | AT-0055 | cam-nang/an-toan/at-0055-xe-may-bi-thu-giu-trong-truong-hop-nao.html | PUBLISHED | 99 | 0 |  |
 | AT-0056 | cam-nang/an-toan/at-0056-ky-nang-giu-khoang-cach-an-toan-khi-chay-xe-may.html | PUBLISHED | 99 | 0 |  |
-| AT-0057 | cam-nang/an-toan/at-0057-goc-mu-cua-xe-tai-va-xe-khach-khi-chay-xe-may.html | PASS | 100 | 0 |  |
-| AT-0058 | cam-nang/an-toan/at-0058-ky-nang-vao-vong-xuyen-an-toan.html | PASS | 100 | 0 |  |
-| AT-0059 | cam-nang/an-toan/at-0059-chay-xe-may-tren-duong-tron-truot.html | PASS | 100 | 0 |  |
+| AT-0057 | cam-nang/an-toan/at-0057-goc-mu-cua-xe-tai-va-xe-khach-khi-chay-xe-may.html | PUBLISHED | 100 | 0 |  |
+| AT-0058 | cam-nang/an-toan/at-0058-ky-nang-vao-vong-xuyen-an-toan.html | PUBLISHED | 100 | 0 |  |
+| AT-0059 | cam-nang/an-toan/at-0059-chay-xe-may-tren-duong-tron-truot.html | PUBLISHED | 100 | 0 |  |
 | CD-0051 | cam-nang/cung-duong/cd-0051-duong-tu-ha-noi-vao-meo-vac-doan-nao-kho-di.html | PUBLISHED | 96 | 0 | broken internal link: 'index.h\ntml'; word broken across newline: 'h\ntml' |
 | CD-0052 | cam-nang/cung-duong/cd-0052-ke-hoach-3-ngay-2-dem-o-meo-vac-cho-nguoi-chay-xe.html | PUBLISHED | 95 | 0 |  |
 | CD-0053 | cam-nang/cung-duong/cd-0053-noi-tiep-nuoc-va-nghi-giai-lao-di-meo-vac.html | PUBLISHED | 96 | 0 |  |
-| CD-0054 | cam-nang/cung-duong/cd-0054-ra-bao-lac-bang-xe-may-di-trong-ngay-duoc-khong.html | PASS | 95 | 0 |  |
-| CD-0055 | cam-nang/cung-duong/cd-0055-chuyen-bao-lac-hai-ngay-xuat-phat-va-nghi-o-dau.html | PASS | 96 | 0 |  |
+| CD-0054 | cam-nang/cung-duong/cd-0054-ra-bao-lac-bang-xe-may-di-trong-ngay-duoc-khong.html | PUBLISHED | 95 | 0 |  |
+| CD-0055 | cam-nang/cung-duong/cd-0055-chuyen-bao-lac-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 96 | 0 |  |
 | CD-0056 | cam-nang/cung-duong/cd-0056-duong-den-bao-lac-nen-dung-o-dau-de-chup-anh.html | WRITING |  | 0 |  |
 | CD-0057 | cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html | WRITING |  | 0 |  |
 | CD-0058 | cam-nang/cung-duong/cd-0058-lich-trinh-thanh-pho-cao-bang-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |
