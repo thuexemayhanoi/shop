@@ -1,10 +1,10 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T09:12:45
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T12:05:20
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 50 | pass: 0 | published: 44
-- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 6
-- scores: avg 97.9 | min 95 | max 100 | repair_count: 12
+- processed: 50 | written: 50 | pass: 1 | published: 44
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 5
+- scores: avg 97.9 | min 95 | max 100 | repair_count: 15
 - source_gate: pass 11 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -43,7 +43,7 @@
 | HD-0039 | cam-nang/hoi-dap/hd-0039-bien-so-mo-khong-doc-duoc-co-bi-xu-ly-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0040 | cam-nang/hoi-dap/hd-0040-doi-mu-bao-hiem-sai-tieu-chuan-co-bi-phat-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0041 | cam-nang/hoi-dap/hd-0041-lay-xe-may-thue-can-mang-theo-nhung-gi.html | PUBLISHED | 100 | 0 |  |
-| KN-0035 | cam-nang/kinh-nghiem/kn-0035-honda-click-co-thich-hop-chay-duong-deo-khong.html | BLOCKED | 98 | 2 | invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày,; invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày, |
+| KN-0035 | cam-nang/kinh-nghiem/kn-0035-honda-click-co-thich-hop-chay-duong-deo-khong.html | PASS | 98 | 0 | invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày,; invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày, |
 | KN-0036 | cam-nang/kinh-nghiem/kn-0036-kinh-nghiem-kiem-tra-honda-vision-truoc-khi-nhan-xe.html | PUBLISHED | 96 | 0 |  |
 | KN-0037 | cam-nang/kinh-nghiem/kn-0037-kinh-nghiem-cho-do-du-lich-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
 | KN-0038 | cam-nang/kinh-nghiem/kn-0038-kinh-nghiem-kiem-tra-honda-air-blade-truoc-khi-nhan-xe.html | PUBLISHED | 98 | 0 |  |
@@ -53,10 +53,10 @@
 | KN-0042 | cam-nang/kinh-nghiem/kn-0042-xe-may-dien-co-phu-hop-voi-nguoi-moi-lai-khong.html | PUBLISHED | 100 | 0 |  |
 | XM-0034 | cam-nang/xe-may/xm-0034-cach-kiem-tra-van-lop-tren-yamaha-sirius.html | PUBLISHED | 96 | 0 | broken internal link: 'kinhnghiem.htm\nl'; broken internal link: 'kinhnghiem.htm\nl' |
 | XM-0035 | cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html | PUBLISHED | 95 | 0 |  |
-| XM-0036 | cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html | BLOCKED | 95 | 2 | broken internal link: 'cam-nang/xe-may/xm-0022-khi-n\nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'; broken internal link: 'cam-nang/xe-may/xm-0022-khi-n\nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html' |
-| XM-0037 | cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html | BLOCKED | 95 | 2 | broken internal link: 'sh\nop/cam-nang/xe-may/xm-0023-dau-hieu-lop-truoc-gap-van-de-tren-yamaha-sirius.html'; broken internal link: 'sh\nop/cam-nang/xe-may/xm-0023-dau-hieu-lop-truoc-gap-van-de-tren-yamaha-sirius.html' |
-| XM-0038 | cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html | BLOCKED | 99 | 2 | broken internal link: 'cam-nang/xe-may/xm-0022-khi-nao-ca\nn-kiem-tra-nhot-may-tren-yamaha-sirius.html'; broken internal link: 'cam-nang/xe-may/xm-0022-khi-nao-ca\nn-kiem-tra-nhot-may-tren-yamaha-sirius.html' |
-| XM-0039 | cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html | BLOCKED | 95 | 2 | broken internal link: 'cam-nang/xe-may/xm-0022-\nkhi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'; broken internal link: 'cam-nang/xe-may/xm-0022-\nkhi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html' |
-| XM-0040 | cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html | BLOCKED | 95 | 2 | broken internal link: 'cam-nang/xe-may/xm-0002-khi-nao-can-kiem-tra-nhot-may-tren-honda-wave.h\ntml'; broken internal link: 'cam-nang/xe-may/xm-0002-khi-nao-can-kiem-tra-nhot-may-tren-honda-wave.h\ntml' |
+| XM-0036 | cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html | BLOCKED | 95 | 3 | broken internal link: 'cam-nang/xe-may/xm-0022-khi-n\nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'; broken internal link: 'cam-nang/xe-may/xm-0022-khi-n\nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html' |
+| XM-0037 | cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html | BLOCKED | 95 | 3 | broken internal link: 'sh\nop/cam-nang/xe-may/xm-0023-dau-hieu-lop-truoc-gap-van-de-tren-yamaha-sirius.html'; broken internal link: 'sh\nop/cam-nang/xe-may/xm-0023-dau-hieu-lop-truoc-gap-van-de-tren-yamaha-sirius.html' |
+| XM-0038 | cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html | BLOCKED | 99 | 3 | broken internal link: 'cam-nang/xe-may/xm-0022-khi-nao-ca\nn-kiem-tra-nhot-may-tren-yamaha-sirius.html'; broken internal link: 'cam-nang/xe-may/xm-0022-khi-nao-ca\nn-kiem-tra-nhot-may-tren-yamaha-sirius.html' |
+| XM-0039 | cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html | BLOCKED | 95 | 3 | broken internal link: 'cam-nang/xe-may/xm-0022-\nkhi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'; broken internal link: 'cam-nang/xe-may/xm-0022-\nkhi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html' |
+| XM-0040 | cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html | BLOCKED | 95 | 3 | broken internal link: 'cam-nang/xe-may/xm-0002-khi-nao-can-kiem-tra-nhot-may-tren-honda-wave.h\ntml'; broken internal link: 'cam-nang/xe-may/xm-0002-khi-nao-can-kiem-tra-nhot-may-tren-honda-wave.h\ntml' |
 | XM-0041 | cam-nang/xe-may/xm-0041-bao-duong-lop-sau-cua-honda-click-dung-cach.html | PUBLISHED | 95 | 0 |  |
 | XM-0042 | cam-nang/xe-may/xm-0042-cach-kiem-tra-bo-phanh-tren-honda-click.html | PUBLISHED | 96 | 0 |  |
