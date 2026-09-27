@@ -27,8 +27,15 @@ change.**
   availability without owner verification.
 - Never weaken QA tests, the rubric, or the matrix invariants to make a
   gate pass. Never bulk-flip row statuses by hand-editing the ledger.
-- No cron, no scheduled AI writers, no new AI systems inside GitHub
-  Actions. The external agent is the only writer.
+- No autonomous AI writer or AI-generation cron may run inside GitHub
+  Actions: GitHub Actions must not contain an AI writer or AI API
+  keys/secrets for article generation. The deterministic Factory
+  Operator / QA / publish tooling stays in GitHub. The WRITER is an
+  external AI agent or human. Scheduling that external writer/operator
+  outside GitHub is ALLOWED, but every scheduled invocation must resume
+  repository truth and obey the canonical lock, transaction, QA,
+  publish and checkpoint contract. Two writers must never mutate the
+  factory concurrently.
 - Kill switch: `config/content-factory.json` `enabled=false` pauses the
   factory. Check it before claiming rows.
 - Do not delete articles, change slugs, or add noindex to published pages.
@@ -67,6 +74,18 @@ Machine-readable truth (never contradict, never hand-edit):
 
 ## 3. Fast path — continue the article run (summary; details in PROC-PUBLISH.md)
 
+Definitions: a BATCH is a canonical group of 50 matrix rows (2,000
+production articles = 40 batches x 50). A CHUNK is a small resumable
+writing/QA/publish unit INSIDE the active batch, normally 5-10 rows.
+The external writer does NOT need to write all 50 immediately. On every
+invocation: inspect repository truth, resume unfinished work first,
+then take the next 5-10 unfinished WRITING rows. Never start a fresh
+batch merely because a new invocation begins; transition to the next
+batch only when the current batch reaches its legitimate terminal
+state per the factory contract. If an interruption leaves a chunk
+partly done, keep the completed work and RECOVER -> RESUME unfinished
+rows -> VERIFY -> continue.
+
 1. Fetch current MAIN; verify the matrix state and the kill switch.
 2. Recover any pending transaction, check the writer lock.
 3. If the active batch has no exported row manifests yet, push operator
@@ -84,8 +103,8 @@ Machine-readable truth (never contradict, never hand-edit):
 
 Continue the run (next chunk) ONLY if ALL of these hold:
 
-- [ ] All gate suites green: `python3 -m unittest discover tests` → OK
-      (275 tests at time of writing), `node --test tests/js/factory.test.mjs`
+- [ ] All gate suites green: `python3 -m unittest discover tests` → all
+      current tests pass, `node --test tests/js/factory.test.mjs`
       → all pass, `node scripts/js/factory.mjs --consistency` → CONSISTENCY OK,
       `python3 scripts/validate_content_matrix.py` → valid matrix.
 - [ ] The previous chunk's articles are live: HTTP 200, byte-identical to
