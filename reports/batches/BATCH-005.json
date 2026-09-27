@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-005",
   "started_at": "2026-09-27T05:19:01",
-  "finished_at": "2026-09-27T09:02:02",
+  "finished_at": "2026-09-27T09:03:47",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 9,
+  "pass": 11,
   "published": 33,
   "writing": 0,
   "review": 0,
-  "repair": 7,
-  "fail": 0,
+  "repair": 0,
+  "fail": 5,
   "blocked": 1,
-  "average_score": 97.9,
-  "min_score": 95,
+  "average_score": 97.4,
+  "min_score": 90,
   "max_score": 100,
-  "repair_count": 3,
+  "repair_count": 2,
   "source_gate_pass": 11,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 9,
+  "pass_publishable_now": 11,
   "articles": [
     {
       "article_id": "AT-0035",
@@ -447,9 +447,9 @@
     {
       "article_id": "XM-0034",
       "output_path": "cam-nang/xe-may/xm-0034-cach-kiem-tra-van-lop-tren-yamaha-sirius.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
-      "repair_attempts": 1,
+      "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'kinhnghiem.htm\\nl'",
         "broken internal link: 'kinhnghiem.htm\\nl'"
@@ -460,7 +460,7 @@
     {
       "article_id": "XM-0035",
       "output_path": "cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -470,50 +470,65 @@
     {
       "article_id": "XM-0036",
       "output_path": "cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html",
-      "outcome": "REPAIR",
-      "score": 95,
+      "outcome": "FAIL",
+      "score": 90,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/xe-may/xm-0022-khi-n\\nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'",
+        "broken internal link: 'cam-nang/xe-may/xm-0022-khi-n\\nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0037",
       "output_path": "cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html",
-      "outcome": "REPAIR",
-      "score": 95,
+      "outcome": "FAIL",
+      "score": 90,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'sh\\nop/cam-nang/xe-may/xm-0023-dau-hieu-lop-truoc-gap-van-de-tren-yamaha-sirius.html'",
+        "broken internal link: 'sh\\nop/cam-nang/xe-may/xm-0023-dau-hieu-lop-truoc-gap-van-de-tren-yamaha-sirius.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0038",
       "output_path": "cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html",
-      "outcome": "REPAIR",
-      "score": 99,
+      "outcome": "FAIL",
+      "score": 94,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/xe-may/xm-0022-khi-nao-ca\\nn-kiem-tra-nhot-may-tren-yamaha-sirius.html'",
+        "broken internal link: 'cam-nang/xe-may/xm-0022-khi-nao-ca\\nn-kiem-tra-nhot-may-tren-yamaha-sirius.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0039",
       "output_path": "cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html",
-      "outcome": "REPAIR",
-      "score": 95,
+      "outcome": "FAIL",
+      "score": 90,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/xe-may/xm-0022-\\nkhi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'",
+        "broken internal link: 'cam-nang/xe-may/xm-0022-\\nkhi-nao-can-kiem-tra-nhot-may-tren-yamaha-sirius.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0040",
       "output_path": "cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html",
-      "outcome": "REPAIR",
-      "score": 95,
+      "outcome": "FAIL",
+      "score": 90,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/xe-may/xm-0002-khi-nao-can-kiem-tra-nhot-may-tren-honda-wave.h\\ntml'",
+        "broken internal link: 'cam-nang/xe-may/xm-0002-khi-nao-can-kiem-tra-nhot-may-tren-honda-wave.h\\ntml'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
