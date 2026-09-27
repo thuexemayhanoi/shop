@@ -57,5 +57,24 @@ jobs:
             './dist/shop/**/*.html'
           lycheeVersion: v0.18.1
           fail: true
+          format: json
+          output: lychee-report.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Emit lychee failures as annotations (diagnosable via API)
+        if: failure()
+        run: |
+          set -u
+          python3 - <<'PY2'
+          import json
+          try:
+              data = json.load(open('lychee-report.json'))
+          except Exception as e:
+              print(f"::error::cannot read lychee-report.json: {e}")
+              raise SystemExit
+          fails = [r for r in data if r.get('status') not in ('ok', 'excluded', 'unknown')]
+          print(f"::error::lychee failing links: {len(fails)}")
+          for r in fails[:60]:
+              print(f"::error::[{r.get('status')}] {r.get('url','')[:120]} <- {r.get('source','')[:80]} :: {str(r.get('error',''))[:120]}")
+          PY2
