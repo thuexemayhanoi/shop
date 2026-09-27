@@ -1,10 +1,10 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T08:11:30
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T09:02:02
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 42 | pass: 6 | published: 33
-- writing: 8 | review: 0 | repair: 0 | fail: 2 | blocked: 1
-- scores: avg 98 | min 91 | max 100 | repair_count: 2
+- processed: 50 | written: 50 | pass: 9 | published: 33
+- writing: 0 | review: 0 | repair: 7 | fail: 0 | blocked: 1
+- scores: avg 97.9 | min 95 | max 100 | repair_count: 3
 - source_gate: pass 11 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -47,16 +47,16 @@
 | KN-0036 | cam-nang/kinh-nghiem/kn-0036-kinh-nghiem-kiem-tra-honda-vision-truoc-khi-nhan-xe.html | PUBLISHED | 96 | 0 |  |
 | KN-0037 | cam-nang/kinh-nghiem/kn-0037-kinh-nghiem-cho-do-du-lich-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
 | KN-0038 | cam-nang/kinh-nghiem/kn-0038-kinh-nghiem-kiem-tra-honda-air-blade-truoc-khi-nhan-xe.html | PASS | 98 | 0 |  |
-| KN-0039 | cam-nang/kinh-nghiem/kn-0039-xe-may-dien-thue-di-trong-pho-kinh-nghiem-lua-chon.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/kinh-nghiem/kn-0040-kinh-nghiem-thue-xe-may-dien-o-ha-noi.html'; broken internal link: 'cam-nang/kinh-nghiem/kn-0041-thue-xe-may-dien-di-duong-xa-nen-chuan-bi-gi.html' |
+| KN-0039 | cam-nang/kinh-nghiem/kn-0039-xe-may-dien-thue-di-trong-pho-kinh-nghiem-lua-chon.html | PASS | 100 | 0 | broken internal link: 'cam-nang/kinh-nghiem/kn-0040-kinh-nghiem-thue-xe-may-dien-o-ha-noi.html'; broken internal link: 'cam-nang/kinh-nghiem/kn-0041-thue-xe-may-dien-di-duong-xa-nen-chuan-bi-gi.html' |
 | KN-0040 | cam-nang/kinh-nghiem/kn-0040-kinh-nghiem-thue-xe-may-dien-o-ha-noi.html | PASS | 98 | 0 |  |
 | KN-0041 | cam-nang/kinh-nghiem/kn-0041-thue-xe-may-dien-di-duong-xa-nen-chuan-bi-gi.html | PASS | 100 | 0 |  |
 | KN-0042 | cam-nang/kinh-nghiem/kn-0042-xe-may-dien-co-phu-hop-voi-nguoi-moi-lai-khong.html | PASS | 100 | 0 |  |
-| XM-0034 | cam-nang/xe-may/xm-0034-cach-kiem-tra-van-lop-tren-yamaha-sirius.html | FAIL | 91 | 0 | broken internal link: 'kinhnghiem.htm\nl'; broken internal link: 'kinhnghiem.htm\nl' |
-| XM-0035 | cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html | WRITING |  | 0 |  |
-| XM-0036 | cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html | WRITING |  | 0 |  |
-| XM-0037 | cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html | WRITING |  | 0 |  |
-| XM-0038 | cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html | WRITING |  | 0 |  |
-| XM-0039 | cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html | WRITING |  | 0 |  |
-| XM-0040 | cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html | WRITING |  | 0 |  |
-| XM-0041 | cam-nang/xe-may/xm-0041-bao-duong-lop-sau-cua-honda-click-dung-cach.html | WRITING |  | 0 |  |
-| XM-0042 | cam-nang/xe-may/xm-0042-cach-kiem-tra-bo-phanh-tren-honda-click.html | WRITING |  | 0 |  |
+| XM-0034 | cam-nang/xe-may/xm-0034-cach-kiem-tra-van-lop-tren-yamaha-sirius.html | REPAIR | 96 | 1 | broken internal link: 'kinhnghiem.htm\nl'; broken internal link: 'kinhnghiem.htm\nl' |
+| XM-0035 | cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html | REPAIR | 95 | 0 |  |
+| XM-0036 | cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html | REPAIR | 95 | 0 |  |
+| XM-0037 | cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html | REPAIR | 95 | 0 |  |
+| XM-0038 | cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html | REPAIR | 99 | 0 |  |
+| XM-0039 | cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html | REPAIR | 95 | 0 |  |
+| XM-0040 | cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html | REPAIR | 95 | 0 |  |
+| XM-0041 | cam-nang/xe-may/xm-0041-bao-duong-lop-sau-cua-honda-click-dung-cach.html | PASS | 95 | 0 |  |
+| XM-0042 | cam-nang/xe-may/xm-0042-cach-kiem-tra-bo-phanh-tren-honda-click.html | PASS | 96 | 0 |  |
