@@ -322,7 +322,7 @@ class MatrixStatusTests(unittest.TestCase):
     the currently active batch (statuses must never drift outside the
     factory's own pipeline)."""
 
-    VALID = {"PLANNED", "WRITING", "QA", "REVIEW",
+    VALID = {"PLANNED", "WRITING", "QA", "REVIEW", "REPAIR",
              "PASS", "PUBLISHED", "FAIL", "BLOCKED"}
 
     def test_all_production_rows_valid_status(self):
@@ -339,7 +339,7 @@ class MatrixStatusTests(unittest.TestCase):
         # in-flight statuses must live only inside the active batch;
         # terminal statuses (PUBLISHED/FAIL/BLOCKED) legitimately persist
         # in batches that already finished
-        in_flight = {"WRITING", "QA", "REVIEW", "PASS"}
+        in_flight = {"WRITING", "QA", "REVIEW", "PASS", "REPAIR"}
         moved = [r for r in rows
                  if (r.get("status") or "").strip() in in_flight]
         if active is None:
