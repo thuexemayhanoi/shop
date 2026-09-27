@@ -46,9 +46,12 @@ jobs:
             ./ dist/shop/
           echo "pages:"; ls dist/shop | head -20
 
+      - name: Prepare LHCI config (absolute dist path)
+        run: sed "s#\"\.\./dist\"#\"$PWD/dist\"" .github/lighthouserc.json > ./lighthouserc.generated.json
+
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: .github/lighthouserc.json
+          configPath: ./lighthouserc.generated.json
           uploadArtifacts: false
           temporaryPublicStorage: false

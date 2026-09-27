@@ -41,18 +41,6 @@ exclude = [
   '^https://t\.me/',
 ]
 
-exclude_path = [
-  "tests",
-  "docs",
-  "reports",
-  "scripts",
-  "config",
-  "data",
-  "_data",
-  "_includes",
-  "_snippets",
-  ".github/scripts",
-]
 
 # -------------------------
 # Behavior

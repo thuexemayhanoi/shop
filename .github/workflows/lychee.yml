@@ -3,10 +3,10 @@ name: Lychee link check (readonly)
 # Independent link checker. Read-only. Never edits articles because one
 # external site timed out; transient external failures are retried with a
 # limited failure budget (.github/lychee.toml).
-# The site is plain static HTML: the deployable tree is served from /shop
-# via a local HTTP server so root-absolute internal links resolve exactly
-# like on GitHub Pages. Internal routes are ALSO covered by the SEO
-# engine (scripts/seo/seo_audit.py) in the PR verifier.
+# The site is plain static HTML: the deployable tree is copied to dist/shop
+# and scanned with --root-dir so root-absolute internal links resolve
+# exactly like on GitHub Pages. Internal routes are ALSO covered by the
+# SEO engine (scripts/seo/seo_audit.py) in the PR verifier.
 
 on:
   pull_request:
@@ -45,17 +45,16 @@ jobs:
             --exclude '_data/' --exclude '_includes/' --exclude '_snippets/' \
             --exclude 'motoai_v3*.js' --exclude 'motoai_v4*.js' \
             ./ dist/shop/
+          echo "pages: $(find dist/shop -name '*.html' | wc -l)"
 
-      - name: Serve locally (like Pages)
-        run: |
-          nohup python3 -m http.server 8000 --directory dist >/dev/null 2>&1 &
-          sleep 2
-          curl -fsS http://localhost:8000/shop/index.html >/dev/null
-
-      - name: Run Lychee
+      - name: Run Lychee (local files, absolute links resolved via root-dir)
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --config .github/lychee.toml --verbose --no-progress 'http://localhost:8000/shop/'
+          args: >-
+            --config .github/lychee.toml
+            --root-dir "$PWD/dist"
+            --verbose --no-progress
+            './dist/shop/**/*.html'
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
