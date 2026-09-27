@@ -55,6 +55,7 @@ jobs:
             --root-dir "${{ github.workspace }}/dist"
             --verbose --no-progress
             './dist/shop/**/*.html'
+          lycheeVersion: v0.18.1
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

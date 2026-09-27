@@ -46,6 +46,20 @@ exclude = [
   '^https://wa\.me/',
   '^https://m\.me/',
   '^https://t\.me/',
+  # external social/portfolio profiles of the shop that block automated
+  # crawlers with 401/403/406/999 — links are valid, bots are filtered
+  '^https://medium\.com/',
+  '^https://www\.reddit\.com/',
+  '^https://www\.producthunt\.com/',
+  '^https://www\.pexels\.com/',
+  '^https://www\.patreon\.com/',
+  '^https://www\.kickstarter\.com/',
+  '^https://vsco\.co/',
+  '^https://www\.last\.fm/',
+  '^https://letterboxd\.com/',
+  '^https://unsplash\.com/',
+  '^https://www\.linkedin\.com/',
+  '^https://linkedin\.com/',
 ]
 
 
