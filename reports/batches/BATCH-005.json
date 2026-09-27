@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-005",
   "started_at": "2026-09-27T05:19:01",
-  "finished_at": "2026-09-27T05:19:03",
+  "finished_at": "2026-09-27T12:21:46",
   "writer": "external-agent",
   "processed": 50,
   "written": 5,
-  "pass": 5,
-  "published": 0,
+  "pass": 0,
+  "published": 5,
   "writing": 45,
   "review": 0,
   "repair": 0,
@@ -19,12 +19,12 @@
   "source_gate_pass": 4,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0035",
       "output_path": "cam-nang/an-toan/at-0035-cho-qua-so-nguoi-tren-xe-may-dien-co-bi-phat-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -34,7 +34,7 @@
     {
       "article_id": "AT-0036",
       "output_path": "cam-nang/an-toan/at-0036-xe-may-dien-co-can-bang-lai-khong-theo-quy-dinh-hien-hanh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -44,7 +44,7 @@
     {
       "article_id": "AT-0037",
       "output_path": "cam-nang/an-toan/at-0037-quy-dinh-den-chieu-sang-cho-xe-may-dien.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -54,7 +54,7 @@
     {
       "article_id": "AT-0038",
       "output_path": "cam-nang/an-toan/at-0038-phat-khong-nhuong-duong-cho-xe-uu-tien.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -64,7 +64,7 @@
     {
       "article_id": "AT-0039",
       "output_path": "cam-nang/an-toan/at-0039-xe-may-coi-noi-bi-phat-hien-co-bi-xu-ly-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],

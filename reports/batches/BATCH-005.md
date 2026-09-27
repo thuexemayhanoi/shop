@@ -1,8 +1,8 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T05:19:03
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T12:21:46
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 5 | pass: 5 | published: 0
+- processed: 50 | written: 5 | pass: 0 | published: 5
 - writing: 45 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99 | min 99 | max 99 | repair_count: 0
 - source_gate: pass 4 | blocked 0
@@ -10,11 +10,11 @@
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0035 | cam-nang/an-toan/at-0035-cho-qua-so-nguoi-tren-xe-may-dien-co-bi-phat-khong.html | PASS | 99 | 0 |  |
-| AT-0036 | cam-nang/an-toan/at-0036-xe-may-dien-co-can-bang-lai-khong-theo-quy-dinh-hien-hanh.html | PASS | 99 | 0 |  |
-| AT-0037 | cam-nang/an-toan/at-0037-quy-dinh-den-chieu-sang-cho-xe-may-dien.html | PASS | 99 | 0 |  |
-| AT-0038 | cam-nang/an-toan/at-0038-phat-khong-nhuong-duong-cho-xe-uu-tien.html | PASS | 99 | 0 |  |
-| AT-0039 | cam-nang/an-toan/at-0039-xe-may-coi-noi-bi-phat-hien-co-bi-xu-ly-khong.html | PASS | 99 | 0 |  |
+| AT-0035 | cam-nang/an-toan/at-0035-cho-qua-so-nguoi-tren-xe-may-dien-co-bi-phat-khong.html | PUBLISHED | 99 | 0 |  |
+| AT-0036 | cam-nang/an-toan/at-0036-xe-may-dien-co-can-bang-lai-khong-theo-quy-dinh-hien-hanh.html | PUBLISHED | 99 | 0 |  |
+| AT-0037 | cam-nang/an-toan/at-0037-quy-dinh-den-chieu-sang-cho-xe-may-dien.html | PUBLISHED | 99 | 0 |  |
+| AT-0038 | cam-nang/an-toan/at-0038-phat-khong-nhuong-duong-cho-xe-uu-tien.html | PUBLISHED | 99 | 0 |  |
+| AT-0039 | cam-nang/an-toan/at-0039-xe-may-coi-noi-bi-phat-hien-co-bi-xu-ly-khong.html | PUBLISHED | 99 | 0 |  |
 | AT-0040 | cam-nang/an-toan/at-0040-loi-buong-hai-tay-khoi-tay-lai-xe-may.html | WRITING |  | 0 |  |
 | AT-0041 | cam-nang/an-toan/at-0041-xe-may-di-vao-duong-cao-toc-bi-phat-the-nao.html | WRITING |  | 0 |  |
 | AT-0042 | cam-nang/an-toan/at-0042-quy-dinh-cho-nguoi-tren-xe-may-dien.html | WRITING |  | 0 |  |
