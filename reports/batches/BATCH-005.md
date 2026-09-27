@@ -1,8 +1,8 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T06:23:08
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T13:23:56
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 18 | pass: 4 | published: 14
+- processed: 50 | written: 18 | pass: 0 | published: 18
 - writing: 32 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.8 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 6 | blocked 0
@@ -24,10 +24,10 @@
 | CD-0037 | cam-nang/cung-duong/cd-0037-tuyen-duong-dep-tu-ha-noi-den-tuyen-quang.html | PUBLISHED | 95 | 0 |  |
 | CD-0038 | cam-nang/cung-duong/cd-0038-trai-nghiem-mot-ngay-o-tuyen-quang-bang-xe-may.html | PUBLISHED | 95 | 0 |  |
 | CD-0039 | cam-nang/cung-duong/cd-0039-tram-dung-nghi-ven-duong-toi-tuyen-quang.html | PUBLISHED | 95 | 0 |  |
-| CD-0040 | cam-nang/cung-duong/cd-0040-ha-noi-den-thanh-pho-ha-giang-quoc-lo-nao-nen-chon.html | PASS | 99 | 0 |  |
-| CD-0041 | cam-nang/cung-duong/cd-0041-hai-ngay-o-thanh-pho-ha-giang-lich-trinh-goi-y-cho-nguoi-di.html | PASS | 99 | 0 |  |
-| DL-0034 | cam-nang/du-lich/dl-0034-thang-nang-gat-co-nen-di-bao-tang-ha-noi-bang-xe-may-khong.html | PASS | 97 | 0 |  |
-| DL-0035 | cam-nang/du-lich/dl-0035-quan-ngon-gia-binh-dan-o-bao-tang-ha-noi.html | PASS | 99 | 0 |  |
+| CD-0040 | cam-nang/cung-duong/cd-0040-ha-noi-den-thanh-pho-ha-giang-quoc-lo-nao-nen-chon.html | PUBLISHED | 99 | 0 |  |
+| CD-0041 | cam-nang/cung-duong/cd-0041-hai-ngay-o-thanh-pho-ha-giang-lich-trinh-goi-y-cho-nguoi-di.html | PUBLISHED | 99 | 0 |  |
+| DL-0034 | cam-nang/du-lich/dl-0034-thang-nang-gat-co-nen-di-bao-tang-ha-noi-bang-xe-may-khong.html | PUBLISHED | 97 | 0 |  |
+| DL-0035 | cam-nang/du-lich/dl-0035-quan-ngon-gia-binh-dan-o-bao-tang-ha-noi.html | PUBLISHED | 99 | 0 |  |
 | DL-0036 | cam-nang/du-lich/dl-0036-quang-canh-suong-som-o-bao-tang-ha-noi.html | WRITING |  | 0 |  |
 | DL-0037 | cam-nang/du-lich/dl-0037-di-xe-may-den-cong-vien-thu-le-theo-nhom-ban.html | WRITING |  | 0 |  |
 | DL-0038 | cam-nang/du-lich/dl-0038-san-may-o-cong-vien-thu-le-mua-nao-bang-xe-may.html | WRITING |  | 0 |  |
