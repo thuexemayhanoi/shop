@@ -60,17 +60,15 @@ def requeue_updates(rows, ids, repo_root):
         if row is None:
             refusals.append({"article_id": aid, "reason": "unknown article_id"})
             continue
-        status = (row.get("s
-tatus") or "").strip()
+        status = (row.get("status") or "").strip()
         if status != "FAIL":
             refusals.append({"article_id": aid,
                              "reason": "not FAIL (status=%s)" % status})
             continue
-        path = os.path.join(repo_root, row.get("output_path") or "")
-        draft = os.path.join(repo_root,
-                             rb.draft_rel(row.get("output_path") or ""))
-        if not (row.get("output_path")
-                and (os.path.isfile(path) or os.path.isfile(draft))):
+        out_path = (row.get("output_path") or "").strip()
+        final = os.path.join(repo_root, out_path)
+        draft = os.path.join(repo_root, rb.draft_rel(out_path))
+        if not (out_path and (os.path.isfile(final) or os.path.isfile(draft))):
             refusals.append({"article_id": aid,
                              "reason": "article file missing on disk"})
             continue
