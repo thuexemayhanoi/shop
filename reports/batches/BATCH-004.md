@@ -1,9 +1,9 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T09:17:12
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T04:02:59
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 45 | pass: 0 | published: 45
-- writing: 5 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 47 | pass: 0 | published: 45
+- writing: 3 | review: 0 | repair: 2 | fail: 0 | blocked: 0
 - scores: avg 97.7 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 6 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -15,8 +15,8 @@
 | AT-0028 | cam-nang/an-toan/at-0028-kiem-tra-xe-may-da-bi-phat-nguoi-o-dau.html | PUBLISHED | 99 | 0 |  |
 | AT-0029 | cam-nang/an-toan/at-0029-cach-nop-phat-nguoi-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | AT-0030 | cam-nang/an-toan/at-0030-xe-thue-bi-phat-nguoi-thi-ai-chiu-trach-nhiem.html | PUBLISHED | 100 | 0 |  |
-| AT-0031 | cam-nang/an-toan/at-0031-quy-dinh-lap-them-phu-kien-cho-xe-may.html | WRITING |  | 0 |  |
-| AT-0032 | cam-nang/an-toan/at-0032-xe-may-chay-tren-via-he-bi-phat-nhu-the-nao.html | WRITING |  | 0 |  |
+| AT-0031 | cam-nang/an-toan/at-0031-quy-dinh-lap-them-phu-kien-cho-xe-may.html | REPAIR | 100 | 0 |  |
+| AT-0032 | cam-nang/an-toan/at-0032-xe-may-chay-tren-via-he-bi-phat-nhu-the-nao.html | REPAIR | 99 | 0 |  |
 | AT-0033 | cam-nang/an-toan/at-0033-uong-mot-lon-bia-roi-chay-xe-may-co-vuot-nguong-con-khong.html | PUBLISHED | 99 | 0 |  |
 | AT-0034 | cam-nang/an-toan/at-0034-muc-phat-nong-do-con-voi-xe-may-hien-hanh.html | WRITING |  | 0 |  |
 | CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 95 | 0 |  |
