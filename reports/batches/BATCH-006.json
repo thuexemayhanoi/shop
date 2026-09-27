@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T09:34:02",
+  "finished_at": "2026-09-27T16:35:04",
   "writer": "external-agent",
   "processed": 50,
   "written": 8,
-  "pass": 3,
-  "published": 5,
+  "pass": 0,
+  "published": 8,
   "writing": 42,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -74,7 +74,7 @@
     {
       "article_id": "AT-0048",
       "output_path": "cam-nang/an-toan/at-0048-xe-may-khong-nhuong-duong-cho-nguoi-di-bo-o-vach-sang-duong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -84,7 +84,7 @@
     {
       "article_id": "AT-0049",
       "output_path": "cam-nang/an-toan/at-0049-lan-lan-khi-vuot-xe-co-bi-phat-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -97,7 +97,7 @@
     {
       "article_id": "AT-0050",
       "output_path": "cam-nang/an-toan/at-0050-muc-phat-cho-ba-nguoi-tren-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
