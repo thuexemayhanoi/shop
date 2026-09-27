@@ -1,0 +1,27 @@
+token scopes: access-control-expose-headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning
+blob sha: baacfd18c2d072e190a4558b7800ad654aa6459e
+b64 length: 9084
+attempt 1, current file sha: 45cb17d4ee12ffe548279e93cbcd01a28154dab6
+PUT status: 403
+{
+  "message": "refusing to allow a GitHub App to create or update workflow `.github/workflows/factory-operator.yml` without `workflows` permission",
+  "documentation_url": "https://docs.github.com/rest/repos/contents#create-or-update-file-contents",
+  "status": "403"
+}
+
+attempt 2, current file sha: 45cb17d4ee12ffe548279e93cbcd01a28154dab6
+PUT status: 403
+{
+  "message": "refusing to allow a GitHub App to create or update workflow `.github/workflows/factory-operator.yml` without `workflows` permission",
+  "documentation_url": "https://docs.github.com/rest/repos/contents#create-or-update-file-contents",
+  "status": "403"
+}
+
+attempt 3, current file sha: 45cb17d4ee12ffe548279e93cbcd01a28154dab6
+PUT status: 403
+{
+  "message": "refusing to allow a GitHub App to create or update workflow `.github/workflows/factory-operator.yml` without `workflows` permission",
+  "documentation_url": "https://docs.github.com/rest/repos/contents#create-or-update-file-contents",
+  "status": "403"
+}
+
