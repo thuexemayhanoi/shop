@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-005",
   "started_at": "2026-09-27T05:19:01",
-  "finished_at": "2026-09-27T06:31:05",
+  "finished_at": "2026-09-27T13:32:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 25,
-  "pass": 3,
-  "published": 22,
+  "pass": 0,
+  "published": 25,
   "writing": 25,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 6,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0035",
@@ -244,7 +244,7 @@
     {
       "article_id": "DL-0040",
       "output_path": "cam-nang/du-lich/dl-0040-chup-dem-o-cong-vien-thu-le-co-dep-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -254,7 +254,7 @@
     {
       "article_id": "DL-0041",
       "output_path": "cam-nang/du-lich/dl-0041-chuyen-sang-som-den-chua-huong-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -264,7 +264,7 @@
     {
       "article_id": "DL-0042",
       "output_path": "cam-nang/du-lich/dl-0042-cuoi-thu-di-chua-huong-bang-xe-may-co-dep-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
