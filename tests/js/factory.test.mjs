@@ -159,10 +159,14 @@ function makeSandbox() {
   fs.writeFileSync(path.join(dir, 'data', 'content-matrix.csv') && mk('data/content-matrix.csv'),
     header.join(',') + '\r\n' + fixed.map((f) => serializeRow(f)).join(''), 'utf8');
 
-  // article files for PASS/PUBLISHED rows
+  // article files under the DEPLOY GATE: PUBLISHED rows occupy the public
+  // path; PASS rows (QA-passed, not yet published) live in _drafts/ only,
+  // so an unpublished article can never be fetched on its public URL.
   for (const f of fixed) {
-    if (['PASS', 'PUBLISHED'].includes(f[1])) {
+    if (f[1] === 'PUBLISHED') {
       fs.writeFileSync(mk(f[8]), '<!DOCTYPE html><html lang="vi"><body><main><h1>' + f[0] + '</h1></main></body></html>\n', 'utf8');
+    } else if (f[1] === 'PASS') {
+      fs.writeFileSync(mk('_drafts/' + f[8]), '<!DOCTYPE html><html lang="vi"><body><main><h1>' + f[0] + '</h1></main></body></html>\n', 'utf8');
     }
   }
   // hubs

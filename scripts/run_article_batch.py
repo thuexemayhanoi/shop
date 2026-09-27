@@ -124,6 +124,50 @@ def next_batch_id(matrix):
     return None
 
 
+# ---------------------------------------------------------------------------
+# DEPLOY GATE (drafts): article files for rows that are NOT yet PUBLISHED
+# live under _drafts/<output_path>. Jekyll never copies underscore
+# directories into the deployed site, so an unreviewed article can never
+# be fetched on the public URL. scripts/js/factory.mjs --publish promotes
+# the draft file to the REAL output_path in the same transaction that
+# flips the matrix row to PUBLISHED. Publish-gate tests live in
+# tests/test_publish_gate.py.
+# ---------------------------------------------------------------------------
+
+DRAFTS_PREFIX = "_drafts/"
+
+
+def draft_rel(output_path):
+    """Non-published draft location for a row's output_path."""
+    return DRAFTS_PREFIX + (output_path or "").strip().lstrip("/")
+
+
+def draft_abs(repo_root, output_path):
+    return os.path.join(repo_root, draft_rel(output_path))
+
+
+def row_file_exists(repo_root, output_path):
+    """True when the article file exists at the draft path OR the final
+    path (PASS rows written before the gate, PUBLISHED rows)."""
+    path = (output_path or "").strip()
+    if not path:
+        return False
+    return (os.path.isfile(os.path.join(repo_root, path))
+            or os.path.isfile(draft_abs(repo_root, path)))
+
+
+def row_written_file(repo_root, output_path):
+    """The file QA should read: draft first, final as fallback."""
+    path = (output_path or "").strip()
+    if not path:
+        return None
+    if os.path.isfile(draft_abs(repo_root, path)):
+        return draft_abs(repo_root, path)
+    if os.path.isfile(os.path.join(repo_root, path)):
+        return os.path.join(repo_root, path)
+    return None
+
+
 def select_claim_rows(rows, batch_size=MAX_BATCH_SIZE):
     batch_size = min(int(batch_size), MAX_BATCH_SIZE)
     return [r for r in rows
@@ -139,7 +183,7 @@ def select_qa_rows(rows, repo_root, batch_size=MAX_BATCH_SIZE):
         st = (r.get("status") or "").strip()
         path = r.get("output_path") or ""
         if (st in ACTIVE_STATUSES and path
-                and os.path.isfile(os.path.join(repo_root, path))):
+                and row_file_exists(repo_root, path)):
             out.append(r)
     return out[:batch_size]
 
@@ -152,7 +196,7 @@ def select_publish_rows(rows, repo_root):
         if (r.get("status") or "").strip() != "PASS":
             continue
         path = r.get("output_path") or ""
-        if path and os.path.isfile(os.path.join(repo_root, path)):
+        if path and row_file_exists(repo_root, path):
             out.append(r)
     return out
 
@@ -208,6 +252,7 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
         "search_intent": row.get("search_intent"),
         "slug": row.get("slug"),
         "output_path": out_path,
+        "draft_output_path": draft_rel(out_path),
         "parent_hub": row.get("parent_hub"),
         "eligible_internal_link_targets": (row.get("internal_link_targets")
                                            or "").replace(";", ", "),
@@ -251,9 +296,16 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
                 '<link rel="stylesheet" href="/shop/assets/css/chatbot-embed.css">\n'
                 '<script src="/shop/assets/js/chatbot-embed.js" defer></script>'),
             "chatbot_embed_position": "immediately before </body>, exactly once",
-            "policy": ("structural shell element: never counts as a "
-                        "contextual internal link; do not add any other "
-                        "chatbot script"),
+            "compact_footer_required": True,
+            "compact_footer_snippet_path": "_snippets/footer-compact.html",
+            "compact_footer_position": (
+                "immediately after </main>, before the chatbot embed, "
+                "exactly once; regenerate the file with "
+                "scripts/build_footer_snippet.py and embed its content "
+                "verbatim (class site-footer-compact)"),
+            "policy": ("structural shell elements: never count as "
+                        "contextual internal links; do not add any other "
+                        "chatbot script or a second taxonomy footer"),
         },
         "link_standard": {
             "contextual_internal_links_min": int(link_cfg.get("min", 3)),
@@ -303,7 +355,12 @@ def build_manifest(batch_id, rows, matrix, ownership, facts, rubric, site,
             "(canonical_url), Article schema + BreadcrumbList, no invented "
             "facts/prices/laws, datePublished = date_published (actual date). "
             "requires_sources=true rows need an approved official source "
-            "URL in a 'Nguồn tham khảo' section."),
+            "URL in a 'Nguồn tham khảo' section. Write each file to "
+            "draft_output_path (_drafts/...): drafts are NEVER written to "
+            "output_path, which stays public-URL space reserved for "
+            "PUBLISHED articles (deploy gate). The page shell must carry "
+            "the compact shared footer from _snippets/footer-compact.html "
+            "exactly once (see page_shell.compact_footer_*)."),
         "articles": [build_writer_context(r, matrix, ownership, facts,
                                            rubric, site, repo_root)
                      for r in rows],
@@ -348,12 +405,12 @@ def run_qa_for_batch(rows, matrix, ownership, facts, rubric, repo_root):
     articles = []
     for r in rows:
         aid = r.get("article_id")
-        path = os.path.join(repo_root, r.get("output_path") or "")
+        path = row_written_file(repo_root, r.get("output_path") or "")
         entry = {"article_id": aid, "output_path": r.get("output_path"),
                  "outcome": None, "score": None, "repair_attempts": 0,
                  "quality_failures": [], "cannibalization_failures": [],
                  "cannibalization_warnings": []}
-        if not (r.get("output_path") and os.path.isfile(path)):
+        if not (r.get("output_path") and path):
             entry["outcome"] = "NOT_WRITTEN"
             articles.append(entry)
             continue
@@ -715,7 +772,7 @@ def select_next_chunk_rows(rows, repo_root, chunk_size=DEFAULT_CHUNK_SIZE):
         st = (r.get("status") or "").strip()
         path = (r.get("output_path") or "").strip()
         if st == "WRITING" and path \
-                and not os.path.isfile(os.path.join(repo_root, path)):
+                and not row_file_exists(repo_root, path):
             out.append(r)
     return out
 
@@ -750,8 +807,9 @@ def select_qa_rows_by_ids(rows, ids, repo_root):
             raise ChunkError(
                 "%s is %s — only active rows can be QA'd (requeue FAIL/"
                 "BLOCKED explicitly via scripts/requeue_rows.py)" % (i, st))
-        if not path or not os.path.isfile(os.path.join(repo_root, path)):
-            raise ChunkError("%s has no written file at %s — write it first"
+        if not path or not row_file_exists(repo_root, path):
+            raise ChunkError("%s has no written file (draft or final) at %s"
+                             " — write it first"
                              % (i, path or "(empty output_path)"))
         out.append(r)
     return out
@@ -1352,6 +1410,9 @@ def main_func(argv=None):
                 print(r["output_path"])
             print("# publish scope: %s (%d PASS files; other batches' PASS "
                   "rows are NEVER included)" % (batch_id, len(pub)))
+            print("# NOTE (deploy gate): factory.mjs --publish promotes any "
+                  "draft at _drafts/<output_path> to <output_path> in the "
+                  "same transaction — drafts never deploy before publish.")
             if pub:
                 print("# grouped publish (all ids in ONE operation):")
                 print("node scripts/js/factory.mjs --publish %s --dry-run"

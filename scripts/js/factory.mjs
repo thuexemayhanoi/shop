@@ -197,6 +197,18 @@ const CHILD_HUB_DIR = 'cam-nang/chu-de';
 // carries exactly one lazy embed of the external assistant.
 const CHATBOT_SNIPPET = `<link rel="stylesheet" href="/shop/assets/css/chatbot-embed.css">\n<script src="/shop/assets/js/chatbot-embed.js" defer></script>\n`;
 
+// Compact shared footer for factory-generated pages. Generated from the
+// SAME taxonomy source as everything else by scripts/build_footer_snippet.py
+// into _snippets/footer-compact.html (underscore dir: never deployed).
+// Never hard-code a second taxonomy copy in this file.
+const FOOTER_SNIPPET = (() => {
+  try {
+    return fs.readFileSync(path.join(REPO, '_snippets', 'footer-compact.html'), 'utf8');
+  } catch (_) {
+    return '';
+  }
+})();
+
 
 function loadTaxonomy() {
   let tax = null;
@@ -284,7 +296,7 @@ ${crumb}
 ${list}
 ${sib}
 </main>
-${CHATBOT_SNIPPET}</body>
+${FOOTER_SNIPPET}${CHATBOT_SNIPPET}</body>
 </html>
 `;
 }
@@ -333,7 +345,7 @@ h2{font-size:20px;margin-top:28px}
 <p>Toàn bộ chủ đề cẩm nang thuê xe máy Hà Nội của Mr Tú, xếp theo từng mục lớn. Mỗi chủ đề tổng hợp các bài viết đã xuất bản trong chuyên mục đó.</p>
 ${sections.join('\n')}
 </main>
-${CHATBOT_SNIPPET}</body>
+${FOOTER_SNIPPET}${CHATBOT_SNIPPET}</body>
 </html>
 `;
 }
@@ -594,9 +606,12 @@ export function rebuildBatchReport(batchId, rowsAfter, articleResults, generated
     source_gate_pass: members.filter((r) => requiresSources(r) && ['PASS', 'PUBLISHED'].includes((r.status || '').trim())).length,
     source_gate_blocked: members.filter((r) => requiresSources(r) && (r.status || '').trim() === 'BLOCKED').length,
     published_commit_sha: resolvePublishedSha(prev),
-    pass_publishable_now: members.filter((r) =>
-      (r.status || '').trim() === 'PASS' &&
-      fs.existsSync(path.join(REPO, (r.output_path || '').replace(/^\/+/, '')))).length,
+    pass_publishable_now: members.filter((r) => {
+      if ((r.status || '').trim() !== 'PASS') return false;
+      const rel = (r.output_path || '').replace(/^\/+/, '');
+      // DEPLOY GATE: QA-passed drafts legitimately live under _drafts/ until publish.
+      return fs.existsSync(path.join(REPO, rel)) || fs.existsSync(path.join(REPO, '_drafts', rel));
+    }).length,
     articles,
   };
   // canonical markdown table, preserving any trailing manual sections
@@ -833,6 +848,14 @@ export function recoverTransaction(site, { expectedRows = 2000 } = {}) {
     console.error('  marker kept at data/batches/txn/ — manual resolution required.');
     return 3;
   }
+  // DEPLOY GATE cleanup: a publish transaction that was interrupted after
+  // committing the final files but before deleting the promoted drafts is
+  // finished here (draft content is already safely at the public path).
+  if (Array.isArray(marker.draft_paths)) {
+    for (const d of marker.draft_paths) {
+      try { fs.rmSync(d, { force: true }); } catch (_) {}
+    }
+  }
   clearTxnMarker();
   for (const a of actions) console.error('  - ' + a);
   console.error(`RECOVER OK: transaction '${marker.kind}' completed/verified; marker removed.`);
@@ -875,6 +898,9 @@ function consistencyCheck(rows, site, { quiet = false, expectedRows = 2000 } = {
       if (!fs.existsSync(path.join(REPO, r.output_path))) {
         problems.push(`PUBLISHED row without file: ${r.article_id}`);
       }
+    } else if (fs.existsSync(path.join(REPO, r.output_path))) {
+      // DEPLOY GATE: only PUBLISHED articles may occupy a public URL path.
+      problems.push(`unpublished row leaked to public path: ${r.article_id} (${r.status})`);
     }
   }
   // sitemap agreement
@@ -1098,6 +1124,7 @@ function main() {
       return 2;
     }
     const updates = new Map();
+    const promotions = [];
     const results = [];
     const batchIds = new Set();
     for (const id of ids) {
@@ -1113,13 +1140,23 @@ function main() {
         console.error(`refused: ${id} score ${row.score} < 90`);
         return 2;
       }
-      const filePath = path.join(REPO, row.output_path || '');
-      if (!fs.existsSync(filePath)) {
-        console.error(`refused: ${id} PASS row without article file: ${row.output_path}`);
-        return 2;
+      // DEPLOY GATE: the QA-passed file may be a draft under _drafts/.
+      // Publishing promotes it to the REAL output_path inside this same
+      // transaction, so an unreviewed article can never sit on a public
+      // URL (Jekyll never copies _drafts/ into the deployed site).
+      const finalPath = path.join(REPO, row.output_path || '');
+      const draftPath = path.join(REPO, '_drafts', (row.output_path || '').replace(/^[\/]+/, ''));
+      let promote = null;
+      if (!fs.existsSync(finalPath)) {
+        if (!fs.existsSync(draftPath)) {
+          console.error(`refused: ${id} PASS row without article file (draft or final): ${row.output_path}`);
+          return 2;
+        }
+        promote = { id: id, draft: draftPath, final: finalPath };
       }
       batchIds.add((row.batch_id || '').trim());
       updates.set(id, { status: 'PUBLISHED', published_date: date });
+      if (promote) promotions.push(promote);
       results.push({ article_id: id, output_path: row.output_path, category: row.category, batch_id: row.batch_id });
     }
     if (batchIds.size !== 1 || ![...batchIds][0]) {
@@ -1161,9 +1198,14 @@ function main() {
     // hubs/sitemap files on disk are still old — verify the planned writes fix them
     const problems = [];
     const plannedContent = new Map(writes.map((w) => [w.path, w.content]));
+    // a draft promotion plans exactly the missing public file of its row
+    const promotionFixes = new Set(promotions.map((pr) => `PUBLISHED row without file: ${pr.id}`));
     for (const p of simProblems) {
       if (p.startsWith('hub ') || p.startsWith('sitemap') || p.startsWith('child-hub')) {
         // resolved by a planned write? re-check below after writes
+        continue;
+      }
+      if (promotionFixes.has(p)) {
         continue;
       }
       problems.push(p);
@@ -1174,9 +1216,17 @@ function main() {
       return 2;
     }
 
+    // DEPLOY GATE promotion: each QA-passed draft moves from _drafts/ to
+    // its REAL output_path as part of this same transaction.
+    for (const pr of promotions) {
+      const content = fs.readFileSync(pr.draft, 'utf8');
+      writes.push({ path: pr.final, content });
+    }
+
     if (args.dryRun) {
       console.error(`DRY RUN publish ${batchId}: ${updates.size} row(s) -> PUBLISHED (${[...updates.keys()].join(', ')}), published_date=${date}`);
       for (const w of writes) console.error(`  would write: ${path.relative(REPO, w.path)} (${w.content.length} bytes)`);
+      for (const pr of promotions) console.error(`  promote draft: ${path.relative(REPO, pr.draft)} -> ${path.relative(REPO, pr.final)}`);
       return 0;
     }
 
@@ -1184,9 +1234,16 @@ function main() {
     // interruption between renames is always recoverable via --recover
     const allWrites = [{ path: matrixPath(), content: matrixOut.text }, ...writes];
     for (const w of allWrites) fs.mkdirSync(path.dirname(w.path), { recursive: true });
-    writeTxnMarker('publish', { batch: batchId, ids: [...updates.keys()], published_date: date }, allWrites, generated);
+    writeTxnMarker('publish', { batch: batchId, ids: [...updates.keys()], published_date: date, draft_paths: promotions.map((pr) => pr.draft) }, allWrites, generated);
     commitWrites(allWrites);
+    // remove promoted draft files AFTER their content is safely committed
+    // at the final path (recoverTransaction re-applies allWrites if the
+    // process died in between, so the draft is never the only copy)
+    for (const pr of promotions) {
+      try { fs.rmSync(pr.draft, { force: true }); } catch (_) {}
+    }
     for (const r of results) console.error(`PUBLISHED ${r.article_id} -> ${r.output_path} (published_date=${date})`);
+    if (promotions.length) console.error(`DEPLOY GATE: ${promotions.length} draft file(s) promoted from _drafts/ to their public URL path.`);
     // The marker is removed ONLY AFTER the full transaction is verified
     // consistent. On failure the marker and planned recovery data stay
     // intact so --recover / manual investigation can finish the job.

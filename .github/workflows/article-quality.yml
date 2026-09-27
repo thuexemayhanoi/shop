@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - "cam-nang/**"
+      - "_drafts/**"
       - "data/content-matrix.csv"
       - "tests/**"
       - "scripts/**"
