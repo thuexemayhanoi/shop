@@ -1,0 +1,193 @@
+{
+ "article_id": "XM-0057",
+ "batch_id": "BATCH-007",
+ "category": "Xe máy",
+ "category_label": "Xe máy",
+ "working_title": "Khi nào cần kiểm tra lọc gió trên Yamaha Mio",
+ "primary_keyword": "khi nào cần kiểm tra lọc gió trên yamaha mio",
+ "secondary_keywords": "khi nào cần kiểm tra lọc gió trên yamaha mio",
+ "search_intent": "informational",
+ "slug": "xm-0057-khi-nao-can-kiem-tra-loc-gio-tren-yamaha-mio",
+ "output_path": "cam-nang/xe-may/xm-0057-khi-nao-can-kiem-tra-loc-gio-tren-yamaha-mio.html",
+ "draft_output_path": "_drafts/cam-nang/xe-may/xm-0057-khi-nao-can-kiem-tra-loc-gio-tren-yamaha-mio.html",
+ "parent_hub": "xemay.html",
+ "eligible_internal_link_targets": "xemay.html,  kinhnghiem.html,  antoan.html",
+ "commercial_link_target": "banggia.html",
+ "requires_sources": "false",
+ "source_notes": "Không bắt buộc nguồn chính thức",
+ "source_requirements": "none",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1600,
+  "target_max_words": 2000,
+  "review_min_words": 1200,
+  "review_max_words": 2300,
+  "scope": "main editorial content only"
+ },
+ "taxonomy": {
+  "parent_id": "XE_MAY",
+  "parent_title": "Xe máy",
+  "parent_hub": "/shop/xemay.html",
+  "child_cluster": "XM_YAMAHA_MIO",
+  "child_title": "Yamaha Mio",
+  "child_slug": "xm-yamaha-mio",
+  "child_hub": "/shop/cam-nang/chu-de/xm-yamaha-mio.html",
+  "taxonomy_version": "1.0.0",
+  "policy": "taxonomy is authoritative: the writer MUST NOT invent categories or hubs; when child_hub is non-empty, link the parent hub AND the child hub contextually within the 3-5 link budget"
+ },
+ "page_shell": {
+  "chatbot_embed_required": true,
+  "chatbot_embed_snippet": "<link rel=\"stylesheet\" href=\"/shop/assets/css/chatbot-embed.css\">\n<script src=\"/shop/assets/js/chatbot-embed.js\" defer></script>",
+  "chatbot_embed_position": "immediately before </body>, exactly once",
+  "compact_footer_required": true,
+  "compact_footer_snippet_path": "_snippets/footer-compact.html",
+  "compact_footer_position": "immediately after </main>, before the chatbot embed, exactly once; regenerate the file with scripts/build_footer_snippet.py and embed its content verbatim (class site-footer-compact)",
+  "policy": "structural shell elements: never count as contextual internal links; do not add any other chatbot script or a second taxonomy footer"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 5,
+  "parent_hub_link_required": true,
+  "child_hub_link_recommended": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0057-khi-nao-can-kiem-tra-loc-gio-tren-yamaha-mio.html",
+ "date_published": "2026-09-27",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "XM-0001",
+   "title": "Cách kiểm tra bugi trên Honda Wave"
+  },
+  {
+   "article_id": "XM-0002",
+   "title": "Khi nào cần kiểm tra nhớt máy trên Honda Wave"
+  },
+  {
+   "article_id": "XM-0003",
+   "title": "Dấu hiệu lốp trước gặp vấn đề trên Honda Wave"
+  },
+  {
+   "article_id": "XM-0004",
+   "title": "Bảo dưỡng lốp sau của Honda Wave đúng cách"
+  },
+  {
+   "article_id": "XM-0005",
+   "title": "Cách kiểm tra bố phanh trên Honda Wave"
+  },
+  {
+   "article_id": "XM-0006",
+   "title": "Khi nào cần kiểm tra giảm xóc trên Honda Wave"
+  }
+ ]
+}
