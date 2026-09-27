@@ -1,9 +1,9 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T20:07:23
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T20:09:04
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 26 | pass: 3 | published: 21
-- writing: 24 | review: 0 | repair: 2 | fail: 0 | blocked: 0
+- processed: 50 | written: 26 | pass: 5 | published: 21
+- writing: 24 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -22,8 +22,8 @@
 | CD-0051 | cam-nang/cung-duong/cd-0051-duong-tu-ha-noi-vao-meo-vac-doan-nao-kho-di.html | PUBLISHED | 96 | 0 | broken internal link: 'index.h\ntml'; word broken across newline: 'h\ntml' |
 | CD-0052 | cam-nang/cung-duong/cd-0052-ke-hoach-3-ngay-2-dem-o-meo-vac-cho-nguoi-chay-xe.html | PUBLISHED | 95 | 0 |  |
 | CD-0053 | cam-nang/cung-duong/cd-0053-noi-tiep-nuoc-va-nghi-giai-lao-di-meo-vac.html | PUBLISHED | 96 | 0 |  |
-| CD-0054 | cam-nang/cung-duong/cd-0054-ra-bao-lac-bang-xe-may-di-trong-ngay-duoc-khong.html | REPAIR | 95 | 0 |  |
-| CD-0055 | cam-nang/cung-duong/cd-0055-chuyen-bao-lac-hai-ngay-xuat-phat-va-nghi-o-dau.html | REPAIR | 96 | 0 |  |
+| CD-0054 | cam-nang/cung-duong/cd-0054-ra-bao-lac-bang-xe-may-di-trong-ngay-duoc-khong.html | PASS | 95 | 0 |  |
+| CD-0055 | cam-nang/cung-duong/cd-0055-chuyen-bao-lac-hai-ngay-xuat-phat-va-nghi-o-dau.html | PASS | 96 | 0 |  |
 | CD-0056 | cam-nang/cung-duong/cd-0056-duong-den-bao-lac-nen-dung-o-dau-de-chup-anh.html | WRITING |  | 0 |  |
 | CD-0057 | cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html | WRITING |  | 0 |  |
 | CD-0058 | cam-nang/cung-duong/cd-0058-lich-trinh-thanh-pho-cao-bang-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |

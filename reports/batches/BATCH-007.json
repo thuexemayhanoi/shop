@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T20:07:23",
+  "finished_at": "2026-09-27T20:09:04",
   "writer": "external-agent",
   "processed": 50,
   "written": 26,
-  "pass": 3,
+  "pass": 5,
   "published": 21,
   "writing": 24,
   "review": 0,
-  "repair": 2,
+  "repair": 0,
   "fail": 0,
   "blocked": 0,
   "average_score": 98.4,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 5,
   "articles": [
     {
       "article_id": "AT-0051",
@@ -163,7 +163,7 @@
     {
       "article_id": "CD-0054",
       "output_path": "cam-nang/cung-duong/cd-0054-ra-bao-lac-bang-xe-may-di-trong-ngay-duoc-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -173,7 +173,7 @@
     {
       "article_id": "CD-0055",
       "output_path": "cam-nang/cung-duong/cd-0055-chuyen-bao-lac-hai-ngay-xuat-phat-va-nghi-o-dau.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
