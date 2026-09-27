@@ -52,7 +52,7 @@ jobs:
         with:
           args: >-
             --config .github/lychee.toml
-            --root-dir "$PWD/dist"
+            --root-dir "${{ github.workspace }}/dist"
             --verbose --no-progress
             './dist/shop/**/*.html'
           fail: true

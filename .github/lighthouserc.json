@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "../dist",
+      "staticDistDir": "./dist",
       "url": [
         "http://localhost/shop/index.html",
         "http://localhost/shop/banggia.html",
