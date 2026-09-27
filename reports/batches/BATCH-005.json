@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-005",
   "started_at": "2026-09-27T05:19:01",
-  "finished_at": "2026-09-27T06:37:55",
+  "finished_at": "2026-09-27T06:51:39",
   "writer": "external-agent",
   "processed": 50,
-  "written": 29,
-  "pass": 1,
+  "written": 31,
+  "pass": 5,
   "published": 25,
-  "writing": 21,
+  "writing": 19,
   "review": 0,
-  "repair": 0,
-  "fail": 3,
+  "repair": 1,
+  "fail": 0,
   "blocked": 0,
-  "average_score": 97.4,
-  "min_score": 88,
+  "average_score": 98.2,
+  "min_score": 95,
   "max_score": 100,
-  "repair_count": 0,
-  "source_gate_pass": 7,
+  "repair_count": 1,
+  "source_gate_pass": 10,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 1,
+  "pass_publishable_now": 5,
   "articles": [
     {
       "article_id": "AT-0035",
@@ -274,8 +274,8 @@
     {
       "article_id": "HD-0034",
       "output_path": "cam-nang/hoi-dap/hd-0034-qua-den-vang-co-bi-phat-khong.html",
-      "outcome": "FAIL",
-      "score": 98,
+      "outcome": "PASS",
+      "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
         "requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess."
@@ -286,8 +286,8 @@
     {
       "article_id": "HD-0035",
       "output_path": "cam-nang/hoi-dap/hd-0035-xe-may-can-mua-loai-bao-hiem-nao.html",
-      "outcome": "FAIL",
-      "score": 89,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "invented fixed price for unapproved model '50cc': ơng tiện đường bộ: với xe máy dưới 50cc một năm đóng khoảng 55.000 đồng, xe máy trên 50c",
@@ -310,8 +310,8 @@
     {
       "article_id": "HD-0037",
       "output_path": "cam-nang/hoi-dap/hd-0037-bang-lai-a1-bi-thu-hoi-khi-nao.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "PASS",
+      "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
@@ -320,8 +320,8 @@
     {
       "article_id": "HD-0038",
       "output_path": "cam-nang/hoi-dap/hd-0038-xe-may-cua-nguoi-khac-khong-giay-to-co-chay-duoc-khong.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "PASS",
+      "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
@@ -360,9 +360,9 @@
     {
       "article_id": "KN-0035",
       "output_path": "cam-nang/kinh-nghiem/kn-0035-honda-click-co-thich-hop-chay-duong-deo-khong.html",
-      "outcome": "FAIL",
-      "score": 88,
-      "repair_attempts": 0,
+      "outcome": "REPAIR",
+      "score": 98,
+      "repair_attempts": 1,
       "quality_failures": [
         "invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày,",
         "invented fixed price for unapproved model 'sh': xe và điều kiện thuê. Về giờ giao nhận, shop làm việc từ 08:00 đến 17:00 hàng ngày,"
