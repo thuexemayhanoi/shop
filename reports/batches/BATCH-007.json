@@ -1,19 +1,19 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-28T05:33:37",
+  "finished_at": "2026-09-27T23:06:59",
   "writer": "external-agent",
   "processed": 50,
-  "written": 44,
+  "written": 50,
   "pass": 0,
   "published": 44,
-  "writing": 6,
+  "writing": 0,
   "review": 0,
   "repair": 0,
-  "fail": 0,
+  "fail": 6,
   "blocked": 0,
-  "average_score": 98.4,
-  "min_score": 95,
+  "average_score": 97.7,
+  "min_score": 91,
   "max_score": 100,
   "repair_count": 0,
   "source_gate_pass": 2,
@@ -508,10 +508,13 @@
     {
       "article_id": "KN-0059",
       "output_path": "cam-nang/kinh-nghiem/kn-0059-nen-thue-xe-may-vao-khung-gio-nao-o-ha-noi.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 95,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: ''",
+        "broken internal link: ''"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
@@ -551,50 +554,65 @@
     {
       "article_id": "XM-0054",
       "output_path": "cam-nang/xe-may/xm-0054-bao-duong-bo-de-dien-cua-honda-click-dung-cach.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 91,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: ''",
+        "broken internal link: ''"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0055",
       "output_path": "cam-nang/xe-may/xm-0055-cach-kiem-tra-den-pha-tren-yamaha-mio.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 95,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: ''",
+        "broken internal link: ''"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0056",
       "output_path": "cam-nang/xe-may/xm-0056-bao-duong-yen-xe-cua-yamaha-mio-dung-cach.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 93,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: ''",
+        "broken internal link: ''"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0057",
       "output_path": "cam-nang/xe-may/xm-0057-khi-nao-can-kiem-tra-loc-gio-tren-yamaha-mio.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 91,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: ''",
+        "broken internal link: ''"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0058",
       "output_path": "cam-nang/xe-may/xm-0058-dau-hieu-ong-xa-gap-van-de-tren-yamaha-mio.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 91,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: ''",
+        "broken internal link: ''"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     }
