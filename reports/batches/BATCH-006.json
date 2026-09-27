@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T17:14:22",
+  "finished_at": "2026-09-27T10:17:01",
   "writer": "external-agent",
   "processed": 50,
   "written": 13,
-  "pass": 0,
+  "pass": 2,
   "published": 10,
   "writing": 37,
   "review": 0,
   "repair": 0,
-  "fail": 3,
+  "fail": 1,
   "blocked": 0,
-  "average_score": 97.5,
-  "min_score": 90,
+  "average_score": 98.2,
+  "min_score": 91,
   "max_score": 100,
   "repair_count": 0,
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 0,
+  "pass_publishable_now": 2,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -127,8 +127,8 @@
     {
       "article_id": "CD-0044",
       "output_path": "cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html",
-      "outcome": "FAIL",
-      "score": 90,
+      "outcome": "PASS",
+      "score": 95,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html'",
@@ -140,8 +140,8 @@
     {
       "article_id": "CD-0045",
       "output_path": "cam-nang/cung-duong/cd-0045-bai-do-an-toan-doc-duong-di-quan-ba.html",
-      "outcome": "FAIL",
-      "score": 95,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/cung-duong/cd-0042-cho-ngam-canh-giua-duong-den-thanh-pho-ha-giang.html'",
@@ -158,10 +158,8 @@
       "score": 91,
       "repair_attempts": 0,
       "quality_failures": [
-        "broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html'",
-        "broken internal link: 'cam-nang/cung-duong/cd-0042-cho-ngam-canh-giua-duong-den-thanh-pho-ha-giang.html'",
         "broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'",
-        "broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html'"
+        "broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'"
       ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
