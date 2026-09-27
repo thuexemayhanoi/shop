@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T09:22:54",
+  "finished_at": "2026-09-27T16:23:26",
   "writer": "external-agent",
   "processed": 50,
   "written": 5,
-  "pass": 5,
-  "published": 0,
+  "pass": 0,
+  "published": 5,
   "writing": 45,
   "review": 0,
   "repair": 0,
@@ -19,12 +19,12 @@
   "source_gate_pass": 3,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0043",
       "output_path": "cam-nang/an-toan/at-0043-mu-bao-hiem-cho-tre-em-duoi-6-tuoi-quy-dinh-the-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -34,7 +34,7 @@
     {
       "article_id": "AT-0044",
       "output_path": "cam-nang/an-toan/at-0044-xe-may-cho-vat-can-che-tam-nhin-bi-phat-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -44,7 +44,7 @@
     {
       "article_id": "AT-0045",
       "output_path": "cam-nang/an-toan/at-0045-di-xe-may-canh-nhau-noi-chuyen-tren-duong-co-bi-nhac-nho-kho.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -54,7 +54,7 @@
     {
       "article_id": "AT-0046",
       "output_path": "cam-nang/an-toan/at-0046-quy-dinh-cam-do-xe-may-tren-via-he.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -64,7 +64,7 @@
     {
       "article_id": "AT-0047",
       "output_path": "cam-nang/an-toan/at-0047-khong-tuan-thu-den-bao-hieu-tam-thoi-o-cong-truong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],

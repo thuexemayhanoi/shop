@@ -1,8 +1,8 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T09:22:54
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T16:23:26
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 5 | pass: 5 | published: 0
+- processed: 50 | written: 5 | pass: 0 | published: 5
 - writing: 45 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.2 | min 99 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -10,11 +10,11 @@
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0043 | cam-nang/an-toan/at-0043-mu-bao-hiem-cho-tre-em-duoi-6-tuoi-quy-dinh-the-nao.html | PASS | 100 | 0 |  |
-| AT-0044 | cam-nang/an-toan/at-0044-xe-may-cho-vat-can-che-tam-nhin-bi-phat-khong.html | PASS | 99 | 0 |  |
-| AT-0045 | cam-nang/an-toan/at-0045-di-xe-may-canh-nhau-noi-chuyen-tren-duong-co-bi-nhac-nho-kho.html | PASS | 99 | 0 |  |
-| AT-0046 | cam-nang/an-toan/at-0046-quy-dinh-cam-do-xe-may-tren-via-he.html | PASS | 99 | 0 |  |
-| AT-0047 | cam-nang/an-toan/at-0047-khong-tuan-thu-den-bao-hieu-tam-thoi-o-cong-truong.html | PASS | 99 | 0 |  |
+| AT-0043 | cam-nang/an-toan/at-0043-mu-bao-hiem-cho-tre-em-duoi-6-tuoi-quy-dinh-the-nao.html | PUBLISHED | 100 | 0 |  |
+| AT-0044 | cam-nang/an-toan/at-0044-xe-may-cho-vat-can-che-tam-nhin-bi-phat-khong.html | PUBLISHED | 99 | 0 |  |
+| AT-0045 | cam-nang/an-toan/at-0045-di-xe-may-canh-nhau-noi-chuyen-tren-duong-co-bi-nhac-nho-kho.html | PUBLISHED | 99 | 0 |  |
+| AT-0046 | cam-nang/an-toan/at-0046-quy-dinh-cam-do-xe-may-tren-via-he.html | PUBLISHED | 99 | 0 |  |
+| AT-0047 | cam-nang/an-toan/at-0047-khong-tuan-thu-den-bao-hieu-tam-thoi-o-cong-truong.html | PUBLISHED | 99 | 0 |  |
 | AT-0048 | cam-nang/an-toan/at-0048-xe-may-khong-nhuong-duong-cho-nguoi-di-bo-o-vach-sang-duong.html | WRITING |  | 0 |  |
 | AT-0049 | cam-nang/an-toan/at-0049-lan-lan-khi-vuot-xe-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | AT-0050 | cam-nang/an-toan/at-0050-muc-phat-cho-ba-nguoi-tren-xe-may.html | WRITING |  | 0 |  |
