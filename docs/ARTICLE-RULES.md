@@ -64,6 +64,21 @@ exactly once, immediately before `</body>`:
   `tests/test_ui_integration.py`.
 - The iframe loads lazily on first user interaction; do not preload it.
 
+## Compact shared footer (required on every article page)
+
+Every article page must also carry the compact shared footer, exactly once,
+immediately after `</main>` and before the chatbot embed:
+
+- Embed the full content of `_snippets/footer-compact.html` verbatim
+  (it contains the `<footer class="site-footer-compact">` block with the
+  book SVG, the six parent category links and "Xem tất cả chủ đề").
+- NEVER hard-code your own footer taxonomy copy: the links are generated
+  from `data/content-taxonomy.json` by `scripts/build_footer_snippet.py`.
+  If the file is missing, regenerate it with that script — do not invent
+  links.
+- The footer is structural: it never counts toward the 3–5 contextual
+  internal links budget and must not be modified per article.
+
 ## Intent & structure
 
 - One clear search intent; one primary topic per article. The 1,600–2,000
