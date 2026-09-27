@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T12:26:30",
+  "finished_at": "2026-09-27T19:52:24",
   "writer": "external-agent",
   "processed": 50,
   "written": 24,
-  "pass": 4,
-  "published": 16,
+  "pass": 0,
+  "published": 20,
   "writing": 26,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -207,7 +207,7 @@
     {
       "article_id": "DL-0043",
       "output_path": "cam-nang/du-lich/dl-0043-ca-phe-sang-o-chua-huong-quan-nao-dep.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -287,7 +287,7 @@
     {
       "article_id": "HD-0042",
       "output_path": "cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -380,7 +380,7 @@
     {
       "article_id": "KN-0043",
       "output_path": "cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -463,7 +463,7 @@
     {
       "article_id": "XM-0043",
       "output_path": "cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
