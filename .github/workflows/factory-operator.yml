@@ -60,6 +60,11 @@ jobs:
           echo "batch=$BATCH" >> "$GITHUB_ENV"
           echo "ids=$IDS" >> "$GITHUB_ENV"
           echo "date=$DATE" >> "$GITHUB_ENV"
+          ALLOW_BLOCKED=""
+          if [ "$(jq -r '.allow_blocked // false' "$CMD")" = "true" ]; then
+            ALLOW_BLOCKED="--allow-blocked"
+          fi
+          echo "allow_blocked=$ALLOW_BLOCKED" >> "$GITHUB_ENV"
 
       - name: Matrix invariant (never bypassed)
         run: python3 scripts/validate_content_matrix.py
@@ -77,12 +82,15 @@ jobs:
           python3 scripts/run_article_batch.py --next --prepare-agent
           python3 scripts/export_batch_rows.py
 
-      - name: requeue - FAIL -> REPAIR after operator repair (budget enforced)
+      - name: requeue - eligible rows only (PASS/PUBLISHED skipped, stale-safe)
         if: env.op == 'requeue'
         run: |
           set -eu
           if [ -z "$ids" ]; then echo "::error::requeue requires ids"; exit 1; fi
-          python3 scripts/requeue_rows.py --ids "$ids"
+          code=0
+          python3 scripts/requeue_rows.py --ids "$ids" $allow_blocked || code=$?
+          echo "requeue exit code: $code (3=refusals recorded, not fatal; 4=fatal)"
+          if [ "$code" = "4" ]; then exit 1; fi
       - name: qa - deterministic QA of the active batch
         if: env.op == 'qa'
         run: |
