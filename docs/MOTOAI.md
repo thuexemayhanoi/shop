@@ -1,79 +1,40 @@
-# MotoAI — Technical Documentation
+# MotoAI — RETIRED (historical note)
 
-Historical technical detail for the site chatbot, updated to match CURRENT
-production behavior. The old README sections describing autolearn/price
-crawling as active behavior are obsolete; this file supersedes them.
+This file documents a RETIRED feature. It is kept for history only.
 
-## Current production state
+## Status
 
-- Active chatbot: `motoai_v40_bm25plus_final.js` (MotoAI v40, BM25+ local
-  search). Loaded by `lienhe.html` and other info pages; lazy-loaded on
-  `index.html` only after the user taps the AI button.
-- Legacy files `motoai_v39_*.js`, `motoai_v40_bm25plus_search.js`,
-  `motoai_v41_*.js` in the repo root are NOT loaded by any page. Do not load
-  them; do not restore v39.
-- Production config on every page (defined in
-  `assets/js/motoai-config.js`, loaded before v40):
+The legacy MotoAI "local smart upgrade" (MOTO_AI_CTX, motoAI_Action,
+motoAI_Upgrade, callGeminiWithRetry) was a simulated offline chat that
+never called any AI API and could recommend inventory not confirmed by
+business truth (e.g. XR150). It has been removed from:
 
-```
-window.MotoAI_CONFIG = {
-  autolearn: false,
-  debug: false,
-  smart: { autoPriceLearn: false }
-}
-```
+- `assets/js/app.js`, `assets/js/app-rental.js`, `assets/js/app-info.js`
+- the inline copies in `nhap.html`, `faq.html`, `longbien.html`,
+  `phoco.html`, `gioithieu.html`, `caugiay.html`, `dongda.html`
 
-- v40's internal defaults were also changed to these production-safe values
-  as a defensive fallback.
-- Manual learning APIs (`learnNow()` etc.) remain present but unused; they
-  must not be triggered automatically anywhere.
+Do not restore it.
 
-## Price behavior
+## Current customer assistant
 
-- Approved price source: `assets/js/prices.js`
-  (`window.MotoTusPrices.MODELS`): Wave, Sirius, Click, Mio, Vision,
-  Air Blade, E-bike.
-- v40's price lookup uses `MotoTusPrices` when available. It does not crawl
-  the hostname and does not relearn/overwrite prices.
-- Unknown/unapproved models (50cc, Lead, Janus, Attila, NVX, SH, côn/PKL,
-  …) answer "Liên hệ để xác nhận giá hiện tại".
-- Deposit answers use the standardized wording from
-  `config/business-facts.json`. Stale wordings ("2–3tr xe số, 3–5tr xe ga",
-  "giảm cọc khi đủ giấy tờ", "500k–1 triệu") have been removed and must not
-  return.
+The canonical customer-facing assistant is the separate agent chatbot
+integration:
 
-## Homepage integration (index.html)
+- `assets/js/chatbot-embed.js` (loaded by `_includes/chatbot-embed.html`)
 
-- v40 is NOT a startup script. On first AI interaction, the homepage
-  dynamically injects `motoai_v40_bm25plus_final.js`, waits for load, then
-  calls `window.MotoAI_v40.open()`. A loading-promise state guard prevents
-  duplicate script insertion; subsequent taps reuse the loaded instance.
-- The legacy homepage AI Guide modal (`AI_Guide`, `setupAI()`, old inline
-  chatbot) was removed. All AI entry buttons open the same MotoAI v40
-  instance — exactly one primary chatbot experience.
-- The homepage Bike Matchmaker ("Tìm Xe Chân Ái") is a separate tool, kept
-  intentionally: all three inputs (experience, destination, height) affect
-  the recommendation, only established models (Wave/Sirius, Vision,
-  Air Blade) or "Liên hệ để được tư vấn" are suggested, no invented prices,
-  no fake confidence scores.
+Legacy files `motoai_v39_*.js`, `motoai_v40_*.js`, `motoai_v41_*.js`
+in the repo root are not loaded by any page and are retained only as
+history. There is no auto learning and no price crawling.
 
-## Child pages
+## Deterministic local fallback
 
-Pages that show the chatbot load, in order:
+The legacy Render UI (search, calculator, modal openers) still ships a
+deterministic `smartReply()` helper. It is NOT AI:
 
-```html
-<script src=".../assets/js/motoai-config.js"></script>
-<script src="motoai_v40_bm25plus_final.js" defer></script>
-```
-
-## API surface
-
-- `window.MotoAI_v40.open()` — open the chat UI
-- `window.MotoAI_v40.send(text)` — programmatic message
-- `window.MotoAI_v40.clear()` — clear conversation
-
-## Performance invariants
-
-- No background crawling, no sitemap fetching, no auto learning at startup.
-- No continuous effects introduced by the chatbot; the homepage stays
-  startup-light (v40 loads only on user intent).
+- no network calls, no simulated "Gemini" responses
+- pricing answers are built only from the approved pricing truth in
+  `assets/js/prices.js`
+- anything unverified defers to: "Liên hệ Mr Tú qua Zalo/điện thoại
+  0816659199 để xác nhận thông tin hiện tại."
+- it must never recommend vehicle models that business truth does not
+  confirm

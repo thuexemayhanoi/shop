@@ -17,10 +17,12 @@ class TestRequeueToolSemantics(unittest.TestCase):
 
     def test_requeue_updates_pure_and_correct(self):
         rows = lib.load_matrix()
-        updates, refusals = rq.requeue_updates(rows, self.IDS, lib.ROOT)
+        updates, skipped, refusals = rq.requeue_updates(rows, self.IDS, lib.ROOT)
         self.assertIsInstance(updates, dict)
+        self.assertIsInstance(skipped, list)
         self.assertIsInstance(refusals, list)
         refused_ids = [r.get("article_id") for r in refusals]
+        skipped_ids = [s.get("article_id") for s in skipped]
         for aid in self.IDS:
             row = next((r for r in rows if r.get("article_id") == aid), None)
             if row is None:
@@ -34,6 +36,8 @@ class TestRequeueToolSemantics(unittest.TestCase):
                     os.path.join(lib.ROOT, rq.rb.draft_rel(path))))
             if status == "FAIL" and exists:
                 self.assertIn(aid, updates)
+            elif status == "REPAIR":
+                self.assertIn(aid, skipped_ids)
             else:
                 self.assertIn(aid, refused_ids)
 

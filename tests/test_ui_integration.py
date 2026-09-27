@@ -189,7 +189,7 @@ class ChatbotTests(unittest.TestCase):
         src = self.embed_js
         # lazy: iframe src is assigned only inside ensureIframe (first open)
         self.assertIn("if (iframe) { return; }", src)
-        self.assertIn("iframe.src = CHATBOT_URL;", src)
+        self.assertIn("iframe.src = CHATBOT_EMBED_URL;", src)
         self.assertIn("iframe.loading = 'lazy'", src)
         # guard against double init
         self.assertIn("window.MotoAIEmbedCanonical", src)

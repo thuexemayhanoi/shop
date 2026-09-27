@@ -908,6 +908,47 @@ def evaluate_production_standard(article, row, rubric, ownership):
     return failures, review_flags, warnings, metrics
 
 
+# ------------------------------------------------------------- corruption QA
+_MIDWORD_NL_RE = re.compile(r"\b(\w+)\n(\w+)\b")
+_TAG_SPLIT_RE = re.compile(r"<(?!!--)[^>\n]*\n[^>]*>")
+_COMMENT_RE = re.compile(r"<!--(.*?)-->", re.S)
+_CTRL_CH_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+_TEMPLATE_RESIDUE = ("TODO:", "FIXME:", "{{", "}}", "PLACEHOLDER", "XXX-")
+
+
+def corruption_errors(article):
+    """Hard-QA scan for text corruption in the CURRENT article html.
+
+    Detects: Vietnamese words split across accidental line breaks,
+    newlines inside HTML tags, midword splits inside HTML comments,
+    control characters, and template residue. Comments (<!-- -->) are
+    not exempt from word-break checks; scripts/styles are.
+    """
+    errors = []
+    html = article.html or ""
+    scope = re.sub(r"<script\b.*?</script>", " ", html, flags=re.S | re.I)
+    scope = re.sub(r"<style\b.*?</style>", " ", scope, flags=re.S | re.I)
+
+    for m in _MIDWORD_NL_RE.finditer(scope):
+        errors.append("word broken across newline: %r"
+                      % ((m.group(1) + "\n" + m.group(2)),))
+        if len(errors) >= 10:
+            return errors
+    if _TAG_SPLIT_RE.search(scope):
+        errors.append("newline inside HTML tag")
+    for cm in _COMMENT_RE.finditer(scope):
+        if _MIDWORD_NL_RE.search(cm.group(1)):
+            errors.append("word broken across newline inside HTML comment")
+            break
+    if _CTRL_CH_RE.search(scope):
+        errors.append("control character in article")
+    lower = scope.lower()
+    for token in _TEMPLATE_RESIDUE:
+        if token.lower() in lower:
+            errors.append("template residue: %s" % token)
+    return errors
+
+
 def validate_article(article, matrix, ownership, facts, rubric):
     """Return list of hard errors (empty = valid)."""
     errors = []
@@ -986,5 +1027,8 @@ def validate_article(article, matrix, ownership, facts, rubric):
     if row is not None:
         src_fail, _approved = source_gate(article, row)
         errors.extend(src_fail)
+
+    # text corruption scan (word breaks, tag splits, residue)
+    errors.extend(corruption_errors(article))
 
     return errors

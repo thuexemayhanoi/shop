@@ -130,7 +130,7 @@ def breadcrumb_html(parent, child, title):
             "</nav>" % "".join(parts))
 
 
-def breadcrumb_schema(parent, child, canonical):
+def breadcrumb_schema(parent, child, canonical, title=None):
     items = [
         ("Trang chủ", SITE_URL + "/"),
         ("Cẩm nang", SITE_URL + "/cam-nang/chu-de/"),
@@ -139,7 +139,9 @@ def breadcrumb_schema(parent, child, canonical):
     if child:
         items.append((child["child_title"],
                       SITE_URL + strip_prefix(child["child_hub_url"])))
-    items.append((canonical, canonical))
+    # final item: human-readable article title, NOT the canonical URL
+    final_name = (title or "").strip() or canonical
+    items.append((final_name, canonical))
     elements = ",".join(
         json.dumps({"@type": "ListItem", "position": i + 1, "name": n,
                     "item": u}, ensure_ascii=False)
@@ -255,6 +257,18 @@ def migrate(path, rows_by_id, published_by_child, published_by_parent,
     if parent is None:
         return "skip: unknown parent"
 
+    # ---- extract main prose FIRST (H1 title feeds the breadcrumb schema) --
+    m = re.search(r"<body[^>]*>\s*<main>(.*?)</main>", raw, re.S)
+    if not m:
+        return "skip: unexpected structure (no <main> block)"
+    prose = m.group(1).strip()
+
+    h1_m = re.search(r"<h1[^>]*>(.*?)</h1>", prose, re.S)
+    if not h1_m:
+        return "skip: no H1"
+    h1_text = re.sub(r"\s+", " ", h1_m.group(1)).strip()
+    prose = prose.replace(h1_m.group(0), "", 1).strip()
+
     # ---- head -----------------------------------------------------------
     head_new = raw
     if ARTICLE_CSS not in head_new:
@@ -266,25 +280,12 @@ def migrate(path, rows_by_id, published_by_child, published_by_parent,
     canonical = canonical_m.group(1) if canonical_m else row.get("canonical") \
         or (SITE_URL + "/" + row["output_path"])
     # upgrade BreadcrumbList JSON-LD to match the visible breadcrumb
-    new_bc = "MIGRATED_BC"
-    head_new = re.sub(
-        r'{"@context":"https://schema.org","@type":"BreadcrumbList".*?}\s*(?=</script>)',
-        new_bc, head_new, count=1, flags=re.S) if "BreadcrumbList" in head_new \
-        else head_new
-    head_new = head_new.replace(
-        "MIGRATED_BC", breadcrumb_schema(parent, child, canonical))
-
-    # ---- extract main prose --------------------------------------------
-    m = re.search(r"<body[^>]*>\s*<main>(.*?)</main>", raw, re.S)
-    if not m:
-        return "skip: unexpected structure (no <main> block)"
-    prose = m.group(1).strip()
-
-    h1_m = re.search(r"<h1[^>]*>(.*?)</h1>", prose, re.S)
-    if not h1_m:
-        return "skip: no H1"
-    h1_text = re.sub(r"\s+", " ", h1_m.group(1)).strip()
-    prose = prose.replace(h1_m.group(0), "", 1).strip()
+    new_bc = breadcrumb_schema(parent, child, canonical, title=h1_text)
+    if "BreadcrumbList" in head_new:
+        head_new = re.sub(
+            r'{"@context":"https://schema.org","@type":"BreadcrumbList".*?}\s*(?=</script>)',
+            lambda _mm: new_bc.replace("\\", "\\\\"), head_new, count=1,
+            flags=re.S)
 
     # H2 anchors + TOC
     h2s = [re.sub(r"<[^>]+>", " ", t).strip() for t in
@@ -354,7 +355,65 @@ def migrate(path, rows_by_id, published_by_child, published_by_parent,
     return "migrated"
 
 
+
+def fix_breadcrumb(path, rows_by_id):
+    """Idempotent repair of an existing BreadcrumbList JSON-LD block.
+
+    Repairs the known defect where the final ListItem uses the canonical
+    URL as "name". Correct shape:
+        name  = human-readable article title (the page's H1)
+        item  = canonical article URL
+    Positions are renumbered 1..n (valid + contiguous). JSON syntax is
+    validated before the file is written; a broken block is left
+    untouched and reported.
+    """
+    raw = open(path, encoding="utf-8").read()
+    m = re.search(
+        r'(<script[^>]*>)\s*(\{"@context":"https://schema.org",'
+        r'"@type":"BreadcrumbList".*?\})\s*(</script>)', raw, re.S)
+    if not m:
+        return "fix-bc: no BreadcrumbList block"
+    try:
+        data = json.loads(m.group(2))
+    except ValueError:
+        return "fix-bc: broken JSON (left untouched)"
+
+    canonical_m = re.search(r'<link rel="canonical" href="([^"]+)"', raw)
+    canonical = canonical_m.group(1) if canonical_m else None
+    h1_m = re.search(r"<h1[^>]*>(.*?)</h1>", raw, re.S)
+    h1_text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", h1_m.group(1))
+                     ).strip() if h1_m else ""
+    if not canonical or not h1_text:
+        return "fix-bc: missing canonical or H1 (left untouched)"
+
+    items = data.get("itemListElement") or []
+    if not isinstance(items, list) or not items:
+        return "fix-bc: empty itemListElement (left untouched)"
+
+    changed = False
+    last = items[-1]
+    if last.get("name") != h1_text or last.get("item") != canonical:
+        last["name"] = h1_text
+        last["item"] = canonical
+        changed = True
+    for i, it in enumerate(items):
+        if it.get("position") != i + 1:
+            it["position"] = i + 1
+            changed = True
+
+    if not changed:
+        return "ok: already correct"
+
+    new_block = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    out = raw[:m.start(2)] + new_block + raw[m.end(2):]
+    json.loads(new_block)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(out)
+    return "fixed-breadcrumb"
+
+
 def main():
+    fix_only = "--fix-breadcrumbs" in sys.argv
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     include_drafts = "--drafts" in sys.argv
     rows = load_rows()
@@ -395,8 +454,11 @@ def main():
         if not os.path.isfile(t):
             counts["missing"] = counts.get("missing", 0) + 1
             continue
-        res = migrate(t, rows_by_id, by_child, by_parent, parents, children,
-                      tax_map)
+        if fix_only:
+            res = fix_breadcrumb(t, rows_by_id)
+        else:
+            res = migrate(t, rows_by_id, by_child, by_parent, parents,
+                          children, tax_map)
         counts[res] = counts.get(res, 0) + 1
         print("%-24s %s" % (res, t))
     print("---")

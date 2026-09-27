@@ -1032,7 +1032,7 @@
                             <option value="vision">Honda Vision - 200.000</option>
                             <option value="airblade">Honda Air Blade - 200.000</option>
                             <option value="ebike">Xe điện - 200.000</option>
-                            <option value="contact">Xe côn/PKL - Liên hệ</option>
+                            <option value="contact">Dòng xe khác - Liên hệ</option>
                         </select>
                     </div>
 
@@ -1076,7 +1076,7 @@
                         <h2>Mr Tú - Đơn Vị Cho Thuê Xe Máy Hàng Đầu Hà Nội</h2>
                     </div>
                     <p>
-                        Chào mừng bạn đến với <strong>Mr Tú</strong>, dịch vụ <a href="ngay.html" class="seo-link">cho thuê xe máy Hà Nội</a> uy tín và chuyên nghiệp. Với hơn 10 năm kinh nghiệm phục vụ hàng ngàn lượt khách du lịch trong nước và quốc tế, chúng tôi tự hào mang đến những trải nghiệm di chuyển tuyệt vời nhất trên những cung đường Thủ đô.
+                        Chào mừng bạn đến với <strong>Mr Tú</strong>, dịch vụ <a href="ngay.html" class="seo-link">cho thuê xe máy Hà Nội</a> uy tín và chuyên nghiệp. Với kinh nghiệm phục vụ khách du lịch trong nước và quốc tế, chúng tôi mang đến trải nghiệm di chuyển thuận tiện trên những cung đường Thủ đô.
                     </p>
                     <div class="feature-grid" style="margin-top: 40px;">
                         <div class="feature-card glass-panel">
@@ -1095,7 +1095,7 @@
                         <div class="feature-card glass-panel">
                             <div class="f-icon"><span class="material-symbols-rounded">savings</span></div>
                             <h3>Giá Rẻ Minh Bạch</h3>
-                            <p>Giá thuê xe máy Hà Nội cạnh tranh, niêm yết công khai, không phát sinh phí ẩn.</p>
+                            <p>Giá thuê xe máy Hà Nội công khai theo từng loại xe, không phát sinh phí ẩn.</p>
                         </div>
                         <!-- NEW CARD ADDED -->
                         <div class="feature-card glass-panel">
@@ -1471,7 +1471,7 @@
                         <ul class="content-list compare-list">
                             <li><span>Liên hệ xác nhận giao/nhận xe</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
                             <li><span>Mũ sạch, thơm tho</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
-                            <li><span>Giá niêm yết rõ ràng</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
+                            <li><span>Giá công khai rõ ràng</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
                             <li><span>Hotline hỗ trợ sự cố</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
                             <!-- Added Row 1 -->
                             <li><span>Chỉ cần CCCD/Hộ chiếu</span> <span class="c-check"><i class="fa-solid fa-check"></i></span></li>
@@ -1499,7 +1499,7 @@
                             <div style="margin-top:30px;">
                                 <div class="c-detail" style="color:#fff; margin-bottom:15px;">
                                     <i class="fa-solid fa-envelope" style="color:var(--primary)"></i>
-                                    <span>nguyentuantu2482@gmail.com</span>
+                                    <span>Liên hệ Mr Tú qua Zalo 081.665.9199</span>
                                 </div>
                                 <div class="c-detail" style="color:#fff;">
                                     <i class="fa-solid fa-phone" style="color:var(--primary)"></i>
@@ -1573,7 +1573,7 @@
             <select class="form-input" id="mm-exp">
                 <option value="newbie">Lái mới (Newbie)</option>
                 <option value="ok">Ổn định (Biết đi xe ga/số)</option>
-                <option value="pro">Tay đua lụa (Thích côn tay/PKL)</option>
+                <option value="pro">Cần dòng xe khác (Liên hệ)</option>
             </select>
         </div>
 
@@ -1721,7 +1721,7 @@
         const body = `Xin chào Mr Tú,\n\nTên tôi là: ${name}\nSố điện thoại: ${phone}\n\nNội dung cần hỗ trợ:\n${msg}`;
         
         // Use standard mailto
-        window.location.href = `mailto:nguyentuantu2482@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        alert('Vui lòng liên hệ Mr Tú qua điện thoại hoặc Zalo (0816659199) để được hỗ trợ.');
     }
 
     const Render = {
@@ -1738,87 +1738,37 @@
             this.setupMatchmaker();
         },
 
-        // --- CORE: FAKE "GEMINI" OFFLINE, KHÔNG CẦN API ---
-        async callGeminiWithRetry(prompt, systemInstruction, onLoading, onSuccess, onError) {
+        // --- Deterministic local assistant (no AI, no API) ---
+        // Business-fact-safe: prices from the approved pricing truth,
+        // everything else defers to direct contact with Mr Tú.
+        smartReply(prompt, systemInstruction, onLoading, onSuccess, onError) {
             try {
                 onLoading();
+                const text = String(prompt || " ").toLowerCase();
+                const wrap = (msg) => msg.replace(/\s+/g, " ").trim();
 
-                const pRaw = String(prompt || "");
-                const sRaw = String(systemInstruction || "");
-                const text = (pRaw + " " + sRaw).toLowerCase();
-
-                // Helper: random delay cho giống AI thật
-                const delay = 500 + Math.floor(Math.random() * 700);
-
-                // Helper: tạo câu trả lời gọn, thân thiện
-                function wrap(msg) {
-                    return msg
-                        .replace(/\s+/g, " ")
-                        .trim();
-                }
-
-                let answer = "";
-
-                // Logic AI (Simulated)
-                if (/hà giang|ha giang|sapa|sa pa|đi xa|highway|mountain|đèo|đi đèo/.test(text)) {
+                let answer;
+                if (/giá|bao nhiêu|price|cost|tầm bao|budget|ngân sách/.test(text)) {
                     answer = wrap(
-                        "Đi Hà Giang, Sa Pa hoặc cung đèo dài thì anh nên chạy xe số hoặc XR150: máy khỏe, phanh đầm, leo dốc an toàn. " +
-                        "Nếu chở đồ nhiều, ưu tiên Wave / XR150, hạn chế xe ga yếu phanh và nhanh nóng máy."
+                        "Giá thuê hiện hành: Honda Wave / Yamaha Sirius / Honda Click / Yamaha Mio 150.000đ/ngày; " +
+                        "Honda Vision / Honda Air Blade / xe điện 200.000đ/ngày. " +
+                        "Giá theo tuần/tháng và các dòng xe khác: Liên hệ Mr Tú qua Zalo/điện thoại 0816659199 để xác nhận thông tin hiện tại."
+                    );
+                } else if (/xe|thuê|đi|chuyến|máy/.test(text)) {
+                    answer = wrap(
+                        "Em hỗ trợ thông tin thuê xe máy tại Hà Nội. Dòng xe và tình trạng sẵn có thay đổi theo từng ngày, " +
+                        "nên anh/chị cho em biết nhu cầu, em sẽ xác nhận xe phù hợp. Liên hệ Mr Tú qua Zalo/điện thoại 0816659199 để xác nhận thông tin hiện tại."
+                    );
+                } else {
+                    answer = wrap(
+                        "Em hỗ trợ thông tin thuê xe máy tại Hà Nội. Liên hệ Mr Tú qua Zalo/điện thoại 0816659199 để xác nhận thông tin hiện tại."
                     );
                 }
-                else if (/phố cổ|pho co|old quarter|hoàn kiếm|hoan kiem|center|city center/.test(text)) {
-                    answer = wrap(
-                        "Chạy trong Phố Cổ, Hoàn Kiếm thì Vision hoặc Wave là hợp lý: xe nhỏ gọn, dễ luồn lách, gửi khách sạn cũng tiện. " +
-                        "Đi 1–2 ngày chơi quanh phố thì chọn Vision nhìn lịch sự, Wave thì siêu tiết kiệm xăng."
-                    );
-                }
-                else if (/hồ tây|ho tay|west lake|cafe|coffee|date|hẹn hò/.test(text)) {
-                    answer = wrap(
-                        "Đi chơi Hồ Tây, cafe, hẹn hò thì Vision hoặc Airblade là đẹp: dáng xe gọn, ngồi 2 người thoải mái, máy êm. " +
-                        "Nếu thích êm ái dễ lái thì Vision, cần khỏe máy hơn chút thì Airblade 160."
-                    );
-                }
-                else if (/ăn gì|ăn ở đâu|food|street food|đặc sản|mon an|món ăn|bún chả|phở|bun cha|pho/.test(text)) {
-                    answer = wrap(
-                        "Khu Phố Cổ anh thử combo: sáng phở Bát Đàn / Lý Quốc Sư, trưa bún chả Hàng Quạt hoặc Đắc Kim, tối bia / đồ nướng Tạ Hiện. " +
-                        "Đi bằng xe máy thì gửi xe ở các bãi Trần Nhật Duật hoặc ven hồ Hoàn Kiếm rồi đi bộ vào cho đỡ đông."
-                    );
-                }
-                else if (/giá|bao nhiêu|price|cost|bao nhieu|tầm bao nhiêu|budget|ngân sách/.test(text)) {
-                    answer = wrap(
-                        "Tạm tính: xe số 150.000đ/ngày, xe ga Vision/Air Blade 200.000đ/ngày. Các dòng xe khác: Liên hệ để xác nhận giá hiện tại. " +
-                        "Thuê nhiều ngày hoặc thuê theo tuần/tháng thì giá mềm hơn, anh có thể xem bảng giá trên trang hoặc nhắn Zalo 081.665.9199 để em chốt chuẩn theo lịch."
-                    );
-                }
-                else {
-                    answer = wrap(
-                        "Em là trợ lý Mr Tú AI. Anh cho em biết: anh đi đâu, mấy ngày, thích xe số hay xe ga, em gợi ý luôn mẫu xe + tầm giá hợp lý, thêm vài gợi ý quán ăn/nghỉ cho tiện cung đường."
-                    );
-                }
-
-                // Matchmaker Logic
-                 if (/trình độ lái|tay đua lụa|newbie|tay ga|côn tay|xr150|vision|airblade|wave alpha/.test(text)) {
-                      const expMatch = /trình độ lái[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
-                      const destMatch = /điểm đến[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
-                      const heightMatch= /chiều cao[^:]*:\s*([^\.\n]+)/i.exec(pRaw) || [];
-                      
-                      // Simple selection logic
-                      let bike = "Honda Vision";
-                      let reason = "nhỏ gọn, dễ lái, rất hợp đi phố và người mới.";
-                      
-                      if (/xa|leo núi|hà giang|sapa/i.test(destMatch[1] || "")) { bike = "Honda XR150"; reason = "leo đèo khoẻ."; }
-                      
-                      answer = `Xe chân ái của bạn là: **${bike}**. Lý do: ${reason} Nếu cần em giữ sẵn 1 xe, anh nhắn Zalo **081.665.9199** là em hỗ trợ luôn.`;
-                 }
-
-                setTimeout(() => {
-                    onSuccess(answer);
-                }, delay);
+                setTimeout(() => onSuccess(answer), 400);
             } catch (err) {
-                if (onError) onError(err.message || "Local AI error");
+                if (onError) onError(err.message || "Local assistant error");
             }
         },
-
         // --- FEATURE 1: AI TOUR GUIDE ---
         setupAI() {
             const modal = document.getElementById('ai-modal');
@@ -1925,7 +1875,7 @@
 
                 const systemPrompt = "Bạn là Mr Tú, hướng dẫn viên Hà Nội. Hotline Zalo là 081.665.9199. Hãy tư vấn ngắn gọn.";
                 
-                Render.callGeminiWithRetry(
+                Render.smartReply(
                     text,
                     systemPrompt,
                     showLoader, 
@@ -1977,7 +1927,7 @@
                 resultBox.style.display = 'block';
                 resultText.textContent = "Đang phân tích...";
 
-                Render.callGeminiWithRetry(
+                Render.smartReply(
                     userPrompt,
                     systemPrompt,
                     () => {}, 
