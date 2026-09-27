@@ -6,7 +6,7 @@
 - writing: 8 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 6 | blocked 0
-- published_commit_sha: 37f9e3424df47597c2c3d98c2d6ba3be04c28a6b
+- published_commit_sha: 8427d75316068f562aa50b965eae273c40cd52a9
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
