@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T10:20:28
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T10:26:11
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 13 | pass: 0 | published: 12
-- writing: 37 | review: 0 | repair: 0 | fail: 0 | blocked: 1
-- scores: avg 98.6 | min 95 | max 100 | repair_count: 2
+- processed: 50 | written: 17 | pass: 2 | published: 12
+- writing: 33 | review: 0 | repair: 2 | fail: 0 | blocked: 1
+- scores: avg 97.9 | min 95 | max 100 | repair_count: 2
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -23,10 +23,10 @@
 | CD-0044 | cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html | PUBLISHED | 95 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html'; broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html' |
 | CD-0045 | cam-nang/cung-duong/cd-0045-bai-do-an-toan-doc-duong-di-quan-ba.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0042-cho-ngam-canh-giua-duong-den-thanh-pho-ha-giang.html'; broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html' |
 | CD-0046 | cam-nang/cung-duong/cd-0046-chay-xe-may-tu-ha-noi-ra-yen-minh-nen-di-luc-nao.html | BLOCKED | 96 | 2 | broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'; broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html' |
-| CD-0047 | cam-nang/cung-duong/cd-0047-quan-ca-phe-dung-chan-tren-duong-yen-minh.html | WRITING |  | 0 |  |
-| CD-0048 | cam-nang/cung-duong/cd-0048-cung-duong-ngam-canh-tu-ha-noi-len-dong-van.html | WRITING |  | 0 |  |
-| CD-0049 | cam-nang/cung-duong/cd-0049-mot-ngay-mot-dem-o-dong-van-co-du-khong.html | WRITING |  | 0 |  |
-| CD-0050 | cam-nang/cung-duong/cd-0050-diem-check-in-doc-cung-duong-den-dong-van.html | WRITING |  | 0 |  |
+| CD-0047 | cam-nang/cung-duong/cd-0047-quan-ca-phe-dung-chan-tren-duong-yen-minh.html | PASS | 95 | 0 |  |
+| CD-0048 | cam-nang/cung-duong/cd-0048-cung-duong-ngam-canh-tu-ha-noi-len-dong-van.html | REPAIR | 96 | 0 |  |
+| CD-0049 | cam-nang/cung-duong/cd-0049-mot-ngay-mot-dem-o-dong-van-co-du-khong.html | REPAIR | 96 | 0 |  |
+| CD-0050 | cam-nang/cung-duong/cd-0050-diem-check-in-doc-cung-duong-den-dong-van.html | PASS | 96 | 0 |  |
 | DL-0043 | cam-nang/du-lich/dl-0043-ca-phe-sang-o-chua-huong-quan-nao-dep.html | WRITING |  | 0 |  |
 | DL-0044 | cam-nang/du-lich/dl-0044-khung-canh-dac-sac-nhat-o-chua-huong.html | WRITING |  | 0 |  |
 | DL-0045 | cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html | WRITING |  | 0 |  |
