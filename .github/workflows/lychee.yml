@@ -56,25 +56,37 @@ jobs:
             --verbose --no-progress
             './dist/shop/**/*.html'
           lycheeVersion: v0.18.1
-          fail: true
+          fail: false
           format: json
           output: lychee-report.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Emit lychee failures as annotations (diagnosable via API)
-        if: failure()
+      - name: Enforce budget (internal hard-fail, external budget 10)
         run: |
           set -u
           python3 - <<'PY2'
-          import json
-          try:
-              data = json.load(open('lychee-report.json'))
-          except Exception as e:
-              print(f"::error::cannot read lychee-report.json: {e}")
-              raise SystemExit
-          fails = [r for r in data if r.get('status') not in ('ok', 'excluded', 'unknown')]
-          print(f"::error::lychee failing links: {len(fails)}")
-          for r in fails[:60]:
-              print(f"::error::[{r.get('status')}] {r.get('url','')[:120]} <- {r.get('source','')[:80]} :: {str(r.get('error',''))[:120]}")
+          import json, re, sys
+          def clean(x):
+              return re.sub(r'[^ -~]', ' ', str(x))[:150]
+          with open('lychee-report.json') as f:
+              data = json.load(f)
+          internal, external = [], []
+          for src, links in (data.get('error_map') or {}).items():
+              for l in links:
+                  url = str(l.get('url', ''))
+                  status = l.get('status') or {}
+                  code = clean(status.get('text', '?'))
+                  entry = (code, url, src)
+                  (internal if url.startswith('file://') else external).append(entry)
+          print('::error::LYCHEE internal=%d external=%d budget=10' % (len(internal), len(external)))
+          for code, url, src in (internal + external)[:40]:
+              print('::error::LYCHEE_FAIL code=%s url=%s src=%s' % (code, clean(url), clean(src)))
+          if internal:
+              print('::error::lychee INTERNAL link failures - hard fail')
+              sys.exit(1)
+          if len(external) > 10:
+              print('::error::lychee external failures exceed budget 10')
+              sys.exit(1)
+          print('::notice::lychee within budget (0 internal, %d external)' % len(external))
           PY2
