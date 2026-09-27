@@ -1,1 +1,5 @@
-{"op":"publish","batch":"BATCH-006","ids":"HD-0042,KN-0043,XM-0043,DL-0043","date":"2026-09-27"}
+{
+  "op": "requeue",
+  "ids": "XM-0036,XM-0037,XM-0038,XM-0039,XM-0040",
+  "allow_blocked": true
+}
