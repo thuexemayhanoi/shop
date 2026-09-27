@@ -1,8 +1,8 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T06:09:38
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T13:10:49
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 10 | pass: 5 | published: 5
+- processed: 50 | written: 10 | pass: 0 | published: 10
 - writing: 40 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.4 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 6 | blocked 0
@@ -15,11 +15,11 @@
 | AT-0037 | cam-nang/an-toan/at-0037-quy-dinh-den-chieu-sang-cho-xe-may-dien.html | PUBLISHED | 99 | 0 |  |
 | AT-0038 | cam-nang/an-toan/at-0038-phat-khong-nhuong-duong-cho-xe-uu-tien.html | PUBLISHED | 99 | 0 |  |
 | AT-0039 | cam-nang/an-toan/at-0039-xe-may-coi-noi-bi-phat-hien-co-bi-xu-ly-khong.html | PUBLISHED | 99 | 0 |  |
-| AT-0040 | cam-nang/an-toan/at-0040-loi-buong-hai-tay-khoi-tay-lai-xe-may.html | PASS | 99 | 0 |  |
-| AT-0041 | cam-nang/an-toan/at-0041-xe-may-di-vao-duong-cao-toc-bi-phat-the-nao.html | PASS | 99 | 0 |  |
-| AT-0042 | cam-nang/an-toan/at-0042-quy-dinh-cho-nguoi-tren-xe-may-dien.html | PASS | 99 | 0 |  |
-| CD-0034 | cam-nang/cung-duong/cd-0034-di-xe-may-tu-ha-noi-den-yen-bai-mat-bao-lau.html | PASS | 97 | 0 |  |
-| CD-0035 | cam-nang/cung-duong/cd-0035-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-yen-bai.html | PASS | 95 | 0 |  |
+| AT-0040 | cam-nang/an-toan/at-0040-loi-buong-hai-tay-khoi-tay-lai-xe-may.html | PUBLISHED | 99 | 0 |  |
+| AT-0041 | cam-nang/an-toan/at-0041-xe-may-di-vao-duong-cao-toc-bi-phat-the-nao.html | PUBLISHED | 99 | 0 |  |
+| AT-0042 | cam-nang/an-toan/at-0042-quy-dinh-cho-nguoi-tren-xe-may-dien.html | PUBLISHED | 99 | 0 |  |
+| CD-0034 | cam-nang/cung-duong/cd-0034-di-xe-may-tu-ha-noi-den-yen-bai-mat-bao-lau.html | PUBLISHED | 97 | 0 |  |
+| CD-0035 | cam-nang/cung-duong/cd-0035-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-yen-bai.html | PUBLISHED | 95 | 0 |  |
 | CD-0036 | cam-nang/cung-duong/cd-0036-quan-an-ngon-doc-duong-den-yen-bai.html | WRITING |  | 0 |  |
 | CD-0037 | cam-nang/cung-duong/cd-0037-tuyen-duong-dep-tu-ha-noi-den-tuyen-quang.html | WRITING |  | 0 |  |
 | CD-0038 | cam-nang/cung-duong/cd-0038-trai-nghiem-mot-ngay-o-tuyen-quang-bang-xe-may.html | WRITING |  | 0 |  |
