@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T15:08:15",
+  "finished_at": "2026-09-27T22:08:59",
   "writer": "external-agent",
   "processed": 50,
   "written": 44,
-  "pass": 6,
-  "published": 38,
+  "pass": 0,
+  "published": 44,
   "writing": 6,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 6,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -473,7 +473,7 @@
     {
       "article_id": "KN-0045",
       "output_path": "cam-nang/kinh-nghiem/kn-0045-chay-xe-may-dien-cho-nguoi-lon-co-on-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -483,7 +483,7 @@
     {
       "article_id": "KN-0046",
       "output_path": "cam-nang/kinh-nghiem/kn-0046-kinh-nghiem-giu-an-toan-cho-xe-may-dien-khi-gui-qua-dem.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -493,7 +493,7 @@
     {
       "article_id": "KN-0047",
       "output_path": "cam-nang/kinh-nghiem/kn-0047-di-thu-xe-may-dien-can-kiem-tra-gi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -503,7 +503,7 @@
     {
       "article_id": "KN-0048",
       "output_path": "cam-nang/kinh-nghiem/kn-0048-kinh-nghiem-giu-thang-bang-tren-xe-may-dien.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -513,7 +513,7 @@
     {
       "article_id": "KN-0049",
       "output_path": "cam-nang/kinh-nghiem/kn-0049-chay-xe-may-dien-trong-gio-tan-tam-nen-luu-y-gi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -523,7 +523,7 @@
     {
       "article_id": "KN-0050",
       "output_path": "cam-nang/kinh-nghiem/kn-0050-kinh-nghiem-cho-do-tren-xe-may-dien.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
