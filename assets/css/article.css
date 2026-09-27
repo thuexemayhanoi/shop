@@ -1,0 +1,547 @@
+/* ==========================================================================
+   ARTICLE DESIGN SYSTEM — /shop shared article body stylesheet
+   --------------------------------------------------------------------------
+   One canonical stylesheet for ALL /shop article pages (published and
+   factory-generated). Never duplicate per-article <style> blocks: every
+   article shell references this file. Generated pages must keep the
+   structure contract in docs/ARTICLE-RULES.md:
+
+     <main class="article-main">
+       <article class="article">           <- editorial scope (links/words)
+         <header class="article-header">    <- breadcrumb / kicker
+         <h1 class="article-title">
+         <footer class="article-meta">      <- date / author byline
+         <nav class="article-toc">          <- only when >= 4 H2 sections
+         <div class="article-body">         <- prose (H2 ids: sec-N)
+       </article>
+       <section class="article-cta">        <- one restrained CTA, never in scope
+       <section class="article-related">    <- related cards, never in scope
+     </main>
+
+   Brand tokens mirror assets/css/base.css (primary #FF6B00, glass dark
+   theme). Light is the default; dark applies via [data-theme="dark"] or
+   (for no-JS article pages) prefers-color-scheme.
+   ========================================================================== */
+
+/* --- 1. TOKENS ---------------------------------------------------------- */
+:root {
+  --article-max: 48rem;            /* ~768px prose measure            */
+  --article-wide: 64rem;           /* tables/media region (64rem)     */
+  --article-padding: clamp(16px, 5vw, 24px);
+  --article-line-height: 1.75;
+  --article-radius: 14px;
+  --article-border: #e3e3e8;
+  --article-muted: #6b6b70;
+  --article-surface: #ffffff;
+  --article-bg: #f2f2f7;
+  --article-text: #1c1c1e;
+  --article-brand: #ff6b00;
+  --article-brand-strong: #cc5500;
+  --article-link: #0056d2;
+  --article-link-visited: #5b3fc4;
+  --article-focus: #0056d2;
+  --article-shadow: 0 8px 28px -14px rgba(0, 0, 0, 0.18);
+  --article-font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --article-border: #2c2c2e;
+    --article-muted: #aeaeb2;
+    --article-surface: #1c1c1e;
+    --article-bg: #0d0d0f;
+    --article-text: #f5f5f7;
+    --article-link: #409cff;
+    --article-link-visited: #bf5af2;
+    --article-focus: #409cff;
+    --article-shadow: 0 10px 34px -14px rgba(0, 0, 0, 0.7);
+  }
+}
+
+[data-theme="dark"] {
+  --article-border: #2c2c2e;
+  --article-muted: #aeaeb2;
+  --article-surface: #1c1c1e;
+  --article-bg: #0d0d0f;
+  --article-text: #f5f5f7;
+  --article-link: #409cff;
+  --article-link-visited: #bf5af2;
+  --article-focus: #409cff;
+  --article-shadow: 0 10px 34px -14px rgba(0, 0, 0, 0.7);
+}
+
+/* --- 2. SHELL ----------------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: var(--article-font);
+  background: var(--article-bg);
+  color: var(--article-text);
+  line-height: var(--article-line-height);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  /* FAB stack clearance (chatbot bottom-right) + iOS safe area */
+  padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
+.article-main {
+  max-width: var(--article-max);
+  margin: 0 auto;
+  padding: 24px var(--article-padding) 8px;
+}
+
+.article {
+  background: var(--article-surface);
+  border: 1px solid var(--article-border);
+  border-radius: var(--article-radius);
+  box-shadow: var(--article-shadow);
+  padding: clamp(20px, 4.5vw, 40px) clamp(16px, 4.5vw, 44px);
+}
+
+@media (min-width: 768px) {
+  .article-main { padding-top: 40px; }
+  .article { padding: 44px 52px; }
+}
+
+/* --- 3. BREADCRUMB ------------------------------------------------------ */
+.article-breadcrumb {
+  font-size: 0.85rem;
+  color: var(--article-muted);
+  margin: 0 0 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.article-breadcrumb a {
+  color: var(--article-muted);
+  text-decoration: none;
+}
+.article-breadcrumb a:hover,
+.article-breadcrumb a:focus-visible {
+  color: var(--article-brand-strong);
+  text-decoration: underline;
+}
+.article-breadcrumb .bc-sep {
+  color: var(--article-border);
+  user-select: none;
+}
+.article-breadcrumb [aria-current="page"] {
+  color: var(--article-text);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- 4. HEADER / H1 / META ---------------------------------------------- */
+.article-kicker {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--article-brand-strong);
+  background: color-mix(in srgb, var(--article-brand) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--article-brand) 28%, transparent);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin: 0 0 14px;
+}
+
+.article-title,
+.article h1 {
+  font-size: clamp(1.55rem, 4.6vw, 2.15rem);
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--article-text);
+  margin: 0 0 12px;
+  overflow-wrap: break-word;      /* long Vietnamese H1s wrap naturally */
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.85rem;
+  color: var(--article-muted);
+  margin: 0 0 6px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--article-border);
+}
+.article-meta time { font-weight: 600; }
+
+/* --- 5. TOC (Mục lục) ---------------------------------------------------- */
+.article-toc {
+  margin: 20px 0 26px;
+  border: 1px solid var(--article-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--article-muted) 7%, transparent);
+}
+.article-toc summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 16px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  border-radius: 12px;
+}
+.article-toc summary::-webkit-details-marker { display: none; }
+.article-toc summary::before {
+  content: "▸";
+  display: inline-block;
+  color: var(--article-brand-strong);
+  transition: transform 0.15s ease;
+}
+.article-toc[open] summary::before { transform: rotate(90deg); }
+.article-toc summary:focus-visible {
+  outline: 2px solid var(--article-focus);
+  outline-offset: 2px;
+}
+.article-toc ol {
+  margin: 0;
+  padding: 2px 16px 14px 40px;
+  font-size: 0.95rem;
+}
+.article-toc li { margin: 7px 0; }
+.article-toc a {
+  color: var(--article-link);
+  text-decoration: none;
+}
+.article-toc a:hover,
+.article-toc a:focus-visible { text-decoration: underline; }
+
+/* --- 6. BODY TYPOGRAPHY -------------------------------------------------- */
+.article-body {
+  font-size: clamp(1rem, 0.55rem + 0.9vw, 1.125rem);  /* 16 -> 18px */
+  line-height: var(--article-line-height);
+  color: var(--article-text);
+}
+
+.article-body p {
+  margin: 0 0 1.15em;
+  overflow-wrap: break-word;
+}
+
+.article-body h2 {
+  font-size: clamp(1.22rem, 2.6vw, 1.45rem);
+  line-height: 1.35;
+  font-weight: 800;
+  margin: 2em 0 0.6em;
+  padding-top: 0.35em;
+  color: var(--article-text);
+  scroll-margin-top: 16px;
+}
+.article-body h2::before {
+  content: "";
+  display: block;
+  width: 34px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--article-brand);
+  margin-bottom: 10px;
+}
+
+.article-body h3 {
+  font-size: clamp(1.05rem, 2vw, 1.18rem);
+  font-weight: 700;
+  margin: 1.6em 0 0.5em;
+  color: var(--article-text);
+  scroll-margin-top: 16px;
+}
+
+.article-body h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1.4em 0 0.4em;
+  color: var(--article-muted);
+}
+
+/* --- 7. LISTS ------------------------------------------------------------ */
+.article-body ul,
+.article-body ol {
+  margin: 0 0 1.15em;
+  padding-left: 1.5em;
+}
+.article-body ul { list-style: disc; }
+.article-body ol { list-style: decimal; }
+.article-body li {
+  margin: 0.45em 0;
+  padding-left: 0.25em;
+}
+.article-body li::marker {
+  color: var(--article-brand-strong);
+  font-weight: 700;
+}
+.article-body ul ul,
+.article-body ol ol,
+.article-body ul ol,
+.article-body ol ul {
+  margin: 0.45em 0 0.2em;
+}
+.article-body ul ul { list-style: circle; }
+
+/* --- 8. LINKS ------------------------------------------------------------ */
+.article-body a,
+.article-desc a {
+  color: var(--article-link);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--article-link) 40%, transparent);
+  text-underline-offset: 3px;
+}
+.article-body a:hover { text-decoration-color: currentColor; }
+.article-body a:visited,
+.article-desc a:visited { color: var(--article-link-visited); }
+.article-body a:focus-visible,
+.article a:focus-visible {
+  outline: 2px solid var(--article-focus);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* --- 9. TABLES — never break the 375px body ------------------------------ */
+.article-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.4em 0 1.6em;
+  border: 1px solid var(--article-border);
+  border-radius: 10px;
+}
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;           /* readable, not shrunk to illegibility */
+  min-width: 24rem;             /* scroll inside the wrapper instead     */
+}
+.article-body th,
+.article-body td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--article-border);
+  vertical-align: top;
+}
+.article-body th {
+  background: color-mix(in srgb, var(--article-muted) 10%, transparent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.article-body tbody tr:last-child td { border-bottom: 0; }
+.article-body tbody tr:hover td {
+  background: color-mix(in srgb, var(--article-brand) 5%, transparent);
+}
+
+/* --- 10. BLOCKQUOTE / NOTE / WARNING ------------------------------------- */
+.article-body blockquote {
+  margin: 1.4em 0;
+  padding: 10px 18px;
+  border-left: 4px solid var(--article-brand);
+  background: color-mix(in srgb, var(--article-brand) 6%, transparent);
+  border-radius: 0 10px 10px 0;
+  color: var(--article-text);
+}
+.article-body blockquote p:last-child { margin-bottom: 0; }
+
+.article-body .note,
+.article-body .tip,
+.article-body .warning {
+  margin: 1.4em 0;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--article-border);
+  background: color-mix(in srgb, var(--article-muted) 7%, transparent);
+}
+.article-body .warning {
+  border-left: 4px solid #c41c00;
+  background: color-mix(in srgb, #c41c00 7%, transparent);
+}
+.article-body .tip {
+  border-left: 4px solid #006837;
+  background: color-mix(in srgb, #006837 7%, transparent);
+}
+.article-body .note,
+.article-body .tip,
+.article-body .warning { font-size: 0.97em; }
+.article-body .note p:last-child,
+.article-body .tip p:last-child,
+.article-body .warning p:last-child { margin-bottom: 0; }
+
+/* --- 11. IMAGES ----------------------------------------------------------- */
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.article-body figure {
+  margin: 1.5em 0;
+}
+.article-body figcaption {
+  font-size: 0.85rem;
+  color: var(--article-muted);
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* --- 12. SOURCE SECTION ---------------------------------------------------- */
+.article-body h2#nguon-tham-khao + p,
+.article-body p.src {
+  font-size: 0.88rem;
+  color: var(--article-muted);
+}
+
+/* --- 13. CTA (one, restrained, outside editorial scope) ------------------- */
+.article-cta {
+  max-width: var(--article-max);
+  margin: 22px auto 6px;
+  padding: 0 var(--article-padding);
+}
+.article-cta-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid color-mix(in srgb, var(--article-brand) 30%, transparent);
+  background: color-mix(in srgb, var(--article-brand) 7%, transparent);
+  border-radius: var(--article-radius);
+  padding: 18px 22px;
+}
+.article-cta p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--article-text);
+}
+.article-cta a {
+  display: inline-block;
+  min-height: 44px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--article-brand);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+}
+.article-cta a:hover { background: var(--article-brand-strong); }
+.article-cta a:focus-visible {
+  outline: 3px solid var(--article-focus);
+  outline-offset: 2px;
+}
+
+/* --- 14. RELATED ARTICLES --------------------------------------------------- */
+.article-related {
+  max-width: var(--article-max);
+  margin: 30px auto 0;
+  padding: 0 var(--article-padding);
+}
+.article-related-title,
+.article-pn-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--article-text);
+  margin: 0 0 14px;
+}
+.article-related-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 640px) { .article-related-list { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .article-related-list { grid-template-columns: 1fr 1fr 1fr; } }
+.article-related-list a {
+  display: block;
+  height: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--article-border);
+  border-radius: 12px;
+  background: var(--article-surface);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.article-related-list a:hover,
+.article-related-list a:focus-visible {
+  border-color: var(--article-brand);
+  transform: translateY(-2px);
+  outline: none;
+}
+.article-related-list a:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--article-focus) 45%, transparent); }
+.rel-title {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--article-text);
+}
+.rel-topic {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--article-muted);
+}
+
+/* --- 15. PREVIOUS / NEXT ---------------------------------------------------- */
+.article-pn {
+  max-width: var(--article-max);
+  margin: 18px auto 0;
+  padding: 0 var(--article-padding);
+}
+.article-pn-list {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+.article-pn-list li { flex: 1 1 0; min-width: 0; }
+.article-pn-list a {
+  display: block;
+  padding: 12px 16px;
+  border: 1px solid var(--article-border);
+  border-radius: 10px;
+  background: var(--article-surface);
+  text-decoration: none;
+  font-size: 0.88rem;
+  color: var(--article-text);
+}
+.article-pn-list a:hover,
+.article-pn-list a:focus-visible { border-color: var(--article-brand); }
+.article-pn-list .pn-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--article-muted);
+  margin-bottom: 4px;
+}
+.article-pn-list .pn-next { text-align: right; }
+
+/* --- 16. FOOTER TRANSITION --------------------------------------------------- */
+main.article-main + .site-footer-compact {
+  border-top: 1px solid var(--article-border);
+}
+
+/* --- 17. REDUCED MOTION ------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .article-related-list a,
+  .article-toc summary::before,
+  .article-cta a { transition: none; transform: none; }
+}
+
+/* --- 18. WIDE CONTENT ESCAPE HATCH -------------------------------------------- */
+/* Tables or media that genuinely need > 48rem sit in .article-wide-block
+   and are allowed to span up to --article-wide, still centered. */
+.article-wide-block {
+  max-width: var(--article-wide);
+  margin-left: calc(50% - min(var(--article-wide), 100%) / 2);
+}
