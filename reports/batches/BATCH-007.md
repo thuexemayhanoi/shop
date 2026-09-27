@@ -1,10 +1,10 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-28T04:19:28
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T22:11:25
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 39 | pass: 0 | published: 39
-- writing: 11 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 44 | pass: 4 | published: 39
+- writing: 6 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- scores: avg 98.2 | min 90 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -46,11 +46,11 @@
 | KN-0051 | cam-nang/kinh-nghiem/kn-0051-xe-may-dien-co-chay-duoc-duong-deo-khong.html | PUBLISHED | 99 | 0 |  |
 | KN-0052 | cam-nang/kinh-nghiem/kn-0052-cach-dieu-chinh-guong-va-yen-tren-xe-may-dien.html | PUBLISHED | 100 | 0 | broken internal link: 'index\n.html'; word broken across newline: 'củ\na' |
 | KN-0053 | cam-nang/kinh-nghiem/kn-0053-kinh-nghiem-kiem-tra-pin-xe-may-dien-khi-thue.html | PUBLISHED | 100 | 0 |  |
-| KN-0054 | cam-nang/kinh-nghiem/kn-0054-khi-nao-nen-chon-xe-may-dien-thay-vi-xe-xang.html | WRITING |  | 0 |  |
-| KN-0055 | cam-nang/kinh-nghiem/kn-0055-chup-anh-xe-may-truoc-khi-thue-de-lam-gi.html | WRITING |  | 0 |  |
-| KN-0056 | cam-nang/kinh-nghiem/kn-0056-nhung-dieu-nen-doc-ky-trong-hop-dong-thue-xe-may.html | WRITING |  | 0 |  |
-| KN-0057 | cam-nang/kinh-nghiem/kn-0057-di-thu-xe-quanh-quan-truoc-khi-quyet-dinh-thue.html | WRITING |  | 0 |  |
-| KN-0058 | cam-nang/kinh-nghiem/kn-0058-kinh-nghiem-lay-xe-buoi-sang-va-tra-xe-cuoi-ngay.html | WRITING |  | 0 |  |
+| KN-0054 | cam-nang/kinh-nghiem/kn-0054-khi-nao-nen-chon-xe-may-dien-thay-vi-xe-xang.html | FAIL | 90 | 0 | wrong price for Honda Click: found 0 near 'Click hay Yamaha Mio: 150.000đ/ngày và 700.000đ/tuần. Tay ga lớn Ho'; wrong price for Honda Vision: found 0 near 'nda Vision và Honda Air Blade: 200.000đ/ngày và 1.000.000đ/tuần. Xe máy điện:' |
+| KN-0055 | cam-nang/kinh-nghiem/kn-0055-chup-anh-xe-may-truoc-khi-thue-de-lam-gi.html | PASS | 100 | 0 |  |
+| KN-0056 | cam-nang/kinh-nghiem/kn-0056-nhung-dieu-nen-doc-ky-trong-hop-dong-thue-xe-may.html | PASS | 100 | 0 |  |
+| KN-0057 | cam-nang/kinh-nghiem/kn-0057-di-thu-xe-quanh-quan-truoc-khi-quyet-dinh-thue.html | PASS | 100 | 0 |  |
+| KN-0058 | cam-nang/kinh-nghiem/kn-0058-kinh-nghiem-lay-xe-buoi-sang-va-tra-xe-cuoi-ngay.html | PASS | 100 | 0 |  |
 | KN-0059 | cam-nang/kinh-nghiem/kn-0059-nen-thue-xe-may-vao-khung-gio-nao-o-ha-noi.html | WRITING |  | 0 |  |
 | XM-0051 | cam-nang/xe-may/xm-0051-cach-kiem-tra-bo-ly-hop-tren-honda-click.html | PUBLISHED | 96 | 0 |  |
 | XM-0052 | cam-nang/xe-may/xm-0052-khi-nao-can-kiem-tra-cop-xe-tren-honda-click.html | PUBLISHED | 96 | 0 | word broken across newline: 'đượ\nc'; newline inside HTML tag |
