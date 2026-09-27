@@ -100,6 +100,8 @@ jobs:
           node scripts/js/factory.mjs --publish "$ids" --dry-run "${date_args[@]}"
           node scripts/js/factory.mjs --publish "$ids" "${date_args[@]}"
           node scripts/js/factory.mjs --consistency
+          python3 scripts/apply_article_shell.py
+          python3 scripts/gate_published_articles.py
 
       - name: Canonical generator freshness (python vs node byte-equality)
         if: env.op == 'publish'
@@ -155,4 +157,14 @@ jobs:
           fi
           git add -A
           git commit -m "factory-operator: ${op} (deterministic outputs of canonical tooling only)"
-          git push
+          if git push; then
+            :
+          else
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+              if git push; then
+                break
+              fi
+            done
+          fi
