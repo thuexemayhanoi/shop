@@ -5,77 +5,50 @@
             <div class="footer-bg-glow"></div>
             <div class="footer-grid" id="footer-grid"></div>
 
-            <!-- CANONICAL CẨM NANG TAXONOMY — rendered from
-                 _data/content_taxonomy.json (byte-identical copy of
-                 data/content-taxonomy.json, enforced by
-                 tests/test_ui_integration.py). Do NOT hard-code a second
-                 taxonomy list anywhere else. -->
+            <!-- CANONICAL CẨM NANG TAXONOMY (compact) — six parent category
+                 links only; the full taxonomy (56 child topics) stays on the
+                 category pages and /shop/cam-nang/chu-de/. Do NOT inline the
+                 child list here and do NOT hard-code a second taxonomy. -->
             <div class="footer-taxonomy" id="footer-taxonomy">
-                <h4 class="ft-heading"><span class="material-symbols-rounded">menu_book</span> Cẩm nang</h4>
+                <h4 class="ft-heading">
+                    <svg class="ft-book-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    Cẩm nang
+                </h4>
                 <div class="ft-groups">
-                {% for parent in site.data.content_taxonomy.parents %}
-                    <details class="ft-parent" open>
-                        <summary><a href="{{ parent.parent_hub }}">{{ parent.parent_title }}</a></summary>
-                        <ul class="ft-children">
-                        {% for child in parent.children %}
-                            <li><a href="{{ child.child_hub_url }}">{{ child.child_title }}</a></li>
-                        {% endfor %}
-                        </ul>
-                    </details>
-                {% endfor %}
+                    <a href="/shop/kinhnghiem.html">Kinh nghiệm</a>
+                    <a href="/shop/antoan.html">An toàn</a>
+                    <a href="/shop/xemay.html">Xe máy</a>
+                    <a href="/shop/dulich.html">Du lịch</a>
+                    <a href="/shop/cungduong.html">Cung đường</a>
+                    <a href="/shop/hoidap.html">Hỏi đáp</a>
                 </div>
-                <a class="ft-all" href="/shop/cam-nang/chu-de/">Xem tất cả chủ đề</a>
+                <a class="ft-all" href="/shop/cam-nang/chu-de/">Xem tất cả chủ đề →</a>
             </div>
             <style>
-            /* Footer taxonomy (compact hierarchy, no flat wall of links) */
+            /* Footer taxonomy — compact six-link grid, no child-topic wall */
             .footer-taxonomy{margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)}
             .footer-taxonomy .ft-heading{font-size:1.05rem;font-weight:800;color:var(--text-main,#f5f5f7);display:flex;align-items:center;gap:8px;margin:0 0 14px}
-            .footer-taxonomy .ft-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 28px}
-            .footer-taxonomy .ft-parent summary{list-style:none;cursor:pointer;font-weight:700;font-size:.92rem;padding:6px 0;color:var(--text-main,#f5f5f7)}
-            .footer-taxonomy .ft-parent summary::-webkit-details-marker{display:none}
-            .footer-taxonomy .ft-parent summary::after{content:"▾";font-size:.7rem;margin-left:6px;opacity:.6}
-            .footer-taxonomy .ft-parent[open] summary::after{content:"▴"}
-            .footer-taxonomy .ft-parent summary a{color:var(--text-main,#f5f5f7);text-decoration:none}
-            .footer-taxonomy .ft-parent summary a:hover,.footer-taxonomy .ft-parent summary a:focus-visible{color:var(--primary,#ff6b00)}
-            .footer-taxonomy .ft-children{list-style:none;margin:4px 0 10px;padding-left:10px;border-left:2px solid rgba(255,107,0,.25)}
-            .footer-taxonomy .ft-children li{margin:3px 0}
-            .footer-taxonomy .ft-children a{font-size:.82rem;color:var(--text-sub,#aeaeb2);text-decoration:none}
-            .footer-taxonomy .ft-children a:hover,.footer-taxonomy .ft-children a:focus-visible{color:var(--primary,#ff6b00)}
+            .footer-taxonomy .ft-heading .ft-book-icon{color:var(--primary,#ff6b00);flex:0 0 auto}
+            .footer-taxonomy .ft-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 28px;font-size:.92rem}
+            .footer-taxonomy .ft-groups a{font-weight:700;color:var(--text-main,#f5f5f7);text-decoration:none;padding:6px 0;display:inline-block}
+            .footer-taxonomy .ft-groups a:hover,.footer-taxonomy .ft-groups a:focus-visible{color:var(--primary,#ff6b00)}
             .footer-taxonomy .ft-all{display:inline-block;margin-top:12px;font-size:.85rem;font-weight:700;color:var(--primary,#ff6b00);text-decoration:none}
             .footer-taxonomy .ft-all:hover,.footer-taxonomy .ft-all:focus-visible{text-decoration:underline}
-            @media (max-width:900px){.footer-taxonomy .ft-groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
-            @media (max-width:600px){
-              .footer-taxonomy .ft-groups{grid-template-columns:1fr}
-              .footer-taxonomy .ft-children li{margin:8px 0}
-              .footer-taxonomy .ft-children a{font-size:.9rem}
-            }
+            @media (max-width:900px){.footer-taxonomy .ft-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px}}
+            @media (max-width:420px){.footer-taxonomy .ft-groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;font-size:.88rem}}
             </style>
-            <script>
-            /* Mobile UX: collapse the per-parent <details> groups on small
-               screens at load time; the links stay in the rendered DOM. */
-            (function () {
-                function fit() {
-                    var small = window.matchMedia('(max-width: 600px)').matches;
-                    document.querySelectorAll('#footer-taxonomy details.ft-parent').forEach(function (d) {
-                        if (small) { d.removeAttribute('open'); } else { d.setAttribute('open', 'open'); }
-                    });
-                }
-                if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', fit); }
-                else { fit(); }
-            })();
-            </script>
 
             <div class="copyright" style="margin-top: 50px;">
                 <img src="./IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
                 
                 <div class="footer-contact-info">
-                     <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội, Việt Nam</p>
+                     <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> 17 Phúc Tân, Hoàn Kiếm, Hà Nội (liên hệ để xác nhận điểm nhận xe)</p>
                      <div class="fc-row">
                          <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:+84816659199" style="text-decoration:none;color:inherit;">081.665.9199</a></p>
                          <p class="fc-item"><i class="fa-solid fa-envelope"></i> nguyentuantu2482@gmail.com</p>
                      </div>
                      <p class="fc-item" style="color:var(--primary);"><i class="fa-solid fa-headset"></i> Hotline &amp; Kỹ thuật: Liên hệ để xác nhận</p>
-                     <p class="fc-item"><i class="fa-regular fa-clock"></i> Liên hệ để xác nhận thời gian hỗ trợ</p>
+                     <p class="fc-item"><i class="fa-regular fa-clock"></i> Giờ mở cửa: 08:00 – 17:00 hằng ngày</p>
                 </div>
 
                 <p style="text-align:center; color:var(--text-sub); font-size:0.8rem; margin-top:20px; opacity:0.6;">

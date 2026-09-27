@@ -4,7 +4,8 @@
     "business": {
       "name": "Mr Tú Motorbike Rental",
       "city": "Hà Nội",
-      "phone": "0816659199"
+      "phone": "0816659199",
+      "opening_hours": "08:00–17:00 hằng ngày"
     },
     "currency": "VND",
     "approved_models": {
@@ -32,10 +33,10 @@
       ]
     }
   },
-  "requires_owner_confirmation": {
+  "requires_
+owner_confirmation": {
     "address": null,
     "email": null,
-    "opening_hours": null,
     "late_return_policy": null,
     "insurance_policy": null,
     "licence_rule": null,
