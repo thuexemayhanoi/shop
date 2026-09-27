@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T18:07:33",
+  "finished_at": "2026-09-28T01:07:58",
   "writer": "external-agent",
   "processed": 50,
   "written": 11,
-  "pass": 5,
-  "published": 6,
+  "pass": 0,
+  "published": 11,
   "writing": 39,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0051",
@@ -40,7 +40,7 @@
     {
       "article_id": "AT-0052",
       "output_path": "cam-nang/an-toan/at-0052-bi-phat-nguoi-bao-lau-thi-phai-nop-tien.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -50,7 +50,7 @@
     {
       "article_id": "AT-0053",
       "output_path": "cam-nang/an-toan/at-0053-cach-tra-qua-trinh-vi-pham-cua-xe-may-online.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
@@ -63,7 +63,7 @@
     {
       "article_id": "AT-0054",
       "output_path": "cam-nang/an-toan/at-0054-quy-dinh-ve-bien-bao-tam-thoi-khi-thi-cong-duong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
@@ -76,7 +76,7 @@
     {
       "article_id": "AT-0055",
       "output_path": "cam-nang/an-toan/at-0055-xe-may-bi-thu-giu-trong-truong-hop-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -86,7 +86,7 @@
     {
       "article_id": "AT-0056",
       "output_path": "cam-nang/an-toan/at-0056-ky-nang-giu-khoang-cach-an-toan-khi-chay-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
