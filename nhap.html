@@ -324,6 +324,16 @@
         box-shadow: var(--shadow-3d); transition: transform 0.1s linear; 
         border-top: 1px solid rgba(255,255,255,0.3);
     }
+    /* HORIZONTAL OVERFLOW FIX (iOS/Safari): the 3D rotateY(-5deg) tilt makes
+       the full-width calculator's corners project BEYOND the viewport, so the
+       document becomes wider than the screen and vertical scrolling lets the
+       page (and the fixed chatbot panel above it) drift left/right with an
+       empty-background rubber-band. Desktop keeps the 3D look; mobile renders
+       the calculator flat. !important also neutralizes the JS mousemove tilt
+       inline style if a touch device synthesizes mouse events. */
+    @media (max-width: 768px) {
+        .calc-box { transform: none !important; }
+    }
     
     .form-group { margin-bottom: 20px; }
     .form-label { font-size: 0.9rem; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; display: block; }

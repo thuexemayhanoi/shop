@@ -1,4 +1,25 @@
 /* ============================================================
+   DOCUMENT-LEVEL HORIZONTAL STABILITY CONTRACT (iOS/Safari)
+   - html/body can never be wider than the viewport;
+   - overflow-x: clip (Safari 16+) with a hidden fallback prevents the
+     iOS horizontal rubber-band while vertical scrolling;
+   - this is DEFENSIVE protection only: the real overflow offender
+     (the 3D-tilted .calc-box on mobile) is fixed at its source
+     (main.css / pricing.css / inline page styles).
+   ============================================================ */
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+body {
+    max-width: 100%;
+}
+@supports not (overflow: clip) {
+    html { overflow-x: hidden; }
+}
+
+/* ============================================================
    CANONICAL CHATBOT EMBED (MotoAI external assistant)
    One implementation per rendered page. Loaded site-wide via
    _includes/chatbot-embed.html (Jekyll pages) or the factory
@@ -154,8 +175,18 @@
     display: block;
 }
 
-/* body scroll lock while the panel is open */
+/* body scroll lock while the panel is open.
+   position: fixed is REQUIRED on iOS Safari — plain overflow: hidden on
+   body does NOT stop the window from scrolling, so focusing the chat
+   input (iframe) let iOS scroll the host page and pushed the fixed
+   chatbot panel upward off-screen. JS sets body top = -scrollY so the
+   visible content does not jump, and restores the scroll on close. */
 body.cb-no-scroll {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -167,7 +198,11 @@ body.cb-no-scroll {
         right: 0;
         bottom: 0;
         top: 0;
-        width: 100vw;
+        /* width/height must never exceed the visual viewport. left:0 + right:0
+           already span it, so width is 100% of the containing viewport —
+           NOT 100vw (which can differ and push the panel off-center). */
+        width: 100%;
+        max-width: 100%;
         height: 100%;
         max-height: 100%;
         border-radius: 0;

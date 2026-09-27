@@ -22,12 +22,36 @@
     window.MotoAIEmbedCanonical = true;
 
     var CHATBOT_URL = 'https://thuexemayhanoi.github.io/aichatbot/';
+    // Embed-mode URL for the iframe. WITHOUT ?embed=1 the iframe loads the
+    // chat app in "direct/homepage" mode (html/body overflow:hidden,
+    // app position:fixed) which is NOT designed to live inside a host-page
+    // iframe: when the composer is focused, iOS Safari scrolls the HOST
+    // window to reveal the input and pushes the whole fixed chatbot panel
+    // upward. Embed mode is the mode explicitly built for this use.
+    var CHATBOT_EMBED_URL = CHATBOT_URL + '?embed=1&lang=vi';
 
     var launcher = null;
     var panel = null;
     var iframe = null;
     var closeBtn = null;
     var lastFocus = null;
+    var lockedScrollY = 0;
+
+    /* iOS Safari: overflow: hidden on body does not stop window scrolling.
+       Locking the body with position: fixed (offset by the current scroll)
+       keeps the page — and the fixed chatbot panel — perfectly still while
+       the chat is open, including when the keyboard appears. */
+    function lockBody() {
+        lockedScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+        document.body.classList.add('cb-no-scroll');
+        document.body.style.top = (-lockedScrollY) + 'px';
+    }
+
+    function unlockBody() {
+        document.body.classList.remove('cb-no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, lockedScrollY);
+    }
 
     function el(tag, cls, text) {
         var node = document.createElement(tag);
@@ -141,7 +165,10 @@
         });
 
         // Keep the sheet inside the visual viewport when the mobile keyboard
-        // opens/ closes, Safari's toolbar collapses, or the device rotates.
+        // opens/closes, Safari's toolbar collapses, or the device rotates.
+        // VERTICAL-ONLY adjustment: height/top track visualViewport, the
+        // horizontal origin (left/right from CSS) is never touched, so the
+        // panel can never drift sideways when the keyboard opens.
         if (window.visualViewport) {
             var vv = window.visualViewport;
             var fit = function () {
@@ -149,8 +176,10 @@
                 var small = window.matchMedia('(max-width: 640px)').matches;
                 if (small) {
                     panel.style.height = vv.height + 'px';
+                    panel.style.top = vv.offsetTop + 'px';
                 } else {
                     panel.style.height = '';
+                    panel.style.top = '';
                 }
             };
             vv.addEventListener('resize', fit);
@@ -179,7 +208,7 @@
             if (panel) { panel.classList.add('cb-error'); }
         });
         // src is assigned HERE, on first open only — never during page load.
-        iframe.src = CHATBOT_URL;
+        iframe.src = CHATBOT_EMBED_URL;
         body.appendChild(iframe);
     }
 
@@ -188,7 +217,7 @@
         ensureIframe();
         lastFocus = document.activeElement;
         panel.classList.add('cb-open');
-        document.body.classList.add('cb-no-scroll');
+        lockBody();
         if (launcher) { launcher.setAttribute('aria-expanded', 'true'); }
         if (closeBtn) { closeBtn.focus(); }
     }
@@ -197,7 +226,8 @@
         if (!panel || !panel.classList.contains('cb-open')) { return; }
         panel.classList.remove('cb-open');
         panel.style.height = '';
-        document.body.classList.remove('cb-no-scroll');
+        panel.style.top = '';
+        unlockBody();
         if (launcher) { launcher.setAttribute('aria-expanded', 'false'); }
         if (lastFocus && typeof lastFocus.focus === 'function') {
             lastFocus.focus();
