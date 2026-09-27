@@ -136,7 +136,7 @@ jobs:
           code=0
           python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
           grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
-          sed -n "/^Traceback/,^$/p" reports/batches/unittest-output.txt | tail -n 120 >> reports/batches/unittest-failures.txt || true
+          sed -n "/^Traceback","/^$/p" reports/batches/unittest-output.txt | tail -n 120 >> reports/batches/unittest-failures.txt || true
           echo "unittest exit code: $code"
           cat reports/batches/unittest-failures.txt || true
           exit 0
