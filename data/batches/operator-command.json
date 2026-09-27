@@ -1,0 +1,5 @@
+{
+  "op": "requeue",
+  "batch": "BATCH-005",
+  "ids": "XM-0034,XM-0035,XM-0036,XM-0037,XM-0038,XM-0039,XM-0040"
+}
