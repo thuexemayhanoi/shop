@@ -41,8 +41,7 @@ STALE_PATTERNS = [
     ("xe_moi_100", re.compile(r"xe mới 100%|xe mới 2024|dàn xe mới 100%", re.I)),
     ("uy_tin_so_1", re.compile(r"uy tín số\s*1|uy tín nhất", re.I)),
     ("deposit_lie", re.compile(r"miễn cọc|không cần cọc|không phải cọc|giảm cọc", re.I)),
-    ("fake_promo", re.compile(r"giảm 30%|voucher|khuyến mãi cố định|miễn phí thay dầu|miễn phí bảo dưỡng|đổi xe miễn phí|giao xe miễn phí|MIỄN PHÍ trong vòng|Số lư
-ợng xe ưu đãi có hạn|giá cực sốc", re.I)),
+    ("fake_promo", re.compile(r"giảm 30%|voucher|khuyến mãi cố định|miễn phí thay dầu|miễn phí bảo dưỡng|đổi xe miễn phí|giao xe miễn phí|MIỄN PHÍ trong vòng|Số lượng xe ưu đãi có hạn|giá cực sốc", re.I)),
     ("schema_stale", re.compile(r"priceRange|streetAddress|openingHoursSpecification")),
     ("address_seo", re.compile(r"17 Phúc Tân")),
     ("support_hours", re.compile(r"kể cả 2h sáng|phản hồi trong vòng 24h", re.I)),
@@ -70,7 +69,6 @@ FACT_SAFETY_ALLOWLIST = re.compile(
 # Hard numeric/hour tokens are never excused by nearby conditional wording.
 FACT_SAFETY_HARD = re.compile(r"8h\s*[-–]\s*17h|08\s*:\s*00|17\s*:\s*00", re.I)
 
-
 def load_owner_confirmation(path=FACTS_CONFIG):
     """Return the requires_owner_confirmation mapping from business-facts.json."""
     try:
@@ -80,14 +78,12 @@ def load_owner_confirmation(path=FACTS_CONFIG):
     except Exception:
         return {}
 
-
 def fact_safety_patterns(conf):
     """Build (flag_key, regex) checks for every unverified (null) fact field."""
     pats = []
     if conf.get("opening_hours") is None:
         pats.append(("unverified_opening_hours", re.compile(
-            r"8h\s*[-–]\s*17h|08\s*:\s*00
-|17\s*:\s*00|giờ mở cửa|"
+            r"8h\s*[-–]\s*17h|08\s*:\s*00|17\s*:\s*00|giờ mở cửa|"
             r"cửa hàng đang mở|ngoài giờ mở cửa|mở cửa hằng ngày", re.I)))
     if conf.get("support_hours") is None:
         pats.append(("unverified_support_hours", re.compile(
@@ -105,7 +101,6 @@ def fact_safety_patterns(conf):
             r"trả xe trễ[^.]{0,50}(phí|theo giờ|tính)|trả xe muộn[^.]{0,50}(phí|tính)|"
             r"phí theo giờ|phí phạt quá giờ|late fee", re.I)))
     return pats
-
 
 def fact_safety_flags(text, conf=None):
     """Flag hard claims about unverified facts in any text segment.
@@ -134,8 +129,7 @@ INTENTS = {
     "ngay.html": "thuê xe máy theo ngày",
     "tuan.html": "thuê xe máy theo tuần",
     "thang.html": "thuê xe máy theo tháng",
- 
-   "thutuc.html": "thủ tục thuê xe máy",
+    "thutuc.html": "thủ tục thuê xe máy",
     "badinh.html": "thuê xe máy ba đình",
     "caugiay.html": "thuê xe máy cầu giấy",
     "dongda.html": "thuê xe máy đống đa",
@@ -160,13 +154,11 @@ INTENTS = {
     "lienhe.html": "liên hệ thuê xe máy",
 }
 
-
 def strip_noise(t):
     t = re.sub(r"<script[\s\S]*?</script>", " ", t, flags=re.I)
     t = re.sub(r"<style[\s\S]*?</style>", " ", t, flags=re.I)
     t = re.sub(r"<!--[\s\S]*?-->", " ", t)
     return t
-
 
 def visible(t):
     t = strip_noise(t)
@@ -174,6 +166,9 @@ def visible(t):
     t = re.sub(r"<[^>]+>", " ", t)
     return re.sub(r"\s+", " ", html.unescape(t)).strip()
 
+def main_slice(t):
+    m = re.search(r"<main[\s\S]*?</main>", t, re.I)
+    return m.group(0) if m else t
 
 def collect_repo_html():
     """All .html files in the repo tree (repo-relative POSIX paths).
@@ -191,7 +186,6 @@ def collect_repo_html():
                     os.path.join(root_dir, fn), ROOT).replace(os.sep, "/"))
     return files
 
-
 def resolve_local_href(page_path, target):
     """Resolve a local href against the repo tree.
 
@@ -200,8 +194,8 @@ def resolve_local_href(page_path, target):
     the page's own directory), and directory paths ending in / (which map
     to <dir>/index.html).
     """
-    page_dir = os.path.dirname(
-        os.path.relpath(page_path, ROOT)).replace(os.sep, "/")
+    page_dir = posixpath.dirname(
+        os.path.relpath(page_path, ROOT).replace(os.sep, "/"))
     if target.startswith("/shop/"):
         norm = target[len("/shop/"):]
     elif target.startswith("/"):
@@ -213,12 +207,6 @@ def resolve_local_href(page_path, target):
     if norm.endswith("/"):
         norm += "index.html"
     return norm
-
-
-def main_slice(t):
-    m = re.search(r"<main[\s\S]*?</main>", t, re.I)
-    return m.group(0) if m else t
-
 
 def audit_page(path, texts, local_files):
     name = os.path.basename(path)
@@ -232,8 +220,7 @@ def audit_page(path, texts, local_files):
     h1s = re.findall(r"<h1[^>]*>([\s\S]*?)</h1>", clean, re.I)
 
     heads = re.findall(r"<(h[1-6])[^>]*>", clean, re.I)
-    heading_errors, p
-rev = [], 0
+    heading_errors, prev = [], 0
     for h in heads:
         lvl = int(h[1])
         if prev and lvl > prev + 1:
@@ -283,8 +270,7 @@ rev = [], 0
 
     # Config-aware fact-safety checks (unverified business facts),
     # applied to every content segment AND inline JavaScript (status
-    # widgets, chat
-bot strings) so JS-rendered claims cannot hide.
+    # widgets, chatbot strings) so JS-rendered claims cannot hide.
     conf = load_owner_confirmation()
     for label, seg in segments.items():
         for key in fact_safety_flags(seg, conf):
@@ -314,7 +300,7 @@ bot strings) so JS-rendered claims cannot hide.
         norm = resolve_local_href(path, target)
         if norm not in local_files:
             broken.append(href)
-        if not re.search(r'class="[^"\']*f-link|class="[^"\']*app-item', m.group(0)):
+        if not re.search(r'class="[^"]*f-link|class="[^"]*app-item', m.group(0)):
             ctx += 1
 
     dups = []
@@ -328,8 +314,7 @@ bot strings) so JS-rendered claims cannot hide.
         for other, ohashes in texts.items():
             if other != name and h in ohashes:
                 dups.append((other, q[:60]))
-                
-break
+                break
 
     issues = []
     if len(h1s) != 1:
@@ -372,7 +357,6 @@ break
         "issues": issues,
     }
 
-
 def collect_texts(pages):
     texts = {}
     for p in pages:
@@ -383,11 +367,9 @@ def collect_texts(pages):
         for para in re.findall(r"<(?:p|li)[^>]*>([\s\S]*?)</(?:p|li)>", body):
             q = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", para))).strip()
             if len(q.split()) >= 15 and "giấy tờ và mức đặt cọc" not in q and "Đặt xe trước qua Zalo" not in q:
-                hs.add(hashlib.md5(q.lower()
-.encode("utf-8")).hexdigest())
+                hs.add(hashlib.md5(q.lower().encode("utf-8")).hexdigest())
         texts[p] = hs
     return texts
-
 
 def main():
     pages = sorted(os.path.basename(p) for p in glob.glob(os.path.join(ROOT, "*.html")))
@@ -430,8 +412,7 @@ def main():
     if blocking:
         print("pages needing review: %d" % len(blocking))
         for r in blocking:
-     
-       print("  %s: %s" % (r["path"], ", ".join(r["issues"])))
+            print("  %s: %s" % (r["path"], ", ".join(r["issues"])))
             print("      flags: %s" % (r["business_fact_flags"],))
     else:
         print("no blocking issues")
