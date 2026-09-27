@@ -144,7 +144,11 @@ Node but not Python) is never blocked again:
 
 The Node generators are byte-equal to the canonical Python ones
 (generate_category_pages.py / generate_sitemap.py are no-ops after a
-Node publish). Python scripts stay canonical; the Node tool is the
+Node publish — EXCEPT the page-2+ pagination files, which the Node
+transaction does not write: the operator publish flow runs the canonical
+generate_category_pages.py in write mode right after the transaction, so
+the hubs' "trang 2" links resolve and every cam-nang page carries the
+compact footer + chatbot embed). Python scripts stay canonical; the Node tool is the
 fallback for restricted runtimes and is cross-validated by CI
 (`.github/workflows/article-quality.yml` runs the Node tests and
 `--consistency` on every push; `.github/workflows/factory-publish-verify.yml`

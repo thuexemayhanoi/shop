@@ -9,6 +9,8 @@ ARCHITECTURE (bug #3 fix — no duplicate page-1 intent):
 - When a category has MORE than 50 PUBLISHED articles, page 2+ goes to
   cam-nang/<cat>/page-2.html, page-3.html, ... (50 articles per page).
 - Page 2+ links back to the root hub (page 1).
+- Page 2+ pages carry the compact shared footer and the canonical lazy
+  chatbot embed (the deploy-gate footer test walks ALL cam-nang pages).
 - The first 50 published article cards are injected into the ROOT hub via
   clearly delimited, idempotent blocks:
       <!-- ARTICLE-LIST:START -->
@@ -37,6 +39,20 @@ import article_lib as lib
 PER_PAGE = 50
 START = "<!-- ARTICLE-LIST:START -->"
 END = "<!-- ARTICLE-LIST:END -->"
+
+# Every factory-generated page under cam-nang/ carries the compact shared
+# footer and exactly one lazy chatbot embed (same contract as child hubs:
+# tests/test_publish_gate.py + tests/test_ui_integration.py).
+CHATBOT_EMBED = (
+    '<link rel="stylesheet" href="/shop/assets/css/chatbot-embed.css">\n'
+    '<script src="/shop/assets/js/chatbot-embed.js" defer></script>\n')
+
+
+def footer_compact():
+    """The generated compact footer snippet (never a second hand-made copy)."""
+    with io.open(lib.repo_path("_snippets", "footer-compact.html"),
+                 encoding="utf-8") as f:
+        return f.read()
 
 CAT_DIR = {
     "Kinh nghiệm": "kinh-nghiem",
@@ -123,13 +139,13 @@ def render_page_n(cat, rows, page, total_pages, hub, baseurl):
         "<nav class=\"breadcrumbs\" aria-label=\"Breadcrumb\">"
         "<a href=\"%s/\">Trang chủ</a> › <a href=\"%s/%s\">%s</a> › <span>Trang %d</span></nav>\n"
         "<ul class=\"article-list\">\n%s</ul>\n%s\n</main>\n"
-        "<footer><!-- site footer partial mount point --></footer>\n"
+        "%s%s"
         "</body>\n</html>\n"
         % (html.escape(cat), page, html.escape(cat), page,
            base, CAT_DIR[cat], page,
            html.escape(cat), page,
            base, base, hub, html.escape(cat), page,
-           items, nav))
+           items, nav, footer_compact(), CHATBOT_EMBED))
 
 
 def main():

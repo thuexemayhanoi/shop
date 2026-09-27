@@ -140,5 +140,26 @@ class CompactFooterTests(unittest.TestCase):
                          "cam-nang pages without exactly one compact footer")
 
 
+class PaginationPageTests(unittest.TestCase):
+    """Page-2+ pagination files are cam-nang pages: they must resolve the
+    root hub's "trang 2" link and carry the compact footer + chatbot embed
+    (regression: the first publish past 50 PUBLISHED per category failed
+    the post-publish suite because no page-2 files were ever written)."""
+
+    def test_page2_carries_footer_embed_and_hub_link(self):
+        import generate_category_pages as gcp
+        rows = [{
+            "article_id": "AT-9001", "status": "PUBLISHED",
+            "category": "An toàn", "working_title": "Tiêu đề",
+            "slug": "at-9001",
+            "output_path": "cam-nang/an-toan/at-9001.html",
+        }]
+        page = gcp.render_page_n("An toàn", rows, 2, 2, "antoan.html", "/shop")
+        self.assertEqual(page.count('<footer class="site-footer-compact"'), 1)
+        self.assertEqual(page.count("assets/js/chatbot-embed.js"), 1)
+        self.assertIn('href="/shop/antoan.html"', page)
+        self.assertIn('href="/shop/cam-nang/an-toan/at-9001.html"', page)
+
+
 if __name__ == "__main__":
     unittest.main()

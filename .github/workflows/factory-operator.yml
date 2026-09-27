@@ -115,6 +115,12 @@ jobs:
         if: env.op == 'publish'
         run: |
           set -eu
+          # The Node transaction regenerates hub blocks + sitemap, but NOT
+          # the page-2+ pagination files: once a category passes 50
+          # PUBLISHED articles the root hub gains a "trang 2" link, and the
+          # canonical Python generator must write those pages (with the
+          # compact footer + chatbot embed) before the test suite runs.
+          python3 scripts/generate_category_pages.py
           python3 scripts/generate_sitemap.py --check
           python3 scripts/generate_category_pages.py --check
 
