@@ -1,11 +1,11 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T09:31:41
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T09:34:02
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 8 | pass: 2 | published: 5
-- writing: 42 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 98.8 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 4 | blocked 0
+- processed: 50 | written: 8 | pass: 3 | published: 5
+- writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.4 | min 99 | max 100 | repair_count: 0
+- source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
 | article_id | output_path | status | score | repairs | notes |
@@ -16,7 +16,7 @@
 | AT-0046 | cam-nang/an-toan/at-0046-quy-dinh-cam-do-xe-may-tren-via-he.html | PUBLISHED | 99 | 0 |  |
 | AT-0047 | cam-nang/an-toan/at-0047-khong-tuan-thu-den-bao-hieu-tam-thoi-o-cong-truong.html | PUBLISHED | 99 | 0 |  |
 | AT-0048 | cam-nang/an-toan/at-0048-xe-may-khong-nhuong-duong-cho-nguoi-di-bo-o-vach-sang-duong.html | PASS | 99 | 0 |  |
-| AT-0049 | cam-nang/an-toan/at-0049-lan-lan-khi-vuot-xe-co-bi-phat-khong.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/an-toan/at-0022-xe-may-di-nguoc-chieu.html'; broken internal link: 'cam-nang/an-toan/at-0022-xe-may-di-nguoc-chieu.html' |
+| AT-0049 | cam-nang/an-toan/at-0049-lan-lan-khi-vuot-xe-co-bi-phat-khong.html | PASS | 100 | 0 | broken internal link: 'cam-nang/an-toan/at-0022-xe-may-di-nguoc-chieu.html'; broken internal link: 'cam-nang/an-toan/at-0022-xe-may-di-nguoc-chieu.html' |
 | AT-0050 | cam-nang/an-toan/at-0050-muc-phat-cho-ba-nguoi-tren-xe-may.html | PASS | 100 | 0 |  |
 | CD-0042 | cam-nang/cung-duong/cd-0042-cho-ngam-canh-giua-duong-den-thanh-pho-ha-giang.html | WRITING |  | 0 |  |
 | CD-0043 | cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html | WRITING |  | 0 |  |
