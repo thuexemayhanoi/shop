@@ -13,7 +13,8 @@ FAIL row to REPAIR with an incremented repair:N note.
 
 Safety rules (never bypassed):
   - only FAIL rows are requeued; one requeue = one repair attempt
-  - the article file must exist on disk at the REAL repository path
+  - the article file must exist on disk at the repository output path
+    or at its draft path (_drafts/...), where repaired articles live
   - hard budget: total repair attempts may never exceed MAX_REPAIR_ATTEMPTS
   - nothing about QA is skipped: the next --qa run applies the full
     canonical validation, source gate and scorer to the repaired file
@@ -59,13 +60,17 @@ def requeue_updates(rows, ids, repo_root):
         if row is None:
             refusals.append({"article_id": aid, "reason": "unknown article_id"})
             continue
-        status = (row.get("status") or "").strip()
+        status = (row.get("s
+tatus") or "").strip()
         if status != "FAIL":
             refusals.append({"article_id": aid,
                              "reason": "not FAIL (status=%s)" % status})
             continue
         path = os.path.join(repo_root, row.get("output_path") or "")
-        if not (row.get("output_path") and os.path.isfile(path)):
+        draft = os.path.join(repo_root,
+                             rb.draft_rel(row.get("output_path") or ""))
+        if not (row.get("output_path")
+                and (os.path.isfile(path) or os.path.isfile(draft))):
             refusals.append({"article_id": aid,
                              "reason": "article file missing on disk"})
             continue
