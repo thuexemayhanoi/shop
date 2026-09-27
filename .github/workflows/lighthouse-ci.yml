@@ -3,6 +3,9 @@ name: Lighthouse CI (lab)
 # Representative-page lab performance check. Lab scores only — NOT field
 # Core Web Vitals. Blocks on regression with tolerance to avoid failing the
 # repo for tiny score noise. Never modifies article prose.
+# The public site is plain static HTML: the deployable tree is a filtered
+# copy of the repo (same excludes as _config.yml), served from /shop, so
+# root-absolute internal links resolve exactly like on Pages.
 
 on:
   pull_request:
@@ -13,6 +16,7 @@ on:
       - '_snippets/**'
       - '_config.yml'
       - '.github/workflows/lighthouse-ci.yml'
+      - '.github/lighthouserc.json'
   workflow_dispatch:
 
 permissions:
@@ -27,37 +31,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
 
-      - name: Resolve representative pages
+      - name: Assemble deployable tree (Pages-equivalent, no build needed)
         run: |
-          set -eu
-          {
-            echo "index.html"
-            echo "banggia.html"
-            echo "xemay.html"
-            echo "cam-nang/chu-de/kn-honda-wave.html"
-            echo "cam-nang/hoi-dap/hd-0004-bao-hiem-tnds-xe-may-la-gi.html"
-            FIRST=$(ls cam-nang/kinh-nghiem/*.html | head -1)
-            LAST=$(ls cam-nang/cung-duong/*.html | tail -1)
-            echo "$FIRST"
-            echo "$LAST"
-          } | grep -E '\.html$' | grep -vE '^\.|^_' > lighthouse-urls.txt
-          echo "pages:"; cat lighthouse-urls.txt
-
-      - name: Build site (Jekyll, Pages-compatible)
-        run: |
-          gem install bundler || true
-          if [ ! -f Gemfile ]; then
-            # Use the GitHub Pages gem-less fallback: plain jekyll build with the
-            # same excludes as Pages.
-            gem install jekyll --no-document
-            jekyll build --destination _site
-          else
-            bundle install && bundle exec jekyll build
-          fi
+          set -euo pipefail
+          mkdir -p dist/shop
+          rsync -a \
+            --exclude '.github' --exclude '.git*' \
+            --exclude 'AGENTS.md' --exclude 'README.md' --exclude 'ARCHITECTURE.md' \
+            --exclude 'config/' --exclude 'data/' --exclude 'docs/' \
+            --exclude 'reports/' --exclude 'scripts/' --exclude 'tests/' \
+            --exclude '_data/' --exclude '_includes/' --exclude '_snippets/' \
+            --exclude 'motoai_v3*.js' --exclude 'motoai_v4*.js' \
+            ./ dist/shop/
+          echo "pages:"; ls dist/shop | head -20
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12

@@ -1,14 +1,19 @@
 name: Lychee link check (readonly)
 
 # Independent link checker. Read-only. Never edits articles because one
-# external site timed out; transient external failures are retried and
-# tolerate a limited failure budget via config .github/lychee.toml.
+# external site timed out; transient external failures are retried with a
+# limited failure budget (.github/lychee.toml).
+# The site is plain static HTML: the deployable tree is served from /shop
+# via a local HTTP server so root-absolute internal links resolve exactly
+# like on GitHub Pages. Internal routes are ALSO covered by the SEO
+# engine (scripts/seo/seo_audit.py) in the PR verifier.
 
 on:
   pull_request:
     paths:
       - '**.html'
       - 'sitemap.xml'
+      - 'robots.txt'
       - '.github/lychee.toml'
       - '.github/workflows/lychee.yml'
   schedule:
@@ -27,10 +32,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Assemble deployable tree (Pages-equivalent)
+        run: |
+          set -euo pipefail
+          mkdir -p dist/shop
+          rsync -a \
+            --exclude '.github' --exclude '.git*' \
+            --exclude 'AGENTS.md' --exclude 'README.md' --exclude 'ARCHITECTURE.md' \
+            --exclude 'config/' --exclude 'data/' --exclude 'docs/' \
+            --exclude 'reports/' --exclude 'scripts/' --exclude 'tests/' \
+            --exclude '_data/' --exclude '_includes/' --exclude '_snippets/' \
+            --exclude 'motoai_v3*.js' --exclude 'motoai_v4*.js' \
+            ./ dist/shop/
+
+      - name: Serve locally (like Pages)
+        run: |
+          nohup python3 -m http.server 8000 --directory dist >/dev/null 2>&1 &
+          sleep 2
+          curl -fsS http://localhost:8000/shop/index.html >/dev/null
+
       - name: Run Lychee
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --config .github/lychee.toml --verbose --no-progress './**/*.html' './sitemap.xml' './robots.txt'
+          args: --config .github/lychee.toml --verbose --no-progress 'http://localhost:8000/shop/'
           fail: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

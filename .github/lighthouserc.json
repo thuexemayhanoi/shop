@@ -1,15 +1,15 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "../_site",
+      "staticDistDir": "../dist",
       "url": [
-        "http://localhost/index.html",
-        "http://localhost/banggia.html",
-        "http://localhost/xemay.html",
-        "http://localhost/cam-nang/chu-de/kn-honda-wave.html",
-        "http://localhost/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html",
-        "http://localhost/cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html",
-        "http://localhost/cam-nang/hoi-dap/hd-0004-bao-hiem-tnds-xe-may-la-gi.html"
+        "http://localhost/shop/index.html",
+        "http://localhost/shop/banggia.html",
+        "http://localhost/shop/xemay.html",
+        "http://localhost/shop/cam-nang/chu-de/kn-honda-wave.html",
+        "http://localhost/shop/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html",
+        "http://localhost/shop/cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html",
+        "http://localhost/shop/cam-nang/hoi-dap/hd-0004-bao-hiem-tnds-xe-may-la-gi.html"
       ],
       "numberOfRuns": 1,
       "settings": { "onlyCategories": ["performance", "accessibility", "best-practices", "seo"] }
