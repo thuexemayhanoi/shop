@@ -245,6 +245,16 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
                        "non-empty, link the parent hub AND the child hub "
                        "contextually within the 3-5 link budget"),
         },
+        "page_shell": {
+            "chatbot_embed_required": True,
+            "chatbot_embed_snippet": (
+                '<link rel="stylesheet" href="/shop/assets/css/chatbot-embed.css">\n'
+                '<script src="/shop/assets/js/chatbot-embed.js" defer></script>'),
+            "chatbot_embed_position": "immediately before </body>, exactly once",
+            "policy": ("structural shell element: never counts as a "
+                        "contextual internal link; do not add any other "
+                        "chatbot script"),
+        },
         "link_standard": {
             "contextual_internal_links_min": int(link_cfg.get("min", 3)),
             "contextual_internal_links_max": int(link_cfg.get("max", 5)),

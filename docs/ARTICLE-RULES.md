@@ -47,6 +47,23 @@ Requirements every article must satisfy before it can score PASS. The scorer
 (`scripts/score_article.py`) measures these deterministically. Quality >
 length; no arbitrary keyword-density rules exist in this factory.
 
+## Page shell (required on every article page)
+
+Every article page must end its shell with the CANONICAL chatbot embed,
+exactly once, immediately before `</body>`:
+
+```html
+<link rel="stylesheet" href="/shop/assets/css/chatbot-embed.css">
+<script src="/shop/assets/js/chatbot-embed.js" defer></script>
+```
+
+- The embed is structural, not editorial: it never counts toward the 3–5
+  contextual internal links and never justifies content changes.
+- Do NOT add any other chatbot (no MotoAI v39/v40/v41 scripts, no AI Guide
+  modal) — one chatbot implementation per page, enforced by
+  `tests/test_ui_integration.py`.
+- The iframe loads lazily on first user interaction; do not preload it.
+
 ## Intent & structure
 
 - One clear search intent; one primary topic per article. The 1,600–2,000

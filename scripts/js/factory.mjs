@@ -193,6 +193,11 @@ function regenerateHub(hubFile, rows, baseurl, hub) {
 
 const CHILD_HUB_DIR = 'cam-nang/chu-de';
 
+// Canonical chatbot embed snippet: every factory-generated page
+// carries exactly one lazy embed of the external assistant.
+const CHATBOT_SNIPPET = `<link rel="stylesheet" href="/shop/assets/css/chatbot-embed.css">\n<script src="/shop/assets/js/chatbot-embed.js" defer></script>\n`;
+
+
 function loadTaxonomy() {
   let tax = null;
   try {
@@ -279,7 +284,7 @@ ${crumb}
 ${list}
 ${sib}
 </main>
-</body>
+${CHATBOT_SNIPPET}</body>
 </html>
 `;
 }
@@ -328,7 +333,7 @@ h2{font-size:20px;margin-top:28px}
 <p>Toàn bộ chủ đề cẩm nang thuê xe máy Hà Nội của Mr Tú, xếp theo từng mục lớn. Mỗi chủ đề tổng hợp các bài viết đã xuất bản trong chuyên mục đó.</p>
 ${sections.join('\n')}
 </main>
-</body>
+${CHATBOT_SNIPPET}</body>
 </html>
 `;
 }

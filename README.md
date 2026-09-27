@@ -54,31 +54,50 @@ Hubs are category pages, NOT replacements for commercial landing pages.
 Future articles belong to exactly ONE of these six categories. Do not create
 new top-level categories without owner approval.
 
-## 3. MotoAI production state (current MAIN)
+## 3. Chatbot + navigation state (current MAIN)
 
-The production chatbot is `motoai_v40_bm25plus_final.js` (MotoAI v40, BM25+).
-Current production configuration on ALL pages:
+CANONICAL CHATBOT (one implementation per rendered page):
 
-```
-autolearn: false
-debug: false
-smart.autoPriceLearn: false
-```
-
-- Prices come from `assets/js/prices.js` (`window.MotoTusPrices`) — the only
-  approved price source. Auto price crawling is DISABLED and must stay
-  disabled. MotoAI v39 files in the repo root are legacy, unused; do not load
-  them.
-- On `index.html`, v40 is lazy-loaded only after the user taps the AI button
-  (performance rule). Child pages may load it directly with the same safe
-  config (`assets/js/motoai-config.js` runs first, then v40 `defer`).
-- The homepage "Tìm Xe Chân Ái" Bike Matchmaker is a separate tool that uses
-  experience, destination and height; it uses approved models only and no
-  invented prices or fake confidence scores.
-- Deposit-policy wording in all chatbot answers follows
+- The site chatbot is the EXTERNAL assistant at
+  `https://thuexemayhanoi.github.io/aichatbot/`, embedded through
+  `assets/js/chatbot-embed.js` + `assets/css/chatbot-embed.css`.
+- Jekyll pages embed it via `_includes/chatbot-embed.html` (inserted once,
+  immediately before `</body>`). Factory-generated pages (articles, child
+  topic hubs, `/cam-nang/chu-de/` index) carry the same two tags through
+  `scripts/js/factory.mjs` (`CHATBOT_SNIPPET`) and
+  `docs/ARTICLE-RULES.md` (writer page-shell rule).
+- The iframe is created ONLY on first open (lazy embed): nothing from the
+  chatbot origin loads during initial page load. A "Mở Hỗ trợ Agent"
+  fallback link (target `_blank`, `rel="noopener noreferrer"`) is always
+  available in the panel footer.
+- Legacy aliases `window.AI_Guide.open()` and `window.MotoAI_v40_Home.open()`
+  route to this canonical embed, so old launcher tiles keep working.
+- The old in-page chatbots were REMOVED (single-chatbot rule):
+  the MotoAI v40 bubble scripts (`motoai_v40_bm25plus_final.js`,
+  `assets/js/motoai-config.js` script tags), the homepage MotoAI v40 lazy
+  loader, and the "Mr Tú AI Guide" modal in `_includes/ai-modals.html`.
+  The v39/v41 files in the repo root stay unused; do not load them.
+- The homepage "Tìm Xe Chân Ái" Bike Matchmaker is a SEPARATE tool (not a
+  chatbot) and stays: experience/destination/height, approved models only,
+  no invented prices.
+- Deposit-policy wording in every chatbot answer follows
   `config/business-facts.json` (2.000.000 – 5.000.000đ tùy xe và điều kiện;
   liên hệ để xác nhận). Stale claims ("2–3tr xe số / 3–5tr xe ga", "miễn cọc",
-  "500k–1 triệu", guaranteed reduced deposit) are forbidden.
+  "500k – 1 triệu", guaranteed reduced deposit) are forbidden.
+- No background crawling, `autolearn`/`autoPriceLearn` stay disabled; the
+  only approved price source is `assets/js/prices.js`.
+
+CANONICAL NAVIGATION (single sources, no drift):
+
+- Menu: `assets/js/nav-data.js` (`window.SITE_NAV.MENU`) is the single menu
+  source consumed by `assets/js/app.js`, `app-info.js`, `app-rental.js` and
+  the inline renderers. Cẩm nang exposes the 6 parent hubs + "Tất cả chủ đề".
+- Footer taxonomy: `_includes/footer.html` renders the full parent/child
+  Cẩm nang hierarchy STATICALLY from `_data/content-taxonomy.json`
+  (byte-identical copy of `data/content-taxonomy.json`; enforced by
+  `tests/test_ui_integration.py`). Do not hard-code a second taxonomy list.
+- `tests/test_ui_integration.py` enforces the one-launcher / one-iframe /
+  one-init chatbot rule and the footer/menu taxonomy wiring.
 
 Detailed MotoAI technical documentation: [docs/MOTOAI.md](docs/MOTOAI.md).
 
