@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T13:13:27",
+  "finished_at": "2026-09-27T13:23:34",
   "writer": "external-agent",
   "processed": 50,
   "written": 33,
-  "pass": 0,
+  "pass": 6,
   "published": 26,
   "writing": 17,
   "review": 0,
   "repair": 0,
-  "fail": 6,
+  "fail": 0,
   "blocked": 1,
-  "average_score": 97.7,
-  "min_score": 93,
+  "average_score": 98.4,
+  "min_score": 95,
   "max_score": 100,
-  "repair_count": 3,
+  "repair_count": 4,
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 0,
+  "pass_publishable_now": 6,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -156,7 +156,7 @@
       "output_path": "cam-nang/cung-duong/cd-0046-chay-xe-may-tu-ha-noi-ra-yen-minh-nen-di-luc-nao.html",
       "outcome": "BLOCKED",
       "score": 96,
-      "repair_attempts": 3,
+      "repair_attempts": 4,
       "quality_failures": [
         "broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'",
         "broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'"
@@ -227,7 +227,7 @@
     {
       "article_id": "DL-0045",
       "output_path": "cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html",
-      "outcome": "FAIL",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -243,8 +243,8 @@
     {
       "article_id": "DL-0046",
       "output_path": "cam-nang/du-lich/dl-0046-mua-he-den-chua-thay-bang-xe-may-nen-di-luc-nao.html",
-      "outcome": "FAIL",
-      "score": 95,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html'",
@@ -264,8 +264,8 @@
     {
       "article_id": "DL-0047",
       "output_path": "cam-nang/du-lich/dl-0047-mon-an-mua-cua-chua-thay-dang-thu.html",
-      "outcome": "FAIL",
-      "score": 95,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html'",
@@ -285,8 +285,8 @@
     {
       "article_id": "DL-0048",
       "output_path": "cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html",
-      "outcome": "FAIL",
-      "score": 95,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/du-lich/dl-0046-mua-he-den-chua-thay-bang-xe-may-nen-di-luc-nao.html'",
@@ -307,8 +307,8 @@
     {
       "article_id": "DL-0049",
       "output_path": "cam-nang/du-lich/dl-0049-kinh-nghiem-di-xe-may-den-chua-tay-phuong-tu-ha-noi.html",
-      "outcome": "FAIL",
-      "score": 93,
+      "outcome": "PASS",
+      "score": 98,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html'",
@@ -331,8 +331,8 @@
     {
       "article_id": "DL-0050",
       "output_path": "cam-nang/du-lich/dl-0050-di-xe-may-den-chua-tay-phuong-mua-nao-dep-nhat.html",
-      "outcome": "FAIL",
-      "score": 93,
+      "outcome": "PASS",
+      "score": 98,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/du-lich/dl-0049-kinh-nghiem-di-xe-may-den-chua-tay-phuong-tu-ha-noi.html'",

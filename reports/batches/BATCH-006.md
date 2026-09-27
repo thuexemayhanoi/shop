@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T13:13:27
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T13:23:34
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 33 | pass: 0 | published: 26
-- writing: 17 | review: 0 | repair: 0 | fail: 6 | blocked: 1
-- scores: avg 97.7 | min 93 | max 100 | repair_count: 3
+- processed: 50 | written: 33 | pass: 6 | published: 26
+- writing: 17 | review: 0 | repair: 0 | fail: 0 | blocked: 1
+- scores: avg 98.4 | min 95 | max 100 | repair_count: 4
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -22,19 +22,19 @@
 | CD-0043 | cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html | PUBLISHED | 96 | 0 |  |
 | CD-0044 | cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html | PUBLISHED | 95 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html'; broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html' |
 | CD-0045 | cam-nang/cung-duong/cd-0045-bai-do-an-toan-doc-duong-di-quan-ba.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0042-cho-ngam-canh-giua-duong-den-thanh-pho-ha-giang.html'; broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html' |
-| CD-0046 | cam-nang/cung-duong/cd-0046-chay-xe-may-tu-ha-noi-ra-yen-minh-nen-di-luc-nao.html | BLOCKED | 96 | 3 | broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'; broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html' |
+| CD-0046 | cam-nang/cung-duong/cd-0046-chay-xe-may-tu-ha-noi-ra-yen-minh-nen-di-luc-nao.html | BLOCKED | 96 | 4 | broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'; broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html' |
 | CD-0047 | cam-nang/cung-duong/cd-0047-quan-ca-phe-dung-chan-tren-duong-yen-minh.html | PUBLISHED | 95 | 0 |  |
 | CD-0048 | cam-nang/cung-duong/cd-0048-cung-duong-ngam-canh-tu-ha-noi-len-dong-van.html | PUBLISHED | 96 | 0 |  |
 | CD-0049 | cam-nang/cung-duong/cd-0049-mot-ngay-mot-dem-o-dong-van-co-du-khong.html | PUBLISHED | 96 | 0 |  |
 | CD-0050 | cam-nang/cung-duong/cd-0050-diem-check-in-doc-cung-duong-den-dong-van.html | PUBLISHED | 96 | 0 |  |
 | DL-0043 | cam-nang/du-lich/dl-0043-ca-phe-sang-o-chua-huong-quan-nao-dep.html | PUBLISHED | 98 | 0 |  |
 | DL-0044 | cam-nang/du-lich/dl-0044-khung-canh-dac-sac-nhat-o-chua-huong.html | PUBLISHED | 98 | 0 |  |
-| DL-0045 | cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html | FAIL | 100 | 0 | word broken across newline: 'bread\ncrumb'; word broken across newline: 'H\nà' |
-| DL-0046 | cam-nang/du-lich/dl-0046-mua-he-den-chua-thay-bang-xe-may-nen-di-luc-nao.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html'; broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html' |
-| DL-0047 | cam-nang/du-lich/dl-0047-mon-an-mua-cua-chua-thay-dang-thu.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html'; broken internal link: 'cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html' |
-| DL-0048 | cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/du-lich/dl-0046-mua-he-den-chua-thay-bang-xe-may-nen-di-luc-nao.html'; broken internal link: 'cam-nang/du-lich/dl-0047-mon-an-mua-cua-chua-thay-dang-thu.html' |
-| DL-0049 | cam-nang/du-lich/dl-0049-kinh-nghiem-di-xe-may-den-chua-tay-phuong-tu-ha-noi.html | FAIL | 93 | 0 | broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html'; broken internal link: 'cam-nang/du-lich/dl-0050-di-xe-may-den-chua-tay-phuong-mua-nao-dep-nhat.html' |
-| DL-0050 | cam-nang/du-lich/dl-0050-di-xe-may-den-chua-tay-phuong-mua-nao-dep-nhat.html | FAIL | 93 | 0 | broken internal link: 'cam-nang/du-lich/dl-0049-kinh-nghiem-di-xe-may-den-chua-tay-phuong-tu-ha-noi.html'; broken internal link: 'cam-nang/du\n-l\nich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html' |
+| DL-0045 | cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html | PASS | 100 | 0 | word broken across newline: 'bread\ncrumb'; word broken across newline: 'H\nà' |
+| DL-0046 | cam-nang/du-lich/dl-0046-mua-he-den-chua-thay-bang-xe-may-nen-di-luc-nao.html | PASS | 100 | 0 | broken internal link: 'cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html'; broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html' |
+| DL-0047 | cam-nang/du-lich/dl-0047-mon-an-mua-cua-chua-thay-dang-thu.html | PASS | 100 | 0 | broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html'; broken internal link: 'cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html' |
+| DL-0048 | cam-nang/du-lich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html | PASS | 100 | 0 | broken internal link: 'cam-nang/du-lich/dl-0046-mua-he-den-chua-thay-bang-xe-may-nen-di-luc-nao.html'; broken internal link: 'cam-nang/du-lich/dl-0047-mon-an-mua-cua-chua-thay-dang-thu.html' |
+| DL-0049 | cam-nang/du-lich/dl-0049-kinh-nghiem-di-xe-may-den-chua-tay-phuong-tu-ha-noi.html | PASS | 98 | 0 | broken internal link: 'cam-nang/du-lich/dl-0045-len-ke-hoach-di-chua-thay-bang-xe-may-tron-ven.html'; broken internal link: 'cam-nang/du-lich/dl-0050-di-xe-may-den-chua-tay-phuong-mua-nao-dep-nhat.html' |
+| DL-0050 | cam-nang/du-lich/dl-0050-di-xe-may-den-chua-tay-phuong-mua-nao-dep-nhat.html | PASS | 98 | 0 | broken internal link: 'cam-nang/du-lich/dl-0049-kinh-nghiem-di-xe-may-den-chua-tay-phuong-tu-ha-noi.html'; broken internal link: 'cam-nang/du\n-l\nich/dl-0048-goc-chup-mua-o-chua-thay-co-dang-thu-khong.html' |
 | HD-0042 | cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html | PUBLISHED | 100 | 0 |  |
 | HD-0043 | cam-nang/hoi-dap/hd-0043-xe-may-thue-chay-duoc-bao-nhieu-km-moi-ngay-thong-thuong.html | PUBLISHED | 99 | 0 | broken internal link: 'cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html'; broken internal link: 'cam-nang/hoi-dap/hd-0042-nen-lay-xe-may-thue-theo-gio-hay-theo-ngay.html' |
 | HD-0044 | cam-nang/hoi-dap/hd-0044-tra-xe-may-thue-muon-hon-gio-hen-thi-sao.html | PUBLISHED | 100 | 0 |  |
