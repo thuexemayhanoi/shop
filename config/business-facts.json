@@ -33,8 +33,7 @@
       ]
     }
   },
-  "requires_
-owner_confirmation": {
+  "requires_owner_confirmation": {
     "address": null,
     "email": null,
     "late_return_policy": null,
