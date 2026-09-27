@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T20:21:59",
+  "finished_at": "2026-09-27T20:25:22",
   "writer": "external-agent",
   "processed": 50,
   "written": 34,
-  "pass": 3,
+  "pass": 7,
   "published": 26,
   "writing": 16,
   "review": 0,
-  "repair": 4,
+  "repair": 0,
   "fail": 1,
   "blocked": 0,
   "average_score": 97.8,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 7,
   "articles": [
     {
       "article_id": "AT-0051",
@@ -193,7 +193,7 @@
     {
       "article_id": "CD-0057",
       "output_path": "cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -260,7 +260,7 @@
     {
       "article_id": "DL-0054",
       "output_path": "cam-nang/du-lich/dl-0054-dac-san-lang-co-duong-lam-nao-phai-thu-khi-di-xe-may.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -270,7 +270,7 @@
     {
       "article_id": "DL-0055",
       "output_path": "cam-nang/du-lich/dl-0055-diem-ngam-hoang-hon-o-lang-co-duong-lam-khi-di-xe-may.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -280,7 +280,7 @@
     {
       "article_id": "DL-0056",
       "output_path": "cam-nang/du-lich/dl-0056-lo-trinh-di-xe-may-tu-ha-noi-den-nui-ba-vi.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
