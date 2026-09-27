@@ -675,6 +675,13 @@
             
             grid.appendChild(createCol('Khu vực 1', locations.slice(0, halfLoc), iconMapStr));
             grid.appendChild(createCol('Khu vực 2', locations.slice(halfLoc), iconMapStr));
+
+            // Cẩm nang ecosystem: 6 parent hubs + the child topic index
+            const camnang = CONFIG.MENU.find(x => x.t === 'Cẩm nang')?.sub || [];
+            const topicCol = camnang.concat([
+                { t: 'Xem tất cả chủ đề', l: 'cam-nang/chu-de/', i: ICONS.doc }
+            ]);
+            grid.appendChild(createCol('Cẩm nang', topicCol, iconDocStr));
         },
 
         statusWidget() {
