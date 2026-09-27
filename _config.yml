@@ -1,0 +1,25 @@
+# GitHub Pages (Jekyll) build configuration — deployment hygiene.
+#
+# This site is a hand-authored static HTML site. These excludes keep
+# repository-operational files (agent manuals, factory config, production
+# data, tooling, tests, internal docs/reports) OUT of the public Pages
+# build. Public runtime assets — HTML pages, assets/, root IMG_*.jpeg
+# (referenced by pages), robots.txt, sitemap.xml — are NOT excluded.
+exclude:
+  - AGENTS.md
+  - README.md
+  - ARCHITECTURE.md
+  - config/
+  - data/
+  - docs/
+  - reports/
+  - scripts/
+  - tests/
+  - motoai_v39_1_premium_ios_patched.js
+  - motoai_v39_2_intelligent_fixed.js
+  - motoai_v39_premium_final_fixed.js
+  - motoai_v39_premium_ios_nomarkdown.js
+  - motoai_v40_bm25plus_final.js
+  - motoai_v40_bm25plus_search.js
+  - motoai_v41_merged_ready.js
+  - motoai_v41_ultimate.js
