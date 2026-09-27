@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T15:12:40",
+  "finished_at": "2026-09-27T22:13:29",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 6,
-  "published": 44,
+  "pass": 0,
+  "published": 50,
   "writing": 0,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 6,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -556,7 +556,7 @@
     {
       "article_id": "XM-0045",
       "output_path": "cam-nang/xe-may/xm-0045-khi-nao-can-kiem-tra-den-hau-tren-honda-click.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -566,7 +566,7 @@
     {
       "article_id": "XM-0046",
       "output_path": "cam-nang/xe-may/xm-0046-dau-hieu-guong-gap-van-de-tren-honda-click.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -576,7 +576,7 @@
     {
       "article_id": "XM-0047",
       "output_path": "cam-nang/xe-may/xm-0047-cach-kiem-tra-binh-xang-tren-honda-click.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -586,7 +586,7 @@
     {
       "article_id": "XM-0048",
       "output_path": "cam-nang/xe-may/xm-0048-khi-nao-can-kiem-tra-loc-gio-tren-honda-click.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -596,7 +596,7 @@
     {
       "article_id": "XM-0049",
       "output_path": "cam-nang/xe-may/xm-0049-bao-duong-may-de-cua-honda-click-dung-cach.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -606,7 +606,7 @@
     {
       "article_id": "XM-0050",
       "output_path": "cam-nang/xe-may/xm-0050-cach-kiem-tra-van-lop-tren-honda-click.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
