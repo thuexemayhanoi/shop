@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T10:26:11",
+  "finished_at": "2026-09-27T10:27:48",
   "writer": "external-agent",
   "processed": 50,
   "written": 17,
-  "pass": 2,
+  "pass": 4,
   "published": 12,
   "writing": 33,
   "review": 0,
-  "repair": 2,
+  "repair": 0,
   "fail": 0,
   "blocked": 1,
   "average_score": 97.9,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 4,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -177,7 +177,7 @@
     {
       "article_id": "CD-0048",
       "output_path": "cam-nang/cung-duong/cd-0048-cung-duong-ngam-canh-tu-ha-noi-len-dong-van.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -187,7 +187,7 @@
     {
       "article_id": "CD-0049",
       "output_path": "cam-nang/cung-duong/cd-0049-mot-ngay-mot-dem-o-dong-van-co-du-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
