@@ -1,10 +1,10 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T20:25:22
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T20:26:42
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 34 | pass: 7 | published: 26
-- writing: 16 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 97.8 | min 91 | max 100 | repair_count: 0
+- processed: 50 | written: 34 | pass: 8 | published: 26
+- writing: 16 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.9 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -26,7 +26,7 @@
 | CD-0055 | cam-nang/cung-duong/cd-0055-chuyen-bao-lac-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 96 | 0 |  |
 | CD-0056 | cam-nang/cung-duong/cd-0056-duong-den-bao-lac-nen-dung-o-dau-de-chup-anh.html | PASS | 95 | 0 |  |
 | CD-0057 | cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html | PASS | 96 | 0 |  |
-| CD-0058 | cam-nang/cung-duong/cd-0058-lich-trinh-thanh-pho-cao-bang-danh-cho-nhom-di-phuot.html | FAIL | 91 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html'; broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html' |
+| CD-0058 | cam-nang/cung-duong/cd-0058-lich-trinh-thanh-pho-cao-bang-danh-cho-nhom-di-phuot.html | PASS | 96 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html'; broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang-co-gi-khac.html' |
 | DL-0051 | cam-nang/du-lich/dl-0051-an-gi-khi-du-lich-chua-tay-phuong-bang-xe-may.html | PUBLISHED | 98 | 0 | word broken across newline: 'T\nrang'; word broken across newline: 'nhi\nều' |
 | DL-0052 | cam-nang/du-lich/dl-0052-di-xe-may-den-lang-co-duong-lam-can-chuan-bi-gi.html | PUBLISHED | 100 | 0 | word broken across newline: 'tron\ng'; word broken across newline: 'k\nịp' |
 | DL-0053 | cam-nang/du-lich/dl-0053-thang-nao-nen-di-lang-co-duong-lam-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
