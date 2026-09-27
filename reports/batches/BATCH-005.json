@@ -1,19 +1,19 @@
 {
   "batch_id": "BATCH-005",
   "started_at": "2026-09-27T05:19:01",
-  "finished_at": "2026-09-27T13:32:00",
+  "finished_at": "2026-09-27T06:33:17",
   "writer": "external-agent",
   "processed": 50,
-  "written": 25,
+  "written": 27,
   "pass": 0,
   "published": 25,
-  "writing": 25,
+  "writing": 23,
   "review": 0,
   "repair": 0,
-  "fail": 0,
+  "fail": 2,
   "blocked": 0,
-  "average_score": 98,
-  "min_score": 95,
+  "average_score": 97.6,
+  "min_score": 89,
   "max_score": 99,
   "repair_count": 0,
   "source_gate_pass": 6,
@@ -274,20 +274,26 @@
     {
       "article_id": "HD-0034",
       "output_path": "cam-nang/hoi-dap/hd-0034-qua-den-vang-co-bi-phat-khong.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 98,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess."
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "HD-0035",
       "output_path": "cam-nang/hoi-dap/hd-0035-xe-may-can-mua-loai-bao-hiem-nao.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 89,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "invented fixed price for unapproved model '50cc': ơng tiện đường bộ: với xe máy dưới 50cc một năm đóng khoảng 55.000 đồng, xe máy trên 50c",
+        "requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess.",
+        "invented fixed price for unapproved model '50cc': ơng tiện đường bộ: với xe máy dưới 50cc một năm đóng khoảng 55.000 đồng, xe máy trên 50c"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },

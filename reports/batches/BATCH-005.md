@@ -1,10 +1,10 @@
 # Batch report BATCH-005
 
-- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T13:32:00
+- started_at: 2026-09-27T05:19:01 | finished_at: 2026-09-27T06:33:17
 - writer: external-agent | batch resolved once: BATCH-005
-- processed: 50 | written: 25 | pass: 0 | published: 25
-- writing: 25 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 95 | max 99 | repair_count: 0
+- processed: 50 | written: 27 | pass: 0 | published: 25
+- writing: 23 | review: 0 | repair: 0 | fail: 2 | blocked: 0
+- scores: avg 97.6 | min 89 | max 99 | repair_count: 0
 - source_gate: pass 6 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -35,8 +35,8 @@
 | DL-0040 | cam-nang/du-lich/dl-0040-chup-dem-o-cong-vien-thu-le-co-dep-khong.html | PUBLISHED | 99 | 0 |  |
 | DL-0041 | cam-nang/du-lich/dl-0041-chuyen-sang-som-den-chua-huong-bang-xe-may.html | PUBLISHED | 97 | 0 |  |
 | DL-0042 | cam-nang/du-lich/dl-0042-cuoi-thu-di-chua-huong-bang-xe-may-co-dep-khong.html | PUBLISHED | 97 | 0 |  |
-| HD-0034 | cam-nang/hoi-dap/hd-0034-qua-den-vang-co-bi-phat-khong.html | WRITING |  | 0 |  |
-| HD-0035 | cam-nang/hoi-dap/hd-0035-xe-may-can-mua-loai-bao-hiem-nao.html | WRITING |  | 0 |  |
+| HD-0034 | cam-nang/hoi-dap/hd-0034-qua-den-vang-co-bi-phat-khong.html | FAIL | 98 | 0 | requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
+| HD-0035 | cam-nang/hoi-dap/hd-0035-xe-may-can-mua-loai-bao-hiem-nao.html | FAIL | 89 | 0 | invented fixed price for unapproved model '50cc': ơng tiện đường bộ: với xe máy dưới 50cc một năm đóng khoảng 55.000 đồng, xe máy trên 50c; requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | HD-0036 | cam-nang/hoi-dap/hd-0036-bao-hiem-xe-may-het-han-co-bi-phat-khong.html | WRITING |  | 0 |  |
 | HD-0037 | cam-nang/hoi-dap/hd-0037-bang-lai-a1-bi-thu-hoi-khi-nao.html | WRITING |  | 0 |  |
 | HD-0038 | cam-nang/hoi-dap/hd-0038-xe-may-cua-nguoi-khac-khong-giay-to-co-chay-duoc-khong.html | WRITING |  | 0 |  |
