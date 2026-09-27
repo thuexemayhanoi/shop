@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T10:27:48",
+  "finished_at": "2026-09-27T17:28:15",
   "writer": "external-agent",
   "processed": 50,
   "written": 17,
-  "pass": 4,
-  "published": 12,
+  "pass": 0,
+  "published": 16,
   "writing": 33,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -167,7 +167,7 @@
     {
       "article_id": "CD-0047",
       "output_path": "cam-nang/cung-duong/cd-0047-quan-ca-phe-dung-chan-tren-duong-yen-minh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -177,7 +177,7 @@
     {
       "article_id": "CD-0048",
       "output_path": "cam-nang/cung-duong/cd-0048-cung-duong-ngam-canh-tu-ha-noi-len-dong-van.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -187,7 +187,7 @@
     {
       "article_id": "CD-0049",
       "output_path": "cam-nang/cung-duong/cd-0049-mot-ngay-mot-dem-o-dong-van-co-du-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -197,7 +197,7 @@
     {
       "article_id": "CD-0050",
       "output_path": "cam-nang/cung-duong/cd-0050-diem-check-in-doc-cung-duong-den-dong-van.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
