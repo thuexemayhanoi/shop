@@ -8,6 +8,25 @@ unpublished drafts. The external AI agent is the writer; GitHub Actions
 ("Factory Operator Tooling") is the operator's hands for ledger/QA/publish
 mutations; deterministic scripts are the gate.
 
+Definitions (batch vs chunk — not contradictory):
+
+- **BATCH** = canonical group of 50 matrix rows (2,000 production
+  articles = 40 batches x 50). `prepare-next` claims/exports the
+  canonical active batch per the existing implementation.
+- **CHUNK** = small resumable writing/QA/publish unit INSIDE the active
+  batch, normally 5-10 rows. The external writer does NOT need to
+  write all 50 immediately.
+- Correct operating model per invocation: inspect repository truth ->
+  resume unfinished work first -> select the next 5-10 unfinished
+  WRITING rows -> write drafts -> local QA -> official QA -> repair if
+  necessary -> publish PASS -> verify -> checkpoint -> repeat.
+- If an interruption leaves a chunk only partly done: KEEP completed
+  work; the next invocation runs RECOVER -> RESUME unfinished rows ->
+  VERIFY -> continues the remaining active batch. Never start a fresh
+  batch merely because a new scheduled invocation begins; transition
+  only after the current batch reaches its legitimate terminal state
+  per the factory contract.
+
 ## Preconditions
 
 - Current MAIN checkout; remote HEAD verified before editing.
