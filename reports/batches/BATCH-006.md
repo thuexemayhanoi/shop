@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T21:07:15
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T15:08:15
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 38 | pass: 0 | published: 38
-- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 44 | pass: 6 | published: 38
+- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.8 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -46,12 +46,12 @@
 | HD-0050 | cam-nang/hoi-dap/hd-0050-khi-thue-xe-may-nen-hoi-chu-xe-nhung-cau-hoi-nao.html | PUBLISHED | 100 | 0 |  |
 | KN-0043 | cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html | PUBLISHED | 100 | 0 |  |
 | KN-0044 | cam-nang/kinh-nghiem/kn-0044-nhan-biet-xe-may-dien-cu-ky-truoc-khi-thue.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html'; broken internal link: 'cam-nang/kinh-nghiem/kn-0043-kinh-nghiem-tiet-kiem-pin-khi-chay-xe-may-dien.html' |
-| KN-0045 | cam-nang/kinh-nghiem/kn-0045-chay-xe-may-dien-cho-nguoi-lon-co-on-khong.html | WRITING |  | 0 |  |
-| KN-0046 | cam-nang/kinh-nghiem/kn-0046-kinh-nghiem-giu-an-toan-cho-xe-may-dien-khi-gui-qua-dem.html | WRITING |  | 0 |  |
-| KN-0047 | cam-nang/kinh-nghiem/kn-0047-di-thu-xe-may-dien-can-kiem-tra-gi.html | WRITING |  | 0 |  |
-| KN-0048 | cam-nang/kinh-nghiem/kn-0048-kinh-nghiem-giu-thang-bang-tren-xe-may-dien.html | WRITING |  | 0 |  |
-| KN-0049 | cam-nang/kinh-nghiem/kn-0049-chay-xe-may-dien-trong-gio-tan-tam-nen-luu-y-gi.html | WRITING |  | 0 |  |
-| KN-0050 | cam-nang/kinh-nghiem/kn-0050-kinh-nghiem-cho-do-tren-xe-may-dien.html | WRITING |  | 0 |  |
+| KN-0045 | cam-nang/kinh-nghiem/kn-0045-chay-xe-may-dien-cho-nguoi-lon-co-on-khong.html | PASS | 100 | 0 |  |
+| KN-0046 | cam-nang/kinh-nghiem/kn-0046-kinh-nghiem-giu-an-toan-cho-xe-may-dien-khi-gui-qua-dem.html | PASS | 100 | 0 |  |
+| KN-0047 | cam-nang/kinh-nghiem/kn-0047-di-thu-xe-may-dien-can-kiem-tra-gi.html | PASS | 100 | 0 |  |
+| KN-0048 | cam-nang/kinh-nghiem/kn-0048-kinh-nghiem-giu-thang-bang-tren-xe-may-dien.html | PASS | 100 | 0 |  |
+| KN-0049 | cam-nang/kinh-nghiem/kn-0049-chay-xe-may-dien-trong-gio-tan-tam-nen-luu-y-gi.html | PASS | 100 | 0 |  |
+| KN-0050 | cam-nang/kinh-nghiem/kn-0050-kinh-nghiem-cho-do-tren-xe-may-dien.html | PASS | 100 | 0 |  |
 | XM-0043 | cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html | PUBLISHED | 96 | 0 |  |
 | XM-0044 | cam-nang/xe-may/xm-0044-bao-duong-day-xich-cua-honda-click-dung-cach.html | PUBLISHED | 96 | 0 | broken internal link: 'cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html'; broken internal link: 'cam-nang/xe-may/xm-0043-dau-hieu-ac-quy-gap-van-de-tren-honda-click.html' |
 | XM-0045 | cam-nang/xe-may/xm-0045-khi-nao-can-kiem-tra-den-hau-tren-honda-click.html | WRITING |  | 0 |  |
