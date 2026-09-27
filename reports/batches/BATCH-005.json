@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-005",
   "started_at": "2026-09-27T05:19:01",
-  "finished_at": "2026-09-27T06:28:14",
+  "finished_at": "2026-09-27T13:29:52",
   "writer": "external-agent",
   "processed": 50,
   "written": 22,
-  "pass": 4,
-  "published": 18,
+  "pass": 0,
+  "published": 22,
   "writing": 28,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 6,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0035",
@@ -204,7 +204,7 @@
     {
       "article_id": "DL-0036",
       "output_path": "cam-nang/du-lich/dl-0036-quang-canh-suong-som-o-bao-tang-ha-noi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -214,7 +214,7 @@
     {
       "article_id": "DL-0037",
       "output_path": "cam-nang/du-lich/dl-0037-di-xe-may-den-cong-vien-thu-le-theo-nhom-ban.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -224,7 +224,7 @@
     {
       "article_id": "DL-0038",
       "output_path": "cam-nang/du-lich/dl-0038-san-may-o-cong-vien-thu-le-mua-nao-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -234,7 +234,7 @@
     {
       "article_id": "DL-0039",
       "output_path": "cam-nang/du-lich/dl-0039-bua-trua-ngon-doc-duong-den-cong-vien-thu-le.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
