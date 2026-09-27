@@ -1538,32 +1538,7 @@
 </main>
 
 <!-- FOOTER (FIXED IMAGE URL) -->
-<footer class="footer" id="footer-target">
-    <div class="container">
-        <div class="footer-box glass-panel fade-in-up">
-            <div class="footer-bg-glow"></div>
-            <div class="footer-grid" id="footer-grid"></div>
-            
-            <div class="copyright" style="margin-top: 50px;">
-                <img src="./IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
-                
-                <div class="footer-contact-info">
-                     <p class="fc-item"><i class="fa-solid fa-map-location-dot"></i> <a href="https://maps.app.goo.gl/fyscDf21br189M1x7" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">Xem địa điểm nhận xe trên Google Maps</a></p>
-                     <div class="fc-row">
-                         <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:+84816659199" style="text-decoration:none;color:inherit;">081.665.9199</a></p>
-                         <p class="fc-item"><i class="fa-solid fa-comment-dots"></i> Zalo: 081.665.9199</p>
-                     </div>
-                     <p class="fc-item" style="color:var(--primary);"><i class="fa-solid fa-headset"></i> Hotline & Zalo: 081.665.9199</p>
-                     <p class="fc-item"><i class="fa-regular fa-clock"></i> Liên hệ để xác nhận thời gian hỗ trợ</p>
-                </div>
-
-                <p style="text-align:center; color:var(--text-sub); font-size:0.8rem; margin-top:20px; opacity:0.6;">
-                    <a href="https://motoopen.github.io/thuexemayohoankiem/" target="_blank" rel="noopener noreferrer">Cho thuê xe máy Phố Cổ | Mr Tú</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+{% include footer.html %}
 
 <!-- AI CHATBOT: MotoAI v40 (lazy-injected script, see loader below) -->
 
@@ -1645,6 +1620,7 @@
 </div>
 
 <!-- JS ENGINE -->
+<script src="assets/js/nav-data.js"></script>
 <script src="assets/js/prices.js"></script>
 <script>
 // --- MATCHMAKER FALLBACK (race condition guard) ---
@@ -1654,42 +1630,9 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
   if (modal && overlay) { modal.classList.add('active'); overlay.classList.add('active'); }
 } };
 
-// --- MOTOAI v40 LAZY LOADER (primary homepage chatbot) ---
-// Injected ONLY on first explicit AI interaction. No startup cost, no background crawling.
-window.MotoAI_v40_Home = (function () {
-  let loadPromise = null;
-  function ensureConfig() {
-    // Homepage: NO autolearn, NO autoPriceLearn — approved prices come from assets/js/prices.js
-    window.MotoAI_CONFIG = {
-      autolearn: false,
-      debug: false,
-      smart: { autoPriceLearn: false }
-    };
-  }
-  function loadOnce() {
-    if (window.MotoAI_v40) return Promise.resolve();
-    if (!loadPromise) {
-      loadPromise = new Promise(function (resolve, reject) {
-        var sc = document.createElement('script');
-        sc.src = 'motoai_v40_bm25plus_final.js';
-        sc.onload = function () { resolve(); };
-        sc.onerror = function () { loadPromise = null; reject(new Error('MotoAI v40 load failed')); };
-        document.head.appendChild(sc);
-      });
-    }
-    return loadPromise;
-  }
-  return {
-    open: function () {
-      ensureConfig();
-      loadOnce().then(function () {
-        if (window.MotoAI_v40) window.MotoAI_v40.open();
-      }).catch(function () {
-        alert('Trợ lý AI đang bận, bạn thử lại sau hoặc nhắn Zalo 081.665.9199 nhé!');
-      });
-    }
-  };
-})();
+// OLD MOTOAI v40 HOMEPAGE CHATBOT LOADER REMOVED — replaced by the
+// canonical chatbot embed include. The launcher
+// tile keeps working via window.MotoAI_v40_Home defined there.
 </script>
 
 <script>
@@ -1796,6 +1739,12 @@ window.MotoAI_v40_Home = (function () {
             { t: "Liên hệ", l: "lienhe.html", i: ICONS.mail }
         ]
     };
+    // CANONICAL NAV SOURCE: assets/js/nav-data.js (window.SITE_NAV)
+    // is the single menu source; the inline literal is only a
+    // fallback when nav-data.js failed to load.
+    CONFIG.MENU = (window.SITE_NAV && Array.isArray(window.SITE_NAV.MENU))
+        ? window.SITE_NAV.MENU : CONFIG.MENU;
+
     
     // FEATURE 2: SEARCH LOGIC
     function toggleMobileSearch() {
@@ -2266,5 +2215,6 @@ window.MotoAI_v40_Home = (function () {
 
     Render.init();
 </script>
+{% include chatbot-embed.html %}
 </body>
 </html>

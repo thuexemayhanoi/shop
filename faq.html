@@ -830,6 +830,7 @@
 
 
 {% include contact-fab.html %}<!-- JS ENGINE -->
+<script src="assets/js/nav-data.js"></script>
 <script src="assets/js/prices.js"></script>
 <script>
 // --- FALLBACK TO PREVENT RACE CONDITION ERRORS ---
@@ -989,6 +990,12 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
             { t: "Liên hệ", l: "lienhe.html", i: ICONS.mail }
         ]
     };
+    // CANONICAL NAV SOURCE: assets/js/nav-data.js (window.SITE_NAV)
+    // is the single menu source; the inline literal is only a
+    // fallback when nav-data.js failed to load.
+    CONFIG.MENU = (window.SITE_NAV && Array.isArray(window.SITE_NAV.MENU))
+        ? window.SITE_NAV.MENU : CONFIG.MENU;
+
     
     // FEATURE 2: SEARCH LOGIC
     function toggleMobileSearch() {
@@ -1122,6 +1129,9 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
         setupAI() {
             const modal = document.getElementById('ai-modal');
             const overlay = document.getElementById('ai-overlay');
+            // Old AI Guide modal was replaced by the canonical chatbot
+            // embed; nothing to wire when it is absent.
+            if (!modal || !overlay) return;
             const closeBtn = document.getElementById('ai-close');
             const chatBox = document.getElementById('ai-chat-box');
             const input = document.getElementById('ai-input');
@@ -1652,7 +1662,6 @@ window.AI_Matchmaker = window.AI_Matchmaker || { open: function () {
 
     Render.init();
 </script>
-<script src="https://thuexemayhanoi.github.io/shop/assets/js/motoai-config.js"></script>
-<script src="https://thuexemayhanoi.github.io/shop/motoai_v40_bm25plus_final.js" defer></script>
+{% include chatbot-embed.html %}
 </body>
 </html>
