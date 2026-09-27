@@ -1,0 +1,560 @@
+{
+  "taxonomy_version": "1.0.0",
+  "generated": null,
+  "total_production_rows": 2000,
+  "rules": "ordered regex + id ranges in scripts/build_taxonomy.py",
+  "parents": [
+    {
+      "parent_id": "KINH_NGHIEM",
+      "parent_title": "Kinh nghiệm",
+      "parent_slug": "kinh-nghiem",
+      "parent_hub": "/shop/kinhnghiem.html",
+      "children": [
+        {
+          "child_id": "KN_DUONG_PHO_LON",
+          "child_title": "Đường và phố lớn Hà Nội",
+          "child_slug": "kn-duong-pho-lon",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-duong-pho-lon.html",
+          "description": "Chạy, đỗ, đổ xăng trên các trục đường chính.",
+          "article_count": 97,
+          "status": "active"
+        },
+        {
+          "child_id": "KN_HONDA_WAVE",
+          "child_title": "Kinh nghiệm Honda Wave",
+          "child_slug": "kn-honda-wave",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-honda-wave.html",
+          "description": "Chọn, kiểm tra và chạy thuê Honda Wave ở Hà Nội.",
+          "article_count": 16,
+          "status": "active"
+        },
+        {
+          "child_id": "KN_THEO_KHU_VUC",
+          "child_title": "Đi xe theo khu vực Hà Nội",
+          "child_slug": "kn-theo-khu-vuc",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-theo-khu-vuc.html",
+          "description": "Tránh tắc, gửi xe, lộ trình theo từng quận, huyện.",
+          "article_count": 93,
+          "status": "active"
+        },
+        {
+          "child_id": "KN_THUE_XE_CO_BAN",
+          "child_title": "Thuê xe cơ bản",
+          "child_slug": "kn-thue-xe-co-ban",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-thue-xe-co-ban.html",
+          "description": "Hợp đồng, nhận xe, trả xe, giờ thuê, đàm phán với chủ xe.",
+          "article_count": 16,
+          "status": "active"
+        },
+        {
+          "child_id": "KN_TINH_HUONG_DOI_SONG",
+          "child_title": "Chạy xe trong đời sống",
+          "child_slug": "kn-tinh-huong-doi-song",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-tinh-huong-doi-song.html",
+          "description": "Lễ tết, mùa hoa, việc riêng và các tình huống thường ngày.",
+          "article_count": 90,
+          "status": "active"
+        },
+        {
+          "child_id": "KN_XE_GA_PHO_THONG",
+          "child_title": "Kinh nghiệm xe ga phổ thông",
+          "child_slug": "kn-xe-ga-pho-thong",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-xe-ga-pho-thong.html",
+          "description": "Click, Vision, Air Blade, Mio khi đi thuê và vận hành.",
+          "article_count": 5,
+          "status": "active"
+        },
+        {
+          "child_id": "KN_XE_MAY_DIEN",
+          "child_title": "Kinh nghiệm xe máy điện",
+          "child_slug": "kn-xe-may-dien",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-xe-may-dien.html",
+          "description": "Thuê và chạy xe máy điện trong phố và đường xa.",
+          "article_count": 16,
+          "status": "active"
+        },
+        {
+          "child_id": "KN_YAMAHA_SIRIUS",
+          "child_title": "Kinh nghiệm Yamaha Sirius",
+          "child_slug": "kn-yamaha-sirius",
+          "child_hub_url": "/shop/cam-nang/chu-de/kn-yamaha-sirius.html",
+          "description": "Chọn, kiểm tra và chạy thuê Yamaha Sirius.",
+          "article_count": 17,
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "parent_id": "AN_TOAN",
+      "parent_title": "An toàn",
+      "parent_slug": "an-toan",
+      "parent_hub": "/shop/antoan.html",
+      "children": [
+        {
+          "child_id": "AT_CHAY_DEM_DEN_XE",
+          "child_title": "Chạy đêm & đèn xe",
+          "child_slug": "at-chay-dem-den-xe",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-chay-dem-den-xe.html",
+          "description": "An toàn khi chạy đêm và hệ thống đèn xe máy.",
+          "article_count": 13,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_CHONG_TROM_DO_XE",
+          "child_title": "Chống trộm & đỗ xe",
+          "child_slug": "at-chong-trom-do-xe",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-chong-trom-do-xe.html",
+          "description": "Khoá xe, chọn bãi gửi, bảo quản xe khi dừng đỗ.",
+          "article_count": 7,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_DUONG_DAT_DEO_NONG_THON",
+          "child_title": "Đèo & đường nông thôn",
+          "child_slug": "at-duong-dat-deo-nong-thon",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-duong-dat-deo-nong-thon.html",
+          "description": "Đèo dài, đường đất, đê, cầu phao, tỉnh lộ.",
+          "article_count": 13,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_KY_NANG_NANG_CAO",
+          "child_title": "Kỹ năng nâng cao",
+          "child_slug": "at-ky-nang-nang-cao",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-ky-nang-nang-cao.html",
+          "description": "Vượt xe, chạy đoàn, dừng khẩn cấp, giữ làn.",
+          "article_count": 129,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_LUAT_XU_PHAT",
+          "child_title": "Luật giao thông & xử phạt",
+          "child_slug": "at-luat-xu-phat",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-luat-xu-phat.html",
+          "description": "Quy định, mức phạt, giấy tờ bắt buộc với xe máy.",
+          "article_count": 56,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_MU_TRANG_BI",
+          "child_title": "Mũ bảo hiểm & trang bị",
+          "child_slug": "at-mu-trang-bi",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-mu-trang-bi.html",
+          "description": "Chọn mũ, kính, găng, giày và trang bị bảo hộ.",
+          "article_count": 21,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_NGUOI_LAI_THEO_NHU_CAU",
+          "child_title": "Người lái theo nhu cầu",
+          "child_slug": "at-nguoi-lai-theo-nhu-cau",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-nguoi-lai-theo-nhu-cau.html",
+          "description": "Shipper, người cao tuổi, gia đình, người mới.",
+          "article_count": 14,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_SUC_KHOE_NGUOI_LAI",
+          "child_title": "Sức khoẻ người lái",
+          "child_slug": "at-suc-khoe-nguoi-lai",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-suc-khoe-nguoi-lai.html",
+          "description": "Say nắng, đau mỏi, sơ cứu và giữ sức trên xe.",
+          "article_count": 10,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_THOI_TIET_MUA_GIO",
+          "child_title": "Chạy xe theo thời tiết",
+          "child_slug": "at-thoi-tiet-mua-gio",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-thoi-tiet-mua-gio.html",
+          "description": "Mưa, sương mù, gió mùa, nồm và các chuyển mùa.",
+          "article_count": 13,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_TRANG_BI_THEO_THOI_TIET",
+          "child_title": "Trang bị theo thời tiết",
+          "child_slug": "at-trang-bi-theo-thoi-tiet",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-trang-bi-theo-thoi-tiet.html",
+          "description": "Chọn mũ, áo mưa, giày theo mùa và thời tiết.",
+          "article_count": 5,
+          "status": "active"
+        },
+        {
+          "child_id": "AT_XU_LY_TINH_HUONG_DUONG",
+          "child_title": "Xử lý tình huống trên đường",
+          "child_slug": "at-xu-ly-tinh-huong-duong",
+          "child_hub_url": "/shop/cam-nang/chu-de/at-xu-ly-tinh-huong-duong.html",
+          "description": "Ngã xe, va chạm nhẹ, tai nạn, giữ bình tĩnh.",
+          "article_count": 19,
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "parent_id": "XE_MAY",
+      "parent_title": "Xe máy",
+      "parent_slug": "xe-may",
+      "parent_hub": "/shop/xemay.html",
+      "children": [
+        {
+          "child_id": "XM_BAO_DUONG_KIEM_TRA",
+          "child_title": "Bảo dưỡng & kiểm tra",
+          "child_slug": "xm-bao-duong-kiem-tra",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-bao-duong-kiem-tra.html",
+          "description": "Chu kỳ bảo dưỡng, hư hỏng thường gặp, cách tự kiểm tra.",
+          "article_count": 98,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_HONDA_AIR_BLADE",
+          "child_title": "Honda Air Blade",
+          "child_slug": "xm-honda-air-blade",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-honda-air-blade.html",
+          "description": "Kiểm tra và bảo dưỡng các cụm trên Honda Air Blade.",
+          "article_count": 18,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_HONDA_CLICK",
+          "child_title": "Honda Click",
+          "child_slug": "xm-honda-click",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-honda-click.html",
+          "description": "Kiểm tra và bảo dưỡng các cụm trên Honda Click.",
+          "article_count": 24,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_HONDA_VISION",
+          "child_title": "Honda Vision",
+          "child_slug": "xm-honda-vision",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-honda-vision.html",
+          "description": "Kiểm tra và bảo dưỡng các cụm trên Honda Vision.",
+          "article_count": 10,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_HONDA_WAVE",
+          "child_title": "Honda Wave",
+          "child_slug": "xm-honda-wave",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-honda-wave.html",
+          "description": "Kiểm tra và bảo dưỡng các cụm trên Honda Wave.",
+          "article_count": 35,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_KIEM_TRA_KY_THUAT",
+          "child_title": "Kiểm tra kỹ thuật khi nhận xe",
+          "child_slug": "xm-kiem-tra-ky-thuat",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-kiem-tra-ky-thuat.html",
+          "description": "Dây đơ, biên tắng, ốc máng, sên dĩa, hộp số.",
+          "article_count": 9,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_PHU_KIEN_DO_DUNG",
+          "child_title": "Phụ kiện & đồ dùng",
+          "child_slug": "xm-phu-kien-do-dung",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-phu-kien-do-dung.html",
+          "description": "Đồ đi phượt, khoá, phụ kiện gắn thêm cho xe máy.",
+          "article_count": 42,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_SO_SANH_XE",
+          "child_title": "So sánh các dòng xe",
+          "child_slug": "xm-so-sanh-xe",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-so-sanh-xe.html",
+          "description": "Xe số với xe ga, so dòng xe theo nhu cầu sử dụng.",
+          "article_count": 26,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_SU_CO_XE_THUE",
+          "child_title": "Sự cố xe thuê",
+          "child_slug": "xm-su-co-xe-thue",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-su-co-xe-thue.html",
+          "description": "Xử lý các hư hỏng thường gặp trên xe máy thuê.",
+          "article_count": 14,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_XE_MAY_DIEN",
+          "child_title": "Xe máy điện",
+          "child_slug": "xm-xe-may-dien",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-xe-may-dien.html",
+          "description": "Ắc quy, sạc, pin và bảo dưỡng xe máy điện.",
+          "article_count": 33,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_YAMAHA_MIO",
+          "child_title": "Yamaha Mio",
+          "child_slug": "xm-yamaha-mio",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-yamaha-mio.html",
+          "description": "Kiểm tra và bảo dưỡng các cụm trên Yamaha Mio.",
+          "article_count": 9,
+          "status": "active"
+        },
+        {
+          "child_id": "XM_YAMAHA_SIRIUS",
+          "child_title": "Yamaha Sirius",
+          "child_slug": "xm-yamaha-sirius",
+          "child_hub_url": "/shop/cam-nang/chu-de/xm-yamaha-sirius.html",
+          "description": "Kiểm tra và bảo dưỡng các cụm trên Yamaha Sirius.",
+          "article_count": 32,
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "parent_id": "DU_LICH",
+      "parent_title": "Du lịch",
+      "parent_slug": "du-lich",
+      "parent_hub": "/shop/dulich.html",
+      "children": [
+        {
+          "child_id": "DL_BAC_CAN_CAO_BANG",
+          "child_title": "Bắc Cạn – Cao Bằng",
+          "child_slug": "dl-bac-can-cao-bang",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-bac-can-cao-bang.html",
+          "description": "Hồ ba bể, pắc pó, bản giốc, hữu liên.",
+          "article_count": 16,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_DIEM_DEN_NOI_TIENG",
+          "child_title": "Điểm đến nổi bật khác",
+          "child_slug": "dl-diem-den-noi-tieng",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-diem-den-noi-tieng.html",
+          "description": "Các điểm tham quan, chụp ảnh quanh Hà Nội.",
+          "article_count": 64,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_DONG_BANG_BAC_BO",
+          "child_title": "Đồng bằng Bắc Bộ",
+          "child_slug": "dl-dong-bang-bac-bo",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-dong-bang-bac-bo.html",
+          "description": "Cửa lò, sầm sơn, nam định, hưng yên, bắc ninh, làng nghề.",
+          "article_count": 72,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_HA_NOI_NOI_THANH",
+          "child_title": "Điểm đến nội thành Hà Nội",
+          "child_slug": "dl-ha-noi-noi-thanh",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-ha-noi-noi-thanh.html",
+          "description": "Hồ, bảo tàng, di tích trong nội đô đi bằng xe máy.",
+          "article_count": 40,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_LANG_SON_HA_GIANG",
+          "child_title": "Lạng Sơn – Hà Giang",
+          "child_slug": "dl-lang-son-ha-giang",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-lang-son-ha-giang.html",
+          "description": "Đồng văn, mã pí lèng, quản bạ, hoàng su phì.",
+          "article_count": 20,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_NINH_BINH_PHU_THO_HA_NAM",
+          "child_title": "Ninh Bình – Phú Thọ – Hà Nam",
+          "child_slug": "dl-ninh-binh-phu-tho-ha-nam",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-ninh-binh-phu-tho-ha-nam.html",
+          "description": "Tam cốc, bái đính, hoa lư, cúc phương, tam chúc.",
+          "article_count": 36,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_QUANG_NINH_HAI_PHONG",
+          "child_title": "Quảng Ninh – Hải Phòng – Đông Bắc",
+          "child_slug": "dl-quang-ninh-hai-phong",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-quang-ninh-hai-phong.html",
+          "description": "Đồ sơn, hạ long, cát bà, yên tử, lục ngạn.",
+          "article_count": 44,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_SAPA_LAO_CAI_YEN_BAI",
+          "child_title": "Sa Pa – Lào Cai – Yên Bái",
+          "child_slug": "dl-sapa-lao-cai-yen-bai",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-sapa-lao-cai-yen-bai.html",
+          "description": "Sa pa, mù cang chải, tà xùa, y tý, khau phạ.",
+          "article_count": 32,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_TAY_BAC_GAN",
+          "child_title": "Ba Vì – Hòa Bình – Mai Châu – Mộc Châu",
+          "child_slug": "dl-tay-bac-gan",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-tay-bac-gan.html",
+          "description": "Điểm đến phía Tây gần Hà Nội.",
+          "article_count": 56,
+          "status": "active"
+        },
+        {
+          "child_id": "DL_VINH_PHUC_THAI_NGUYEN",
+          "child_title": "Vĩnh Phúc – Thái Nguyên",
+          "child_slug": "dl-vinh-phuc-thai-nguyen",
+          "child_hub_url": "/shop/cam-nang/chu-de/dl-vinh-phuc-thai-nguyen.html",
+          "description": "Tam đảo, tây thiên, đại lãi, hồ núi cốc.",
+          "article_count": 20,
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "parent_id": "CUNG_DUONG",
+      "parent_title": "Cung đường",
+      "parent_slug": "cung-duong",
+      "parent_hub": "/shop/cungduong.html",
+      "children": [
+        {
+          "child_id": "CD_DONG_BAC_GAN",
+          "child_title": "Cung đường Đông Bắc gần",
+          "child_slug": "cd-dong-bac-gan",
+          "child_hub_url": "/shop/cam-nang/chu-de/cd-dong-bac-gan.html",
+          "description": "Bắc ninh, bắc giang, thái nguyên từ Hà Nội.",
+          "article_count": 24,
+          "status": "active"
+        },
+        {
+          "child_id": "CD_DONG_BANG_VEN_BIEN",
+          "child_title": "Cung đường đồng bằng & ven biển",
+          "child_slug": "cd-dong-bang-ven-bien",
+          "child_hub_url": "/shop/cam-nang/chu-de/cd-dong-bang-ven-bien.html",
+          "description": "Quảng ninh, hải phòng, thái bình, nam định, thanh hoá và các tỉnh ven biển.",
+          "article_count": 101,
+          "status": "active"
+        },
+        {
+          "child_id": "CD_HA_GIANG_DONG_BAC_CA",
+          "child_title": "Cung đường Hà Giang – Cao Bằng",
+          "child_slug": "cd-ha-giang-dong-bac-ca",
+          "child_hub_url": "/shop/cam-nang/chu-de/cd-ha-giang-dong-bac-ca.html",
+          "description": "Quản bạ, đồng văn, mèo vạc, bảo lạc, cao bằng.",
+          "article_count": 58,
+          "status": "active"
+        },
+        {
+          "child_id": "CD_HOA_BINH_SON_LA",
+          "child_title": "Cung đường Hoà Bình – Sơn La",
+          "child_slug": "cd-hoa-binh-son-la",
+          "child_hub_url": "/shop/cam-nang/chu-de/cd-hoa-binh-son-la.html",
+          "description": "Hoà bình, mai châu, mộc châu, sơn la.",
+          "article_count": 33,
+          "status": "active"
+        },
+        {
+          "child_id": "CD_PHU_THO_VINH_PHUC",
+          "child_title": "Cung đường trung du: Phú Thọ – Ninh Bình",
+          "child_slug": "cd-phu-tho-vinh-phuc",
+          "child_hub_url": "/shop/cam-nang/chu-de/cd-phu-tho-vinh-phuc.html",
+          "description": "Việt trì, vĩnh yên, sơn tây, đền hùng, tam chúc, cúc phương.",
+          "article_count": 43,
+          "status": "active"
+        },
+        {
+          "child_id": "CD_TAY_BAC_XA",
+          "child_title": "Cung đường Tây Bắc xa",
+          "child_slug": "cd-tay-bac-xa",
+          "child_hub_url": "/shop/cam-nang/chu-de/cd-tay-bac-xa.html",
+          "description": "Yên bái, tuyên quang, sơn la cao, đường vòng xa.",
+          "article_count": 41,
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "parent_id": "HOI_DAP",
+      "parent_title": "Hỏi đáp",
+      "parent_slug": "hoi-dap",
+      "parent_hub": "/shop/hoidap.html",
+      "children": [
+        {
+          "child_id": "HD_BAI_GUI_XE",
+          "child_title": "Gửi xe & bãi xe",
+          "child_slug": "hd-bai-gui-xe",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-bai-gui-xe.html",
+          "description": "Bãi gửi, vé, giữ xe qua đêm, sự cố tại bãi.",
+          "article_count": 16,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_CHI_PHI",
+          "child_title": "Chi phí chuyến đi",
+          "child_slug": "hd-chi-phi",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-chi-phi.html",
+          "description": "Xăng, gửi xe, nghỉ, vé và ngân sách phượt.",
+          "article_count": 26,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_CHON_XE",
+          "child_title": "Chọn xe theo nhu cầu",
+          "child_slug": "hd-chon-xe",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-chon-xe.html",
+          "description": "Chọn dòng xe phù hợp mục đích sử dụng.",
+          "article_count": 7,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_DUONG_DI_DIA_DIEM",
+          "child_title": "Đường đi & địa điểm",
+          "child_slug": "hd-duong-di-dia-diem",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-duong-di-dia-diem.html",
+          "description": "Phà, đường vành đai, phố cổ, lộ trình từ Hà Nội.",
+          "article_count": 46,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_GIAY_TO_PHAP_LY",
+          "child_title": "Giấy tờ & pháp lý",
+          "child_slug": "hd-giay-to-phap-ly",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-giay-to-phap-ly.html",
+          "description": "Bằng lái, đăng ký, đăng kiểm, bảo hiểm, cồn, mũ.",
+          "article_count": 74,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_PHUOT_TRAI_NGHIEM",
+          "child_title": "Đi phượt & trải nghiệm",
+          "child_slug": "hd-phuot-trai-nghiem",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-phuot-trai-nghiem.html",
+          "description": "Nghỉ dừng, đồ mang theo, thời tiết khi đi xa.",
+          "article_count": 27,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_THUE_XE",
+          "child_title": "Hỏi đáp thuê xe máy",
+          "child_slug": "hd-thue-xe",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-thue-xe.html",
+          "description": "Thuê, nhận, trả xe và trách nhiệm hai bên.",
+          "article_count": 65,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_TRANG_BI",
+          "child_title": "Hỏi đáp trang bị",
+          "child_slug": "hd-trang-bi",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-trang-bi.html",
+          "description": "Mũ, găng, áo mưa, phụ kiện khi chạy xe.",
+          "article_count": 20,
+          "status": "active"
+        },
+        {
+          "child_id": "HD_XE_MAY_DIEN",
+          "child_title": "Hỏi đáp xe máy điện",
+          "child_slug": "hd-xe-may-dien",
+          "child_hub_url": "/shop/cam-nang/chu-de/hd-xe-may-dien.html",
+          "description": "Sạc, ắc quy, biển số, bằng lái xe điện.",
+          "article_count": 19,
+          "status": "active"
+        }
+      ]
+    }
+  ]
+}
