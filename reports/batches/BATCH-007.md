@@ -1,21 +1,21 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-28T00:14:53
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T18:05:26
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 6 | pass: 0 | published: 6
-- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.2 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 0 | blocked 0
+- processed: 50 | written: 11 | pass: 3 | published: 6
+- writing: 39 | review: 0 | repair: 0 | fail: 2 | blocked: 0
+- scores: avg 97.7 | min 94 | max 100 | repair_count: 0
+- source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0051 | cam-nang/an-toan/at-0051-giay-to-photo-co-duoc-dung-khi-bi-kiem-tra-xe-khong.html | PUBLISHED | 100 | 0 | word broken across newline: 'la\nbel'; word broken across newline: 'tắ\nc' |
-| AT-0052 | cam-nang/an-toan/at-0052-bi-phat-nguoi-bao-lau-thi-phai-nop-tien.html | WRITING |  | 0 |  |
-| AT-0053 | cam-nang/an-toan/at-0053-cach-tra-qua-trinh-vi-pham-cua-xe-may-online.html | WRITING |  | 0 |  |
-| AT-0054 | cam-nang/an-toan/at-0054-quy-dinh-ve-bien-bao-tam-thoi-khi-thi-cong-duong.html | WRITING |  | 0 |  |
-| AT-0055 | cam-nang/an-toan/at-0055-xe-may-bi-thu-giu-trong-truong-hop-nao.html | WRITING |  | 0 |  |
-| AT-0056 | cam-nang/an-toan/at-0056-ky-nang-giu-khoang-cach-an-toan-khi-chay-xe-may.html | WRITING |  | 0 |  |
+| AT-0052 | cam-nang/an-toan/at-0052-bi-phat-nguoi-bao-lau-thi-phai-nop-tien.html | PASS | 100 | 0 |  |
+| AT-0053 | cam-nang/an-toan/at-0053-cach-tra-qua-trinh-vi-pham-cua-xe-may-online.html | FAIL | 94 | 0 | broken internal link: 'cam-nang/an-toan/at-0052-bi-phat-nguoi-bao-lau-thi-phai-nop-tien.html'; broken internal link: 'cam-nang/an-toan/at-0052-bi-phat-nguoi-bao-lau-thi-phai-nop-tien.html' |
+| AT-0054 | cam-nang/an-toan/at-0054-quy-dinh-ve-bien-bao-tam-thoi-khi-thi-cong-duong.html | FAIL | 94 | 0 | broken internal link: 'cam-nang/an-toan/at-0053-cach-tra-qua-trinh-vi-pham-cua-xe-may-online.html'; broken internal link: 'cam-nang/an-toan/at-0053-cach-tra-qua-trinh-vi-pham-cua-xe-may-online.html' |
+| AT-0055 | cam-nang/an-toan/at-0055-xe-may-bi-thu-giu-trong-truong-hop-nao.html | PASS | 99 | 0 |  |
+| AT-0056 | cam-nang/an-toan/at-0056-ky-nang-giu-khoang-cach-an-toan-khi-chay-xe-may.html | PASS | 99 | 0 |  |
 | AT-0057 | cam-nang/an-toan/at-0057-goc-mu-cua-xe-tai-va-xe-khach-khi-chay-xe-may.html | WRITING |  | 0 |  |
 | AT-0058 | cam-nang/an-toan/at-0058-ky-nang-vao-vong-xuyen-an-toan.html | WRITING |  | 0 |  |
 | AT-0059 | cam-nang/an-toan/at-0059-chay-xe-may-tren-duong-tron-truot.html | WRITING |  | 0 |  |
