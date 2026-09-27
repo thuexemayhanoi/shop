@@ -1,0 +1,43 @@
+name: Repair Operator Workflow
+
+# One-shot repair: restores the canonical factory-operator.yml from git
+# history (commit 7253a3cd) byte-for-byte, then deletes itself.
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/repair-operator.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-operator-workflow
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore canonical factory-operator.yml
+        run: |
+          set -eu
+          git show 7253a3cd75fbdc075c3d56b6e38236c93836623e:.github/workflows/factory-operator.yml > .github/workflows/factory-operator.yml
+
+      - name: Commit restoration and remove this repair workflow
+        run: |
+          set -eu
+          git config user.name "factory-operator-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -q .github/workflows/repair-operator.yml
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+            exit 0
+          fi
+          git commit -m "ci: restore canonical factory-operator.yml from 7253a3cd (one-shot repair)"
+          git push
