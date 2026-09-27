@@ -1,30 +1,30 @@
 {
   "batch_id": "BATCH-007",
   "started_at": "2026-09-27T16:21:40",
-  "finished_at": "2026-09-27T16:28:58",
+  "finished_at": "2026-09-27T16:31:58",
   "writer": "external-agent",
   "processed": 50,
   "written": 6,
-  "pass": 2,
+  "pass": 6,
   "published": 0,
   "writing": 44,
   "review": 0,
   "repair": 0,
-  "fail": 4,
+  "fail": 0,
   "blocked": 0,
-  "average_score": 97.3,
-  "min_score": 91,
+  "average_score": 98.2,
+  "min_score": 96,
   "max_score": 100,
   "repair_count": 0,
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 6,
   "articles": [
     {
       "article_id": "AT-0051",
       "output_path": "cam-nang/an-toan/at-0051-giay-to-photo-co-duoc-dung-khi-bi-kiem-tra-xe-khong.html",
-      "outcome": "FAIL",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -120,8 +120,8 @@
     {
       "article_id": "CD-0051",
       "output_path": "cam-nang/cung-duong/cd-0051-duong-tu-ha-noi-vao-meo-vac-doan-nao-kho-di.html",
-      "outcome": "FAIL",
-      "score": 91,
+      "outcome": "PASS",
+      "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'index.h\\ntml'",
@@ -207,7 +207,7 @@
     {
       "article_id": "DL-0051",
       "output_path": "cam-nang/du-lich/dl-0051-an-gi-khi-du-lich-chua-tay-phuong-bang-xe-may.html",
-      "outcome": "FAIL",
+      "outcome": "PASS",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [
@@ -294,7 +294,7 @@
     {
       "article_id": "HD-0051",
       "output_path": "cam-nang/hoi-dap/hd-0051-xe-thue-bi-hong-nho-giua-chung-nen-tu-sua-hay-goi-chu-xe.html",
-      "outcome": "FAIL",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
