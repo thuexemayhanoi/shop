@@ -74,8 +74,7 @@
     gap: 12px;
     padding: 12px 16px;
     background: #1c1c1e;
-    border
--bottom: 1px solid #2c2c2e;
+    border-bottom: 1px solid #2c2c2e;
     flex: 0 0 auto;
 }
 
