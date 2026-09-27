@@ -141,6 +141,11 @@
             { t: "Liên hệ", l: "lienhe.html", i: ICONS.mail }
         ]
     };
+    // CANONICAL NAV SOURCE: assets/js/nav-data.js (window.SITE_NAV)
+    // is the single menu source; the literal above is only a
+    // fallback when nav-data.js failed to load.
+    CONFIG.MENU = (window.SITE_NAV && Array.isArray(window.SITE_NAV.MENU))
+        ? window.SITE_NAV.MENU : CONFIG.MENU;
     
     // FEATURE 2: SEARCH LOGIC
     function toggleMobileSearch() {
@@ -275,6 +280,9 @@
         setupAI() {
             const modal = document.getElementById('ai-modal');
             const overlay = document.getElementById('ai-overlay');
+            // Old AI Guide modal was replaced by the canonical chatbot
+            // embed; nothing to wire when it is absent.
+            if (!modal || !overlay) return;
             const closeBtn = document.getElementById('ai-close');
             const chatBox = document.getElementById('ai-chat-box');
             const input = document.getElementById('ai-input');

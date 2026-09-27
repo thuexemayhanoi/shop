@@ -1,0 +1,182 @@
+/* ============================================================
+   CANONICAL CHATBOT EMBED (MotoAI external assistant)
+   One implementation per rendered page. Loaded site-wide via
+   _includes/chatbot-embed.html (Jekyll pages) or the factory
+   page snippet (articles, child hubs, topic index).
+   The external iframe is created ONLY on first open (lazy).
+   ============================================================ */
+
+.cb-launcher {
+    position: fixed;
+    left: max(16px, env(safe-area-inset-left));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 9000;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #fff;
+    background: linear-gradient(135deg, #ff6b00, #ff9500);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cb-launcher:hover,
+.cb-launcher:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+.cb-launcher .cb-launcher-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
+}
+
+/* ---------- panel / drawer ---------- */
+
+.cb-panel {
+    position: fixed;
+    left: max(16px, env(safe-area-inset-left));
+    bottom: max(76px, env(safe-area-inset-bottom));
+    z-index: 9100;
+    width: min(420px, calc(100vw - 32px));
+    height: min(78vh, 720px);
+    display: none;
+    flex-direction: column;
+    background: #101014;
+    color: #f5f5f7;
+    border: 1px solid #2c2c2e;
+    border-radius: 16px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+}
+
+.cb-panel.cb-open {
+    display: flex;
+}
+
+.cb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #1c1c1e;
+    border-bottom: 1px solid #2c2c2e;
+    flex: 0 0 auto;
+}
+
+.cb-title {
+    font-size: 0.98rem;
+    font-weight: 800;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cb-close {
+    border: 1px solid #3a3a3c;
+    background: transparent;
+    color: #f5f5f7;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.cb-close:hover,
+.cb-close:focus-visible {
+    background: #2c2c2e;
+}
+
+.cb-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    background: #050505;
+}
+
+.cb-body iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.cb-fallback {
+    flex: 0 0 auto;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    text-align: center;
+    background: #1c1c1e;
+    border-top: 1px solid #2c2c2e;
+}
+
+.cb-fallback a {
+    color: #409cff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cb-fallback a:hover,
+.cb-fallback a:focus-visible {
+    text-decoration: underline;
+}
+
+.cb-notice {
+    display: none;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: #ffb340;
+    background: #1c1c1e;
+    border-top: 1px solid #2c2c2e;
+}
+
+.cb-panel.cb-error .cb-notice {
+    display: block;
+}
+
+/* body scroll lock while the panel is open */
+body.cb-no-scroll {
+    overflow: hidden;
+}
+
+/* ---------- mobile: near full-screen sheet ---------- */
+
+@media (max-width: 640px) {
+    .cb-panel {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100vw;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .cb-panel.cb-open {
+        display: flex;
+    }
+}

@@ -4,7 +4,67 @@
         <div class="footer-box glass-panel fade-in-up">
             <div class="footer-bg-glow"></div>
             <div class="footer-grid" id="footer-grid"></div>
-            
+
+            <!-- CANONICAL CẨM NANG TAXONOMY — rendered from
+                 _data/content_taxonomy.json (byte-identical copy of
+                 data/content-taxonomy.json, enforced by
+                 tests/test_ui_integration.py). Do NOT hard-code a second
+                 taxonomy list anywhere else. -->
+            <div class="footer-taxonomy" id="footer-taxonomy">
+                <h4 class="ft-heading"><span class="material-symbols-rounded">menu_book</span> Cẩm nang</h4>
+                <div class="ft-groups">
+                {% for parent in site.data.content_taxonomy.parents %}
+                    <details class="ft-parent" open>
+                        <summary><a href="{{ parent.parent_hub }}">{{ parent.parent_title }}</a></summary>
+                        <ul class="ft-children">
+                        {% for child in parent.children %}
+                            <li><a href="{{ child.child_hub_url }}">{{ child.child_title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </details>
+                {% endfor %}
+                </div>
+                <a class="ft-all" href="/shop/cam-nang/chu-de/">Xem tất cả chủ đề</a>
+            </div>
+            <style>
+            /* Footer taxonomy (compact hierarchy, no flat wall of links) */
+            .footer-taxonomy{margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08)}
+            .footer-taxonomy .ft-heading{font-size:1.05rem;font-weight:800;color:var(--text-main,#f5f5f7);display:flex;align-items:center;gap:8px;margin:0 0 14px}
+            .footer-taxonomy .ft-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 28px}
+            .footer-taxonomy .ft-parent summary{list-style:none;cursor:pointer;font-weight:700;font-size:.92rem;padding:6px 0;color:var(--text-main,#f5f5f7)}
+            .footer-taxonomy .ft-parent summary::-webkit-details-marker{display:none}
+            .footer-taxonomy .ft-parent summary::after{content:"▾";font-size:.7rem;margin-left:6px;opacity:.6}
+            .footer-taxonomy .ft-parent[open] summary::after{content:"▴"}
+            .footer-taxonomy .ft-parent summary a{color:var(--text-main,#f5f5f7);text-decoration:none}
+            .footer-taxonomy .ft-parent summary a:hover,.footer-taxonomy .ft-parent summary a:focus-visible{color:var(--primary,#ff6b00)}
+            .footer-taxonomy .ft-children{list-style:none;margin:4px 0 10px;padding-left:10px;border-left:2px solid rgba(255,107,0,.25)}
+            .footer-taxonomy .ft-children li{margin:3px 0}
+            .footer-taxonomy .ft-children a{font-size:.82rem;color:var(--text-sub,#aeaeb2);text-decoration:none}
+            .footer-taxonomy .ft-children a:hover,.footer-taxonomy .ft-children a:focus-visible{color:var(--primary,#ff6b00)}
+            .footer-taxonomy .ft-all{display:inline-block;margin-top:12px;font-size:.85rem;font-weight:700;color:var(--primary,#ff6b00);text-decoration:none}
+            .footer-taxonomy .ft-all:hover,.footer-taxonomy .ft-all:focus-visible{text-decoration:underline}
+            @media (max-width:900px){.footer-taxonomy .ft-groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
+            @media (max-width:600px){
+              .footer-taxonomy .ft-groups{grid-template-columns:1fr}
+              .footer-taxonomy .ft-children li{margin:8px 0}
+              .footer-taxonomy .ft-children a{font-size:.9rem}
+            }
+            </style>
+            <script>
+            /* Mobile UX: collapse the per-parent <details> groups on small
+               screens at load time; the links stay in the rendered DOM. */
+            (function () {
+                function fit() {
+                    var small = window.matchMedia('(max-width: 600px)').matches;
+                    document.querySelectorAll('#footer-taxonomy details.ft-parent').forEach(function (d) {
+                        if (small) { d.removeAttribute('open'); } else { d.setAttribute('open', 'open'); }
+                    });
+                }
+                if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', fit); }
+                else { fit(); }
+            })();
+            </script>
+
             <div class="copyright" style="margin-top: 50px;">
                 <img src="./IMG_0462.jpeg" style="width:48px; margin-bottom:16px; filter: grayscale(1); opacity:0.8; border-radius:50%;" alt="Logo footer">
                 
@@ -14,7 +74,7 @@
                          <p class="fc-item"><i class="fa-solid fa-phone-volume"></i> <a href="tel:+84816659199" style="text-decoration:none;color:inherit;">081.665.9199</a></p>
                          <p class="fc-item"><i class="fa-solid fa-envelope"></i> nguyentuantu2482@gmail.com</p>
                      </div>
-                     <p class="fc-item" style="color:var(--primary);"><i class="fa-solid fa-headset"></i> Hotline & Kỹ thuật: 24/7</p>
+                     <p class="fc-item" style="color:var(--primary);"><i class="fa-solid fa-headset"></i> Hotline &amp; Kỹ thuật: Liên hệ để xác nhận</p>
                      <p class="fc-item"><i class="fa-regular fa-clock"></i> Liên hệ để xác nhận thời gian hỗ trợ</p>
                 </div>
 
@@ -25,4 +85,3 @@
         </div>
     </div>
 </footer>
-
