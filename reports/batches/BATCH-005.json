@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-005",
   "started_at": "2026-09-27T05:19:01",
-  "finished_at": "2026-09-27T09:03:47",
+  "finished_at": "2026-09-27T16:09:30",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 11,
-  "published": 33,
+  "pass": 0,
+  "published": 44,
   "writing": 0,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 11,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 11,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0035",
@@ -330,7 +330,7 @@
     {
       "article_id": "HD-0039",
       "output_path": "cam-nang/hoi-dap/hd-0039-bien-so-mo-khong-doc-duoc-co-bi-xu-ly-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -340,7 +340,7 @@
     {
       "article_id": "HD-0040",
       "output_path": "cam-nang/hoi-dap/hd-0040-doi-mu-bao-hiem-sai-tieu-chuan-co-bi-phat-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -393,7 +393,7 @@
     {
       "article_id": "KN-0038",
       "output_path": "cam-nang/kinh-nghiem/kn-0038-kinh-nghiem-kiem-tra-honda-air-blade-truoc-khi-nhan-xe.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -403,7 +403,7 @@
     {
       "article_id": "KN-0039",
       "output_path": "cam-nang/kinh-nghiem/kn-0039-xe-may-dien-thue-di-trong-pho-kinh-nghiem-lua-chon.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -417,7 +417,7 @@
     {
       "article_id": "KN-0040",
       "output_path": "cam-nang/kinh-nghiem/kn-0040-kinh-nghiem-thue-xe-may-dien-o-ha-noi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -427,7 +427,7 @@
     {
       "article_id": "KN-0041",
       "output_path": "cam-nang/kinh-nghiem/kn-0041-thue-xe-may-dien-di-duong-xa-nen-chuan-bi-gi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -437,7 +437,7 @@
     {
       "article_id": "KN-0042",
       "output_path": "cam-nang/kinh-nghiem/kn-0042-xe-may-dien-co-phu-hop-voi-nguoi-moi-lai-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -447,7 +447,7 @@
     {
       "article_id": "XM-0034",
       "output_path": "cam-nang/xe-may/xm-0034-cach-kiem-tra-van-lop-tren-yamaha-sirius.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
@@ -460,7 +460,7 @@
     {
       "article_id": "XM-0035",
       "output_path": "cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -535,7 +535,7 @@
     {
       "article_id": "XM-0041",
       "output_path": "cam-nang/xe-may/xm-0041-bao-duong-lop-sau-cua-honda-click-dung-cach.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -545,7 +545,7 @@
     {
       "article_id": "XM-0042",
       "output_path": "cam-nang/xe-may/xm-0042-cach-kiem-tra-bo-phanh-tren-honda-click.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
