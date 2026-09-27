@@ -91,25 +91,53 @@
         panel.appendChild(fallback);
         document.body.appendChild(panel);
 
-        // Focus trap: Tab (and Shift+Tab) cycle inside the dialog while open.
+        // Focus trap: Tab (and Shift+Tab) cycle inside the dialog while
+        // open. Only genuinely focusable controls count (the <aside> itself
+        // is not focusable, so it must NOT be part of the cycle); the wrap
+        // cases must also catch focus that already escaped the panel.
         function focusables() {
-            return [panel].concat(
-                Array.prototype.slice.call(panel.querySelectorAll('button, a[href], iframe'))
-            );
+            return Array.prototype.slice.call(
+                panel.querySelectorAll('button, a[href], iframe')
+            ).filter(function (n) {
+                return n.offsetParent !== null;
+            });
+        }
+        function trapTab(ev, items) {
+            if (!items.length) {
+                ev.preventDefault();
+                if (closeBtn) { closeBtn.focus(); }
+                return;
+            }
+            var idx = items.indexOf(document.activeElement);
+            if (ev.shiftKey) {
+                // Shift+Tab: wrap at the FIRST control (and recapture any
+                // focus that already left the panel) so the background is
+                // never reachable while the dialog is open.
+                if (idx <= 0 || !panel.contains(document.activeElement)) {
+                    ev.preventDefault();
+                    items[items.length - 1].focus();
+                }
+            } else {
+                if (idx === -1 || idx >= items.length - 1
+                        || !panel.contains(document.activeElement)) {
+                    ev.preventDefault();
+                    items[0].focus();
+                }
+            }
         }
         panel.addEventListener('keydown', function (ev) {
             if (ev.key !== 'Tab') { return; }
-            var items = focusables().filter(function (n) { return n.offsetParent !== null || n === panel; });
-            if (!items.length) { return; }
-            var first = items[0];
-            var last = items[items.length - 1];
-            if (ev.shiftKey && document.activeElement === first) {
-                ev.preventDefault(); last.focus();
-            } else if (!ev.shiftKey && document.activeElement === last) {
-                ev.preventDefault(); first.focus();
-            } else if (!panel.contains(document.activeElement)) {
-                ev.preventDefault(); first.focus();
+            trapTab(ev, focusables());
+        });
+        // Safety net: if focus somehow reaches the page background (e.g. an
+        // iframe swallows the keydown), any Tab on the document is re-trapped
+        // while the dialog is open.
+        document.addEventListener('keydown', function (ev) {
+            if (ev.key !== 'Tab' || !panel.classList.contains('cb-open')) {
+                return;
             }
+            if (panel.contains(document.activeElement)) { return; }
+            trapTab(ev, focusables());
         });
 
         // Keep the sheet inside the visual viewport when the mobile keyboard

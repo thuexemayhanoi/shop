@@ -199,6 +199,10 @@
         padding: 8px 12px; border-radius: 100px; flex-wrap: nowrap;
         transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
+    /* shrinkable children: a nowrap row can still overflow its container
+       unless flex items may shrink; keep every child clamped. */
+    .header-left, .desktop-nav, .header-actions { min-width: 0; }
+    .desktop-nav { flex: 0 1 auto; }
     
     .header-left { display: flex; align-items: center; gap: 12px; }
 
@@ -239,7 +243,34 @@
     .text-online { color: var(--secondary) !important; }
     
     .status-text { font-size: 0.75rem; font-weight: 700; color: var(--text-main); white-space: nowrap; }
-    @media (max-width: 1280px) { .status-widget { display: none; } }
+    @media (max-width: 1440px) { .status-widget { display: none; } }
+    /* Compact header tiers: with 8 menu items the nowrap row cannot fit
+       the 1200px container at default paddings; shrink progressively
+       instead of overflowing the right edge. */
+    @media (min-width: 1281px) and (max-width: 1440px) {
+        .nav-link { padding: 8px 8px; font-size: 0.85rem; gap: 4px; }
+        .nav-link svg { width: 16px; height: 16px; }
+        .desktop-nav { gap: 2px; }
+        .search-input { width: 140px; }
+        .search-input:focus { width: 180px; }
+        .logo-img { width: 38px; height: 38px; }
+        .header-left { gap: 10px; }
+        .header-actions { gap: 6px; }
+        .nav-bar { padding: 6px 10px; }
+    }
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .nav-link { padding: 7px 7px; font-size: 0.8rem; gap: 4px; }
+        .nav-link svg { width: 14px; height: 14px; }
+        .desktop-nav { gap: 1px; }
+        .search-input { width: 120px; }
+        .search-input:focus { width: 150px; }
+        .logo-img { width: 36px; height: 36px; }
+        .logo { gap: 8px; }
+        .header-left { gap: 8px; }
+        .header-actions { gap: 6px; }
+        .action-btn { width: 36px; height: 36px; }
+        .nav-bar { padding: 6px 8px; }
+    }
     @media (max-width: 1180px) { .search-input { width: 130px; } .search-input:focus { width: 170px; } }
 
     .desktop-nav { display: flex; gap: 4px; flex-wrap: nowrap; white-space: nowrap; }
