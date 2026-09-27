@@ -1,0 +1,28 @@
+{
+  "metrics": {
+    "published_pages": 404,
+    "sitemap_url_count": 397,
+    "canonical_error_count": 1,
+    "broken_internal_link_count": 0,
+    "broken_anchor_count": 0,
+    "schema_error_count": 0,
+    "orphan_count": 0,
+    "duplicate_title_count": 0,
+    "duplicate_meta_count": 6,
+    "noindex_count": 0,
+    "h1_error_count": 0,
+    "missing_sitemap_entry_count": 0,
+    "pagination_sitemap_gap_count": 6,
+    "ghost_sitemap_url_count": 0
+  },
+  "scores": {
+    "technical_seo": 100,
+    "crawl_indexability": 100,
+    "canonical_sitemap": 92,
+    "internal_linking": 100,
+    "structured_data": 100,
+    "onpage_structure": 96,
+    "performance": 100,
+    "deploy_hygiene": 100
+  }
+}

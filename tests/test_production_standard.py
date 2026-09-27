@@ -265,7 +265,7 @@ class BasePathTests(unittest.TestCase):
         rows = [dict(PROD_ROW, output_path="cam-nang/an-toan/at-0001-x.html",
                      working_title="Tiêu đề", status="PUBLISHED")]
         page = gcp.render_page_n("An toàn", rows, 2, 2, "antoan.html", "/shop")
-        self.assertIn('href="/shop/cam-nang/an-toan/page-2.html"', page)
+        self.assertIn('rel="canonical" href="https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/page-2.html"', page)
         self.assertIn('Trang 1', page)
         self.assertIn('rel="canonical"', page)
         self.assertNotIn('href="/cam-nang/', page)

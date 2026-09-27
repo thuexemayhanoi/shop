@@ -1,0 +1,100 @@
+{
+  "tool": "seo-audit",
+  "base_url": "https://thuexemayhanoi.github.io/shop/",
+  "findings": [
+    {
+      "rule": "canonical.cross-page",
+      "severity": "P3",
+      "category": "canonical_sitemap",
+      "root_cause": "Canonical deliberately points at another live page (duplicate-content consolidation, e.g. legacy landing pages onto the homepage).",
+      "evidence": "canonical resolves to a different existing live route",
+      "affected": [
+        "https://thuexemayhanoi.github.io/shop/nhap.html"
+      ],
+      "affected_count": 1,
+      "recommended_fix": "Review: keep if intentional consolidation; else self-canonicalize.",
+      "safe_to_auto_fix": false,
+      "risk_level": "review",
+      "seo_impact": "Consolidates ranking signals",
+      "indexing_impact": "By design"
+    },
+    {
+      "rule": "sitemap.pagination-policy",
+      "severity": "P3",
+      "category": "canonical_sitemap",
+      "root_cause": "Generated pagination pages (page-N.html) are excluded from sitemap.xml by the factory sitemap generator policy.",
+      "evidence": "generate_sitemap.py rebuilds /cam-nang/ URLs from matrix rows only; pagination is reachable via hub links and self-canonical",
+      "affected": [
+        "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/cung-duong/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/du-lich/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/hoi-dap/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/kinh-nghiem/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/page-2.html"
+      ],
+      "affected_count": 6,
+      "recommended_fix": "Owner decision: keep excluded (crawlable via links) or extend generate_sitemap.py to include pagination.",
+      "safe_to_auto_fix": false,
+      "risk_level": "review",
+      "seo_impact": "Slower discovery of deep list pages",
+      "indexing_impact": "Indirect"
+    },
+    {
+      "rule": "description.duplicate",
+      "severity": "P3",
+      "category": "onpage_structure",
+      "root_cause": "Multiple pages share the same meta description.",
+      "evidence": "duplicate description",
+      "affected": [
+        [
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0033-bao-duong-may-de-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html"
+        ]
+      ],
+      "affected_count": 1,
+      "recommended_fix": "Differentiate descriptions per page.",
+      "safe_to_auto_fix": false,
+      "risk_level": "low",
+      "seo_impact": "",
+      "indexing_impact": ""
+    }
+  ],
+  "scores": {
+    "technical_seo": 100,
+    "crawl_indexability": 100,
+    "canonical_sitemap": 92,
+    "internal_linking": 100,
+    "structured_data": 100,
+    "onpage_structure": 96,
+    "performance": 100,
+    "deploy_hygiene": 100
+  },
+  "metrics": {
+    "published_pages": 404,
+    "sitemap_url_count": 397,
+    "canonical_error_count": 1,
+    "broken_internal_link_count": 0,
+    "broken_anchor_count": 0,
+    "schema_error_count": 0,
+    "orphan_count": 0,
+    "duplicate_title_count": 0,
+    "duplicate_meta_count": 6,
+    "noindex_count": 0,
+    "h1_error_count": 0,
+    "missing_sitemap_entry_count": 0,
+    "pagination_sitemap_gap_count": 6,
+    "ghost_sitemap_url_count": 0
+  },
+  "worst_severity": "P3",
+  "summary": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "P3": 3
+  }
+}

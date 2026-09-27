@@ -1,0 +1,123 @@
+{
+  "generated_from": "/home/user/shop/reports/seo/audit.json",
+  "rows": [
+    {
+      "id": "SEO-001",
+      "severity": "P3",
+      "rule": "canonical.cross-page",
+      "dependency": "owner decision (consolidation intent)",
+      "scope": "canonical_sitemap",
+      "issue": "Canonical deliberately points at another live page (duplicate-content consolidation, e.g. legacy landing pages onto the homepage).",
+      "root_cause": "Canonical deliberately points at another live page (duplicate-content consolidation, e.g. legacy landing pages onto the homepage).",
+      "evidence": "canonical resolves to a different existing live route",
+      "affected_urls": [
+        "https://thuexemayhanoi.github.io/shop/nhap.html"
+      ],
+      "affected_count": 1,
+      "safe_to_auto_fix": false,
+      "recommended_fix": "Review: keep if intentional consolidation; else self-canonicalize.",
+      "best_tool": "manual review",
+      "execution_status": "REVIEW",
+      "risk_level": "review",
+      "seo_impact": "Consolidates ranking signals",
+      "indexing_impact": "By design",
+      "local_seo_impact": "none",
+      "geo_ai_search_impact": "possible",
+      "before_state": [
+        "https://thuexemayhanoi.github.io/shop/nhap.html"
+      ],
+      "after_state": null,
+      "verification_evidence": null,
+      "rollback_requirement": "git revert of the fixing commit",
+      "verified": "NOT VERIFIED"
+    },
+    {
+      "id": "SEO-002",
+      "severity": "P3",
+      "rule": "sitemap.pagination-policy",
+      "dependency": "none",
+      "scope": "canonical_sitemap",
+      "issue": "Generated pagination pages (page-N.html) are excluded from sitemap.xml by the factory sitemap generator policy.",
+      "root_cause": "Generated pagination pages (page-N.html) are excluded from sitemap.xml by the factory sitemap generator policy.",
+      "evidence": "generate_sitemap.py rebuilds /cam-nang/ URLs from matrix rows only; pagination is reachable via hub links and self-canonical",
+      "affected_urls": [
+        "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/cung-duong/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/du-lich/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/hoi-dap/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/kinh-nghiem/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/page-2.html"
+      ],
+      "affected_count": 6,
+      "safe_to_auto_fix": false,
+      "recommended_fix": "Owner decision: keep excluded (crawlable via links) or extend generate_sitemap.py to include pagination.",
+      "best_tool": "manual review",
+      "execution_status": "REVIEW",
+      "risk_level": "review",
+      "seo_impact": "Slower discovery of deep list pages",
+      "indexing_impact": "Indirect",
+      "local_seo_impact": "none",
+      "geo_ai_search_impact": "possible",
+      "before_state": [
+        "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/cung-duong/page-2.html",
+        "https://thuexemayhanoi.github.io/shop/cam-nang/du-lich/page-2.html"
+      ],
+      "after_state": null,
+      "verification_evidence": null,
+      "rollback_requirement": "git revert of the fixing commit",
+      "verified": "NOT VERIFIED"
+    },
+    {
+      "id": "SEO-003",
+      "severity": "P3",
+      "rule": "description.duplicate",
+      "dependency": "content review",
+      "scope": "onpage_structure",
+      "issue": "Multiple pages share the same meta description.",
+      "root_cause": "Multiple pages share the same meta description.",
+      "evidence": "duplicate description",
+      "affected_urls": [
+        [
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0033-bao-duong-may-de-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html"
+        ]
+      ],
+      "affected_count": 1,
+      "safe_to_auto_fix": false,
+      "recommended_fix": "Differentiate descriptions per page.",
+      "best_tool": "manual review",
+      "execution_status": "REVIEW",
+      "risk_level": "low",
+      "seo_impact": "minor",
+      "indexing_impact": "indirect",
+      "local_seo_impact": "none",
+      "geo_ai_search_impact": "none",
+      "before_state": [
+        [
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0033-bao-duong-may-de-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0035-khi-nao-can-kiem-tra-cong-to-met-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0036-bao-duong-tam-chan-bun-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0037-cach-kiem-tra-day-con-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0038-khi-nao-can-kiem-tra-bo-che-hoa-khi-tren-yamaha-sirius.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0039-bao-duong-ban-dap-cua-yamaha-sirius-dung-cach.html",
+          "https://thuexemayhanoi.github.io/shop/cam-nang/xe-may/xm-0040-cach-kiem-tra-bugi-tren-honda-click.html"
+        ]
+      ],
+      "after_state": null,
+      "verification_evidence": null,
+      "rollback_requirement": "git revert of the fixing commit",
+      "verified": "NOT VERIFIED"
+    }
+  ],
+  "counts": {
+    "safe_auto_fix": 0,
+    "review_only": 3,
+    "total": 3
+  }
+}
