@@ -1,10 +1,10 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T23:06:59
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T23:13:38
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 50 | pass: 0 | published: 44
-- writing: 0 | review: 0 | repair: 0 | fail: 6 | blocked: 0
-- scores: avg 97.7 | min 91 | max 100 | repair_count: 0
+- processed: 50 | written: 50 | pass: 6 | published: 44
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -51,12 +51,12 @@
 | KN-0056 | cam-nang/kinh-nghiem/kn-0056-nhung-dieu-nen-doc-ky-trong-hop-dong-thue-xe-may.html | PUBLISHED | 100 | 0 |  |
 | KN-0057 | cam-nang/kinh-nghiem/kn-0057-di-thu-xe-quanh-quan-truoc-khi-quyet-dinh-thue.html | PUBLISHED | 100 | 0 |  |
 | KN-0058 | cam-nang/kinh-nghiem/kn-0058-kinh-nghiem-lay-xe-buoi-sang-va-tra-xe-cuoi-ngay.html | PUBLISHED | 100 | 0 |  |
-| KN-0059 | cam-nang/kinh-nghiem/kn-0059-nen-thue-xe-may-vao-khung-gio-nao-o-ha-noi.html | FAIL | 95 | 0 | broken internal link: ''; broken internal link: '' |
+| KN-0059 | cam-nang/kinh-nghiem/kn-0059-nen-thue-xe-may-vao-khung-gio-nao-o-ha-noi.html | PASS | 100 | 0 | broken internal link: ''; broken internal link: '' |
 | XM-0051 | cam-nang/xe-may/xm-0051-cach-kiem-tra-bo-ly-hop-tren-honda-click.html | PUBLISHED | 96 | 0 |  |
 | XM-0052 | cam-nang/xe-may/xm-0052-khi-nao-can-kiem-tra-cop-xe-tren-honda-click.html | PUBLISHED | 96 | 0 | word broken across newline: 'đượ\nc'; newline inside HTML tag |
 | XM-0053 | cam-nang/xe-may/xm-0053-dau-hieu-khoa-cop-gap-van-de-tren-honda-click.html | PUBLISHED | 96 | 0 |  |
-| XM-0054 | cam-nang/xe-may/xm-0054-bao-duong-bo-de-dien-cua-honda-click-dung-cach.html | FAIL | 91 | 0 | broken internal link: ''; broken internal link: '' |
-| XM-0055 | cam-nang/xe-may/xm-0055-cach-kiem-tra-den-pha-tren-yamaha-mio.html | FAIL | 95 | 0 | broken internal link: ''; broken internal link: '' |
-| XM-0056 | cam-nang/xe-may/xm-0056-bao-duong-yen-xe-cua-yamaha-mio-dung-cach.html | FAIL | 93 | 0 | broken internal link: ''; broken internal link: '' |
-| XM-0057 | cam-nang/xe-may/xm-0057-khi-nao-can-kiem-tra-loc-gio-tren-yamaha-mio.html | FAIL | 91 | 0 | broken internal link: ''; broken internal link: '' |
-| XM-0058 | cam-nang/xe-may/xm-0058-dau-hieu-ong-xa-gap-van-de-tren-yamaha-mio.html | FAIL | 91 | 0 | broken internal link: ''; broken internal link: '' |
+| XM-0054 | cam-nang/xe-may/xm-0054-bao-duong-bo-de-dien-cua-honda-click-dung-cach.html | PASS | 96 | 0 | broken internal link: ''; broken internal link: '' |
+| XM-0055 | cam-nang/xe-may/xm-0055-cach-kiem-tra-den-pha-tren-yamaha-mio.html | PASS | 100 | 0 | broken internal link: ''; broken internal link: '' |
+| XM-0056 | cam-nang/xe-may/xm-0056-bao-duong-yen-xe-cua-yamaha-mio-dung-cach.html | PASS | 98 | 0 | broken internal link: ''; broken internal link: '' |
+| XM-0057 | cam-nang/xe-may/xm-0057-khi-nao-can-kiem-tra-loc-gio-tren-yamaha-mio.html | PASS | 96 | 0 | broken internal link: ''; broken internal link: '' |
+| XM-0058 | cam-nang/xe-may/xm-0058-dau-hieu-ong-xa-gap-van-de-tren-yamaha-mio.html | PASS | 96 | 0 | broken internal link: ''; broken internal link: '' |
