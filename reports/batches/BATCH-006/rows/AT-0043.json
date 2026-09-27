@@ -1,0 +1,193 @@
+{
+ "article_id": "AT-0043",
+ "batch_id": "BATCH-006",
+ "category": "An toàn",
+ "category_label": "An toàn",
+ "working_title": "Mũ bảo hiểm cho trẻ em dưới 6 tuổi quy định thế nào",
+ "primary_keyword": "mũ bảo hiểm cho trẻ em dưới 6 tuổi quy định thế nào",
+ "secondary_keywords": "mũ bảo hiểm cho trẻ em dưới 6 tuổi quy định thế nào",
+ "search_intent": "informational",
+ "slug": "at-0043-mu-bao-hiem-cho-tre-em-duoi-6-tuoi-quy-dinh-the-nao",
+ "output_path": "cam-nang/an-toan/at-0043-mu-bao-hiem-cho-tre-em-duoi-6-tuoi-quy-dinh-the-nao.html",
+ "draft_output_path": "_drafts/cam-nang/an-toan/at-0043-mu-bao-hiem-cho-tre-em-duoi-6-tuoi-quy-dinh-the-nao.html",
+ "parent_hub": "antoan.html",
+ "eligible_internal_link_targets": "antoan.html,  kinhnghiem.html,  hoidap.html",
+ "commercial_link_target": "banggia.html",
+ "requires_sources": "true",
+ "source_notes": "Xác minh theo nguồn chính thức trước khi xuất bản",
+ "source_requirements": "cite >=1 approved official source URL (config/source-policy.json) in a visible 'Nguồn tham khảo' section; verify via web research; if unavailable BLOCK the article",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1600,
+  "target_max_words": 2000,
+  "review_min_words": 1200,
+  "review_max_words": 2300,
+  "scope": "main editorial content only"
+ },
+ "taxonomy": {
+  "parent_id": "AN_TOAN",
+  "parent_title": "An toàn",
+  "parent_hub": "/shop/antoan.html",
+  "child_cluster": "AT_LUAT_XU_PHAT",
+  "child_title": "Luật giao thông & xử phạt",
+  "child_slug": "at-luat-xu-phat",
+  "child_hub": "/shop/cam-nang/chu-de/at-luat-xu-phat.html",
+  "taxonomy_version": "1.0.0",
+  "policy": "taxonomy is authoritative: the writer MUST NOT invent categories or hubs; when child_hub is non-empty, link the parent hub AND the child hub contextually within the 3-5 link budget"
+ },
+ "page_shell": {
+  "chatbot_embed_required": true,
+  "chatbot_embed_snippet": "<link rel=\"stylesheet\" href=\"/shop/assets/css/chatbot-embed.css\">\n<script src=\"/shop/assets/js/chatbot-embed.js\" defer></script>",
+  "chatbot_embed_position": "immediately before </body>, exactly once",
+  "compact_footer_required": true,
+  "compact_footer_snippet_path": "_snippets/footer-compact.html",
+  "compact_footer_position": "immediately after </main>, before the chatbot embed, exactly once; regenerate the file with scripts/build_footer_snippet.py and embed its content verbatim (class site-footer-compact)",
+  "policy": "structural shell elements: never count as contextual internal links; do not add any other chatbot script or a second taxonomy footer"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 5,
+  "parent_hub_link_required": true,
+  "child_hub_link_recommended": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/at-0043-mu-bao-hiem-cho-tre-em-duoi-6-tuoi-quy-dinh-the-nao.html",
+ "date_published": "2026-09-27",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "AT-0001",
+   "title": "Nồng độ cồn khi lái xe máy: mức xử phạt hiện hành"
+  },
+  {
+   "article_id": "AT-0002",
+   "title": "Tốc độ tối đa cho xe máy trong khu đô thị"
+  },
+  {
+   "article_id": "AT-0003",
+   "title": "Các lỗi phạt nguội xe máy hay gặp"
+  },
+  {
+   "article_id": "AT-0004",
+   "title": "Lỗi không đội mũ bảo hiểm bị phạt như thế nào"
+  },
+  {
+   "article_id": "AT-0005",
+   "title": "Chở quá số người quy định trên xe máy bị phạt ra sao"
+  },
+  {
+   "article_id": "AT-0006",
+   "title": "Lùi xe trên đường một chiều có bị phạt không"
+  }
+ ]
+}
