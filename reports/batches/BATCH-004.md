@@ -1,11 +1,11 @@
 # Batch report BATCH-004
 
-- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T04:02:59
+- started_at: 2026-09-26T17:05:35 | finished_at: 2026-09-27T04:04:55
 - writer: external-agent | batch resolved once: BATCH-004
-- processed: 50 | written: 47 | pass: 0 | published: 45
-- writing: 3 | review: 0 | repair: 2 | fail: 0 | blocked: 0
-- scores: avg 97.7 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 6 | blocked 0
+- processed: 50 | written: 50 | pass: 5 | published: 45
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.9 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 11 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
 | article_id | output_path | status | score | repairs | notes |
@@ -15,10 +15,10 @@
 | AT-0028 | cam-nang/an-toan/at-0028-kiem-tra-xe-may-da-bi-phat-nguoi-o-dau.html | PUBLISHED | 99 | 0 |  |
 | AT-0029 | cam-nang/an-toan/at-0029-cach-nop-phat-nguoi-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | AT-0030 | cam-nang/an-toan/at-0030-xe-thue-bi-phat-nguoi-thi-ai-chiu-trach-nhiem.html | PUBLISHED | 100 | 0 |  |
-| AT-0031 | cam-nang/an-toan/at-0031-quy-dinh-lap-them-phu-kien-cho-xe-may.html | REPAIR | 100 | 0 |  |
-| AT-0032 | cam-nang/an-toan/at-0032-xe-may-chay-tren-via-he-bi-phat-nhu-the-nao.html | REPAIR | 99 | 0 |  |
+| AT-0031 | cam-nang/an-toan/at-0031-quy-dinh-lap-them-phu-kien-cho-xe-may.html | PASS | 100 | 0 |  |
+| AT-0032 | cam-nang/an-toan/at-0032-xe-may-chay-tren-via-he-bi-phat-nhu-the-nao.html | PASS | 99 | 0 |  |
 | AT-0033 | cam-nang/an-toan/at-0033-uong-mot-lon-bia-roi-chay-xe-may-co-vuot-nguong-con-khong.html | PUBLISHED | 99 | 0 |  |
-| AT-0034 | cam-nang/an-toan/at-0034-muc-phat-nong-do-con-voi-xe-may-hien-hanh.html | WRITING |  | 0 |  |
+| AT-0034 | cam-nang/an-toan/at-0034-muc-phat-nong-do-con-voi-xe-may-hien-hanh.html | PASS | 99 | 0 |  |
 | CD-0026 | cam-nang/cung-duong/cd-0026-chuyen-mai-chau-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 95 | 0 |  |
 | CD-0027 | cam-nang/cung-duong/cd-0027-duong-den-mai-chau-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 95 | 0 |  |
 | CD-0028 | cam-nang/cung-duong/cd-0028-cung-duong-vong-qua-moc-chau-co-gi-khac.html | PUBLISHED | 97 | 0 | wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000'; wrong price for Honda Vision: found 0 near 'tuần, dòng Honda Vision hoặc Air Blade khoảng 200.000đ/ngày hoặc 1.000.000' |
@@ -41,8 +41,8 @@
 | HD-0029 | cam-nang/hoi-dap/hd-0029-xe-may-di-vao-ham-duong-bo-duoc-phep-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0030 | cam-nang/hoi-dap/hd-0030-tre-em-ngoi-truoc-xe-may-co-duoc-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0031 | cam-nang/hoi-dap/hd-0031-cong-an-kiem-tra-giay-to-gom-nhung-loai-nao.html | PUBLISHED | 100 | 0 |  |
-| HD-0032 | cam-nang/hoi-dap/hd-0032-den-hau-xe-may-bi-chay-co-bi-phat-khong.html | WRITING |  | 0 |  |
-| HD-0033 | cam-nang/hoi-dap/hd-0033-xe-may-di-lan-lan-co-bi-ghi-phat-nguoi-khong.html | WRITING |  | 0 |  |
+| HD-0032 | cam-nang/hoi-dap/hd-0032-den-hau-xe-may-bi-chay-co-bi-phat-khong.html | PASS | 100 | 0 |  |
+| HD-0033 | cam-nang/hoi-dap/hd-0033-xe-may-di-lan-lan-co-bi-ghi-phat-nguoi-khong.html | PASS | 100 | 0 |  |
 | KN-0026 | cam-nang/kinh-nghiem/kn-0026-kinh-nghiem-de-xe-va-giu-thang-bang-voi-yamaha-sirius.html | PUBLISHED | 99 | 0 |  |
 | KN-0027 | cam-nang/kinh-nghiem/kn-0027-chay-yamaha-sirius-trong-gio-tan-tam-o-ha-noi-nen-luu-y-gi.html | PUBLISHED | 100 | 0 |  |
 | KN-0028 | cam-nang/kinh-nghiem/kn-0028-kinh-nghiem-cho-do-du-lich-tren-yamaha-sirius.html | PUBLISHED | 99 | 0 |  |
