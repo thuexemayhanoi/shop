@@ -1,10 +1,10 @@
 # Batch report BATCH-007
 
-- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-28T03:27:14
+- started_at: 2026-09-27T16:21:40 | finished_at: 2026-09-27T21:05:53
 - writer: external-agent | batch resolved once: BATCH-007
-- processed: 50 | written: 34 | pass: 0 | published: 34
-- writing: 16 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.9 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 39 | pass: 1 | published: 34
+- writing: 11 | review: 0 | repair: 0 | fail: 4 | blocked: 0
+- scores: avg 97.2 | min 90 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -38,11 +38,11 @@
 | HD-0051 | cam-nang/hoi-dap/hd-0051-xe-thue-bi-hong-nho-giua-chung-nen-tu-sua-hay-goi-chu-xe.html | PUBLISHED | 100 | 0 | word broken across newline: 'breadcrum\nb'; word broken across newline: 'g\niá' |
 | HD-0052 | cam-nang/hoi-dap/hd-0052-co-duoc-roi-khoi-khu-vuc-voi-xe-thue-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0053 | cam-nang/hoi-dap/hd-0053-thue-xe-may-theo-thang-gia-co-re-hon-khong.html | PUBLISHED | 100 | 0 |  |
-| HD-0054 | cam-nang/hoi-dap/hd-0054-thue-xe-ga-va-xe-so-thu-tuc-co-khac-khong.html | WRITING |  | 0 |  |
-| HD-0055 | cam-nang/hoi-dap/hd-0055-khach-du-lich-nuoc-ngoai-thue-xe-may-can-chuan-bi-gi.html | WRITING |  | 0 |  |
-| HD-0056 | cam-nang/hoi-dap/hd-0056-co-nen-thue-hai-xe-cho-nhom-bon-nguoi-khong.html | WRITING |  | 0 |  |
-| HD-0057 | cam-nang/hoi-dap/hd-0057-xe-thue-truoc-khi-di-phuot-can-kiem-tra-gi-them.html | WRITING |  | 0 |  |
-| HD-0058 | cam-nang/hoi-dap/hd-0058-cho-hanh-ly-nhieu-khi-thue-xe-nen-chon-xe-nao.html | WRITING |  | 0 |  |
+| HD-0054 | cam-nang/hoi-dap/hd-0054-thue-xe-ga-va-xe-so-thu-tuc-co-khac-khong.html | FAIL | 90 | 0 | wrong price for Honda Click: found 0 near 'đ một tuần; nhóm tay ga như Click, Mio cùng mức 150.000đ ngày và 700.000đ tu'; wrong price for Honda Vision: found 0 near 'ần, trong khi Honda Vision khoảng 200.000đ ngày và 1.000.000đ tuần, Honda Air Bla' |
+| HD-0055 | cam-nang/hoi-dap/hd-0055-khach-du-lich-nuoc-ngoai-thue-xe-may-can-chuan-bi-gi.html | FAIL | 90 | 0 | wrong price for Honda Click: found 0 near 'đ một tuần; nhóm tay ga như Click hay Mio cùng mức 150.000đ ngày và 700.000đ tu'; wrong price for Honda Vision: found 0 near 'ần; Honda Vision khoảng 200.000đ ngày và 1.000.000đ tuần; Honda Air Bla' |
+| HD-0056 | cam-nang/hoi-dap/hd-0056-co-nen-thue-hai-xe-cho-nhom-bon-nguoi-khong.html | FAIL | 90 | 0 | wrong price for Yamaha Mio: found 200000 near 'k hay Mio cùng mức, Honda Vision hay Honda Air Blade khoảng 200.000đ một ngày. Hai chiếc'; wrong price for Honda Vision: found 700000 near 'i giá tuần: gói tuần của nhóm xe số phổ thông thường khoảng 700.000đ, của Vision hay Air' |
+| HD-0057 | cam-nang/hoi-dap/hd-0057-xe-thue-truoc-khi-di-phuot-can-kiem-tra-gi-them.html | PASS | 100 | 0 |  |
+| HD-0058 | cam-nang/hoi-dap/hd-0058-cho-hanh-ly-nhieu-khi-thue-xe-nen-chon-xe-nao.html | FAIL | 90 | 0 | invented fixed price for unapproved model '50cc': hép lái phù hợp nếu dòng xe trên 50cc, và đặt cọc thường từ 2.000.000đ đến 5.000.000đ tùy; invented fixed price for unapproved model '50cc': hép lái phù hợp nếu dòng xe trên 50cc, và đặt cọc thường từ 2.000.000đ đến 5.000.000đ tùy |
 | KN-0051 | cam-nang/kinh-nghiem/kn-0051-xe-may-dien-co-chay-duoc-duong-deo-khong.html | PUBLISHED | 99 | 0 |  |
 | KN-0052 | cam-nang/kinh-nghiem/kn-0052-cach-dieu-chinh-guong-va-yen-tren-xe-may-dien.html | PUBLISHED | 100 | 0 | broken internal link: 'index\n.html'; word broken across newline: 'củ\na' |
 | KN-0053 | cam-nang/kinh-nghiem/kn-0053-kinh-nghiem-kiem-tra-pin-xe-may-dien-khi-thue.html | PUBLISHED | 100 | 0 |  |
