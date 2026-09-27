@@ -1,10 +1,10 @@
 # Batch report BATCH-006
 
-- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T13:23:34
+- started_at: 2026-09-27T09:22:51 | finished_at: 2026-09-27T13:30:35
 - writer: external-agent | batch resolved once: BATCH-006
-- processed: 50 | written: 33 | pass: 6 | published: 26
-- writing: 17 | review: 0 | repair: 0 | fail: 0 | blocked: 1
-- scores: avg 98.4 | min 95 | max 100 | repair_count: 4
+- processed: 50 | written: 33 | pass: 7 | published: 26
+- writing: 17 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 5 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -22,7 +22,7 @@
 | CD-0043 | cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html | PUBLISHED | 96 | 0 |  |
 | CD-0044 | cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html | PUBLISHED | 95 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html'; broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html' |
 | CD-0045 | cam-nang/cung-duong/cd-0045-bai-do-an-toan-doc-duong-di-quan-ba.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0042-cho-ngam-canh-giua-duong-den-thanh-pho-ha-giang.html'; broken internal link: 'cam-nang/cung-duong/cd-0043-cung-duong-ha-noi-quan-ba-cho-nguoi-moi.html' |
-| CD-0046 | cam-nang/cung-duong/cd-0046-chay-xe-may-tu-ha-noi-ra-yen-minh-nen-di-luc-nao.html | BLOCKED | 96 | 4 | broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'; broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html' |
+| CD-0046 | cam-nang/cung-duong/cd-0046-chay-xe-may-tu-ha-noi-ra-yen-minh-nen-di-luc-nao.html | PASS | 96 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'; broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html' |
 | CD-0047 | cam-nang/cung-duong/cd-0047-quan-ca-phe-dung-chan-tren-duong-yen-minh.html | PUBLISHED | 95 | 0 |  |
 | CD-0048 | cam-nang/cung-duong/cd-0048-cung-duong-ngam-canh-tu-ha-noi-len-dong-van.html | PUBLISHED | 96 | 0 |  |
 | CD-0049 | cam-nang/cung-duong/cd-0049-mot-ngay-mot-dem-o-dong-van-co-du-khong.html | PUBLISHED | 96 | 0 |  |

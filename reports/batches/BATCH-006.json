@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-006",
   "started_at": "2026-09-27T09:22:51",
-  "finished_at": "2026-09-27T13:23:34",
+  "finished_at": "2026-09-27T13:30:35",
   "writer": "external-agent",
   "processed": 50,
   "written": 33,
-  "pass": 6,
+  "pass": 7,
   "published": 26,
   "writing": 17,
   "review": 0,
   "repair": 0,
   "fail": 0,
-  "blocked": 1,
+  "blocked": 0,
   "average_score": 98.4,
   "min_score": 95,
   "max_score": 100,
-  "repair_count": 4,
+  "repair_count": 0,
   "source_gate_pass": 5,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 6,
+  "pass_publishable_now": 7,
   "articles": [
     {
       "article_id": "AT-0043",
@@ -154,9 +154,9 @@
     {
       "article_id": "CD-0046",
       "output_path": "cam-nang/cung-duong/cd-0046-chay-xe-may-tu-ha-noi-ra-yen-minh-nen-di-luc-nao.html",
-      "outcome": "BLOCKED",
+      "outcome": "PASS",
       "score": 96,
-      "repair_attempts": 4,
+      "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'",
         "broken internal link: 'cam-nang/cung-duong/cd-0044-nghi-dem-o-quan-ba-khi-di-xe-may-chon-dau.html'"
