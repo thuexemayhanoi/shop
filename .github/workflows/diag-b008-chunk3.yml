@@ -1,9 +1,6 @@
-name: diag BATCH-008 chunk3 publish steps
+name: diag BATCH-008 chunk3 gate output
 
-# One-shot READ-ONLY diagnosis (precedent: diagnose / ci-diag-repair).
-# Replicates the factory-operator publish op step-by-step inside an
-# ISOLATED COPY of the repo. MAIN is never mutated, nothing is published,
-# no AI, no gate bypass. Only evidence files are committed to THIS branch.
+# One-shot READ-ONLY diagnosis v2 (same precedent). Isolated copy only.
 
 on:
   push:
@@ -27,47 +24,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Replicate publish op step-by-step in an isolated copy
+      - name: Publish in isolated copy, capture full gate output
         run: |
           set +e
           cp -r "$GITHUB_WORKSPACE" /tmp/shopdiag
           cd /tmp/shopdiag
           IDS="KN-0061,AT-0061,XM-0061,DL-0061,CD-0061,HD-0061"
-          {
-          echo "=== 1 validate_content_matrix ==="
-          python3 scripts/validate_content_matrix.py; echo "EXIT=$?"
-          echo "=== 2 factory.mjs --recover ==="
-          node scripts/js/factory.mjs --recover; echo "EXIT=$?"
-          echo "=== 3 factory.mjs --consistency pre ==="
-          node scripts/js/factory.mjs --consistency; echo "EXIT=$?"
-          echo "=== 4 factory.mjs --publish dry-run ==="
-          node scripts/js/factory.mjs --publish "$IDS" --date 2026-09-28 --dry-run; echo "EXIT=$?"
-          echo "=== 5 factory.mjs --publish real ==="
-          node scripts/js/factory.mjs --publish "$IDS" --date 2026-09-28; echo "EXIT=$?"
-          echo "=== 6 factory.mjs --consistency post ==="
-          node scripts/js/factory.mjs --consistency; echo "EXIT=$?"
-          echo "=== 7 apply_article_shell.py ==="
-          python3 scripts/apply_article_shell.py; echo "EXIT=$?"
-          echo "=== 8 gate_published_articles.py ==="
-          python3 scripts/gate_published_articles.py; echo "EXIT=$?"
-          echo "=== 9 generate_category_pages.py ==="
-          python3 scripts/generate_category_pages.py; echo "EXIT=$?"
-          echo "=== 10 generate_sitemap.py --check ==="
-          python3 scripts/generate_sitemap.py --check; echo "EXIT=$?"
-          echo "=== 11 generate_category_pages.py --check ==="
-          python3 scripts/generate_category_pages.py --check; echo "EXIT=$?"
-          echo "=== 12 python unittest suite ==="
-          python3 -m unittest discover tests 2>&1 | tail -n 60; echo "EXIT=${PIPESTATUS[0]}"
-          echo "=== 13 node --test tests/js/factory.test.mjs ==="
-          node --test tests/js/factory.test.mjs 2>&1 | tail -n 60; echo "EXIT=${PIPESTATUS[0]}"
-          } > diag-output.txt 2>&1
-          grep -E "^===|^EXIT=" diag-output.txt > diag-summary.txt
+          node scripts/js/factory.mjs --recover > /dev/null 2>&1
+          node scripts/js/factory.mjs --publish "$IDS" --date 2026-09-28 > diag-publish.txt 2>&1
+          python3 scripts/apply_article_shell.py >> diag-publish.txt 2>&1
+          python3 scripts/gate_published_articles.py > diag-gate.txt 2>&1
+          echo "GATE_EXIT=$?" >> diag-gate.txt
           mkdir -p "$GITHUB_WORKSPACE/diag"
-          cp diag-output.txt diag-summary.txt "$GITHUB_WORKSPACE/diag/"
+          cp diag-publish.txt diag-gate.txt "$GITHUB_WORKSPACE/diag/"
       - name: Commit diag evidence to this branch only
         run: |
           git config user.name "factory-operator-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add diag/
-          git commit -m "diag: BATCH-008 chunk 3 publish step-by-step output (isolated copy; MAIN untouched)"
+          git commit -m "diag v2: full gate_published_articles.py output (isolated copy; MAIN untouched)"
           git push
