@@ -1,8 +1,8 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T07:18:57
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T14:19:30
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 16 | pass: 4 | published: 12
+- processed: 50 | written: 16 | pass: 0 | published: 16
 - writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.8 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -50,13 +50,13 @@
 | KN-0071 | cam-nang/kinh-nghiem/kn-0071-chay-xe-may-khi-troi-nom-am-nen-de-y-gi.html | PUBLISHED | 100 | 0 |  |
 | KN-0072 | cam-nang/kinh-nghiem/kn-0072-kinh-nghiem-thue-xe-may-ngay-tet-o-ha-noi.html | PUBLISHED | 98 | 0 |  |
 | KN-0073 | cam-nang/kinh-nghiem/kn-0073-di-xe-may-vao-dem-giao-thua-quanh-ho-guom-nhu-the-nao.html | PUBLISHED | 100 | 0 |  |
-| KN-0074 | cam-nang/kinh-nghiem/kn-0074-kinh-nghiem-chong-say-nang-khi-chay-xe-may-mua-he.html | PASS | 100 | 0 |  |
-| KN-0075 | cam-nang/kinh-nghiem/kn-0075-chay-xe-may-khi-troi-suong-mu-sang-som.html | PASS | 100 | 0 |  |
+| KN-0074 | cam-nang/kinh-nghiem/kn-0074-kinh-nghiem-chong-say-nang-khi-chay-xe-may-mua-he.html | PUBLISHED | 100 | 0 |  |
+| KN-0075 | cam-nang/kinh-nghiem/kn-0075-chay-xe-may-khi-troi-suong-mu-sang-som.html | PUBLISHED | 100 | 0 |  |
 | XM-0068 | cam-nang/xe-may/xm-0068-cach-kiem-tra-bo-ly-hop-tren-honda-vision.html | PUBLISHED | 96 | 0 |  |
 | XM-0069 | cam-nang/xe-may/xm-0069-khi-nao-can-kiem-tra-cop-xe-tren-honda-vision.html | PUBLISHED | 96 | 0 |  |
 | XM-0070 | cam-nang/xe-may/xm-0070-cach-kiem-tra-bugi-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
 | XM-0071 | cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html | PUBLISHED | 96 | 0 | word broken across newline: 'sp\nan'; word broken across newline: 'Blad\ne' |
 | XM-0072 | cam-nang/xe-may/xm-0072-cach-kiem-tra-bo-phanh-tren-honda-air-blade.html | PUBLISHED | 96 | 0 | word broken across newline: 'sp\nan'; word broken across newline: 'b\nố' |
 | XM-0073 | cam-nang/xe-may/xm-0073-dau-hieu-ac-quy-gap-van-de-tren-honda-air-blade.html | PUBLISHED | 96 | 0 | word broken across newline: 'Th\nử'; word broken across newline: 'đư\nợc' |
-| XM-0074 | cam-nang/xe-may/xm-0074-dau-hieu-guong-gap-van-de-tren-honda-air-blade.html | PASS | 96 | 0 |  |
-| XM-0075 | cam-nang/xe-may/xm-0075-bao-duong-yen-xe-cua-honda-air-blade-dung-cach.html | PASS | 96 | 0 |  |
+| XM-0074 | cam-nang/xe-may/xm-0074-dau-hieu-guong-gap-van-de-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
+| XM-0075 | cam-nang/xe-may/xm-0075-bao-duong-yen-xe-cua-honda-air-blade-dung-cach.html | PUBLISHED | 96 | 0 |  |

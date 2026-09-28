@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T07:18:57",
+  "finished_at": "2026-09-28T14:19:30",
   "writer": "external-agent",
   "processed": 50,
   "written": 16,
-  "pass": 4,
-  "published": 12,
+  "pass": 0,
+  "published": 16,
   "writing": 34,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -424,7 +424,7 @@
     {
       "article_id": "KN-0074",
       "output_path": "cam-nang/kinh-nghiem/kn-0074-kinh-nghiem-chong-say-nang-khi-chay-xe-may-mua-he.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -434,7 +434,7 @@
     {
       "article_id": "KN-0075",
       "output_path": "cam-nang/kinh-nghiem/kn-0075-chay-xe-may-khi-troi-suong-mu-sang-som.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -519,7 +519,7 @@
     {
       "article_id": "XM-0074",
       "output_path": "cam-nang/xe-may/xm-0074-dau-hieu-guong-gap-van-de-tren-honda-air-blade.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -529,7 +529,7 @@
     {
       "article_id": "XM-0075",
       "output_path": "cam-nang/xe-may/xm-0075-bao-duong-yen-xe-cua-honda-air-blade-dung-cach.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
