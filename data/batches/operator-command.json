@@ -1,0 +1,8 @@
+{
+  "op": "requeue",
+  "batch": "BATCH-009",
+  "ids": "XM-0071",
+  "allow_blocked": true,
+  "date": "2026-09-28",
+  "note": "external condition resolved: draft repaired and scores 96 with no critical failures"
+}
