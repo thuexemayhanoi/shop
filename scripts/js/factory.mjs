@@ -442,7 +442,7 @@ function regenerateSitemap(matrixRows, site, date) {
 // Mirror of scripts/run_article_batch.py write_factory_progress(): ALL counts,
 // including completed_batches, are derived from the matrix rows — nothing
 // here is hard-coded.
-export function factoryProgress(rows, generated, publishedCommitSha = null) {
+export function factoryProgress(rows, generated, publishedCommitSha = null, matrixCommitSha = null) {
   const production = rows.filter((r) => !isSampleRowFields(r));
   const counts = {};
   const perBatch = new Map();
@@ -488,6 +488,7 @@ export function factoryProgress(rows, generated, publishedCommitSha = null) {
   }
   return {
     generated,
+    matrix_commit_sha: matrixCommitSha || null,
     total: production.length,
     planned: counts.planned || 0,
     writing: counts.writing || 0,
@@ -1188,7 +1189,7 @@ function main() {
     if (fs.existsSync(progressPath)) {
       try { prevSha = (JSON.parse(fs.readFileSync(progressPath, 'utf8')) || {}).published_commit_sha || null; } catch (_) { prevSha = null; }
     }
-    const progress = factoryProgress(rowsAfter, generated, prevSha);
+    const progress = factoryProgress(rowsAfter, generated, prevSha, process.env.GITHUB_SHA || null);
     writes.push({ path: progressPath, content: jsonDump(progress) });
     const reportFiles = rebuildBatchReport(batchId, rowsAfter, results, generated);
     if (reportFiles) writes.push(...reportFiles);
