@@ -1,8 +1,8 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T06:34:02
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T13:41:02
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 6 | pass: 6 | published: 0
+- processed: 50 | written: 6 | pass: 0 | published: 6
 - writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.8 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -44,17 +44,17 @@
 | HD-0073 | cam-nang/hoi-dap/hd-0073-nen-cho-them-nguoi-tren-xe-thue-can-hoi-truoc-khong.html | WRITING |  | 0 |  |
 | HD-0074 | cam-nang/hoi-dap/hd-0074-co-duoc-lap-them-do-tren-xe-thue-khong.html | WRITING |  | 0 |  |
 | HD-0075 | cam-nang/hoi-dap/hd-0075-tra-xe-thue-o-noi-khac-noi-nhan-duoc-khong.html | WRITING |  | 0 |  |
-| KN-0068 | cam-nang/kinh-nghiem/kn-0068-nguoi-lon-tuoi-chay-xe-may-trong-thanh-pho-nen-chu-y-gi.html | PASS | 99 | 0 |  |
-| KN-0069 | cam-nang/kinh-nghiem/kn-0069-sinh-vien-di-thuc-tap-bang-xe-thue-kinh-nghiem-quan-ly-thoi.html | PASS | 100 | 0 |  |
-| KN-0070 | cam-nang/kinh-nghiem/kn-0070-kinh-nghiem-thue-xe-may-trong-mua-mua-ha-noi.html | PASS | 100 | 0 |  |
+| KN-0068 | cam-nang/kinh-nghiem/kn-0068-nguoi-lon-tuoi-chay-xe-may-trong-thanh-pho-nen-chu-y-gi.html | PUBLISHED | 99 | 0 |  |
+| KN-0069 | cam-nang/kinh-nghiem/kn-0069-sinh-vien-di-thuc-tap-bang-xe-thue-kinh-nghiem-quan-ly-thoi.html | PUBLISHED | 100 | 0 |  |
+| KN-0070 | cam-nang/kinh-nghiem/kn-0070-kinh-nghiem-thue-xe-may-trong-mua-mua-ha-noi.html | PUBLISHED | 100 | 0 |  |
 | KN-0071 | cam-nang/kinh-nghiem/kn-0071-chay-xe-may-khi-troi-nom-am-nen-de-y-gi.html | WRITING |  | 0 |  |
 | KN-0072 | cam-nang/kinh-nghiem/kn-0072-kinh-nghiem-thue-xe-may-ngay-tet-o-ha-noi.html | WRITING |  | 0 |  |
 | KN-0073 | cam-nang/kinh-nghiem/kn-0073-di-xe-may-vao-dem-giao-thua-quanh-ho-guom-nhu-the-nao.html | WRITING |  | 0 |  |
 | KN-0074 | cam-nang/kinh-nghiem/kn-0074-kinh-nghiem-chong-say-nang-khi-chay-xe-may-mua-he.html | WRITING |  | 0 |  |
 | KN-0075 | cam-nang/kinh-nghiem/kn-0075-chay-xe-may-khi-troi-suong-mu-sang-som.html | WRITING |  | 0 |  |
-| XM-0068 | cam-nang/xe-may/xm-0068-cach-kiem-tra-bo-ly-hop-tren-honda-vision.html | PASS | 96 | 0 |  |
-| XM-0069 | cam-nang/xe-may/xm-0069-khi-nao-can-kiem-tra-cop-xe-tren-honda-vision.html | PASS | 96 | 0 |  |
-| XM-0070 | cam-nang/xe-may/xm-0070-cach-kiem-tra-bugi-tren-honda-air-blade.html | PASS | 96 | 0 |  |
+| XM-0068 | cam-nang/xe-may/xm-0068-cach-kiem-tra-bo-ly-hop-tren-honda-vision.html | PUBLISHED | 96 | 0 |  |
+| XM-0069 | cam-nang/xe-may/xm-0069-khi-nao-can-kiem-tra-cop-xe-tren-honda-vision.html | PUBLISHED | 96 | 0 |  |
+| XM-0070 | cam-nang/xe-may/xm-0070-cach-kiem-tra-bugi-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
 | XM-0071 | cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html | WRITING |  | 0 |  |
 | XM-0072 | cam-nang/xe-may/xm-0072-cach-kiem-tra-bo-phanh-tren-honda-air-blade.html | WRITING |  | 0 |  |
 | XM-0073 | cam-nang/xe-may/xm-0073-dau-hieu-ac-quy-gap-van-de-tren-honda-air-blade.html | WRITING |  | 0 |  |
