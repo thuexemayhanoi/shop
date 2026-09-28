@@ -1,9 +1,9 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:35:05
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:36:45
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 36 | pass: 4 | published: 31
-- writing: 14 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- processed: 50 | written: 36 | pass: 5 | published: 31
+- writing: 14 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.8 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -34,7 +34,7 @@
 | DL-0064 | cam-nang/du-lich/dl-0064-nen-xuat-phat-may-gio-de-di-xe-may-den-thien-son-suoi-nga.html | PASS | 100 | 0 |  |
 | DL-0065 | cam-nang/du-lich/dl-0065-troi-mua-co-dang-di-thien-son-suoi-nga-bang-xe-may-khong.html | PASS | 99 | 0 |  |
 | DL-0066 | cam-nang/du-lich/dl-0066-nghi-trua-an-gi-khi-di-thien-son-suoi-nga-bang-xe-may.html | PASS | 99 | 0 |  |
-| DL-0067 | cam-nang/du-lich/dl-0067-vi-tri-chup-anh-o-thien-son-suoi-nga-it-nguoi-biet.html | FAIL | 100 | 0 | word broken across newline: 'hì\nnh'; word broken across newline: 'N\nếu' |
+| DL-0067 | cam-nang/du-lich/dl-0067-vi-tri-chup-anh-o-thien-son-suoi-nga-it-nguoi-biet.html | PASS | 100 | 0 | word broken across newline: 'hì\nnh'; word broken across newline: 'N\nếu' |
 | HD-0059 | cam-nang/hoi-dap/hd-0059-nguoi-moi-tap-lai-nen-thue-loai-xe-nao.html | PUBLISHED | 98 | 0 |  |
 | HD-0060 | cam-nang/hoi-dap/hd-0060-co-nen-mua-bao-hiem-them-khi-thue-xe-may-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0061 | cam-nang/hoi-dap/hd-0061-dat-xe-may-thue-truoc-qua-mang-co-dang-tin-khong.html | PUBLISHED | 98 | 0 |  |
