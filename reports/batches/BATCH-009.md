@@ -1,10 +1,10 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T16:14:25
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T09:42:49
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 35 | pass: 0 | published: 35
-- writing: 15 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.8 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 42 | pass: 3 | published: 35
+- writing: 8 | review: 0 | repair: 4 | fail: 0 | blocked: 0
+- scores: avg 98 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -29,17 +29,17 @@
 | CD-0075 | cam-nang/cung-duong/cd-0075-quan-ca-phe-dung-chan-tren-duong-uong-bi.html | PUBLISHED | 95 | 0 |  |
 | DL-0068 | cam-nang/du-lich/dl-0068-di-xe-may-den-dao-quan-oanh-lan-dau-can-biet-gi.html | PUBLISHED | 98 | 0 |  |
 | DL-0069 | cam-nang/du-lich/dl-0069-mua-dong-den-dao-quan-oanh-bang-xe-may-co-lanh-lam-khong.html | PUBLISHED | 96 | 0 |  |
-| DL-0070 | cam-nang/du-lich/dl-0070-mon-gi-dang-mua-ve-tu-dao-quan-oanh.html | WRITING |  | 0 |  |
-| DL-0071 | cam-nang/du-lich/dl-0071-goc-view-ven-duong-khi-chay-xe-den-dao-quan-oanh.html | WRITING |  | 0 |  |
+| DL-0070 | cam-nang/du-lich/dl-0070-mon-gi-dang-mua-ve-tu-dao-quan-oanh.html | PASS | 100 | 0 |  |
+| DL-0071 | cam-nang/du-lich/dl-0071-goc-view-ven-duong-khi-chay-xe-den-dao-quan-oanh.html | PASS | 98 | 0 |  |
 | DL-0072 | cam-nang/du-lich/dl-0072-chuyen-cuoi-tuan-den-thung-nai-bang-xe-may.html | WRITING |  | 0 |  |
 | DL-0073 | cam-nang/du-lich/dl-0073-sang-som-hay-chieu-muon-den-thung-nai-dep-hon.html | WRITING |  | 0 |  |
 | DL-0074 | cam-nang/du-lich/dl-0074-quan-an-gan-bai-xe-o-thung-nai.html | WRITING |  | 0 |  |
 | DL-0075 | cam-nang/du-lich/dl-0075-chup-anh-doan-xe-o-thung-nai-o-dau-dep.html | WRITING |  | 0 |  |
-| HD-0067 | cam-nang/hoi-dap/hd-0067-di-mua-nhieu-voi-xe-thue-co-sao-khong.html | WRITING |  | 0 |  |
-| HD-0068 | cam-nang/hoi-dap/hd-0068-xe-thue-bi-cong-an-giu-vi-giay-to-cua-chu-xe-thi-sao.html | WRITING |  | 0 |  |
-| HD-0069 | cam-nang/hoi-dap/hd-0069-co-duoc-tu-thay-lop-xe-thue-khi-thung-sam-khong.html | WRITING |  | 0 |  |
-| HD-0070 | cam-nang/hoi-dap/hd-0070-xe-thue-de-lau-khong-chay-trong-ngay-co-sao-khong.html | WRITING |  | 0 |  |
-| HD-0071 | cam-nang/hoi-dap/hd-0071-can-kiem-tra-lai-xe-thue-bao-lau-mot-lan-trong-chuyen-dai.html | WRITING |  | 0 |  |
+| HD-0067 | cam-nang/hoi-dap/hd-0067-di-mua-nhieu-voi-xe-thue-co-sao-khong.html | REPAIR | 100 | 0 |  |
+| HD-0068 | cam-nang/hoi-dap/hd-0068-xe-thue-bi-cong-an-giu-vi-giay-to-cua-chu-xe-thi-sao.html | PASS | 100 | 0 |  |
+| HD-0069 | cam-nang/hoi-dap/hd-0069-co-duoc-tu-thay-lop-xe-thue-khi-thung-sam-khong.html | REPAIR | 100 | 0 |  |
+| HD-0070 | cam-nang/hoi-dap/hd-0070-xe-thue-de-lau-khong-chay-trong-ngay-co-sao-khong.html | REPAIR | 100 | 0 |  |
+| HD-0071 | cam-nang/hoi-dap/hd-0071-can-kiem-tra-lai-xe-thue-bao-lau-mot-lan-trong-chuyen-dai.html | REPAIR | 96 | 0 |  |
 | HD-0072 | cam-nang/hoi-dap/hd-0072-xe-thue-bi-lop-non-tu-dau-phai-bao-ngay-khong.html | WRITING |  | 0 |  |
 | HD-0073 | cam-nang/hoi-dap/hd-0073-nen-cho-them-nguoi-tren-xe-thue-can-hoi-truoc-khong.html | WRITING |  | 0 |  |
 | HD-0074 | cam-nang/hoi-dap/hd-0074-co-duoc-lap-them-do-tren-xe-thue-khong.html | WRITING |  | 0 |  |
