@@ -1,9 +1,9 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T07:40:18
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T07:52:31
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 24 | pass: 3 | published: 20
-- writing: 26 | review: 0 | repair: 1 | fail: 0 | blocked: 0
+- processed: 50 | written: 24 | pass: 4 | published: 20
+- writing: 26 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.7 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -20,7 +20,7 @@
 | AT-0075 | cam-nang/an-toan/at-0075-ky-nang-vuot-xe-an-toan-tren-quoc-lo.html | WRITING |  | 0 |  |
 | CD-0067 | cam-nang/cung-duong/cd-0067-trai-nghiem-mot-ngay-o-dinh-lap-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
 | CD-0068 | cam-nang/cung-duong/cd-0068-tram-dung-nghi-ven-duong-toi-dinh-lap.html | PUBLISHED | 98 | 0 |  |
-| CD-0069 | cam-nang/cung-duong/cd-0069-ha-noi-den-mong-cai-quoc-lo-nao-nen-chon.html | REPAIR | 96 | 0 |  |
+| CD-0069 | cam-nang/cung-duong/cd-0069-ha-noi-den-mong-cai-quoc-lo-nao-nen-chon.html | PASS | 96 | 0 |  |
 | CD-0070 | cam-nang/cung-duong/cd-0070-hai-ngay-o-mong-cai-lich-trinh-goi-y-cho-nguoi-di-xe.html | PASS | 96 | 0 |  |
 | CD-0071 | cam-nang/cung-duong/cd-0071-cho-ngam-canh-giua-duong-den-mong-cai.html | WRITING |  | 0 |  |
 | CD-0072 | cam-nang/cung-duong/cd-0072-bai-do-an-toan-doc-duong-di-thanh-pho-ha-long.html | WRITING |  | 0 |  |
