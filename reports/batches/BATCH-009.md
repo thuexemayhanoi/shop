@@ -1,10 +1,10 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T06:27:07
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T06:34:02
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 3 | pass: 3 | published: 0
-- writing: 47 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 96 | min 96 | max 96 | repair_count: 0
+- processed: 50 | written: 6 | pass: 6 | published: 0
+- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.8 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -44,9 +44,9 @@
 | HD-0073 | cam-nang/hoi-dap/hd-0073-nen-cho-them-nguoi-tren-xe-thue-can-hoi-truoc-khong.html | WRITING |  | 0 |  |
 | HD-0074 | cam-nang/hoi-dap/hd-0074-co-duoc-lap-them-do-tren-xe-thue-khong.html | WRITING |  | 0 |  |
 | HD-0075 | cam-nang/hoi-dap/hd-0075-tra-xe-thue-o-noi-khac-noi-nhan-duoc-khong.html | WRITING |  | 0 |  |
-| KN-0068 | cam-nang/kinh-nghiem/kn-0068-nguoi-lon-tuoi-chay-xe-may-trong-thanh-pho-nen-chu-y-gi.html | WRITING |  | 0 |  |
-| KN-0069 | cam-nang/kinh-nghiem/kn-0069-sinh-vien-di-thuc-tap-bang-xe-thue-kinh-nghiem-quan-ly-thoi.html | WRITING |  | 0 |  |
-| KN-0070 | cam-nang/kinh-nghiem/kn-0070-kinh-nghiem-thue-xe-may-trong-mua-mua-ha-noi.html | WRITING |  | 0 |  |
+| KN-0068 | cam-nang/kinh-nghiem/kn-0068-nguoi-lon-tuoi-chay-xe-may-trong-thanh-pho-nen-chu-y-gi.html | PASS | 99 | 0 |  |
+| KN-0069 | cam-nang/kinh-nghiem/kn-0069-sinh-vien-di-thuc-tap-bang-xe-thue-kinh-nghiem-quan-ly-thoi.html | PASS | 100 | 0 |  |
+| KN-0070 | cam-nang/kinh-nghiem/kn-0070-kinh-nghiem-thue-xe-may-trong-mua-mua-ha-noi.html | PASS | 100 | 0 |  |
 | KN-0071 | cam-nang/kinh-nghiem/kn-0071-chay-xe-may-khi-troi-nom-am-nen-de-y-gi.html | WRITING |  | 0 |  |
 | KN-0072 | cam-nang/kinh-nghiem/kn-0072-kinh-nghiem-thue-xe-may-ngay-tet-o-ha-noi.html | WRITING |  | 0 |  |
 | KN-0073 | cam-nang/kinh-nghiem/kn-0073-di-xe-may-vao-dem-giao-thua-quanh-ho-guom-nhu-the-nao.html | WRITING |  | 0 |  |
