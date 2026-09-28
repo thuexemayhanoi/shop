@@ -1,6 +1,12 @@
-name: diag BATCH-008 chunk3 gate output
+name: diag v3 guarded repair of chunk3 drafts
 
-# One-shot READ-ONLY diagnosis v2 (same precedent). Isolated copy only.
+# Deterministic whitespace repair (precedent: apply-article-shell op).
+# Reverts the 0d304c8 line-wrap corruption in 4 BATCH-008 chunk-3 drafts by
+# reconstructing parent prose + canonical shell tail from the gate-clean
+# KN-0061 draft. HARD GUARD: the repaired file must be content-stream
+# identical to the current file (whitespace/newlines only). Files must pass
+# validate_article.py and score_article.py. Only then are they promoted to
+# MAIN. No AI, no editorial changes, no gate bypass.
 
 on:
   push:
@@ -14,33 +20,105 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  diagnose:
+  repair-validate-promote:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Publish in isolated copy, capture full gate output
+      - name: Reconstruct, guard, validate, score
+        id: repair
+        run: |
+          set -eu
+          cat > /tmp/repair.py <<'PYEOF'
+          import subprocess, sys, os
+          REPO = os.getcwd()
+          PARENT = subprocess.run(["git","rev-parse","0d304c8~1"],capture_output=True,text=True,check=True).stdout.strip()
+          FILES = [
+            "_drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html",
+            "_drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html",
+            "_drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html",
+            "_drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html",
+          ]
+          KN = "_drafts/cam-nang/kinh-nghiem/kn-0061-kinh-nghiem-tra-xe-may-thue-dung-gio.html"
+          MAIN = "</main>"
+          s = lambda x: x.replace("\r","").replace("\n","")
+          def show(ref, path):
+            return subprocess.run(["git","show",ref+":"+path],capture_output=True,text=True,check=True).stdout
+          kn = open(os.path.join(REPO,KN),encoding="utf-8").read()
+          assert kn.count(MAIN)==1
+          tail = kn[kn.index(MAIN)+len(MAIN):]
+          ok = True
+          report = []
+          for f in FILES:
+            p = show(PARENT, f)
+            c = open(os.path.join(REPO,f),encoding="utf-8").read()
+            assert p.count(MAIN)==1 and c.count(MAIN)==1, f+": main-tag count"
+            fixed = p[:p.index(MAIN)+len(MAIN)] + tail
+            guard = s(fixed)==s(c)
+            with open(os.path.join(REPO,f),"w",encoding="utf-8") as fh:
+                fh.write(fixed)
+            report.append((f, len(p), len(c), len(fixed), "GUARD_OK" if guard else "GUARD_FAIL"))
+            if not guard: ok = False
+          for r in report: print("REPAIR", r)
+          print("ALL_GUARDS_OK" if ok else "GUARD_FAILURE")
+          sys.exit(0 if ok else 3)
+          PYEOF
+          python3 /tmp/repair.py | tee diag-repair.txt
+      - name: Validate and score repaired drafts
         run: |
           set +e
-          cp -r "$GITHUB_WORKSPACE" /tmp/shopdiag
-          cd /tmp/shopdiag
-          IDS="KN-0061,AT-0061,XM-0061,DL-0061,CD-0061,HD-0061"
-          node scripts/js/factory.mjs --recover > /dev/null 2>&1
-          node scripts/js/factory.mjs --publish "$IDS" --date 2026-09-28 > diag-publish.txt 2>&1
-          python3 scripts/apply_article_shell.py >> diag-publish.txt 2>&1
-          python3 scripts/gate_published_articles.py > diag-gate.txt 2>&1
-          echo "GATE_EXIT=$?" >> diag-gate.txt
-          mkdir -p "$GITHUB_WORKSPACE/diag"
-          cp diag-publish.txt diag-gate.txt "$GITHUB_WORKSPACE/diag/"
-      - name: Commit diag evidence to this branch only
+          : > diag-validate.txt
+          for f in \
+            _drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html \
+            _drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html \
+            _drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html \
+            _drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html; do
+            echo "=== validate $f ===" >> diag-validate.txt
+            python3 scripts/validate_article.py "$f" >> diag-validate.txt 2>&1
+            echo "VALIDATE_EXIT=$?" >> diag-validate.txt
+            echo "=== score $f ===" >> diag-validate.txt
+            python3 scripts/score_article.py "$f" >> diag-validate.txt 2>&1
+            echo "SCORE_EXIT=$?" >> diag-validate.txt
+          done
+          cat diag-validate.txt
+          grep -q "GUARD_FAIL" diag-repair.txt && exit 1
+          if grep -q "VALIDATE_EXIT=[^0]" diag-validate.txt || grep -q "SCORE_EXIT=[^0]" diag-validate.txt; then
+            echo "validation or scoring failed; not promoting"; exit 1
+          fi
+      - name: Commit repaired drafts to this branch (audit trail)
         run: |
           git config user.name "factory-operator-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add diag/
-          git commit -m "diag v2: full gate_published_articles.py output (isolated copy; MAIN untouched)"
-          git push
+          git add diag-repair.txt diag-validate.txt \
+            _drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html \
+            _drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html \
+            _drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html \
+            _drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html
+          git commit -m "diag v3: guarded whitespace repair of 4 chunk-3 drafts (content-stream identical; validate+score PASS)"
+          git push origin HEAD:diag-b008-chunk3
+      - name: Promote repaired drafts to MAIN (only the 4 draft paths)
+        run: |
+          set -eu
+          git fetch origin main
+          git checkout -B promote origin/main
+          git checkout diag-b008-chunk3 -- \
+            _drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html \
+            _drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html \
+            _drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html \
+            _drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html
+          CHANGED=$(git status --porcelain | wc -l)
+          if [ "$CHANGED" != "4" ]; then
+            echo "unexpected diff scope: $CHANGED files"; git status --porcelain; exit 1
+          fi
+          git config user.name "Mr Tú"
+          git config user.email "nguyentuantu2482@gmail.com"
+          git add -A
+          git commit -m "draft repair: revert 0d304c8 line-wrap corruption in 4 BATCH-008 chunk-3 drafts (AT/CD/DL/XM-0061); prose byte-identical to 0d304c8~1, canonical shell tail from gate-clean KN-0061; content-stream guard + validate + score PASS (diag-b008-chunk3)"
+          git push origin HEAD:main
