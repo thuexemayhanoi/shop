@@ -1,7 +1,7 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T06:56:09",
+  "finished_at": "2026-09-28T06:57:27",
   "writer": "external-agent",
   "processed": 50,
   "written": 9,
@@ -15,7 +15,7 @@
   "average_score": 97.2,
   "min_score": 96,
   "max_score": 100,
-  "repair_count": 2,
+  "repair_count": 3,
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
@@ -476,7 +476,7 @@
       "output_path": "cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html",
       "outcome": "BLOCKED",
       "score": 96,
-      "repair_attempts": 2,
+      "repair_attempts": 3,
       "quality_failures": [
         "word broken across newline: 'sp\\nan'",
         "word broken across newline: 'Blad\\ne'",
