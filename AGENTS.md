@@ -71,6 +71,66 @@ Machine-readable truth (never contradict, never hand-edit):
 - `data/content-taxonomy.json` + `data/content-taxonomy-map.csv` — taxonomy
 - `reports/batches/factory-progress.json` — deterministic progress ledger
   (read progress numbers from these files; NEVER hardcode counts)
+- `reports/article-quality/qa-evidence.json` — reusable QA verdicts
+  (machine-managed; a verdict is reusable ONLY while the article content
+  hash, the QA config hash and `article_lib.VALIDATOR_VERSION` all match;
+  never hand-edit, never trust stale evidence for changed content).
+  The file is gitignored (runtime artifact): in CI it round-trips as the
+  `qa-evidence` workflow artifact (restored before every gate, saved
+  non-fatally after it), so reuse persists across runs.
+
+## 2b. QA scope contract (workflow hardening 2026-09-28)
+
+The Article Quality Gate (`scripts/qa_scope.py` decides) is SCOPED:
+
+- ALWAYS-GLOBAL on every run: unit tests, matrix invariants,
+  `factory.mjs --consistency` (matrix/hub/sitemap coherence, duplicate
+  URLs, unpublished leaks), lock/transaction integrity, publish hash-QA.
+- CHANGED-ONLY article scanning: only new/modified drafts and modified
+  production articles are re-validated per run. Unchanged articles are
+  skipped unless their QA evidence no longer matches.
+- FULL scan (every production article, drafts included) when ANY
+  globally-affecting file changes: `scripts/**`, `tests/**`, the rubric,
+  business facts, ownership, source policy, site config, shared
+  templates (`_includes/**`, `_snippets/**`, `assets/css/**`), the
+  article rules doc, or the gate workflows themselves.
+- FULL also runs: manually via Article Quality Gate `workflow_dispatch`,
+  and at batch completion (the factory operator publish step detects a
+  terminal batch and runs a FULL evidence-aware audit).
+- Publish scope: the publish gate re-validates ONLY the freshly
+  published articles (evidence is never reused for them); the shared
+  article shell is applied only to the files promoted by the same
+  transaction.
+- Quality thresholds are NEVER weakened or skipped by scoping: the same
+  validate/cannibalization/score tools run per checked article.
+
+## 2c. State sync after QA (never hand-edited counts)
+
+After QA and after EVERY factory mutation, `reports/batches/
+factory-progress.json` and the batch report regenerate from the current
+matrix (`run_article_batch.py` QA path and `factory.mjs` publish both do
+this). PASS/WRITING/REPAIR/PUBLISHED counts in the two reports must
+always agree; if they ever disagree, treat the matrix as truth, report
+drift and repair — never patch numbers by hand. Both files record the
+commit they were generated from; consumers must read state pinned to a
+commit SHA (for example the raw blob at that SHA, or the `matrix_commit_sha`
+/ `published_commit_sha` fields) instead of trusting a possibly stale
+local copy of a report.
+
+## 2d. Operator coordination (one command at a time)
+
+- Exactly ONE operator-command stream: never push a new
+  `data/batches/operator-command.json` while a previous command has not
+  finished. Send a command → wait for the `factory-operator: <op>`
+  result commit on MAIN → only then send the next command.
+- Never push drafts/reports/matrix changes while the operator run is
+  committing/pushing (the operator workflow aborts superseded command
+  files and queues on the `article-batch-production` concurrency group).
+- Pages builds: GitHub Pages (branch-based) rebuilds the site on every
+  push to MAIN — pushes that contain only drafts, operator commands or
+  reports still trigger a Pages build. This cannot be path-filtered for
+  branch-based Pages and is expected behaviour; do not "fix" it by
+  editing unrelated workflow paths.
 
 ## 3. Fast path — continue the article run (summary; details in PROC-PUBLISH.md)
 
@@ -92,6 +152,9 @@ rows -> VERIFY -> continue.
    command `{"op":"prepare-next"}`; otherwise read the existing manifests
    under `reports/batches/<BATCH>/rows/`.
 4. Write drafts into `_drafts/<output_path>` (5–10 per chunk).
+   New articles target **1,600–3,000 main-content Vietnamese words**
+   (choose by search intent; already-published articles keep the legacy
+   1,600–2,000 band — see `docs/ARTICLE-RULES.md`).
 5. Local gate each draft: `python3 scripts/score_article.py <draft>`.
 6. Push drafts, run operator `{"op":"qa","batch":"<BATCH>"}`.
 7. Publish PASS rows: operator `{"op":"publish","batch":"<BATCH>","ids":"…","date":"<date>"}`.
@@ -112,6 +175,8 @@ Continue the run (next chunk) ONLY if ALL of these hold:
 - [ ] Matrix statuses match reality (PASS rows published, no WRITING row
       has a file at its public path).
 - [ ] CI on the pushed HEAD is green (Article Quality Gate + Pages deploy).
+      Draft-only pushes run the gate in CHANGED scope; engine/rubric/config
+      changes force the FULL scan automatically.
 
 Repair (stop advancing, fix, re-verify) when any of these is true:
 

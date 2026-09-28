@@ -140,9 +140,11 @@ never hardcode counts here. Unpublished article drafts live under
 publish transaction — see `docs/PROC-PUBLISH.md`).
 
 **Production article standard (Mr Tú Content Factory — internal editorial
-standard, not a Google requirement):** every production article targets
-**1,600–2,000 Vietnamese words** of main editorial content (1,200–1,599 or
-2,001–2,300 → REVIEW; <1,200 or >2,300 → FAIL; padding never counts) and
+standard, not a Google requirement):** every new production article targets
+**1,600–3,000 Vietnamese words** of main editorial content, chosen by
+search intent (1,200–1,599 or 3,001–3,400 → REVIEW; <1,200 or >3,400 →
+FAIL; padding never counts; already-published articles keep the legacy
+1,600–2,000 band) and
 exactly **3–5 contextual internal links** including the required **parent
 category hub** link, with descriptive diverse anchors and at most 1
 commercial landing-page link. Public URLs live under the GitHub Pages base
@@ -196,7 +198,8 @@ regenerates them (publish regenerates them automatically).
 Then select exactly ONE eligible (PLANNED) matrix row. For every production
 article, an agent MUST:
 
-1. write **1,600–2,000 useful Vietnamese words** (main content only; no filler)
+1. write **1,600–3,000 useful Vietnamese words** (main content only; choose
+   the length by search intent; no filler)
 2. exactly **1 primary search intent**
 3. exactly **1 H1**
 4. **3–5 contextual internal links** in the editorial body (nav/footer/breadcrumb links do not count)

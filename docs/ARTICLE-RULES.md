@@ -5,15 +5,28 @@
 This is the site's internal editorial standard. It is NOT a Google
 requirement — it is the owner-selected quality bar for this factory.
 
-- TARGET LENGTH: **1,600–2,000 Vietnamese words** of main editorial content
-  - 1,600–2,000 = length requirement satisfied
-  - 1,200–1,599 or 2,001–2,300 = REVIEW (cannot PASS without repair)
-  - <1,200 or >2,300 = FAIL
-  - Words are counted from the article MAIN CONTENT only: the
-    `<article>`/`<main>` container minus navigation, header, footer,
-    breadcrumb, chatbot, scripts and styles. Padding never satisfies the
-    standard: repeated sentences/paragraphs, duplicate sections and filler
-    are detected separately and block PASS.
+- TARGET LENGTH (NEW articles, matrix rows NOT yet PUBLISHED): **1,600–3,000
+  Vietnamese words** of main editorial content
+  - 1,600–3,000 = length requirement satisfied
+  - 1,200–1,599 or 3,001–3,400 = REVIEW (cannot PASS without repair)
+  - <1,200 or >3,400 = FAIL
+  - Choose the length INSIDE the band by search intent: a narrow question
+    needs ~1,600–2,000, a broad guide can justify ~2,500–3,000. Never
+    force every article to 3,000. Never pad: repeated ideas, duplicate
+    sections, keyword stuffing and filler are detected separately and
+    block PASS; invented facts are critical failures.
+  - ALREADY-PUBLISHED articles keep the LEGACY band (1,600–2,000
+    satisfied; 1,200–1,599 / 2,001–2,300 REVIEW; <1,200 / >2,300 FAIL).
+    Published articles are never re-audited against the new band, and a
+    full audit never fails retroactively because of the new thresholds.
+  - WORD COUNTING METHOD (writer and QA use the SAME deterministic
+    method — `Article.main_content_words` in `scripts/article_lib.py`):
+    words are whitespace-separated tokens of the main editorial content
+    only — the `<article>`/`<main>` container minus navigation, header,
+    footer, breadcrumb, chatbot, cookie banners, pagination, menus,
+    scripts, styles, SVG and JSON-LD. Menu/footer/shared UI words never
+    count. This is an internal editorial standard, NOT a Google
+    requirement.
 - CONTEXTUAL INTERNAL LINKS: exactly **3–5** inside the editorial body
   - menu, footer, breadcrumb, logo, chatbot, pagination, social and
     external links never count
@@ -39,7 +52,9 @@ requirement — it is the owner-selected quality bar for this factory.
   link to PUBLISHED articles (or articles publishing in the same validated
   batch)
 - QUALITY GATE: PASS requires score ≥ 90, no critical failures, no review
-  flags, 1,600–2,000 words, 3–5 contextual links, parent hub present, no
+  flags, length inside the target band (1,600–3,000 for not-yet-published
+  rows; 1,600–2,000 legacy band for already-published rows), 3–5 contextual
+  links, parent hub present, no
   broken links, no protected-intent conflict, fact-safety pass and legal
   sources satisfied
 
@@ -81,7 +96,7 @@ immediately after `</main>` and before the chatbot embed:
 
 ## Intent & structure
 
-- One clear search intent; one primary topic per article. The 1,600–2,000
+- One clear search intent; one primary topic per article. The 1,600–3,000
   word budget must answer that intent deeply — never mix unrelated intents
   or add unrelated sections just to reach the word count.
 - The useful answer appears early in the article (answer the intent in the
@@ -92,7 +107,8 @@ immediately after `</main>` and before the chatbot embed:
 - No duplicate sections; no filler written only to pad word count
   (detected and blocked).
 - No exact word-count requirement for SAMPLE fixtures. For production rows
-  the 1,600–2,000 standard above applies. The configurable thin-content
+  the 1,600–3,000 standard above applies (legacy band for rows already
+  PUBLISHED). The configurable thin-content
   threshold (`thin_content_min_words`, default 300) still applies to all
   articles.
 
