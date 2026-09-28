@@ -1,0 +1,6 @@
+{
+  "op": "qa",
+  "batch": "BATCH-009",
+  "date": "2026-09-28",
+  "note": "QA after allow_blocked requeue of XM-0071"
+}
