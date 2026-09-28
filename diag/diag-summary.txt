@@ -1,0 +1,26 @@
+=== 1 validate_content_matrix ===
+EXIT=0
+=== 2 factory.mjs --recover ===
+EXIT=0
+=== 3 factory.mjs --consistency pre ===
+EXIT=0
+=== 4 factory.mjs --publish dry-run ===
+EXIT=0
+=== 5 factory.mjs --publish real ===
+EXIT=0
+=== 6 factory.mjs --consistency post ===
+EXIT=0
+=== 7 apply_article_shell.py ===
+EXIT=0
+=== 8 gate_published_articles.py ===
+EXIT=1
+=== 9 generate_category_pages.py ===
+EXIT=0
+=== 10 generate_sitemap.py --check ===
+EXIT=0
+=== 11 generate_category_pages.py --check ===
+EXIT=0
+=== 12 python unittest suite ===
+EXIT=0
+=== 13 node --test tests/js/factory.test.mjs ===
+EXIT=0
