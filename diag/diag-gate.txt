@@ -1,0 +1,30 @@
+GATE FAIL cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html 1
+article: cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html
+INVALID — hard errors:
+  ! word broken across newline: 'c\nơ'
+  ! word broken across newline: 'n\ngay'
+  ! word broken across newline: 'B\nạn'
+
+GATE FAIL cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html 1
+article: cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html
+INVALID — hard errors:
+  ! word broken across newline: 'Breadcrum\nb'
+  ! word broken across newline: 'l\nợn'
+  ! newline inside HTML tag
+
+GATE FAIL cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html 1
+article: cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html
+INVALID — hard errors:
+  ! word broken across newline: 'hre\nf'
+  ! word broken across newline: 'lịc\nh'
+  ! word broken across newline: 't\nhì'
+  ! newline inside HTML tag
+
+GATE FAIL cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html 1
+article: cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html
+INVALID — hard errors:
+  ! word broken across newline: 'hoặ\nc'
+  ! newline inside HTML tag
+
+gate: 366 published articles checked, 4 failures
+GATE_EXIT=1
