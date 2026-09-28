@@ -1,10 +1,10 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T12:25:42
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:35:05
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 31 | pass: 0 | published: 31
-- writing: 19 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.6 | min 94 | max 100 | repair_count: 0
+- processed: 50 | written: 36 | pass: 4 | published: 31
+- writing: 14 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- scores: avg 97.8 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -30,11 +30,11 @@
 | DL-0060 | cam-nang/du-lich/dl-0060-di-trong-ngay-den-khoang-xanh-bang-xe-may-co-dang-khong.html | PUBLISHED | 95 | 0 |  |
 | DL-0061 | cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html | PUBLISHED | 95 | 0 |  |
 | DL-0062 | cam-nang/du-lich/dl-0062-an-sang-o-dau-truoc-khi-chay-xe-den-khoang-xanh.html | PUBLISHED | 97 | 0 |  |
-| DL-0063 | cam-nang/du-lich/dl-0063-canh-quan-dep-nhat-o-khoang-xanh-theo-nguoi-chay-xe.html | WRITING |  | 0 |  |
-| DL-0064 | cam-nang/du-lich/dl-0064-nen-xuat-phat-may-gio-de-di-xe-may-den-thien-son-suoi-nga.html | WRITING |  | 0 |  |
-| DL-0065 | cam-nang/du-lich/dl-0065-troi-mua-co-dang-di-thien-son-suoi-nga-bang-xe-may-khong.html | WRITING |  | 0 |  |
-| DL-0066 | cam-nang/du-lich/dl-0066-nghi-trua-an-gi-khi-di-thien-son-suoi-nga-bang-xe-may.html | WRITING |  | 0 |  |
-| DL-0067 | cam-nang/du-lich/dl-0067-vi-tri-chup-anh-o-thien-son-suoi-nga-it-nguoi-biet.html | WRITING |  | 0 |  |
+| DL-0063 | cam-nang/du-lich/dl-0063-canh-quan-dep-nhat-o-khoang-xanh-theo-nguoi-chay-xe.html | PASS | 96 | 0 |  |
+| DL-0064 | cam-nang/du-lich/dl-0064-nen-xuat-phat-may-gio-de-di-xe-may-den-thien-son-suoi-nga.html | PASS | 100 | 0 |  |
+| DL-0065 | cam-nang/du-lich/dl-0065-troi-mua-co-dang-di-thien-son-suoi-nga-bang-xe-may-khong.html | PASS | 99 | 0 |  |
+| DL-0066 | cam-nang/du-lich/dl-0066-nghi-trua-an-gi-khi-di-thien-son-suoi-nga-bang-xe-may.html | PASS | 99 | 0 |  |
+| DL-0067 | cam-nang/du-lich/dl-0067-vi-tri-chup-anh-o-thien-son-suoi-nga-it-nguoi-biet.html | FAIL | 100 | 0 | word broken across newline: 'hì\nnh'; word broken across newline: 'N\nếu' |
 | HD-0059 | cam-nang/hoi-dap/hd-0059-nguoi-moi-tap-lai-nen-thue-loai-xe-nao.html | PUBLISHED | 98 | 0 |  |
 | HD-0060 | cam-nang/hoi-dap/hd-0060-co-nen-mua-bao-hiem-them-khi-thue-xe-may-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0061 | cam-nang/hoi-dap/hd-0061-dat-xe-may-thue-truoc-qua-mang-co-dang-tin-khong.html | PUBLISHED | 98 | 0 |  |
