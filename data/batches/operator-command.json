@@ -1,0 +1,6 @@
+{
+  "op": "qa",
+  "batch": "BATCH-009",
+  "date": "2026-09-28",
+  "note": "rescore KN-0073 after parent-hub fix"
+}
