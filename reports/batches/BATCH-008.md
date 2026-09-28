@@ -1,9 +1,9 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T12:14:05
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:25:12
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 27 | pass: 0 | published: 27
-- writing: 23 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 31 | pass: 4 | published: 27
+- writing: 19 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.6 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -22,10 +22,10 @@
 | CD-0060 | cam-nang/cung-duong/cd-0060-cung-duong-di-xe-may-tu-ha-noi-den-that-khe.html | PUBLISHED | 95 | 0 |  |
 | CD-0061 | cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html | PUBLISHED | 96 | 0 |  |
 | CD-0062 | cam-nang/cung-duong/cd-0062-diem-dung-chan-dep-tren-cung-duong-ha-noi-that-khe.html | PUBLISHED | 95 | 0 |  |
-| CD-0063 | cam-nang/cung-duong/cd-0063-di-xe-may-tu-ha-noi-den-thanh-pho-lang-son-mat-bao-lau.html | WRITING |  | 0 |  |
-| CD-0064 | cam-nang/cung-duong/cd-0064-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-lang-son.html | WRITING |  | 0 |  |
-| CD-0065 | cam-nang/cung-duong/cd-0065-quan-an-ngon-doc-duong-den-thanh-pho-lang-son.html | WRITING |  | 0 |  |
-| CD-0066 | cam-nang/cung-duong/cd-0066-tuyen-duong-dep-tu-ha-noi-den-dinh-lap.html | WRITING |  | 0 |  |
+| CD-0063 | cam-nang/cung-duong/cd-0063-di-xe-may-tu-ha-noi-den-thanh-pho-lang-son-mat-bao-lau.html | PASS | 98 | 0 |  |
+| CD-0064 | cam-nang/cung-duong/cd-0064-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-lang-son.html | PASS | 98 | 0 |  |
+| CD-0065 | cam-nang/cung-duong/cd-0065-quan-an-ngon-doc-duong-den-thanh-pho-lang-son.html | PASS | 96 | 0 |  |
+| CD-0066 | cam-nang/cung-duong/cd-0066-tuyen-duong-dep-tu-ha-noi-den-dinh-lap.html | PASS | 98 | 0 |  |
 | DL-0059 | cam-nang/du-lich/dl-0059-chup-anh-sang-som-o-nui-ba-vi-co-gi-dep.html | PUBLISHED | 100 | 0 |  |
 | DL-0060 | cam-nang/du-lich/dl-0060-di-trong-ngay-den-khoang-xanh-bang-xe-may-co-dang-khong.html | PUBLISHED | 95 | 0 |  |
 | DL-0061 | cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html | PUBLISHED | 95 | 0 |  |
