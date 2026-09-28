@@ -236,12 +236,39 @@ class WorkflowFileTests(unittest.TestCase):
         self.assertIn("cam-nang/**", y)
         self.assertNotIn("/tmp/candidates", y)
         self.assertNotIn("cp -", y)
+        # scoped gate: candidate selection lives in scripts/qa_scope.py and
+        # always derives from the matrix output_path at REAL repo paths
+        s = self._read("scripts/qa_scope.py")
+        self.assertIn("output_path", s)
+        self.assertIn("os.path.isfile", s)
+        self.assertIn("GLOBAL_AFFECTING", s)
+        self.assertIn("article_lib", s)  # imports the shared validator
 
     def test_quality_gate_does_not_flatten_article_directories(self):
         y = self._read(".github/workflows/article-quality.yml")
-        # candidates come straight from matrix output_path at real repo paths
-        self.assertIn("output_path", y)
-        self.assertIn("os.path.isfile", y)
+        # candidates come straight from the matrix output_path at real
+        # repository paths via scripts/qa_scope.py (draft first, final
+        # fallback); never copied or flattened into /tmp
+        self.assertIn("scripts/qa_scope.py", y)
+        self.assertNotIn("cp -", y)
+        self.assertNotIn("/tmp/candidates", y)
+
+    def test_quality_gate_scope_contract(self):
+        """The scoped gate must keep FULL modes and never weaken checks."""
+        y = self._read(".github/workflows/article-quality.yml")
+        # manual FULL via workflow_dispatch is required by the contract
+        self.assertIn("workflow_dispatch", y)
+        self.assertIn("full", y)
+        # the always-global checks stay global on every run
+        self.assertIn("python3 -m unittest discover tests", y)
+        self.assertIn("scripts/validate_content_matrix.py", y)
+        self.assertIn("--consistency", y)
+        # per-candidate checks are the SAME tools, never skipped wholesale
+        self.assertIn("scripts/validate_article.py", y)
+        self.assertIn("scripts/check_cannibalization.py", y)
+        self.assertIn("scripts/score_article.py", y)
+        # a failing candidate still fails the gate (exit 3 preserved)
+        self.assertIn("status=3", y)
 
     def test_publish_verify_inputs_never_interpolated_into_shell(self):
         """factory-publish-verify.yml must pass dispatch inputs through

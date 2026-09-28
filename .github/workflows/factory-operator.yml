@@ -34,6 +34,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Restore QA evidence cache (content-hash keyed reuse)
+        # reports/article-quality/ is gitignored on purpose (runtime
+        # artifact), so the publish/batch-end gates keep their evidence
+        # across runs as a workflow artifact. Missing artifact (first
+        # run) = cold cache: every published article is fully
+        # re-validated, which is the safe fallback.
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -48,6 +60,14 @@ jobs:
         run: |
           set -eu
           CMD=data/batches/operator-command.json
+          # ONE COMMAND AT A TIME: if the command file on HEAD was not
+          # introduced by THIS push, a newer command superseded it —
+          # abort instead of executing a stale command concurrently.
+          CMD_COMMIT="$(git log -1 --format=%H -- "$CMD" || true)"
+          if [ -n "$CMD_COMMIT" ] && [ "$CMD_COMMIT" != "$GITHUB_SHA" ]; then
+            echo "::error::operator command superseded by a newer push — abort (wait for the previous op result commit before sending the next command)"
+            exit 1
+          fi
           OP="$(jq -r '.op // ""' "$CMD")"
           case "$OP" in
             prepare-next|qa|publish|consistency|recover|requeue|unittest|apply-article-shell) ;;
@@ -108,8 +128,56 @@ jobs:
           node scripts/js/factory.mjs --publish "$ids" --dry-run "${date_args[@]}"
           node scripts/js/factory.mjs --publish "$ids" "${date_args[@]}"
           node scripts/js/factory.mjs --consistency
-          python3 scripts/apply_article_shell.py
-          python3 scripts/gate_published_articles.py
+          # Apply the shared article shell ONLY to the files promoted by
+          # THIS transaction (scanning every published article again on
+          # each publish is redundant: the shell migration is idempotent
+          # and already-migrated files are left untouched).
+          python3 - "$ids" <<'PY' > published_files.txt
+          import csv, os, sys
+          ids = {s.strip() for s in sys.argv[1].split(",") if s.strip()}
+          with open("data/content-matrix.csv", encoding="utf-8") as f:
+              for row in csv.DictReader(f):
+                  if row.get("article_id") in ids and row.get("status") == "PUBLISHED":
+                      p = row.get("output_path") or ""
+                      if p and os.path.isfile(p):
+                          print(p)
+          PY
+          # shell on the promoted files only
+          if [ -s published_files.txt ]; then
+            xargs -r python3 scripts/apply_article_shell.py < published_files.txt
+          fi
+          # PUBLISH GATE (unchanged strength): the freshly published
+          # articles are ALWAYS fully re-validated at their REAL public
+          # paths — evidence is never reused for them. Scope = the ids of
+          # this transaction; other published articles are covered by the
+          # batch-end FULL audit below and by evidence-hash reuse.
+          python3 scripts/gate_published_articles.py --ids "$ids"
+
+      - name: Batch-end FULL audit (when this publish completes the batch)
+        if: env.op == 'publish'
+        run: |
+          set -eu
+          # MILESTONE FULL AUDIT: when every row of the batch reaches a
+          # terminal state, re-audit ALL published articles in one FULL
+          # pass (evidence-aware: only articles whose content/config/
+          # validator hashes changed are really re-validated).
+          python3 - "$batch" <<'PY' > batch_state.txt
+          import csv, sys
+          batch = sys.argv[1]
+          terminal = {"PUBLISHED", "FAIL", "BLOCKED"}
+          rows = []
+          with open("data/content-matrix.csv", encoding="utf-8") as f:
+              rows = [r for r in csv.DictReader(f)
+                      if (r.get("batch_id") or "").strip() == batch
+                      and not (r.get("article_id") or "").startswith("SAMPLE")]
+          done = all((r.get("status") or "").strip() in terminal for r in rows) if rows else False
+          print("BATCH-COMPLETE %s" % batch if done else "BATCH-ACTIVE %s" % batch)
+          PY
+          cat batch_state.txt
+          if grep -q "^BATCH-COMPLETE" batch_state.txt; then
+            echo "Running batch-end FULL audit of all published articles"
+            python3 scripts/gate_published_articles.py
+          fi
 
       - name: Canonical generator freshness (python vs node byte-equality)
         if: env.op == 'publish'
@@ -156,6 +224,18 @@ jobs:
           echo "unittest exit code: $code"
           cat reports/batches/unittest-failures.txt || true
           exit 0
+
+      - name: Save QA evidence cache
+        # Refreshed by the publish gate (--ids) and the batch-end FULL
+        # audit. Never fatal: a failed upload only costs the next run a
+        # cold (but still correct) re-validation.
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality/qa-evidence.json
+          if-no-files-found: ignore
 
       - name: Commit and push deterministic outputs
         run: |

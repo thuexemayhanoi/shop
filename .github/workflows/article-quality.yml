@@ -1,8 +1,39 @@
 name: Article Quality Gate
 
+# SCOPED QUALITY GATE (workflow hardening 2026-09-28).
+#
+# ALWAYS-GLOBAL on every run (never scoped down):
+#   - full unit test suites (python + node)
+#   - matrix invariants (scripts/validate_content_matrix.py)
+#   - factory consistency (scripts/js/factory.mjs --consistency)
+#     which covers matrix/hub/sitemap coherence, URL duplicates and
+#     unpublished-file leaks across the whole site.
+#
+# ARTICLE SCAN SCOPE (scripts/qa_scope.py decides):
+#   - FULL (every production article, drafts included) when the change
+#     touches anything that affects every article: engine scripts, tests,
+#     rubric, business facts, ownership, source policy, site config,
+#     shared templates (_includes/_snippets/assets/css), the article
+#     rules doc, or this workflow file itself.
+#   - FULL on manual workflow_dispatch (the contract's manual FULL run).
+#   - Otherwise CHANGED-ONLY: the drafts/articles added, modified or
+#     repaired in this push/PR. Unchanged articles are never re-scanned
+#     here; a candidate whose recorded QA evidence still matches
+#     (content hash + config hash + validator version) is skipped.
+#   - Quality thresholds are NEVER weakened: the same
+#     validate/cannibalization/score tools run per candidate, and exit 3
+#     on any failure, exactly as before.
+#   - A batch-completion FULL audit runs in the factory operator (see
+#     .github/workflows/factory-operator.yml), not here.
+
 on:
   pull_request:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: "auto (derive from changed files) | full (force FULL audit)"
+        required: false
+        default: "full"
   push:
     branches: [main]
     paths:
@@ -30,6 +61,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Restore QA evidence cache (content-hash keyed reuse)
+        # reports/article-quality/ is gitignored on purpose (runtime
+        # artifact), so evidence persists across runs as a workflow
+        # artifact. First run / missing artifact = cold cache: every
+        # candidate is fully re-validated, which is the safe fallback.
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -52,38 +94,73 @@ jobs:
       - name: Factory consistency (matrix / hubs / sitemap)
         run: node scripts/js/factory.mjs --consistency
 
-      - name: Determine candidate articles (REAL repository paths)
+      - name: Determine QA scope and candidate articles
         id: candidates
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          DISPATCH_SCOPE: ${{ github.event.inputs.scope }}
         run: |
           set -eu
-          # Production articles are validated at their REAL repository paths
-          # (cam-nang/... etc.). Files are NEVER copied/flattened into /tmp:
-          # flattening loses the directory, which breaks relative
-          # article-to-article links inside a category directory.
-          python3 - <<'PY' > candidates.txt
-          import csv, os
-          with open('data/content-matrix.csv', encoding='utf-8') as f:
-              for row in csv.DictReader(f):
-                  p = (row.get('output_path') or '').strip()
-                  aid = row.get('article_id') or ''
-                  if p.startswith('tests/') or aid.startswith('SAMPLE'):
-                      continue  # fixtures and samples are not production articles
-                  if p and os.path.isfile(p):
-                      print(p)
+          # Event-specific changed-file list; scripts/qa_scope.py turns it
+          # into a scope decision. Candidates are ALWAYS the real
+          # repository paths derived from the matrix (output_path checked
+          # with os.path.isfile, draft first, final fallback) — never
+          # copied or flattened into /tmp (flattening loses the category
+          # directory and breaks relative article links).
+          scope_mode="auto"
+          : > changed-files.txt
+          if [ "$EVENT_NAME" = "push" ]; then
+            if [ -n "$BEFORE_SHA" ] && [ "$BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+              git diff --name-only "$BEFORE_SHA" "$GITHUB_SHA" -- cam-nang _drafts config _includes _snippets assets/css scripts tests docs data .github > changed-files.txt || true
+            else
+              scope_mode="full"   # unknown base (first push/force push) -> FULL
+            fi
+          elif [ "$EVENT_NAME" = "pull_request" ]; then
+            git fetch origin "$PR_BASE_SHA" --depth=1 >/dev/null 2>&1 || true
+            MB="$(git merge-base "$PR_BASE_SHA" "$GITHUB_SHA" 2>/dev/null || true)"
+            if [ -n "$MB" ]; then
+              git diff --name-only "$MB" "$GITHUB_SHA" -- cam-nang _drafts config _includes _snippets assets/css scripts tests docs data .github > changed-files.txt || true
+            else
+              scope_mode="full"
+            fi
+          else
+            # workflow_dispatch: the manual FULL audit (contract requirement)
+            scope_mode="${DISPATCH_SCOPE:-full}"
+          fi
+          python3 scripts/qa_scope.py --changed-files changed-files.txt --scope "$scope_mode" > scope.json
+          python3 - <<'PY'
+          import json
+          s = json.load(open("scope.json", encoding="utf-8"))
+          checked = s.get("checked") or []
+          with open("candidates.txt", "w", encoding="utf-8") as f:
+              for p in checked:
+                  f.write(p + "\n")
+          print("QA scope: %s (%s)" % (s["scope"], s["reason"]))
+          print("candidates: %d selected, %d evidence-reused, %d to check"
+                % (len(s.get("candidates") or []), len(s.get("reused") or []),
+                   len(checked)))
+          if s.get("reused"):
+              print("reused (content+config+validator hashes still match):")
+              for p in s["reused"]:
+                  print("  ~ %s" % p)
           PY
           count=$(wc -l < candidates.txt)
           echo "count=$count" >> "$GITHUB_OUTPUT"
-          echo "Candidate production articles: $count (validated at real paths)"
+          echo "scope=$(python3 -c 'import json;print(json.load(open("scope.json"))["scope"])')" >> "$GITHUB_OUTPUT"
 
-      - name: Validate, cannibalization-check and score articles
+      - name: Validate, cannibalization-check and score candidate articles
         if: steps.candidates.outputs.count != '0'
         run: |
           set -eu
           status=0
-          mkdir -p reports/article-quality
+          : > passed.txt
           while IFS= read -r f; do
             echo "===== $f"
-            python3 scripts/validate_article.py "$f" || status=3
+            rc_v=0
+            python3 scripts/validate_article.py "$f" || rc_v=$?
+            [ "$rc_v" -eq 0 ] || status=3
             # check_cannibalization exit contract: 0 = clean, 2 = REVIEW
             # (fuzzy title-similarity warnings — "never auto-fails" per the
             # checker's documented contract and the QA pipeline, which
@@ -93,13 +170,76 @@ jobs:
             rc=0
             python3 scripts/check_cannibalization.py "$f" || rc=$?
             if [ "$rc" -ne 0 ] && [ "$rc" -ne 2 ]; then status=3; fi
-            python3 scripts/score_article.py "$f" || status=3
+            rc_s=0
+            python3 scripts/score_article.py "$f" || rc_s=$?
+            [ "$rc_s" -eq 0 ] || status=3
+            if [ "$rc_v" -eq 0 ] && [ "$rc" -le 2 ] && [ "$rc_s" -eq 0 ]; then
+              echo "$f" >> passed.txt
+            fi
           done < candidates.txt
           exit $status
 
+      - name: Record PASS evidence for the checked candidates
+        # Only articles that just fully re-validated get fresh evidence
+        # (content hash + config hash + validator version). Failed or
+        # unchanged articles never record evidence, so they can never be
+        # skipped by a later run.
+        if: always() && steps.candidates.outputs.count != '0'
+        run: |
+          set -eu
+          [ -f passed.txt ] || exit 0
+          python3 - passed.txt <<'PY'
+          import datetime
+          import os
+          import sys
+          sys.path.insert(0, "scripts")
+          import qa_scope
+          passed = [ln.strip() for ln in open(sys.argv[1], encoding="utf-8")
+                    if ln.strip()]
+          by_path = {}
+          for r in qa_scope.production_matrix_rows():
+              op = (r.get("output_path") or "").strip()
+              if op:
+                  by_path[os.path.abspath(op)] = r
+                  by_path[os.path.abspath(os.path.join("_drafts", op))] = r
+          cfg = qa_scope.config_sha256(".")
+          entries = []
+          for p in passed:
+              row = by_path.get(os.path.abspath(p))
+              if not row:
+                  continue
+              aid = (row.get("article_id") or "").strip()
+              if not qa_scope.is_matrix_article(aid):
+                  continue
+              entries.append({
+                  "article_id": aid,
+                  "content_sha256": qa_scope.file_sha256(p),
+                  "config_sha256": cfg,
+                  "validator_version": qa_scope.lib.VALIDATOR_VERSION,
+                  "status": "PASS",
+                  "score": None,
+                  "path": os.path.relpath(os.path.abspath(p), "."),
+                  "last_checked": datetime.date.today().isoformat(),
+              })
+          if entries:
+              qa_scope.record_evidence(".", entries)
+              print("EVIDENCE-RECORDED %d article(s)" % len(entries))
+          PY
+
       - name: No candidates note
         if: steps.candidates.outputs.count == '0'
-        run: echo "No production candidate articles to check (none published yet)."
+        run: 'echo "No article candidates to re-check for this change (scope: ${{ steps.candidates.outputs.scope }}; global checks all passed above)."'
+
+      - name: Save QA evidence cache
+        # Never fatal: a failed upload only costs the next run a cold
+        # (but still correct) re-validation.
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality/qa-evidence.json
+          if-no-files-found: ignore
 
       - name: Upload quality reports
         if: always() && steps.candidates.outputs.count != '0'

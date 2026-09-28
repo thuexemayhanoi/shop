@@ -32,6 +32,14 @@ EXIT_REVIEW = 2
 EXIT_FAIL = 3
 EXIT_ERROR = 4
 
+# QA validator version. Bump whenever a rule in this module (or the rubric
+# it consumes) changes the pass/fail/review verdict of any article. QA
+# evidence (reports/article-quality/qa-evidence.json) is only reusable
+# while this version, the article content hash and the config hash all
+# still match. History: 2026-09-28.1 = scoped-QA hardening + new
+# 1,600–3,000 word band for not-yet-published articles.
+VALIDATOR_VERSION = "2026-09-28.1"
+
 CATEGORIES = {
     "Kinh nghiệm": "kinhnghiem.html",
     "An toàn": "antoan.html",
@@ -821,8 +829,16 @@ def evaluate_production_standard(article, row, rubric, ownership):
     """Mr Tú Content Factory production standard (applies to PRODUCTION
     matrix rows only; SAMPLE/compact fixtures are exempt).
 
-    Word rule (main-content words only):
-      1600–2000 satisfied | 1200–1599 / 2001–2300 REVIEW | <1200 / >2300 FAIL
+    Word rule (main-content words only), status-aware since VALIDATOR_VERSION
+    2026-09-28.1:
+      row already PUBLISHED → LEGACY band: 1600–2000 satisfied |
+        1200–1599 / 2001–2300 REVIEW | <1200 / >2300 FAIL
+      row not yet published (WRITING/PASS/REPAIR/REVIEW/FAIL/BLOCKED) →
+        NEW band: 1600–3000 satisfied | 1200–1599 / 3001–3400 REVIEW |
+        <1200 / >3400 FAIL
+    Published articles are NEVER re-audited against the new band
+    (no retroactive FULL failures). Inside the band, choose length by
+    search intent; padding is detected separately and never rewarded.
     Contextual internal links: exactly 3–5; 0 = strong REVIEW (never PASS);
       <3 or >5 = REVIEW. Parent hub link required (missing = REVIEW).
     Commercial contextual links: >1 = REVIEW. Repeated exact commercial
@@ -842,10 +858,25 @@ def evaluate_production_standard(article, row, rubric, ownership):
     review_flags = []
     warnings = []
     length_cfg = rubric.get("article_length", {})
-    tmin = int(length_cfg.get("target_min_words", 1600))
-    tmax = int(length_cfg.get("target_max_words", 2000))
-    rmin = int(length_cfg.get("review_min_words", 1200))
-    rmax = int(length_cfg.get("review_max_words", 2300))
+    row_status = (row.get("status") or "").strip().upper()
+    if row_status == "PUBLISHED":
+        # legacy band — keeps every already-published article stable
+        tmin = int(length_cfg.get("target_min_words", 1600))
+        tmax = int(length_cfg.get("target_max_words", 2000))
+        rmin = int(length_cfg.get("review_min_words", 1200))
+        rmax = int(length_cfg.get("review_max_words", 2300))
+        band = "legacy-1600-2000 (row already PUBLISHED)"
+    else:
+        # new band for every not-yet-published row
+        tmin = int(length_cfg.get("unpublished_target_min_words",
+                                  length_cfg.get("target_min_words", 1600)))
+        tmax = int(length_cfg.get("unpublished_target_max_words",
+                                  length_cfg.get("target_max_words", 3000)))
+        rmin = int(length_cfg.get("unpublished_review_min_words",
+                                  length_cfg.get("review_min_words", 1200)))
+        rmax = int(length_cfg.get("unpublished_review_max_words",
+                                  length_cfg.get("review_max_words", 3400)))
+        band = "current-1600-3000 (row not yet published)"
     link_cfg = rubric.get("contextual_internal_links", {})
     lmin = int(link_cfg.get("min", 3))
     lmax = int(link_cfg.get("max", 5))
@@ -861,10 +892,10 @@ def evaluate_production_standard(article, row, rubric, ownership):
                             "(%d words > %d)" % (wc, rmax))
         else:
             review_flags.append(
-                "production article outside 1,600–2,000 word target "
-                "(%d words; REVIEW range %d–%d / %d–%d)"
-                % (wc, rmin, tmin - 1, tmax + 1, rmax))
-    if wc >= tmin and wc > tmax + 300:
+                "production article outside %d–%d word target "
+                "(%d words; REVIEW range %d–%d / %d–%d; band %s)"
+                % (tmin, tmax, wc, rmin, tmin - 1, tmax + 1, rmax, band))
+    if wc >= tmin and wc > tmax + 400:
         warnings.append("very long article — check for filler")
 
     li = article.analyze_contextual_links(row, ownership)
@@ -898,6 +929,8 @@ def evaluate_production_standard(article, row, rubric, ownership):
         "word_count": wc,
         "word_count_scope": "main editorial content (article/main container "
                             "minus nav/header/footer/breadcrumb/chatbot/scripts)",
+        "word_count_band": band,
+        "validator_version": VALIDATOR_VERSION,
         "contextual_internal_link_count": n,
         "parent_hub_link_present": li["parent_hub_present"],
         "anchor_texts": li["anchor_texts"],

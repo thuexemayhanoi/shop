@@ -216,7 +216,35 @@ def note_repair(notes, n):
 
 
 def today():
-    return datetime.date.today().isoformat()
+    # Vietnam-local date (Asia/Ho_Chi_Minh), matching scripts/js/factory.mjs
+    return (datetime.datetime.now(datetime.timezone.utc)
+            + datetime.timedelta(hours=7)).date().isoformat()
+
+
+def now_vn_iso():
+    """Vietnam-local timestamp (Asia/Ho_Chi_Minh), same convention as
+    scripts/js/factory.mjs (UTC+7, seconds precision, no zone marker)."""
+    return (datetime.datetime.now(datetime.timezone.utc)
+            + datetime.timedelta(hours=7)).isoformat(timespec="seconds")
+
+
+def matrix_commit_sha():
+    """The commit SHA this matrix/report state was generated from.
+    Consumers must read reports pinned to a SHA (raw blob at that SHA)
+    so a stale local copy is never mistaken for current truth."""
+    sha = os.environ.get("GITHUB_SHA")
+    if sha:
+        return sha
+    try:
+        import subprocess
+        p = subprocess.run(["git", "rev-parse", "HEAD"],
+                           cwd=os.path.dirname(os.path.abspath(__file__)),
+                           capture_output=True, text=True, timeout=10)
+        if p.returncode == 0:
+            return p.stdout.strip() or None
+    except Exception:
+        pass
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -270,11 +298,22 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
             "delivery, late-return policy); unapproved models must use the "
             "standard 'liên hệ để xác nhận giá hiện tại' wording"),
         "word_standard": {
-            "target_min_words": int(length_cfg.get("target_min_words", 1600)),
-            "target_max_words": int(length_cfg.get("target_max_words", 2000)),
-            "review_min_words": int(length_cfg.get("review_min_words", 1200)),
-            "review_max_words": int(length_cfg.get("review_max_words", 2300)),
+            "target_min_words": int(length_cfg.get(
+                "unpublished_target_min_words",
+                length_cfg.get("target_min_words", 1600))),
+            "target_max_words": int(length_cfg.get(
+                "unpublished_target_max_words",
+                length_cfg.get("target_max_words", 3000))),
+            "review_min_words": int(length_cfg.get(
+                "unpublished_review_min_words",
+                length_cfg.get("review_min_words", 1200))),
+            "review_max_words": int(length_cfg.get(
+                "unpublished_review_max_words",
+                length_cfg.get("review_max_words", 3400))),
             "scope": "main editorial content only",
+            "policy": ("choose length inside the band by search intent; "
+                       "never pad with repeated ideas, keyword stuffing "
+                       "or invented facts"),
         },
         "taxonomy": {
             "parent_id": tax_fields.get("parent_id", ""),
@@ -344,12 +383,14 @@ def build_manifest(batch_id, rows, matrix, ownership, facts, rubric, site,
                    repo_root=None):
     return {
         "batch_id": batch_id,
-        "generated": datetime.datetime.now().isoformat(timespec="seconds"),
+        "generated": now_vn_iso(),
         "writer": "external-agent",
         "writer_instructions": (
             "The Mistral agent writes these article files DIRECTLY (no API, "
             "no secrets). Write exactly the manifest rows. Each article: "
-            "1600-2000 meaningful Vietnamese words, 3-5 contextual internal "
+            "1600-3000 meaningful Vietnamese words (choose the length by "
+            "search intent; never pad with repetition or invented facts), "
+            "3-5 contextual internal "
             "links (parent hub required, max 1 true commercial link, other "
             "links informational and relevant), exactly 1 H1, self canonical "
             "(canonical_url), Article schema + BreadcrumbList, no invented "
@@ -400,16 +441,22 @@ def qa_article(html_path, matrix, ownership, facts, rubric):
 def run_qa_for_batch(rows, matrix, ownership, facts, rubric, repo_root):
     """QA every unfinished row with a written file. Per-article isolation:
     one failure never blocks the others. REVIEW rows consume their repair
-    budget (notes repair:N); after MAX_REPAIR_ATTEMPTS they become BLOCKED."""
+    budget (notes repair:N); after MAX_REPAIR_ATTEMPTS they become BLOCKED.
+    PASS verdicts are recorded as reusable QA evidence (content hash +
+    config hash + validator version, see scripts/qa_scope.py) so later
+    gates never re-scan unchanged PASS articles."""
+    import qa_scope
     updates = {}
     articles = []
+    evidence_entries = []
+    cfg_sha = qa_scope.config_sha256(repo_root)
     for r in rows:
         aid = r.get("article_id")
         path = row_written_file(repo_root, r.get("output_path") or "")
         entry = {"article_id": aid, "output_path": r.get("output_path"),
                  "outcome": None, "score": None, "repair_attempts": 0,
                  "quality_failures": [], "cannibalization_failures": [],
-                 "cannibalization_warnings": []}
+                 "cannibalization_warnings": [], "qa_path": path}
         if not (r.get("output_path") and path):
             entry["outcome"] = "NOT_WRITTEN"
             articles.append(entry)
@@ -426,6 +473,20 @@ def run_qa_for_batch(rows, matrix, ownership, facts, rubric, repo_root):
             updates[aid] = {"status": "PASS", "quality_status": "PASS",
                             "score": str(res["score"]),
                             "last_checked": today()}
+            if qa_scope.is_matrix_article(aid):
+                try:
+                    evidence_entries.append({
+                        "article_id": aid,
+                        "content_sha256": qa_scope.file_sha256(path),
+                        "config_sha256": cfg_sha,
+                        "validator_version": lib.VALIDATOR_VERSION,
+                        "status": "PASS",
+                        "score": res.get("score"),
+                        "path": os.path.relpath(path, repo_root),
+                        "last_checked": today(),
+                    })
+                except OSError:
+                    pass
         elif res["status"] == "FAIL":
             entry["outcome"] = "FAIL"
             updates[aid] = {"status": "FAIL", "quality_status": "FAIL",
@@ -451,6 +512,11 @@ def run_qa_for_batch(rows, matrix, ownership, facts, rubric, repo_root):
                                                       attempts + 1),
                                  "last_checked": today()}
         articles.append(entry)
+    if evidence_entries:
+        try:
+            qa_scope.record_evidence(repo_root, evidence_entries)
+        except OSError:
+            pass
     return updates, articles
 
 
@@ -621,8 +687,7 @@ def build_cumulative_report(batch_id, rows, run_articles, started_at,
     return {
         "batch_id": batch_id,
         "started_at": prev.get("started_at") or started_at,
-        "finished_at": datetime.datetime.now().isoformat(
-            timespec="seconds"),
+        "finished_at": now_vn_iso(),
         "writer": prev.get("writer") or "external-agent",
         "processed": len(members) - planned,
         "written": len(members) - planned - writing,
@@ -719,7 +784,8 @@ def write_factory_progress(repo_root, matrix, published_commit_sha=None):
                     if b["published"] + b["fail"] + b["blocked"] == b["total"]
                     and b["total"] > 0)
     progress = {
-        "generated": datetime.datetime.now().isoformat(timespec="seconds"),
+        "generated": now_vn_iso(),
+        "matrix_commit_sha": matrix_commit_sha(),
         "total": len(prod),
         "planned": counts.get("planned", 0),
         "writing": counts.get("writing", 0),
@@ -1371,8 +1437,11 @@ def main_func(argv=None):
             write_report(repo_root, report)
             print(json.dumps({k: v for k, v in report.items()
                               if k != "articles"}, ensure_ascii=False))
-            if args.progress:
-                write_factory_progress(repo_root, matrix)
+            # STATE SYNC (never optional): after every QA mutation both
+            # reports regenerate from the CURRENT matrix truth, so
+            # factory-progress.json and the batch report can never
+            # disagree (PASS/WRITING/REPAIR/PUBLISHED counts always match).
+            write_factory_progress(repo_root, matrix)
             # exit codes reflect THIS RUN's QA outcomes (not cumulative
             # history) so a clean run of an older batch is not penalised
             run_fail = len([a for a in articles

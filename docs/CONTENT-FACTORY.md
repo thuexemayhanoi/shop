@@ -13,11 +13,13 @@ never templates. The operator run loop (operator-command workflow +
 
 Every production article must satisfy ALL of:
 
-- **1,600–2,000 Vietnamese words** of main editorial content
-  (1,200–1,599 / 2,001–2,300 = REVIEW; <1,200 / >2,300 = FAIL;
+- **1,600–3,000 Vietnamese words** of main editorial content for new
+  articles (1,200–1,599 / 3,001–3,400 = REVIEW; <1,200 / >3,400 = FAIL;
   body-only word counting: article/main container minus nav, header,
-  footer, breadcrumb, chatbot, scripts, styles; padding/filler detected
-  separately)
+  footer, breadcrumb, chatbot, scripts, styles, JSON-LD; padding/filler
+  detected separately; length chosen by search intent, never padded to
+  3,000. Already-PUBLISHED articles keep the legacy 1,600–2,000 band
+  (review 1,200–1,599 / 2,001–2,300) — no retroactive re-audit)
 - **exactly 1 primary search intent**
 - **exactly 1 H1**, self canonical, unique title + meta description
 - **3–5 contextual internal links** in the editorial body, including the
@@ -181,7 +183,7 @@ python3 scripts/run_article_batch.py --batch BATCH-001 --mark-published
 
 - `--prepare-agent` writes `data/batches/BATCH-XXX.json`, a machine-readable
   manifest (per-article writer_context with the full production standard —
-  word_standard 1600-2000, link_standard 3-5 contextual links + parent hub +
+  word_standard 1600-3000 (unpublished band; choose by intent), link_standard 3-5 contextual links + parent hub +
   max 1 commercial, protected intents, business facts policy, canonical_url,
   ACTUAL date_published, neighbor topics) that the external writer consumes.
 - **No API, no secrets**: the writer is the Mistral agent (or a human)
@@ -307,7 +309,7 @@ expected outputs: `docs/PROC-PUBLISH.md`. Summary:
 4. Write each article per `docs/ARTICLE-RULES.md` at its DRAFT path
    `_drafts/<output_path>` (the manifest's `draft_output_path`; the deploy
    gate above keeps it off the live site):
-   1600-2000 Vietnamese words, 1 H1, self canonical, Article +
+   1600-3000 Vietnamese words (new-article band; choose by intent), 1 H1, self canonical, Article +
    BreadcrumbList JSON-LD, lang="vi", author "Mr Tú", datePublished = the
    manifest's date_published (ACTUAL date, never planned_date), 3-5
    contextual internal links (parent hub required, max 1 true commercial).
@@ -429,7 +431,7 @@ pipeline in which the Mistral agent is the writer:
   business facts policy (unverified owner facts never sent), legal-source
   requirements, link_standard (3-5 contextual, max 1 TRUE commercial —
   category hubs are informational, not commercial), word_standard
-  (1600-2000), canonical_url, ACTUAL date_published (never the future
+  (1600-3000 unpublished band / 1600-2000 legacy band for PUBLISHED rows), canonical_url, ACTUAL date_published (never the future
   planned_date), site base URL /shop, neighboring matrix topics.
 - **Source policy** (`config/source-policy.json`): requires_sources rows
   must cite ≥1 approved official domain (chinhphu.vn, vanban.chinhphu.vn,

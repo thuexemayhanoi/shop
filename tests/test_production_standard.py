@@ -77,12 +77,59 @@ class WordCountTests(unittest.TestCase):
         self.assertTrue(any("length" in f for f in fails), n)
 
     def test_word_boundaries(self):
-        for n in (1600, 1800, 2000):
+        # NEW band for not-yet-published rows (PROD_ROW status=WRITING):
+        # 1600-3000 satisfied | 1200-1599 / 3001-3400 REVIEW | else FAIL
+        for n in (1600, 1800, 2000, 2500, 3000):
             self.assertEligible(n)
         self.assertReview(1599)
-        self.assertReview(2001)
+        self.assertReview(3001)
+        self.assertReview(3400)
         self.assertFail(1199)
-        self.assertFail(2301)
+        self.assertFail(3401)
+
+    def test_published_rows_keep_legacy_band(self):
+        # Already-PUBLISHED rows are never re-audited against the new band
+        art, d = synth_article(2000)
+        try:
+            pub_row = dict(PROD_ROW, status="PUBLISHED")
+            fails, flags, warns, metrics = lib.evaluate_production_standard(
+                art, pub_row, self.rubric, self.ownership)
+            self.assertEqual([f for f in fails if "length" in f], [])
+            self.assertEqual([f for f in flags if "word" in f], [])
+            self.assertIn("legacy", metrics["word_count_band"])
+        finally:
+            shutil.rmtree(d)
+        art, d = synth_article(2100)
+        try:
+            pub_row = dict(PROD_ROW, status="PUBLISHED")
+            fails, flags, warns, metrics = lib.evaluate_production_standard(
+                art, pub_row, self.rubric, self.ownership)
+            # 2100 is inside the NEW band but REVIEW under the legacy band
+            self.assertTrue(any("word" in f for f in flags))
+            self.assertEqual([f for f in fails if "length" in f], [])
+        finally:
+            shutil.rmtree(d)
+        art, d = synth_article(2500)
+        try:
+            pub_row = dict(PROD_ROW, status="PUBLISHED")
+            fails, flags, warns, _m = lib.evaluate_production_standard(
+                art, pub_row, self.rubric, self.ownership)
+            # 2500 is fine for an unpublished row but FAIL for a PUBLISHED
+            # row under the legacy band (>2300)
+            self.assertTrue(any("length" in f for f in fails))
+        finally:
+            shutil.rmtree(d)
+
+    def test_unpublished_row_band_metric(self):
+        art, d = synth_article(2500)
+        try:
+            fails, flags, warns, metrics = lib.evaluate_production_standard(
+                art, PROD_ROW, self.rubric, self.ownership)
+            self.assertEqual([f for f in fails if "length" in f], [])
+            self.assertEqual([f for f in flags if "word" in f], [])
+            self.assertIn("1600-3000", metrics["word_count_band"])
+        finally:
+            shutil.rmtree(d)
 
     def test_word_count_is_body_only(self):
         """Nav/footer/breadcrumb boilerplate must not inflate the count."""
