@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T07:00:29",
+  "finished_at": "2026-09-28T14:01:08",
   "writer": "external-agent",
   "processed": 50,
   "written": 9,
-  "pass": 3,
-  "published": 6,
+  "pass": 0,
+  "published": 9,
   "writing": 41,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -474,7 +474,7 @@
     {
       "article_id": "XM-0071",
       "output_path": "cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
@@ -491,7 +491,7 @@
     {
       "article_id": "XM-0072",
       "output_path": "cam-nang/xe-may/xm-0072-cach-kiem-tra-bo-phanh-tren-honda-air-blade.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
@@ -505,7 +505,7 @@
     {
       "article_id": "XM-0073",
       "output_path": "cam-nang/xe-may/xm-0073-dau-hieu-ac-quy-gap-van-de-tren-honda-air-blade.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
