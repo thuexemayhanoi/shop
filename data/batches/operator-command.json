@@ -1,8 +1,0 @@
-{
-  "op": "requeue",
-  "batch": "BATCH-009",
-  "ids": "XM-0071",
-  "allow_blocked": true,
-  "date": "2026-09-28",
-  "note": "draft rewritten with clean bytes; precheck expected clean"
-}
