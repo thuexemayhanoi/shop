@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T07:30:25",
+  "finished_at": "2026-09-28T14:31:02",
   "writer": "external-agent",
   "processed": 50,
   "written": 20,
-  "pass": 4,
-  "published": 16,
+  "pass": 0,
+  "published": 20,
   "writing": 30,
   "review": 0,
   "repair": 0,
@@ -19,12 +19,12 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0068",
       "output_path": "cam-nang/an-toan/at-0068-ky-nang-chay-khi-nang-choi-ban-trua.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -34,7 +34,7 @@
     {
       "article_id": "AT-0069",
       "output_path": "cam-nang/an-toan/at-0069-chay-xe-theo-doan-nhieu-xe-an-toan.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -104,7 +104,7 @@
     {
       "article_id": "CD-0067",
       "output_path": "cam-nang/cung-duong/cd-0067-trai-nghiem-mot-ngay-o-dinh-lap-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -114,7 +114,7 @@
     {
       "article_id": "CD-0068",
       "output_path": "cam-nang/cung-duong/cd-0068-tram-dung-nghi-ven-duong-toi-dinh-lap.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
