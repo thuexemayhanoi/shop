@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T08:03:53",
+  "finished_at": "2026-09-28T16:06:59",
   "writer": "external-agent",
   "processed": 50,
   "written": 29,
-  "pass": 5,
-  "published": 24,
+  "pass": 0,
+  "published": 29,
   "writing": 21,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -44,7 +44,7 @@
     {
       "article_id": "AT-0070",
       "output_path": "cam-nang/an-toan/at-0070-cach-bam-coi-dung-luc-o-do-thi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -54,7 +54,7 @@
     {
       "article_id": "AT-0071",
       "output_path": "cam-nang/an-toan/at-0071-thoi-quen-liec-guong-dinh-ky-khi-chay-xe.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -64,7 +64,7 @@
     {
       "article_id": "AT-0072",
       "output_path": "cam-nang/an-toan/at-0072-phanh-xe-ga-an-toan-khi-duong-uot.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -74,7 +74,7 @@
     {
       "article_id": "AT-0073",
       "output_path": "cam-nang/an-toan/at-0073-phanh-abs-tren-xe-may-hoat-dong-the-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -84,7 +84,7 @@
     {
       "article_id": "AT-0074",
       "output_path": "cam-nang/an-toan/at-0074-ky-nang-tranh-o-ga-khi-chay-xe.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
