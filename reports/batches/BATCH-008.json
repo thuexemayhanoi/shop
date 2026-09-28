@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-008",
   "started_at": "2026-09-28T00:07:26",
-  "finished_at": "2026-09-28T05:45:02",
+  "finished_at": "2026-09-28T12:45:33",
   "writer": "external-agent",
   "processed": 50,
   "written": 40,
-  "pass": 9,
-  "published": 31,
+  "pass": 4,
+  "published": 36,
   "writing": 10,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 9,
+  "pass_publishable_now": 4,
   "articles": [
     {
       "article_id": "AT-0060",
@@ -290,7 +290,7 @@
     {
       "article_id": "DL-0067",
       "output_path": "cam-nang/du-lich/dl-0067-vi-tri-chup-anh-o-thien-son-suoi-nga-it-nguoi-biet.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -344,7 +344,7 @@
     {
       "article_id": "HD-0063",
       "output_path": "cam-nang/hoi-dap/hd-0063-co-duoc-nho-nguoi-khac-lay-xe-thue-thay-minh-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -354,7 +354,7 @@
     {
       "article_id": "HD-0064",
       "output_path": "cam-nang/hoi-dap/hd-0064-tra-xe-som-hon-hen-co-duoc-hoan-tien-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -364,7 +364,7 @@
     {
       "article_id": "HD-0065",
       "output_path": "cam-nang/hoi-dap/hd-0065-co-duoc-mang-xe-thue-len-pha-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -374,7 +374,7 @@
     {
       "article_id": "HD-0066",
       "output_path": "cam-nang/hoi-dap/hd-0066-xe-thue-do-xang-sai-loai-phai-lam-sao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
