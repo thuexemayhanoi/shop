@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T07:27:08",
+  "finished_at": "2026-09-28T07:30:25",
   "writer": "external-agent",
   "processed": 50,
   "written": 20,
-  "pass": 3,
+  "pass": 4,
   "published": 16,
   "writing": 30,
   "review": 0,
-  "repair": 1,
+  "repair": 0,
   "fail": 0,
   "blocked": 0,
   "average_score": 98,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 4,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -104,7 +104,7 @@
     {
       "article_id": "CD-0067",
       "output_path": "cam-nang/cung-duong/cd-0067-trai-nghiem-mot-ngay-o-dinh-lap-bang-xe-may.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
