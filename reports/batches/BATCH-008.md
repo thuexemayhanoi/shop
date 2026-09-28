@@ -1,10 +1,10 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:36:45
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:45:02
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 36 | pass: 5 | published: 31
-- writing: 14 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.8 | min 94 | max 100 | repair_count: 0
+- processed: 50 | written: 40 | pass: 9 | published: 31
+- writing: 10 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.9 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -39,10 +39,10 @@
 | HD-0060 | cam-nang/hoi-dap/hd-0060-co-nen-mua-bao-hiem-them-khi-thue-xe-may-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0061 | cam-nang/hoi-dap/hd-0061-dat-xe-may-thue-truoc-qua-mang-co-dang-tin-khong.html | PUBLISHED | 98 | 0 |  |
 | HD-0062 | cam-nang/hoi-dap/hd-0062-nhan-xe-may-thue-vao-buoi-toi-co-sao-khong.html | PUBLISHED | 99 | 0 |  |
-| HD-0063 | cam-nang/hoi-dap/hd-0063-co-duoc-nho-nguoi-khac-lay-xe-thue-thay-minh-khong.html | WRITING |  | 0 |  |
-| HD-0064 | cam-nang/hoi-dap/hd-0064-tra-xe-som-hon-hen-co-duoc-hoan-tien-khong.html | WRITING |  | 0 |  |
-| HD-0065 | cam-nang/hoi-dap/hd-0065-co-duoc-mang-xe-thue-len-pha-khong.html | WRITING |  | 0 |  |
-| HD-0066 | cam-nang/hoi-dap/hd-0066-xe-thue-do-xang-sai-loai-phai-lam-sao.html | WRITING |  | 0 |  |
+| HD-0063 | cam-nang/hoi-dap/hd-0063-co-duoc-nho-nguoi-khac-lay-xe-thue-thay-minh-khong.html | PASS | 99 | 0 |  |
+| HD-0064 | cam-nang/hoi-dap/hd-0064-tra-xe-som-hon-hen-co-duoc-hoan-tien-khong.html | PASS | 99 | 0 |  |
+| HD-0065 | cam-nang/hoi-dap/hd-0065-co-duoc-mang-xe-thue-len-pha-khong.html | PASS | 100 | 0 |  |
+| HD-0066 | cam-nang/hoi-dap/hd-0066-xe-thue-do-xang-sai-loai-phai-lam-sao.html | PASS | 99 | 0 |  |
 | KN-0060 | cam-nang/kinh-nghiem/kn-0060-kiem-tra-xe-may-da-thue-danh-sach-diem-can-nhin.html | PUBLISHED | 98 | 0 |  |
 | KN-0061 | cam-nang/kinh-nghiem/kn-0061-kinh-nghiem-tra-xe-may-thue-dung-gio.html | PUBLISHED | 100 | 0 |  |
 | KN-0062 | cam-nang/kinh-nghiem/kn-0062-chuan-bi-gi-khi-lan-dau-thue-xe-may-o-ha-noi.html | PUBLISHED | 99 | 0 |  |
