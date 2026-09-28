@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T07:11:02",
+  "finished_at": "2026-09-28T14:11:32",
   "writer": "external-agent",
   "processed": 50,
   "written": 12,
-  "pass": 3,
-  "published": 9,
+  "pass": 0,
+  "published": 12,
   "writing": 38,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -394,7 +394,7 @@
     {
       "article_id": "KN-0071",
       "output_path": "cam-nang/kinh-nghiem/kn-0071-chay-xe-may-khi-troi-nom-am-nen-de-y-gi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -404,7 +404,7 @@
     {
       "article_id": "KN-0072",
       "output_path": "cam-nang/kinh-nghiem/kn-0072-kinh-nghiem-thue-xe-may-ngay-tet-o-ha-noi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -414,7 +414,7 @@
     {
       "article_id": "KN-0073",
       "output_path": "cam-nang/kinh-nghiem/kn-0073-di-xe-may-vao-dem-giao-thua-quanh-ho-guom-nhu-the-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
