@@ -1,0 +1,7 @@
+{
+  "op": "requeue",
+  "batch": "BATCH-009",
+  "ids": "CD-0069",
+  "date": "2026-09-28",
+  "note": "requeue CD-0069 after body expansion"
+}
