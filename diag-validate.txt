@@ -1,0 +1,76 @@
+=== validate _drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html ===
+article: _drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html
+VALID — passed hard technical validation
+VALIDATE_EXIT=0
+=== score _drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html ===
+article : _drafts/cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html
+score   : 96/100
+status  : PASS
+  cannibalization          13
+  content_quality          15
+  fact_safety              10
+  internal_linking         10
+  readability_structure    3
+  schema_metadata          10
+  search_intent            15
+  technical_seo            15
+  technical_validation     5
+warnings: 2
+SCORE_EXIT=0
+=== validate _drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html ===
+article: _drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html
+VALID — passed hard technical validation
+VALIDATE_EXIT=0
+=== score _drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html ===
+article : _drafts/cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html
+score   : 96/100
+status  : PASS
+  cannibalization          11
+  content_quality          15
+  fact_safety              10
+  internal_linking         10
+  readability_structure    5
+  schema_metadata          10
+  search_intent            15
+  technical_seo            15
+  technical_validation     5
+warnings: 4
+SCORE_EXIT=0
+=== validate _drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html ===
+article: _drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html
+VALID — passed hard technical validation
+VALIDATE_EXIT=0
+=== score _drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html ===
+article : _drafts/cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html
+score   : 95/100
+status  : PASS
+  cannibalization          11
+  content_quality          15
+  fact_safety              10
+  internal_linking         10
+  readability_structure    5
+  schema_metadata          10
+  search_intent            15
+  technical_seo            14
+  technical_validation     5
+warnings: 2
+SCORE_EXIT=0
+=== validate _drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html ===
+article: _drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html
+VALID — passed hard technical validation
+VALIDATE_EXIT=0
+=== score _drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html ===
+article : _drafts/cam-nang/xe-may/xm-0061-dau-hieu-khoa-cop-gap-van-de-tren-yamaha-mio.html
+score   : 96/100
+status  : PASS
+  cannibalization          11
+  content_quality          15
+  fact_safety              10
+  internal_linking         10
+  readability_structure    5
+  schema_metadata          10
+  search_intent            15
+  technical_seo            15
+  technical_validation     5
+warnings: 2
+SCORE_EXIT=0
