@@ -304,7 +304,8 @@ rb.main_func(['--batch', 'BATCH-001', '--prepare-agent'])
             wc = data["articles"][0]
             # full writer context per article
             self.assertEqual(wc["word_standard"]["target_min_words"], 1600)
-            self.assertEqual(wc["word_standard"]["target_max_words"], 2000)
+            # unpublished articles target the 1600-3000 band (2026-09-28)
+            self.assertEqual(wc["word_standard"]["target_max_words"], 3000)
             self.assertEqual(wc["link_standard"]["contextual_internal_links_min"], 3)
             self.assertEqual(wc["link_standard"]["contextual_internal_links_max"], 5)
             self.assertEqual(wc["link_standard"]["commercial_links_max"], 1)
