@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-008",
   "started_at": "2026-09-28T00:07:26",
-  "finished_at": "2026-09-28T06:07:54",
+  "finished_at": "2026-09-28T06:14:51",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 12,
+  "pass": 14,
   "published": 36,
   "writing": 0,
   "review": 0,
-  "repair": 2,
+  "repair": 0,
   "fail": 0,
   "blocked": 0,
   "average_score": 97.9,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 12,
+  "pass_publishable_now": 14,
   "articles": [
     {
       "article_id": "AT-0060",
@@ -534,7 +534,7 @@
     {
       "article_id": "XM-0066",
       "output_path": "cam-nang/xe-may/xm-0066-cach-kiem-tra-van-lop-tren-honda-vision.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -544,7 +544,7 @@
     {
       "article_id": "XM-0067",
       "output_path": "cam-nang/xe-may/xm-0067-dau-hieu-ong-xa-gap-van-de-tren-honda-vision.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
