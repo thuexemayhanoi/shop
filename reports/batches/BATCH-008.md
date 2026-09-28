@@ -1,8 +1,8 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:13:27
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T12:14:05
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 27 | pass: 5 | published: 22
+- processed: 50 | written: 27 | pass: 0 | published: 27
 - writing: 23 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.6 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
@@ -13,11 +13,11 @@
 | AT-0060 | cam-nang/an-toan/at-0060-chay-xe-may-tren-duong-da-dam-va-soi.html | PUBLISHED | 100 | 0 |  |
 | AT-0061 | cam-nang/an-toan/at-0061-ky-nang-xuong-deo-dai-bang-xe-so.html | PUBLISHED | 96 | 0 |  |
 | AT-0062 | cam-nang/an-toan/at-0062-ky-nang-xuong-deo-bang-xe-ga.html | PUBLISHED | 97 | 0 |  |
-| AT-0063 | cam-nang/an-toan/at-0063-qua-pha-bang-xe-may-an-toan.html | PASS | 100 | 0 | broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'; broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html' |
-| AT-0064 | cam-nang/an-toan/at-0064-qua-cau-vuot-va-ham-chui-bang-xe-may.html | PASS | 99 | 0 | broken internal link: 'cam-nang/chu-de/at-ky-nang-n\nang-cao.html'; word broken across newline: 'n\nang' |
-| AT-0065 | cam-nang/an-toan/at-0065-ky-nang-chay-xe-may-ban-dem.html | PASS | 100 | 0 | broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'; word broken across newline: 'to\nàn' |
-| AT-0066 | cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html | PASS | 100 | 0 | broken internal link: 'cam-n\nang/chu-de/'; broken internal link: 'cam-nang/an-toan/at-0065-ky-nang-chay-xe-may-ban-dem.html' |
-| AT-0067 | cam-nang/an-toan/at-0067-ky-nang-chay-xe-trong-suong-mu-day.html | PASS | 100 | 0 | broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'; broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html' |
+| AT-0063 | cam-nang/an-toan/at-0063-qua-pha-bang-xe-may-an-toan.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'; broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html' |
+| AT-0064 | cam-nang/an-toan/at-0064-qua-cau-vuot-va-ham-chui-bang-xe-may.html | PUBLISHED | 99 | 0 | broken internal link: 'cam-nang/chu-de/at-ky-nang-n\nang-cao.html'; word broken across newline: 'n\nang' |
+| AT-0065 | cam-nang/an-toan/at-0065-ky-nang-chay-xe-may-ban-dem.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'; word broken across newline: 'to\nàn' |
+| AT-0066 | cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-n\nang/chu-de/'; broken internal link: 'cam-nang/an-toan/at-0065-ky-nang-chay-xe-may-ban-dem.html' |
+| AT-0067 | cam-nang/an-toan/at-0067-ky-nang-chay-xe-trong-suong-mu-day.html | PUBLISHED | 100 | 0 | broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'; broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html' |
 | CD-0059 | cam-nang/cung-duong/cd-0059-diem-dung-trua-tren-duong-di-thanh-pho-cao-bang.html | PUBLISHED | 94 | 0 |  |
 | CD-0060 | cam-nang/cung-duong/cd-0060-cung-duong-di-xe-may-tu-ha-noi-den-that-khe.html | PUBLISHED | 95 | 0 |  |
 | CD-0061 | cam-nang/cung-duong/cd-0061-lich-trinh-2-ngay-1-dem-di-xe-may-den-that-khe.html | PUBLISHED | 96 | 0 |  |

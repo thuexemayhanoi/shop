@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-008",
   "started_at": "2026-09-28T00:07:26",
-  "finished_at": "2026-09-28T05:13:27",
+  "finished_at": "2026-09-28T12:14:05",
   "writer": "external-agent",
   "processed": 50,
   "written": 27,
-  "pass": 5,
-  "published": 22,
+  "pass": 0,
+  "published": 27,
   "writing": 23,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0060",
@@ -54,7 +54,7 @@
     {
       "article_id": "AT-0063",
       "output_path": "cam-nang/an-toan/at-0063-qua-pha-bang-xe-may-an-toan.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -67,7 +67,7 @@
     {
       "article_id": "AT-0064",
       "output_path": "cam-nang/an-toan/at-0064-qua-cau-vuot-va-ham-chui-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
@@ -82,7 +82,7 @@
     {
       "article_id": "AT-0065",
       "output_path": "cam-nang/an-toan/at-0065-ky-nang-chay-xe-may-ban-dem.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -99,7 +99,7 @@
     {
       "article_id": "AT-0066",
       "output_path": "cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -117,7 +117,7 @@
     {
       "article_id": "AT-0067",
       "output_path": "cam-nang/an-toan/at-0067-ky-nang-chay-xe-trong-suong-mu-day.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
