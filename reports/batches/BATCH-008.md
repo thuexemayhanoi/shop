@@ -1,9 +1,9 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T05:56:37
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T06:07:54
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 48 | pass: 12 | published: 36
-- writing: 2 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 50 | pass: 12 | published: 36
+- writing: 0 | review: 0 | repair: 2 | fail: 0 | blocked: 0
 - scores: avg 97.9 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -58,5 +58,5 @@
 | XM-0063 | cam-nang/xe-may/xm-0063-cach-kiem-tra-bugi-tren-honda-vision.html | PASS | 96 | 0 |  |
 | XM-0064 | cam-nang/xe-may/xm-0064-cach-kiem-tra-bo-phanh-tren-honda-vision.html | PASS | 96 | 0 |  |
 | XM-0065 | cam-nang/xe-may/xm-0065-bao-duong-yen-xe-cua-honda-vision-dung-cach.html | PASS | 96 | 0 |  |
-| XM-0066 | cam-nang/xe-may/xm-0066-cach-kiem-tra-van-lop-tren-honda-vision.html | WRITING |  | 0 |  |
-| XM-0067 | cam-nang/xe-may/xm-0067-dau-hieu-ong-xa-gap-van-de-tren-honda-vision.html | WRITING |  | 0 |  |
+| XM-0066 | cam-nang/xe-may/xm-0066-cach-kiem-tra-van-lop-tren-honda-vision.html | REPAIR | 96 | 0 |  |
+| XM-0067 | cam-nang/xe-may/xm-0067-dau-hieu-ong-xa-gap-van-de-tren-honda-vision.html | REPAIR | 98 | 0 |  |
