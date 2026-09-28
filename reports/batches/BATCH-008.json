@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-008",
   "started_at": "2026-09-28T00:07:26",
-  "finished_at": "2026-09-28T05:25:12",
+  "finished_at": "2026-09-28T12:25:42",
   "writer": "external-agent",
   "processed": 50,
   "written": 31,
-  "pass": 4,
-  "published": 27,
+  "pass": 0,
+  "published": 31,
   "writing": 19,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0060",
@@ -170,7 +170,7 @@
     {
       "article_id": "CD-0063",
       "output_path": "cam-nang/cung-duong/cd-0063-di-xe-may-tu-ha-noi-den-thanh-pho-lang-son-mat-bao-lau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -180,7 +180,7 @@
     {
       "article_id": "CD-0064",
       "output_path": "cam-nang/cung-duong/cd-0064-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-lang-son.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -190,7 +190,7 @@
     {
       "article_id": "CD-0065",
       "output_path": "cam-nang/cung-duong/cd-0065-quan-an-ngon-doc-duong-den-thanh-pho-lang-son.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -200,7 +200,7 @@
     {
       "article_id": "CD-0066",
       "output_path": "cam-nang/cung-duong/cd-0066-tuyen-duong-dep-tu-ha-noi-den-dinh-lap.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
