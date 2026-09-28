@@ -228,7 +228,7 @@ jobs:
 
       - name: No candidates note
         if: steps.candidates.outputs.count == '0'
-        run: echo "No article candidates to re-check for this change (scope: ${{ steps.candidates.outputs.scope }}; global checks all passed above)."
+        run: 'echo "No article candidates to re-check for this change (scope: ${{ steps.candidates.outputs.scope }}; global checks all passed above)."'
 
       - name: Save QA evidence cache
         # Never fatal: a failed upload only costs the next run a cold
