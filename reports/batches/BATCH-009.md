@@ -1,8 +1,8 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T09:13:52
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T16:14:25
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 35 | pass: 6 | published: 29
+- processed: 50 | written: 35 | pass: 0 | published: 35
 - writing: 15 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.8 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -17,16 +17,16 @@
 | AT-0072 | cam-nang/an-toan/at-0072-phanh-xe-ga-an-toan-khi-duong-uot.html | PUBLISHED | 100 | 0 |  |
 | AT-0073 | cam-nang/an-toan/at-0073-phanh-abs-tren-xe-may-hoat-dong-the-nao.html | PUBLISHED | 100 | 0 |  |
 | AT-0074 | cam-nang/an-toan/at-0074-ky-nang-tranh-o-ga-khi-chay-xe.html | PUBLISHED | 100 | 0 |  |
-| AT-0075 | cam-nang/an-toan/at-0075-ky-nang-vuot-xe-an-toan-tren-quoc-lo.html | PASS | 100 | 0 |  |
+| AT-0075 | cam-nang/an-toan/at-0075-ky-nang-vuot-xe-an-toan-tren-quoc-lo.html | PUBLISHED | 100 | 0 |  |
 | CD-0067 | cam-nang/cung-duong/cd-0067-trai-nghiem-mot-ngay-o-dinh-lap-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
 | CD-0068 | cam-nang/cung-duong/cd-0068-tram-dung-nghi-ven-duong-toi-dinh-lap.html | PUBLISHED | 98 | 0 |  |
 | CD-0069 | cam-nang/cung-duong/cd-0069-ha-noi-den-mong-cai-quoc-lo-nao-nen-chon.html | PUBLISHED | 96 | 0 |  |
 | CD-0070 | cam-nang/cung-duong/cd-0070-hai-ngay-o-mong-cai-lich-trinh-goi-y-cho-nguoi-di-xe.html | PUBLISHED | 96 | 0 |  |
-| CD-0071 | cam-nang/cung-duong/cd-0071-cho-ngam-canh-giua-duong-den-mong-cai.html | PASS | 97 | 0 |  |
-| CD-0072 | cam-nang/cung-duong/cd-0072-bai-do-an-toan-doc-duong-di-thanh-pho-ha-long.html | PASS | 95 | 0 |  |
-| CD-0073 | cam-nang/cung-duong/cd-0073-chay-xe-may-tu-ha-noi-ra-uong-bi-nen-di-luc-nao.html | PASS | 95 | 0 |  |
-| CD-0074 | cam-nang/cung-duong/cd-0074-lich-trinh-chi-tiet-cho-chuyen-uong-bi-bang-xe-may.html | PASS | 95 | 0 |  |
-| CD-0075 | cam-nang/cung-duong/cd-0075-quan-ca-phe-dung-chan-tren-duong-uong-bi.html | PASS | 95 | 0 |  |
+| CD-0071 | cam-nang/cung-duong/cd-0071-cho-ngam-canh-giua-duong-den-mong-cai.html | PUBLISHED | 97 | 0 |  |
+| CD-0072 | cam-nang/cung-duong/cd-0072-bai-do-an-toan-doc-duong-di-thanh-pho-ha-long.html | PUBLISHED | 95 | 0 |  |
+| CD-0073 | cam-nang/cung-duong/cd-0073-chay-xe-may-tu-ha-noi-ra-uong-bi-nen-di-luc-nao.html | PUBLISHED | 95 | 0 |  |
+| CD-0074 | cam-nang/cung-duong/cd-0074-lich-trinh-chi-tiet-cho-chuyen-uong-bi-bang-xe-may.html | PUBLISHED | 95 | 0 |  |
+| CD-0075 | cam-nang/cung-duong/cd-0075-quan-ca-phe-dung-chan-tren-duong-uong-bi.html | PUBLISHED | 95 | 0 |  |
 | DL-0068 | cam-nang/du-lich/dl-0068-di-xe-may-den-dao-quan-oanh-lan-dau-can-biet-gi.html | PUBLISHED | 98 | 0 |  |
 | DL-0069 | cam-nang/du-lich/dl-0069-mua-dong-den-dao-quan-oanh-bang-xe-may-co-lanh-lam-khong.html | PUBLISHED | 96 | 0 |  |
 | DL-0070 | cam-nang/du-lich/dl-0070-mon-gi-dang-mua-ve-tu-dao-quan-oanh.html | WRITING |  | 0 |  |
