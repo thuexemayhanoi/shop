@@ -1,16 +1,16 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T17:31:27",
+  "finished_at": "2026-09-28T10:59:12",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 0,
+  "pass": 4,
   "published": 42,
   "writing": 0,
   "review": 0,
-  "repair": 5,
-  "fail": 3,
+  "repair": 0,
+  "fail": 4,
   "blocked": 0,
   "average_score": 97.7,
   "min_score": 88,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 0,
+  "pass_publishable_now": 4,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -247,17 +247,19 @@
     {
       "article_id": "DL-0073",
       "output_path": "cam-nang/du-lich/dl-0073-sang-som-hay-chieu-muon-den-thung-nai-dep-hon.html",
-      "outcome": "REPAIR",
+      "outcome": "FAIL",
       "score": 96,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "newline inside HTML tag"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "DL-0074",
       "output_path": "cam-nang/du-lich/dl-0074-quan-an-gan-bai-xe-o-thung-nai.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -330,7 +332,7 @@
     {
       "article_id": "HD-0072",
       "output_path": "cam-nang/hoi-dap/hd-0072-xe-thue-bi-lop-non-tu-dau-phai-bao-ngay-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -340,7 +342,7 @@
     {
       "article_id": "HD-0073",
       "output_path": "cam-nang/hoi-dap/hd-0073-nen-cho-them-nguoi-tren-xe-thue-can-hoi-truoc-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -350,7 +352,7 @@
     {
       "article_id": "HD-0074",
       "output_path": "cam-nang/hoi-dap/hd-0074-co-duoc-lap-them-do-tren-xe-thue-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
