@@ -1,8 +1,8 @@
 # Batch report BATCH-010
 
-- started_at: 2026-09-28T12:39:40 | finished_at: 2026-09-29T02:07:37+00:00
+- started_at: 2026-09-28T12:39:40 | finished_at: 2026-09-29T02:10:05
 - writer: external-agent | batch resolved once: BATCH-010
-- processed: 50 | written: 15 | pass: 5 | published: 10
+- processed: 50 | written: 15 | pass: 0 | published: 15
 - writing: 35 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|
 | AT-0076 | cam-nang/an-toan/at-0076-chay-xe-may-qua-ngo-nho-co-nhieu-cua-mo.html | PUBLISHED | 100 | 0 |  |
 | AT-0077 | cam-nang/an-toan/at-0077-ky-nang-dung-xe-o-doc-khong-bi-tuot.html | PUBLISHED | 100 | 0 |  |
-| AT-0078 | cam-nang/an-toan/at-0078-chay-xe-may-canh-xe-buyt-tai-diem-dung.html | PASS | 100 | 0 |  |
+| AT-0078 | cam-nang/an-toan/at-0078-chay-xe-may-canh-xe-buyt-tai-diem-dung.html | PUBLISHED | 100 | 0 |  |
 | AT-0079 | cam-nang/an-toan/at-0079-ky-nang-giu-lan-dung-quy-dinh.html | WRITING |  | 0 |  |
 | AT-0080 | cam-nang/an-toan/at-0080-chay-xe-may-o-khu-vuc-truong-hoc-gio-tan-hoc.html | WRITING |  | 0 |  |
 | AT-0081 | cam-nang/an-toan/at-0081-ky-nang-xu-ly-khi-xe-phia-truoc-phanh-gap.html | WRITING |  | 0 |  |
@@ -20,7 +20,7 @@
 | AT-0083 | cam-nang/an-toan/at-0083-ky-nang-len-doc-dai-khong-bi-nong-may.html | WRITING |  | 0 |  |
 | AT-0084 | cam-nang/an-toan/at-0084-chay-nguoc-nang-sang-giam-choi-the-nao.html | WRITING |  | 0 |  |
 | CD-0076 | cam-nang/cung-duong/cd-0076-cung-duong-ngam-canh-tu-ha-noi-len-hai-duong.html | PUBLISHED | 96 | 0 |  |
-| CD-0077 | cam-nang/cung-duong/cd-0077-mot-ngay-mot-dem-o-hai-duong-co-du-khong.html | PASS | 95 | 0 |  |
+| CD-0077 | cam-nang/cung-duong/cd-0077-mot-ngay-mot-dem-o-hai-duong-co-du-khong.html | PUBLISHED | 95 | 0 |  |
 | CD-0078 | cam-nang/cung-duong/cd-0078-diem-check-in-doc-cung-duong-den-hai-duong.html | WRITING |  | 0 |  |
 | CD-0079 | cam-nang/cung-duong/cd-0079-duong-den-phu-ly-nen-dung-o-dau-de-chup-anh.html | WRITING |  | 0 |  |
 | CD-0080 | cam-nang/cung-duong/cd-0080-cung-duong-vong-qua-thanh-pho-ninh-binh-co-gi-khac.html | WRITING |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0082 | cam-nang/du-lich/dl-0082-quan-ngon-gia-binh-dan-o-mai-chau.html | WRITING |  | 0 |  |
 | DL-0083 | cam-nang/du-lich/dl-0083-quang-canh-suong-som-o-mai-chau.html | WRITING |  | 0 |  |
 | HD-0076 | cam-nang/hoi-dap/hd-0076-xe-thue-con-it-xang-luc-tra-thi-sao.html | PUBLISHED | 100 | 0 |  |
-| HD-0077 | cam-nang/hoi-dap/hd-0077-xe-may-dien-co-can-doi-mu-bao-hiem-khong.html | PASS | 100 | 0 |  |
+| HD-0077 | cam-nang/hoi-dap/hd-0077-xe-may-dien-co-can-doi-mu-bao-hiem-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0078 | cam-nang/hoi-dap/hd-0078-xe-may-dien-di-bao-xa-moi-can-sac-lai.html | WRITING |  | 0 |  |
 | HD-0079 | cam-nang/hoi-dap/hd-0079-sac-xe-may-dien-mat-bao-lau.html | WRITING |  | 0 |  |
 | HD-0080 | cam-nang/hoi-dap/hd-0080-di-mua-voi-xe-may-dien-co-nguy-hiem-khong.html | WRITING |  | 0 |  |
@@ -45,7 +45,7 @@
 | HD-0083 | cam-nang/hoi-dap/hd-0083-xe-may-dien-em-hon-hay-on-hon-xe-xang.html | WRITING |  | 0 |  |
 | KN-0076 | cam-nang/kinh-nghiem/kn-0076-kinh-nghiem-lai-xe-may-khi-duong-ngap-nuoc.html | PUBLISHED | 100 | 0 |  |
 | KN-0077 | cam-nang/kinh-nghiem/kn-0077-xe-thue-bi-chet-may-giua-duong-phai-lam-sao.html | PUBLISHED | 100 | 0 |  |
-| KN-0078 | cam-nang/kinh-nghiem/kn-0078-xe-thue-khong-de-duoc-cac-buoc-tu-kiem-tra.html | PASS | 100 | 0 |  |
+| KN-0078 | cam-nang/kinh-nghiem/kn-0078-xe-thue-khong-de-duoc-cac-buoc-tu-kiem-tra.html | PUBLISHED | 100 | 0 |  |
 | KN-0079 | cam-nang/kinh-nghiem/kn-0079-het-xang-giua-duong-noi-la-nen-xu-ly-the-nao.html | WRITING |  | 0 |  |
 | KN-0080 | cam-nang/kinh-nghiem/kn-0080-thung-sam-xe-may-thue-khi-dang-di-phuot.html | WRITING |  | 0 |  |
 | KN-0081 | cam-nang/kinh-nghiem/kn-0081-mat-chia-khoa-xe-may-thue-phai-lam-gi.html | WRITING |  | 0 |  |
@@ -54,7 +54,7 @@
 | KN-0084 | cam-nang/kinh-nghiem/kn-0084-phanh-xe-thue-mem-hon-binh-thuong-kiem-tra-the-nao.html | WRITING |  | 0 |  |
 | XM-0076 | cam-nang/xe-may/xm-0076-cach-kiem-tra-binh-xang-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
 | XM-0077 | cam-nang/xe-may/xm-0077-cach-kiem-tra-van-lop-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
-| XM-0078 | cam-nang/xe-may/xm-0078-cach-kiem-tra-bo-ly-hop-tren-honda-air-blade.html | PASS | 96 | 0 |  |
+| XM-0078 | cam-nang/xe-may/xm-0078-cach-kiem-tra-bo-ly-hop-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
 | XM-0079 | cam-nang/xe-may/xm-0079-khi-nao-can-kiem-tra-cop-xe-tren-honda-air-blade.html | WRITING |  | 0 |  |
 | XM-0080 | cam-nang/xe-may/xm-0080-dau-hieu-khoa-cop-gap-van-de-tren-honda-air-blade.html | WRITING |  | 0 |  |
 | XM-0081 | cam-nang/xe-may/xm-0081-bao-duong-bo-de-dien-cua-honda-air-blade-dung-cach.html | WRITING |  | 0 |  |
