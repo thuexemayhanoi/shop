@@ -1,10 +1,10 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T10:59:12
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T11:02:36
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 50 | pass: 4 | published: 42
-- writing: 0 | review: 0 | repair: 0 | fail: 4 | blocked: 0
-- scores: avg 97.7 | min 88 | max 100 | repair_count: 0
+- processed: 50 | written: 50 | pass: 8 | published: 42
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -31,10 +31,10 @@
 | DL-0069 | cam-nang/du-lich/dl-0069-mua-dong-den-dao-quan-oanh-bang-xe-may-co-lanh-lam-khong.html | PUBLISHED | 96 | 0 |  |
 | DL-0070 | cam-nang/du-lich/dl-0070-mon-gi-dang-mua-ve-tu-dao-quan-oanh.html | PUBLISHED | 100 | 0 |  |
 | DL-0071 | cam-nang/du-lich/dl-0071-goc-view-ven-duong-khi-chay-xe-den-dao-quan-oanh.html | PUBLISHED | 98 | 0 |  |
-| DL-0072 | cam-nang/du-lich/dl-0072-chuyen-cuoi-tuan-den-thung-nai-bang-xe-may.html | FAIL | 88 | 0 | wrong price for Honda Vision: found 0 near '00đ một tuần; Honda Vision 200.000đ một ngày hoặc 1.000.000đ một tuần; Air Blade'; wrong price for Honda Vision: found 0 near '00đ một tuần; Honda Vision 200.000đ một ngày hoặc 1.000.000đ một tuần; Air Blade' |
-| DL-0073 | cam-nang/du-lich/dl-0073-sang-som-hay-chieu-muon-den-thung-nai-dep-hon.html | FAIL | 96 | 0 | newline inside HTML tag |
+| DL-0072 | cam-nang/du-lich/dl-0072-chuyen-cuoi-tuan-den-thung-nai-bang-xe-may.html | PASS | 98 | 0 | wrong price for Honda Vision: found 0 near '00đ một tuần; Honda Vision 200.000đ một ngày hoặc 1.000.000đ một tuần; Air Blade'; wrong price for Honda Vision: found 0 near '00đ một tuần; Honda Vision 200.000đ một ngày hoặc 1.000.000đ một tuần; Air Blade' |
+| DL-0073 | cam-nang/du-lich/dl-0073-sang-som-hay-chieu-muon-den-thung-nai-dep-hon.html | PASS | 96 | 0 | newline inside HTML tag |
 | DL-0074 | cam-nang/du-lich/dl-0074-quan-an-gan-bai-xe-o-thung-nai.html | PASS | 100 | 0 |  |
-| DL-0075 | cam-nang/du-lich/dl-0075-chup-anh-doan-xe-o-thung-nai-o-dau-dep.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe.html'; broken internal link: 'cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe.html' |
+| DL-0075 | cam-nang/du-lich/dl-0075-chup-anh-doan-xe-o-thung-nai-o-dau-dep.html | PASS | 100 | 0 | broken internal link: 'cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe.html'; broken internal link: 'cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe.html' |
 | HD-0067 | cam-nang/hoi-dap/hd-0067-di-mua-nhieu-voi-xe-thue-co-sao-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0068 | cam-nang/hoi-dap/hd-0068-xe-thue-bi-cong-an-giu-vi-giay-to-cua-chu-xe-thi-sao.html | PUBLISHED | 100 | 0 |  |
 | HD-0069 | cam-nang/hoi-dap/hd-0069-co-duoc-tu-thay-lop-xe-thue-khi-thung-sam-khong.html | PUBLISHED | 100 | 0 |  |
@@ -43,7 +43,7 @@
 | HD-0072 | cam-nang/hoi-dap/hd-0072-xe-thue-bi-lop-non-tu-dau-phai-bao-ngay-khong.html | PASS | 99 | 0 |  |
 | HD-0073 | cam-nang/hoi-dap/hd-0073-nen-cho-them-nguoi-tren-xe-thue-can-hoi-truoc-khong.html | PASS | 100 | 0 |  |
 | HD-0074 | cam-nang/hoi-dap/hd-0074-co-duoc-lap-them-do-tren-xe-thue-khong.html | PASS | 100 | 0 |  |
-| HD-0075 | cam-nang/hoi-dap/hd-0075-tra-xe-thue-o-noi-khac-noi-nhan-duoc-khong.html | FAIL | 89 | 0 | invented fixed price for unapproved model 'sh': đi kèm chuyện trả khác nơi là giờ trả. Shop làm việc từ 08:00 đến 17:00 hằng ngày,; wrong price for Honda Vision: found 0 near 'Vision và Air Blade 200.000đ một ngày, được nêu' |
+| HD-0075 | cam-nang/hoi-dap/hd-0075-tra-xe-thue-o-noi-khac-noi-nhan-duoc-khong.html | PASS | 99 | 0 | invented fixed price for unapproved model 'sh': đi kèm chuyện trả khác nơi là giờ trả. Shop làm việc từ 08:00 đến 17:00 hằng ngày,; wrong price for Honda Vision: found 0 near 'Vision và Air Blade 200.000đ một ngày, được nêu' |
 | KN-0068 | cam-nang/kinh-nghiem/kn-0068-nguoi-lon-tuoi-chay-xe-may-trong-thanh-pho-nen-chu-y-gi.html | PUBLISHED | 99 | 0 |  |
 | KN-0069 | cam-nang/kinh-nghiem/kn-0069-sinh-vien-di-thuc-tap-bang-xe-thue-kinh-nghiem-quan-ly-thoi.html | PUBLISHED | 100 | 0 |  |
 | KN-0070 | cam-nang/kinh-nghiem/kn-0070-kinh-nghiem-thue-xe-may-trong-mua-mua-ha-noi.html | PUBLISHED | 100 | 0 |  |

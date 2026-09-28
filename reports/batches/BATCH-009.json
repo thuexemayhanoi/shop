@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T10:59:12",
+  "finished_at": "2026-09-28T11:02:36",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 4,
+  "pass": 8,
   "published": 42,
   "writing": 0,
   "review": 0,
   "repair": 0,
-  "fail": 4,
+  "fail": 0,
   "blocked": 0,
-  "average_score": 97.7,
-  "min_score": 88,
+  "average_score": 98.2,
+  "min_score": 95,
   "max_score": 100,
   "repair_count": 0,
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 8,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -234,8 +234,8 @@
     {
       "article_id": "DL-0072",
       "output_path": "cam-nang/du-lich/dl-0072-chuyen-cuoi-tuan-den-thung-nai-bang-xe-may.html",
-      "outcome": "FAIL",
-      "score": 88,
+      "outcome": "PASS",
+      "score": 98,
       "repair_attempts": 0,
       "quality_failures": [
         "wrong price for Honda Vision: found 0 near '00đ một tuần; Honda Vision 200.000đ một ngày hoặc 1.000.000đ một tuần; Air Blade'",
@@ -247,7 +247,7 @@
     {
       "article_id": "DL-0073",
       "output_path": "cam-nang/du-lich/dl-0073-sang-som-hay-chieu-muon-den-thung-nai-dep-hon.html",
-      "outcome": "FAIL",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
@@ -269,8 +269,8 @@
     {
       "article_id": "DL-0075",
       "output_path": "cam-nang/du-lich/dl-0075-chup-anh-doan-xe-o-thung-nai-o-dau-dep.html",
-      "outcome": "FAIL",
-      "score": 95,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe.html'",
@@ -362,8 +362,8 @@
     {
       "article_id": "HD-0075",
       "output_path": "cam-nang/hoi-dap/hd-0075-tra-xe-thue-o-noi-khac-noi-nhan-duoc-khong.html",
-      "outcome": "FAIL",
-      "score": 89,
+      "outcome": "PASS",
+      "score": 99,
       "repair_attempts": 0,
       "quality_failures": [
         "invented fixed price for unapproved model 'sh': đi kèm chuyện trả khác nơi là giờ trả. Shop làm việc từ 08:00 đến 17:00 hằng ngày,",
