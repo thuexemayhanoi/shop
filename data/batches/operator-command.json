@@ -1,1 +1,1 @@
-{"batch":"BATCH-008","op":"publish","ids":"KN-0061,AT-0061,XM-0061,DL-0061,CD-0061,HD-0061","date":"2026-09-28"}
+{"op":"publish","batch":"BATCH-008","ids":"KN-0061,AT-0061,XM-0061,DL-0061,CD-0061,HD-0061","date":"2026-09-28","note":"chunk 3 retry after whitespace repair df454c3"}
