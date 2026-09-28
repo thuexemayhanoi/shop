@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T06:51:05",
+  "finished_at": "2026-09-28T06:56:09",
   "writer": "external-agent",
   "processed": 50,
   "written": 9,
-  "pass": 0,
+  "pass": 2,
   "published": 6,
   "writing": 41,
   "review": 0,
   "repair": 0,
-  "fail": 3,
-  "blocked": 0,
+  "fail": 0,
+  "blocked": 1,
   "average_score": 97.2,
   "min_score": 96,
   "max_score": 100,
-  "repair_count": 0,
+  "repair_count": 2,
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 0,
+  "pass_publishable_now": 2,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -474,9 +474,9 @@
     {
       "article_id": "XM-0071",
       "output_path": "cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html",
-      "outcome": "FAIL",
+      "outcome": "BLOCKED",
       "score": 96,
-      "repair_attempts": 0,
+      "repair_attempts": 2,
       "quality_failures": [
         "word broken across newline: 'sp\\nan'",
         "word broken across newline: 'Blad\\ne'",
@@ -491,7 +491,7 @@
     {
       "article_id": "XM-0072",
       "output_path": "cam-nang/xe-may/xm-0072-cach-kiem-tra-bo-phanh-tren-honda-air-blade.html",
-      "outcome": "FAIL",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
@@ -505,7 +505,7 @@
     {
       "article_id": "XM-0073",
       "output_path": "cam-nang/xe-may/xm-0073-dau-hieu-ac-quy-gap-van-de-tren-honda-air-blade.html",
-      "outcome": "FAIL",
+      "outcome": "PASS",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [

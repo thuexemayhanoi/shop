@@ -1,10 +1,10 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T06:51:05
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T06:56:09
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 9 | pass: 0 | published: 6
-- writing: 41 | review: 0 | repair: 0 | fail: 3 | blocked: 0
-- scores: avg 97.2 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 9 | pass: 2 | published: 6
+- writing: 41 | review: 0 | repair: 0 | fail: 0 | blocked: 1
+- scores: avg 97.2 | min 96 | max 100 | repair_count: 2
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
@@ -55,8 +55,8 @@
 | XM-0068 | cam-nang/xe-may/xm-0068-cach-kiem-tra-bo-ly-hop-tren-honda-vision.html | PUBLISHED | 96 | 0 |  |
 | XM-0069 | cam-nang/xe-may/xm-0069-khi-nao-can-kiem-tra-cop-xe-tren-honda-vision.html | PUBLISHED | 96 | 0 |  |
 | XM-0070 | cam-nang/xe-may/xm-0070-cach-kiem-tra-bugi-tren-honda-air-blade.html | PUBLISHED | 96 | 0 |  |
-| XM-0071 | cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html | FAIL | 96 | 0 | word broken across newline: 'sp\nan'; word broken across newline: 'Blad\ne' |
-| XM-0072 | cam-nang/xe-may/xm-0072-cach-kiem-tra-bo-phanh-tren-honda-air-blade.html | FAIL | 96 | 0 | word broken across newline: 'sp\nan'; word broken across newline: 'b\nố' |
-| XM-0073 | cam-nang/xe-may/xm-0073-dau-hieu-ac-quy-gap-van-de-tren-honda-air-blade.html | FAIL | 96 | 0 | word broken across newline: 'Th\nử'; word broken across newline: 'đư\nợc' |
+| XM-0071 | cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html | BLOCKED | 96 | 2 | word broken across newline: 'sp\nan'; word broken across newline: 'Blad\ne' |
+| XM-0072 | cam-nang/xe-may/xm-0072-cach-kiem-tra-bo-phanh-tren-honda-air-blade.html | PASS | 96 | 0 | word broken across newline: 'sp\nan'; word broken across newline: 'b\nố' |
+| XM-0073 | cam-nang/xe-may/xm-0073-dau-hieu-ac-quy-gap-van-de-tren-honda-air-blade.html | PASS | 96 | 0 | word broken across newline: 'Th\nử'; word broken across newline: 'đư\nợc' |
 | XM-0074 | cam-nang/xe-may/xm-0074-dau-hieu-guong-gap-van-de-tren-honda-air-blade.html | WRITING |  | 0 |  |
 | XM-0075 | cam-nang/xe-may/xm-0075-bao-duong-yen-xe-cua-honda-air-blade-dung-cach.html | WRITING |  | 0 |  |
