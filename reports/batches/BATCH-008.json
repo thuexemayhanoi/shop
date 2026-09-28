@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-008",
   "started_at": "2026-09-28T00:07:26",
-  "finished_at": "2026-09-28T00:29:19",
+  "finished_at": "2026-09-28T07:29:52",
   "writer": "external-agent",
   "processed": 50,
   "written": 10,
-  "pass": 5,
-  "published": 5,
+  "pass": 0,
+  "published": 10,
   "writing": 40,
   "review": 0,
   "repair": 0,
@@ -19,12 +19,12 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0060",
       "output_path": "cam-nang/an-toan/at-0060-chay-xe-may-tren-duong-da-dam-va-soi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -114,7 +114,7 @@
     {
       "article_id": "CD-0060",
       "output_path": "cam-nang/cung-duong/cd-0060-cung-duong-di-xe-may-tu-ha-noi-den-that-khe.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -194,7 +194,7 @@
     {
       "article_id": "DL-0060",
       "output_path": "cam-nang/du-lich/dl-0060-di-trong-ngay-den-khoang-xanh-bang-xe-may-co-dang-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -284,7 +284,7 @@
     {
       "article_id": "HD-0060",
       "output_path": "cam-nang/hoi-dap/hd-0060-co-nen-mua-bao-hiem-them-khi-thue-xe-may-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -444,7 +444,7 @@
     {
       "article_id": "XM-0060",
       "output_path": "cam-nang/xe-may/xm-0060-khi-nao-can-kiem-tra-cop-xe-tren-yamaha-mio.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
