@@ -1,8 +1,8 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T10:28:43
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T17:31:27
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 50 | pass: 4 | published: 38
+- processed: 50 | written: 50 | pass: 0 | published: 42
 - writing: 0 | review: 0 | repair: 5 | fail: 3 | blocked: 0
 - scores: avg 97.7 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -35,11 +35,11 @@
 | DL-0073 | cam-nang/du-lich/dl-0073-sang-som-hay-chieu-muon-den-thung-nai-dep-hon.html | REPAIR | 96 | 0 |  |
 | DL-0074 | cam-nang/du-lich/dl-0074-quan-an-gan-bai-xe-o-thung-nai.html | REPAIR | 100 | 0 |  |
 | DL-0075 | cam-nang/du-lich/dl-0075-chup-anh-doan-xe-o-thung-nai-o-dau-dep.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe.html'; broken internal link: 'cam-nang/du-lich/dl-0004-nhung-goc-chup-anh-dep-o-ho-tay-cho-nguoi-di-xe.html' |
-| HD-0067 | cam-nang/hoi-dap/hd-0067-di-mua-nhieu-voi-xe-thue-co-sao-khong.html | PASS | 100 | 0 |  |
+| HD-0067 | cam-nang/hoi-dap/hd-0067-di-mua-nhieu-voi-xe-thue-co-sao-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0068 | cam-nang/hoi-dap/hd-0068-xe-thue-bi-cong-an-giu-vi-giay-to-cua-chu-xe-thi-sao.html | PUBLISHED | 100 | 0 |  |
-| HD-0069 | cam-nang/hoi-dap/hd-0069-co-duoc-tu-thay-lop-xe-thue-khi-thung-sam-khong.html | PASS | 100 | 0 |  |
-| HD-0070 | cam-nang/hoi-dap/hd-0070-xe-thue-de-lau-khong-chay-trong-ngay-co-sao-khong.html | PASS | 100 | 0 |  |
-| HD-0071 | cam-nang/hoi-dap/hd-0071-can-kiem-tra-lai-xe-thue-bao-lau-mot-lan-trong-chuyen-dai.html | PASS | 96 | 0 |  |
+| HD-0069 | cam-nang/hoi-dap/hd-0069-co-duoc-tu-thay-lop-xe-thue-khi-thung-sam-khong.html | PUBLISHED | 100 | 0 |  |
+| HD-0070 | cam-nang/hoi-dap/hd-0070-xe-thue-de-lau-khong-chay-trong-ngay-co-sao-khong.html | PUBLISHED | 100 | 0 |  |
+| HD-0071 | cam-nang/hoi-dap/hd-0071-can-kiem-tra-lai-xe-thue-bao-lau-mot-lan-trong-chuyen-dai.html | PUBLISHED | 96 | 0 |  |
 | HD-0072 | cam-nang/hoi-dap/hd-0072-xe-thue-bi-lop-non-tu-dau-phai-bao-ngay-khong.html | REPAIR | 99 | 0 |  |
 | HD-0073 | cam-nang/hoi-dap/hd-0073-nen-cho-them-nguoi-tren-xe-thue-can-hoi-truoc-khong.html | REPAIR | 100 | 0 |  |
 | HD-0074 | cam-nang/hoi-dap/hd-0074-co-duoc-lap-them-do-tren-xe-thue-khong.html | REPAIR | 100 | 0 |  |
