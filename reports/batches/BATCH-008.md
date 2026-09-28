@@ -1,9 +1,9 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T00:26:42
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T00:29:19
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 10 | pass: 4 | published: 5
-- writing: 40 | review: 0 | repair: 1 | fail: 0 | blocked: 0
+- processed: 50 | written: 10 | pass: 5 | published: 5
+- writing: 40 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.2 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -27,7 +27,7 @@
 | CD-0065 | cam-nang/cung-duong/cd-0065-quan-an-ngon-doc-duong-den-thanh-pho-lang-son.html | WRITING |  | 0 |  |
 | CD-0066 | cam-nang/cung-duong/cd-0066-tuyen-duong-dep-tu-ha-noi-den-dinh-lap.html | WRITING |  | 0 |  |
 | DL-0059 | cam-nang/du-lich/dl-0059-chup-anh-sang-som-o-nui-ba-vi-co-gi-dep.html | PUBLISHED | 100 | 0 |  |
-| DL-0060 | cam-nang/du-lich/dl-0060-di-trong-ngay-den-khoang-xanh-bang-xe-may-co-dang-khong.html | REPAIR | 95 | 0 |  |
+| DL-0060 | cam-nang/du-lich/dl-0060-di-trong-ngay-den-khoang-xanh-bang-xe-may-co-dang-khong.html | PASS | 95 | 0 |  |
 | DL-0061 | cam-nang/du-lich/dl-0061-mua-hoa-nao-no-dep-o-khoang-xanh-khi-di-xe-may.html | WRITING |  | 0 |  |
 | DL-0062 | cam-nang/du-lich/dl-0062-an-sang-o-dau-truoc-khi-chay-xe-den-khoang-xanh.html | WRITING |  | 0 |  |
 | DL-0063 | cam-nang/du-lich/dl-0063-canh-quan-dep-nhat-o-khoang-xanh-theo-nguoi-chay-xe.html | WRITING |  | 0 |  |

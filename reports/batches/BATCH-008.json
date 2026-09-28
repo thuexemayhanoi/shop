@@ -1,15 +1,15 @@
 {
   "batch_id": "BATCH-008",
   "started_at": "2026-09-28T00:07:26",
-  "finished_at": "2026-09-28T00:26:42",
+  "finished_at": "2026-09-28T00:29:19",
   "writer": "external-agent",
   "processed": 50,
   "written": 10,
-  "pass": 4,
+  "pass": 5,
   "published": 5,
   "writing": 40,
   "review": 0,
-  "repair": 1,
+  "repair": 0,
   "fail": 0,
   "blocked": 0,
   "average_score": 97.2,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 5,
   "articles": [
     {
       "article_id": "AT-0060",
@@ -194,7 +194,7 @@
     {
       "article_id": "DL-0060",
       "output_path": "cam-nang/du-lich/dl-0060-di-trong-ngay-den-khoang-xanh-bang-xe-may-co-dang-khong.html",
-      "outcome": "REPAIR",
+      "outcome": "PASS",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
