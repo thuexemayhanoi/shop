@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T09:48:54",
+  "finished_at": "2026-09-28T17:24:38",
   "writer": "external-agent",
   "processed": 50,
   "written": 42,
-  "pass": 7,
-  "published": 35,
+  "pass": 4,
+  "published": 38,
   "writing": 8,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 7,
+  "pass_publishable_now": 4,
   "articles": [
     {
       "article_id": "AT-0068",
@@ -214,7 +214,7 @@
     {
       "article_id": "DL-0070",
       "output_path": "cam-nang/du-lich/dl-0070-mon-gi-dang-mua-ve-tu-dao-quan-oanh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -224,7 +224,7 @@
     {
       "article_id": "DL-0071",
       "output_path": "cam-nang/du-lich/dl-0071-goc-view-ven-duong-khi-chay-xe-den-dao-quan-oanh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -284,7 +284,7 @@
     {
       "article_id": "HD-0068",
       "output_path": "cam-nang/hoi-dap/hd-0068-xe-thue-bi-cong-an-giu-vi-giay-to-cua-chu-xe-thi-sao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
