@@ -1,25 +1,25 @@
 # Batch report BATCH-009
 
-- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T14:19:30
+- started_at: 2026-09-28T06:27:06 | finished_at: 2026-09-28T07:27:08
 - writer: external-agent | batch resolved once: BATCH-009
-- processed: 50 | written: 16 | pass: 0 | published: 16
-- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.8 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 20 | pass: 3 | published: 16
+- writing: 30 | review: 0 | repair: 1 | fail: 0 | blocked: 0
+- scores: avg 98 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0068 | cam-nang/an-toan/at-0068-ky-nang-chay-khi-nang-choi-ban-trua.html | WRITING |  | 0 |  |
-| AT-0069 | cam-nang/an-toan/at-0069-chay-xe-theo-doan-nhieu-xe-an-toan.html | WRITING |  | 0 |  |
+| AT-0068 | cam-nang/an-toan/at-0068-ky-nang-chay-khi-nang-choi-ban-trua.html | PASS | 100 | 0 |  |
+| AT-0069 | cam-nang/an-toan/at-0069-chay-xe-theo-doan-nhieu-xe-an-toan.html | PASS | 100 | 0 |  |
 | AT-0070 | cam-nang/an-toan/at-0070-cach-bam-coi-dung-luc-o-do-thi.html | WRITING |  | 0 |  |
 | AT-0071 | cam-nang/an-toan/at-0071-thoi-quen-liec-guong-dinh-ky-khi-chay-xe.html | WRITING |  | 0 |  |
 | AT-0072 | cam-nang/an-toan/at-0072-phanh-xe-ga-an-toan-khi-duong-uot.html | WRITING |  | 0 |  |
 | AT-0073 | cam-nang/an-toan/at-0073-phanh-abs-tren-xe-may-hoat-dong-the-nao.html | WRITING |  | 0 |  |
 | AT-0074 | cam-nang/an-toan/at-0074-ky-nang-tranh-o-ga-khi-chay-xe.html | WRITING |  | 0 |  |
 | AT-0075 | cam-nang/an-toan/at-0075-ky-nang-vuot-xe-an-toan-tren-quoc-lo.html | WRITING |  | 0 |  |
-| CD-0067 | cam-nang/cung-duong/cd-0067-trai-nghiem-mot-ngay-o-dinh-lap-bang-xe-may.html | WRITING |  | 0 |  |
-| CD-0068 | cam-nang/cung-duong/cd-0068-tram-dung-nghi-ven-duong-toi-dinh-lap.html | WRITING |  | 0 |  |
+| CD-0067 | cam-nang/cung-duong/cd-0067-trai-nghiem-mot-ngay-o-dinh-lap-bang-xe-may.html | REPAIR | 96 | 0 |  |
+| CD-0068 | cam-nang/cung-duong/cd-0068-tram-dung-nghi-ven-duong-toi-dinh-lap.html | PASS | 98 | 0 |  |
 | CD-0069 | cam-nang/cung-duong/cd-0069-ha-noi-den-mong-cai-quoc-lo-nao-nen-chon.html | WRITING |  | 0 |  |
 | CD-0070 | cam-nang/cung-duong/cd-0070-hai-ngay-o-mong-cai-lich-trinh-goi-y-cho-nguoi-di-xe.html | WRITING |  | 0 |  |
 | CD-0071 | cam-nang/cung-duong/cd-0071-cho-ngam-canh-giua-duong-den-mong-cai.html | WRITING |  | 0 |  |
