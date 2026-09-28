@@ -1,9 +1,9 @@
 # Batch report BATCH-008
 
-- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T00:37:07
+- started_at: 2026-09-28T00:07:26 | finished_at: 2026-09-28T00:42:15
 - writer: external-agent | batch resolved once: BATCH-008
-- processed: 50 | written: 16 | pass: 5 | published: 10
-- writing: 34 | review: 0 | repair: 1 | fail: 0 | blocked: 0
+- processed: 50 | written: 16 | pass: 6 | published: 10
+- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.1 | min 94 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: f4cbf3f23319702507de45516718992bc3fbb502
@@ -44,7 +44,7 @@
 | HD-0065 | cam-nang/hoi-dap/hd-0065-co-duoc-mang-xe-thue-len-pha-khong.html | WRITING |  | 0 |  |
 | HD-0066 | cam-nang/hoi-dap/hd-0066-xe-thue-do-xang-sai-loai-phai-lam-sao.html | WRITING |  | 0 |  |
 | KN-0060 | cam-nang/kinh-nghiem/kn-0060-kiem-tra-xe-may-da-thue-danh-sach-diem-can-nhin.html | PUBLISHED | 98 | 0 |  |
-| KN-0061 | cam-nang/kinh-nghiem/kn-0061-kinh-nghiem-tra-xe-may-thue-dung-gio.html | REPAIR | 100 | 0 |  |
+| KN-0061 | cam-nang/kinh-nghiem/kn-0061-kinh-nghiem-tra-xe-may-thue-dung-gio.html | PASS | 100 | 0 |  |
 | KN-0062 | cam-nang/kinh-nghiem/kn-0062-chuan-bi-gi-khi-lan-dau-thue-xe-may-o-ha-noi.html | WRITING |  | 0 |  |
 | KN-0063 | cam-nang/kinh-nghiem/kn-0063-kinh-nghiem-thue-xe-may-cho-nguoi-nuoc-ngoai-moi-den.html | WRITING |  | 0 |  |
 | KN-0064 | cam-nang/kinh-nghiem/kn-0064-khach-nu-di-xe-may-mot-minh-o-ha-noi-nen-luu-y-gi.html | WRITING |  | 0 |  |
