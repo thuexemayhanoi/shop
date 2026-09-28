@@ -1,0 +1,6 @@
+{
+  "op": "qa",
+  "batch": "BATCH-009",
+  "date": "2026-09-28",
+  "note": "re-QA requeued rows XM-0071..73 after repair commits"
+}
