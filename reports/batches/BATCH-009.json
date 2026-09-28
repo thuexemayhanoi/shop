@@ -1,7 +1,7 @@
 {
   "batch_id": "BATCH-009",
   "started_at": "2026-09-28T06:27:06",
-  "finished_at": "2026-09-28T06:47:52",
+  "finished_at": "2026-09-28T06:51:05",
   "writer": "external-agent",
   "processed": 50,
   "written": 9,
@@ -9,8 +9,8 @@
   "published": 6,
   "writing": 41,
   "review": 0,
-  "repair": 3,
-  "fail": 0,
+  "repair": 0,
+  "fail": 3,
   "blocked": 0,
   "average_score": 97.2,
   "min_score": 96,
@@ -474,30 +474,45 @@
     {
       "article_id": "XM-0071",
       "output_path": "cam-nang/xe-may/xm-0071-bao-duong-lop-sau-cua-honda-air-blade-dung-cach.html",
-      "outcome": "REPAIR",
+      "outcome": "FAIL",
       "score": 96,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "word broken across newline: 'sp\\nan'",
+        "word broken across newline: 'Blad\\ne'",
+        "word broken across newline: 'm\\nà'",
+        "word broken across newline: 'đườn\\ng'",
+        "word broken across newline: 'n\\nguội'",
+        "newline inside HTML tag"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0072",
       "output_path": "cam-nang/xe-may/xm-0072-cach-kiem-tra-bo-phanh-tren-honda-air-blade.html",
-      "outcome": "REPAIR",
+      "outcome": "FAIL",
       "score": 96,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "word broken across newline: 'sp\\nan'",
+        "word broken across newline: 'b\\nố'",
+        "newline inside HTML tag"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "XM-0073",
       "output_path": "cam-nang/xe-may/xm-0073-dau-hieu-ac-quy-gap-van-de-tren-honda-air-blade.html",
-      "outcome": "REPAIR",
+      "outcome": "FAIL",
       "score": 96,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "word broken across newline: 'Th\\nử'",
+        "word broken across newline: 'đư\\nợc'",
+        "newline inside HTML tag"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
