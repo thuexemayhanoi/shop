@@ -1,18 +1,18 @@
 {
   "batch_id": "BATCH-008",
   "started_at": "2026-09-28T00:07:26",
-  "finished_at": "2026-09-28T11:36:53",
+  "finished_at": "2026-09-28T05:08:17",
   "writer": "external-agent",
   "processed": 50,
-  "written": 22,
+  "written": 27,
   "pass": 0,
   "published": 22,
-  "writing": 28,
+  "writing": 23,
   "review": 0,
   "repair": 0,
-  "fail": 0,
+  "fail": 5,
   "blocked": 0,
-  "average_score": 97.1,
+  "average_score": 96.7,
   "min_score": 94,
   "max_score": 100,
   "repair_count": 0,
@@ -54,50 +54,76 @@
     {
       "article_id": "AT-0063",
       "output_path": "cam-nang/an-toan/at-0063-qua-pha-bang-xe-may-an-toan.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 95,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'",
+        "broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "AT-0064",
       "output_path": "cam-nang/an-toan/at-0064-qua-cau-vuot-va-ham-chui-bang-xe-may.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 94,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/chu-de/at-ky-nang-n\\nang-cao.html'",
+        "word broken across newline: 'n\\nang'",
+        "newline inside HTML tag",
+        "broken internal link: 'cam-nang/chu-de/at-ky-nang-n\\nang-cao.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "AT-0065",
       "output_path": "cam-nang/an-toan/at-0065-ky-nang-chay-xe-may-ban-dem.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 95,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'",
+        "word broken across newline: 'to\\nàn'",
+        "word broken across newline: 's\\nố'",
+        "word broken across newline: 'tư\\nơng'",
+        "newline inside HTML tag",
+        "broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "AT-0066",
       "output_path": "cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 95,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-n\\nang/chu-de/'",
+        "broken internal link: 'cam-nang/an-toan/at-0065-ky-nang-chay-xe-may-ban-dem.html'",
+        "word broken across newline: 'n\\nang'",
+        "word broken across newline: 'tra\\nng'",
+        "word broken across newline: 'd\\nễ'",
+        "newline inside HTML tag",
+        "broken internal link: 'cam-n\\nang/chu-de/'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
     {
       "article_id": "AT-0067",
       "output_path": "cam-nang/an-toan/at-0067-ky-nang-chay-xe-trong-suong-mu-day.html",
-      "outcome": "WRITING",
-      "score": null,
+      "outcome": "FAIL",
+      "score": 95,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'",
+        "broken internal link: 'cam-nang/an-toan/at-0066-ky-nang-chay-xe-may-trong-mua-to.html'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": []
     },
