@@ -1,0 +1,6 @@
+{
+  "op": "qa",
+  "batch": "BATCH-011",
+  "ids": "HD-0086,HD-0087,KN-0087,KN-0088,XM-0087,XM-0088",
+  "note": "QA chunk 3 drafts on 3b60676fe587502e6e3b3b4d0e79a109c5032969 (all 6 scored 100/100 locally) — 2026-09-29T12:12:11.063Z"
+}
