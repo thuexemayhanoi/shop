@@ -1,8 +1,8 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T12:43:25
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T17:52:06
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 15 | pass: 1 | published: 14
+- processed: 50 | written: 15 | pass: 0 | published: 15
 - writing: 35 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.3 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
@@ -20,7 +20,7 @@
 | AT-0092 | cam-nang/an-toan/at-0092-cach-quan-sat-truoc-khi-re-o-nga-tu-khong-den.html | WRITING |  | 0 |  |
 | CD-0084 | cam-nang/cung-duong/cd-0084-lich-trinh-2-ngay-1-dem-di-xe-may-den-tam-diep.html | PUBLISHED | 95 | 0 |  |
 | CD-0085 | cam-nang/cung-duong/cd-0085-diem-dung-chan-dep-tren-cung-duong-ha-noi-tam-diep.html | PUBLISHED | 95 | 0 |  |
-| CD-0086 | cam-nang/cung-duong/cd-0086-di-xe-may-tu-ha-noi-den-thanh-pho-thanh-hoa-mat-bao-lau.html | PASS | 97 | 0 |  |
+| CD-0086 | cam-nang/cung-duong/cd-0086-di-xe-may-tu-ha-noi-den-thanh-pho-thanh-hoa-mat-bao-lau.html | PUBLISHED | 97 | 0 |  |
 | CD-0087 | cam-nang/cung-duong/cd-0087-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-thanh-hoa.html | WRITING |  | 0 |  |
 | CD-0088 | cam-nang/cung-duong/cd-0088-quan-an-ngon-doc-duong-den-thanh-pho-thanh-hoa.html | WRITING |  | 0 |  |
 | CD-0089 | cam-nang/cung-duong/cd-0089-tuyen-duong-dep-tu-ha-noi-den-sam-son.html | WRITING |  | 0 |  |

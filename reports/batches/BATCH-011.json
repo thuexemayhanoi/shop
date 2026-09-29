@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T12:43:25",
+  "finished_at": "2026-09-29T17:52:06",
   "writer": "external-agent",
   "processed": 50,
   "written": 15,
-  "pass": 1,
-  "published": 14,
+  "pass": 0,
+  "published": 15,
   "writing": 35,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 1,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -124,7 +124,7 @@
     {
       "article_id": "CD-0086",
       "output_path": "cam-nang/cung-duong/cd-0086-di-xe-may-tu-ha-noi-den-thanh-pho-thanh-hoa-mat-bao-lau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
