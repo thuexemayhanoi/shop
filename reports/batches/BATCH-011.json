@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T20:31:23+00:00",
+  "finished_at": "2026-09-29T20:31:55",
   "writer": "external-agent",
   "processed": 50,
   "written": 44,
-  "pass": 3,
-  "published": 41,
+  "pass": 0,
+  "published": 44,
   "writing": 6,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 3,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -324,7 +324,7 @@
     {
       "article_id": "HD-0089",
       "output_path": "cam-nang/hoi-dap/hd-0089-xe-may-dien-chay-trong-nuoc-ngap-sau-duoc-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -334,7 +334,7 @@
     {
       "article_id": "HD-0090",
       "output_path": "cam-nang/hoi-dap/hd-0090-xe-may-dien-co-can-bang-lai-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -344,7 +344,7 @@
     {
       "article_id": "HD-0091",
       "output_path": "cam-nang/hoi-dap/hd-0091-xe-may-dien-duoi-50cc-chay-duong-dai-duoc-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
