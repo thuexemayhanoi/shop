@@ -1,1 +1,6 @@
-{"op":"publish","batch":"BATCH-011","ids":"AT-0092,CD-0087,CD-0088,CD-0089,CD-0090,CD-0091","date":"2026-09-29","note":"publish chunk AT-0092 + CD-0087..CD-0091 after QA PASS on 35ff8b9 — 2026-09-29T14:30Z"}
+{
+  "op": "qa",
+  "batch": "BATCH-011",
+  "ids": "AT-0092",
+  "note": "re-QA trimmed AT-0092 draft (1961 words main-content) on 26872242dfa8746dea7eb1206ce9c61c435cd743 — 2026-09-29T11:49:45.519Z"
+}
