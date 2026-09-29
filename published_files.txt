@@ -1,6 +1,6 @@
-cam-nang/cung-duong/cd-0087-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-thanh-hoa.html
-cam-nang/cung-duong/cd-0088-quan-an-ngon-doc-duong-den-thanh-pho-thanh-hoa.html
-cam-nang/cung-duong/cd-0089-tuyen-duong-dep-tu-ha-noi-den-sam-son.html
-cam-nang/cung-duong/cd-0090-trai-nghiem-mot-ngay-o-sam-son-bang-xe-may.html
-cam-nang/cung-duong/cd-0091-tram-dung-nghi-ven-duong-toi-sam-son.html
-cam-nang/an-toan/at-0092-cach-quan-sat-truoc-khi-re-o-nga-tu-khong-den.html
+cam-nang/hoi-dap/hd-0086-xe-may-dien-sac-qua-dem-duoc-khong.html
+cam-nang/kinh-nghiem/kn-0087-tim-tram-xang-quanh-khu-vuc-la-bang-cach-nao.html
+cam-nang/xe-may/xm-0087-bugi-xe-may-bao-lau-thay-mot-lan.html
+cam-nang/hoi-dap/hd-0087-den-bao-pin-xe-may-dien-nhap-nhay-la-sao.html
+cam-nang/kinh-nghiem/kn-0088-dung-ung-dung-ban-do-khi-chay-xe-may-o-ha-noi.html
+cam-nang/xe-may/xm-0088-kiem-tra-phanh-xe-may-an-toan.html
