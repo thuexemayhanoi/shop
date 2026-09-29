@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-010",
   "started_at": "2026-09-28T12:39:40",
-  "finished_at": "2026-09-29T10:59:01+00:00",
+  "finished_at": "2026-09-29T11:02:16",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 5,
-  "published": 45,
+  "pass": 0,
+  "published": 50,
   "writing": 0,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0076",
@@ -104,7 +104,7 @@
     {
       "article_id": "AT-0084",
       "output_path": "cam-nang/an-toan/at-0084-chay-nguoc-nang-sang-giam-choi-the-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -184,7 +184,7 @@
     {
       "article_id": "CD-0083",
       "output_path": "cam-nang/cung-duong/cd-0083-cung-duong-di-xe-may-tu-ha-noi-den-tam-diep.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -264,7 +264,7 @@
     {
       "article_id": "DL-0083",
       "output_path": "cam-nang/du-lich/dl-0083-quang-canh-suong-som-o-mai-chau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -344,7 +344,7 @@
     {
       "article_id": "HD-0083",
       "output_path": "cam-nang/hoi-dap/hd-0083-xe-may-dien-em-hon-hay-on-hon-xe-xang.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -434,7 +434,7 @@
     {
       "article_id": "KN-0084",
       "output_path": "cam-nang/kinh-nghiem/kn-0084-phanh-xe-thue-mem-hon-binh-thuong-kiem-tra-the-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
