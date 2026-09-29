@@ -1,8 +1,8 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T18:06:31+00:00
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T18:07:44
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 20 | pass: 5 | published: 15
+- processed: 50 | written: 20 | pass: 0 | published: 20
 - writing: 30 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.7 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
@@ -12,11 +12,11 @@
 |---|---|---|---|---|---|
 | AT-0085 | cam-nang/an-toan/at-0085-ky-nang-doi-mu-bao-hiem-khong-bi-gio-cuon.html | PUBLISHED | 99 | 0 |  |
 | AT-0086 | cam-nang/an-toan/at-0086-ky-nang-xu-ly-khi-gap-gio-giat-ngang.html | PUBLISHED | 98 | 0 |  |
-| AT-0087 | cam-nang/an-toan/at-0087-ky-nang-tranh-ho-ga-va-nap-cong-ho.html | PASS | 100 | 0 |  |
-| AT-0088 | cam-nang/an-toan/at-0088-chay-xe-may-qua-duong-sat-khong-co-rao-chan.html | PASS | 100 | 0 |  |
-| AT-0089 | cam-nang/an-toan/at-0089-ky-nang-xu-ly-khi-bi-o-to-bam-coi-ep-sat.html | PASS | 100 | 0 |  |
-| AT-0090 | cam-nang/an-toan/at-0090-chay-xe-may-trong-nuoc-ngap-nhe-giu-ga-deu.html | PASS | 99 | 0 |  |
-| AT-0091 | cam-nang/an-toan/at-0091-ky-nang-do-deo-mua-ket-hop-cho-nang.html | PASS | 100 | 0 |  |
+| AT-0087 | cam-nang/an-toan/at-0087-ky-nang-tranh-ho-ga-va-nap-cong-ho.html | PUBLISHED | 100 | 0 |  |
+| AT-0088 | cam-nang/an-toan/at-0088-chay-xe-may-qua-duong-sat-khong-co-rao-chan.html | PUBLISHED | 100 | 0 |  |
+| AT-0089 | cam-nang/an-toan/at-0089-ky-nang-xu-ly-khi-bi-o-to-bam-coi-ep-sat.html | PUBLISHED | 100 | 0 |  |
+| AT-0090 | cam-nang/an-toan/at-0090-chay-xe-may-trong-nuoc-ngap-nhe-giu-ga-deu.html | PUBLISHED | 99 | 0 |  |
+| AT-0091 | cam-nang/an-toan/at-0091-ky-nang-do-deo-mua-ket-hop-cho-nang.html | PUBLISHED | 100 | 0 |  |
 | AT-0092 | cam-nang/an-toan/at-0092-cach-quan-sat-truoc-khi-re-o-nga-tu-khong-den.html | WRITING |  | 0 |  |
 | CD-0084 | cam-nang/cung-duong/cd-0084-lich-trinh-2-ngay-1-dem-di-xe-may-den-tam-diep.html | PUBLISHED | 95 | 0 |  |
 | CD-0085 | cam-nang/cung-duong/cd-0085-diem-dung-chan-dep-tren-cung-duong-ha-noi-tam-diep.html | PUBLISHED | 95 | 0 |  |

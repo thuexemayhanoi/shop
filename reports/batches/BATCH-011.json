@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T18:06:31+00:00",
+  "finished_at": "2026-09-29T18:07:44",
   "writer": "external-agent",
   "processed": 50,
   "written": 20,
-  "pass": 5,
-  "published": 15,
+  "pass": 0,
+  "published": 20,
   "writing": 30,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -44,7 +44,7 @@
     {
       "article_id": "AT-0087",
       "output_path": "cam-nang/an-toan/at-0087-ky-nang-tranh-ho-ga-va-nap-cong-ho.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -54,7 +54,7 @@
     {
       "article_id": "AT-0088",
       "output_path": "cam-nang/an-toan/at-0088-chay-xe-may-qua-duong-sat-khong-co-rao-chan.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -64,7 +64,7 @@
     {
       "article_id": "AT-0089",
       "output_path": "cam-nang/an-toan/at-0089-ky-nang-xu-ly-khi-bi-o-to-bam-coi-ep-sat.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -74,7 +74,7 @@
     {
       "article_id": "AT-0090",
       "output_path": "cam-nang/an-toan/at-0090-chay-xe-may-trong-nuoc-ngap-nhe-giu-ga-deu.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -84,7 +84,7 @@
     {
       "article_id": "AT-0091",
       "output_path": "cam-nang/an-toan/at-0091-ky-nang-do-deo-mua-ket-hop-cho-nang.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
