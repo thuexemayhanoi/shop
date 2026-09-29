@@ -1,0 +1,7 @@
+{
+  "op": "publish",
+  "batch": "BATCH-011",
+  "ids": "HD-0086,HD-0087,KN-0087,KN-0088,XM-0087,XM-0088",
+  "date": "2026-09-29",
+  "note": "publish chunk 3 after QA PASS 100/100 on efb2dcf — 2026-09-29T12:14:10.116Z"
+}
