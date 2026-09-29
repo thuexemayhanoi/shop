@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T18:19:58+00:00",
+  "finished_at": "2026-09-29T18:52:16",
   "writer": "external-agent",
   "processed": 50,
   "written": 26,
-  "pass": 6,
-  "published": 20,
+  "pass": 0,
+  "published": 26,
   "writing": 24,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 6,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -94,7 +94,7 @@
     {
       "article_id": "AT-0092",
       "output_path": "cam-nang/an-toan/at-0092-cach-quan-sat-truoc-khi-re-o-nga-tu-khong-den.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -134,7 +134,7 @@
     {
       "article_id": "CD-0087",
       "output_path": "cam-nang/cung-duong/cd-0087-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-thanh-hoa.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -144,7 +144,7 @@
     {
       "article_id": "CD-0088",
       "output_path": "cam-nang/cung-duong/cd-0088-quan-an-ngon-doc-duong-den-thanh-pho-thanh-hoa.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -154,7 +154,7 @@
     {
       "article_id": "CD-0089",
       "output_path": "cam-nang/cung-duong/cd-0089-tuyen-duong-dep-tu-ha-noi-den-sam-son.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -164,7 +164,7 @@
     {
       "article_id": "CD-0090",
       "output_path": "cam-nang/cung-duong/cd-0090-trai-nghiem-mot-ngay-o-sam-son-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -174,7 +174,7 @@
     {
       "article_id": "CD-0091",
       "output_path": "cam-nang/cung-duong/cd-0091-tram-dung-nghi-ven-duong-toi-sam-son.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],

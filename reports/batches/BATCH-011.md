@@ -1,8 +1,8 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T18:19:58+00:00
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T18:52:16
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 26 | pass: 6 | published: 20
+- processed: 50 | written: 26 | pass: 0 | published: 26
 - writing: 24 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.2 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
@@ -17,15 +17,15 @@
 | AT-0089 | cam-nang/an-toan/at-0089-ky-nang-xu-ly-khi-bi-o-to-bam-coi-ep-sat.html | PUBLISHED | 100 | 0 |  |
 | AT-0090 | cam-nang/an-toan/at-0090-chay-xe-may-trong-nuoc-ngap-nhe-giu-ga-deu.html | PUBLISHED | 99 | 0 |  |
 | AT-0091 | cam-nang/an-toan/at-0091-ky-nang-do-deo-mua-ket-hop-cho-nang.html | PUBLISHED | 100 | 0 |  |
-| AT-0092 | cam-nang/an-toan/at-0092-cach-quan-sat-truoc-khi-re-o-nga-tu-khong-den.html | PASS | 99 | 0 |  |
+| AT-0092 | cam-nang/an-toan/at-0092-cach-quan-sat-truoc-khi-re-o-nga-tu-khong-den.html | PUBLISHED | 99 | 0 |  |
 | CD-0084 | cam-nang/cung-duong/cd-0084-lich-trinh-2-ngay-1-dem-di-xe-may-den-tam-diep.html | PUBLISHED | 95 | 0 |  |
 | CD-0085 | cam-nang/cung-duong/cd-0085-diem-dung-chan-dep-tren-cung-duong-ha-noi-tam-diep.html | PUBLISHED | 95 | 0 |  |
 | CD-0086 | cam-nang/cung-duong/cd-0086-di-xe-may-tu-ha-noi-den-thanh-pho-thanh-hoa-mat-bao-lau.html | PUBLISHED | 97 | 0 |  |
-| CD-0087 | cam-nang/cung-duong/cd-0087-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-thanh-hoa.html | PASS | 97 | 0 |  |
-| CD-0088 | cam-nang/cung-duong/cd-0088-quan-an-ngon-doc-duong-den-thanh-pho-thanh-hoa.html | PASS | 97 | 0 |  |
-| CD-0089 | cam-nang/cung-duong/cd-0089-tuyen-duong-dep-tu-ha-noi-den-sam-son.html | PASS | 95 | 0 |  |
-| CD-0090 | cam-nang/cung-duong/cd-0090-trai-nghiem-mot-ngay-o-sam-son-bang-xe-may.html | PASS | 95 | 0 |  |
-| CD-0091 | cam-nang/cung-duong/cd-0091-tram-dung-nghi-ven-duong-toi-sam-son.html | PASS | 97 | 0 |  |
+| CD-0087 | cam-nang/cung-duong/cd-0087-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-thanh-hoa.html | PUBLISHED | 97 | 0 |  |
+| CD-0088 | cam-nang/cung-duong/cd-0088-quan-an-ngon-doc-duong-den-thanh-pho-thanh-hoa.html | PUBLISHED | 97 | 0 |  |
+| CD-0089 | cam-nang/cung-duong/cd-0089-tuyen-duong-dep-tu-ha-noi-den-sam-son.html | PUBLISHED | 95 | 0 |  |
+| CD-0090 | cam-nang/cung-duong/cd-0090-trai-nghiem-mot-ngay-o-sam-son-bang-xe-may.html | PUBLISHED | 95 | 0 |  |
+| CD-0091 | cam-nang/cung-duong/cd-0091-tram-dung-nghi-ven-duong-toi-sam-son.html | PUBLISHED | 97 | 0 |  |
 | DL-0084 | cam-nang/du-lich/dl-0084-di-xe-may-den-pu-luong-theo-nhom-ban.html | PUBLISHED | 99 | 0 |  |
 | DL-0085 | cam-nang/du-lich/dl-0085-san-may-o-pu-luong-mua-nao-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | DL-0086 | cam-nang/du-lich/dl-0086-bua-trua-ngon-doc-duong-den-pu-luong.html | PUBLISHED | 100 | 0 |  |

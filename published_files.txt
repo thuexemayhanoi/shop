@@ -1,5 +1,6 @@
-cam-nang/an-toan/at-0087-ky-nang-tranh-ho-ga-va-nap-cong-ho.html
-cam-nang/an-toan/at-0088-chay-xe-may-qua-duong-sat-khong-co-rao-chan.html
-cam-nang/an-toan/at-0089-ky-nang-xu-ly-khi-bi-o-to-bam-coi-ep-sat.html
-cam-nang/an-toan/at-0090-chay-xe-may-trong-nuoc-ngap-nhe-giu-ga-deu.html
-cam-nang/an-toan/at-0091-ky-nang-do-deo-mua-ket-hop-cho-nang.html
+cam-nang/cung-duong/cd-0087-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-thanh-pho-thanh-hoa.html
+cam-nang/cung-duong/cd-0088-quan-an-ngon-doc-duong-den-thanh-pho-thanh-hoa.html
+cam-nang/cung-duong/cd-0089-tuyen-duong-dep-tu-ha-noi-den-sam-son.html
+cam-nang/cung-duong/cd-0090-trai-nghiem-mot-ngay-o-sam-son-bang-xe-may.html
+cam-nang/cung-duong/cd-0091-tram-dung-nghi-ven-duong-toi-sam-son.html
+cam-nang/an-toan/at-0092-cach-quan-sat-truoc-khi-re-o-nga-tu-khong-den.html
