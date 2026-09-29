@@ -1,10 +1,10 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:20:08
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:25:15+00:00
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 38 | pass: 0 | published: 38
-- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 41 | pass: 3 | published: 38
+- writing: 9 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.7 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
@@ -39,7 +39,7 @@
 | HD-0085 | cam-nang/hoi-dap/hd-0085-xe-may-dien-can-bao-duong-nhung-gi.html | PUBLISHED | 100 | 0 |  |
 | HD-0086 | cam-nang/hoi-dap/hd-0086-xe-may-dien-sac-qua-dem-duoc-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0087 | cam-nang/hoi-dap/hd-0087-den-bao-pin-xe-may-dien-nhap-nhay-la-sao.html | PUBLISHED | 100 | 0 |  |
-| HD-0088 | cam-nang/hoi-dap/hd-0088-xe-may-dien-thay-ac-quy-o-dau-uy-tin.html | WRITING |  | 0 |  |
+| HD-0088 | cam-nang/hoi-dap/hd-0088-xe-may-dien-thay-ac-quy-o-dau-uy-tin.html | PASS | 100 | 0 |  |
 | HD-0089 | cam-nang/hoi-dap/hd-0089-xe-may-dien-chay-trong-nuoc-ngap-sau-duoc-khong.html | WRITING |  | 0 |  |
 | HD-0090 | cam-nang/hoi-dap/hd-0090-xe-may-dien-co-can-bang-lai-khong.html | WRITING |  | 0 |  |
 | HD-0091 | cam-nang/hoi-dap/hd-0091-xe-may-dien-duoi-50cc-chay-duong-dai-duoc-khong.html | WRITING |  | 0 |  |
@@ -47,7 +47,7 @@
 | KN-0086 | cam-nang/kinh-nghiem/kn-0086-kinh-nghiem-kiem-tra-ap-suat-lop-xe-thue.html | PUBLISHED | 100 | 0 |  |
 | KN-0087 | cam-nang/kinh-nghiem/kn-0087-tim-tram-xang-quanh-khu-vuc-la-bang-cach-nao.html | PUBLISHED | 100 | 0 |  |
 | KN-0088 | cam-nang/kinh-nghiem/kn-0088-dung-ung-dung-ban-do-khi-chay-xe-may-o-ha-noi.html | PUBLISHED | 100 | 0 |  |
-| KN-0089 | cam-nang/kinh-nghiem/kn-0089-tai-ban-do-offline-truoc-chuyen-di-phuot.html | WRITING |  | 0 |  |
+| KN-0089 | cam-nang/kinh-nghiem/kn-0089-tai-ban-do-offline-truoc-chuyen-di-phuot.html | PASS | 100 | 0 |  |
 | KN-0090 | cam-nang/kinh-nghiem/kn-0090-kinh-nghiem-chon-gio-xuat-phat-tranh-tac-duong.html | WRITING |  | 0 |  |
 | KN-0091 | cam-nang/kinh-nghiem/kn-0091-chay-xe-may-tranh-gio-cao-diem-ha-noi-theo-tung-khu-vuc.html | WRITING |  | 0 |  |
 | KN-0092 | cam-nang/kinh-nghiem/kn-0092-kinh-nghiem-di-xe-may-theo-doan-an-toan.html | WRITING |  | 0 |  |
@@ -56,7 +56,7 @@
 | XM-0086 | cam-nang/xe-may/xm-0086-lop-xe-may-mon-dau-hieu-va-thoi-diem-thay.html | PUBLISHED | 100 | 0 |  |
 | XM-0087 | cam-nang/xe-may/xm-0087-bugi-xe-may-bao-lau-thay-mot-lan.html | PUBLISHED | 100 | 0 |  |
 | XM-0088 | cam-nang/xe-may/xm-0088-kiem-tra-phanh-xe-may-an-toan.html | PUBLISHED | 100 | 0 |  |
-| XM-0089 | cam-nang/xe-may/xm-0089-ac-quy-xe-may-yeu-dau-hieu-nhan-biet.html | WRITING |  | 0 |  |
+| XM-0089 | cam-nang/xe-may/xm-0089-ac-quy-xe-may-yeu-dau-hieu-nhan-biet.html | PASS | 100 | 0 |  |
 | XM-0090 | cam-nang/xe-may/xm-0090-den-xe-may-sang-yeu-nen-kiem-tra-dau.html | WRITING |  | 0 |  |
 | XM-0091 | cam-nang/xe-may/xm-0091-cach-chinh-guong-xe-may-chuan.html | WRITING |  | 0 |  |
 | XM-0092 | cam-nang/xe-may/xm-0092-yen-xe-bi-xe-cach-xu-ly.html | WRITING |  | 0 |  |
