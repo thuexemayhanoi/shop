@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T20:19:20+00:00",
+  "finished_at": "2026-09-29T20:20:08",
   "writer": "external-agent",
   "processed": 50,
   "written": 38,
-  "pass": 6,
-  "published": 32,
+  "pass": 0,
+  "published": 38,
   "writing": 12,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 6,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -214,7 +214,7 @@
     {
       "article_id": "DL-0087",
       "output_path": "cam-nang/du-lich/dl-0087-chup-dem-o-pu-luong-co-dep-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -224,7 +224,7 @@
     {
       "article_id": "DL-0088",
       "output_path": "cam-nang/du-lich/dl-0088-chuyen-sang-som-den-moc-chau-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -234,7 +234,7 @@
     {
       "article_id": "DL-0089",
       "output_path": "cam-nang/du-lich/dl-0089-cuoi-thu-di-moc-chau-bang-xe-may-co-dep-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -244,7 +244,7 @@
     {
       "article_id": "DL-0090",
       "output_path": "cam-nang/du-lich/dl-0090-ca-phe-sang-o-moc-chau-quan-nao-dep.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -254,7 +254,7 @@
     {
       "article_id": "DL-0091",
       "output_path": "cam-nang/du-lich/dl-0091-khung-canh-dac-sac-nhat-o-moc-chau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -264,7 +264,7 @@
     {
       "article_id": "DL-0092",
       "output_path": "cam-nang/du-lich/dl-0092-len-ke-hoach-di-thac-dai-yem-bang-xe-may-tron-ven.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
