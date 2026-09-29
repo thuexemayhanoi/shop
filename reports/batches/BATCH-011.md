@@ -1,11 +1,11 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:27:22
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:31:23+00:00
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 41 | pass: 0 | published: 41
-- writing: 9 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.7 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 2 | blocked 0
+- processed: 50 | written: 44 | pass: 3 | published: 41
+- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.8 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -40,9 +40,9 @@
 | HD-0086 | cam-nang/hoi-dap/hd-0086-xe-may-dien-sac-qua-dem-duoc-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0087 | cam-nang/hoi-dap/hd-0087-den-bao-pin-xe-may-dien-nhap-nhay-la-sao.html | PUBLISHED | 100 | 0 |  |
 | HD-0088 | cam-nang/hoi-dap/hd-0088-xe-may-dien-thay-ac-quy-o-dau-uy-tin.html | PUBLISHED | 100 | 0 |  |
-| HD-0089 | cam-nang/hoi-dap/hd-0089-xe-may-dien-chay-trong-nuoc-ngap-sau-duoc-khong.html | WRITING |  | 0 |  |
-| HD-0090 | cam-nang/hoi-dap/hd-0090-xe-may-dien-co-can-bang-lai-khong.html | WRITING |  | 0 |  |
-| HD-0091 | cam-nang/hoi-dap/hd-0091-xe-may-dien-duoi-50cc-chay-duong-dai-duoc-khong.html | WRITING |  | 0 |  |
+| HD-0089 | cam-nang/hoi-dap/hd-0089-xe-may-dien-chay-trong-nuoc-ngap-sau-duoc-khong.html | PASS | 100 | 0 |  |
+| HD-0090 | cam-nang/hoi-dap/hd-0090-xe-may-dien-co-can-bang-lai-khong.html | PASS | 100 | 0 |  |
+| HD-0091 | cam-nang/hoi-dap/hd-0091-xe-may-dien-duoi-50cc-chay-duong-dai-duoc-khong.html | PASS | 100 | 0 |  |
 | KN-0085 | cam-nang/kinh-nghiem/kn-0085-coi-xe-thue-bi-hong-co-duoc-tiep-tuc-chay-khong.html | PUBLISHED | 97 | 0 |  |
 | KN-0086 | cam-nang/kinh-nghiem/kn-0086-kinh-nghiem-kiem-tra-ap-suat-lop-xe-thue.html | PUBLISHED | 100 | 0 |  |
 | KN-0087 | cam-nang/kinh-nghiem/kn-0087-tim-tram-xang-quanh-khu-vuc-la-bang-cach-nao.html | PUBLISHED | 100 | 0 |  |
