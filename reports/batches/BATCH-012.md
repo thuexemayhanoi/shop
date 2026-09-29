@@ -1,10 +1,10 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-09-29T21:07:37
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-09-29T22:17:18+00:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 3 | pass: 0 | published: 3
-- writing: 47 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 100 | min 100 | max 100 | repair_count: 0
+- processed: 50 | written: 6 | pass: 3 | published: 3
+- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.3 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -26,7 +26,7 @@
 | CD-0097 | cam-nang/cung-duong/cd-0097-lich-trinh-chi-tiet-cho-chuyen-chua-huong-bang-xe-may.html | WRITING |  | 0 |  |
 | CD-0098 | cam-nang/cung-duong/cd-0098-quan-ca-phe-dung-chan-tren-duong-chua-huong.html | WRITING |  | 0 |  |
 | CD-0099 | cam-nang/cung-duong/cd-0099-cung-duong-ngam-canh-tu-ha-noi-len-nui-ba-vi.html | WRITING |  | 0 |  |
-| CD-0100 | cam-nang/cung-duong/cd-0100-mot-ngay-mot-dem-o-nui-ba-vi-co-du-khong.html | WRITING |  | 0 |  |
+| CD-0100 | cam-nang/cung-duong/cd-0100-mot-ngay-mot-dem-o-nui-ba-vi-co-du-khong.html | PASS | 96 | 0 |  |
 | DL-0093 | cam-nang/du-lich/dl-0093-mua-he-den-thac-dai-yem-bang-xe-may-nen-di-luc-nao.html | WRITING |  | 0 |  |
 | DL-0094 | cam-nang/du-lich/dl-0094-mon-an-mua-cua-thac-dai-yem-dang-thu.html | WRITING |  | 0 |  |
 | DL-0095 | cam-nang/du-lich/dl-0095-goc-chup-mua-o-thac-dai-yem-co-dang-thu-khong.html | WRITING |  | 0 |  |
@@ -43,7 +43,7 @@
 | HD-0097 | cam-nang/hoi-dap/hd-0097-pho-di-bo-ho-guom-hoat-dong-khi-nao.html | WRITING |  | 0 |  |
 | HD-0098 | cam-nang/hoi-dap/hd-0098-xe-may-do-gan-cho-dong-xuan-o-dau.html | WRITING |  | 0 |  |
 | HD-0099 | cam-nang/hoi-dap/hd-0099-tu-long-bien-sang-gia-lam-di-duong-nao.html | WRITING |  | 0 |  |
-| HD-0100 | cam-nang/hoi-dap/hd-0100-chay-xe-tu-ha-noi-di-san-bay-noi-bai-mat-bao-lau.html | WRITING |  | 0 |  |
+| HD-0100 | cam-nang/hoi-dap/hd-0100-chay-xe-tu-ha-noi-di-san-bay-noi-bai-mat-bao-lau.html | PASS | 100 | 0 |  |
 | KN-0093 | cam-nang/kinh-nghiem/kn-0093-kinh-nghiem-lien-he-voi-chu-xe-khi-gap-su-co.html | WRITING |  | 0 |  |
 | KN-0094 | cam-nang/kinh-nghiem/kn-0094-ghi-nho-lai-vi-tri-do-xe-o-bai-gui-lon.html | WRITING |  | 0 |  |
 | KN-0095 | cam-nang/kinh-nghiem/kn-0095-kinh-nghiem-do-xe-qua-dem-an-toan.html | WRITING |  | 0 |  |
@@ -59,4 +59,4 @@
 | XM-0097 | cam-nang/xe-may/xm-0097-may-de-cham-cac-nguyen-nhan.html | WRITING |  | 0 |  |
 | XM-0098 | cam-nang/xe-may/xm-0098-hop-so-xe-vao-so-keu-lach-cach.html | WRITING |  | 0 |  |
 | XM-0099 | cam-nang/xe-may/xm-0099-giam-xoc-xe-ga-yeu-dan-theo-thoi-gian.html | WRITING |  | 0 |  |
-| XM-0100 | cam-nang/xe-may/xm-0100-xe-may-rung-dau-may-co-dang-lo-khong.html | WRITING |  | 0 |  |
+| XM-0100 | cam-nang/xe-may/xm-0100-xe-may-rung-dau-may-co-dang-lo-khong.html | PASS | 100 | 0 |  |
