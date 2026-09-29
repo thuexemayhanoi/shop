@@ -1,5 +1,5 @@
-cam-nang/cung-duong/cd-0077-mot-ngay-mot-dem-o-hai-duong-co-du-khong.html
-cam-nang/hoi-dap/hd-0077-xe-may-dien-co-can-doi-mu-bao-hiem-khong.html
-cam-nang/kinh-nghiem/kn-0078-xe-thue-khong-de-duoc-cac-buoc-tu-kiem-tra.html
-cam-nang/an-toan/at-0078-chay-xe-may-canh-xe-buyt-tai-diem-dung.html
-cam-nang/xe-may/xm-0078-cach-kiem-tra-bo-ly-hop-tren-honda-air-blade.html
+cam-nang/du-lich/dl-0078-do-an-vat-duong-pho-o-ho-hoa-binh-the-nao.html
+cam-nang/cung-duong/cd-0078-diem-check-in-doc-cung-duong-den-hai-duong.html
+cam-nang/hoi-dap/hd-0078-xe-may-dien-di-bao-xa-moi-can-sac-lai.html
+cam-nang/kinh-nghiem/kn-0079-het-xang-giua-duong-noi-la-nen-xu-ly-the-nao.html
+cam-nang/an-toan/at-0079-ky-nang-giu-lan-dung-quy-dinh.html
