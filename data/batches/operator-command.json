@@ -1,0 +1,7 @@
+{
+  "op": "publish",
+  "batch": "BATCH-011",
+  "ids": "AT-0092,CD-0087,CD-0088,CD-0089,CD-0090,CD-0091",
+  "date": "2026-09-29",
+  "note": "publish chunk after re-QA PASS on 1ba6262 (AT-0092 trimmed 1961w) — 2026-09-29T11:51:54.428Z"
+}
