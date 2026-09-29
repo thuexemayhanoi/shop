@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-010",
   "started_at": "2026-09-28T12:39:40",
-  "finished_at": "2026-09-29T09:45:59+00:00",
+  "finished_at": "2026-09-29T09:50:02",
   "writer": "external-agent",
   "processed": 50,
   "written": 25,
-  "pass": 5,
-  "published": 20,
+  "pass": 0,
+  "published": 25,
   "writing": 25,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0076",
@@ -144,7 +144,7 @@
     {
       "article_id": "CD-0079",
       "output_path": "cam-nang/cung-duong/cd-0079-duong-den-phu-ly-nen-dung-o-dau-de-chup-anh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -224,7 +224,7 @@
     {
       "article_id": "DL-0079",
       "output_path": "cam-nang/du-lich/dl-0079-diem-dung-chup-anh-giua-duong-den-ho-hoa-binh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -304,7 +304,7 @@
     {
       "article_id": "HD-0079",
       "output_path": "cam-nang/hoi-dap/hd-0079-sac-xe-may-dien-mat-bao-lau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -394,7 +394,7 @@
     {
       "article_id": "KN-0080",
       "output_path": "cam-nang/kinh-nghiem/kn-0080-thung-sam-xe-may-thue-khi-dang-di-phuot.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -474,7 +474,7 @@
     {
       "article_id": "XM-0079",
       "output_path": "cam-nang/xe-may/xm-0079-khi-nao-can-kiem-tra-cop-xe-tren-honda-air-blade.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
