@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-012",
   "started_at": "2026-09-29T14:06:47",
-  "finished_at": "2026-09-29T21:06:49+00:00",
+  "finished_at": "2026-09-29T21:07:37",
   "writer": "external-agent",
   "processed": 50,
   "written": 3,
-  "pass": 3,
-  "published": 0,
+  "pass": 0,
+  "published": 3,
   "writing": 47,
   "review": 0,
   "repair": 0,
@@ -19,12 +19,12 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0093",
       "output_path": "cam-nang/an-toan/at-0093-ky-nang-giu-vi-tri-khi-chay-giua-xe-container.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -34,7 +34,7 @@
     {
       "article_id": "AT-0094",
       "output_path": "cam-nang/an-toan/at-0094-chay-xe-may-khi-met-nen-dung-luc-nao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -44,7 +44,7 @@
     {
       "article_id": "AT-0095",
       "output_path": "cam-nang/an-toan/at-0095-ky-nang-can-khoang-do-xe-trong-bai-chat-choi.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
