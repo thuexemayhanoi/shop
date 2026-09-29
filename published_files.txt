@@ -1,6 +1,3 @@
-cam-nang/du-lich/dl-0087-chup-dem-o-pu-luong-co-dep-khong.html
-cam-nang/du-lich/dl-0088-chuyen-sang-som-den-moc-chau-bang-xe-may.html
-cam-nang/du-lich/dl-0089-cuoi-thu-di-moc-chau-bang-xe-may-co-dep-khong.html
-cam-nang/du-lich/dl-0090-ca-phe-sang-o-moc-chau-quan-nao-dep.html
-cam-nang/du-lich/dl-0091-khung-canh-dac-sac-nhat-o-moc-chau.html
-cam-nang/du-lich/dl-0092-len-ke-hoach-di-thac-dai-yem-bang-xe-may-tron-ven.html
+cam-nang/hoi-dap/hd-0088-xe-may-dien-thay-ac-quy-o-dau-uy-tin.html
+cam-nang/kinh-nghiem/kn-0089-tai-ban-do-offline-truoc-chuyen-di-phuot.html
+cam-nang/xe-may/xm-0089-ac-quy-xe-may-yeu-dau-hieu-nhan-biet.html
