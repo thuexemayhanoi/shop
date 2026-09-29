@@ -1,8 +1,8 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:40:59+00:00
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:41:47
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 48 | pass: 2 | published: 46
+- processed: 50 | written: 48 | pass: 0 | published: 48
 - writing: 2 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.9 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -49,8 +49,8 @@
 | KN-0088 | cam-nang/kinh-nghiem/kn-0088-dung-ung-dung-ban-do-khi-chay-xe-may-o-ha-noi.html | PUBLISHED | 100 | 0 |  |
 | KN-0089 | cam-nang/kinh-nghiem/kn-0089-tai-ban-do-offline-truoc-chuyen-di-phuot.html | PUBLISHED | 100 | 0 |  |
 | KN-0090 | cam-nang/kinh-nghiem/kn-0090-kinh-nghiem-chon-gio-xuat-phat-tranh-tac-duong.html | PUBLISHED | 100 | 0 |  |
-| KN-0091 | cam-nang/kinh-nghiem/kn-0091-chay-xe-may-tranh-gio-cao-diem-ha-noi-theo-tung-khu-vuc.html | PASS | 100 | 0 |  |
-| KN-0092 | cam-nang/kinh-nghiem/kn-0092-kinh-nghiem-di-xe-may-theo-doan-an-toan.html | PASS | 100 | 0 |  |
+| KN-0091 | cam-nang/kinh-nghiem/kn-0091-chay-xe-may-tranh-gio-cao-diem-ha-noi-theo-tung-khu-vuc.html | PUBLISHED | 100 | 0 |  |
+| KN-0092 | cam-nang/kinh-nghiem/kn-0092-kinh-nghiem-di-xe-may-theo-doan-an-toan.html | PUBLISHED | 100 | 0 |  |
 | XM-0084 | cam-nang/xe-may/xm-0084-kinh-nghiem-thay-nhot-xe-may-dung-chu-ky.html | PUBLISHED | 99 | 0 |  |
 | XM-0085 | cam-nang/xe-may/xm-0085-nhan-biet-xe-may-can-thay-xich-nhong.html | PUBLISHED | 99 | 0 |  |
 | XM-0086 | cam-nang/xe-may/xm-0086-lop-xe-may-mon-dau-hieu-va-thoi-diem-thay.html | PUBLISHED | 100 | 0 |  |

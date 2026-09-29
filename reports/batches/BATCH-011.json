@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T20:40:59+00:00",
+  "finished_at": "2026-09-29T20:41:47",
   "writer": "external-agent",
   "processed": 50,
   "written": 48,
-  "pass": 2,
-  "published": 46,
+  "pass": 0,
+  "published": 48,
   "writing": 2,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 3,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -414,7 +414,7 @@
     {
       "article_id": "KN-0091",
       "output_path": "cam-nang/kinh-nghiem/kn-0091-chay-xe-may-tranh-gio-cao-diem-ha-noi-theo-tung-khu-vuc.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -424,7 +424,7 @@
     {
       "article_id": "KN-0092",
       "output_path": "cam-nang/kinh-nghiem/kn-0092-kinh-nghiem-di-xe-may-theo-doan-an-toan.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
