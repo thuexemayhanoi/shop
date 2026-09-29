@@ -1,0 +1,194 @@
+{
+ "article_id": "HD-0085",
+ "batch_id": "BATCH-011",
+ "category": "Hỏi đáp",
+ "category_label": "Hỏi đáp",
+ "working_title": "Xe máy điện cần bảo dưỡng những gì",
+ "primary_keyword": "xe máy điện cần bảo dưỡng những gì",
+ "secondary_keywords": "xe máy điện cần bảo dưỡng những gì",
+ "search_intent": "informational",
+ "slug": "hd-0085-xe-may-dien-can-bao-duong-nhung-gi",
+ "output_path": "cam-nang/hoi-dap/hd-0085-xe-may-dien-can-bao-duong-nhung-gi.html",
+ "draft_output_path": "_drafts/cam-nang/hoi-dap/hd-0085-xe-may-dien-can-bao-duong-nhung-gi.html",
+ "parent_hub": "hoidap.html",
+ "eligible_internal_link_targets": "hoidap.html,  faq.html,  kinhnghiem.html",
+ "commercial_link_target": "thutuc.html",
+ "requires_sources": "false",
+ "source_notes": "Không bắt buộc nguồn chính thức",
+ "source_requirements": "none",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1600,
+  "target_max_words": 3000,
+  "review_min_words": 1200,
+  "review_max_words": 3400,
+  "scope": "main editorial content only",
+  "policy": "choose length inside the band by search intent; never pad with repeated ideas, keyword stuffing or invented facts"
+ },
+ "taxonomy": {
+  "parent_id": "HOI_DAP",
+  "parent_title": "Hỏi đáp",
+  "parent_hub": "/shop/hoidap.html",
+  "child_cluster": "HD_XE_MAY_DIEN",
+  "child_title": "Hỏi đáp xe máy điện",
+  "child_slug": "hd-xe-may-dien",
+  "child_hub": "/shop/cam-nang/chu-de/hd-xe-may-dien.html",
+  "taxonomy_version": "1.0.0",
+  "policy": "taxonomy is authoritative: the writer MUST NOT invent categories or hubs; when child_hub is non-empty, link the parent hub AND the child hub contextually within the 3-5 link budget"
+ },
+ "page_shell": {
+  "chatbot_embed_required": true,
+  "chatbot_embed_snippet": "<link rel=\"stylesheet\" href=\"/shop/assets/css/chatbot-embed.css\">\n<script src=\"/shop/assets/js/chatbot-embed.js\" defer></script>",
+  "chatbot_embed_position": "immediately before </body>, exactly once",
+  "compact_footer_required": true,
+  "compact_footer_snippet_path": "_snippets/footer-compact.html",
+  "compact_footer_position": "immediately after </main>, before the chatbot embed, exactly once; regenerate the file with scripts/build_footer_snippet.py and embed its content verbatim (class site-footer-compact)",
+  "policy": "structural shell elements: never count as contextual internal links; do not add any other chatbot script or a second taxonomy footer"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 5,
+  "parent_hub_link_required": true,
+  "child_hub_link_recommended": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/hoi-dap/hd-0085-xe-may-dien-can-bao-duong-nhung-gi.html",
+ "date_published": "2026-09-29",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "HD-0001",
+   "title": "Có cần bằng lái để chạy xe máy 50cc không"
+  },
+  {
+   "article_id": "HD-0002",
+   "title": "Khách nước ngoài chạy xe máy ở Việt Nam cần giấy tờ gì"
+  },
+  {
+   "article_id": "HD-0003",
+   "title": "Xe máy điện có cần đăng ký biển số không"
+  },
+  {
+   "article_id": "HD-0004",
+   "title": "Bảo hiểm TNDS xe máy là gì"
+  },
+  {
+   "article_id": "HD-0005",
+   "title": "Xe máy chở được mấy người theo quy định"
+  },
+  {
+   "article_id": "HD-0006",
+   "title": "Bao nhiêu tuổi được lái xe máy dưới 50cc"
+  }
+ ]
+}
