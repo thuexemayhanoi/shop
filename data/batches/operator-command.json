@@ -1,6 +1,1 @@
-{
-  "op": "publish",
-  "batch": "BATCH-011",
-  "ids": "CD-0086",
-  "date": "2026-09-29"
-}
+{"op":"publish","batch":"BATCH-011","ids":"CD-0086","date":"2026-09-29","note":"retry after corruption repair commit 002feba"}
