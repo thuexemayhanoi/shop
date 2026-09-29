@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T11:17:51+00:00",
+  "finished_at": "2026-09-29T11:22:03",
   "writer": "external-agent",
   "processed": 50,
   "written": 5,
-  "pass": 5,
-  "published": 0,
+  "pass": 0,
+  "published": 5,
   "writing": 45,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -104,7 +104,7 @@
     {
       "article_id": "CD-0084",
       "output_path": "cam-nang/cung-duong/cd-0084-lich-trinh-2-ngay-1-dem-di-xe-may-den-tam-diep.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -184,7 +184,7 @@
     {
       "article_id": "DL-0084",
       "output_path": "cam-nang/du-lich/dl-0084-di-xe-may-den-pu-luong-theo-nhom-ban.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -274,7 +274,7 @@
     {
       "article_id": "HD-0084",
       "output_path": "cam-nang/hoi-dap/hd-0084-xe-may-dien-co-bi-phat-nguoi-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -354,7 +354,7 @@
     {
       "article_id": "KN-0085",
       "output_path": "cam-nang/kinh-nghiem/kn-0085-coi-xe-thue-bi-hong-co-duoc-tiep-tuc-chay-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -434,7 +434,7 @@
     {
       "article_id": "XM-0084",
       "output_path": "cam-nang/xe-may/xm-0084-kinh-nghiem-thay-nhot-xe-may-dung-chu-ky.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
