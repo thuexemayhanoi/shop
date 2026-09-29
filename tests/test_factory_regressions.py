@@ -614,5 +614,40 @@ class NoApiArchitectureTests(unittest.TestCase):
         self.assertIn("published_date", header)
 
 
+
+class BreadcrumbBasePrefixRegressionTests(unittest.TestCase):
+    """No doubled base prefix in breadcrumbs or internal links.
+
+    Covers the breadcrumb double-prefix defect (doubled origin,
+    /shop/shop/ doubled base, /shop// doubled slash) so it cannot
+    recur in published pages or drafts.
+    """
+
+    FORBIDDEN = ("shophttps://",
+                 "https://thuexemayhanoi.github.io/shop//",
+                 "/shop//",
+                 "/shop/shop/")
+
+    def _iter_html_files(self):
+        bases = (os.path.join(ROOT, "cam-nang"),
+                 os.path.join(ROOT, "_drafts", "cam-nang"))
+        for base in bases:
+            for dirpath, _dirnames, filenames in os.walk(base):
+                for name in sorted(filenames):
+                    if name.endswith(".html"):
+                        yield os.path.join(dirpath, name)
+
+    def test_no_doubled_base_prefix_in_breadcrumbs(self):
+        seen = 0
+        for path in self._iter_html_files():
+            seen += 1
+            with io.open(path, encoding="utf-8") as f:
+                src = f.read()
+            for bad in self.FORBIDDEN:
+                self.assertNotIn(bad, src,
+                                 "%s contains forbidden %r" % (path, bad))
+        self.assertGreater(seen, 0)
+
+
 if __name__ == "__main__":
     unittest.main()
