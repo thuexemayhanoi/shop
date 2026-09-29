@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-010",
   "started_at": "2026-09-28T12:39:40",
-  "finished_at": "2026-09-29T10:01:13+00:00",
+  "finished_at": "2026-09-29T10:04:51",
   "writer": "external-agent",
   "processed": 50,
   "written": 30,
-  "pass": 5,
-  "published": 25,
+  "pass": 0,
+  "published": 30,
   "writing": 20,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": "f4cbf3f23319702507de45516718992bc3fbb502",
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0076",
@@ -64,7 +64,7 @@
     {
       "article_id": "AT-0080",
       "output_path": "cam-nang/an-toan/at-0080-chay-xe-may-o-khu-vuc-truong-hoc-gio-tan-hoc.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -154,7 +154,7 @@
     {
       "article_id": "CD-0080",
       "output_path": "cam-nang/cung-duong/cd-0080-cung-duong-vong-qua-thanh-pho-ninh-binh-co-gi-khac.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 93,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -234,7 +234,7 @@
     {
       "article_id": "DL-0080",
       "output_path": "cam-nang/du-lich/dl-0080-trai-nghiem-mot-ngay-o-mai-chau-bang-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -314,7 +314,7 @@
     {
       "article_id": "HD-0080",
       "output_path": "cam-nang/hoi-dap/hd-0080-di-mua-voi-xe-may-dien-co-nguy-hiem-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -484,7 +484,7 @@
     {
       "article_id": "XM-0080",
       "output_path": "cam-nang/xe-may/xm-0080-dau-hieu-khoa-cop-gap-van-de-tren-honda-air-blade.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
