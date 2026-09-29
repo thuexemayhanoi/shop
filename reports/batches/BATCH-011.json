@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T12:00:05+00:00",
+  "finished_at": "2026-09-29T12:43:25",
   "writer": "external-agent",
   "processed": 50,
   "written": 15,
-  "pass": 5,
-  "published": 10,
+  "pass": 1,
+  "published": 14,
   "writing": 35,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 2,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 5,
+  "pass_publishable_now": 1,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -34,7 +34,7 @@
     {
       "article_id": "AT-0086",
       "output_path": "cam-nang/an-toan/at-0086-ky-nang-xu-ly-khi-gap-gio-giat-ngang.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -204,7 +204,7 @@
     {
       "article_id": "DL-0086",
       "output_path": "cam-nang/du-lich/dl-0086-bua-trua-ngon-doc-duong-den-pu-luong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -364,7 +364,7 @@
     {
       "article_id": "KN-0086",
       "output_path": "cam-nang/kinh-nghiem/kn-0086-kinh-nghiem-kiem-tra-ap-suat-lop-xe-thue.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -454,7 +454,7 @@
     {
       "article_id": "XM-0086",
       "output_path": "cam-nang/xe-may/xm-0086-lop-xe-may-mon-dau-hieu-va-thoi-diem-thay.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
