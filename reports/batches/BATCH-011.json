@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-011",
   "started_at": "2026-09-29T04:17:49",
-  "finished_at": "2026-09-29T20:51:06+00:00",
+  "finished_at": "2026-09-29T20:53:03",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 2,
-  "published": 48,
+  "pass": 0,
+  "published": 50,
   "writing": 0,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 3,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0085",
@@ -504,7 +504,7 @@
     {
       "article_id": "XM-0091",
       "output_path": "cam-nang/xe-may/xm-0091-cach-chinh-guong-xe-may-chuan.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -514,7 +514,7 @@
     {
       "article_id": "XM-0092",
       "output_path": "cam-nang/xe-may/xm-0092-yen-xe-bi-xe-cach-xu-ly.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],

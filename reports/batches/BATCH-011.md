@@ -1,8 +1,8 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:51:06+00:00
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:53:03
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 50 | pass: 2 | published: 48
+- processed: 50 | written: 50 | pass: 0 | published: 50
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.9 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -58,5 +58,5 @@
 | XM-0088 | cam-nang/xe-may/xm-0088-kiem-tra-phanh-xe-may-an-toan.html | PUBLISHED | 100 | 0 |  |
 | XM-0089 | cam-nang/xe-may/xm-0089-ac-quy-xe-may-yeu-dau-hieu-nhan-biet.html | PUBLISHED | 100 | 0 |  |
 | XM-0090 | cam-nang/xe-may/xm-0090-den-xe-may-sang-yeu-nen-kiem-tra-dau.html | PUBLISHED | 100 | 0 |  |
-| XM-0091 | cam-nang/xe-may/xm-0091-cach-chinh-guong-xe-may-chuan.html | PASS | 100 | 0 |  |
-| XM-0092 | cam-nang/xe-may/xm-0092-yen-xe-bi-xe-cach-xu-ly.html | PASS | 100 | 0 |  |
+| XM-0091 | cam-nang/xe-may/xm-0091-cach-chinh-guong-xe-may-chuan.html | PUBLISHED | 100 | 0 |  |
+| XM-0092 | cam-nang/xe-may/xm-0092-yen-xe-bi-xe-cach-xu-ly.html | PUBLISHED | 100 | 0 |  |
