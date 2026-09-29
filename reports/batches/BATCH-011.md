@@ -1,9 +1,9 @@
 # Batch report BATCH-011
 
-- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T19:14:32
+- started_at: 2026-09-29T04:17:49 | finished_at: 2026-09-29T20:19:20+00:00
 - writer: external-agent | batch resolved once: BATCH-011
-- processed: 50 | written: 32 | pass: 0 | published: 32
-- writing: 18 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 38 | pass: 6 | published: 32
+- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: null
@@ -29,12 +29,12 @@
 | DL-0084 | cam-nang/du-lich/dl-0084-di-xe-may-den-pu-luong-theo-nhom-ban.html | PUBLISHED | 99 | 0 |  |
 | DL-0085 | cam-nang/du-lich/dl-0085-san-may-o-pu-luong-mua-nao-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | DL-0086 | cam-nang/du-lich/dl-0086-bua-trua-ngon-doc-duong-den-pu-luong.html | PUBLISHED | 100 | 0 |  |
-| DL-0087 | cam-nang/du-lich/dl-0087-chup-dem-o-pu-luong-co-dep-khong.html | WRITING |  | 0 |  |
-| DL-0088 | cam-nang/du-lich/dl-0088-chuyen-sang-som-den-moc-chau-bang-xe-may.html | WRITING |  | 0 |  |
-| DL-0089 | cam-nang/du-lich/dl-0089-cuoi-thu-di-moc-chau-bang-xe-may-co-dep-khong.html | WRITING |  | 0 |  |
-| DL-0090 | cam-nang/du-lich/dl-0090-ca-phe-sang-o-moc-chau-quan-nao-dep.html | WRITING |  | 0 |  |
-| DL-0091 | cam-nang/du-lich/dl-0091-khung-canh-dac-sac-nhat-o-moc-chau.html | WRITING |  | 0 |  |
-| DL-0092 | cam-nang/du-lich/dl-0092-len-ke-hoach-di-thac-dai-yem-bang-xe-may-tron-ven.html | WRITING |  | 0 |  |
+| DL-0087 | cam-nang/du-lich/dl-0087-chup-dem-o-pu-luong-co-dep-khong.html | PASS | 100 | 0 |  |
+| DL-0088 | cam-nang/du-lich/dl-0088-chuyen-sang-som-den-moc-chau-bang-xe-may.html | PASS | 98 | 0 |  |
+| DL-0089 | cam-nang/du-lich/dl-0089-cuoi-thu-di-moc-chau-bang-xe-may-co-dep-khong.html | PASS | 96 | 0 |  |
+| DL-0090 | cam-nang/du-lich/dl-0090-ca-phe-sang-o-moc-chau-quan-nao-dep.html | PASS | 98 | 0 |  |
+| DL-0091 | cam-nang/du-lich/dl-0091-khung-canh-dac-sac-nhat-o-moc-chau.html | PASS | 100 | 0 |  |
+| DL-0092 | cam-nang/du-lich/dl-0092-len-ke-hoach-di-thac-dai-yem-bang-xe-may-tron-ven.html | PASS | 100 | 0 |  |
 | HD-0084 | cam-nang/hoi-dap/hd-0084-xe-may-dien-co-bi-phat-nguoi-khong.html | PUBLISHED | 97 | 0 |  |
 | HD-0085 | cam-nang/hoi-dap/hd-0085-xe-may-dien-can-bao-duong-nhung-gi.html | PUBLISHED | 100 | 0 |  |
 | HD-0086 | cam-nang/hoi-dap/hd-0086-xe-may-dien-sac-qua-dem-duoc-khong.html | PUBLISHED | 100 | 0 |  |
