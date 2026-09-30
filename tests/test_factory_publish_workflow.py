@@ -26,6 +26,7 @@ import csv
 import io
 import json
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -321,6 +322,59 @@ class ClaimIdsTests(unittest.TestCase):
         rc = self._run(tmp, ["--batch", "BATCH-012", "--claim-ids",
                              "--ids", ",".join(wanted)])
         self.assertEqual(rc, rb.EXIT_USAGE)
+
+
+class WorkflowYamlLint(unittest.TestCase):
+    """Deterministic lint for the YAML hazard class that broke
+    factory-publish.yml at startup (both run #4 and run #5 failed with
+    zero jobs): a plain (unquoted) scalar mapping value containing ': '
+    is INVALID YAML - e.g. `- name: Guard: no lock` - and GitHub then
+    rejects the whole workflow file. Block-quoted scalars and the
+    contents of block scalars (run: |) are exempt.
+    """
+
+    KEY_LINE = re.compile(r"^(\s*(?:- )?)([A-Za-z_][\w-]*):(?!\s*[|>])(.*)$")
+
+    def _workflow_files(self):
+        wf_dir = os.path.join(ROOT, ".github", "workflows")
+        for fn in sorted(os.listdir(wf_dir)):
+            if fn.endswith((".yml", ".yaml")):
+                yield fn, os.path.join(wf_dir, fn)
+
+    def test_no_plain_scalar_contains_colon_space(self):
+        for fn, path in self._workflow_files():
+            text = read(path)
+            for i, line in enumerate(text.splitlines(), 1):
+                s = line.rstrip("\n")
+                if not s.strip() or s.lstrip().startswith("#"):
+                    continue
+                m = self.KEY_LINE.match(s)
+                if not m:
+                    continue
+                value = m.group(3).strip()
+                if not value or value.startswith(("'", '"')):
+                    continue  # empty or quoted scalar
+                self.assertFalse(
+                    re.search(r":\s", value),
+                    "%s line %d: plain scalar value contains ': ' "
+                    "(invalid YAML - quote the value or drop the colon): %r"
+                    % (fn, i, s.strip()))
+
+    def test_step_names_have_no_colon_space(self):
+        # explicit pin of the exact 2026-09-30 startup failure:
+        # `- name: Guard: no pending transaction...` made GitHub reject
+        # the entire factory-publish.yml (runs 36751415249/36751593494,
+        # zero jobs). The step name is now parenthesized.
+        y = read(WF)
+        for line in y.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("- name:"):
+                value = stripped[len("- name:"):].strip()
+                if not value.startswith(("'", '"')):
+                    self.assertFalse(
+                        re.search(r":\s", value),
+                        "step name is a plain scalar containing ': ': %r"
+                        % stripped)
 
 
 if __name__ == "__main__":
