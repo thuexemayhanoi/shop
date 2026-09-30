@@ -111,6 +111,21 @@ function readConfig() {
   return { site, kill };
 }
 
+// Owner-approved Simple Production Mode thresholds (75/70/75) live in ONE
+// canonical source: config/article-rubric.json. The QA-record PASS gate
+// and the publish score gate both read thresholds.PASS.min from it -
+// there are NO hardcoded score thresholds in this file. (/shop has ONE
+// 100-point article score; QUALITY_MIN = PUBLISH_MIN = 75, SEO floor = 70
+// = REVIEW.min. See the rubric's threshold_policy.mapping_note.)
+function readRubric() {
+  const rubric = JSON.parse(fs.readFileSync(path.join(REPO, 'config', 'article-rubric.json'), 'utf8'));
+  const min = parseInt(rubric?.thresholds?.PASS?.min, 10);
+  if (!Number.isInteger(min) || min < 0 || min > 100) {
+    throw new Error('config/article-rubric.json: invalid thresholds.PASS.min');
+  }
+  return { passMin: min };
+}
+
 function loadMatrix() {
   const raw = fs.readFileSync(matrixPath(), 'utf8');
   const led = parseLedger(raw);
@@ -1009,6 +1024,7 @@ function main() {
   const date = args.date || hanoiToday();
   const generated = hanoiNowIso();
   const { site, kill } = readConfig();
+  const rubric = readRubric();
   const { raw, led, rows } = loadMatrix();
   validateInvariants(led, rows, args.expectRows || 2000);
 
@@ -1111,8 +1127,8 @@ function main() {
       const notes = row.notes || '';
       const repairMatch = /repair:(\d+)/.exec(notes);
       const attempts = repairMatch ? parseInt(repairMatch[1], 10) : 0;
-      if (outcome === 'PASS' && score < 90) {
-        console.error(`refused: ${id} PASS requires score >= 90 (got ${score})`);
+      if (outcome === 'PASS' && score < rubric.passMin) {
+        console.error(`refused: ${id} PASS requires score >= ${rubric.passMin} (got ${score})`);
         return 2;
       }
       if (outcome === 'REVIEW' && attempts + 1 >= MAX_REPAIR_ATTEMPTS) {
@@ -1165,8 +1181,8 @@ function main() {
         return 2;
       }
       const score = parseInt(row.score || '0', 10);
-      if (!(score >= 90)) {
-        console.error(`refused: ${id} score ${row.score} < 90`);
+      if (!(score >= rubric.passMin)) {
+        console.error(`refused: ${id} score ${row.score} < ${rubric.passMin} (config/article-rubric.json)`);
         return 2;
       }
       // DEPLOY GATE: the QA-passed file may be a draft under _drafts/.
