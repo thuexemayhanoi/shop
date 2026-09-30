@@ -113,13 +113,19 @@ jobs:
           if [ "${{ github.event.inputs.pilot }}" = "true" ]; then
             args="$args --pilot"
           fi
-          python3 scripts/run_article_batch.py $args --qa --progress
-          code=$?
-          # 0 ok / 3 FAIL rows / 4 REVIEW-BLOCKED rows are valid QA results;
-          # only tool/usage errors fail the workflow.
-          if [ "$code" -ne 0 ] && [ "$code" -ne 3 ] && [ "$code" -ne 4 ]; then
-            exit "$code"
-          fi
+          code=0
+          python3 scripts/run_article_batch.py $args --qa --progress || code=$?
+          # FAIL-CLOSED exit contract: 0 = operation valid,
+          # 3 = FAIL rows legitimately recorded, 4 = REVIEW/BLOCKED
+          # legitimately recorded. 1 (tool/config), 2 (usage/lock) and
+          # any unknown exit FAIL the workflow — a red QA tool must
+          # never finish green.
+          case "$code" in
+            0) echo "qa exit code: 0 (operation valid)" ;;
+            3) echo "qa exit code: 3 (FAIL rows legitimately recorded)" ;;
+            4) echo "qa exit code: 4 (REVIEW/BLOCKED rows legitimately recorded)" ;;
+            *) echo "::error::qa failed with exit $code (tool/config=1, usage/lock=2, unknown=other; ONLY 0/3/4 are valid results)"; exit "$code" ;;
+          esac
           exit 0
 
       - name: Upload batch reports

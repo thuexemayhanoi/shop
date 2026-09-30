@@ -50,10 +50,14 @@ GitHub Pages chạy Jekyll mặc định (không có `.nojekyll`). Nội dung tr
 
 ## Rủi ro còn lại / TODO cho phase sau
 
-1. Workflow `.github/workflows/recover-phoco.yml` khi được chạy sẽ khôi phục
-   `phoco.html` từ blob "known-good" cũ (bản monolithic), ghi đè bản refactor.
-   Nếu muốn giữ refactor, cần cập nhật GOOD_COMMIT/GOOD_BLOB trong workflow đó
-   (việc này ngoài phạm vi refactor kiến trúc).
+1. ~~Workflow `.github/workflows/recover-phoco.yml` khi được chạy sẽ khôi phục
+   `phoco.html` từ blob "known-good" cũ (bản monolithic), ghi đè bản refactor.~~
+   Đã giải quyết: workflow `recover-phoco.yml`, `seo-phoco.yml` và
+   `.github/scripts/seo_phoco.py` đã bị retire trong đợt hardening
+   four-layer reliability (nguy cơ khôi phục blob MotoAI v39/v40 cũ,
+   ghi đè `phoco.html` refactor và push thẳng main không qua canonical
+   gate). `phoco.html` giờ chỉ được bảo trì qua pipeline content-factory
+   chuẩn (xem docs/FACTORY-RELIABILITY.md).
 2. `index.html` phụ thuộc file motoai v39 host ngoài repo (motoopen.github.io).
 3. `nhap.html` không có trong sitemap; giữ nguyên CSS inline (lệch chuẩn so với
    các trang còn lại).

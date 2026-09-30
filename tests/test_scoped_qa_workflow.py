@@ -274,8 +274,16 @@ class ProgressSyncTests(ScopedQATestCase):
             self.assertEqual(prog["pass"], 5)
             self.assertEqual(prog["writing"], 45)
             self.assertEqual(report["pass"], prog["pass"])
-            # the progress records the commit it was generated from
-            self.assertIn("matrix_commit_sha", prog)
+            # schema-2 SHA semantics: the report records the INPUT sha
+            # it was generated from (source_head_sha), never an
+            # unstable self-referential "this commit contains this file"
+            # claim; the legacy matrix_commit_sha field is gone.
+            self.assertNotIn("matrix_commit_sha", prog)
+            self.assertIn("source_head_sha", prog)
+            self.assertEqual(prog.get("schema_version"), 2)
+            self.assertRegex(
+                prog.get("generated") or "",
+                r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+07:00$")
 
     def test_progress_counts_never_hand_patched(self):
         # counts derive from the matrix rows, not from the previous file

@@ -82,17 +82,14 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Run unit tests
-        run: python3 -m unittest discover tests
-
-      - name: Node fallback tooling tests
-        run: node --test tests/js/factory.test.mjs
-
-      - name: Validate content matrix
-        run: python3 scripts/validate_content_matrix.py
-
-      - name: Factory consistency (matrix / hubs / sitemap)
-        run: node scripts/js/factory.mjs --consistency
+      - name: Canonical final gate (L1-L4 on this exact tree)
+        # ONE canonical gate, same contract as the factory operator:
+        # python suite + node suite + matrix invariants + factory
+        # consistency + canonical generator freshness + git diff --check
+        # + scripts/verify_factory_state.py. See
+        # scripts/ci/factory_final_gate.sh. Never duplicated inline here:
+        # a single drift-free gate definition for every consumer.
+        run: bash scripts/ci/factory_final_gate.sh
 
       - name: Determine QA scope and candidate articles
         id: candidates

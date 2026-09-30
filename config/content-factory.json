@@ -1,5 +1,4 @@
 {
   "enabled": true,
-  "scheduled_runs_enabled": true,
-  "note": "Factory kill switch. enabled=false pauses ALL batch runs. scheduled_runs_enabled=false pauses cron runs only (manual workflow_dispatch still allowed). Do NOT delete cron to pause — flip these flags instead."
+  "note": "Factory kill switch. enabled=false pauses production mutations (claims, QA, publish) but keeps safety operations available: --recover, --consistency, writer-lock status/acquire/release, checkpoints, --progress. There is NO scheduled/AI cron anywhere in this repository (test_no_cron_anywhere enforces it), so the former scheduled_runs_enabled flag was dead configuration and has been removed. A paused factory with a pending transaction can always be recovered via --recover."
 }

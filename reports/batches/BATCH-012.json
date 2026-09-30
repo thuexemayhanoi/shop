@@ -1,7 +1,7 @@
 {
   "batch_id": "BATCH-012",
   "started_at": "2026-09-29T14:06:47",
-  "finished_at": "2026-09-29T22:17:18+00:00",
+  "finished_at": "2026-09-30T11:40:15+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 6,

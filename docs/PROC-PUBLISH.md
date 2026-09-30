@@ -59,7 +59,8 @@ command files and every mutation runs under the
 `article-batch-production` concurrency group. After every QA/publish
 mutation the operator regenerates `factory-progress.json` and the batch
 report from the current matrix; always read them pinned to a commit SHA
-(`matrix_commit_sha` / `published_commit_sha`), never from a stale
+(`source_head_sha` — the schema-2 INPUT-tree sha — plus the durable
+`published_commit_sha` audit trail), never from a stale
 local copy.
 
 1. **Claim the batch / export manifests** — push

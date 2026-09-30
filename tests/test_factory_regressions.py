@@ -259,10 +259,23 @@ class WorkflowFileTests(unittest.TestCase):
         # manual FULL via workflow_dispatch is required by the contract
         self.assertIn("workflow_dispatch", y)
         self.assertIn("full", y)
-        # the always-global checks stay global on every run
-        self.assertIn("python3 -m unittest discover tests", y)
-        self.assertIn("scripts/validate_content_matrix.py", y)
-        self.assertIn("--consistency", y)
+        # the always-global checks stay global on every run — since the
+        # four-layer hardening they run through the ONE canonical gate
+        # (scripts/ci/factory_final_gate.sh), which must itself contain
+        # the full suites and invariants (same strength, no drift)
+        self.assertIn("bash scripts/ci/factory_final_gate.sh", y)
+        gate = self._read("scripts/ci/factory_final_gate.sh")
+        self.assertIn("python3 -m unittest discover tests", gate)
+        # node suite: bash-expanded file list (Node 20 has no --test glob
+        # support — Node 21+ SEMVER-MAJOR), fail-closed when files are
+        # missing, never a Node-21-only quoted glob
+        self.assertIn("NODE_TEST_FILES=(tests/js/**/*.test.mjs)", gate)
+        self.assertIn('node --test "${NODE_TEST_FILES[@]}"', gate)
+        self.assertIn('if [ "${#NODE_TEST_FILES[@]}" -eq 0 ]', gate)
+        self.assertNotIn('node --test "tests/js/**/*.test.mjs"', gate)
+        self.assertIn("scripts/validate_content_matrix.py", gate)
+        self.assertIn("--consistency", gate)
+        self.assertIn("verify_factory_state.py --op consistency", gate)
         # per-candidate checks are the SAME tools, never skipped wholesale
         self.assertIn("scripts/validate_article.py", y)
         self.assertIn("scripts/check_cannibalization.py", y)

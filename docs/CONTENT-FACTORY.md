@@ -7,7 +7,10 @@ progress from `reports/batches/factory-progress.json`, never from this
 file. Article bodies come from an authorized AI writer or a human author —
 never templates. The operator run loop (operator-command workflow +
 `_drafts/` deploy gate) is documented step-by-step in
-`docs/PROC-PUBLISH.md`.
+`docs/PROC-PUBLISH.md`; the reliability contract of that loop
+(canonical gate, exact-final-SHA verification, writer lock, transaction
+recovery, kill switch, health evaluation) is documented in
+`docs/FACTORY-RELIABILITY.md`.
 
 ## Production article standard (final)
 
