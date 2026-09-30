@@ -14,6 +14,19 @@ name: Factory Operator Tooling
 # presentation-structure shell produced by scripts/apply_article_shell.py,
 # which is forbidden from touching prose, links, canonicals or dates).
 # The operator (AI or human) remains the sole writer of article bodies.
+#
+# FAIL-CLOSED CONTRACT (four-layer reliability hardening):
+#   - QA/requeue exit codes are contract-checked: ONLY 0/3/4 (0=ok,
+#     3=FAIL/refusals recorded, 4=REVIEW/BLOCKED recorded) may end green;
+#     1 (tool/config), 2 (usage/lock) and unknown exits are RED.
+#   - op=unittest is RED when the suite fails (evidence still dumped).
+#   - Pushes prove pushed=true; 5 failed retries are RED. After a rebase
+#     the FULL canonical gate + semantic verifier rerun on the rebased
+#     tree BEFORE pushing it (tree A is never tested, tree B pushed).
+#   - After the push, origin/main must equal the tested result SHA, and
+#     the EXACT final main SHA is re-verified by the canonical gate +
+#     scripts/verify_factory_state.py, with INPUT_SHA / OP_RESULT_SHA /
+#     FINAL_MAIN_SHA recorded in the step summary.
 
 on:
   push:
@@ -74,6 +87,10 @@ jobs:
             *) echo "::error::unsupported op: $OP"; exit 1 ;;
           esac
           echo "op=$OP" >> "$GITHUB_ENV"
+          # INPUT_SHA: the exact tree this operation starts from. The
+          # FINAL result SHA is captured from git AFTER the push — never
+          # recorded inside the pushed files themselves.
+          echo "input_sha=$GITHUB_SHA" >> "$GITHUB_ENV"
           BATCH="$(jq -r '.batch // ""' "$CMD" | tr -cd 'A-Z0-9-')"
           IDS="$(jq -r '.ids // ""' "$CMD" | tr -cd 'A-Z0-9,-')"
           DATE="$(jq -r '.date // ""' "$CMD" | tr -cd '0-9-')"
@@ -109,14 +126,22 @@ jobs:
           if [ -z "$ids" ]; then echo "::error::requeue requires ids"; exit 1; fi
           code=0
           python3 scripts/requeue_rows.py --ids "$ids" $allow_blocked || code=$?
-          echo "requeue exit code: $code (3=refusals recorded, not fatal; 4=fatal)"
-          if [ "$code" = "4" ]; then exit 1; fi
+          case "$code" in
+            0|3) echo "requeue exit code: $code (3=refusals recorded, legitimate result)" ;;
+            *) echo "::error::requeue failed with exit $code (0=ok, 3=refusals recorded; 1/2/4 and unknown exits are errors)"; exit "$code" ;;
+          esac
+
       - name: qa - deterministic QA of the active batch
         if: env.op == 'qa'
         run: |
           code=0
           python3 scripts/run_article_batch.py --batch "$batch" --qa || code=$?
-          echo "qa exit code: $code (3=FAIL rows, 4=REVIEW/BLOCKED rows are recorded, not fatal)"
+          case "$code" in
+            0) echo "qa exit code: 0 (operation valid)" ;;
+            3) echo "qa exit code: 3 (FAIL article rows legitimately recorded)" ;;
+            4) echo "qa exit code: 4 (REVIEW/BLOCKED rows legitimately recorded)" ;;
+            *) echo "::error::qa failed with exit $code (tool/config=1, usage/lock=2, unknown=other; ONLY 0/3/4 are valid results)"; exit "$code" ;;
+          esac
 
       - name: publish - flip PASS rows to PUBLISHED, regen hubs/sitemap/reports
         if: env.op == 'publish'
@@ -192,15 +217,6 @@ jobs:
           python3 scripts/generate_sitemap.py --check
           python3 scripts/generate_category_pages.py --check
 
-      - name: Full test suites after a publish (tests are never disabled)
-        if: env.op == 'publish'
-        run: |
-          code=0
-          python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
-          grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
-          if [ "$code" != "0" ]; then tail -n 80 reports/batches/unittest-output.txt; exit 1; fi
-          node --test tests/js/factory.test.mjs
-
       - name: apply-article-shell - migrate article shells to the shared design system
         if: env.op == 'apply-article-shell'
         run: |
@@ -216,14 +232,44 @@ jobs:
       - name: unittest - run the full python suite verbosely and dump output
         if: env.op == 'unittest'
         run: |
+          set -u
           mkdir -p reports/batches
           code=0
           python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
           grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
-          sed -n "/^Traceback","/^$/p" reports/batches/unittest-output.txt | tail -n 120 >> reports/batches/unittest-failures.txt || true
           echo "unittest exit code: $code"
           cat reports/batches/unittest-failures.txt || true
-          exit 0
+          if [ "$code" != "0" ]; then
+            tail -n 80 reports/batches/unittest-output.txt || true
+            echo "::error::unittest suite FAILED with exit $code — the operator run is red (evidence preserved in artifacts)"
+            exit 1
+          fi
+
+      - name: Post-operation semantic state verification
+        # A green tool exit is NOT enough: the SEMANTIC state must be
+        # verified on the exact post-op tree before anything is pushed.
+        if: always()
+        run: |
+          set -eu
+          case "$op" in
+            publish) VERIFY_ARGS="--op publish --ids $ids" ;;
+            requeue) VERIFY_ARGS="--op requeue --ids $ids" ;;
+            qa) if [ -n "$ids" ]; then VERIFY_ARGS="--op qa --ids $ids"; else VERIFY_ARGS="--op qa"; fi ;;
+            prepare-next) VERIFY_ARGS="--op prepare-next" ;;
+            *) VERIFY_ARGS="--op consistency" ;;
+          esac
+          if [ -n "$batch" ]; then
+            VERIFY_ARGS="$VERIFY_ARGS --batch $batch"
+          fi
+          echo "verify_args=$VERIFY_ARGS" >> "$GITHUB_ENV"
+          python3 scripts/validate_content_matrix.py
+          node scripts/js/factory.mjs --recover
+          node scripts/js/factory.mjs --consistency
+          python3 scripts/verify_factory_state.py $VERIFY_ARGS
+
+      - name: Canonical final gate (tests + invariants on this exact tree)
+        if: always()
+        run: bash scripts/ci/factory_final_gate.sh
 
       - name: Save QA evidence cache
         # Refreshed by the publish gate (--ids) and the batch-end FULL
@@ -237,7 +283,8 @@ jobs:
           path: reports/article-quality/qa-evidence.json
           if-no-files-found: ignore
 
-      - name: Commit and push deterministic outputs
+      - name: Commit and push deterministic outputs (fail-closed)
+        id: push
         run: |
           set -eu
           git config user.name "factory-operator-bot"
@@ -246,19 +293,92 @@ jobs:
           git rm -f --ignore-unmatch --quiet data/batches/operator-command.json || true
           rm -f data/batches/operator-command.json
           if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
-            echo "nothing to commit"
+            echo "nothing to commit (operation had no deterministic outputs)"
+            echo "op_result_sha=none" >> "$GITHUB_ENV"
             exit 0
           fi
           git add -A
           git commit -m "factory-operator: ${op} (deterministic outputs of canonical tooling only)"
+          OP_RESULT_SHA="$(git rev-parse HEAD)"
+          echo "OP_RESULT_SHA=$OP_RESULT_SHA"
+          echo "op_result_sha=$OP_RESULT_SHA" >> "$GITHUB_ENV"
+          pushed=false
           if git push; then
-            :
+            pushed=true
           else
             for i in 1 2 3 4 5; do
+              echo "push retry $i/5: fetch + rebase + RETEST the rebased tree, then push again"
               git fetch origin main
-              git rebase origin/main || { git rebase --abort; exit 1; }
+              if ! git rebase origin/main; then
+                echo "::error::rebase conflict — STOP SAFE: no force push, no blind auto-resolution; resolve manually"
+                git rebase --abort
+                exit 1
+              fi
+              # REBASE RETEST CONTRACT: the rebased tree has NOT been
+              # tested. Rerun the FULL canonical gate AND the semantic
+              # postcondition verifier on this exact tree before pushing.
+              bash scripts/ci/factory_final_gate.sh
+              python3 scripts/verify_factory_state.py $verify_args
+              OP_RESULT_SHA="$(git rev-parse HEAD)"
+              echo "OP_RESULT_SHA=$OP_RESULT_SHA (after rebase $i)"
+              echo "op_result_sha=$OP_RESULT_SHA" >> "$GITHUB_ENV"
               if git push; then
+                pushed=true
                 break
               fi
             done
           fi
+          if [ "$pushed" != true ]; then
+            echo "::error::push failed after 5 retries — nothing was reported as success; recovery evidence is preserved"
+            exit 1
+          fi
+          git fetch origin main
+          FINAL_MAIN_SHA="$(git rev-parse origin/main)"
+          if [ "$FINAL_MAIN_SHA" != "$OP_RESULT_SHA" ]; then
+            echo "::error::remote main ($FINAL_MAIN_SHA) is not the tested result commit ($OP_RESULT_SHA) — exact-SHA contract violated"
+            exit 1
+          fi
+
+      - name: Final verification on the EXACT final main SHA
+        # The push proved the commit is on main; now the EXACT final main
+        # SHA is fetched and the canonical gate + semantic verifier run on
+        # it. PRODUCTION_INVARIANT=PASS is only earned here.
+        if: always() && steps.push.outcome == 'success'
+        run: |
+          set -eu
+          if [ "${op_result_sha:-none}" = "none" ]; then
+            echo "operation produced no commits — the final tree is the already-verified input tree"
+            exit 0
+          fi
+          git fetch origin main
+          FINAL_MAIN_SHA="$(git rev-parse origin/main)"
+          echo "INPUT_SHA=$input_sha"
+          echo "OP_RESULT_SHA=$op_result_sha"
+          echo "FINAL_MAIN_SHA=$FINAL_MAIN_SHA"
+          if [ "$FINAL_MAIN_SHA" != "$op_result_sha" ]; then
+            echo "::error::FINAL_MAIN_SHA ($FINAL_MAIN_SHA) != tested OP_RESULT_SHA ($op_result_sha) — final state NOT verified"
+            exit 1
+          fi
+          git checkout --force --detach "$FINAL_MAIN_SHA"
+          bash scripts/ci/factory_final_gate.sh
+          python3 scripts/verify_factory_state.py $verify_args
+          {
+            echo "## Factory operator — exact-SHA production invariant"
+            echo ""
+            echo "- INPUT_SHA: $input_sha"
+            echo "- OP_RESULT_SHA: $op_result_sha"
+            echo "- FINAL_MAIN_SHA: $FINAL_MAIN_SHA"
+            echo "- PRODUCTION_INVARIANT=PASS (canonical gate + semantic verifier green on the EXACT final main SHA)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload operator evidence (never blocks the verdict)
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: operator-evidence
+          path: |
+            reports/batches/
+            published_files.txt
+            batch_state.txt
+          if-no-files-found: ignore
