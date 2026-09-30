@@ -1,10 +1,10 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T00:50:28+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T00:58:07+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 6 | pass: 0 | published: 6
-- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.3 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 8 | pass: 0 | published: 8
+- writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.9 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -13,8 +13,8 @@
 | AT-0093 | cam-nang/an-toan/at-0093-ky-nang-giu-vi-tri-khi-chay-giua-xe-container.html | PUBLISHED | 100 | 0 |  |
 | AT-0094 | cam-nang/an-toan/at-0094-chay-xe-may-khi-met-nen-dung-luc-nao.html | PUBLISHED | 100 | 0 |  |
 | AT-0095 | cam-nang/an-toan/at-0095-ky-nang-can-khoang-do-xe-trong-bai-chat-choi.html | PUBLISHED | 100 | 0 |  |
-| AT-0096 | cam-nang/an-toan/at-0096-ky-nang-ham-phanh-ket-hoptruoc-sau.html | WRITING |  | 0 |  |
-| AT-0097 | cam-nang/an-toan/at-0097-ky-nang-keo-xe-len-doc-khi-het-may.html | WRITING |  | 0 |  |
+| AT-0096 | cam-nang/an-toan/at-0096-ky-nang-ham-phanh-ket-hoptruoc-sau.html | PUBLISHED | 87 | 0 |  |
+| AT-0097 | cam-nang/an-toan/at-0097-ky-nang-keo-xe-len-doc-khi-het-may.html | PUBLISHED | 100 | 0 |  |
 | AT-0098 | cam-nang/an-toan/at-0098-ky-nang-nhuong-duong-dung-cho.html | WRITING |  | 0 |  |
 | AT-0099 | cam-nang/an-toan/at-0099-an-toan-khi-bi-ket-giua-doan-xe-day-dac.html | WRITING |  | 0 |  |
 | AT-0100 | cam-nang/an-toan/at-0100-xu-ly-khi-xe-phia-sau-bam-sat-qua-gan.html | WRITING |  | 0 |  |
