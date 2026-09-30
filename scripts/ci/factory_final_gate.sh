@@ -39,7 +39,19 @@ echo "== [gate L1] full python test suite"
 python3 -m unittest discover tests
 
 echo "== [gate L1] node test suite"
-node --test "tests/js/**/*.test.mjs"
+# Node 20 (pinned by the CI workflows) does NOT support glob patterns in
+# --test — test-runner glob support landed in Node 21 as a SEMVER-MAJOR
+# change, so a quoted glob is treated as a literal path and fails there.
+# Expand the file list in bash so the gate behaves identically on every
+# supported Node version, and fail CLOSED if no test files are found.
+shopt -s nullglob globstar
+NODE_TEST_FILES=(tests/js/**/*.test.mjs)
+shopt -u nullglob globstar
+if [ "${#NODE_TEST_FILES[@]}" -eq 0 ]; then
+  echo "node test suite missing: no tests/js/**/*.test.mjs files" >&2
+  exit 1
+fi
+node --test "${NODE_TEST_FILES[@]}"
 
 echo "== [gate L2] content matrix invariants"
 python3 scripts/validate_content_matrix.py

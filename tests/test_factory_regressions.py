@@ -266,7 +266,13 @@ class WorkflowFileTests(unittest.TestCase):
         self.assertIn("bash scripts/ci/factory_final_gate.sh", y)
         gate = self._read("scripts/ci/factory_final_gate.sh")
         self.assertIn("python3 -m unittest discover tests", gate)
-        self.assertIn('node --test "tests/js/**/*.test.mjs"', gate)
+        # node suite: bash-expanded file list (Node 20 has no --test glob
+        # support — Node 21+ SEMVER-MAJOR), fail-closed when files are
+        # missing, never a Node-21-only quoted glob
+        self.assertIn("NODE_TEST_FILES=(tests/js/**/*.test.mjs)", gate)
+        self.assertIn('node --test "${NODE_TEST_FILES[@]}"', gate)
+        self.assertIn('if [ "${#NODE_TEST_FILES[@]}" -eq 0 ]', gate)
+        self.assertNotIn('node --test "tests/js/**/*.test.mjs"', gate)
         self.assertIn("scripts/validate_content_matrix.py", gate)
         self.assertIn("--consistency", gate)
         self.assertIn("verify_factory_state.py --op consistency", gate)

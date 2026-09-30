@@ -342,7 +342,13 @@ class CanonicalGateContract(unittest.TestCase):
     def test_gate_runs_both_suites_and_the_semantic_verifier(self):
         g = read(GATE_SH)
         self.assertIn("python3 -m unittest discover tests", g)
-        self.assertIn('node --test "tests/js/**/*.test.mjs"', g)
+        # node suite contract: bash-expanded file list so the gate runs
+        # on Node 20 too (test-runner glob support only exists from
+        # Node 21), fail-closed on missing test files
+        self.assertIn("NODE_TEST_FILES=(tests/js/**/*.test.mjs)", g)
+        self.assertIn('node --test "${NODE_TEST_FILES[@]}"', g)
+        self.assertIn('if [ "${#NODE_TEST_FILES[@]}" -eq 0 ]', g)
+        self.assertNotIn('node --test "tests/js/**/*.test.mjs"', g)
         self.assertIn("scripts/validate_content_matrix.py", g)
         self.assertIn("--consistency", g)
         self.assertIn("generate_sitemap.py --check", g)
