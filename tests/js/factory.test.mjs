@@ -312,6 +312,26 @@ test('publish transaction updates matrix + hubs + sitemap consistently', () => {
   runFactory(dir, ['--consistency']);
 });
 
+test('throughput report is byte-identical to the python writer (no blank-at-eof)', () => {
+  const dir = makeSandbox();
+  runFactory(dir, ['--publish', 'KN-0102', '--date', '2026-09-26']);
+  const tpPath = path.join(dir, 'reports', 'batches', 'factory-throughput.json');
+  const tp = fs.readFileSync(tpPath, 'utf8');
+  // git diff --check blank-at-eof regression: the old writer produced a
+  // doubled trailing newline, which the canonical gate rejects on CI trees
+  assert.ok(!tp.endsWith('\n\n'), 'factory-throughput.json must not end with a blank line');
+  // byte-parity with scripts/run_article_batch.py write_json(): json.dump
+  // with indent=2 writes NO trailing newline
+  const parsed = JSON.parse(tp);
+  assert.strictEqual(tp, JSON.stringify(parsed, null, 2), 'python write_json byte-parity');
+  assert.strictEqual(parsed.batches['BATCH-001'].articles_published, 1);
+  assert.strictEqual(parsed.batches['BATCH-001'].publish_operations, 1);
+  // a second publish keeps the exact same trailing bytes (stable rewrite)
+  runFactory(dir, ['--publish', 'XM-0101', '--date', '2026-09-26']);
+  const tp2 = fs.readFileSync(tpPath, 'utf8');
+  assert.ok(!tp2.endsWith('\n\n'), 'stable: still no blank-at-eof after a second publish');
+});
+
 test('interrupted/error publish leaves no partial publication state', () => {
   const dir = makeSandbox();
   const before = snapshot(dir);

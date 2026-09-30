@@ -717,7 +717,12 @@ function updateThroughput(batchId, deltas) {
   data.batches[batchId] = b;
   data.updated_at = new Date().toISOString().slice(0, 19);
   fs.mkdirSync(path.dirname(p), { recursive: true });
-  fs.writeFileSync(p, jsonDump(data) + '\n', 'utf8');
+  // Byte-parity with scripts/run_article_batch.py write_json()
+  // (json.dump, indent=2, ensure_ascii=False): NO trailing newline, and
+  // never a doubled '\n' — git diff --check rejects the blank-at-eof that
+  // the previous jsonDump(data) + '\n' produced (jsonDump already ends
+  // with '\n'), which fails the canonical gate on CI trees (.git present).
+  fs.writeFileSync(p, JSON.stringify(data, null, 2), 'utf8');
 }
 
 /**
