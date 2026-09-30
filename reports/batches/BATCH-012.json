@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-012",
   "started_at": "2026-09-29T14:06:47",
-  "finished_at": "2026-09-30T11:40:15+07:00",
+  "finished_at": "2026-10-01T00:50:28+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 6,
-  "pass": 3,
-  "published": 3,
+  "pass": 0,
+  "published": 6,
   "writing": 44,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 3,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0093",
@@ -184,7 +184,7 @@
     {
       "article_id": "CD-0100",
       "output_path": "cam-nang/cung-duong/cd-0100-mot-ngay-mot-dem-o-nui-ba-vi-co-du-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -354,7 +354,7 @@
     {
       "article_id": "HD-0100",
       "output_path": "cam-nang/hoi-dap/hd-0100-chay-xe-tu-ha-noi-di-san-bay-noi-bai-mat-bao-lau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -514,7 +514,7 @@
     {
       "article_id": "XM-0100",
       "output_path": "cam-nang/xe-may/xm-0100-xe-may-rung-dau-may-co-dang-lo-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
