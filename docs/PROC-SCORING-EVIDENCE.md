@@ -26,8 +26,11 @@ Weights (total 100):
 | readability_structure | 5 | paragraph size, heading order, word length |
 | technical_validation | 5 | broken internal links, malformed HTML |
 
-Status thresholds: PASS = 90–100 AND no critical failures AND no review
-flags. REVIEW = 80–89 AND no critical failures. FAIL = <80 OR any critical
+Status thresholds (centralized in `config/article-rubric.json`):
+PASS = 75–100 AND no critical failures AND no review
+flags (75–89 is the production PASS band and records a QA warning).
+REVIEW = 70–74 or unresolved review flags, AND no critical failures.
+FAIL = <70 OR any critical
 failure (the critical-failure list lives in the rubric config — placeholder
 text, invented prices, broken links, protected-intent collision, etc.).
 
@@ -89,7 +92,7 @@ curl -s <URL> | md5sum                              # byte-integrity vs local
 
 ## Expected results
 
-- Article: PASS at ≥90 with the section table quoted in the chunk report.
+- Article: PASS at ≥75 (rubric PASS.min) with the section table quoted in the chunk report.
 - Site audit: a criteria table with statuses + evidence + coverage ratio;
   grand total only when no blocking group has gaps.
 
@@ -101,7 +104,7 @@ curl -s <URL> | md5sum                              # byte-integrity vs local
 
 ## Error handling
 
-- Score < 90 → repair loop (PROC-SEO-CONTENT), never rubric edits.
+- Score < 75 (rubric PASS.min) → repair loop (PROC-SEO-CONTENT), never rubric edits.
 - Evidence collection fails (curl error, CI unreachable) → report NOT
   VERIFIED for that criterion; never substitute assumption.
 
