@@ -125,6 +125,7 @@ function makeSandbox() {
   fs.mkdirSync(path.join(dir, 'config'), { recursive: true });
   fs.copyFileSync(path.join(REPO, 'config', 'site.json'), path.join(dir, 'config', 'site.json'));
   fs.copyFileSync(path.join(REPO, 'config', 'content-factory.json'), path.join(dir, 'config', 'content-factory.json'));
+  fs.copyFileSync(path.join(REPO, 'config', 'article-rubric.json'), path.join(dir, 'config', 'article-rubric.json'));
 
   const row = (id, status, cat, hub, extra = {}) => [
     id, status, cat, 'kw' + id, 'kw' + id, 'informational', 'Title ' + id,
@@ -230,20 +231,61 @@ test('invalid state transitions are rejected (PLANNED->PUBLISHED, WRITING->PUBLI
   assert.throws(() => runFactory(dir, ['--publish', 'KN-0102,KN-0102']), /duplicate article ids/);
 });
 
-test('qa-record enforces the state machine and score threshold', () => {
+test('qa-record enforces the state machine and score threshold (75/70/75 from config/article-rubric.json)', () => {
   const dir = makeSandbox();
   // PLANNED -> PASS is invalid
   assert.throws(() => runFactory(dir, ['--qa-record', 'KN-0100=95:PASS']), /invalid state transition/);
-  // WRITING -> PASS with score < 90 refused
-  assert.throws(() => runFactory(dir, ['--qa-record', 'KN-0101=85:PASS']), /score >= 90/);
-  // WRITING -> PASS valid
-  const out = runFactory(dir, ['--qa-record', 'KN-0101=95:PASS']);
-  const led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
-  const row = led.rows.find((r) => r.fields[0] === 'KN-0101');
+  // WRITING -> PASS below the rubric PASS.min (75) refused
+  assert.throws(() => runFactory(dir, ['--qa-record', 'KN-0101=74:PASS']), /score >= 75/);
+  // WRITING -> PASS at exactly 75 (the rubric PASS.min) is valid;
+  // 75-89 is the production QA-warning band
+  const out = runFactory(dir, ['--qa-record', 'KN-0101=75:PASS']);
+  let led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
+  let row = led.rows.find((r) => r.fields[0] === 'KN-0101');
   assert.strictEqual(row.fields[1], 'PASS');
-  assert.strictEqual(row.fields[17], '95');
+  assert.strictEqual(row.fields[17], '75');
+  // 76-89 also PASS (same band); 90+ EXCELLENT
+  // (reset the row to WRITING first: PASS -> PASS is not a legal transition)
+  led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
+  fs.writeFileSync(
+    path.join(dir, 'data', 'content-matrix.csv'),
+    applyUpdates(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'),
+      new Map([['KN-0101', { status: 'WRITING' }]]), { expectHeader: led.header }).text,
+  );
+  runFactory(dir, ['--qa-record', 'KN-0101=85:PASS']);
+  led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
+  row = led.rows.find((r) => r.fields[0] === 'KN-0101');
+  assert.strictEqual(row.fields[1], 'PASS');
+  assert.strictEqual(row.fields[17], '85');
   // PUBLISHED rows can never transition
   assert.throws(() => runFactory(dir, ['--qa-record', 'XM-0100=95:PASS']), /invalid state transition/);
+});
+
+test('qa-record and publish read the PASS threshold from config/article-rubric.json (no magic numbers)', () => {
+  const dir = makeSandbox();
+  // raise PASS.min inside the sandbox: 76 must now be refused
+  const rubricPath = path.join(dir, 'config', 'article-rubric.json');
+  const rubric = JSON.parse(fs.readFileSync(rubricPath, 'utf8'));
+  rubric.thresholds.PASS.min = 80;
+  fs.writeFileSync(rubricPath, JSON.stringify(rubric));
+  assert.throws(() => runFactory(dir, ['--qa-record', 'KN-0101=76:PASS']), /score >= 80/);
+  runFactory(dir, ['--qa-record', 'KN-0101=80:PASS']);
+  // publish gate reads the same rubric value
+  const led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
+  const row = led.rows.find((r) => r.fields[0] === 'KN-0101');
+  assert.strictEqual(row.fields[17], '80');
+});
+
+test('publish refuses a PASS row below the rubric PASS.min (74 < 75)', () => {
+  const dir = makeSandbox();
+  // KN-0102 is PASS with score 95 in the sandbox; drop it to 74
+  const matrixPath = path.join(dir, 'data', 'content-matrix.csv');
+  const led = parseLedger(fs.readFileSync(matrixPath, 'utf8'));
+  const out = applyUpdates(fs.readFileSync(matrixPath, 'utf8'), new Map([
+    ['KN-0102', { score: '74' }],
+  ]), { expectHeader: led.header });
+  fs.writeFileSync(matrixPath, out.text);
+  assert.throws(() => runFactory(dir, ['--publish', 'KN-0102', '--dry-run']), /score 74 < 75/);
 });
 
 test('dry-run produces no modifications at all', () => {
