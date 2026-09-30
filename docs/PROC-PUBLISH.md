@@ -127,7 +127,7 @@ local copy.
 
 ## Expected results
 
-- Chunk of 5–10: drafts written → all PASS at score ≥ 90 → PUBLISHED at
+- Chunk of 5–10: drafts written → all PASS at score ≥ 75 (rubric PASS.min) → PUBLISHED at
   their public URLs, in sitemap, listed on parent + child hubs.
 - Drafts removed from the repo by the publish transaction (raw 404).
 - CI (Article Quality Gate) and the Pages build both green on HEAD.
@@ -144,7 +144,7 @@ local copy.
 
 | Symptom | Action |
 |---|---|
-| Local scorer REVIEW (score 80–89 or review flags) | Fix per its report (word count inside the target band — 1,600–3,000 for new articles, 1,600–2,000 legacy band for published rows — link count 3–5, parent hub, sources…) and re-score. |
+| Local scorer REVIEW (score 70–74 or review flags) | Fix per its report (word count inside the target band — 1,600–3,000 for new articles, 1,600–2,000 legacy band for published rows — link count 3–5, parent hub, sources…) and re-score. |
 | `canonical inconsistent with slug` / `article not in content matrix` | Draft filename must equal the manifest slug exactly; canonical must equal the manifest `canonical_url`. |
 | QA workflow reports FAIL/REVIEW rows | Bounded repair (max 3), else BLOCKED with reason. Never publish a non-PASS row. |
 | Publish workflow interrupted | `node scripts/js/factory.mjs --recover` (locally or via operator op `recover`) finishes/verifies the transaction. Never mutate while a marker is pending. |

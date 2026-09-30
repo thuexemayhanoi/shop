@@ -73,7 +73,8 @@ evidence trail.
 
 ## Expected results
 
-- `score_article.py` exit 0, status PASS, score ≥ 90, no critical
+- `score_article.py` exit 0, status PASS, score ≥ 75 (rubric PASS.min in
+  `config/article-rubric.json`), no critical
   failures, no review flags, and a report file under
   `reports/article-quality/<slug>.json`.
 

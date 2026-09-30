@@ -2,9 +2,14 @@
   "schema_version": 2,
   "total_score": 100,
   "thresholds": {
-    "PASS": {"min": 90, "max": 100, "requires_no_critical_failures": true},
-    "REVIEW": {"min": 80, "max": 89, "requires_no_critical_failures": true},
-    "FAIL": {"min": 0, "max": 79}
+    "PASS": {"min": 75, "max": 100, "requires_no_critical_failures": true},
+    "REVIEW": {"min": 70, "max": 74, "requires_no_critical_failures": true},
+    "FAIL": {"min": 0, "max": 69}
+  },
+  "threshold_policy": {
+    "owner_approved": "2026-09-30 - Simple Production Mode thresholds 75/70/75",
+    "mapping_note": "/shop has ONE canonical 100-point article score (no separate SEO score). The owner-approved 75/70/75 production thresholds map onto it as follows: QUALITY_MIN = 75 = thresholds.PASS.min (a publishable article must score >= 75 with no critical failures); SEO_MIN = 70 = thresholds.REVIEW.min (the floor below which even REVIEW is refused: 0-69 = FAIL; the SEO dimension is carried inside the total score by the technical_seo/search_intent/schema_metadata sections, which are hard-failing on critical SEO defects such as missing/mismatched canonical, duplicate slug/canonical and schema errors); PUBLISH_MIN = 75 = the same PASS.min, enforced by scripts/js/factory.mjs --publish and --qa-record (both read it from THIS file - no hardcoded magic numbers). Scores 75-89 PASS production with a QA WARNING (non-critical polish deferred to the periodic/batch-end audit); >= 90 is EXCELLENT. Any critical failure is FAIL regardless of score (score 100 included).",
+    "qa_warning_band": {"min": 75, "max": 89}
   },
   "any_critical_failure_is_fail": true,
   "thin_content_min_words": 300,

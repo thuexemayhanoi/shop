@@ -493,6 +493,18 @@ def run_qa_for_batch(rows, matrix, ownership, facts, rubric, repo_root):
         entry["cannibalization_warnings"] = res.get("cannibalization_warnings") or []
         if res["status"] == "PASS":
             entry["outcome"] = "PASS"
+            # Owner-approved 75/70/75 production band (config/article-
+            # rubric.json): 75-89 is a legitimate production PASS with a
+            # QA WARNING (non-critical polish deferred to the periodic /
+            # batch-end audit); >= 90 is EXCELLENT.
+            wb = ((rubric.get("threshold_policy") or {})
+                  .get("qa_warning_band") or {})
+            wb_max = int(wb.get("max", 89))
+            if res["score"] <= wb_max:
+                entry["qa_warning"] = (
+                    "score %d in the %d-%d production PASS band - "
+                    "non-critical polish deferred to the periodic/"
+                    "batch-end audit" % (res["score"], int(wb.get("min", 75)), wb_max))
             updates[aid] = {"status": "PASS", "quality_status": "PASS",
                             "score": str(res["score"]),
                             "last_checked": today()}
@@ -698,6 +710,8 @@ def build_cumulative_report(batch_id, rows, run_articles, started_at,
                                          or []),
             "cannibalization_warnings": (old.get("cannibalization_warnings")
                                          or []),
+            "qa_warning": (run.get("qa_warning")
+                           or old.get("qa_warning") or None),
         })
     count = lambda st: sum(1 for r in members
                           if (r.get("status") or "").strip() == st)  # noqa: E731
@@ -1301,6 +1315,12 @@ def main_func(argv=None):
                            "else first batch with PLANNED rows")
     ap.add_argument("--prepare-agent", action="store_true",
                     help="claim PLANNED rows + write the agent manifest")
+    ap.add_argument("--claim-ids", action="store_true",
+                    help="claim EXACTLY the PLANNED rows listed in --ids "
+                         "(explicit-ID claim for the event-driven "
+                         "factory-publish workflow; never a blind "
+                         "first-N claim; refuses non-PLANNED/unknown/"
+                         "duplicate ids and scopes over 50)")
     ap.add_argument("--qa", action="store_true",
                     help="deterministic QA of written files in the batch")
     ap.add_argument("--publish", action="store_true",
@@ -1426,7 +1446,8 @@ def main_func(argv=None):
     if args.pilot:
         batch_id = "BATCH-001"
     elif (args.next or args.next_chunk is not None
-          or (not args.batch and (args.prepare_agent or args.qa
+          or (not args.batch and (args.prepare_agent or args.claim_ids
+                                  or args.qa
                                   or args.chunk_complete))):
         batch_id = next_batch_id(matrix)
         if not batch_id:
@@ -1487,6 +1508,58 @@ def main_func(argv=None):
 
     try:
         started_at = now_vn_iso()
+
+        # ---------------- claim-ids (exact-ID claim) ----------------
+        # Event-driven factory-publish contract: the push-scope selector
+        # (scripts/factory_push_selection.py) derived the EXACT article
+        # ids whose files the writer added; claim exactly those rows -
+        # never a blind first-N claim of rows whose files do not exist.
+        if args.claim_ids:
+            wanted = [t.strip() for t in (args.ids or "").split(",")
+                      if t.strip()]
+            if not wanted:
+                print("ERROR: --claim-ids requires --ids with explicit "
+                      "article ids.")
+                return EXIT_USAGE
+            if len(wanted) != len(set(wanted)):
+                print("ERROR: duplicate id in --ids: %s"
+                      % ", ".join(sorted({i for i in wanted
+                                          if wanted.count(i) > 1})))
+                return EXIT_USAGE
+            if len(wanted) > batch_size:
+                print("ERROR: --claim-ids refuses to claim %d rows at "
+                      "once (max %d per micro push)."
+                      % (len(wanted), batch_size))
+                return EXIT_USAGE
+            by_id = {}
+            for r in rows:
+                by_id.setdefault(r.get("article_id"), r)
+            claim = []
+            for i in wanted:
+                r = by_id.get(i)
+                if r is None:
+                    print("ERROR: %s is not a row of %s - refusing the "
+                          "whole claim scope." % (i, batch_id))
+                    return EXIT_USAGE
+                st = (r.get("status") or "").strip()
+                if st != "PLANNED":
+                    print("ERROR: %s is %s - --claim-ids only claims "
+                          "PLANNED rows (never re-claims; PASS rows "
+                          "publish, FAIL/BLOCKED rows need an explicit "
+                          "requeue). Refusing the whole claim scope."
+                          % (i, st))
+                    return EXIT_USAGE
+                claim.append(r)
+            manifest = build_manifest(batch_id, claim, matrix, ownership,
+                                      facts, rubric, site, repo_root)
+            write_manifest(repo_root, manifest)
+            update_matrix_statuses(repo_root,
+                                   {r["article_id"]: {"status": "WRITING"}
+                                    for r in claim})
+            print("CLAIMED-IDS %s: %d row(s) claimed WRITING: %s. "
+                  "Manifest: data/batches/%s.json."
+                  % (batch_id, len(claim), ",".join(wanted), batch_id))
+            return EXIT_OK
 
         # ---------------- prepare-agent ----------------
         if args.prepare_agent:

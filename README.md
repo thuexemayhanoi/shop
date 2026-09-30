@@ -246,8 +246,11 @@ Exit codes:
 | 4 | tool/config error |
 | 5 | WRITER_NOT_CONFIGURED (batch runner / writer interface) |
 
-Scoring: 100 points total. PASS = 90–100 AND no critical failures.
-REVIEW = 80–89 AND no critical failures. FAIL = 0–79 OR any critical failure.
+Scoring: 100 points total, thresholds centralized in
+`config/article-rubric.json`. PASS = 75–100 AND no critical failures
+(75–89 is the production PASS band and records a QA warning).
+REVIEW = 70–74 or unresolved review flags, AND no critical failures.
+FAIL = < 70 OR any critical failure.
 
 CI: `.github/workflows/article-quality.yml` runs tests and the full gate on
 every PR / relevant push; REVIEW or FAIL fails CI. It also runs

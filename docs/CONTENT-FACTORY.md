@@ -30,7 +30,8 @@ Every production article must satisfy ALL of:
 - descriptive, diverse anchors; no generic or repeated exact-match anchors
 - Article schema, breadcrumb, author/date metadata, related content
 - source section when `requires_sources=true`
-- full QA: PASS (score ≥ 90, no critical failures, no review flags) BEFORE
+- full QA: PASS (score ≥ 75 per `config/article-rubric.json`, no critical
+  failures, no review flags; 75–89 records a QA warning) BEFORE
   publication — see docs/ARTICLE-RULES.md for the full standard
 
 ## Scale architecture
@@ -69,10 +70,10 @@ PLANNED → CLAIMED/WRITING → QA → PASS → PUBLISHED
 - `PLANNED` — row exists in the matrix, nothing written.
 - `WRITING` — a writer agent has claimed the row and is drafting.
 - `QA` / `REPAIR` — draft exists, gate tools running or repairing.
-- `REVIEW` — score 80–89 or unresolved review flags; NOT publishable.
-- `PASS` — score 90–100, no critical failures, no review flags; publishable.
+- `REVIEW` — score 70–74 or unresolved review flags; NOT publishable.
+- `PASS` — score 75–100 (thresholds in `config/article-rubric.json`), no critical failures, no review flags; publishable (75–89 records a QA warning).
 - `PUBLISHED` — **only after the article file is actually committed to MAIN.**
-- `FAIL` — critical failure or score < 80. Never auto-published.
+- `FAIL` — critical failure or score < 70. Never auto-published.
 - `BLOCKED` — cannot proceed (max repairs exhausted, unconfirmed facts,
   conflicts). Escalate to Mr Tú; do not guess.
 
@@ -121,9 +122,10 @@ Node but not Python) is never blocked again:
 - `scripts/js/factory.mjs` — the transactional CLI:
   - `--qa-record "ID=SCORE:OUTCOME,..."` — record external QA results in
     the ledger with full state-machine validation (WRITING→QA/PASS/
-    REVIEW/FAIL, repair budget, PASS requires score ≥ 90)
+    REVIEW/FAIL, repair budget, PASS requires the rubric PASS.min
+    from `config/article-rubric.json`)
   - `--publish "ID,ID"` — PASS→PUBLISHED only (file must exist, one batch
-    only, score ≥ 90), then regenerates hub ARTICLE-LIST blocks,
+    only, score ≥ the rubric PASS.min), then regenerates hub ARTICLE-LIST blocks,
     sitemap.xml, factory-progress.json and the batch report
   - `--rebuild-report BATCH` — rewrite the CUMULATIVE batch report from
     current matrix truth (all reserved members, matrix-derived counts)

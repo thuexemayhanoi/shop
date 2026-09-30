@@ -20,6 +20,41 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import article_lib as lib
 
 
+def rubric_thresholds(rubric):
+    """(PASS.min, REVIEW.min) from the canonical config/article-rubric.json.
+
+    Owner-approved Simple Production Mode thresholds (75/70/75):
+      PASS   >= 75 (no critical failures, no review flags)
+      REVIEW  70-74, or any score with unresolved review flags
+      FAIL   < 70, or any critical failure regardless of score
+    Critical gates are NEVER lowered: failures (critical) always FAIL,
+    even at score 100, and review flags always hold REVIEW.
+    """
+    th = (rubric.get("thresholds") or {})
+    pass_min = int((th.get("PASS") or {}).get("min", 75))
+    review_min = int((th.get("REVIEW") or {}).get("min", 70))
+    return pass_min, review_min
+
+
+def qa_warning_band(rubric):
+    """The 75-89 production PASS band that carries a QA WARNING
+    (non-critical polish deferred to the periodic/batch-end audit)."""
+    wb = ((rubric.get("threshold_policy") or {})
+          .get("qa_warning_band") or {})
+    return int(wb.get("min", 75)), int(wb.get("max", 89))
+
+
+def status_from_totals(total, failures, review_flags, rubric):
+    """Pure status decision. Thresholds come ONLY from the rubric - no
+    hardcoded 90/80 magic numbers anywhere."""
+    pass_min, review_min = rubric_thresholds(rubric)
+    if failures:
+        return "FAIL"
+    if review_flags or total < pass_min:
+        return "REVIEW" if total >= review_min else "FAIL"
+    return "PASS"
+
+
 def score_article(article, matrix, ownership, facts, rubric):
     """Return (score, status, sections, critical_failures, warnings, recommendations, review_flags)."""
     sections = {}
@@ -267,13 +302,18 @@ def score_article(article, matrix, ownership, facts, rubric):
         review_flags.extend(pr)
         warnings.extend(pw)
 
+    # Owner-approved Simple Production Mode thresholds (75/70/75), read
+    # from the ONE canonical source config/article-rubric.json.
     total = sum(sections.values())
-    if failures:
-        status = "FAIL"
-    elif review_flags or total < 90:
-        status = "REVIEW" if total >= 80 else "FAIL"
-    else:
-        status = "PASS"
+    status = status_from_totals(total, failures, review_flags, rubric)
+    if status == "PASS":
+        lo, hi = qa_warning_band(rubric)
+        if lo <= total <= hi:
+            warnings.append(
+                "QA WARNING: score %d is in the %d-%d production PASS "
+                "band - non-critical polish deferred to the periodic/"
+                "batch-end audit (>= %d is EXCELLENT)"
+                % (total, lo, hi, hi + 1))
     return total, status, sections, failures, warnings, recommendations, review_flags, production_metrics
 
 

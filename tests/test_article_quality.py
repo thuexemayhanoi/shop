@@ -73,10 +73,19 @@ class ConfigTests(GateTestCase):
         self.assertIn("approved_models", self.facts or {})
 
     def test_thresholds(self):
+        # Owner-approved Simple Production Mode thresholds (75/70/75);
+        # the mapping note documents how they map onto the single
+        # 100-point article score (QUALITY_MIN = PUBLISH_MIN = 75,
+        # SEO floor = REVIEW.min = 70).
         th = self.rubric["thresholds"]
-        self.assertEqual(th["PASS"]["min"], 90)
-        self.assertEqual(th["REVIEW"]["min"], 80)
-        self.assertEqual(th["FAIL"]["max"], 79)
+        self.assertEqual(th["PASS"]["min"], 75)
+        self.assertEqual(th["REVIEW"]["min"], 70)
+        self.assertEqual(th["FAIL"]["max"], 69)
+        self.assertIn("mapping_note",
+                      self.rubric["threshold_policy"])
+        self.assertEqual(
+            self.rubric["threshold_policy"]["qa_warning_band"],
+            {"min": 75, "max": 89})
 
     def test_business_facts_prices(self):
         models = self.facts["approved_models"]
