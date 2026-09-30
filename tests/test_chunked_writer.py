@@ -393,7 +393,10 @@ class InvariantTests(ChunkedWriterTestCase):
                                              "content-factory.json"),
                                 encoding="utf-8"))
         self.assertTrue(cfg["enabled"])
-        self.assertTrue(cfg["scheduled_runs_enabled"])
+        # scheduled_runs_enabled was dead configuration (there is no
+        # scheduled/AI cron anywhere in this repository) and has been
+        # removed; it must not silently come back.
+        self.assertNotIn("scheduled_runs_enabled", cfg)
 
     def test_matrix_invariants_preserved_by_orchestration(self):
         import validate_content_matrix as vcm

@@ -64,6 +64,7 @@ import json
 import os
 import re
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import article_lib as lib
@@ -82,6 +83,9 @@ MAX_CHUNK_SIZE = 10
 # single machine/workspace; the writer lock guards concurrent EXTERNAL
 # writers (e.g. two Mistral sessions) on the same active batch.
 WRITER_LOCK_TTL_MINUTES = 120
+# exclusive stale-reclaim guard TTL: a crashed reclaimer
+# cannot deadlock recovery for longer than this
+WRITER_RECOVERY_TTL_MINUTES = 5
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -215,23 +219,42 @@ def note_repair(notes, n):
     return s.strip()
 
 
-def today():
-    # Vietnam-local date (Asia/Ho_Chi_Minh), matching scripts/js/factory.mjs
-    return (datetime.datetime.now(datetime.timezone.utc)
-            + datetime.timedelta(hours=7)).date().isoformat()
+# Vietnam local time (Asia/Ho_Chi_Minh) as a REAL timezone-aware value.
+# The old convention (UTC now + 7h, then formatting WITHOUT the offset)
+# produced a naive timestamp that claimed to be Hanoi time but carried
+# no zone evidence; the schema-2 contract requires an explicit +07:00.
+HANOI_TZ = datetime.timezone(datetime.timedelta(hours=7), "+07:00")
+
+
+def now_vn():
+    """Timezone-aware current time in Hanoi (Asia/Ho_Chi_Minh, UTC+7)."""
+    return datetime.datetime.now(HANOI_TZ)
 
 
 def now_vn_iso():
-    """Vietnam-local timestamp (Asia/Ho_Chi_Minh), same convention as
-    scripts/js/factory.mjs (UTC+7, seconds precision, no zone marker)."""
-    return (datetime.datetime.now(datetime.timezone.utc)
-            + datetime.timedelta(hours=7)).isoformat(timespec="seconds")
+    """Hanoi-local timestamp, timezone-aware, e.g.
+    2026-09-30T10:15:30+07:00 (matches scripts/js/factory.mjs
+    hanoiNowIso())."""
+    return now_vn().isoformat(timespec="seconds")
 
 
-def matrix_commit_sha():
-    """The commit SHA this matrix/report state was generated from.
-    Consumers must read reports pinned to a SHA (raw blob at that SHA)
-    so a stale local copy is never mistaken for current truth."""
+def today():
+    # Vietnam-local date (Asia/Ho_Chi_Minh), matching scripts/js/factory.mjs
+    return now_vn().date().isoformat()
+
+
+def source_head_sha():
+    """The commit SHA of the INPUT tree this report was generated from.
+
+    Schema-2 semantics: this is the HEAD the operator STARTED from (the
+    pre-mutation input), typically the GITHUB_SHA of the running workflow.
+    It is deliberately NOT a claim about the commit that will contain this
+    file: a report cannot prove "this commit contains me" (self-reference
+    is unstable), so the FINAL result SHA is recorded by the workflow in
+    its step summary / outputs after the push, never inside this file.
+    The legacy name matrix_commit_sha implied exactly that unstable claim
+    and is gone (verify_factory_state.py rejects schema-1 reports).
+    """
     sha = os.environ.get("GITHUB_SHA")
     if sha:
         return sha
@@ -539,12 +562,14 @@ def acquire_lock(repo_root, batch_id):
         try:
             ts = datetime.datetime.fromisoformat(
                 io.open(lp, encoding="utf-8").read().strip())
-            if datetime.datetime.now() - ts < datetime.timedelta(hours=24):
+            if ts.tzinfo is None:
+                ts = ts.replace(tzinfo=HANOI_TZ)
+            if now_vn() - ts < datetime.timedelta(hours=24):
                 return False
         except ValueError:
             pass
     with io.open(lp, "w", encoding="utf-8") as f:
-        f.write(datetime.datetime.now().isoformat(timespec="seconds"))
+        f.write(now_vn_iso())
     return True
 
 
@@ -784,8 +809,9 @@ def write_factory_progress(repo_root, matrix, published_commit_sha=None):
                     if b["published"] + b["fail"] + b["blocked"] == b["total"]
                     and b["total"] > 0)
     progress = {
+        "schema_version": 2,
         "generated": now_vn_iso(),
-        "matrix_commit_sha": matrix_commit_sha(),
+        "source_head_sha": source_head_sha(),
         "total": len(prod),
         "planned": counts.get("planned", 0),
         "writing": counts.get("writing", 0),
@@ -947,12 +973,27 @@ def reconcile_checkpoint(cp, matrix, batch_id):
 
 def save_checkpoint(repo_root, cp):
     cp = dict(cp)
-    cp["updated_at"] = datetime.datetime.now().isoformat(timespec="seconds")
+    cp["updated_at"] = now_vn_iso()
     return write_json(checkpoint_path(repo_root), cp)
 
 
 def writer_lock_path(repo_root):
     return os.path.join(batches_dir(repo_root), "writer-lock.json")
+
+
+def writer_recovery_path(repo_root):
+    # Exclusive serialized-recovery mutex: stale-lock reclaims happen
+    # only while holding this guard, so two readers that both see the
+    # same stale lock cannot delete each other's fresh replacement.
+    return os.path.join(batches_dir(repo_root), "writer-lock.recovery")
+
+
+def _now_aware(dt):
+    # Legacy locks/checkpoints stored naive timestamps; treat them as
+    # Hanoi local time (+07:00) so comparisons with tz-aware now() work.
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=HANOI_TZ)
+    return dt
 
 
 def writer_lock_status(repo_root, now=None):
@@ -969,52 +1010,227 @@ def writer_lock_status(repo_root, now=None):
         return None, False
     if not isinstance(lock, dict) or not lock.get("writer_session"):
         return None, False
-    now = now or datetime.datetime.now()
+    now = _now_aware(now or now_vn())
     try:
-        age = now - datetime.datetime.fromisoformat(lock.get("updated_at"))
+        age = (_now_aware(now)
+               - _now_aware(datetime.datetime.fromisoformat(
+                   lock.get("updated_at"))))
     except (TypeError, ValueError):
         return lock, False
     return lock, age < datetime.timedelta(minutes=WRITER_LOCK_TTL_MINUTES)
 
 
+def _write_lock_fd(fd, lock):
+    with os.fdopen(fd, "w", encoding="utf-8") as f:
+        json.dump(lock, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
+def _recovery_guard(repo_root, now):
+    """Acquire the exclusive stale-reclaim mutex (O_CREAT|O_EXCL).
+
+    Returns a callable that releases the guard, or None when another
+    reclaimer holds it. A crashed reclaimer cannot deadlock recovery:
+    a guard older than WRITER_RECOVERY_TTL_MINUTES is removed and the
+    acquisition retried once.
+    """
+    gp = writer_recovery_path(repo_root)
+    for _ in range(2):
+        try:
+            fd = os.open(gp, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o644)
+        except FileExistsError:
+            try:
+                with io.open(gp, encoding="utf-8") as f:
+                    gts = _now_aware(datetime.datetime.fromisoformat(
+                        f.read().strip()))
+            except (OSError, ValueError):
+                gts = None
+            if (gts is None
+                    or _now_aware(now) - gts
+                    > datetime.timedelta(minutes=WRITER_RECOVERY_TTL_MINUTES)):
+                try:
+                    os.remove(gp)   # stale/unreadable guard of a crashed reclaimer
+                except OSError:
+                    pass
+                continue
+            return None
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(_now_aware(now).isoformat(timespec="seconds"))
+
+        def _release():
+            try:
+                os.remove(gp)
+            except OSError:
+                pass
+        return _release
+    return None
+
+
 def acquire_writer_lock(repo_root, batch_id, writer_session=None, head=None,
                         now=None):
-    """Writer-side logical lock for EXTERNAL writers (outside GitHub
-    Actions). Refuses when a FRESH lock is owned by another session.
-    Recovers a stale lock (matrix truth wins; the caller has reconciled
-    the checkpoint before mutating anything). Returns (bool_acquired, lock).
+    """Atomic exclusive writer lock for EXTERNAL writers (outside GitHub
+    Actions), schema 2.
+
+    Contract (four-layer reliability hardening):
+      - acquisition is ATOMIC: the lock file is created with
+        O_CREAT|O_EXCL, so of N concurrent writers EXACTLY ONE wins;
+        the losers read the winner's lock and refuse.
+      - the lock carries a unique generation token; only the owner's
+        token can refresh or release it.
+      - a FRESH lock owned by another session is never overwritten.
+      - a STALE lock is reclaimed only while holding the exclusive
+        writer-lock.recovery guard, after re-reading and verifying the
+        SAME stale token (CAS-like): if another writer already won the
+        reclaim, their lock is never deleted or overwritten.
+    Returns (bool_acquired, lock).
     """
     os.makedirs(batches_dir(repo_root), exist_ok=True)
-    now = now or datetime.datetime.now()
+    now = _now_aware(now or now_vn())
     session = (writer_session or "").strip() or ("writer-%s"
                                                  % now.strftime("%Y%m%dT%H%M%S"))
-    lock, fresh = writer_lock_status(repo_root, now=now)
-    if lock and fresh and lock.get("writer_session") != session:
-        return False, lock
+    lp = writer_lock_path(repo_root)
+    token = "%d-%d" % (time.time_ns(), os.getpid())
     new_lock = {
-        "schema_version": 1,
+        "schema_version": 2,
         "batch": batch_id,
         "writer_session": session,
-        "started_at": (lock or {}).get("started_at")
-        if lock and lock.get("writer_session") == session
-        else now.isoformat(timespec="seconds"),
+        "token": token,
+        "created_at": now.isoformat(timespec="seconds"),
         "updated_at": now.isoformat(timespec="seconds"),
         "head": head,
     }
-    write_json(writer_lock_path(repo_root), new_lock)
-    return True, new_lock
+    # ---- fast path: ATOMIC exclusive creation (the one winner) ----
+    try:
+        fd = os.open(lp, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o644)
+    except FileExistsError:
+        pass
+    else:
+        _write_lock_fd(fd, new_lock)
+        return True, new_lock
+    # ---- lock file exists: read it and respect its owner ----
+    lock, fresh = writer_lock_status(repo_root, now=now)
+    if lock is not None and lock.get("writer_session") == session:
+        # same-session heart-beat refresh: CAS-like replace, only when
+        # the file still carries OUR token (never clobber a takeover)
+        expected = lock.get("token")
+        refreshed = dict(lock)
+        refreshed.update({
+            "batch": batch_id,
+            "updated_at": now.isoformat(timespec="seconds"),
+            "head": head,
+        })
+        if expected is None or _cas_replace_lock(lp, expected, refreshed):
+            if expected is None:
+                # legacy schema-1 lock (no token): rewrite under the
+                # recovery guard so a concurrent upgrade cannot clobber
+                release_guard = _recovery_guard(repo_root, now)
+                if release_guard is None:
+                    return False, lock
+                try:
+                    cur, _f = writer_lock_status(repo_root, now=now)
+                    if (cur is None or cur.get("writer_session") != session):
+                        return False, cur
+                    _cas_replace_lock(lp, cur.get("token"), refreshed)
+                finally:
+                    release_guard()
+            return True, refreshed
+        # our token is gone: someone else owns the lock now
+        return False, writer_lock_status(repo_root, now=now)[0]
+    if lock is not None and fresh:
+        return False, lock
+    # ---- stale or unreadable lock: serialized CAS-like reclaim ----
+    release_guard = _recovery_guard(repo_root, now)
+    if release_guard is None:
+        # another reclaimer is active: do not touch the lock
+        return False, lock
+    try:
+        cur, cur_fresh = writer_lock_status(repo_root, now=now)
+        if cur is None:
+            # missing/unreadable: remove and race for exclusive creation
+            try:
+                os.remove(lp)
+            except OSError:
+                pass
+        elif cur_fresh:
+            return False, cur     # another writer won while we waited
+        elif (lock is not None
+              and (cur.get("writer_session") != lock.get("writer_session")
+                   or (lock.get("token") is not None
+                       and cur.get("token") != lock.get("token")))):
+            return False, cur     # lock changed since we saw it stale
+        else:
+            # confirmed the SAME stale lock (same owner, same token):
+            # safe to reclaim under the guard
+            try:
+                os.remove(lp)
+            except OSError:
+                pass
+        try:
+            fd = os.open(lp, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o644)
+        except FileExistsError:
+            return False, writer_lock_status(repo_root, now=now)[0]
+        _write_lock_fd(fd, new_lock)
+        return True, new_lock
+    finally:
+        release_guard()
 
 
-def release_writer_lock(repo_root, writer_session=None):
-    """Idempotent release. With a session, only clears a lock owned by that
-    session (never another writer's fresh lock)."""
+def _cas_replace_lock(path, expected_token, new_lock):
+    """CAS-like replace: write a temp file, re-read the lock and only
+    os.replace() it when it still carries expected_token. Returns False
+    when another owner took over (their lock is never overwritten)."""
+    tmp = "%s.tmp-%d" % (path, os.getpid())
+    with io.open(tmp, "w", encoding="utf-8") as f:
+        json.dump(new_lock, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    try:
+        with io.open(path, encoding="utf-8") as f:
+            cur = json.load(f)
+        if (not isinstance(cur, dict)
+                or cur.get("token") != expected_token):
+            return False
+        os.replace(tmp, path)
+        return True
+    except (OSError, ValueError):
+        return False
+    finally:
+        try:
+            os.remove(tmp)
+        except OSError:
+            pass
+
+
+def release_writer_lock(repo_root, writer_session=None, token=None):
+    """Idempotent, ownership-safe release. With a session (and/or token),
+    only a lock owned by that session/token is deleted — a foreign
+    owner's lock is REFUSED, never deleted. Without a session (explicit
+    operator action) any valid lock may be cleared; an unreadable lock
+    file is removed only under the recovery guard."""
+    lp = writer_lock_path(repo_root)
     lock, _fresh = writer_lock_status(repo_root)
     if lock is None:
+        if os.path.exists(lp):
+            release_guard = _recovery_guard(
+                repo_root, _now_aware(now_vn()))
+            if release_guard is None:
+                return False
+            try:
+                cur, _f = writer_lock_status(repo_root)
+                if cur is not None:
+                    return False   # a valid lock appeared: not ours to judge
+                try:
+                    os.remove(lp)
+                except OSError:
+                    pass
+            finally:
+                release_guard()
         return True
     if writer_session and lock.get("writer_session") != writer_session:
         return False
+    if token and lock.get("token") != token:
+        return False
     try:
-        os.remove(writer_lock_path(repo_root))
+        os.remove(lp)
     except OSError:
         pass
     return True
@@ -1056,8 +1272,7 @@ def update_throughput(repo_root, batch_id, **deltas):
                                              else 0))
     b["average_qa_score"] = (round(b["qa_score_sum"] / b["qa_score_count"], 1)
                              if b.get("qa_score_count") else None)
-    data["updated_at"] = datetime.datetime.now().isoformat(
-        timespec="seconds")
+    data["updated_at"] = now_vn_iso()
     write_json(p, data)
     return data
 
@@ -1141,12 +1356,6 @@ def main_func(argv=None):
         print(json.dumps(progress, ensure_ascii=False))
         return EXIT_OK
 
-    kill = _load_kill_switch(repo_root)
-    if not kill.get("enabled", True):
-        print("FACTORY_PAUSED: config/content-factory.json enabled=false. "
-              "No changes made.")
-        return EXIT_OK
-
     try:
         matrix = lib.load_matrix()
         ownership = lib.load_ownership()
@@ -1197,6 +1406,21 @@ def main_func(argv=None):
             pass
         print("CHECKPOINT: reset (the matrix remains the source of truth).")
         return EXIT_OK
+
+    # -------- kill switch: blocks PRODUCTION mutations only --------
+    # Safety operations above (writer-lock status/acquire/release,
+    # checkpoints, and the batch-less --progress report) run even when
+    # the factory is paused; recovery of a pending transaction is a
+    # SAFETY operation handled by scripts/js/factory.mjs --recover.
+    kill = _load_kill_switch(repo_root)
+    if not kill.get("enabled", True):
+        print("FACTORY_PAUSED: config/content-factory.json enabled=false "
+              "refuses claims/QA/publish with a non-zero exit. Safety "
+              "operations still available: --writer-lock-status, "
+              "--acquire-writer-lock, --release-writer-lock, --checkpoint, "
+              "--checkpoint-reset, --progress, and factory --recover/"
+              "--consistency. No changes made.")
+        return EXIT_USAGE
 
     # -------- resolve batch identity ONCE --------
     if args.pilot:
@@ -1262,7 +1486,7 @@ def main_func(argv=None):
         return EXIT_USAGE
 
     try:
-        started_at = datetime.datetime.now().isoformat(timespec="seconds")
+        started_at = now_vn_iso()
 
         # ---------------- prepare-agent ----------------
         if args.prepare_agent:

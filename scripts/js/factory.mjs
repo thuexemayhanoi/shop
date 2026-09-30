@@ -70,10 +70,21 @@ const ACTIVE_STATUSES = new Set(['WRITING', 'QA', 'REPAIR', 'REVIEW']);
 const MAX_REPAIR_ATTEMPTS = 3;
 const SM_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9';
 
-const hanoiToday = () => {
-  const now = new Date(Date.now() + 7 * 3600 * 1000);
-  return now.toISOString().slice(0, 10);
-};
+const HANOI_OFFSET_MINUTES = 420;   // Asia/Ho_Chi_Minh, UTC+7, no DST
+
+// Timezone-aware Hanoi timestamp with an EXPLICIT +07:00 offset,
+// e.g. 2026-09-30T10:15:30+07:00 — matches Python
+// run_article_batch.now_vn_iso(). The old convention (UTC + 7h,
+// formatted WITHOUT the offset) claimed Hanoi time with no zone
+// evidence; the schema-2 report contract requires the offset marker.
+export function hanoiNowIso() {
+  const d = new Date(Date.now() + HANOI_OFFSET_MINUTES * 60 * 1000);
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`
+    + `T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}+07:00`;
+}
+
+const hanoiToday = () => hanoiNowIso().slice(0, 10);
 
 // ---------------------------------------------------------------- helpers
 
@@ -442,7 +453,7 @@ function regenerateSitemap(matrixRows, site, date) {
 // Mirror of scripts/run_article_batch.py write_factory_progress(): ALL counts,
 // including completed_batches, are derived from the matrix rows — nothing
 // here is hard-coded.
-export function factoryProgress(rows, generated, publishedCommitSha = null, matrixCommitSha = null) {
+export function factoryProgress(rows, generated, publishedCommitSha = null, sourceHeadSha = null) {
   const production = rows.filter((r) => !isSampleRowFields(r));
   const counts = {};
   const perBatch = new Map();
@@ -487,8 +498,13 @@ export function factoryProgress(rows, generated, publishedCommitSha = null, matr
     nextBatch = activeBatch;
   }
   return {
+    schema_version: 2,
     generated,
-    matrix_commit_sha: matrixCommitSha || null,
+    // schema-2 semantics: the INPUT sha this report was generated from
+    // (GITHUB_SHA of the running workflow). It is NOT a claim about the
+    // commit that will contain this file; the FINAL result SHA is
+    // recorded by the workflow after the push, never in here.
+    source_head_sha: sourceHeadSha || null,
     total: production.length,
     planned: counts.planned || 0,
     writing: counts.writing || 0,
@@ -986,12 +1002,8 @@ function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.repo) REPO = path.resolve(args.repo);
   const date = args.date || hanoiToday();
-  const generated = new Date(Date.now() + 7 * 3600 * 1000).toISOString().slice(0, 19);
+  const generated = hanoiNowIso();
   const { site, kill } = readConfig();
-  if (kill && kill.enabled === false) {
-    console.error('FACTORY_PAUSED: config/content-factory.json enabled=false.');
-    return 0;
-  }
   const { raw, led, rows } = loadMatrix();
   validateInvariants(led, rows, args.expectRows || 2000);
 
@@ -1018,6 +1030,17 @@ function main() {
   if (args.consistency) {
     const problems = consistencyCheck(rows, site, { expectedRows: args.expectRows || 2000 });
     return problems.length ? 2 : 0;
+  }
+
+  // -------- kill switch: AFTER the safety operations above --------
+  // --recover and --consistency stay available when the factory is
+  // paused (a paused factory with a pending transaction MUST still be
+  // recoverable); only production mutations are refused, and with a
+  // NON-ZERO exit so a paused run is never reported as success.
+  if (kill && kill.enabled === false) {
+    console.error('FACTORY_PAUSED: config/content-factory.json enabled=false refuses production mutations (exit 2).');
+    console.error('  Safety operations still available: --recover, --consistency (run above).');
+    return 2;
   }
 
   if (args.rebuildChildHubs) {
