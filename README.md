@@ -262,9 +262,15 @@ deterministic Factory Operator / QA / publish tooling stays in GitHub;
 the WRITER is an external AI agent or human. External scheduling of that
 writer/operator is allowed, provided each scheduled invocation resumes
 repository truth and obeys the canonical lock, transaction, QA, publish
-and checkpoint contract Legacy
-special-purpose workflows `recover-phoco.yml` and `seo-phoco.yml` are
-separate and must not be modified casually.
+and checkpoint contract. The legacy
+special-purpose workflows `recover-phoco.yml` and `seo-phoco.yml` (and
+their `.github/scripts/seo_phoco.py` helper) were RETIRED by the
+four-layer reliability hardening: they carried a latent risk of
+restoring the obsolete MotoAI v39/v40 blob and the stale monolithic
+`phoco.html`, and pushed directly to main without the canonical gate.
+`phoco.html` is now maintained exclusively through the canonical
+content-factory pipeline (matrix ledger, publish gate, exact-SHA
+operator contract — see docs/FACTORY-RELIABILITY.md).
 
 ## 9. CONTENT FACTORY — CHUNKED WRITER MODE
 
