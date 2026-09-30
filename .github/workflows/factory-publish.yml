@@ -131,7 +131,7 @@ jobs:
           echo "qa_ids=" >> "$GITHUB_OUTPUT"
           echo "publish_ids=$IDS" >> "$GITHUB_OUTPUT"
 
-      - name: Guard: no pending transaction, no batch lock
+      - name: Guard (no pending transaction, no batch lock)
         if: (steps.select.outputs.proceed == 'true' || steps.dispatch.outputs.proceed == 'true')
         run: |
           set -e
