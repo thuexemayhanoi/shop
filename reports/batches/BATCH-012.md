@@ -1,9 +1,9 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T10:37:05+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T10:40:16+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 48 | pass: 0 | published: 48
-- writing: 2 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 50 | pass: 0 | published: 50
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.9 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
@@ -57,6 +57,6 @@
 | XM-0095 | cam-nang/xe-may/xm-0095-loc-gio-ban-anh-huong-the-nao.html | PUBLISHED | 100 | 0 |  |
 | XM-0096 | cam-nang/xe-may/xm-0096-chia-khoa-xe-may-bi-ket-xu-ly.html | PUBLISHED | 100 | 0 |  |
 | XM-0097 | cam-nang/xe-may/xm-0097-may-de-cham-cac-nguyen-nhan.html | PUBLISHED | 100 | 0 |  |
-| XM-0098 | cam-nang/xe-may/xm-0098-hop-so-xe-vao-so-keu-lach-cach.html | WRITING |  | 0 |  |
-| XM-0099 | cam-nang/xe-may/xm-0099-giam-xoc-xe-ga-yeu-dan-theo-thoi-gian.html | WRITING |  | 0 |  |
+| XM-0098 | cam-nang/xe-may/xm-0098-hop-so-xe-vao-so-keu-lach-cach.html | PUBLISHED | 100 | 0 |  |
+| XM-0099 | cam-nang/xe-may/xm-0099-giam-xoc-xe-ga-yeu-dan-theo-thoi-gian.html | PUBLISHED | 100 | 0 |  |
 | XM-0100 | cam-nang/xe-may/xm-0100-xe-may-rung-dau-may-co-dang-lo-khong.html | PUBLISHED | 100 | 0 |  |
