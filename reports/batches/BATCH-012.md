@@ -1,10 +1,10 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T08:36:25+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T08:40:10+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 34 | pass: 0 | published: 34
-- writing: 16 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.4 | min 87 | max 100 | repair_count: 0
+- processed: 50 | written: 36 | pass: 0 | published: 36
+- writing: 14 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.5 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
@@ -41,8 +41,8 @@
 | HD-0095 | cam-nang/hoi-dap/hd-0095-duong-vanh-dai-ha-noi-xe-may-di-duoc-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0096 | cam-nang/hoi-dap/hd-0096-quanh-ho-guom-duong-nao-cam-xe-may.html | PUBLISHED | 99 | 0 |  |
 | HD-0097 | cam-nang/hoi-dap/hd-0097-pho-di-bo-ho-guom-hoat-dong-khi-nao.html | PUBLISHED | 100 | 0 |  |
-| HD-0098 | cam-nang/hoi-dap/hd-0098-xe-may-do-gan-cho-dong-xuan-o-dau.html | WRITING |  | 0 |  |
-| HD-0099 | cam-nang/hoi-dap/hd-0099-tu-long-bien-sang-gia-lam-di-duong-nao.html | WRITING |  | 0 |  |
+| HD-0098 | cam-nang/hoi-dap/hd-0098-xe-may-do-gan-cho-dong-xuan-o-dau.html | PUBLISHED | 100 | 0 |  |
+| HD-0099 | cam-nang/hoi-dap/hd-0099-tu-long-bien-sang-gia-lam-di-duong-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0100 | cam-nang/hoi-dap/hd-0100-chay-xe-tu-ha-noi-di-san-bay-noi-bai-mat-bao-lau.html | PUBLISHED | 100 | 0 |  |
 | KN-0093 | cam-nang/kinh-nghiem/kn-0093-kinh-nghiem-lien-he-voi-chu-xe-khi-gap-su-co.html | PUBLISHED | 100 | 0 |  |
 | KN-0094 | cam-nang/kinh-nghiem/kn-0094-ghi-nho-lai-vi-tri-do-xe-o-bai-gui-lon.html | WRITING |  | 0 |  |
