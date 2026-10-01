@@ -1,9 +1,9 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T10:30:44+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T10:33:54+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 44 | pass: 0 | published: 44
-- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 46 | pass: 0 | published: 46
+- writing: 4 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.8 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
@@ -53,8 +53,8 @@
 | KN-0099 | cam-nang/kinh-nghiem/kn-0099-chon-xe-so-hay-xe-ga-khi-moi-lai-tro-lai.html | PUBLISHED | 100 | 0 |  |
 | KN-0100 | cam-nang/kinh-nghiem/kn-0100-kinh-nghiem-thue-xe-may-theo-nhom-ban-du-lich.html | PUBLISHED | 100 | 0 |  |
 | XM-0093 | cam-nang/xe-may/xm-0093-cop-xe-ga-mo-gat-kiem-tra-ban-le.html | PUBLISHED | 100 | 0 |  |
-| XM-0094 | cam-nang/xe-may/xm-0094-binh-xang-co-mui-xang-dau-hieu-ro-ri.html | WRITING |  | 0 |  |
-| XM-0095 | cam-nang/xe-may/xm-0095-loc-gio-ban-anh-huong-the-nao.html | WRITING |  | 0 |  |
+| XM-0094 | cam-nang/xe-may/xm-0094-binh-xang-co-mui-xang-dau-hieu-ro-ri.html | PUBLISHED | 100 | 0 |  |
+| XM-0095 | cam-nang/xe-may/xm-0095-loc-gio-ban-anh-huong-the-nao.html | PUBLISHED | 100 | 0 |  |
 | XM-0096 | cam-nang/xe-may/xm-0096-chia-khoa-xe-may-bi-ket-xu-ly.html | WRITING |  | 0 |  |
 | XM-0097 | cam-nang/xe-may/xm-0097-may-de-cham-cac-nguyen-nhan.html | WRITING |  | 0 |  |
 | XM-0098 | cam-nang/xe-may/xm-0098-hop-so-xe-vao-so-keu-lach-cach.html | WRITING |  | 0 |  |
