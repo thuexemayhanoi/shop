@@ -1,9 +1,9 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T07:39:37+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T07:45:53+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 14 | pass: 0 | published: 14
-- writing: 36 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 16 | pass: 0 | published: 16
+- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.3 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -19,8 +19,8 @@
 | AT-0099 | cam-nang/an-toan/at-0099-an-toan-khi-bi-ket-giua-doan-xe-day-dac.html | PUBLISHED | 99 | 0 |  |
 | AT-0100 | cam-nang/an-toan/at-0100-xu-ly-khi-xe-phia-sau-bam-sat-qua-gan.html | PUBLISHED | 100 | 0 |  |
 | CD-0092 | cam-nang/cung-duong/cd-0092-ha-noi-den-cua-lo-quoc-lo-nao-nen-chon.html | PUBLISHED | 95 | 0 |  |
-| CD-0093 | cam-nang/cung-duong/cd-0093-hai-ngay-o-cua-lo-lich-trinh-goi-y-cho-nguoi-di-xe.html | WRITING |  | 0 |  |
-| CD-0094 | cam-nang/cung-duong/cd-0094-cho-ngam-canh-giua-duong-den-cua-lo.html | WRITING |  | 0 |  |
+| CD-0093 | cam-nang/cung-duong/cd-0093-hai-ngay-o-cua-lo-lich-trinh-goi-y-cho-nguoi-di-xe.html | PUBLISHED | 96 | 0 |  |
+| CD-0094 | cam-nang/cung-duong/cd-0094-cho-ngam-canh-giua-duong-den-cua-lo.html | PUBLISHED | 100 | 0 |  |
 | CD-0095 | cam-nang/cung-duong/cd-0095-bai-do-an-toan-doc-duong-di-thanh-pho-vinh.html | WRITING |  | 0 |  |
 | CD-0096 | cam-nang/cung-duong/cd-0096-chay-xe-may-tu-ha-noi-ra-chua-huong-nen-di-luc-nao.html | WRITING |  | 0 |  |
 | CD-0097 | cam-nang/cung-duong/cd-0097-lich-trinh-chi-tiet-cho-chuyen-chua-huong-bang-xe-may.html | WRITING |  | 0 |  |
