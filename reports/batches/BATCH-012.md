@@ -1,9 +1,9 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T08:44:05+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T08:49:19+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 38 | pass: 0 | published: 38
-- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 40 | pass: 0 | published: 40
+- writing: 10 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.6 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
@@ -47,8 +47,8 @@
 | KN-0093 | cam-nang/kinh-nghiem/kn-0093-kinh-nghiem-lien-he-voi-chu-xe-khi-gap-su-co.html | PUBLISHED | 100 | 0 |  |
 | KN-0094 | cam-nang/kinh-nghiem/kn-0094-ghi-nho-lai-vi-tri-do-xe-o-bai-gui-lon.html | PUBLISHED | 100 | 0 |  |
 | KN-0095 | cam-nang/kinh-nghiem/kn-0095-kinh-nghiem-do-xe-qua-dem-an-toan.html | PUBLISHED | 100 | 0 |  |
-| KN-0096 | cam-nang/kinh-nghiem/kn-0096-kinh-nghiem-cho-hanh-ly-cong-kenh-tren-xe-ga.html | WRITING |  | 0 |  |
-| KN-0097 | cam-nang/kinh-nghiem/kn-0097-cach-giu-do-dac-an-toan-khi-xuong-xe-chup-anh.html | WRITING |  | 0 |  |
+| KN-0096 | cam-nang/kinh-nghiem/kn-0096-kinh-nghiem-cho-hanh-ly-cong-kenh-tren-xe-ga.html | PUBLISHED | 100 | 0 |  |
+| KN-0097 | cam-nang/kinh-nghiem/kn-0097-cach-giu-do-dac-an-toan-khi-xuong-xe-chup-anh.html | PUBLISHED | 100 | 0 |  |
 | KN-0098 | cam-nang/kinh-nghiem/kn-0098-kinh-nghiem-di-xe-may-cuoi-tuan-khoi-ha-noi.html | WRITING |  | 0 |  |
 | KN-0099 | cam-nang/kinh-nghiem/kn-0099-chon-xe-so-hay-xe-ga-khi-moi-lai-tro-lai.html | WRITING |  | 0 |  |
 | KN-0100 | cam-nang/kinh-nghiem/kn-0100-kinh-nghiem-thue-xe-may-theo-nhom-ban-du-lich.html | WRITING |  | 0 |  |
