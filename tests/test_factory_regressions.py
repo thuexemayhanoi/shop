@@ -264,6 +264,25 @@ class WorkflowFileTests(unittest.TestCase):
         # (scripts/ci/factory_final_gate.sh), which must itself contain
         # the full suites and invariants (same strength, no drift)
         self.assertIn("bash scripts/ci/factory_final_gate.sh", y)
+        # DUAL-MODE GATE (fast micro-pair loop): the full canonical gate
+        # runs ONLY on engine/global-affecting changes (qa_scope scope
+        # "full"); content-only pushes run the FAST gate instead
+        self.assertIn("Canonical final gate (L1-L4 on this exact tree)", y)
+        self.assertIn("if: steps.candidates.outputs.gate == 'full'", y)
+        self.assertIn("FAST content gate", y)
+        self.assertIn("if: steps.candidates.outputs.gate != 'full'", y)
+        # the FAST gate keeps the light always-global invariants (matrix
+        # + whole-site factory consistency) and never calls the heavy
+        # canonical gate
+        fast = y[y.index("FAST content gate"):y.index(
+            "Canonical final gate (L1-L4")]
+        self.assertIn("scripts/validate_content_matrix.py", fast)
+        self.assertIn("--consistency", fast)
+        self.assertNotIn("factory_final_gate.sh", fast)
+        # fail-closed: only a derived "changed" scope is FAST (qa_scope
+        # decides "full" for engine changes, unknown bases and the
+        # manual full audit)
+        self.assertIn('gate = "full" if s["scope"] == "full" else "fast"', y)
         gate = self._read("scripts/ci/factory_final_gate.sh")
         self.assertIn("python3 -m unittest discover tests", gate)
         # node suite: bash-expanded file list (Node 20 has no --test glob

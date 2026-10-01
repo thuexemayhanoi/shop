@@ -1,30 +1,37 @@
 name: Article Quality Gate
 
-# SCOPED QUALITY GATE (workflow hardening 2026-09-28).
+# DUAL-MODE QUALITY GATE (fast micro-pair loop, 2026-10-01).
 #
-# ALWAYS-GLOBAL on every run (never scoped down):
-#   - full unit test suites (python + node)
-#   - matrix invariants (scripts/validate_content_matrix.py)
-#   - factory consistency (scripts/js/factory.mjs --consistency)
-#     which covers matrix/hub/sitemap coherence, URL duplicates and
-#     unpublished-file leaks across the whole site.
+# MODE SELECTION (scripts/qa_scope.py decides, fail-closed):
+#   - FULL ENGINE GATE when the change touches anything that affects the
+#     engine or every article: scripts, tests, config, shared templates
+#     (_includes/_snippets/assets/css), the article rules doc, the
+#     factory engine or this workflow file itself; also on manual
+#     workflow_dispatch scope=full (the contract's manual FULL run) and
+#     whenever the changed-file base cannot be determined.
+#     FULL = the ONE canonical gate (scripts/ci/factory_final_gate.sh:
+#     full python + node suites, matrix invariants, factory consistency,
+#     generator freshness, semantic verifier) + the scoped article scan.
+#   - FAST CONTENT GATE for content-only pushes (cam-nang/**, _drafts/**,
+#     data/content-matrix.csv) - the production micro-pair (2 IDs):
+#     matrix invariants + factory consistency (whole-site coherence,
+#     URL duplicates, unpublished-file leaks) + validate/score/
+#     cannibalization of ONLY the changed articles (business/legal/
+#     source critical gates are inside those per-candidate tools and
+#     never skipped). NO full canonical L1-L4 per pair: the heavy
+#     suites and full-site audits live in the FULL engine gate and in
+#     factory-publish-verify.yml (batch terminal / engine change /
+#     final 2000 audit).
 #
 # ARTICLE SCAN SCOPE (scripts/qa_scope.py decides):
-#   - FULL (every production article, drafts included) when the change
-#     touches anything that affects every article: engine scripts, tests,
-#     rubric, business facts, ownership, source policy, site config,
-#     shared templates (_includes/_snippets/assets/css), the article
-#     rules doc, or this workflow file itself.
-#   - FULL on manual workflow_dispatch (the contract's manual FULL run).
+#   - FULL (every production article, drafts included) in engine mode.
 #   - Otherwise CHANGED-ONLY: the drafts/articles added, modified or
-#     repaired in this push/PR. Unchanged articles are never re-scanned
-#     here; a candidate whose recorded QA evidence still matches
-#     (content hash + config hash + validator version) is skipped.
+#     repaired in this push/PR; a candidate whose recorded QA evidence
+#     still matches (content hash + config hash + validator version)
+#     is skipped.
 #   - Quality thresholds are NEVER weakened: the same
 #     validate/cannibalization/score tools run per candidate, and exit 3
 #     on any failure, exactly as before.
-#   - A batch-completion FULL audit runs in the factory operator (see
-#     .github/workflows/factory-operator.yml), not here.
 
 on:
   pull_request:
@@ -82,16 +89,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Canonical final gate (L1-L4 on this exact tree)
-        # ONE canonical gate, same contract as the factory operator:
-        # python suite + node suite + matrix invariants + factory
-        # consistency + canonical generator freshness + git diff --check
-        # + scripts/verify_factory_state.py. See
-        # scripts/ci/factory_final_gate.sh. Never duplicated inline here:
-        # a single drift-free gate definition for every consumer.
-        run: bash scripts/ci/factory_final_gate.sh
-
-      - name: Determine QA scope and candidate articles
+      - name: Determine QA scope, gate mode and candidate articles
         id: candidates
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -101,7 +99,7 @@ jobs:
         run: |
           set -eu
           # Event-specific changed-file list; scripts/qa_scope.py turns it
-          # into a scope decision. Candidates are ALWAYS the real
+          # into the scope decision. Candidates are ALWAYS the real
           # repository paths derived from the matrix (output_path checked
           # with os.path.isfile, draft first, final fallback) — never
           # copied or flattened into /tmp (flattening loses the category
@@ -134,7 +132,13 @@ jobs:
           with open("candidates.txt", "w", encoding="utf-8") as f:
               for p in checked:
                   f.write(p + "\n")
-          print("QA scope: %s (%s)" % (s["scope"], s["reason"]))
+          # Gate mode: scope "full" = engine/global-affecting change (or
+          # the manual FULL audit) -> FULL canonical gate; anything else
+          # is a content-only push -> FAST gate. Fail-closed: only an
+          # explicitly derived "changed" scope is FAST.
+          gate = "full" if s["scope"] == "full" else "fast"
+          print("QA scope: %s (%s) gate: %s"
+                % (s["scope"], s["reason"], gate))
           print("candidates: %d selected, %d evidence-reused, %d to check"
                 % (len(s.get("candidates") or []), len(s.get("reused") or []),
                    len(checked)))
@@ -142,10 +146,34 @@ jobs:
               print("reused (content+config+validator hashes still match):")
               for p in s["reused"]:
                   print("  ~ %s" % p)
+          with open("gate.txt", "w", encoding="utf-8") as f:
+              f.write(gate + "\n")
           PY
           count=$(wc -l < candidates.txt)
           echo "count=$count" >> "$GITHUB_OUTPUT"
           echo "scope=$(python3 -c 'import json;print(json.load(open("scope.json"))["scope"])')" >> "$GITHUB_OUTPUT"
+          echo "gate=$(cat gate.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: FAST content gate (scoped invariants only — no full L1-L4)
+        # Content-only push (the production micro-pair, 2 IDs): light
+        # always-global invariants only. The per-candidate critical
+        # gates (business facts, legal, source, duplicates, canonical,
+        # placeholders, truncation) run in the candidate step below.
+        if: steps.candidates.outputs.gate != 'full'
+        run: |
+          set -eu
+          python3 scripts/validate_content_matrix.py
+          node scripts/js/factory.mjs --consistency
+
+      - name: Canonical final gate (L1-L4 on this exact tree)
+        # ENGINE MODE: one canonical gate, same contract as the factory
+        # operator: python suite + node suite + matrix invariants +
+        # factory consistency + canonical generator freshness +
+        # git diff --check + scripts/verify_factory_state.py. See
+        # scripts/ci/factory_final_gate.sh. Never duplicated inline here:
+        # a single drift-free gate definition for every consumer.
+        if: steps.candidates.outputs.gate == 'full'
+        run: bash scripts/ci/factory_final_gate.sh
 
       - name: Validate, cannibalization-check and score candidate articles
         if: steps.candidates.outputs.count != '0'
@@ -225,7 +253,7 @@ jobs:
 
       - name: No candidates note
         if: steps.candidates.outputs.count == '0'
-        run: 'echo "No article candidates to re-check for this change (scope: ${{ steps.candidates.outputs.scope }}; global checks all passed above)."'
+        run: 'echo "No article candidates to re-check for this change (scope: ${{ steps.candidates.outputs.scope }}; gate: ${{ steps.candidates.outputs.gate }}; global checks passed above)."'
 
       - name: Save QA evidence cache
         # Never fatal: a failed upload only costs the next run a cold

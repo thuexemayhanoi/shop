@@ -18,7 +18,9 @@ scripts/run_article_batch.py:
   * single derived-state commit with bounded rebase retry (2 attempts),
     consistency re-verified on the rebased tree BEFORE pushing
   * freshly published articles always fully re-validated
-    (gate_published_articles --ids) + batch-end FULL audit
+    (gate_published_articles --ids) + batch-terminal heavy-audit dispatch
+    to factory-publish-verify.yml (the full published-articles audit
+    moved out of the per-pair loop)
   * thresholds 75/70/75 centralized in config/article-rubric.json:
     score_article.py and factory.mjs contain NO hardcoded band logic
 """
@@ -102,10 +104,26 @@ class PublishWorkflowContract(unittest.TestCase):
 
     def test_publish_gate_and_batch_end_audit(self):
         y = self.y
+        # per-pair: publish gate stays scoped to the promoted ids only
         self.assertIn("gate_published_articles.py --ids", y)
-        self.assertIn("batch-end FULL audit", y)
         self.assertIn("verify_factory_state.py --op publish", y)
         self.assertIn("verify_factory_state.py --op consistency", y)
+        # the heavy full published-articles audit no longer runs inline
+        # per pair: it is dispatched to factory-publish-verify.yml when
+        # the batch reaches all-terminal state (fail-closed dispatch)
+        self.assertIn("Batch-terminal FULL audit dispatch", y)
+        self.assertIn("gh workflow run factory-publish-verify.yml", y)
+        self.assertIn("BATCH-COMPLETE", y)
+        self.assertNotIn("gate_published_articles.py\n", y)
+        # the dispatch needs actions: write (GITHUB_TOKEN workflow run)
+        self.assertIn("actions: write", y)
+        # and the verify workflow really owns the heavy audit
+        v = io.open(os.path.join(ROOT, ".github", "workflows",
+                                 "factory-publish-verify.yml"),
+                    encoding="utf-8").read()
+        self.assertIn("python3 scripts/gate_published_articles.py", v)
+        self.assertIn("python3 scripts/full_cannibalization_audit.py", v)
+        self.assertIn("python3 -m unittest discover tests", v)
 
     # ---------------------------------------------------- fail-closed
 

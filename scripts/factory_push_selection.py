@@ -23,7 +23,7 @@ Output: JSON on stdout describing the exact, verifiable scope:
     "proceed": bool,          # false => workflow skips everything
     "mode": "new"|"repair"|"backlog"|"skip",
     "batch": "BATCH-012"|null,
-    "claim_ids": [...],      # PLANNED -> WRITING claim targets (never >50)
+    "claim_ids": [...],      # PLANNED -> WRITING claim targets (<= chunk_size)
     "qa_ids": [...],         # explicit scoped-QA targets (claim + repair)
     "publish_ids": [...],    # already-PASS touched rows (publish, no re-QA)
     "refuse": null|"reason", # non-null => the push violates the contract
@@ -34,11 +34,11 @@ Output: JSON on stdout describing the exact, verifiable scope:
 Selection rules (deterministic, matrix truth):
   NEW mode:     PLANNED rows of the active batch whose output_path is in
                 the touched list (added or modified, draft or final
-                form) AND the file exists. More than 50 => REFUSE (the
-                writer must push at most 50 new article files per
-                commit; the production micro-loop pushes 2). A PLANNED
-                row whose file is NOT touched (or missing) is NEVER
-                claimed.
+                form) AND the file exists. More than chunk_size (2,
+                config/content-factory.json; fail-closed default) =>
+                REFUSE: the writer must push bounded pairs only. A
+                PLANNED row whose file is NOT touched (or missing) is
+                NEVER claimed.
   REPAIR mode:  rows of the active batch in WRITING/QA/REVIEW/REPAIR
                 whose file is touched AND exists -> scoped QA targets;
                 PASS rows touched -> direct publish targets. A repair
@@ -46,11 +46,11 @@ Selection rules (deterministic, matrix truth):
   BACKLOG mode: nothing claimable/repairable in this push, but PLANNED
                 rows of the active batch already have files in the repo
                 (e.g. a previous pipeline failure before the claim).
-                Deterministic first-50 by article_id.
+                Deterministic first chunk_size by article_id.
   SKIP:         nothing to do (e.g. tooling-only push, or the factory's
                 own state commit re-triggering this workflow on the
                 promoted PUBLISHED files).
-  REFUSE:       > 50 new article files, or the push touches rows of a
+  REFUSE:       > chunk_size (2) new article files, or the push touches rows of a
                 batch OTHER than the active batch (the writer must
                 write the active batch's rows only). Edits to PUBLISHED
                 rows (shell rebuilds, repair-in-place) are IGNORED and
@@ -67,8 +67,28 @@ import article_lib as lib
 
 TERMINAL = ("PUBLISHED", "BLOCKED", "FAIL")
 ACTIVE = ("WRITING", "QA", "REVIEW", "REPAIR")
-MAX_CLAIM = 50  # hard cap per push (= one full batch); the production
-                # micro-loop pushes exactly 2 new drafts per pair
+MAX_CLAIM = 50  # defensive hard ceiling only (= one full batch)
+DEFAULT_CHUNK_SIZE = 2  # bounded fail-closed default: the production
+                        # micro-pair contract (owner-approved
+                        # 2026-10-01) is exactly 2 new IDs per push
+
+
+def chunk_size():
+    """Production pair cap, from config/content-factory.json.
+
+    Fail-closed: missing config, missing key, or an out-of-range value
+    (not 1..MAX_CLAIM) all fall back to the bounded DEFAULT_CHUNK_SIZE,
+    never to the hard ceiling."""
+    try:
+        cfg = json.loads(pathlib.Path(
+            lib.repo_path("config", "content-factory.json")
+        ).read_text(encoding="utf-8"))
+        n = int(cfg.get("chunk_size", DEFAULT_CHUNK_SIZE))
+    except Exception:
+        n = DEFAULT_CHUNK_SIZE
+    if n < 1 or n > MAX_CLAIM:
+        n = DEFAULT_CHUNK_SIZE
+    return n
 
 DRAFTS_PREFIX = "_drafts/"
 
@@ -191,10 +211,12 @@ def select(added, modified):
                       in touched_output_paths
                       and row_has_file(r))
 
-    if new_ids and len(new_ids) > MAX_CLAIM:
+    limit = chunk_size()
+    if new_ids and len(new_ids) > limit:
         out["refuse"] = ("push adds %d new article files; max %d per "
-                         "commit - split the push deterministically"
-                         % (len(new_ids), MAX_CLAIM))
+                         "commit (chunk_size, the production micro-pair) "
+                         "- split the push deterministically"
+                         % (len(new_ids), limit))
         return out
     if new_ids:
         out["mode"] = "new"
@@ -215,7 +237,7 @@ def select(added, modified):
     # push) - recovery for a pipeline failure between file add and claim.
     backlog = sorted((r["article_id"] for r in br
                       if (r.get("status") or "").strip() == "PLANNED"
-                      and row_has_file(r)))[:MAX_CLAIM]
+                      and row_has_file(r)))[:chunk_size()]
     if backlog:
         out["mode"] = "backlog"
         out["claim_ids"] = backlog

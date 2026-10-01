@@ -10,15 +10,17 @@ name: Factory Publish (micro-pair)
 # (scripts/factory_push_selection.py) and runs the canonical factory
 # tooling for that scope ONLY:
 #
-#   NEW article push:     claim exactly the added-article IDs (max 50;
-#                         the production micro-loop pushes 2 per pair)
+#   NEW article push:     claim exactly the added-article IDs (bounded
+#                         by chunk_size = 2 in config/content-factory.json;
+#                         the production micro-pair pushes exactly 2)
 #                          -> scoped QA -> transactional publish of PASS
 #   REPAIR article push:  scoped QA + publish EXACTLY the repaired
 #                         active IDs; touched PASS IDs publish directly;
 #                         NEVER claims fresh PLANNED rows
-#   BACKLOG:              PLANNED rows whose files already exist (<= 50,
-#                         deterministic article_id order) - recovery for
-#                         a pipeline failure between file add and claim
+#   BACKLOG:              PLANNED rows whose files already exist (<=
+#                         chunk_size = 2, deterministic article_id order)
+#                         - recovery for a pipeline failure between file
+#                         add and claim
 #   SKIP:                 tooling-only push / the factory's own state
 #                         commit re-triggering on promoted PUBLISHED
 #                         files -> nothing to do, workflow exits green
@@ -31,8 +33,12 @@ name: Factory Publish (micro-pair)
 # (owner-approved 75/70/75 - QUALITY_MIN = PUBLISH_MIN = 75, SEO floor
 # = REVIEW.min = 70; critical gates are NEVER lowered). Single commit of
 # derived state per run. Full test suites + full-site audits are NOT
-# part of the per-pair loop: they run in article-quality CI on every
-# push and in the batch-end FULL audit below.
+# part of the per-pair loop: they run in article-quality CI on engine
+# changes (FULL engine gate) and in factory-publish-verify.yml at batch
+# terminals / manual / final audits. The per-pair loop stays BOUNDED:
+# push selection -> recover -> exact claim -> exact QA -> exact publish
+# -> promoted article gate -> matrix smoke -> consistency smoke ->
+# commit -> push -> clean txn/lock check.
 #
 # Four-layer reliability hardening is preserved: fail-closed pending-txn
 # recovery, atomic batch lock, exact-ID verification, semantic verifier
@@ -53,6 +59,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: factory-publish
@@ -238,11 +245,23 @@ jobs:
         if: steps.passids.outputs.ids != ''
         run: python3 scripts/gate_published_articles.py --ids "${{ steps.passids.outputs.ids }}"
 
-      - name: Batch-end FULL audit (when this publish completes the batch)
+      - name: Batch-terminal FULL audit dispatch (heavy audit moved out of the pair loop)
+        # The heavy full published-articles audit no longer runs inline
+        # here (it re-scans the whole published corpus and slows every
+        # pair). When THIS publish completes the batch (every row
+        # terminal), dispatch the read-only heavy verify workflow
+        # (factory-publish-verify.yml: full python + node suites, full
+        # consistency, semantic verifier, generator freshness, full
+        # cannibalization sweep, evidence-aware full published audit).
+        # Fail-closed: a failed dispatch is RED (the milestone audit
+        # must run; it can also always be dispatched manually).
         if: steps.passids.outputs.ids != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TERM_BATCH: ${{ steps.select.outputs.batch || '' }}
         run: |
           set -e
-          python3 - "${{ steps.select.outputs.batch || '' }}" <<'PY' > batch_state.txt
+          python3 - "$TERM_BATCH" <<'PY' > batch_state.txt
           import csv, sys
           batch = (sys.argv[1] or '').strip()
           terminal = {"PUBLISHED", "FAIL", "BLOCKED"}
@@ -257,8 +276,11 @@ jobs:
           PY
           cat batch_state.txt || echo "BATCH-UNKNOWN (dispatch publish without a resolved batch)"
           if grep -q "^BATCH-COMPLETE" batch_state.txt; then
-            echo "Running batch-end FULL audit of all published articles"
-            python3 scripts/gate_published_articles.py
+            echo "batch terminal — dispatching the heavy FULL verify audit"
+            gh workflow run factory-publish-verify.yml --ref main \
+              -f publish_ids="" -f reason="batch-terminal $TERM_BATCH"
+          else
+            echo "batch still active — no heavy audit this pair (verify runs at batch terminal)"
           fi
 
       - name: Canonical generator freshness (python vs node byte-equality)

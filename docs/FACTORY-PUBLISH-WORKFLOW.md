@@ -61,9 +61,13 @@ audit only.
 7. `apply_article_shell.py` on the promoted files; then
    `gate_published_articles.py --ids <ids>` re-validates every freshly
    published article.
-8. Batch-end FULL audit: when the publish completes the batch (every
-   non-SAMPLE row terminal), `gate_published_articles.py` runs on ALL
-   published articles.
+8. Batch-terminal FULL audit DISPATCH (2026-10-01): when the publish
+   completes the batch (every non-SAMPLE row terminal), the pair loop
+   dispatches `factory-publish-verify.yml` (read-only heavy audit: full
+   python + node suites, full consistency, semantic verifier, generator
+   freshness, full cannibalization sweep, evidence-aware full
+   published-articles audit). The heavy audit no longer runs inline in
+   the pair loop.
 9. Generator freshness (`generate_category_pages.py`,
    `generate_sitemap.py --check`), matrix smoke, semantic verifier
    (`verify_factory_state.py --op publish --ids …` + `--op consistency`).
@@ -119,5 +123,12 @@ only through the canonical transactional tooling; concurrency group
 `factory-publish` (cancel-in-progress: false) serializes runs.
 
 The full test suites and the full-site audit are NOT part of the
-per-pair loop: `article-quality.yml` CI runs the full gate on every
-push/PR, and the batch-end FULL audit covers the published corpus.
+per-pair loop (dual-mode gate, 2026-10-01): `article-quality.yml` runs
+the FAST content gate on content-only pushes (matrix + consistency +
+the exact changed candidates) and the FULL canonical gate
+(`scripts/ci/factory_final_gate.sh`) only on engine/global-affecting
+changes and manual FULL dispatch; `factory-publish-verify.yml` owns the
+heavy whole-repository audit (manual, batch terminal, engine change,
+final 2000-article audit). The micro-pair is bounded by
+`chunk_size = 2` (`config/content-factory.json`): a NEW push claims at
+most 2 fresh article ids.
