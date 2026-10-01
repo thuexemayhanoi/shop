@@ -1,10 +1,10 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T07:51:50+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T07:58:38+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 18 | pass: 0 | published: 18
-- writing: 32 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 87 | max 100 | repair_count: 0
+- processed: 50 | written: 20 | pass: 0 | published: 20
+- writing: 30 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.9 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -23,8 +23,8 @@
 | CD-0094 | cam-nang/cung-duong/cd-0094-cho-ngam-canh-giua-duong-den-cua-lo.html | PUBLISHED | 100 | 0 |  |
 | CD-0095 | cam-nang/cung-duong/cd-0095-bai-do-an-toan-doc-duong-di-thanh-pho-vinh.html | PUBLISHED | 96 | 0 |  |
 | CD-0096 | cam-nang/cung-duong/cd-0096-chay-xe-may-tu-ha-noi-ra-chua-huong-nen-di-luc-nao.html | PUBLISHED | 96 | 0 |  |
-| CD-0097 | cam-nang/cung-duong/cd-0097-lich-trinh-chi-tiet-cho-chuyen-chua-huong-bang-xe-may.html | WRITING |  | 0 |  |
-| CD-0098 | cam-nang/cung-duong/cd-0098-quan-ca-phe-dung-chan-tren-duong-chua-huong.html | WRITING |  | 0 |  |
+| CD-0097 | cam-nang/cung-duong/cd-0097-lich-trinh-chi-tiet-cho-chuyen-chua-huong-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
+| CD-0098 | cam-nang/cung-duong/cd-0098-quan-ca-phe-dung-chan-tren-duong-chua-huong.html | PUBLISHED | 98 | 0 |  |
 | CD-0099 | cam-nang/cung-duong/cd-0099-cung-duong-ngam-canh-tu-ha-noi-len-nui-ba-vi.html | WRITING |  | 0 |  |
 | CD-0100 | cam-nang/cung-duong/cd-0100-mot-ngay-mot-dem-o-nui-ba-vi-co-du-khong.html | PUBLISHED | 96 | 0 |  |
 | DL-0093 | cam-nang/du-lich/dl-0093-mua-he-den-thac-dai-yem-bang-xe-may-nen-di-luc-nao.html | WRITING |  | 0 |  |
