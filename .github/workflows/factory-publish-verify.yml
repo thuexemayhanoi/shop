@@ -1,12 +1,34 @@
 name: Factory Publish Verify
 
-# Manually dispatchable verification of a publish transaction in a
-# fully-tooled environment (Python + Node). READ-ONLY on the repository:
-# it never pushes, never writes content, never claims rows. The external
-# operator (Mistral agent or human) runs this to verify that the intended
-# publish ids are PASS with files, that the full transaction DRY-RUNS
-# cleanly, and that matrix/hubs/sitemap are consistent; it then commits
-# and pushes from its own authenticated environment.
+# HEAVY FULL AUDIT (the only place it runs, 2026-10-01). The per-pair
+# production loop (factory-publish.yml) and the FAST content gate
+# (article-quality.yml) stay light; this workflow owns the expensive,
+# whole-repository verification, fully tooled (Python + Node):
+#
+#   - full python test suite + full node test suite
+#     (includes the hermetic soak / failure-injection reliability tests)
+#   - full content matrix invariants
+#   - full factory consistency (matrix / hubs / sitemap coherence,
+#     URL duplicates, unpublished-file leaks)
+#   - semantic verifier (scripts/verify_factory_state.py)
+#   - canonical generator freshness (sitemap + hubs byte-equality)
+#   - full cannibalization sweep (scripts/full_cannibalization_audit.py)
+#   - full evidence-aware published-articles audit
+#     (scripts/gate_published_articles.py)
+#   - optional dry-run of an intended publish transaction (read-only)
+#
+# WHEN IT RUNS:
+#   - manual workflow_dispatch (any time)
+#   - batch terminal (dispatched by factory-publish.yml when a batch
+#     reaches all-terminal state)
+#   - engine change (push touching scripts / tests / config / shared
+#     templates / workflows / docs)
+#   - the final 2000-article audit (manual dispatch)
+#
+# READ-ONLY on the repository: it never pushes, never writes content,
+# never claims rows. The external operator (Mistral agent or human) can
+# use the publish_ids dry-run to verify a transaction before committing
+# and pushing from its own authenticated environment.
 #
 # NO CRON. NO SECRETS. NO AI CALLS. NO WRITES.
 
@@ -14,27 +36,50 @@ on:
   workflow_dispatch:
     inputs:
       publish_ids:
-        description: "Comma-separated article ids to dry-run publish, e.g. KN-0002,XM-0002,DL-0001 (empty = consistency only)"
+        description: "Comma-separated article ids to dry-run publish, e.g. KN-0002,XM-0002,DL-0001 (empty = audit only)"
         required: false
         default: ""
+      reason:
+        description: "Audit reason label (manual | batch-terminal <BATCH> | engine-change | final-2000)"
+        required: false
+        default: "manual"
       date:
         description: "published_date / sitemap lastmod (empty = today, Asia/Ho_Chi_Minh)"
         required: false
         default: ""
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "tests/**"
+      - "config/**"
+      - "_includes/**"
+      - "_snippets/**"
+      - "assets/css/**"
+      - "docs/**"
+      - ".github/workflows/**"
 
 permissions:
   contents: read
 
 concurrency:
-  group: article-batch-production
+  group: factory-publish-verify
   cancel-in-progress: false
 
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Restore QA evidence cache (content-hash keyed reuse)
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -46,20 +91,44 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Python factory test suite
+      - name: Audit reason
+        run: echo "FULL verify audit — ${{ github.event.inputs.reason || 'engine-change push' }}"
+
+      - name: Python factory test suite (full, incl. reliability/soak tests)
         run: python3 -m unittest discover tests
 
-      - name: Validate content matrix
+      - name: Node factory test suite (full)
+        run: |
+          set -eu
+          shopt -s nullglob globstar
+          NODE_TEST_FILES=(tests/js/**/*.test.mjs)
+          shopt -u nullglob globstar
+          if [ "${#NODE_TEST_FILES[@]}" -eq 0 ]; then
+            echo "node test suite missing: no tests/js/**/*.test.mjs files" >&2
+            exit 1
+          fi
+          node --test "${NODE_TEST_FILES[@]}"
+
+      - name: Validate content matrix (full)
         run: python3 scripts/validate_content_matrix.py
 
-      - name: Node fallback tooling tests
-        run: node --test tests/js/factory.test.mjs
-
-      - name: Node consistency check (matrix / hubs / sitemap)
+      - name: Node consistency check (matrix / hubs / sitemap, full)
         run: node scripts/js/factory.mjs --consistency
 
+      - name: Semantic production-invariant verifier (full)
+        run: python3 scripts/verify_factory_state.py --op consistency
+
+      - name: Canonical generator freshness (python vs node byte-equality)
+        run: |
+          set -eu
+          python3 scripts/generate_sitemap.py --check
+          python3 scripts/generate_category_pages.py --check
+
+      - name: Full cannibalization sweep (every published article)
+        run: python3 scripts/full_cannibalization_audit.py
+
       - name: Dry-run the intended publish transaction
-        if: github.event.inputs.publish_ids != ''
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.publish_ids != ''
         env:
           # pass user input through ENVIRONMENT variables and quote them at
           # the CLI boundary — never interpolate inputs into an unquoted
@@ -79,8 +148,27 @@ jobs:
           fi
           node scripts/js/factory.mjs --publish "$publish_ids" --dry-run "${date_args[@]}"
 
-      - name: Sitemap freshness (canonical Python generator)
-        run: python3 scripts/generate_sitemap.py --check
+      - name: Full published-articles audit (evidence-aware)
+        run: python3 scripts/gate_published_articles.py
 
-      - name: Category hub freshness (canonical Python generator)
-        run: python3 scripts/generate_category_pages.py --check
+      - name: Assert clean factory state (txn / lock)
+        run: |
+          set -eu
+          test ! -f data/batches/txn/txn.json || { echo "pending txn marker present"; exit 1; }
+          for l in data/batches/*.lock; do
+            test -z "$l" && continue
+            case "$l" in
+              *\*) ;;
+              *) echo "stale batch lock present: $l"; exit 1 ;;
+            esac
+          done
+          echo "factory state clean (no txn marker, no batch lock)"
+
+      - name: Save QA evidence cache
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality/qa-evidence.json
+          if-no-files-found: ignore

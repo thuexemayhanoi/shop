@@ -15,7 +15,8 @@ scripts/factory_push_selection.py:
     deterministic first-50 by article_id
   * SKIP when nothing to do (tooling-only push / factory state commit
     re-triggering on promoted PUBLISHED files): no work, no recursion
-  * REFUSE: > 50 new article files in one push
+  * REFUSE: > chunk_size (2, config/content-factory.json) new article
+    files in one push
   * REFUSE: touching active rows of another batch while another batch
     is active
   * the writer's drafts under _drafts/<output_path> map back to the
@@ -248,11 +249,13 @@ class SelectorTestCase(unittest.TestCase):
 
     # ---------------------------------------------------------------- caps
 
-    def test_refuse_more_than_50_new_article_files(self):
-        # 51 DISTINCT new article files in one push -> refuse
+    def test_refuse_more_than_chunk_size_new_article_files(self):
+        # 3 DISTINCT new article files in one push with chunk_size = 2
+        # (fixture has no content-factory.json -> fail-closed default 2)
+        # -> refuse; the production micro-pair is exactly 2 new IDs
         import csv as _csv
         added = []
-        for i in range(51):
+        for i in range(3):
             aid = "KN-1%03d" % i
             op = "cam-nang/kinh-nghiem/%s.html" % aid.lower()
             dp = os.path.join(self.tmp, "_drafts", op)
@@ -263,7 +266,7 @@ class SelectorTestCase(unittest.TestCase):
         with io.open(mp, encoding="utf-8") as f:
             rows = list(_csv.reader(f))
         header = rows[0]
-        for i in range(51):
+        for i in range(3):
             aid = "KN-1%03d" % i
             r = [""] * len(header)
             r[header.index("article_id")] = aid
@@ -281,15 +284,88 @@ class SelectorTestCase(unittest.TestCase):
         try:
             sel = self._select(added=added)
             self.assertIsNotNone(sel["refuse"])
-            self.assertIn("max 50", sel["refuse"])
+            self.assertIn("max 2", sel["refuse"])
+            self.assertIn("chunk_size", sel["refuse"])
             self.assertFalse(sel["proceed"])
         finally:
             # restore the shared fixture (later tests assert SKIP modes
-            # that must not see these 51 backlog rows)
+            # that must not see these backlog rows)
             with io.open(mp, "w", encoding="utf-8", newline="") as f:
                 _csv.writer(f).writerows(rows[:9])
-            for i in range(51):
+            for i in range(3):
                 op = ("cam-nang/kinh-nghiem/kn-1%03d.html" % i)
+                dp = os.path.join(self.tmp, "_drafts", op)
+                if os.path.isfile(dp):
+                    os.remove(dp)
+
+    def test_chunk_size_is_config_driven_and_bounded(self):
+        # chunk_size comes from config/content-factory.json; an
+        # out-of-range value falls back to the bounded default (2),
+        # never to the MAX_CLAIM hard ceiling
+        import csv as _csv
+        cfg_dir = os.path.join(self.tmp, "config")
+        cfg = os.path.join(cfg_dir, "content-factory.json")
+        io.open(cfg, "w", encoding="utf-8").write(
+            '{"enabled": true, "chunk_size": 3}')
+        added = []
+        for i in range(3):
+            aid = "KN-2%03d" % i
+            op = "cam-nang/kinh-nghiem/%s.html" % aid.lower()
+            dp = os.path.join(self.tmp, "_drafts", op)
+            os.makedirs(os.path.dirname(dp), exist_ok=True)
+            io.open(dp, "w", encoding="utf-8").write("<html>%s</html>" % aid)
+            added.append("_drafts/" + op)
+        mp = os.path.join(self.tmp, "data", "content-matrix.csv")
+        with io.open(mp, encoding="utf-8") as f:
+            rows = list(_csv.reader(f))
+        header = rows[0]
+        for i in range(4):
+            aid = "KN-2%03d" % i
+            r = [""] * len(header)
+            r[header.index("article_id")] = aid
+            r[header.index("status")] = "PLANNED"
+            r[header.index("category")] = "Kinh nghiệm"
+            r[header.index("primary_keyword")] = "kw " + aid
+            r[header.index("slug")] = aid.lower()
+            r[header.index("output_path")] = (
+                "cam-nang/kinh-nghiem/%s.html" % aid.lower())
+            r[header.index("parent_hub")] = "kinhnghiem.html"
+            r[header.index("batch_id")] = "BATCH-001"
+            rows.append(r)
+        if len(added) == 3:  # add the 4th file too
+            aid = "KN-2003"
+            op = "cam-nang/kinh-nghiem/%s.html" % aid.lower()
+            dp = os.path.join(self.tmp, "_drafts", op)
+            io.open(dp, "w", encoding="utf-8").write("<html>%s</html>" % aid)
+            added.append("_drafts/" + op)
+        try:
+            with io.open(mp, "w", encoding="utf-8", newline="") as f:
+                _csv.writer(f).writerows(rows)
+            # chunk_size = 3: three new files OK, the 4th refuses
+            sel = self._select(added=added[:3])
+            self.assertTrue(sel["proceed"])
+            self.assertEqual(sel["mode"], "new")
+            self.assertEqual(len(sel["claim_ids"]), 3)
+            sel = self._select(added=added)
+            self.assertIsNotNone(sel["refuse"])
+            self.assertIn("max 3", sel["refuse"])
+            # out-of-range value falls back to the bounded default
+            io.open(cfg, "w", encoding="utf-8").write(
+                '{"enabled": true, "chunk_size": 999}')
+            sel = self._select(added=added)
+            self.assertIsNotNone(sel["refuse"])
+            self.assertIn("max 2", sel["refuse"])
+            io.open(cfg, "w", encoding="utf-8").write(
+                '{"enabled": true, "chunk_size": "not-a-number"}')
+            sel = self._select(added=added[:3])
+            self.assertIsNotNone(sel["refuse"])
+            self.assertIn("max 2", sel["refuse"])
+        finally:
+            os.remove(cfg)
+            with io.open(mp, "w", encoding="utf-8", newline="") as f:
+                _csv.writer(f).writerows(rows[:9])
+            for i in range(4):
+                op = ("cam-nang/kinh-nghiem/kn-2%03d.html" % i)
                 dp = os.path.join(self.tmp, "_drafts", op)
                 if os.path.isfile(dp):
                     os.remove(dp)
