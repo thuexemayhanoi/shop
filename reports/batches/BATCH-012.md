@@ -1,9 +1,9 @@
 # Batch report BATCH-012
 
-- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T08:15:51+07:00
+- started_at: 2026-09-29T14:06:47 | finished_at: 2026-10-01T08:20:50+07:00
 - writer: external-agent | batch resolved once: BATCH-012
-- processed: 50 | written: 26 | pass: 0 | published: 26
-- writing: 24 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 28 | pass: 0 | published: 28
+- writing: 22 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.1 | min 87 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -32,8 +32,8 @@
 | DL-0095 | cam-nang/du-lich/dl-0095-goc-chup-mua-o-thac-dai-yem-co-dang-thu-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0096 | cam-nang/du-lich/dl-0096-kinh-nghiem-di-xe-may-den-tam-dao-tu-ha-noi.html | PUBLISHED | 98 | 0 |  |
 | DL-0097 | cam-nang/du-lich/dl-0097-di-xe-may-den-tam-dao-mua-nao-dep-nhat.html | PUBLISHED | 98 | 0 |  |
-| DL-0098 | cam-nang/du-lich/dl-0098-an-gi-khi-du-lich-tam-dao-bang-xe-may.html | WRITING |  | 0 |  |
-| DL-0099 | cam-nang/du-lich/dl-0099-nhung-goc-chup-anh-dep-o-tam-dao-cho-nguoi-di-xe-may.html | WRITING |  | 0 |  |
+| DL-0098 | cam-nang/du-lich/dl-0098-an-gi-khi-du-lich-tam-dao-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
+| DL-0099 | cam-nang/du-lich/dl-0099-nhung-goc-chup-anh-dep-o-tam-dao-cho-nguoi-di-xe-may.html | PUBLISHED | 96 | 0 |  |
 | DL-0100 | cam-nang/du-lich/dl-0100-di-xe-may-den-tay-thien-can-chuan-bi-gi.html | WRITING |  | 0 |  |
 | HD-0092 | cam-nang/hoi-dap/hd-0092-mua-xe-may-dien-hay-thue-trong-thanh-pho-cai-nao-loi.html | PUBLISHED | 100 | 0 |  |
 | HD-0093 | cam-nang/hoi-dap/hd-0093-ha-noi-co-bao-nhieu-bai-gui-xe-may-tu-dong.html | WRITING |  | 0 |  |
