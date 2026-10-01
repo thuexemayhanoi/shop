@@ -1,8 +1,8 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-01T10:52:38+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-01T10:57:15+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 4 | written: 4 | pass: 0 | published: 4
+- processed: 6 | written: 6 | pass: 0 | published: 6
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 100 | min 100 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -14,8 +14,8 @@
 | AT-0102 | cam-nang/an-toan/at-0102-qua-khu-cho-bay-hang-ra-duong.html | PUBLISHED | 100 | 0 |  |
 | AT-0103 | cam-nang/an-toan/at-0103-chay-canh-xe-ba-gac-an-toan.html | PUBLISHED | 100 | 0 |  |
 | AT-0104 | cam-nang/an-toan/at-0104-di-sau-xe-tai-cho-vat-lieu-dai.html | PUBLISHED | 100 | 0 |  |
-| AT-0105 | cam-nang/an-toan/at-0105-qua-nga-tu-co-chot-giao-thong.html | PLANNED |  | 0 |  |
-| AT-0106 | cam-nang/an-toan/at-0106-bi-mu-bui-khi-xe-phia-truoc-qua-duong-dat.html | PLANNED |  | 0 |  |
+| AT-0105 | cam-nang/an-toan/at-0105-qua-nga-tu-co-chot-giao-thong.html | PUBLISHED | 100 | 0 |  |
+| AT-0106 | cam-nang/an-toan/at-0106-bi-mu-bui-khi-xe-phia-truoc-qua-duong-dat.html | PUBLISHED | 100 | 0 |  |
 | AT-0107 | cam-nang/an-toan/at-0107-qua-ham-chui-khi-den-hong.html | PLANNED |  | 0 |  |
 | AT-0108 | cam-nang/an-toan/at-0108-chay-qua-khu-lang-co-cho-chay-ra-duong.html | PLANNED |  | 0 |  |
 | AT-0109 | cam-nang/an-toan/at-0109-duong-hep-tranh-xe-container-doi-dien.html | PLANNED |  | 0 |  |
