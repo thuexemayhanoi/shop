@@ -158,7 +158,7 @@ jobs:
           for l in data/batches/*.lock; do
             test -z "$l" && continue
             case "$l" in
-              *\*) ;;
+              *\**) ;;  # glob did not expand: no locks
               *) echo "stale batch lock present: $l"; exit 1 ;;
             esac
           done

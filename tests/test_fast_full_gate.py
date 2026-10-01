@@ -134,6 +134,37 @@ class FastFullGateContractTest(unittest.TestCase):
         self.assertNotIn("cam-nang/**", v)
         self.assertNotIn("_drafts/**", v)
 
+    def test_verify_lock_check_handles_unexpanded_glob(self):
+        # regression pin (2026-10-01 verify failure): the stale-lock
+        # sweep must treat an UNEXPANDED data/batches/*.lock glob (no
+        # locks present) as clean. The case pattern must be the escaped
+        # two-asterisk form "*\**)" — the lone form "*\*)" only matches
+        # strings ENDING in a literal '*' so the unexpanded glob fell
+        # through to the fail branch and the step could never pass.
+        v = _read(".github/workflows/factory-publish-verify.yml")
+        self.assertIn("*\\**)", v)
+        self.assertNotIn('*\\*) ;;', v)
+        # behavior pin: the exact shell snippet passes when no lock
+        # files exist (same as the workflow step body)
+        import subprocess
+        snippet = (
+            "set -eu\n"
+            "test ! -f data/batches/txn/txn.json || "
+            "{ echo 'pending txn marker present'; exit 1; }\n"
+            "for l in data/batches/*.lock; do\n"
+            "  test -z \"$l\" && continue\n"
+            "  case \"$l\" in\n"
+            "    *\\**) ;;\n"
+            "    *) echo \"stale batch lock present: $l\"; exit 1 ;;\n"
+            "  esac\n"
+            "done\n"
+            "echo 'factory state clean'\n"
+        )
+        r = subprocess.run(
+            ["bash", "-c", snippet], cwd=ROOT,
+            capture_output=True, text=True, timeout=30)
+        self.assertEqual(r.returncode, 0, r.stderr)
+
     def test_thresholds_not_weakened(self):
         rubric = json.load(io.open(os.path.join(
             ROOT, "config", "article-rubric.json"), encoding="utf-8"))
