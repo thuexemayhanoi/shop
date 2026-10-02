@@ -1,6 +1,3 @@
 {
-  "op": "publish",
-  "batch": "BATCH-012",
-  "ids": "XM-0100,CD-0100,HD-0100",
-  "date": "2026-09-30"
+  "op": "prepare-next"
 }
