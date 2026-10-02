@@ -13,6 +13,7 @@ name: Article Batch
 #   - optionally run deterministic QA (--qa) on whatever article files
 #     exist in the checkout, and write reports/batches/*.{json,md}
 #   - optionally write reports/batches/factory-progress.json (--progress)
+#   - assert no pending transaction marker / batch lock (fail-closed)
 #   - upload the reports as artifacts
 #
 # NO CRON: hourly repetition belongs to the EXTERNAL Mistral agent
@@ -127,6 +128,25 @@ jobs:
             *) echo "::error::qa failed with exit $code (tool/config=1, usage/lock=2, unknown=other; ONLY 0/3/4 are valid results)"; exit "$code" ;;
           esac
           exit 0
+
+      - name: Assert no pending transaction / batch lock
+        # Fail-closed postcondition, same contract as factory-publish-verify:
+        # a pending txn marker or a leftover batch lock means an earlier
+        # multi-file mutation was interrupted — surface it RED here instead
+        # of reporting green over a mid-transaction tree. Recovery belongs
+        # to the operator (factory --recover); this read-only workflow
+        # never recovers, never deletes lock/txn.
+        run: |
+          set -eu
+          test ! -f data/batches/txn/txn.json || { echo "::error::pending txn marker present — run factory --recover first"; exit 1; }
+          for l in data/batches/*.lock; do
+            test -z "$l" && continue
+            case "$l" in
+              *\**) ;;  # glob did not expand: no locks
+              *) echo "::error::batch lock present: $l"; exit 1 ;;
+            esac
+          done
+          echo "factory state clean (no txn marker, no batch lock)"
 
       - name: Upload batch reports
         if: always()

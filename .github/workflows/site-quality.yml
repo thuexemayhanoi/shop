@@ -13,10 +13,16 @@ name: Site Quality
 #   - canonical generator freshness: sitemap + category hubs byte-equality
 #   - site config coherence (config/site.json origin/baseurl/site_url)
 #   - business facts structural sanity (config/business-facts.json)
+#   - per-page legacy audit of every root .html page
+#     (scripts/audit_legacy_pages.py: H1 count, title/meta/canonical,
+#     heading hierarchy, broken local links, config-aware stale business
+#     claims, JSON-LD validity, duplicate content — the /shop equivalent
+#     of the vanchinh per-page validate_site.py checks, with business
+#     facts sourced from config instead of hardcoded)
 #
-# Missing dependency (reported, not faked): a dedicated per-page
-# validate_site.py (full link sweep, H1/schema audit of the legacy root
-# pages) does not exist in /shop yet.
+# The 2000-article corpus is NOT swept here: per-candidate validation and
+# the full published-articles audit belong to the article gates
+# (article-quality.yml) and factory-publish-verify.yml.
 
 on:
   push:
@@ -99,3 +105,17 @@ jobs:
               "requires_owner_confirmation section missing"
           print("business facts structurally sane (%d approved models)" % len(models))
           EOF
+      - name: Per-page legacy audit (root .html pages)
+        # Same strength as vanchinh site-quality per-page validation,
+        # adapted to the /shop engine: scripts/audit_legacy_pages.py is
+        # config-aware (business facts from config/business-facts.json,
+        # never hardcoded) and writes reports/seo/legacy-pages-audit-run.json
+        # as evidence. Exit 0 = no blocking issue on any root page.
+        run: python3 scripts/audit_legacy_pages.py
+      - name: Upload legacy audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-page-audit
+          path: reports/seo/
+          if-no-files-found: ignore
