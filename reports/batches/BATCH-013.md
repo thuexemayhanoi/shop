@@ -1,10 +1,10 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T22:56:18+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T23:01:43+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 16 | written: 16 | pass: 0 | published: 16
+- processed: 18 | written: 18 | pass: 0 | published: 18
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.3 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -26,8 +26,8 @@
 | CD-0105 | cam-nang/cung-duong/cd-0105-ra-tam-dao-bang-xe-may-di-trong-ngay-duoc-khong.html | PUBLISHED | 96 | 0 |  |
 | CD-0106 | cam-nang/cung-duong/cd-0106-chuyen-tam-dao-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 96 | 0 |  |
 | CD-0107 | cam-nang/cung-duong/cd-0107-duong-den-tam-dao-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 96 | 0 |  |
-| CD-0108 | cam-nang/cung-duong/cd-0108-cung-duong-vong-qua-dai-lai-co-gi-khac.html | PLANNED |  | 0 |  |
-| DL-0101 | cam-nang/du-lich/dl-0101-thang-nao-nen-di-tay-thien-bang-xe-may.html | PLANNED |  | 0 |  |
+| CD-0108 | cam-nang/cung-duong/cd-0108-cung-duong-vong-qua-dai-lai-co-gi-khac.html | PUBLISHED | 96 | 0 |  |
+| DL-0101 | cam-nang/du-lich/dl-0101-thang-nao-nen-di-tay-thien-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | DL-0102 | cam-nang/du-lich/dl-0102-dac-san-tay-thien-nao-phai-thu-khi-di-xe-may.html | PLANNED |  | 0 |  |
 | DL-0103 | cam-nang/du-lich/dl-0103-diem-ngam-hoang-hon-o-tay-thien-khi-di-xe-may.html | PLANNED |  | 0 |  |
 | DL-0104 | cam-nang/du-lich/dl-0104-lo-trinh-di-xe-may-tu-ha-noi-den-dai-lai.html | PLANNED |  | 0 |  |
