@@ -1,10 +1,10 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T00:57:22+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T01:10:12+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 38 | written: 38 | pass: 0 | published: 38
+- processed: 40 | written: 40 | pass: 0 | published: 40
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.5 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -48,8 +48,8 @@
 | KN-0103 | cam-nang/kinh-nghiem/kn-0103-chay-xe-may-duong-dai-nen-nghi-bao-lau-mot-lan.html | PUBLISHED | 100 | 0 |  |
 | KN-0104 | cam-nang/kinh-nghiem/kn-0104-kinh-nghiem-cho-do-di-bieu-khi-chay-xe-may.html | PUBLISHED | 100 | 0 |  |
 | KN-0105 | cam-nang/kinh-nghiem/kn-0105-kinh-nghiem-di-hai-nguoi-tren-mot-xe-thue.html | PUBLISHED | 100 | 0 |  |
-| KN-0106 | cam-nang/kinh-nghiem/kn-0106-kiem-tra-lai-xe-truoc-khi-tra-cho-chu-xe.html | PLANNED |  | 0 |  |
-| KN-0107 | cam-nang/kinh-nghiem/kn-0107-kinh-nghiem-doi-chieu-thong-tin-xe-khi-nhan.html | PLANNED |  | 0 |  |
+| KN-0106 | cam-nang/kinh-nghiem/kn-0106-kiem-tra-lai-xe-truoc-khi-tra-cho-chu-xe.html | PUBLISHED | 100 | 0 |  |
+| KN-0107 | cam-nang/kinh-nghiem/kn-0107-kinh-nghiem-doi-chieu-thong-tin-xe-khi-nhan.html | PUBLISHED | 100 | 0 |  |
 | KN-0108 | cam-nang/kinh-nghiem/kn-0108-kinh-nghiem-thoa-thuan-thoi-gian-tra-xe-linh-hoat.html | PLANNED |  | 0 |  |
 | KN-0109 | cam-nang/kinh-nghiem/kn-0109-chay-xe-may-thue-ra-tinh-can-chuan-bi-gi-them.html | PLANNED |  | 0 |  |
 | XM-0101 | cam-nang/xe-may/xm-0101-tieng-on-phat-ra-tu-xich-chinh-the-nao.html | PLANNED |  | 0 |  |
