@@ -118,6 +118,26 @@ jobs:
           set -eu
           python3 scripts/run_article_batch.py --next --prepare-agent
           python3 scripts/export_batch_rows.py
+          # Report-truth contract (verify_factory_state checks report
+          # counts against the matrix unconditionally): --prepare-agent
+          # mutates matrix statuses (PLANNED -> WRITING), so the batch +
+          # progress reports MUST be regenerated from the post-claim tree
+          # before the semantic verifier runs. The canonical regeneration
+          # is the same scoped --qa the qa/requeue ops use; freshly
+          # claimed rows have no draft files yet, so it only refreshes
+          # the reports.
+          if [ -z "$batch" ]; then
+            echo "::error::prepare-next requires batch in the command (report-truth regeneration runs the scoped --qa)"
+            exit 1
+          fi
+          qcode=0
+          python3 scripts/run_article_batch.py --batch "$batch" --qa || qcode=$?
+          case "$qcode" in
+            0) echo "report regen exit code: 0 (clean)" ;;
+            3) echo "report regen exit code: 3 (FAIL rows legitimately recorded)" ;;
+            4) echo "report regen exit code: 4 (REVIEW/BLOCKED rows legitimately recorded)" ;;
+            *) echo "::error::report regen failed with exit $qcode"; exit "$qcode" ;;
+          esac
 
       - name: requeue - eligible rows only (PASS/PUBLISHED skipped, stale-safe)
         if: env.op == 'requeue'
