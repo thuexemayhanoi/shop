@@ -1,10 +1,10 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T00:29:31+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T00:44:03+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 34 | written: 34 | pass: 0 | published: 34
+- processed: 36 | written: 36 | pass: 0 | published: 36
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -44,8 +44,8 @@
 | HD-0107 | cam-nang/hoi-dap/hd-0107-ngay-nao-duong-ve-que-dong-nhat-dip-le.html | PUBLISHED | 99 | 0 |  |
 | HD-0108 | cam-nang/hoi-dap/hd-0108-chay-xe-may-dem-ve-vung-ven-ha-noi-an-toan-khong.html | PUBLISHED | 99 | 0 |  |
 | KN-0101 | cam-nang/kinh-nghiem/kn-0101-mang-theo-bo-dung-cu-sua-xe-nho-khi-di-phuot.html | PUBLISHED | 100 | 0 |  |
-| KN-0102 | cam-nang/kinh-nghiem/kn-0102-kinh-nghiem-giu-am-khi-chay-xe-may-mua-dong.html | PLANNED |  | 0 |  |
-| KN-0103 | cam-nang/kinh-nghiem/kn-0103-chay-xe-may-duong-dai-nen-nghi-bao-lau-mot-lan.html | PLANNED |  | 0 |  |
+| KN-0102 | cam-nang/kinh-nghiem/kn-0102-kinh-nghiem-giu-am-khi-chay-xe-may-mua-dong.html | PUBLISHED | 100 | 0 |  |
+| KN-0103 | cam-nang/kinh-nghiem/kn-0103-chay-xe-may-duong-dai-nen-nghi-bao-lau-mot-lan.html | PUBLISHED | 100 | 0 |  |
 | KN-0104 | cam-nang/kinh-nghiem/kn-0104-kinh-nghiem-cho-do-di-bieu-khi-chay-xe-may.html | PLANNED |  | 0 |  |
 | KN-0105 | cam-nang/kinh-nghiem/kn-0105-kinh-nghiem-di-hai-nguoi-tren-mot-xe-thue.html | PLANNED |  | 0 |  |
 | KN-0106 | cam-nang/kinh-nghiem/kn-0106-kiem-tra-lai-xe-truoc-khi-tra-cho-chu-xe.html | PLANNED |  | 0 |  |
