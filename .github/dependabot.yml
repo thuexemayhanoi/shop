@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # GitHub Actions versions — the only package ecosystem the repo actually
+  # consumes (no npm/package.json manifest exists; scripts/js is plain mjs
+  # with no dependencies).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    # Policy: Dependabot only OPENS PRs. Every update PR must pass the
+    # existing QA suite and the SEO PR verifier before merge. Never
+    # auto-merge major upgrades.
+    labels:
+      - "dependencies"
+      - "github-actions"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"

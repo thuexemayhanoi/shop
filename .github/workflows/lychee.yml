@@ -1,0 +1,92 @@
+name: Lychee link check (readonly)
+
+# Independent link checker. Read-only. Never edits articles because one
+# external site timed out; transient external failures are retried with a
+# limited failure budget (.github/lychee.toml).
+# The site is plain static HTML: the deployable tree is copied to dist/shop
+# and scanned with --root-dir so root-absolute internal links resolve
+# exactly like on GitHub Pages. Internal routes are ALSO covered by the
+# SEO engine (scripts/seo/seo_audit.py) in the PR verifier.
+
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - '.github/lychee.toml'
+      - '.github/workflows/lychee.yml'
+  schedule:
+    - cron: "0 20 * * 1"  # weekly, off-peak UTC, read-only
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lychee-readonly
+  cancel-in-progress: false
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble deployable tree (Pages-equivalent)
+        run: |
+          set -euo pipefail
+          mkdir -p dist/shop
+          rsync -a \
+            --exclude '.github' --exclude '.git*' \
+            --exclude 'AGENTS.md' --exclude 'README.md' --exclude 'ARCHITECTURE.md' \
+            --exclude 'config/' --exclude 'data/' --exclude 'docs/' \
+            --exclude 'reports/' --exclude 'scripts/' --exclude 'tests/' \
+            --exclude '_data/' --exclude '_includes/' --exclude '_snippets/' \
+            --exclude 'motoai_v3*.js' --exclude 'motoai_v4*.js' \
+            ./ dist/shop/
+          echo "pages: $(find dist/shop -name '*.html' | wc -l)"
+
+      - name: Run Lychee (local files, absolute links resolved via root-dir)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --config .github/lychee.toml
+            --root-dir "${{ github.workspace }}/dist"
+            --verbose --no-progress
+            './dist/shop/**/*.html'
+          lycheeVersion: v0.18.1
+          fail: false
+          format: json
+          output: lychee-report.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enforce budget (internal hard-fail, external budget 10)
+        run: |
+          set -u
+          python3 - <<'PY2'
+          import json, re, sys
+          def clean(x):
+              return re.sub(r'[^ -~]', ' ', str(x))[:150]
+          with open('lychee-report.json') as f:
+              data = json.load(f)
+          internal, external = [], []
+          for src, links in (data.get('error_map') or {}).items():
+              for l in links:
+                  url = str(l.get('url', ''))
+                  status = l.get('status') or {}
+                  code = clean(status.get('text', '?'))
+                  entry = (code, url, src)
+                  (internal if url.startswith('file://') else external).append(entry)
+          print('::error::LYCHEE internal=%d external=%d budget=10' % (len(internal), len(external)))
+          for code, url, src in (internal + external)[:40]:
+              print('::error::LYCHEE_FAIL code=%s url=%s src=%s' % (code, clean(url), clean(src)))
+          if internal:
+              print('::error::lychee INTERNAL link failures - hard fail')
+              sys.exit(1)
+          if len(external) > 10:
+              print('::error::lychee external failures exceed budget 10')
+              sys.exit(1)
+          print('::notice::lychee within budget (0 internal, %d external)' % len(external))
+          PY2

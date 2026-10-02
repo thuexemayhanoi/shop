@@ -1,0 +1,28 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./dist",
+      "url": [
+        "http://localhost/shop/index.html",
+        "http://localhost/shop/banggia.html",
+        "http://localhost/shop/xemay.html",
+        "http://localhost/shop/cam-nang/chu-de/kn-honda-wave.html",
+        "http://localhost/shop/cam-nang/kinh-nghiem/kn-0001-kinh-nghiem-thue-honda-wave-o-ha-noi-cho-nguoi-moi.html",
+        "http://localhost/shop/cam-nang/cung-duong/cd-0001-cung-duong-di-xe-may-tu-ha-noi-den-bac-ninh.html",
+        "http://localhost/shop/cam-nang/hoi-dap/hd-0004-bao-hiem-tnds-xe-may-la-gi.html"
+      ],
+      "numberOfRuns": 1,
+      "settings": { "onlyCategories": ["performance", "accessibility", "best-practices", "seo"] }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.75 }],
+        "categories:accessibility": ["error", { "minScore": 0.85 }],
+        "categories:best-practices": ["error", { "minScore": 0.85 }],
+        "categories:seo": ["error", { "minScore": 0.9 }],
+        "largest-contentful-paint": ["warn", { "maxNumericValue": 4000 }],
+        "cumulative-layout-shift": ["warn", { "maxNumericValue": 0.15 }]
+      }
+    }
+  }
+}

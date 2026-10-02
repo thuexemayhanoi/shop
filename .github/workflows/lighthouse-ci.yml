@@ -1,0 +1,91 @@
+name: Lighthouse CI (lab)
+
+# Representative-page lab performance check. Lab scores only — NOT field
+# Core Web Vitals. Blocks on regression with tolerance to avoid failing the
+# repo for tiny score noise. Never modifies article prose.
+# The public site is plain static HTML: the deployable tree is a filtered
+# copy of the repo (same excludes as _config.yml), served from /shop, so
+# root-absolute internal links resolve exactly like on Pages.
+
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - 'assets/**'
+      - '_includes/**'
+      - '_snippets/**'
+      - '_config.yml'
+      - '.github/workflows/lighthouse-ci.yml'
+      - '.github/lighthouserc.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lighthouse-readonly
+  cancel-in-progress: false
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble deployable tree (Pages-equivalent, no build needed)
+        run: |
+          set -euo pipefail
+          mkdir -p dist/shop
+          rsync -a \
+            --exclude '.github' --exclude '.git*' \
+            --exclude 'AGENTS.md' --exclude 'README.md' --exclude 'ARCHITECTURE.md' \
+            --exclude 'config/' --exclude 'data/' --exclude 'docs/' \
+            --exclude 'reports/' --exclude 'scripts/' --exclude 'tests/' \
+            --exclude '_data/' --exclude '_includes/' --exclude '_snippets/' \
+            --exclude 'motoai_v3*.js' --exclude 'motoai_v4*.js' \
+            ./ dist/shop/
+          echo "pages:"; ls dist/shop | head -20
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: .github/lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: false
+
+      - name: Report LHCI scores + failed assertions (annotations)
+        if: always()
+        run: |
+          set -u
+          if [ ! -d .lighthouseci ]; then
+            echo "::error::LHCI produced no .lighthouseci output"
+            exit 0
+          fi
+          python3 - <<'PY'
+          import json, glob
+          # scores
+          for f in sorted(glob.glob('.lighthouseci/lhr-*.json'))[:7]:
+              try:
+                  d = json.load(open(f))
+                  print(f"::notice::LH {d.get('finalDisplayedUrl','?')[:70]} "
+                        f"perf={d['categories']['performance']['score']} "
+                        f"a11y={d['categories']['accessibility']['score']} "
+                        f"bp={d['categories']['best-practices']['score']} "
+                        f"seo={d['categories']['seo']['score']}")
+              except Exception as e:
+                  pass
+          f = '.lighthouseci/assertion-results.json'
+          try:
+              data = json.load(open(f))
+          except Exception:
+              print("::error::no assertion-results.json produced")
+              raise SystemExit
+          fails = 0
+          for r in data:
+              for k, v in (r.get('assertions') or {}).items():
+                  if not v.get('passed'):
+                      fails += 1
+                      print(f"::error::LHCI FAIL {r.get('url','')[:60]} {k} "
+                            f"expected={v.get('expected')} actual={v.get('actual')}")
+          print(f"::error::LHCI failing assertions: {fails}")
+          PY

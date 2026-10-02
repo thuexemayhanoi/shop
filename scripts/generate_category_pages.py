@@ -114,7 +114,13 @@ def inject_hub_block(hub_path, block):
     return text + "\n" + block + "\n", True
 
 
-def render_page_n(cat, rows, page, total_pages, hub, baseurl):
+def render_page_n(cat, rows, page, total_pages, hub, baseurl, site_url=None):
+    if site_url is None:
+        # backward-compatible default: the live absolute site URL
+        try:
+            site_url = lib.load_site_config()["site_url"]
+        except Exception:
+            site_url = baseurl
     base = baseurl.rstrip("/")
     items = card_list(rows, baseurl)
     parts = []
@@ -142,7 +148,7 @@ def render_page_n(cat, rows, page, total_pages, hub, baseurl):
         "%s%s"
         "</body>\n</html>\n"
         % (html.escape(cat), page, html.escape(cat), page,
-           base, CAT_DIR[cat], page,
+           site_url, CAT_DIR[cat], page,
            html.escape(cat), page,
            base, base, hub, html.escape(cat), page,
            items, nav, footer_compact(), CHATBOT_EMBED))
@@ -190,7 +196,7 @@ def main():
             os.makedirs(d, exist_ok=True)
             with io.open(os.path.join(d, "page-%d.html" % page), "w",
                          encoding="utf-8") as f:
-                f.write(render_page_n(cat, chunk, page, total_pages, hub, baseurl))
+                f.write(render_page_n(cat, chunk, page, total_pages, hub, baseurl, site["site_url"]))
             written += 1
         # 3) remove stale page files beyond current pagination
         d = lib.repo_path("cam-nang", CAT_DIR[cat])
