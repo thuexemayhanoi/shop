@@ -1,10 +1,10 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T22:50:47+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T22:56:18+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 14 | written: 14 | pass: 0 | published: 14
+- processed: 16 | written: 16 | pass: 0 | published: 16
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.6 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.3 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -24,8 +24,8 @@
 | CD-0103 | cam-nang/cung-duong/cd-0103-ke-hoach-3-ngay-2-dem-o-thung-nai-cho-nguoi-chay-xe.html | PUBLISHED | 96 | 0 |  |
 | CD-0104 | cam-nang/cung-duong/cd-0104-noi-tiep-nuoc-va-nghi-giai-lao-di-thung-nai.html | PUBLISHED | 96 | 0 |  |
 | CD-0105 | cam-nang/cung-duong/cd-0105-ra-tam-dao-bang-xe-may-di-trong-ngay-duoc-khong.html | PUBLISHED | 96 | 0 |  |
-| CD-0106 | cam-nang/cung-duong/cd-0106-chuyen-tam-dao-hai-ngay-xuat-phat-va-nghi-o-dau.html | PLANNED |  | 0 |  |
-| CD-0107 | cam-nang/cung-duong/cd-0107-duong-den-tam-dao-nen-dung-o-dau-de-chup-anh.html | PLANNED |  | 0 |  |
+| CD-0106 | cam-nang/cung-duong/cd-0106-chuyen-tam-dao-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 96 | 0 |  |
+| CD-0107 | cam-nang/cung-duong/cd-0107-duong-den-tam-dao-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 96 | 0 |  |
 | CD-0108 | cam-nang/cung-duong/cd-0108-cung-duong-vong-qua-dai-lai-co-gi-khac.html | PLANNED |  | 0 |  |
 | DL-0101 | cam-nang/du-lich/dl-0101-thang-nao-nen-di-tay-thien-bang-xe-may.html | PLANNED |  | 0 |  |
 | DL-0102 | cam-nang/du-lich/dl-0102-dac-san-tay-thien-nao-phai-thu-khi-di-xe-may.html | PLANNED |  | 0 |  |
