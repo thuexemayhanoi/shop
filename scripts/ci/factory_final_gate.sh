@@ -65,7 +65,38 @@ python3 scripts/generate_category_pages.py --check
 
 echo "== [gate L2] working tree hygiene (whitespace/conflict markers)"
 if [ -d .git ]; then
-  git diff --check
+  ws_findings="$(mktemp)"
+  if ! git diff --check > "$ws_findings"; then
+    echo "== [gate L2] git diff --check FAILED — whitespace/conflict-marker findings:"
+    cat "$ws_findings"
+    # Self-instrumenting evidence (behavior unchanged: still fail-closed
+    # exit 2 on findings): surface the findings AND the working-tree diff
+    # of the first implicated file as CI annotations, so a red run
+    # pinpoints the exact offending file:line even without raw-log access.
+    ws_msg=""
+    ws_count=0
+    while IFS= read -r fline; do
+      [ -n "$fline" ] || continue
+      ws_msg="${ws_msg}${fline}%0A"
+      ws_count=$((ws_count + 1))
+      if [ "$ws_count" -ge 15 ]; then break; fi
+    done < "$ws_findings"
+    echo "::error::[gate L2 whitespace] git diff --check failed. Findings: $ws_msg"
+    first_file="$(grep -oE '^[^:]+:' "$ws_findings" | head -1 | cut -d: -f1 || true)"
+    if [ -n "$first_file" ]; then
+      diff_excerpt="$(git diff -- "$first_file" 2>/dev/null | head -c 5000 || true)"
+      if [ -n "$diff_excerpt" ]; then
+        enc="$(printf '%s' "$diff_excerpt" | python3 -c 'import sys
+data = sys.stdin.read()
+data = data.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+sys.stdout.write(data[:5500])')"
+        echo "::error::[gate L2 whitespace] working-tree diff of $first_file (first 5500 chars): $enc"
+      fi
+    fi
+    rm -f "$ws_findings"
+    exit 2
+  fi
+  rm -f "$ws_findings"
 else
   echo "(no .git directory present — git diff --check skipped)"
 fi

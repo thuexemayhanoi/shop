@@ -1,1 +1,1 @@
-{"op":"prepare-next","batch":"BATCH-013","note":"retrigger: byte-identical re-push e584569 did not trigger the workflow paths filter; canonical report regen per 25e3b3f"}
+{"op":"prepare-next","batch":"BATCH-013","note":"retrigger: gate L2 hygiene is now self-instrumenting (whitespace findings emitted as annotations); claim XM-0107/XM-0108"}
