@@ -1,10 +1,10 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T23:37:39+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T23:43:29+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 28 | written: 28 | pass: 0 | published: 28
+- processed: 30 | written: 30 | pass: 0 | published: 30
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -38,8 +38,8 @@
 | HD-0101 | cam-nang/hoi-dap/hd-0101-duong-len-ba-vi-xe-may-co-bi-han-che-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0102 | cam-nang/hoi-dap/hd-0102-chay-xe-may-vong-quanh-ho-tay-bao-lau.html | PUBLISHED | 100 | 0 |  |
 | HD-0103 | cam-nang/hoi-dap/hd-0103-tu-ha-noi-den-tam-dao-duong-xa-khong.html | PUBLISHED | 100 | 0 |  |
-| HD-0104 | cam-nang/hoi-dap/hd-0104-tu-ha-noi-len-chua-huong-mat-bao-lau-bang-xe-may.html | PLANNED |  | 0 |  |
-| HD-0105 | cam-nang/hoi-dap/hd-0105-di-ha-long-bang-xe-may-mat-may-tieng.html | PLANNED |  | 0 |  |
+| HD-0104 | cam-nang/hoi-dap/hd-0104-tu-ha-noi-len-chua-huong-mat-bao-lau-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
+| HD-0105 | cam-nang/hoi-dap/hd-0105-di-ha-long-bang-xe-may-mat-may-tieng.html | PUBLISHED | 100 | 0 |  |
 | HD-0106 | cam-nang/hoi-dap/hd-0106-di-cat-ba-bang-xe-may-phai-gui-xe-o-dau.html | PLANNED |  | 0 |  |
 | HD-0107 | cam-nang/hoi-dap/hd-0107-ngay-nao-duong-ve-que-dong-nhat-dip-le.html | PLANNED |  | 0 |  |
 | HD-0108 | cam-nang/hoi-dap/hd-0108-chay-xe-may-dem-ve-vung-ven-ha-noi-an-toan-khong.html | PLANNED |  | 0 |  |
