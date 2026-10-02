@@ -1,3 +1,4 @@
 {
-  "op": "prepare-next"
+  "op": "requeue",
+  "ids": "XM-0103,XM-0104"
 }
