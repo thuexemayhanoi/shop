@@ -1,8 +1,8 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T23:23:12+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-02T23:31:11+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 24 | written: 24 | pass: 0 | published: 24
+- processed: 26 | written: 26 | pass: 0 | published: 26
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.9 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -34,8 +34,8 @@
 | DL-0105 | cam-nang/du-lich/dl-0105-di-xe-may-den-dai-lai-cuoi-tuan-hay-ngay-thuong.html | PUBLISHED | 96 | 0 |  |
 | DL-0106 | cam-nang/du-lich/dl-0106-quan-an-noi-tieng-gan-dai-lai-cho-khach-di-xe-may.html | PUBLISHED | 96 | 0 |  |
 | DL-0107 | cam-nang/du-lich/dl-0107-chup-anh-sang-som-o-dai-lai-co-gi-dep.html | PUBLISHED | 98 | 0 |  |
-| DL-0108 | cam-nang/du-lich/dl-0108-di-trong-ngay-den-ho-nui-coc-bang-xe-may-co-dang-khong.html | PLANNED |  | 0 |  |
-| HD-0101 | cam-nang/hoi-dap/hd-0101-duong-len-ba-vi-xe-may-co-bi-han-che-khong.html | PLANNED |  | 0 |  |
+| DL-0108 | cam-nang/du-lich/dl-0108-di-trong-ngay-den-ho-nui-coc-bang-xe-may-co-dang-khong.html | PUBLISHED | 96 | 0 |  |
+| HD-0101 | cam-nang/hoi-dap/hd-0101-duong-len-ba-vi-xe-may-co-bi-han-che-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0102 | cam-nang/hoi-dap/hd-0102-chay-xe-may-vong-quanh-ho-tay-bao-lau.html | PLANNED |  | 0 |  |
 | HD-0103 | cam-nang/hoi-dap/hd-0103-tu-ha-noi-den-tam-dao-duong-xa-khong.html | PLANNED |  | 0 |  |
 | HD-0104 | cam-nang/hoi-dap/hd-0104-tu-ha-noi-len-chua-huong-mat-bao-lau-bang-xe-may.html | PLANNED |  | 0 |  |
