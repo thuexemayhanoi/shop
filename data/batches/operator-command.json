@@ -1,1 +1,1 @@
-{"batch":"BATCH-013","op":"prepare-next"}
+{"op":"prepare-next","batch":"BATCH-013","note":"retrigger: byte-identical re-push e584569 did not trigger the workflow paths filter; canonical report regen per 25e3b3f"}
