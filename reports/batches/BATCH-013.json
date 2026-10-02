@@ -1,7 +1,7 @@
 {
   "batch_id": "BATCH-013",
   "started_at": "2026-10-01T10:47:35+07:00",
-  "finished_at": "2026-10-03T03:23:47+07:00",
+  "finished_at": "2026-10-03T03:30:45+07:00",
   "writer": "external-agent",
   "processed": 46,
   "written": 46,
@@ -9,10 +9,10 @@
   "published": 44,
   "writing": 0,
   "review": 0,
-  "repair": 2,
-  "fail": 0,
+  "repair": 0,
+  "fail": 2,
   "blocked": 0,
-  "average_score": 98.7,
+  "average_score": 98.6,
   "min_score": 95,
   "max_score": 100,
   "repair_count": 0,
@@ -508,10 +508,18 @@
     {
       "article_id": "XM-0103",
       "output_path": "cam-nang/xe-may/xm-0103-xe-kho-no-buoi-sang-lanh.html",
-      "outcome": "REPAIR",
-      "score": 100,
+      "outcome": "FAIL",
+      "score": 95,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "broken internal link: 'cam-na\\nng/chu-de/'",
+        "word broken across newline: 'na\\nng'",
+        "word broken across newline: 'hợ\\np'",
+        "word broken across newline: 'dù\\nng'",
+        "word broken across newline: '5\\nA2'",
+        "newline inside HTML tag",
+        "broken internal link: 'cam-na\\nng/chu-de/'"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": [],
       "qa_warning": null
@@ -519,10 +527,16 @@
     {
       "article_id": "XM-0104",
       "output_path": "cam-nang/xe-may/xm-0104-xe-no-may-roi-chet-ngay-nguyen-nhan.html",
-      "outcome": "REPAIR",
+      "outcome": "FAIL",
       "score": 100,
       "repair_attempts": 0,
-      "quality_failures": [],
+      "quality_failures": [
+        "word broken across newline: 'cla\\nss'",
+        "word broken across newline: 'l\\nà'",
+        "word broken across newline: 'to\\nàn'",
+        "word broken across newline: 't\\nrạng'",
+        "newline inside HTML tag"
+      ],
       "cannibalization_failures": [],
       "cannibalization_warnings": [],
       "qa_warning": null
