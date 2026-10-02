@@ -1,0 +1,68 @@
+name: Factory Soak (Tier 4)
+
+# On-demand hermetic soak / fault-injection run ported from the vanchinh
+# design and adapted to the /shop engine: the multi-chunk publish cycles
+# with failure injection (crash after a begun transaction, crash after
+# partial writes, stale lock, invariant validation faults, writer resume)
+# live inside the deterministic test suite (tests/test_factory_reliability.py),
+# which runs against temp fixture copies of the repository and NEVER
+# touches production state. This workflow PROVES it: the production tree
+# (matrix, sitemap, cam-nang articles, batch reports) is checksummed
+# before and after the soak and must be byte-identical.
+#
+# Missing /vanchinh dependency (reported, not faked): /shop has no
+# standalone tests/factory_soak.py runner; the hermetic soak suite inside
+# tests/test_factory_reliability.py is the engine's equivalent and is
+# what this workflow runs.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: factory-soak
+  cancel-in-progress: false
+
+jobs:
+  soak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Fingerprint production state before the soak
+        run: |
+          set -eu
+          find data sitemap.xml cam-nang reports/batches -type f 2>/dev/null \
+            | LC_ALL=C sort | xargs -r sha256sum > /tmp/soak-before.sha256
+          echo "checksummed $(wc -l < /tmp/soak-before.sha256) production files"
+      - name: Hermetic soak suite (failure injection on temp fixtures)
+        run: python3 -m unittest tests.test_factory_reliability -v
+      - name: Node factory suite
+        run: |
+          set -eu
+          shopt -s nullglob globstar
+          NODE_TEST_FILES=(tests/js/**/*.test.mjs)
+          shopt -u nullglob globstar
+          if [ "${#NODE_TEST_FILES[@]}" -eq 0 ]; then
+            echo "node test suite missing: no tests/js/**/*.test.mjs files" >&2
+            exit 1
+          fi
+          node --test "${NODE_TEST_FILES[@]}"
+      - name: Assert production state byte-identical after the soak
+        run: |
+          set -eu
+          find data sitemap.xml cam-nang reports/batches -type f 2>/dev/null \
+            | LC_ALL=C sort | xargs -r sha256sum > /tmp/soak-after.sha256
+          if ! diff -u /tmp/soak-before.sha256 /tmp/soak-after.sha256; then
+            echo "::error::soak run MUTATED production state — hermetic contract violated"
+            exit 1
+          fi
+          echo "production state untouched (byte-identical checksums)"

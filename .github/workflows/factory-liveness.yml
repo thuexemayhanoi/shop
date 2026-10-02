@@ -1,0 +1,74 @@
+name: Factory Liveness Watchdog
+
+# READ-ONLY watchdog ported from the vanchinh design and adapted to the
+# /shop engine: scripts/factory_health.py is the deterministic evaluator.
+# It never recovers, never deletes lock/txn, never claims, never
+# publishes, never pushes anything. Non-healthy states fail this
+# workflow so a stall is visible in Actions instead of hiding behind
+# green publish runs.
+#
+# NOTE: unlike /vanchinh this watchdog is manual-only (workflow_dispatch).
+# The /shop test suite enforces a strict no-scheduled-runs policy for
+# every workflow file in this repository (tests/test_production_standard.py
+# test_no_cron_anywhere), so the periodic cadence of the vanchinh
+# watchdog must be driven by the external operator scheduler, or added
+# later via an explicit contract change (not silently here).
+#
+# Verdict mapping (deterministic, scripts/factory_health.py decides):
+#   RED:   RECOVERY_REQUIRED / BLOCKED / READY_FOR_PUBLISH / READY_FOR_QA
+#          (pending transaction, blocked rows, or an actionable queue the
+#          production pipeline is not consuming)
+#   GREEN: WAITING_FOR_WRITER / LOCKED / COMPLETE / HEALTHY
+# WAITING_FOR_WRITER is a legitimate, healthy state: the factory is
+# driven by an EXTERNAL writer and waiting is never a stall by itself.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: factory-liveness
+  cancel-in-progress: false
+
+jobs:
+  liveness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Read-only liveness check (fail on problem states)
+        run: |
+          set -eu
+          python3 scripts/factory_health.py > /tmp/health.json
+          status="$(python3 -c 'import json;print(json.load(open("/tmp/health.json"))["status"])')"
+          echo "factory health verdict: $status"
+          case "$status" in
+            WAITING_FOR_WRITER|LOCKED|COMPLETE|HEALTHY)
+              echo "healthy / legitimately waiting — watchdog green"
+              ;;
+            RECOVERY_REQUIRED)
+              echo "::error::pending transaction marker under data/batches/txn/ — run factory --recover first"
+              exit 1
+              ;;
+            BLOCKED)
+              echo "::error::FAIL/BLOCKED rows exist and nothing else is actionable — operator attention required"
+              exit 1
+              ;;
+            READY_FOR_PUBLISH)
+              echo "::error::PASS rows with written files exist but were never published — publish pipeline stalled"
+              exit 1
+              ;;
+            READY_FOR_QA)
+              echo "::error::WRITING rows with written files exist but were never QA'd — pipeline not consuming the queue"
+              exit 1
+              ;;
+            *)
+              echo "::error::unknown health verdict: $status"
+              exit 1
+              ;;
+          esac

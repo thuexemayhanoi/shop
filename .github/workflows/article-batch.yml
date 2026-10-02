@@ -1,0 +1,137 @@
+name: Article Batch
+
+# DETERMINISTIC HELPER ONLY — GitHub Actions never writes articles and
+# never calls any AI API. The Mistral agent (or a human) is the writer and
+# the publisher; it runs scripts/run_article_batch.py locally, writes the
+# article files itself, QA-repairs them and pushes PASS files + matrix to
+# MAIN. This workflow only verifies repository state and prepares checks:
+#
+#   - validate content matrix
+#   - run the factory test suite
+#   - respect the kill switch (config/content-factory.json)
+#   - optionally DRY-RUN batch resolution (--next / --batch / --pilot)
+#   - optionally run deterministic QA (--qa) on whatever article files
+#     exist in the checkout, and write reports/batches/*.{json,md}
+#   - optionally write reports/batches/factory-progress.json (--progress)
+#   - upload the reports as artifacts
+#
+# NO CRON: hourly repetition belongs to the EXTERNAL Mistral agent
+# scheduler, not GitHub Actions. NEVER add an AI-writing cron here.
+#
+# NO SECRETS: no AI API keys of any kind, no provider modules, no API calls.
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_id:
+        description: "Batch to inspect, e.g. BATCH-001 (empty = --next resolution)"
+        required: false
+        default: ""
+      batch_size:
+        description: "Max articles per batch (default 50, max 50)"
+        required: false
+        default: "50"
+      pilot:
+        description: "Pilot mode: BATCH-001 only, max 50, no chaining"
+        type: boolean
+        required: false
+        default: false
+      dry_run:
+        description: "Resolve the batch and show what would run (no writes)"
+        type: boolean
+        required: false
+        default: true
+      qa:
+        description: "Run deterministic QA on written files present in this checkout"
+        type: boolean
+        required: false
+        default: false
+      progress:
+        description: "Write reports/batches/factory-progress.json"
+        type: boolean
+        required: false
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: article-batch-production
+  cancel-in-progress: false
+
+jobs:
+  batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Check kill switch (config/content-factory.json)
+        run: |
+          set -eu
+          enabled=$(python3 -c "import json;print(json.load(open('config/content-factory.json'))['enabled'])")
+          echo "content-factory enabled = $enabled"
+          if [ "$enabled" != "True" ]; then
+            echo "FACTORY_PAUSED: kill switch off — reports only."
+          fi
+
+      - name: Run factory test suite
+        run: python3 -m unittest discover tests
+
+      - name: Validate content matrix
+        run: python3 scripts/validate_content_matrix.py
+
+      - name: Resolve batch + dry-run scope
+        run: |
+          set -eu
+          args="--batch-size ${{ github.event.inputs.batch_size || '50' }}"
+          if [ -n "${{ github.event.inputs.batch_id }}" ]; then
+            args="$args --batch ${{ github.event.inputs.batch_id }}"
+          else
+            args="$args --next"
+          fi
+          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then
+            args="$args --pilot"
+          fi
+          python3 scripts/run_article_batch.py $args --dry-run --progress
+
+      - name: Deterministic QA (optional, read-only reports)
+        if: ${{ github.event.inputs.qa == 'true' }}
+        run: |
+          set -u
+          args="--batch-size ${{ github.event.inputs.batch_size || '50' }}"
+          if [ -n "${{ github.event.inputs.batch_id }}" ]; then
+            args="$args --batch ${{ github.event.inputs.batch_id }}"
+          else
+            args="$args --next"
+          fi
+          if [ "${{ github.event.inputs.pilot }}" = "true" ]; then
+            args="$args --pilot"
+          fi
+          code=0
+          python3 scripts/run_article_batch.py $args --qa --progress || code=$?
+          # FAIL-CLOSED exit contract: 0 = operation valid,
+          # 3 = FAIL rows legitimately recorded, 4 = REVIEW/BLOCKED
+          # legitimately recorded. 1 (tool/config), 2 (usage/lock) and
+          # any unknown exit FAIL the workflow — a red QA tool must
+          # never finish green.
+          case "$code" in
+            0) echo "qa exit code: 0 (operation valid)" ;;
+            3) echo "qa exit code: 3 (FAIL rows legitimately recorded)" ;;
+            4) echo "qa exit code: 4 (REVIEW/BLOCKED rows legitimately recorded)" ;;
+            *) echo "::error::qa failed with exit $code (tool/config=1, usage/lock=2, unknown=other; ONLY 0/3/4 are valid results)"; exit "$code" ;;
+          esac
+          exit 0
+
+      - name: Upload batch reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-reports
+          path: reports/batches/
+          if-no-files-found: ignore

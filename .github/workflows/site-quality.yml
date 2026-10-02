@@ -1,0 +1,101 @@
+name: Site Quality
+
+# Static site quality gate ported from the vanchinh design and adapted to
+# the /shop engine. /vanchinh runs scripts/validate_site.py (links,
+# canonical, hours, domain, H1); that validator does not exist in /shop,
+# so this workflow composes the equivalent checks from the existing
+# canonical tooling and keeps the machine-readable configs as the single
+# source of truth (no business facts are hardcoded in this file):
+#
+#   - content matrix invariants (scripts/validate_content_matrix.py)
+#   - whole-site coherence: hub/sitemap consistency, duplicate URLs,
+#     unpublished-file leaks (scripts/js/factory.mjs --consistency)
+#   - canonical generator freshness: sitemap + category hubs byte-equality
+#   - site config coherence (config/site.json origin/baseurl/site_url)
+#   - business facts structural sanity (config/business-facts.json)
+#
+# Missing dependency (reported, not faked): a dedicated per-page
+# validate_site.py (full link sweep, H1/schema audit of the legacy root
+# pages) does not exist in /shop yet.
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'assets/**', 'robots.txt', 'sitemap.xml', 'config/**', '_includes/**', '_snippets/**', '.github/workflows/site-quality.yml']
+  pull_request:
+    paths: ['**.html', 'assets/**', 'robots.txt', 'sitemap.xml', 'config/**', '_includes/**', '_snippets/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Content matrix invariants
+        run: python3 scripts/validate_content_matrix.py
+      - name: Whole-site coherence (hubs, sitemap, duplicate URLs, unpublished leaks)
+        run: node scripts/js/factory.mjs --consistency
+      - name: Canonical generator freshness (sitemap and hub byte-equality)
+        run: |
+          set -eu
+          python3 scripts/generate_sitemap.py --check
+          python3 scripts/generate_category_pages.py --check
+      - name: Site config coherence
+        run: |
+          set -eu
+          python3 - <<'EOF'
+          import json, pathlib
+          site = json.loads(pathlib.Path("config/site.json").read_text(encoding="utf-8"))
+          origin = (site.get("origin") or "").rstrip("/")
+          baseurl = (site.get("baseurl") or "").strip()
+          assert origin.startswith("https://"), "origin must be an https URL"
+          assert baseurl.startswith("/"), "baseurl must be an absolute path"
+          expected = origin + baseurl
+          assert site.get("site_url") == expected, \
+              "site_url must equal origin + baseurl (expected %s)" % expected
+          robots = pathlib.Path("robots.txt")
+          assert robots.is_file() and robots.stat().st_size > 0, \
+              "robots.txt missing or empty"
+          print("site config coherent: %s" % expected)
+          EOF
+      - name: Business facts sanity (config is the source of truth)
+        run: |
+          set -eu
+          python3 - <<'EOF'
+          import json, pathlib
+          facts = json.loads(pathlib.Path("config/business-facts.json").read_text(encoding="utf-8"))
+          trusted = facts.get("trusted") or {}
+          business = trusted.get("business") or {}
+          for key in ("name", "city", "phone", "opening_hours"):
+              assert (business.get(key) or "").strip(), \
+                  "trusted.business.%s must be a non-empty string" % key
+          assert (trusted.get("currency") or "").strip(), \
+              "trusted.currency must be a non-empty string"
+          models = trusted.get("approved_models") or {}
+          assert models, "trusted.approved_models must not be empty"
+          for mid, m in models.items():
+              assert (m.get("name") or "").strip(), "model %s: missing name" % mid
+              for band in ("daily", "week"):
+                  assert isinstance(m.get(band), int) and m[band] > 0, \
+                      "model %s: %s must be a positive integer" % (mid, band)
+              lo, hi = m.get("monthMin"), m.get("monthMax")
+              assert isinstance(lo, int) and isinstance(hi, int) and 0 < lo <= hi, \
+                  "model %s: monthMin/monthMax must be a valid range" % mid
+          assert "requires_owner_confirmation" in facts, \
+              "requires_owner_confirmation section missing"
+          print("business facts structurally sane (%d approved models)" % len(models))
+          EOF

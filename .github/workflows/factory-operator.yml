@@ -1,0 +1,384 @@
+name: Factory Operator Tooling
+
+# WHY THIS EXISTS: the external operator runtime (the Mistral agent) has no
+# local Node/Python/git and no direct network access, so it cannot run
+# scripts/js/factory.mjs on its own machine. This workflow is the operator's
+# HANDS ONLY: it reads one whitelisted, deterministic command from
+# data/batches/operator-command.json (pushed by the operator) and executes
+# ONLY canonical repository tooling. It never writes editorial article
+# content, never invents facts, contains no AI, no cron, no secrets beyond
+# the default GITHUB_TOKEN, and pushes only the deterministic outputs of
+# the canonical scripts (matrix ledger state, category hubs, sitemap.xml,
+# batch reports, exported per-row writer manifests under
+# reports/batches/<batch>/rows/ and — for the apply-article-shell op — the
+# presentation-structure shell produced by scripts/apply_article_shell.py,
+# which is forbidden from touching prose, links, canonicals or dates).
+# The operator (AI or human) remains the sole writer of article bodies.
+#
+# FAIL-CLOSED CONTRACT (four-layer reliability hardening):
+#   - QA/requeue exit codes are contract-checked: ONLY 0/3/4 (0=ok,
+#     3=FAIL/refusals recorded, 4=REVIEW/BLOCKED recorded) may end green;
+#     1 (tool/config), 2 (usage/lock) and unknown exits are RED.
+#   - op=unittest is RED when the suite fails (evidence still dumped).
+#   - Pushes prove pushed=true; 5 failed retries are RED. After a rebase
+#     the FULL canonical gate + semantic verifier rerun on the rebased
+#     tree BEFORE pushing it (tree A is never tested, tree B pushed).
+#   - After the push, origin/main must equal the tested result SHA, and
+#     the EXACT final main SHA is re-verified by the canonical gate +
+#     scripts/verify_factory_state.py, with INPUT_SHA / OP_RESULT_SHA /
+#     FINAL_MAIN_SHA recorded in the step summary.
+
+on:
+  push:
+    branches: [main]
+    paths: ['data/batches/operator-command.json']
+
+concurrency:
+  group: article-batch-production
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  operate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore QA evidence cache (content-hash keyed reuse)
+        # reports/article-quality/ is gitignored on purpose (runtime
+        # artifact), so the publish/batch-end gates keep their evidence
+        # across runs as a workflow artifact. Missing artifact (first
+        # run) = cold cache: every published article is fully
+        # re-validated, which is the safe fallback.
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Read and validate operator command
+        run: |
+          set -eu
+          CMD=data/batches/operator-command.json
+          # ONE COMMAND AT A TIME: if the command file on HEAD was not
+          # introduced by THIS push, a newer command superseded it —
+          # abort instead of executing a stale command concurrently.
+          CMD_COMMIT="$(git log -1 --format=%H -- "$CMD" || true)"
+          if [ -n "$CMD_COMMIT" ] && [ "$CMD_COMMIT" != "$GITHUB_SHA" ]; then
+            echo "::error::operator command superseded by a newer push — abort (wait for the previous op result commit before sending the next command)"
+            exit 1
+          fi
+          OP="$(jq -r '.op // ""' "$CMD")"
+          case "$OP" in
+            prepare-next|qa|publish|consistency|recover|requeue|unittest|apply-article-shell) ;;
+            *) echo "::error::unsupported op: $OP"; exit 1 ;;
+          esac
+          echo "op=$OP" >> "$GITHUB_ENV"
+          # INPUT_SHA: the exact tree this operation starts from. The
+          # FINAL result SHA is captured from git AFTER the push — never
+          # recorded inside the pushed files themselves.
+          echo "input_sha=$GITHUB_SHA" >> "$GITHUB_ENV"
+          BATCH="$(jq -r '.batch // ""' "$CMD" | tr -cd 'A-Z0-9-')"
+          IDS="$(jq -r '.ids // ""' "$CMD" | tr -cd 'A-Z0-9,-')"
+          DATE="$(jq -r '.date // ""' "$CMD" | tr -cd '0-9-')"
+          echo "batch=$BATCH" >> "$GITHUB_ENV"
+          echo "ids=$IDS" >> "$GITHUB_ENV"
+          echo "date=$DATE" >> "$GITHUB_ENV"
+          ALLOW_BLOCKED=""
+          if [ "$(jq -r '.allow_blocked // false' "$CMD")" = "true" ]; then
+            ALLOW_BLOCKED="--allow-blocked"
+          fi
+          echo "allow_blocked=$ALLOW_BLOCKED" >> "$GITHUB_ENV"
+
+      - name: Matrix invariant (never bypassed)
+        run: python3 scripts/validate_content_matrix.py
+
+      - name: Recover any pending transaction before mutations
+        run: node scripts/js/factory.mjs --recover
+
+      - name: Node consistency check (pre-op)
+        run: node scripts/js/factory.mjs --consistency
+
+      - name: prepare-next - claim next batch, export per-row writer manifests
+        if: env.op == 'prepare-next'
+        run: |
+          set -eu
+          python3 scripts/run_article_batch.py --next --prepare-agent
+          python3 scripts/export_batch_rows.py
+
+      - name: requeue - eligible rows only (PASS/PUBLISHED skipped, stale-safe)
+        if: env.op == 'requeue'
+        run: |
+          set -eu
+          if [ -z "$ids" ]; then echo "::error::requeue requires ids"; exit 1; fi
+          code=0
+          python3 scripts/requeue_rows.py --ids "$ids" $allow_blocked || code=$?
+          case "$code" in
+            0|3) echo "requeue exit code: $code (3=refusals recorded, legitimate result)" ;;
+            *) echo "::error::requeue failed with exit $code (0=ok, 3=refusals recorded; 1/2/4 and unknown exits are errors)"; exit "$code" ;;
+          esac
+
+      - name: qa - deterministic QA of the active batch
+        if: env.op == 'qa'
+        run: |
+          code=0
+          python3 scripts/run_article_batch.py --batch "$batch" --qa || code=$?
+          case "$code" in
+            0) echo "qa exit code: 0 (operation valid)" ;;
+            3) echo "qa exit code: 3 (FAIL article rows legitimately recorded)" ;;
+            4) echo "qa exit code: 4 (REVIEW/BLOCKED rows legitimately recorded)" ;;
+            *) echo "::error::qa failed with exit $code (tool/config=1, usage/lock=2, unknown=other; ONLY 0/3/4 are valid results)"; exit "$code" ;;
+          esac
+
+      - name: publish - flip PASS rows to PUBLISHED, regen hubs/sitemap/reports
+        if: env.op == 'publish'
+        run: |
+          set -eu
+          if [ -z "$ids" ]; then echo "::error::publish requires ids"; exit 1; fi
+          date_args=()
+          if [ -n "$date" ]; then date_args=(--date "$date"); fi
+          node scripts/js/factory.mjs --publish "$ids" --dry-run "${date_args[@]}"
+          node scripts/js/factory.mjs --publish "$ids" "${date_args[@]}"
+          node scripts/js/factory.mjs --consistency
+          # Apply the shared article shell ONLY to the files promoted by
+          # THIS transaction (scanning every published article again on
+          # each publish is redundant: the shell migration is idempotent
+          # and already-migrated files are left untouched).
+          python3 - "$ids" <<'PY' > published_files.txt
+          import csv, os, sys
+          ids = {s.strip() for s in sys.argv[1].split(",") if s.strip()}
+          with open("data/content-matrix.csv", encoding="utf-8") as f:
+              for row in csv.DictReader(f):
+                  if row.get("article_id") in ids and row.get("status") == "PUBLISHED":
+                      p = row.get("output_path") or ""
+                      if p and os.path.isfile(p):
+                          print(p)
+          PY
+          # shell on the promoted files only
+          if [ -s published_files.txt ]; then
+            xargs -r python3 scripts/apply_article_shell.py < published_files.txt
+          fi
+          # PUBLISH GATE (unchanged strength): the freshly published
+          # articles are ALWAYS fully re-validated at their REAL public
+          # paths — evidence is never reused for them. Scope = the ids of
+          # this transaction; other published articles are covered by the
+          # batch-end FULL audit below and by evidence-hash reuse.
+          python3 scripts/gate_published_articles.py --ids "$ids"
+
+      - name: Batch-end FULL audit (when this publish completes the batch)
+        if: env.op == 'publish'
+        run: |
+          set -eu
+          # MILESTONE FULL AUDIT: when every row of the batch reaches a
+          # terminal state, re-audit ALL published articles in one FULL
+          # pass (evidence-aware: only articles whose content/config/
+          # validator hashes changed are really re-validated).
+          python3 - "$batch" <<'PY' > batch_state.txt
+          import csv, sys
+          batch = sys.argv[1]
+          terminal = {"PUBLISHED", "FAIL", "BLOCKED"}
+          rows = []
+          with open("data/content-matrix.csv", encoding="utf-8") as f:
+              rows = [r for r in csv.DictReader(f)
+                      if (r.get("batch_id") or "").strip() == batch
+                      and not (r.get("article_id") or "").startswith("SAMPLE")]
+          done = all((r.get("status") or "").strip() in terminal for r in rows) if rows else False
+          print("BATCH-COMPLETE %s" % batch if done else "BATCH-ACTIVE %s" % batch)
+          PY
+          cat batch_state.txt
+          if grep -q "^BATCH-COMPLETE" batch_state.txt; then
+            echo "Running batch-end FULL audit of all published articles"
+            python3 scripts/gate_published_articles.py
+          fi
+
+      - name: Canonical generator freshness (python vs node byte-equality)
+        if: env.op == 'publish'
+        run: |
+          set -eu
+          # The Node transaction regenerates hub blocks + sitemap, but NOT
+          # the page-2+ pagination files: once a category passes 50
+          # PUBLISHED articles the root hub gains a "trang 2" link, and the
+          # canonical Python generator must write those pages (with the
+          # compact footer + chatbot embed) before the test suite runs.
+          python3 scripts/generate_category_pages.py
+          python3 scripts/generate_sitemap.py --check
+          python3 scripts/generate_category_pages.py --check
+
+      - name: apply-article-shell - migrate article shells to the shared design system
+        if: env.op == 'apply-article-shell'
+        run: |
+          set -eu
+          # Deterministic presentation-structure migration ONLY (never
+          # editorial content): canonical tooling, no AI, no invented
+          # facts. Prose, links, canonicals, dates and matrix state are
+          # untouched (enforced by tests/test_article_shell.py).
+          python3 scripts/apply_article_shell.py --drafts
+          python3 scripts/gate_published_articles.py
+          node scripts/js/factory.mjs --consistency
+
+      - name: unittest - run the full python suite verbosely and dump output
+        if: env.op == 'unittest'
+        run: |
+          set -u
+          mkdir -p reports/batches
+          code=0
+          python3 -m unittest discover -v tests > reports/batches/unittest-output.txt 2>&1 || code=$?
+          grep -E "^(FAIL|ERROR):" reports/batches/unittest-output.txt > reports/batches/unittest-failures.txt || true
+          echo "unittest exit code: $code"
+          cat reports/batches/unittest-failures.txt || true
+          if [ "$code" != "0" ]; then
+            tail -n 80 reports/batches/unittest-output.txt || true
+            echo "::error::unittest suite FAILED with exit $code — the operator run is red (evidence preserved in artifacts)"
+            exit 1
+          fi
+
+      - name: Post-operation semantic state verification
+        # A green tool exit is NOT enough: the SEMANTIC state must be
+        # verified on the exact post-op tree before anything is pushed.
+        if: always()
+        run: |
+          set -eu
+          case "$op" in
+            publish) VERIFY_ARGS="--op publish --ids $ids" ;;
+            requeue) VERIFY_ARGS="--op requeue --ids $ids" ;;
+            qa) if [ -n "$ids" ]; then VERIFY_ARGS="--op qa --ids $ids"; else VERIFY_ARGS="--op qa"; fi ;;
+            prepare-next) VERIFY_ARGS="--op prepare-next" ;;
+            *) VERIFY_ARGS="--op consistency" ;;
+          esac
+          if [ -n "$batch" ]; then
+            VERIFY_ARGS="$VERIFY_ARGS --batch $batch"
+          fi
+          echo "verify_args=$VERIFY_ARGS" >> "$GITHUB_ENV"
+          python3 scripts/validate_content_matrix.py
+          node scripts/js/factory.mjs --recover
+          node scripts/js/factory.mjs --consistency
+          python3 scripts/verify_factory_state.py $VERIFY_ARGS
+
+      - name: Canonical final gate (tests + invariants on this exact tree)
+        if: always()
+        run: bash scripts/ci/factory_final_gate.sh
+
+      - name: Save QA evidence cache
+        # Refreshed by the publish gate (--ids) and the batch-end FULL
+        # audit. Never fatal: a failed upload only costs the next run a
+        # cold (but still correct) re-validation.
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-evidence
+          path: reports/article-quality/qa-evidence.json
+          if-no-files-found: ignore
+
+      - name: Commit and push deterministic outputs (fail-closed)
+        id: push
+        run: |
+          set -eu
+          git config user.name "factory-operator-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -r -q --cached scripts/__pycache__ tests/__pycache__ 2>/dev/null || true
+          git rm -f --ignore-unmatch --quiet data/batches/operator-command.json || true
+          rm -f data/batches/operator-command.json
+          if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "nothing to commit (operation had no deterministic outputs)"
+            echo "op_result_sha=none" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          git add -A
+          git commit -m "factory-operator: ${op} (deterministic outputs of canonical tooling only)"
+          OP_RESULT_SHA="$(git rev-parse HEAD)"
+          echo "OP_RESULT_SHA=$OP_RESULT_SHA"
+          echo "op_result_sha=$OP_RESULT_SHA" >> "$GITHUB_ENV"
+          pushed=false
+          if git push; then
+            pushed=true
+          else
+            for i in 1 2 3 4 5; do
+              echo "push retry $i/5: fetch + rebase + RETEST the rebased tree, then push again"
+              git fetch origin main
+              if ! git rebase origin/main; then
+                echo "::error::rebase conflict — STOP SAFE: no force push, no blind auto-resolution; resolve manually"
+                git rebase --abort
+                exit 1
+              fi
+              # REBASE RETEST CONTRACT: the rebased tree has NOT been
+              # tested. Rerun the FULL canonical gate AND the semantic
+              # postcondition verifier on this exact tree before pushing.
+              bash scripts/ci/factory_final_gate.sh
+              python3 scripts/verify_factory_state.py $verify_args
+              OP_RESULT_SHA="$(git rev-parse HEAD)"
+              echo "OP_RESULT_SHA=$OP_RESULT_SHA (after rebase $i)"
+              echo "op_result_sha=$OP_RESULT_SHA" >> "$GITHUB_ENV"
+              if git push; then
+                pushed=true
+                break
+              fi
+            done
+          fi
+          if [ "$pushed" != true ]; then
+            echo "::error::push failed after 5 retries — nothing was reported as success; recovery evidence is preserved"
+            exit 1
+          fi
+          git fetch origin main
+          FINAL_MAIN_SHA="$(git rev-parse origin/main)"
+          if [ "$FINAL_MAIN_SHA" != "$OP_RESULT_SHA" ]; then
+            echo "::error::remote main ($FINAL_MAIN_SHA) is not the tested result commit ($OP_RESULT_SHA) — exact-SHA contract violated"
+            exit 1
+          fi
+
+      - name: Final verification on the EXACT final main SHA
+        # The push proved the commit is on main; now the EXACT final main
+        # SHA is fetched and the canonical gate + semantic verifier run on
+        # it. PRODUCTION_INVARIANT=PASS is only earned here.
+        if: always() && steps.push.outcome == 'success'
+        run: |
+          set -eu
+          if [ "${op_result_sha:-none}" = "none" ]; then
+            echo "operation produced no commits — the final tree is the already-verified input tree"
+            exit 0
+          fi
+          git fetch origin main
+          FINAL_MAIN_SHA="$(git rev-parse origin/main)"
+          echo "INPUT_SHA=$input_sha"
+          echo "OP_RESULT_SHA=$op_result_sha"
+          echo "FINAL_MAIN_SHA=$FINAL_MAIN_SHA"
+          if [ "$FINAL_MAIN_SHA" != "$op_result_sha" ]; then
+            echo "::error::FINAL_MAIN_SHA ($FINAL_MAIN_SHA) != tested OP_RESULT_SHA ($op_result_sha) — final state NOT verified"
+            exit 1
+          fi
+          git checkout --force --detach "$FINAL_MAIN_SHA"
+          bash scripts/ci/factory_final_gate.sh
+          python3 scripts/verify_factory_state.py $verify_args
+          {
+            echo "## Factory operator — exact-SHA production invariant"
+            echo ""
+            echo "- INPUT_SHA: $input_sha"
+            echo "- OP_RESULT_SHA: $op_result_sha"
+            echo "- FINAL_MAIN_SHA: $FINAL_MAIN_SHA"
+            echo "- PRODUCTION_INVARIANT=PASS (canonical gate + semantic verifier green on the EXACT final main SHA)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload operator evidence (never blocks the verdict)
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: operator-evidence
+          path: |
+            reports/batches/
+            published_files.txt
+            batch_state.txt
+          if-no-files-found: ignore
