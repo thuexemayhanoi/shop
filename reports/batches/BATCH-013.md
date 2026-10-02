@@ -1,10 +1,10 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T01:25:54+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T01:32:37+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 42 | written: 42 | pass: 0 | published: 42
+- processed: 44 | written: 44 | pass: 0 | published: 44
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.7 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -52,8 +52,8 @@
 | KN-0107 | cam-nang/kinh-nghiem/kn-0107-kinh-nghiem-doi-chieu-thong-tin-xe-khi-nhan.html | PUBLISHED | 100 | 0 |  |
 | KN-0108 | cam-nang/kinh-nghiem/kn-0108-kinh-nghiem-thoa-thuan-thoi-gian-tra-xe-linh-hoat.html | PUBLISHED | 100 | 0 |  |
 | KN-0109 | cam-nang/kinh-nghiem/kn-0109-chay-xe-may-thue-ra-tinh-can-chuan-bi-gi-them.html | PUBLISHED | 100 | 0 |  |
-| XM-0101 | cam-nang/xe-may/xm-0101-tieng-on-phat-ra-tu-xich-chinh-the-nao.html | PLANNED |  | 0 |  |
-| XM-0102 | cam-nang/xe-may/xm-0102-xe-may-hut-ga-khi-vao-cua.html | PLANNED |  | 0 |  |
+| XM-0101 | cam-nang/xe-may/xm-0101-tieng-on-phat-ra-tu-xich-chinh-the-nao.html | PUBLISHED | 99 | 0 |  |
+| XM-0102 | cam-nang/xe-may/xm-0102-xe-may-hut-ga-khi-vao-cua.html | PUBLISHED | 100 | 0 |  |
 | XM-0103 | cam-nang/xe-may/xm-0103-xe-kho-no-buoi-sang-lanh.html | PLANNED |  | 0 |  |
 | XM-0104 | cam-nang/xe-may/xm-0104-xe-no-may-roi-chet-ngay-nguyen-nhan.html | PLANNED |  | 0 |  |
 | XM-0105 | cam-nang/xe-may/xm-0105-xe-ga-de-khong-len-may.html | PLANNED |  | 0 |  |

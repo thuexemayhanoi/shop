@@ -1,2 +1,2 @@
-cam-nang/kinh-nghiem/kn-0108-kinh-nghiem-thoa-thuan-thoi-gian-tra-xe-linh-hoat.html
-cam-nang/kinh-nghiem/kn-0109-chay-xe-may-thue-ra-tinh-can-chuan-bi-gi-them.html
+cam-nang/xe-may/xm-0101-tieng-on-phat-ra-tu-xich-chinh-the-nao.html
+cam-nang/xe-may/xm-0102-xe-may-hut-ga-khi-vao-cua.html
