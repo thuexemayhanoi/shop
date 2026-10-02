@@ -131,6 +131,28 @@ jobs:
             *) echo "::error::requeue failed with exit $code (0=ok, 3=refusals recorded; 1/2/4 and unknown exits are errors)"; exit "$code" ;;
           esac
 
+          # Report-truth contract (scripts/verify_factory_state.py checks
+          # report counts against the matrix unconditionally): the requeue
+          # mutates matrix statuses, so the batch + progress reports MUST be
+          # regenerated from the post-requeue tree before the semantic
+          # verifier runs. The canonical regeneration is the same scoped
+          # --qa the qa op uses; it records fresh QA verdicts for the
+          # requeued rows (clean drafts score PASS and become publishable
+          # via the publish op; FAIL/REVIEW verdicts remain legitimately
+          # recorded states with exit 3/4).
+          if [ -z "$batch" ]; then
+            echo "::error::requeue requires batch in the command (report-truth regeneration runs the scoped --qa)"
+            exit 1
+          fi
+          qcode=0
+          python3 scripts/run_article_batch.py --batch "$batch" --qa || qcode=$?
+          case "$qcode" in
+            0) echo "post-requeue report regen exit code: 0 (clean)" ;;
+            3) echo "post-requeue report regen exit code: 3 (FAIL rows legitimately recorded)" ;;
+            4) echo "post-requeue report regen exit code: 4 (REVIEW/BLOCKED rows legitimately recorded)" ;;
+            *) echo "::error::post-requeue report regen failed with exit $qcode"; exit "$qcode" ;;
+          esac
+
       - name: qa - deterministic QA of the active batch
         if: env.op == 'qa'
         run: |

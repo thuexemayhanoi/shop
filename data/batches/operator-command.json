@@ -1,5 +1,5 @@
 {
-  "op": "qa",
+  "op": "requeue",
   "batch": "BATCH-013",
   "ids": "XM-0103,XM-0104"
 }
