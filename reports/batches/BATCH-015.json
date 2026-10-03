@@ -1,0 +1,525 @@
+{
+  "batch_id": "BATCH-015",
+  "started_at": "2026-10-03T18:38:20+07:00",
+  "finished_at": "2026-10-03T18:38:20+07:00",
+  "writer": "external-agent",
+  "processed": 50,
+  "written": 0,
+  "pass": 0,
+  "published": 0,
+  "writing": 50,
+  "review": 0,
+  "repair": 0,
+  "fail": 0,
+  "blocked": 0,
+  "average_score": null,
+  "min_score": null,
+  "max_score": null,
+  "repair_count": 0,
+  "source_gate_pass": 0,
+  "source_gate_blocked": 0,
+  "published_commit_sha": null,
+  "pass_publishable_now": 0,
+  "articles": [
+    {
+      "article_id": "AT-0118",
+      "output_path": "cam-nang/an-toan/at-0118-gap-den-vang-khi-dang-gan-vach-dung.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0119",
+      "output_path": "cam-nang/an-toan/at-0119-xe-buyt-bat-xi-nhan-ben-phai-cho-vuot.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0120",
+      "output_path": "cam-nang/an-toan/at-0120-qua-duong-sat-khi-rao-chan-dang-ha.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0121",
+      "output_path": "cam-nang/an-toan/at-0121-chay-ven-ho-nuoc-khong-co-lan-can.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0122",
+      "output_path": "cam-nang/an-toan/at-0122-khu-mam-non-gio-don-tre-chay-cham-quan-sat.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0123",
+      "output_path": "cam-nang/an-toan/at-0123-duong-doc-doi-hep-gap-xe-nguoc-chieu.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0124",
+      "output_path": "cam-nang/an-toan/at-0124-chay-duoi-gam-cau-vuot-khi-troi-mua.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0125",
+      "output_path": "cam-nang/an-toan/at-0125-bui-mu-tu-cong-truong-che-tam-nhin.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0117",
+      "output_path": "cam-nang/cung-duong/cd-0117-trai-nghiem-mot-ngay-o-thac-ban-gioc-bang-xe-may.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0118",
+      "output_path": "cam-nang/cung-duong/cd-0118-tram-dung-nghi-ven-duong-toi-thac-ban-gioc.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0119",
+      "output_path": "cam-nang/cung-duong/cd-0119-ha-noi-den-suoi-mo-quoc-lo-nao-nen-chon.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0120",
+      "output_path": "cam-nang/cung-duong/cd-0120-hai-ngay-o-suoi-mo-lich-trinh-goi-y-cho-nguoi-di-xe.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0121",
+      "output_path": "cam-nang/cung-duong/cd-0121-cho-ngam-canh-giua-duong-den-suoi-mo.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0122",
+      "output_path": "cam-nang/cung-duong/cd-0122-cung-duong-ha-noi-luc-ngan-cho-nguoi-moi.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0123",
+      "output_path": "cam-nang/cung-duong/cd-0123-nghi-dem-o-luc-ngan-khi-di-xe-may-chon-dau.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0124",
+      "output_path": "cam-nang/cung-duong/cd-0124-bai-do-an-toan-doc-duong-di-luc-ngan.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0125",
+      "output_path": "cam-nang/cung-duong/cd-0125-cung-duong-ngam-canh-tu-ha-noi-len-lang-co-duong-lam.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0118",
+      "output_path": "cam-nang/du-lich/dl-0118-mon-gi-dang-mua-ve-tu-ho-ba-be.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0119",
+      "output_path": "cam-nang/du-lich/dl-0119-goc-view-ven-duong-khi-chay-xe-den-ho-ba-be.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0120",
+      "output_path": "cam-nang/du-lich/dl-0120-chuyen-cuoi-tuan-den-pac-po-bang-xe-may.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0121",
+      "output_path": "cam-nang/du-lich/dl-0121-sang-som-hay-chieu-muon-den-pac-po-dep-hon.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0122",
+      "output_path": "cam-nang/du-lich/dl-0122-quan-an-gan-bai-xe-o-pac-po.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0123",
+      "output_path": "cam-nang/du-lich/dl-0123-chup-anh-doan-xe-o-pac-po-o-dau-dep.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0124",
+      "output_path": "cam-nang/du-lich/dl-0124-di-xe-may-den-thac-ban-gioc-co-kho-tim-duong-khong.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0125",
+      "output_path": "cam-nang/du-lich/dl-0125-dip-le-den-thac-ban-gioc-co-dong-nguoi-khong.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0117",
+      "output_path": "cam-nang/hoi-dap/hd-0117-khu-vuc-nao-ha-noi-hay-ngap-duong-mua-mua.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0118",
+      "output_path": "cam-nang/hoi-dap/hd-0118-cau-nao-qua-song-hong-cho-xe-may-tien-nhat.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0119",
+      "output_path": "cam-nang/hoi-dap/hd-0119-chay-xe-may-len-sapa-nen-di-duong-nao.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0120",
+      "output_path": "cam-nang/hoi-dap/hd-0120-gui-xe-may-qua-dem-o-ben-xe-co-duoc-khong.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0121",
+      "output_path": "cam-nang/hoi-dap/hd-0121-bai-gui-xe-gan-ga-ha-noi-o-dau.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0122",
+      "output_path": "cam-nang/hoi-dap/hd-0122-chay-xe-may-di-cho-dem-o-ha-noi-duong-nao.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0123",
+      "output_path": "cam-nang/hoi-dap/hd-0123-duong-ven-de-song-hong-chay-duoc-xe-may-khong.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0124",
+      "output_path": "cam-nang/hoi-dap/hd-0124-chay-xe-may-len-den-soc-duong-nao-nhanh.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0125",
+      "output_path": "cam-nang/hoi-dap/hd-0125-tu-ha-noi-di-ba-vi-quoc-lo-nao-thuan.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0118",
+      "output_path": "cam-nang/kinh-nghiem/kn-0118-kinh-nghiem-chay-xe-may-tham-quan-lang-nghe.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0119",
+      "output_path": "cam-nang/kinh-nghiem/kn-0119-kinh-nghiem-di-xe-may-tham-quan-cho-phien-vung-cao.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0120",
+      "output_path": "cam-nang/kinh-nghiem/kn-0120-kinh-nghiem-cho-qua-dac-san-ve-bang-xe-may.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0121",
+      "output_path": "cam-nang/kinh-nghiem/kn-0121-chay-xe-may-di-cau-ca-ngoai-thanh-cuoi-tuan.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0122",
+      "output_path": "cam-nang/kinh-nghiem/kn-0122-chay-xe-may-o-quan-tay-ho-kinh-nghiem-tranh-tac-duong.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0123",
+      "output_path": "cam-nang/kinh-nghiem/kn-0123-bai-gui-xe-an-toan-gan-cho-quan-tay-ho.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0124",
+      "output_path": "cam-nang/kinh-nghiem/kn-0124-chay-xe-sang-cuoi-tuan-quanh-quan-tay-ho.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0125",
+      "output_path": "cam-nang/kinh-nghiem/kn-0125-lo-trinh-chay-toi-ven-duong-o-quan-tay-ho.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0118",
+      "output_path": "cam-nang/xe-may/xm-0118-nhan-biet-xe-may-tung-bi-ngap-nuoc.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0119",
+      "output_path": "cam-nang/xe-may/xm-0119-nhan-biet-cong-to-met-bi-chinh.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0120",
+      "output_path": "cam-nang/xe-may/xm-0120-kinh-nghiem-chay-ra-may-sau-khi-sua-xe-lon.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0121",
+      "output_path": "cam-nang/xe-may/xm-0121-xe-phat-tieng-luc-cuc-khi-phanh.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0122",
+      "output_path": "cam-nang/xe-may/xm-0122-xe-rung-khi-tang-toc.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0123",
+      "output_path": "cam-nang/xe-may/xm-0123-may-nong-nhanh-hon-binh-thuong.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0124",
+      "output_path": "cam-nang/xe-may/xm-0124-xe-chet-may-khi-ga-lon.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0125",
+      "output_path": "cam-nang/xe-may/xm-0125-xe-khong-tat-may-duoc.html",
+      "outcome": "WRITING",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    }
+  ]
+}
