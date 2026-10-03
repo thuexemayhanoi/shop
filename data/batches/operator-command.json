@@ -1,7 +1,0 @@
-{
-  "op": "publish",
-  "batch": "BATCH-014",
-  "ids": "CD-0112",
-  "date": "2026-10-03",
-  "note": "publish CD-0112 after link-count repair and re-QA PASS 95"
-}
