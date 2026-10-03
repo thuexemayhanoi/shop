@@ -1,10 +1,10 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:48:52+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T21:39:45+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 18 | pass: 1 | published: 17
-- writing: 32 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.3 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 20 | pass: 0 | published: 20
+- writing: 30 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -21,7 +21,7 @@
 | CD-0117 | cam-nang/cung-duong/cd-0117-trai-nghiem-mot-ngay-o-thac-ban-gioc-bang-xe-may.html | PUBLISHED | 97 | 0 |  |
 | CD-0118 | cam-nang/cung-duong/cd-0118-tram-dung-nghi-ven-duong-toi-thac-ban-gioc.html | PUBLISHED | 96 | 0 |  |
 | CD-0119 | cam-nang/cung-duong/cd-0119-ha-noi-den-suoi-mo-quoc-lo-nao-nen-chon.html | PUBLISHED | 96 | 0 |  |
-| CD-0120 | cam-nang/cung-duong/cd-0120-hai-ngay-o-suoi-mo-lich-trinh-goi-y-cho-nguoi-di-xe.html | WRITING |  | 0 |  |
+| CD-0120 | cam-nang/cung-duong/cd-0120-hai-ngay-o-suoi-mo-lich-trinh-goi-y-cho-nguoi-di-xe.html | PUBLISHED | 96 | 0 |  |
 | CD-0121 | cam-nang/cung-duong/cd-0121-cho-ngam-canh-giua-duong-den-suoi-mo.html | WRITING |  | 0 |  |
 | CD-0122 | cam-nang/cung-duong/cd-0122-cung-duong-ha-noi-luc-ngan-cho-nguoi-moi.html | WRITING |  | 0 |  |
 | CD-0123 | cam-nang/cung-duong/cd-0123-nghi-dem-o-luc-ngan-khi-di-xe-may-chon-dau.html | WRITING |  | 0 |  |
@@ -38,7 +38,7 @@
 | HD-0117 | cam-nang/hoi-dap/hd-0117-khu-vuc-nao-ha-noi-hay-ngap-duong-mua-mua.html | PUBLISHED | 100 | 0 |  |
 | HD-0118 | cam-nang/hoi-dap/hd-0118-cau-nao-qua-song-hong-cho-xe-may-tien-nhat.html | PUBLISHED | 100 | 0 |  |
 | HD-0119 | cam-nang/hoi-dap/hd-0119-chay-xe-may-len-sapa-nen-di-duong-nao.html | PUBLISHED | 100 | 0 |  |
-| HD-0120 | cam-nang/hoi-dap/hd-0120-gui-xe-may-qua-dem-o-ben-xe-co-duoc-khong.html | WRITING |  | 0 |  |
+| HD-0120 | cam-nang/hoi-dap/hd-0120-gui-xe-may-qua-dem-o-ben-xe-co-duoc-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0121 | cam-nang/hoi-dap/hd-0121-bai-gui-xe-gan-ga-ha-noi-o-dau.html | WRITING |  | 0 |  |
 | HD-0122 | cam-nang/hoi-dap/hd-0122-chay-xe-may-di-cho-dem-o-ha-noi-duong-nao.html | WRITING |  | 0 |  |
 | HD-0123 | cam-nang/hoi-dap/hd-0123-duong-ven-de-song-hong-chay-duoc-xe-may-khong.html | WRITING |  | 0 |  |
@@ -54,7 +54,7 @@
 | KN-0125 | cam-nang/kinh-nghiem/kn-0125-lo-trinh-chay-toi-ven-duong-o-quan-tay-ho.html | WRITING |  | 0 |  |
 | XM-0118 | cam-nang/xe-may/xm-0118-nhan-biet-xe-may-tung-bi-ngap-nuoc.html | PUBLISHED | 100 | 0 |  |
 | XM-0119 | cam-nang/xe-may/xm-0119-nhan-biet-cong-to-met-bi-chinh.html | PUBLISHED | 100 | 0 |  |
-| XM-0120 | cam-nang/xe-may/xm-0120-kinh-nghiem-chay-ra-may-sau-khi-sua-xe-lon.html | PASS | 100 | 0 | word broken across newline: 'ê\nm'; newline inside HTML tag |
+| XM-0120 | cam-nang/xe-may/xm-0120-kinh-nghiem-chay-ra-may-sau-khi-sua-xe-lon.html | PUBLISHED | 100 | 0 | word broken across newline: 'ê\nm'; newline inside HTML tag |
 | XM-0121 | cam-nang/xe-may/xm-0121-xe-phat-tieng-luc-cuc-khi-phanh.html | WRITING |  | 0 |  |
 | XM-0122 | cam-nang/xe-may/xm-0122-xe-rung-khi-tang-toc.html | WRITING |  | 0 |  |
 | XM-0123 | cam-nang/xe-may/xm-0123-may-nong-nhanh-hon-binh-thuong.html | WRITING |  | 0 |  |
