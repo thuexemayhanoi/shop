@@ -1,10 +1,10 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:23:45+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:25:05+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 13 | pass: 0 | published: 13
-- writing: 37 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.3 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 14 | pass: 0 | published: 14
+- writing: 36 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.1 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -20,7 +20,7 @@
 | AT-0125 | cam-nang/an-toan/at-0125-bui-mu-tu-cong-truong-che-tam-nhin.html | WRITING |  | 0 |  |
 | CD-0117 | cam-nang/cung-duong/cd-0117-trai-nghiem-mot-ngay-o-thac-ban-gioc-bang-xe-may.html | PUBLISHED | 97 | 0 |  |
 | CD-0118 | cam-nang/cung-duong/cd-0118-tram-dung-nghi-ven-duong-toi-thac-ban-gioc.html | PUBLISHED | 96 | 0 |  |
-| CD-0119 | cam-nang/cung-duong/cd-0119-ha-noi-den-suoi-mo-quoc-lo-nao-nen-chon.html | WRITING |  | 0 |  |
+| CD-0119 | cam-nang/cung-duong/cd-0119-ha-noi-den-suoi-mo-quoc-lo-nao-nen-chon.html | PUBLISHED | 96 | 0 |  |
 | CD-0120 | cam-nang/cung-duong/cd-0120-hai-ngay-o-suoi-mo-lich-trinh-goi-y-cho-nguoi-di-xe.html | WRITING |  | 0 |  |
 | CD-0121 | cam-nang/cung-duong/cd-0121-cho-ngam-canh-giua-duong-den-suoi-mo.html | WRITING |  | 0 |  |
 | CD-0122 | cam-nang/cung-duong/cd-0122-cung-duong-ha-noi-luc-ngan-cho-nguoi-moi.html | WRITING |  | 0 |  |
