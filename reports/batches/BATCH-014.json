@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-014",
   "started_at": "2026-10-03T09:08:52+07:00",
-  "finished_at": "2026-10-03T18:21:47+07:00",
+  "finished_at": "2026-10-03T18:26:49+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 44,
-  "pass": 1,
-  "published": 43,
+  "pass": 0,
+  "published": 44,
   "writing": 6,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 1,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0110",
@@ -74,7 +74,7 @@
     {
       "article_id": "AT-0115",
       "output_path": "cam-nang/an-toan/at-0115-duong-co-bien-bao-cam-re-nhung-dinh-re.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
