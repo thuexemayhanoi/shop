@@ -1,6 +1,0 @@
-{
-  "op": "requeue",
-  "batch": "BATCH-014",
-  "ids": "CD-0112",
-  "note": "link-count fix committed on main (6th contextual link removed); re-QA CD-0112 after repair"
-}

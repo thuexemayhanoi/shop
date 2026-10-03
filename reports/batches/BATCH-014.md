@@ -1,10 +1,10 @@
 # Batch report BATCH-014
 
-- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T13:03:46+07:00
+- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T15:24:24+07:00
 - writer: external-agent | batch resolved once: BATCH-014
-- processed: 50 | written: 20 | pass: 0 | published: 19
-- writing: 30 | review: 0 | repair: 0 | fail: 1 | blocked: 0
-- scores: avg 98 | min 85 | max 100 | repair_count: 0
+- processed: 50 | written: 20 | pass: 1 | published: 19
+- writing: 30 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.5 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -21,7 +21,7 @@
 | CD-0109 | cam-nang/cung-duong/cd-0109-lich-trinh-dai-lai-danh-cho-nhom-di-phuot.html | PUBLISHED | 94 | 0 |  |
 | CD-0110 | cam-nang/cung-duong/cd-0110-diem-dung-trua-tren-duong-di-dai-lai.html | PUBLISHED | 99 | 0 |  |
 | CD-0111 | cam-nang/cung-duong/cd-0111-cung-duong-di-xe-may-tu-ha-noi-den-ho-ba-be.html | PUBLISHED | 96 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang.html'; broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang.html' |
-| CD-0112 | cam-nang/cung-duong/cd-0112-lich-trinh-2-ngay-1-dem-di-xe-may-den-ho-ba-be.html | FAIL | 85 | 0 | wrong price for Honda Vision: found 0 near 'như Honda Vision hay Honda Air Blade khoảng 200.000 đồng một ngày; tiền t'; wrong price for Honda Vision: found 0 near 'như Honda Vision hay Honda Air Blade khoảng 200.000 đồng một ngày; tiền t' |
+| CD-0112 | cam-nang/cung-duong/cd-0112-lich-trinh-2-ngay-1-dem-di-xe-may-den-ho-ba-be.html | PASS | 95 | 0 | wrong price for Honda Vision: found 0 near 'như Honda Vision hay Honda Air Blade khoảng 200.000 đồng một ngày; tiền t'; wrong price for Honda Vision: found 0 near 'như Honda Vision hay Honda Air Blade khoảng 200.000 đồng một ngày; tiền t' |
 | CD-0113 | cam-nang/cung-duong/cd-0113-diem-dung-chan-dep-tren-cung-duong-ha-noi-ho-ba-be.html | WRITING |  | 0 |  |
 | CD-0114 | cam-nang/cung-duong/cd-0114-di-xe-may-tu-ha-noi-den-pac-po-mat-bao-lau.html | WRITING |  | 0 |  |
 | CD-0115 | cam-nang/cung-duong/cd-0115-quan-an-ngon-doc-duong-den-pac-po.html | WRITING |  | 0 |  |
