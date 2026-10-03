@@ -1,10 +1,10 @@
 # Batch report BATCH-014
 
-- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T09:09:19+07:00
+- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T09:09:49+07:00
 - writer: external-agent | batch resolved once: BATCH-014
-- processed: 50 | written: 8 | pass: 0 | published: 8
-- writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.6 | min 99 | max 100 | repair_count: 0
+- processed: 50 | written: 12 | pass: 0 | published: 12
+- writing: 38 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.8 | min 99 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|
 | AT-0110 | cam-nang/an-toan/at-0110-qua-khu-ben-xe-khach-dong-nguoi.html | PUBLISHED | 100 | 0 |  |
 | AT-0111 | cam-nang/an-toan/at-0111-chay-trong-khu-cong-nghiep-gio-tan-ca.html | PUBLISHED | 100 | 0 |  |
-| AT-0112 | cam-nang/an-toan/at-0112-vong-xuyen-lon-nhieu-nhanh-chon-lan-the-nao.html | WRITING |  | 0 |  |
+| AT-0112 | cam-nang/an-toan/at-0112-vong-xuyen-lon-nhieu-nhanh-chon-lan-the-nao.html | PUBLISHED | 100 | 0 |  |
 | AT-0113 | cam-nang/an-toan/at-0113-chay-khi-troi-mua-kem-sam-chop.html | WRITING |  | 0 |  |
 | AT-0114 | cam-nang/an-toan/at-0114-bang-qua-vach-qua-duong-dong-nguoi.html | WRITING |  | 0 |  |
 | AT-0115 | cam-nang/an-toan/at-0115-duong-co-bien-bao-cam-re-nhung-dinh-re.html | WRITING |  | 0 |  |
@@ -45,7 +45,7 @@
 | HD-0116 | cam-nang/hoi-dap/hd-0116-chay-xe-tu-ha-noi-len-thai-nguyen-mat-bao-lau.html | WRITING |  | 0 |  |
 | KN-0110 | cam-nang/kinh-nghiem/kn-0110-kinh-nghiem-giu-lien-lac-voi-nguoi-nha-khi-di-phuot.html | PUBLISHED | 100 | 0 |  |
 | KN-0111 | cam-nang/kinh-nghiem/kn-0111-kinh-nghiem-chon-quan-nghi-khi-di-phuot-xe-may.html | PUBLISHED | 100 | 0 |  |
-| KN-0112 | cam-nang/kinh-nghiem/kn-0112-kinh-nghiem-len-ke-hoach-chi-phi-cho-chuyen-phuot.html | WRITING |  | 0 |  |
+| KN-0112 | cam-nang/kinh-nghiem/kn-0112-kinh-nghiem-len-ke-hoach-chi-phi-cho-chuyen-phuot.html | PUBLISHED | 100 | 0 |  |
 | KN-0113 | cam-nang/kinh-nghiem/kn-0113-kinh-nghiem-di-phuot-theo-mua-hoa-o-mien-bac.html | WRITING |  | 0 |  |
 | KN-0114 | cam-nang/kinh-nghiem/kn-0114-checklist-truoc-moi-chuyen-di-xe-may-duong-dai.html | WRITING |  | 0 |  |
 | KN-0115 | cam-nang/kinh-nghiem/kn-0115-kinh-nghiem-dam-phan-khi-thue-xe-may-lan-dau.html | WRITING |  | 0 |  |
@@ -53,8 +53,8 @@
 | KN-0117 | cam-nang/kinh-nghiem/kn-0117-di-phuot-mot-minh-bang-xe-may-thue-kinh-nghiem.html | WRITING |  | 0 |  |
 | XM-0109 | cam-nang/xe-may/xm-0109-phanh-xe-may-rit-khi-phanh-nhe.html | WRITING |  | 0 |  |
 | XM-0110 | cam-nang/xe-may/xm-0110-xe-may-chop-tat-den-bao.html | PUBLISHED | 100 | 0 |  |
-| XM-0111 | cam-nang/xe-may/xm-0111-dong-ho-xe-may-hien-thi-sai.html | WRITING |  | 0 |  |
-| XM-0112 | cam-nang/xe-may/xm-0112-kinh-nghiem-rua-xe-may-dung-cach.html | WRITING |  | 0 |  |
+| XM-0111 | cam-nang/xe-may/xm-0111-dong-ho-xe-may-hien-thi-sai.html | PUBLISHED | 100 | 0 |  |
+| XM-0112 | cam-nang/xe-may/xm-0112-kinh-nghiem-rua-xe-may-dung-cach.html | PUBLISHED | 100 | 0 |  |
 | XM-0113 | cam-nang/xe-may/xm-0113-che-xe-may-duoi-troi-nang-lau-ngay.html | WRITING |  | 0 |  |
 | XM-0114 | cam-nang/xe-may/xm-0114-xe-may-de-lau-khong-chay-bao-quan-the-nao.html | WRITING |  | 0 |  |
 | XM-0115 | cam-nang/xe-may/xm-0115-xang-e5-va-ron95-cho-xe-may-khac-nhau-ra-sao.html | WRITING |  | 0 |  |
