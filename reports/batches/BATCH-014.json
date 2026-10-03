@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-014",
   "started_at": "2026-10-03T09:08:52+07:00",
-  "finished_at": "2026-10-03T16:54:25+07:00",
+  "finished_at": "2026-10-03T17:16:44+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 26,
-  "pass": 6,
-  "published": 20,
+  "pass": 2,
+  "published": 24,
   "writing": 24,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 6,
+  "pass_publishable_now": 2,
   "articles": [
     {
       "article_id": "AT-0110",
@@ -220,7 +220,7 @@
     {
       "article_id": "DL-0112",
       "output_path": "cam-nang/du-lich/dl-0112-nen-xuat-phat-may-gio-de-di-xe-may-den-atk-dinh-hoa.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 97,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -230,7 +230,7 @@
     {
       "article_id": "DL-0113",
       "output_path": "cam-nang/du-lich/dl-0113-troi-mua-co-dang-di-atk-dinh-hoa-bang-xe-may-khong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 98,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -310,7 +310,7 @@
     {
       "article_id": "HD-0112",
       "output_path": "cam-nang/hoi-dap/hd-0112-chay-xe-may-qua-tinh-nao-can-chu-y-tram-kiem-tai.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -480,7 +480,7 @@
     {
       "article_id": "XM-0113",
       "output_path": "cam-nang/xe-may/xm-0113-che-xe-may-duoi-troi-nang-lau-ngay.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
