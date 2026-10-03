@@ -1,4 +1,3 @@
-cam-nang/hoi-dap/hd-0124-chay-xe-may-len-den-soc-duong-nao-nhanh.html
-cam-nang/kinh-nghiem/kn-0125-lo-trinh-chay-toi-ven-duong-o-quan-tay-ho.html
-cam-nang/an-toan/at-0125-bui-mu-tu-cong-truong-che-tam-nhin.html
-cam-nang/xe-may/xm-0125-xe-khong-tat-may-duoc.html
+cam-nang/du-lich/dl-0125-dip-le-den-thac-ban-gioc-co-dong-nguoi-khong.html
+cam-nang/cung-duong/cd-0125-cung-duong-ngam-canh-tu-ha-noi-len-lang-co-duong-lam.html
+cam-nang/hoi-dap/hd-0125-tu-ha-noi-di-ba-vi-quoc-lo-nao-thuan.html

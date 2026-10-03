@@ -1,10 +1,10 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T22:34:34+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T22:41:03+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 47 | pass: 0 | published: 47
-- writing: 3 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.9 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 50 | pass: 0 | published: 50
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -26,7 +26,7 @@
 | CD-0122 | cam-nang/cung-duong/cd-0122-cung-duong-ha-noi-luc-ngan-cho-nguoi-moi.html | PUBLISHED | 96 | 0 |  |
 | CD-0123 | cam-nang/cung-duong/cd-0123-nghi-dem-o-luc-ngan-khi-di-xe-may-chon-dau.html | PUBLISHED | 96 | 0 |  |
 | CD-0124 | cam-nang/cung-duong/cd-0124-bai-do-an-toan-doc-duong-di-luc-ngan.html | PUBLISHED | 98 | 0 |  |
-| CD-0125 | cam-nang/cung-duong/cd-0125-cung-duong-ngam-canh-tu-ha-noi-len-lang-co-duong-lam.html | WRITING |  | 0 |  |
+| CD-0125 | cam-nang/cung-duong/cd-0125-cung-duong-ngam-canh-tu-ha-noi-len-lang-co-duong-lam.html | PUBLISHED | 100 | 0 |  |
 | DL-0118 | cam-nang/du-lich/dl-0118-mon-gi-dang-mua-ve-tu-ho-ba-be.html | PUBLISHED | 100 | 0 |  |
 | DL-0119 | cam-nang/du-lich/dl-0119-goc-view-ven-duong-khi-chay-xe-den-ho-ba-be.html | PUBLISHED | 98 | 0 |  |
 | DL-0120 | cam-nang/du-lich/dl-0120-chuyen-cuoi-tuan-den-pac-po-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
@@ -34,7 +34,7 @@
 | DL-0122 | cam-nang/du-lich/dl-0122-quan-an-gan-bai-xe-o-pac-po.html | PUBLISHED | 100 | 0 |  |
 | DL-0123 | cam-nang/du-lich/dl-0123-chup-anh-doan-xe-o-pac-po-o-dau-dep.html | PUBLISHED | 100 | 0 |  |
 | DL-0124 | cam-nang/du-lich/dl-0124-di-xe-may-den-thac-ban-gioc-co-kho-tim-duong-khong.html | PUBLISHED | 100 | 0 |  |
-| DL-0125 | cam-nang/du-lich/dl-0125-dip-le-den-thac-ban-gioc-co-dong-nguoi-khong.html | WRITING |  | 0 |  |
+| DL-0125 | cam-nang/du-lich/dl-0125-dip-le-den-thac-ban-gioc-co-dong-nguoi-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0117 | cam-nang/hoi-dap/hd-0117-khu-vuc-nao-ha-noi-hay-ngap-duong-mua-mua.html | PUBLISHED | 100 | 0 |  |
 | HD-0118 | cam-nang/hoi-dap/hd-0118-cau-nao-qua-song-hong-cho-xe-may-tien-nhat.html | PUBLISHED | 100 | 0 |  |
 | HD-0119 | cam-nang/hoi-dap/hd-0119-chay-xe-may-len-sapa-nen-di-duong-nao.html | PUBLISHED | 100 | 0 |  |
@@ -43,7 +43,7 @@
 | HD-0122 | cam-nang/hoi-dap/hd-0122-chay-xe-may-di-cho-dem-o-ha-noi-duong-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0123 | cam-nang/hoi-dap/hd-0123-duong-ven-de-song-hong-chay-duoc-xe-may-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0124 | cam-nang/hoi-dap/hd-0124-chay-xe-may-len-den-soc-duong-nao-nhanh.html | PUBLISHED | 100 | 0 |  |
-| HD-0125 | cam-nang/hoi-dap/hd-0125-tu-ha-noi-di-ba-vi-quoc-lo-nao-thuan.html | WRITING |  | 0 |  |
+| HD-0125 | cam-nang/hoi-dap/hd-0125-tu-ha-noi-di-ba-vi-quoc-lo-nao-thuan.html | PUBLISHED | 100 | 0 |  |
 | KN-0118 | cam-nang/kinh-nghiem/kn-0118-kinh-nghiem-chay-xe-may-tham-quan-lang-nghe.html | PUBLISHED | 100 | 0 |  |
 | KN-0119 | cam-nang/kinh-nghiem/kn-0119-kinh-nghiem-di-xe-may-tham-quan-cho-phien-vung-cao.html | PUBLISHED | 100 | 0 |  |
 | KN-0120 | cam-nang/kinh-nghiem/kn-0120-kinh-nghiem-cho-qua-dac-san-ve-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
