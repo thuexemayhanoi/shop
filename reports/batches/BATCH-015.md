@@ -1,10 +1,10 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:26:13+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:26:48+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 15 | pass: 0 | published: 15
-- writing: 35 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.1 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 16 | pass: 0 | published: 16
+- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -37,7 +37,7 @@
 | DL-0125 | cam-nang/du-lich/dl-0125-dip-le-den-thac-ban-gioc-co-dong-nguoi-khong.html | WRITING |  | 0 |  |
 | HD-0117 | cam-nang/hoi-dap/hd-0117-khu-vuc-nao-ha-noi-hay-ngap-duong-mua-mua.html | PUBLISHED | 100 | 0 |  |
 | HD-0118 | cam-nang/hoi-dap/hd-0118-cau-nao-qua-song-hong-cho-xe-may-tien-nhat.html | PUBLISHED | 100 | 0 |  |
-| HD-0119 | cam-nang/hoi-dap/hd-0119-chay-xe-may-len-sapa-nen-di-duong-nao.html | WRITING |  | 0 |  |
+| HD-0119 | cam-nang/hoi-dap/hd-0119-chay-xe-may-len-sapa-nen-di-duong-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0120 | cam-nang/hoi-dap/hd-0120-gui-xe-may-qua-dem-o-ben-xe-co-duoc-khong.html | WRITING |  | 0 |  |
 | HD-0121 | cam-nang/hoi-dap/hd-0121-bai-gui-xe-gan-ga-ha-noi-o-dau.html | WRITING |  | 0 |  |
 | HD-0122 | cam-nang/hoi-dap/hd-0122-chay-xe-may-di-cho-dem-o-ha-noi-duong-nao.html | WRITING |  | 0 |  |
