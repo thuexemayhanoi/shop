@@ -1,1 +1,0 @@
-{"op":"requeue","batch":"BATCH-013","ids":"XM-0103,XM-0104","note":"watchdog 03/10: requeue FAIL pair XM-0103/XM-0104 after newline-corruption repair; prepare-next to follow"}

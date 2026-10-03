@@ -1,7 +1,7 @@
 {
   "batch_id": "BATCH-013",
   "started_at": "2026-10-01T10:47:35+07:00",
-  "finished_at": "2026-10-03T07:07:25+07:00",
+  "finished_at": "2026-10-03T07:11:21+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
@@ -10,12 +10,12 @@
   "writing": 0,
   "review": 0,
   "repair": 0,
-  "fail": 4,
-  "blocked": 0,
-  "average_score": 98.5,
+  "fail": 2,
+  "blocked": 2,
+  "average_score": 98.6,
   "min_score": 95,
   "max_score": 100,
-  "repair_count": 0,
+  "repair_count": 4,
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
@@ -29,7 +29,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0102",
@@ -39,7 +40,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0103",
@@ -49,7 +51,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0104",
@@ -59,7 +62,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0105",
@@ -69,7 +73,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0106",
@@ -79,7 +84,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0107",
@@ -89,7 +95,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0108",
@@ -99,7 +106,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "AT-0109",
@@ -109,7 +117,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0101",
@@ -119,7 +128,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0102",
@@ -129,7 +139,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0103",
@@ -139,7 +150,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0104",
@@ -149,7 +161,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0105",
@@ -159,7 +172,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0106",
@@ -169,7 +183,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0107",
@@ -179,7 +194,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "CD-0108",
@@ -189,7 +205,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0101",
@@ -199,7 +216,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0102",
@@ -209,7 +227,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0103",
@@ -219,7 +238,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0104",
@@ -229,7 +249,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0105",
@@ -239,7 +260,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0106",
@@ -249,7 +271,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0107",
@@ -259,7 +282,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "DL-0108",
@@ -269,7 +293,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0101",
@@ -279,7 +304,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0102",
@@ -289,7 +315,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0103",
@@ -299,7 +326,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0104",
@@ -309,7 +337,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0105",
@@ -319,7 +348,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0106",
@@ -329,7 +359,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0107",
@@ -339,7 +370,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "HD-0108",
@@ -349,7 +381,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0101",
@@ -359,7 +392,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0102",
@@ -369,7 +403,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0103",
@@ -379,7 +414,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0104",
@@ -389,7 +425,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0105",
@@ -399,7 +436,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0106",
@@ -409,7 +447,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0107",
@@ -419,7 +458,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0108",
@@ -429,7 +469,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "KN-0109",
@@ -439,7 +480,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0101",
@@ -449,7 +491,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0102",
@@ -459,14 +502,15 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0103",
       "output_path": "cam-nang/xe-may/xm-0103-xe-kho-no-buoi-sang-lanh.html",
-      "outcome": "FAIL",
-      "score": 95,
-      "repair_attempts": 0,
+      "outcome": "BLOCKED",
+      "score": 100,
+      "repair_attempts": 2,
       "quality_failures": [
         "broken internal link: 'cam-na\\nng/chu-de/'",
         "word broken across newline: 'na\\nng'",
@@ -477,14 +521,15 @@
         "broken internal link: 'cam-na\\nng/chu-de/'"
       ],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0104",
       "output_path": "cam-nang/xe-may/xm-0104-xe-no-may-roi-chet-ngay-nguyen-nhan.html",
-      "outcome": "FAIL",
+      "outcome": "BLOCKED",
       "score": 100,
-      "repair_attempts": 0,
+      "repair_attempts": 2,
       "quality_failures": [
         "word broken across newline: 'cla\\nss'",
         "word broken across newline: 'l\\nà'",
@@ -493,7 +538,8 @@
         "newline inside HTML tag"
       ],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0105",
@@ -506,7 +552,8 @@
         "broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html'"
       ],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0106",
@@ -519,7 +566,8 @@
         "broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html'"
       ],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0107",
@@ -529,7 +577,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     },
     {
       "article_id": "XM-0108",
@@ -539,7 +588,8 @@
       "repair_attempts": 0,
       "quality_failures": [],
       "cannibalization_failures": [],
-      "cannibalization_warnings": []
+      "cannibalization_warnings": [],
+      "qa_warning": null
     }
   ]
 }
