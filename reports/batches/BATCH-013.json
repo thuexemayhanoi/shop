@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-013",
   "started_at": "2026-10-01T10:47:35+07:00",
-  "finished_at": "2026-10-03T08:57:32+07:00",
+  "finished_at": "2026-10-03T09:01:25+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 2,
-  "published": 48,
+  "pass": 0,
+  "published": 50,
   "writing": 0,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0101",
@@ -498,7 +498,7 @@
     {
       "article_id": "XM-0105",
       "output_path": "cam-nang/xe-may/xm-0105-xe-ga-de-khong-len-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -511,7 +511,7 @@
     {
       "article_id": "XM-0106",
       "output_path": "cam-nang/xe-may/xm-0106-xe-may-bi-hao-xang-bat-thuong.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
