@@ -1,16 +1,16 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T18:57:57+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:00:48+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 3 | pass: 0 | published: 3
-- writing: 47 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99 | min 97 | max 100 | repair_count: 0
+- processed: 50 | written: 6 | pass: 0 | published: 6
+- writing: 44 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.5 | min 97 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0118 | cam-nang/an-toan/at-0118-gap-den-vang-khi-dang-gan-vach-dung.html | WRITING |  | 0 |  |
+| AT-0118 | cam-nang/an-toan/at-0118-gap-den-vang-khi-dang-gan-vach-dung.html | PUBLISHED | 100 | 0 |  |
 | AT-0119 | cam-nang/an-toan/at-0119-xe-buyt-bat-xi-nhan-ben-phai-cho-vuot.html | WRITING |  | 0 |  |
 | AT-0120 | cam-nang/an-toan/at-0120-qua-duong-sat-khi-rao-chan-dang-ha.html | WRITING |  | 0 |  |
 | AT-0121 | cam-nang/an-toan/at-0121-chay-ven-ho-nuoc-khong-co-lan-can.html | WRITING |  | 0 |  |
@@ -27,7 +27,7 @@
 | CD-0123 | cam-nang/cung-duong/cd-0123-nghi-dem-o-luc-ngan-khi-di-xe-may-chon-dau.html | WRITING |  | 0 |  |
 | CD-0124 | cam-nang/cung-duong/cd-0124-bai-do-an-toan-doc-duong-di-luc-ngan.html | WRITING |  | 0 |  |
 | CD-0125 | cam-nang/cung-duong/cd-0125-cung-duong-ngam-canh-tu-ha-noi-len-lang-co-duong-lam.html | WRITING |  | 0 |  |
-| DL-0118 | cam-nang/du-lich/dl-0118-mon-gi-dang-mua-ve-tu-ho-ba-be.html | WRITING |  | 0 |  |
+| DL-0118 | cam-nang/du-lich/dl-0118-mon-gi-dang-mua-ve-tu-ho-ba-be.html | PUBLISHED | 100 | 0 |  |
 | DL-0119 | cam-nang/du-lich/dl-0119-goc-view-ven-duong-khi-chay-xe-den-ho-ba-be.html | WRITING |  | 0 |  |
 | DL-0120 | cam-nang/du-lich/dl-0120-chuyen-cuoi-tuan-den-pac-po-bang-xe-may.html | WRITING |  | 0 |  |
 | DL-0121 | cam-nang/du-lich/dl-0121-sang-som-hay-chieu-muon-den-pac-po-dep-hon.html | WRITING |  | 0 |  |
@@ -52,7 +52,7 @@
 | KN-0123 | cam-nang/kinh-nghiem/kn-0123-bai-gui-xe-an-toan-gan-cho-quan-tay-ho.html | WRITING |  | 0 |  |
 | KN-0124 | cam-nang/kinh-nghiem/kn-0124-chay-xe-sang-cuoi-tuan-quanh-quan-tay-ho.html | WRITING |  | 0 |  |
 | KN-0125 | cam-nang/kinh-nghiem/kn-0125-lo-trinh-chay-toi-ven-duong-o-quan-tay-ho.html | WRITING |  | 0 |  |
-| XM-0118 | cam-nang/xe-may/xm-0118-nhan-biet-xe-may-tung-bi-ngap-nuoc.html | WRITING |  | 0 |  |
+| XM-0118 | cam-nang/xe-may/xm-0118-nhan-biet-xe-may-tung-bi-ngap-nuoc.html | PUBLISHED | 100 | 0 |  |
 | XM-0119 | cam-nang/xe-may/xm-0119-nhan-biet-cong-to-met-bi-chinh.html | WRITING |  | 0 |  |
 | XM-0120 | cam-nang/xe-may/xm-0120-kinh-nghiem-chay-ra-may-sau-khi-sua-xe-lon.html | WRITING |  | 0 |  |
 | XM-0121 | cam-nang/xe-may/xm-0121-xe-phat-tieng-luc-cuc-khi-phanh.html | WRITING |  | 0 |  |
