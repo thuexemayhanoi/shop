@@ -1,10 +1,10 @@
 # Batch report BATCH-014
 
-- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T09:10:27+07:00
+- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T10:35:02+07:00
 - writer: external-agent | batch resolved once: BATCH-014
-- processed: 50 | written: 16 | pass: 4 | published: 12
-- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.4 | min 94 | max 100 | repair_count: 0
+- processed: 50 | written: 18 | pass: 4 | published: 13
+- writing: 32 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- scores: avg 98.9 | min 91 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -20,7 +20,7 @@
 | AT-0117 | cam-nang/an-toan/at-0117-qua-doan-duong-o-to-do-hai-ben.html | WRITING |  | 0 |  |
 | CD-0109 | cam-nang/cung-duong/cd-0109-lich-trinh-dai-lai-danh-cho-nhom-di-phuot.html | PASS | 94 | 0 |  |
 | CD-0110 | cam-nang/cung-duong/cd-0110-diem-dung-trua-tren-duong-di-dai-lai.html | PUBLISHED | 99 | 0 |  |
-| CD-0111 | cam-nang/cung-duong/cd-0111-cung-duong-di-xe-may-tu-ha-noi-den-ho-ba-be.html | WRITING |  | 0 |  |
+| CD-0111 | cam-nang/cung-duong/cd-0111-cung-duong-di-xe-may-tu-ha-noi-den-ho-ba-be.html | FAIL | 91 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang.html'; broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang.html' |
 | CD-0112 | cam-nang/cung-duong/cd-0112-lich-trinh-2-ngay-1-dem-di-xe-may-den-ho-ba-be.html | WRITING |  | 0 |  |
 | CD-0113 | cam-nang/cung-duong/cd-0113-diem-dung-chan-dep-tren-cung-duong-ha-noi-ho-ba-be.html | WRITING |  | 0 |  |
 | CD-0114 | cam-nang/cung-duong/cd-0114-di-xe-may-tu-ha-noi-den-pac-po-mat-bao-lau.html | WRITING |  | 0 |  |
@@ -37,7 +37,7 @@
 | DL-0117 | cam-nang/du-lich/dl-0117-mua-dong-den-ho-ba-be-bang-xe-may-co-lanh-lam-khong.html | WRITING |  | 0 |  |
 | HD-0109 | cam-nang/hoi-dap/hd-0109-tim-tram-nghi-giua-ha-noi-va-ninh-binh-o-dau.html | PASS | 100 | 0 |  |
 | HD-0110 | cam-nang/hoi-dap/hd-0110-ung-dung-nao-bao-tac-duong-chinh-xac-o-ha-noi.html | PUBLISHED | 99 | 0 |  |
-| HD-0111 | cam-nang/hoi-dap/hd-0111-ban-do-dinh-huong-nao-tot-cho-xe-may.html | WRITING |  | 0 |  |
+| HD-0111 | cam-nang/hoi-dap/hd-0111-ban-do-dinh-huong-nao-tot-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | HD-0112 | cam-nang/hoi-dap/hd-0112-chay-xe-may-qua-tinh-nao-can-chu-y-tram-kiem-tai.html | WRITING |  | 0 |  |
 | HD-0113 | cam-nang/hoi-dap/hd-0113-tu-ha-noi-di-ninh-binh-bang-xe-may-duong-nao-dep.html | WRITING |  | 0 |  |
 | HD-0114 | cam-nang/hoi-dap/hd-0114-ha-noi-di-hoa-binh-duong-nao-it-xe-tai.html | WRITING |  | 0 |  |
