@@ -1,9 +1,9 @@
 # Batch report BATCH-016
 
-- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-03T22:55:36+07:00
+- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-03T23:02:31+07:00
 - writer: external-agent | batch resolved once: BATCH-016
-- processed: 50 | written: 4 | pass: 0 | published: 4
-- writing: 46 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 8 | pass: 0 | published: 7
+- writing: 42 | review: 0 | repair: 0 | fail: 1 | blocked: 0
 - scores: avg 98.8 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -11,7 +11,7 @@
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0126 | cam-nang/an-toan/at-0126-xe-phia-truoc-tranh-o-ga-dot-ngot.html | PUBLISHED | 100 | 0 |  |
-| AT-0127 | cam-nang/an-toan/at-0127-no-lop-khi-dang-chay-toc-do-cao.html | WRITING |  | 0 |  |
+| AT-0127 | cam-nang/an-toan/at-0127-no-lop-khi-dang-chay-toc-do-cao.html | FAIL | 100 | 0 | requires_sources article has no visible 'Nguồn tham khảo' source section; requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | AT-0128 | cam-nang/an-toan/at-0128-mat-phanh-khi-xuong-doc-dai-xu-ly.html | WRITING |  | 0 |  |
 | AT-0129 | cam-nang/an-toan/at-0129-gap-gio-giat-ngang-khi-qua-dong-trong.html | WRITING |  | 0 |  |
 | AT-0130 | cam-nang/an-toan/at-0130-qua-dap-va-ke-kenh-muong.html | WRITING |  | 0 |  |
@@ -19,7 +19,7 @@
 | AT-0132 | cam-nang/an-toan/at-0132-duong-lang-kin-bi-bang-tron.html | WRITING |  | 0 |  |
 | AT-0133 | cam-nang/an-toan/at-0133-qua-xom-nho-co-tre-con-choi-gan-duong.html | WRITING |  | 0 |  |
 | AT-0134 | cam-nang/an-toan/at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho.html | WRITING |  | 0 |  |
-| CD-0126 | cam-nang/cung-duong/cd-0126-mot-ngay-mot-dem-o-lang-co-duong-lam-co-du-khong.html | WRITING |  | 0 |  |
+| CD-0126 | cam-nang/cung-duong/cd-0126-mot-ngay-mot-dem-o-lang-co-duong-lam-co-du-khong.html | PUBLISHED | 99 | 0 |  |
 | CD-0127 | cam-nang/cung-duong/cd-0127-diem-check-in-doc-cung-duong-den-lang-co-duong-lam.html | WRITING |  | 0 |  |
 | CD-0128 | cam-nang/cung-duong/cd-0128-duong-tu-ha-noi-vao-ho-dong-mo-doan-nao-kho-di.html | WRITING |  | 0 |  |
 | CD-0129 | cam-nang/cung-duong/cd-0129-ke-hoach-3-ngay-2-dem-o-ho-dong-mo-cho-nguoi-chay-xe.html | WRITING |  | 0 |  |
@@ -35,7 +35,7 @@
 | DL-0131 | cam-nang/du-lich/dl-0131-quang-canh-suong-som-o-huu-lien.html | WRITING |  | 0 |  |
 | DL-0132 | cam-nang/du-lich/dl-0132-di-xe-may-den-thanh-pho-lang-son-theo-nhom-ban.html | WRITING |  | 0 |  |
 | DL-0133 | cam-nang/du-lich/dl-0133-san-may-o-thanh-pho-lang-son-mua-nao-bang-xe-may.html | WRITING |  | 0 |  |
-| HD-0126 | cam-nang/hoi-dap/hd-0126-ho-tay-chay-xe-may-quanh-dau-duoc-phep.html | WRITING |  | 0 |  |
+| HD-0126 | cam-nang/hoi-dap/hd-0126-ho-tay-chay-xe-may-quanh-dau-duoc-phep.html | PUBLISHED | 100 | 0 |  |
 | HD-0127 | cam-nang/hoi-dap/hd-0127-chay-xe-may-vao-pho-co-gio-nao-duoc.html | WRITING |  | 0 |  |
 | HD-0128 | cam-nang/hoi-dap/hd-0128-cho-dau-moi-nao-ha-noi-chay-xe-di-tien.html | WRITING |  | 0 |  |
 | HD-0129 | cam-nang/hoi-dap/hd-0129-duong-nao-ve-ha-dong-tranh-un-tac.html | WRITING |  | 0 |  |
@@ -44,7 +44,7 @@
 | HD-0132 | cam-nang/hoi-dap/hd-0132-chay-xe-may-ra-bien-quat-lam-mat-may-tieng.html | WRITING |  | 0 |  |
 | HD-0133 | cam-nang/hoi-dap/hd-0133-mu-bao-hiem-fullface-va-mu-ba-phan-tu-khac-nhau-the-nao.html | WRITING |  | 0 |  |
 | KN-0126 | cam-nang/kinh-nghiem/kn-0126-do-xe-an-toi-o-quan-tay-ho-nen-chon-dau.html | PUBLISHED | 95 | 0 |  |
-| KN-0127 | cam-nang/kinh-nghiem/kn-0127-bai-gui-xe-an-toan-gan-cho-quan-ba-dinh.html | WRITING |  | 0 |  |
+| KN-0127 | cam-nang/kinh-nghiem/kn-0127-bai-gui-xe-an-toan-gan-cho-quan-ba-dinh.html | PUBLISHED | 96 | 0 |  |
 | KN-0128 | cam-nang/kinh-nghiem/kn-0128-chay-xe-sang-cuoi-tuan-quanh-quan-ba-dinh.html | WRITING |  | 0 |  |
 | KN-0129 | cam-nang/kinh-nghiem/kn-0129-lo-trinh-chay-toi-ven-duong-o-quan-ba-dinh.html | WRITING |  | 0 |  |
 | KN-0130 | cam-nang/kinh-nghiem/kn-0130-do-xe-an-toi-o-quan-ba-dinh-nen-chon-dau.html | WRITING |  | 0 |  |
