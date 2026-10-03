@@ -1,1 +1,1 @@
-{"op":"prepare-next","batch":"BATCH-013","note":"retrigger 2: operator push event dropped for ee880dd (FPV #12 triggered from the same push; operator did not); claim XM-0107/XM-0108"}
+{"op":"prepare-next","batch":"BATCH-013","note":"watchdog recovery 03/10: re-claim XM-0107/XM-0108 after gate CRLF fix (cr-at-eol)"}

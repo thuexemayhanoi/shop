@@ -66,7 +66,7 @@ python3 scripts/generate_category_pages.py --check
 echo "== [gate L2] working tree hygiene (whitespace/conflict markers)"
 if [ -d .git ]; then
   ws_findings="$(mktemp)"
-  if ! git diff --check > "$ws_findings"; then
+  if ! git -c core.whitespace=cr-at-eol diff --check > "$ws_findings"; then
     echo "== [gate L2] git diff --check FAILED — whitespace/conflict-marker findings:"
     cat "$ws_findings"
     # Self-instrumenting evidence (behavior unchanged: still fail-closed
