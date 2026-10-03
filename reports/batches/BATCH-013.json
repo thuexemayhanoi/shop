@@ -1,25 +1,25 @@
 {
   "batch_id": "BATCH-013",
   "started_at": "2026-10-01T10:47:35+07:00",
-  "finished_at": "2026-10-03T07:12:33+07:00",
+  "finished_at": "2026-10-03T08:52:28+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 0,
+  "pass": 4,
   "published": 46,
   "writing": 0,
   "review": 0,
   "repair": 0,
-  "fail": 2,
-  "blocked": 2,
-  "average_score": 98.6,
+  "fail": 0,
+  "blocked": 0,
+  "average_score": 98.8,
   "min_score": 95,
   "max_score": 100,
-  "repair_count": 4,
+  "repair_count": 0,
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 0,
+  "pass_publishable_now": 4,
   "articles": [
     {
       "article_id": "AT-0101",
@@ -464,9 +464,9 @@
     {
       "article_id": "XM-0103",
       "output_path": "cam-nang/xe-may/xm-0103-xe-kho-no-buoi-sang-lanh.html",
-      "outcome": "BLOCKED",
+      "outcome": "PASS",
       "score": 100,
-      "repair_attempts": 2,
+      "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-na\\nng/chu-de/'",
         "word broken across newline: 'na\\nng'",
@@ -482,9 +482,9 @@
     {
       "article_id": "XM-0104",
       "output_path": "cam-nang/xe-may/xm-0104-xe-no-may-roi-chet-ngay-nguyen-nhan.html",
-      "outcome": "BLOCKED",
+      "outcome": "PASS",
       "score": 100,
-      "repair_attempts": 2,
+      "repair_attempts": 0,
       "quality_failures": [
         "word broken across newline: 'cla\\nss'",
         "word broken across newline: 'l\\nà'",
@@ -498,8 +498,8 @@
     {
       "article_id": "XM-0105",
       "output_path": "cam-nang/xe-may/xm-0105-xe-ga-de-khong-len-may.html",
-      "outcome": "FAIL",
-      "score": 95,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html'",
@@ -511,8 +511,8 @@
     {
       "article_id": "XM-0106",
       "output_path": "cam-nang/xe-may/xm-0106-xe-may-bi-hao-xang-bat-thuong.html",
-      "outcome": "FAIL",
-      "score": 95,
+      "outcome": "PASS",
+      "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
         "broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html'",

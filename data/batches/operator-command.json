@@ -1,1 +1,0 @@
-{"op":"requeue","batch":"BATCH-013","ids":"XM-0103,XM-0104,XM-0105,XM-0106","allow_blocked":true,"note":"resume 03/10 retry after contract fix 6d81ed6: requeue all 4 residual BATCH-013 rows; drafts repaired on main (a2ea1074), link defect fixed; retry of failed run #447"}
