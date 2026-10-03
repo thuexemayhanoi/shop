@@ -1,1 +1,1 @@
-{"op":"publish","batch":"BATCH-014","ids":"XM-0109,DL-0109","date":"2026-10-03","note":"retry publish of first PASS pair after trim repair — run #452 failed before drafts were trimmed back into the word band; drafts now verified in-band on main"}
+{"op":"requeue","batch":"BATCH-014","ids":"CD-0111","note":"resume 03/10: CD-0111 FAIL (broken internal link) repaired on main (81bcf6dc, link retargeted to cd-ha-giang-dong-bac-ca hub); requeue for re-QA and publish"}
