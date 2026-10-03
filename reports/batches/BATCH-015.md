@@ -1,9 +1,9 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:42:55+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:48:52+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 18 | pass: 0 | published: 17
-- writing: 32 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- processed: 50 | written: 18 | pass: 1 | published: 17
+- writing: 32 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.3 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -54,7 +54,7 @@
 | KN-0125 | cam-nang/kinh-nghiem/kn-0125-lo-trinh-chay-toi-ven-duong-o-quan-tay-ho.html | WRITING |  | 0 |  |
 | XM-0118 | cam-nang/xe-may/xm-0118-nhan-biet-xe-may-tung-bi-ngap-nuoc.html | PUBLISHED | 100 | 0 |  |
 | XM-0119 | cam-nang/xe-may/xm-0119-nhan-biet-cong-to-met-bi-chinh.html | PUBLISHED | 100 | 0 |  |
-| XM-0120 | cam-nang/xe-may/xm-0120-kinh-nghiem-chay-ra-may-sau-khi-sua-xe-lon.html | FAIL | 100 | 0 | word broken across newline: 'ê\nm'; newline inside HTML tag |
+| XM-0120 | cam-nang/xe-may/xm-0120-kinh-nghiem-chay-ra-may-sau-khi-sua-xe-lon.html | PASS | 100 | 0 | word broken across newline: 'ê\nm'; newline inside HTML tag |
 | XM-0121 | cam-nang/xe-may/xm-0121-xe-phat-tieng-luc-cuc-khi-phanh.html | WRITING |  | 0 |  |
 | XM-0122 | cam-nang/xe-may/xm-0122-xe-rung-khi-tang-toc.html | WRITING |  | 0 |  |
 | XM-0123 | cam-nang/xe-may/xm-0123-may-nong-nhanh-hon-binh-thuong.html | WRITING |  | 0 |  |
