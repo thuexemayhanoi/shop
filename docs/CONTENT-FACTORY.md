@@ -31,7 +31,7 @@ Every production article must satisfy ALL of:
 - Article schema, breadcrumb, author/date metadata, related content
 - source section when `requires_sources=true`
 - full QA: PASS (score ≥ 75 per `config/article-rubric.json`, no critical
-  failures, no review flags; 75–89 records a QA warning) BEFORE
+  failures, no review flags) BEFORE
   publication — see docs/ARTICLE-RULES.md for the full standard
 
 ## Scale architecture
@@ -71,7 +71,7 @@ PLANNED → CLAIMED/WRITING → QA → PASS → PUBLISHED
 - `WRITING` — a writer agent has claimed the row and is drafting.
 - `QA` / `REPAIR` — draft exists, gate tools running or repairing.
 - `REVIEW` — score 70–74 or unresolved review flags; NOT publishable.
-- `PASS` — score 75–100 (thresholds in `config/article-rubric.json`), no critical failures, no review flags; publishable (75–89 records a QA warning).
+- `PASS` — score 75–100 (thresholds in `config/article-rubric.json`), no critical failures, no review flags; publishable (no EXCELLENT tier and no QA warning band).
 - `PUBLISHED` — **only after the article file is actually committed to MAIN.**
 - `FAIL` — critical failure or score < 70. Never auto-published.
 - `BLOCKED` — cannot proceed (max repairs exhausted, unconfirmed facts,

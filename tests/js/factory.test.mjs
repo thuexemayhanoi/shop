@@ -238,13 +238,13 @@ test('qa-record enforces the state machine and score threshold (75/70/75 from co
   // WRITING -> PASS below the rubric PASS.min (75) refused
   assert.throws(() => runFactory(dir, ['--qa-record', 'KN-0101=74:PASS']), /score >= 75/);
   // WRITING -> PASS at exactly 75 (the rubric PASS.min) is valid;
-  // 75-89 is the production QA-warning band
+  // flat PASS: scores 75-100 are simply PASS (no warning band, no EXCELLENT)
   const out = runFactory(dir, ['--qa-record', 'KN-0101=75:PASS']);
   let led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
   let row = led.rows.find((r) => r.fields[0] === 'KN-0101');
   assert.strictEqual(row.fields[1], 'PASS');
   assert.strictEqual(row.fields[17], '75');
-  // 76-89 also PASS (same band); 90+ EXCELLENT
+  // 76-89 also PASS, and so is any score up to 100 (no EXCELLENT tier)
   // (reset the row to WRITING first: PASS -> PASS is not a legal transition)
   led = parseLedger(fs.readFileSync(path.join(dir, 'data', 'content-matrix.csv'), 'utf8'));
   fs.writeFileSync(

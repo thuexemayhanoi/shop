@@ -52,7 +52,7 @@ requirement — it is the owner-selected quality bar for this factory.
   link to PUBLISHED articles (or articles publishing in the same validated
   batch)
 - QUALITY GATE: PASS requires score ≥ 75 (rubric PASS.min in
-  `config/article-rubric.json`; 75–89 records a QA warning), no critical failures, no review
+  `config/article-rubric.json`), no critical failures, no review
   flags, length inside the target band (1,600–3,000 for not-yet-published
   rows; 1,600–2,000 legacy band for already-published rows), 3–5 contextual
   links, parent hub present, no

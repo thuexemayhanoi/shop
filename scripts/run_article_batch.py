@@ -494,17 +494,8 @@ def run_qa_for_batch(rows, matrix, ownership, facts, rubric, repo_root):
         if res["status"] == "PASS":
             entry["outcome"] = "PASS"
             # Owner-approved 75/70/75 production band (config/article-
-            # rubric.json): 75-89 is a legitimate production PASS with a
-            # QA WARNING (non-critical polish deferred to the periodic /
-            # batch-end audit); >= 90 is EXCELLENT.
-            wb = ((rubric.get("threshold_policy") or {})
-                  .get("qa_warning_band") or {})
-            wb_max = int(wb.get("max", 89))
-            if res["score"] <= wb_max:
-                entry["qa_warning"] = (
-                    "score %d in the %d-%d production PASS band - "
-                    "non-critical polish deferred to the periodic/"
-                    "batch-end audit" % (res["score"], int(wb.get("min", 75)), wb_max))
+            # rubric.json): scores 75-100 are simply PASS - no EXCELLENT
+            # tier, no QA warning score band.
             updates[aid] = {"status": "PASS", "quality_status": "PASS",
                             "score": str(res["score"]),
                             "last_checked": today()}
@@ -710,8 +701,6 @@ def build_cumulative_report(batch_id, rows, run_articles, started_at,
                                          or []),
             "cannibalization_warnings": (old.get("cannibalization_warnings")
                                          or []),
-            "qa_warning": (run.get("qa_warning")
-                           or old.get("qa_warning") or None),
         })
     count = lambda st: sum(1 for r in members
                           if (r.get("status") or "").strip() == st)  # noqa: E731

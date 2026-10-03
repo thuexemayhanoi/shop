@@ -248,7 +248,7 @@ Exit codes:
 
 Scoring: 100 points total, thresholds centralized in
 `config/article-rubric.json`. PASS = 75–100 AND no critical failures
-(75–89 is the production PASS band and records a QA warning).
+(no EXCELLENT tier and no QA warning band).
 REVIEW = 70–74 or unresolved review flags, AND no critical failures.
 FAIL = < 70 OR any critical failure.
 

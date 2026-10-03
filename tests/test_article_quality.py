@@ -83,9 +83,8 @@ class ConfigTests(GateTestCase):
         self.assertEqual(th["FAIL"]["max"], 69)
         self.assertIn("mapping_note",
                       self.rubric["threshold_policy"])
-        self.assertEqual(
-            self.rubric["threshold_policy"]["qa_warning_band"],
-            {"min": 75, "max": 89})
+        self.assertNotIn("qa_warning_band",
+                         self.rubric["threshold_policy"])
 
     def test_business_facts_prices(self):
         models = self.facts["approved_models"]

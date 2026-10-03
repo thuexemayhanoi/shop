@@ -166,8 +166,7 @@ class ThresholdCentralization(unittest.TestCase):
         self.assertEqual(th["FAIL"]["max"], 69)
         # the 75/70/75 mapping is documented in the rubric itself
         self.assertIn("mapping_note", rubric["threshold_policy"])
-        self.assertEqual(rubric["threshold_policy"]["qa_warning_band"],
-                         {"min": 75, "max": 89})
+        self.assertNotIn("qa_warning_band", rubric["threshold_policy"])
 
     def test_score_article_has_no_hardcoded_bands(self):
         src = read(os.path.join(SCRIPTS, "score_article.py"))
@@ -193,7 +192,7 @@ class ThresholdCentralization(unittest.TestCase):
         rubric = json.loads(read(os.path.join(ROOT, "config",
                                               "article-rubric.json")))
         f = sc.status_from_totals
-        # PASS band: 75..100 (75-89 carries a QA warning, 90+ excellent)
+        # PASS band: 75..100 (flat PASS - no warning band, no EXCELLENT tier)
         self.assertEqual(f(100, [], [], rubric), "PASS")
         self.assertEqual(f(90, [], [], rubric), "PASS")
         self.assertEqual(f(75, [], [], rubric), "PASS")

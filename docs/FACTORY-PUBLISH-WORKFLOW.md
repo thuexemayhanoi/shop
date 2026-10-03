@@ -87,7 +87,7 @@ publish gates) and the tests:
 - SEO floor = `thresholds.REVIEW.min` = **70** (mapped as the FAIL
   boundary: FAIL = score < 70)
 - PASS = 75–100 AND no critical failures AND no review flags.
-  **75–89 is the production PASS band and records a QA warning.**
+  **Scores 75–100 are simply PASS: no EXCELLENT tier and no QA warning band.**
 - REVIEW = 70–74 (or unresolved review flags).
 - FAIL = < 70 OR any critical failure.
 

@@ -28,7 +28,7 @@ Weights (total 100):
 
 Status thresholds (centralized in `config/article-rubric.json`):
 PASS = 75–100 AND no critical failures AND no review
-flags (75–89 is the production PASS band and records a QA warning).
+flags (no EXCELLENT tier and no QA warning band).
 REVIEW = 70–74 or unresolved review flags, AND no critical failures.
 FAIL = <70 OR any critical
 failure (the critical-failure list lives in the rubric config — placeholder
