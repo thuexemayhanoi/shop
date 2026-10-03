@@ -1,17 +1,17 @@
 # Batch report BATCH-014
 
-- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T09:08:53+07:00
+- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T09:09:19+07:00
 - writer: external-agent | batch resolved once: BATCH-014
-- processed: 50 | written: 4 | pass: 0 | published: 4
-- writing: 46 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.8 | min 99 | max 100 | repair_count: 0
+- processed: 50 | written: 8 | pass: 0 | published: 8
+- writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.6 | min 99 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0110 | cam-nang/an-toan/at-0110-qua-khu-ben-xe-khach-dong-nguoi.html | PUBLISHED | 100 | 0 |  |
-| AT-0111 | cam-nang/an-toan/at-0111-chay-trong-khu-cong-nghiep-gio-tan-ca.html | WRITING |  | 0 |  |
+| AT-0111 | cam-nang/an-toan/at-0111-chay-trong-khu-cong-nghiep-gio-tan-ca.html | PUBLISHED | 100 | 0 |  |
 | AT-0112 | cam-nang/an-toan/at-0112-vong-xuyen-lon-nhieu-nhanh-chon-lan-the-nao.html | WRITING |  | 0 |  |
 | AT-0113 | cam-nang/an-toan/at-0113-chay-khi-troi-mua-kem-sam-chop.html | WRITING |  | 0 |  |
 | AT-0114 | cam-nang/an-toan/at-0114-bang-qua-vach-qua-duong-dong-nguoi.html | WRITING |  | 0 |  |
@@ -19,7 +19,7 @@
 | AT-0116 | cam-nang/an-toan/at-0116-chay-canh-xe-may-cho-hang-cong-kenh.html | WRITING |  | 0 |  |
 | AT-0117 | cam-nang/an-toan/at-0117-qua-doan-duong-o-to-do-hai-ben.html | WRITING |  | 0 |  |
 | CD-0109 | cam-nang/cung-duong/cd-0109-lich-trinh-dai-lai-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |
-| CD-0110 | cam-nang/cung-duong/cd-0110-diem-dung-trua-tren-duong-di-dai-lai.html | WRITING |  | 0 |  |
+| CD-0110 | cam-nang/cung-duong/cd-0110-diem-dung-trua-tren-duong-di-dai-lai.html | PUBLISHED | 99 | 0 |  |
 | CD-0111 | cam-nang/cung-duong/cd-0111-cung-duong-di-xe-may-tu-ha-noi-den-ho-ba-be.html | WRITING |  | 0 |  |
 | CD-0112 | cam-nang/cung-duong/cd-0112-lich-trinh-2-ngay-1-dem-di-xe-may-den-ho-ba-be.html | WRITING |  | 0 |  |
 | CD-0113 | cam-nang/cung-duong/cd-0113-diem-dung-chan-dep-tren-cung-duong-ha-noi-ho-ba-be.html | WRITING |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0116 | cam-nang/du-lich/dl-0116-di-xe-may-den-ho-ba-be-lan-dau-can-biet-gi.html | WRITING |  | 0 |  |
 | DL-0117 | cam-nang/du-lich/dl-0117-mua-dong-den-ho-ba-be-bang-xe-may-co-lanh-lam-khong.html | WRITING |  | 0 |  |
 | HD-0109 | cam-nang/hoi-dap/hd-0109-tim-tram-nghi-giua-ha-noi-va-ninh-binh-o-dau.html | WRITING |  | 0 |  |
-| HD-0110 | cam-nang/hoi-dap/hd-0110-ung-dung-nao-bao-tac-duong-chinh-xac-o-ha-noi.html | WRITING |  | 0 |  |
+| HD-0110 | cam-nang/hoi-dap/hd-0110-ung-dung-nao-bao-tac-duong-chinh-xac-o-ha-noi.html | PUBLISHED | 99 | 0 |  |
 | HD-0111 | cam-nang/hoi-dap/hd-0111-ban-do-dinh-huong-nao-tot-cho-xe-may.html | WRITING |  | 0 |  |
 | HD-0112 | cam-nang/hoi-dap/hd-0112-chay-xe-may-qua-tinh-nao-can-chu-y-tram-kiem-tai.html | WRITING |  | 0 |  |
 | HD-0113 | cam-nang/hoi-dap/hd-0113-tu-ha-noi-di-ninh-binh-bang-xe-may-duong-nao-dep.html | WRITING |  | 0 |  |
@@ -44,7 +44,7 @@
 | HD-0115 | cam-nang/hoi-dap/hd-0115-duong-len-moc-chau-doan-nao-can-chay-can-than.html | WRITING |  | 0 |  |
 | HD-0116 | cam-nang/hoi-dap/hd-0116-chay-xe-tu-ha-noi-len-thai-nguyen-mat-bao-lau.html | WRITING |  | 0 |  |
 | KN-0110 | cam-nang/kinh-nghiem/kn-0110-kinh-nghiem-giu-lien-lac-voi-nguoi-nha-khi-di-phuot.html | PUBLISHED | 100 | 0 |  |
-| KN-0111 | cam-nang/kinh-nghiem/kn-0111-kinh-nghiem-chon-quan-nghi-khi-di-phuot-xe-may.html | WRITING |  | 0 |  |
+| KN-0111 | cam-nang/kinh-nghiem/kn-0111-kinh-nghiem-chon-quan-nghi-khi-di-phuot-xe-may.html | PUBLISHED | 100 | 0 |  |
 | KN-0112 | cam-nang/kinh-nghiem/kn-0112-kinh-nghiem-len-ke-hoach-chi-phi-cho-chuyen-phuot.html | WRITING |  | 0 |  |
 | KN-0113 | cam-nang/kinh-nghiem/kn-0113-kinh-nghiem-di-phuot-theo-mua-hoa-o-mien-bac.html | WRITING |  | 0 |  |
 | KN-0114 | cam-nang/kinh-nghiem/kn-0114-checklist-truoc-moi-chuyen-di-xe-may-duong-dai.html | WRITING |  | 0 |  |
