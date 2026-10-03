@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Production-standard tests: 1,600–2,000 word rule, 3–5 contextual-link rule,
+"""Production-standard tests: 1,500–5,000 word rule (not-yet-published rows;
+legacy 1,600–2,000 band for already-published rows), 3–8 contextual-link rule,
 anchor checks, exclusions, base-path /shop/ enforcement, sitemap status rules
 and workflow concurrency policy."""
 import io
@@ -78,14 +79,14 @@ class WordCountTests(unittest.TestCase):
 
     def test_word_boundaries(self):
         # NEW band for not-yet-published rows (PROD_ROW status=WRITING):
-        # 1600-3000 satisfied | 1200-1599 / 3001-3400 REVIEW | else FAIL
-        for n in (1600, 1800, 2000, 2500, 3000):
+        # 1500-5000 satisfied | 1100-1499 / 5001-5400 REVIEW | else FAIL
+        for n in (1500, 1800, 2000, 3000, 4000, 5000):
             self.assertEligible(n)
-        self.assertReview(1599)
-        self.assertReview(3001)
-        self.assertReview(3400)
-        self.assertFail(1199)
-        self.assertFail(3401)
+        self.assertReview(1499)
+        self.assertReview(5001)
+        self.assertReview(5400)
+        self.assertFail(1099)
+        self.assertFail(5401)
 
     def test_published_rows_keep_legacy_band(self):
         # Already-PUBLISHED rows are never re-audited against the new band
@@ -127,7 +128,7 @@ class WordCountTests(unittest.TestCase):
                 art, PROD_ROW, self.rubric, self.ownership)
             self.assertEqual([f for f in fails if "length" in f], [])
             self.assertEqual([f for f in flags if "word" in f], [])
-            self.assertIn("1600-3000", metrics["word_count_band"])
+            self.assertIn("1500-5000", metrics["word_count_band"])
         finally:
             shutil.rmtree(d)
 
@@ -175,8 +176,8 @@ class ContextualLinkTests(unittest.TestCase):
         finally:
             shutil.rmtree(d)
 
-    def test_link_counts_3_4_5_valid(self):
-        for n in (1, 2, 3):  # 1 base + hub + n => 3,4,5 total
+    def test_link_counts_3_to_8_valid(self):
+        for n in range(1, 7):  # 1 base + hub + n => 3..8 total
             fails, flags, warns, metrics = self._eval(n, hub=True)
             self.assertEqual([f for f in flags if "contextual internal links" in f],
                              [], n)
@@ -185,9 +186,9 @@ class ContextualLinkTests(unittest.TestCase):
         fails, flags, warns, metrics = self._eval(0, hub=True)  # 2 total
         self.assertTrue(any("only 2 contextual internal links" in f for f in flags))
 
-    def test_link_count_6_review(self):
-        fails, flags, warns, metrics = self._eval(4, hub=True)  # 6 total
-        self.assertTrue(any("(maximum 5)" in f for f in flags))
+    def test_link_count_9_review(self):
+        fails, flags, warns, metrics = self._eval(7, hub=True)  # 9 total
+        self.assertTrue(any("(maximum 8)" in f for f in flags))
 
     def test_zero_links_never_pass(self):
         art, d = synth_article(1700)

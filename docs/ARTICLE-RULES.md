@@ -5,14 +5,14 @@
 This is the site's internal editorial standard. It is NOT a Google
 requirement — it is the owner-selected quality bar for this factory.
 
-- TARGET LENGTH (NEW articles, matrix rows NOT yet PUBLISHED): **1,600–3,000
+- TARGET LENGTH (NEW articles, matrix rows NOT yet PUBLISHED): **1,500–5,000
   Vietnamese words** of main editorial content
-  - 1,600–3,000 = length requirement satisfied
-  - 1,200–1,599 or 3,001–3,400 = REVIEW (cannot PASS without repair)
-  - <1,200 or >3,400 = FAIL
+  - 1,500–5,000 = length requirement satisfied
+  - 1,100–1,499 or 5,001–5,400 = REVIEW (cannot PASS without repair)
+  - <1,100 or >5,400 = FAIL
   - Choose the length INSIDE the band by search intent: a narrow question
-    needs ~1,600–2,000, a broad guide can justify ~2,500–3,000. Never
-    force every article to 3,000. Never pad: repeated ideas, duplicate
+    needs ~1,500–2,000, a broad guide can justify ~2,500–5,000. Never
+    force every article to 5,000. Never pad: repeated ideas, duplicate
     sections, keyword stuffing and filler are detected separately and
     block PASS; invented facts are critical failures.
   - ALREADY-PUBLISHED articles keep the LEGACY band (1,600–2,000
@@ -27,7 +27,7 @@ requirement — it is the owner-selected quality bar for this factory.
     scripts, styles, SVG and JSON-LD. Menu/footer/shared UI words never
     count. This is an internal editorial standard, NOT a Google
     requirement.
-- CONTEXTUAL INTERNAL LINKS: exactly **3–5** inside the editorial body
+- CONTEXTUAL INTERNAL LINKS: exactly **3–8** inside the editorial body
   - menu, footer, breadcrumb, logo, chatbot, pagination, social and
     external links never count
   - exactly 1 link to the article's parent category hub is REQUIRED
@@ -35,14 +35,14 @@ requirement — it is the owner-selected quality bar for this factory.
     Xe máy → `xemay.html`, Du lịch → `dulich.html`, Cung đường →
     `cungduong.html`, Hỏi đáp → `hoidap.html`)
   - at most 1 contextual commercial landing-page link by default
-  - 0 contextual links, missing parent hub, <3 or >5 links: cannot PASS
+  - 0 contextual links, missing parent hub, <3 or >8 links: cannot PASS
 - PRIMARY INTENT: exactly 1 per article
 - H1: exactly 1
 - CANONICAL: self-referencing
 - SCHEMA: Article (JSON-LD)
 - BREADCRUMB: required
 - AUTHOR/DATE metadata: required
-- RELATED CONTENT: useful related-article links (count toward the 3–5 total)
+- RELATED CONTENT: useful related-article links (count toward the 3–8 total)
 - ANCHORS: descriptive and diverse — "kinh nghiệm kiểm tra xe trước khi
   nhận" is good; "xem thêm", "tại đây", "bấm vào đây", "click here",
   "link này" are flagged. The same exact-match anchor must not repeat; the
@@ -53,8 +53,8 @@ requirement — it is the owner-selected quality bar for this factory.
   batch)
 - QUALITY GATE: PASS requires score ≥ 75 (rubric PASS.min in
   `config/article-rubric.json`), no critical failures, no review
-  flags, length inside the target band (1,600–3,000 for not-yet-published
-  rows; 1,600–2,000 legacy band for already-published rows), 3–5 contextual
+  flags, length inside the target band (1,500–5,000 for not-yet-published
+  rows; 1,600–2,000 legacy band for already-published rows), 3–8 contextual
   links, parent hub present, no
   broken links, no protected-intent conflict, fact-safety pass and legal
   sources satisfied
@@ -73,7 +73,7 @@ exactly once, immediately before `</body>`:
 <script src="/shop/assets/js/chatbot-embed.js" defer></script>
 ```
 
-- The embed is structural, not editorial: it never counts toward the 3–5
+- The embed is structural, not editorial: it never counts toward the 3–8
   contextual internal links and never justifies content changes.
 - Do NOT add any other chatbot (no MotoAI v39/v40/v41 scripts, no AI Guide
   modal) — one chatbot implementation per page, enforced by
@@ -92,12 +92,12 @@ immediately after `</main>` and before the chatbot embed:
   from `data/content-taxonomy.json` by `scripts/build_footer_snippet.py`.
   If the file is missing, regenerate it with that script — do not invent
   links.
-- The footer is structural: it never counts toward the 3–5 contextual
+- The footer is structural: it never counts toward the 3–8 contextual
   internal links budget and must not be modified per article.
 
 ## Intent & structure
 
-- One clear search intent; one primary topic per article. The 1,600–3,000
+- One clear search intent; one primary topic per article. The 1,500–5,000
   word budget must answer that intent deeply — never mix unrelated intents
   or add unrelated sections just to reach the word count.
 - The useful answer appears early in the article (answer the intent in the
@@ -108,7 +108,7 @@ immediately after `</main>` and before the chatbot embed:
 - No duplicate sections; no filler written only to pad word count
   (detected and blocked).
 - No exact word-count requirement for SAMPLE fixtures. For production rows
-  the 1,600–3,000 standard above applies (legacy band for rows already
+  the 1,500–5,000 standard above applies (legacy band for rows already
   PUBLISHED). The configurable thin-content
   threshold (`thin_content_min_words`, default 300) still applies to all
   articles.
@@ -154,13 +154,13 @@ given.
 
 ## Internal linking
 
-- 3–5 contextual internal links inside the editorial body (counted from
+- 3–8 contextual internal links inside the editorial body (counted from
   the main content container only; navigation/footer/breadcrumb links are
   excluded by the tools).
 - Link to the parent category hub (required, see standard above).
 - When the manifest's `taxonomy.child_hub` is non-empty, link the article's
   CHILD TOPIC HUB (`/shop/cam-nang/chu-de/<child-slug>.html`) contextually —
-  it counts within the same 3-5 link budget, alongside the parent hub link.
+  it counts within the same 3-8 link budget, alongside the parent hub link.
 - Link to relevant informational articles (siblings, related categories)
   where semantically natural. Sibling articles in the SAME child cluster are
   the preferred contextual targets.

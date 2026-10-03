@@ -70,12 +70,12 @@ local copy.
    If manifests already exist for the active batch, skip this step.
 2. **Write drafts** at the manifest's `draft_output_path`
    (`_drafts/<output_path>`) — NEVER at the public `output_path`.
-   Follow `docs/ARTICLE-RULES.md`: 1,600–3,000 words main content for
+   Follow `docs/ARTICLE-RULES.md`: 1,500–5,000 words main content for
    new articles (choose by search intent; already-published articles
    keep the legacy 1,600–2,000 band), 1 H1,
    self-canonical = `canonical_url` from the manifest, Article +
    BreadcrumbList JSON-LD, `datePublished` = manifest `date_published`
-   (never `planned_date`), 3–5 contextual internal links (parent hub
+   (never `planned_date`), 3–8 contextual internal links (parent hub
    required; child hub when the manifest's `taxonomy.child_hub` is
    non-empty; ≤1 commercial), "Nguồn tham khảo" section with ≥1 approved
    official URL for `requires_sources=true` rows (verify via web research
@@ -144,7 +144,7 @@ local copy.
 
 | Symptom | Action |
 |---|---|
-| Local scorer REVIEW (score 70–74 or review flags) | Fix per its report (word count inside the target band — 1,600–3,000 for new articles, 1,600–2,000 legacy band for published rows — link count 3–5, parent hub, sources…) and re-score. |
+| Local scorer REVIEW (score 70–74 or review flags) | Fix per its report (word count inside the target band — 1,500–5,000 for new articles, 1,600–2,000 legacy band for published rows — link count 3–8, parent hub, sources…) and re-score. |
 | `canonical inconsistent with slug` / `article not in content matrix` | Draft filename must equal the manifest slug exactly; canonical must equal the manifest `canonical_url`. |
 | QA workflow reports FAIL/REVIEW rows | Bounded repair (max 3), else BLOCKED with reason. Never publish a non-PASS row. |
 | Publish workflow interrupted | `node scripts/js/factory.mjs --recover` (locally or via operator op `recover`) finishes/verifies the transaction. Never mutate while a marker is pending. |

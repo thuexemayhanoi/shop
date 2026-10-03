@@ -366,7 +366,7 @@ class WordCountingTests(unittest.TestCase):
                     any("length" in f for f in fails), expected_fail,
                     (status, fails, flags))
                 if status == "WRITING":
-                    self.assertIn("1600-3000", metrics["word_count_band"])
+                    self.assertIn("1500-5000", metrics["word_count_band"])
                 else:
                     self.assertIn("legacy", metrics["word_count_band"])
             finally:

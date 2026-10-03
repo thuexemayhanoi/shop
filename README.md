@@ -141,11 +141,11 @@ publish transaction — see `docs/PROC-PUBLISH.md`).
 
 **Production article standard (Mr Tú Content Factory — internal editorial
 standard, not a Google requirement):** every new production article targets
-**1,600–3,000 Vietnamese words** of main editorial content, chosen by
-search intent (1,200–1,599 or 3,001–3,400 → REVIEW; <1,200 or >3,400 →
+**1,500–5,000 Vietnamese words** of main editorial content, chosen by
+search intent (1,100–1,499 or 5,001–5,400 → REVIEW; <1,100 or >5,400 →
 FAIL; padding never counts; already-published articles keep the legacy
 1,600–2,000 band) and
-exactly **3–5 contextual internal links** including the required **parent
+exactly **3–8 contextual internal links** including the required **parent
 category hub** link, with descriptive diverse anchors and at most 1
 commercial landing-page link. Public URLs live under the GitHub Pages base
 path `/shop/` (source: `config/site.json`); generated bare-root
@@ -198,11 +198,11 @@ regenerates them (publish regenerates them automatically).
 Then select exactly ONE eligible (PLANNED) matrix row. For every production
 article, an agent MUST:
 
-1. write **1,600–3,000 useful Vietnamese words** (main content only; choose
+1. write **1,500–5,000 useful Vietnamese words** (main content only; choose
    the length by search intent; no filler)
 2. exactly **1 primary search intent**
 3. exactly **1 H1**
-4. **3–5 contextual internal links** in the editorial body (nav/footer/breadcrumb links do not count)
+4. **3–8 contextual internal links** in the editorial body (nav/footer/breadcrumb links do not count)
 5. include the **parent category hub** link and (when the manifest's
    `taxonomy.child_hub` is non-empty) the **child topic hub** link
 6. use **descriptive, diverse anchors** (no "xem thêm"/"click here"; no repeated exact-match anchors)

@@ -43,7 +43,7 @@ evidence trail.
    deposit wording), schema_metadata, readability_structure (paragraph
    size, heading order), technical_validation (broken links, malformed
    HTML), plus the production standard (word count 1,600–2,000 main
-   content; 3–5 contextual links; ≤1 commercial; source gate for
+   content; 3–8 contextual links; ≤1 commercial; source gate for
    `requires_sources`).
 
 2. **Manual intent review** (agent judgment, recorded in the report):

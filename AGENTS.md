@@ -152,7 +152,7 @@ rows -> VERIFY -> continue.
    command `{"op":"prepare-next"}`; otherwise read the existing manifests
    under `reports/batches/<BATCH>/rows/`.
 4. Write drafts into `_drafts/<output_path>` (5–10 per chunk).
-   New articles target **1,600–3,000 main-content Vietnamese words**
+   New articles target **1,500–5,000 main-content Vietnamese words**
    (choose by search intent; already-published articles keep the legacy
    1,600–2,000 band — see `docs/ARTICLE-RULES.md`).
 5. Local gate each draft: `python3 scripts/score_article.py <draft>`.

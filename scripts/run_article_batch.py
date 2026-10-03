@@ -323,16 +323,16 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
         "word_standard": {
             "target_min_words": int(length_cfg.get(
                 "unpublished_target_min_words",
-                length_cfg.get("target_min_words", 1600))),
+                length_cfg.get("target_min_words", 1500))),
             "target_max_words": int(length_cfg.get(
                 "unpublished_target_max_words",
-                length_cfg.get("target_max_words", 3000))),
+                length_cfg.get("target_max_words", 5000))),
             "review_min_words": int(length_cfg.get(
                 "unpublished_review_min_words",
-                length_cfg.get("review_min_words", 1200))),
+                length_cfg.get("review_min_words", 1100))),
             "review_max_words": int(length_cfg.get(
                 "unpublished_review_max_words",
-                length_cfg.get("review_max_words", 3400))),
+                length_cfg.get("review_max_words", 5400))),
             "scope": "main editorial content only",
             "policy": ("choose length inside the band by search intent; "
                        "never pad with repeated ideas, keyword stuffing "
@@ -350,7 +350,7 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
             "policy": ("taxonomy is authoritative: the writer MUST NOT "
                        "invent categories or hubs; when child_hub is "
                        "non-empty, link the parent hub AND the child hub "
-                       "contextually within the 3-5 link budget"),
+                       "contextually within the 3-8 link budget"),
         },
         "page_shell": {
             "chatbot_embed_required": True,
@@ -371,7 +371,7 @@ def build_writer_context(row, matrix, ownership, facts, rubric, site,
         },
         "link_standard": {
             "contextual_internal_links_min": int(link_cfg.get("min", 3)),
-            "contextual_internal_links_max": int(link_cfg.get("max", 5)),
+            "contextual_internal_links_max": int(link_cfg.get("max", 8)),
             "parent_hub_link_required": True,
             "child_hub_link_recommended": bool(tax_fields.get("child_hub")),
             "commercial_links_max": int(rubric.get("commercial_links_max", 1)),
@@ -411,9 +411,9 @@ def build_manifest(batch_id, rows, matrix, ownership, facts, rubric, site,
         "writer_instructions": (
             "The Mistral agent writes these article files DIRECTLY (no API, "
             "no secrets). Write exactly the manifest rows. Each article: "
-            "1600-3000 meaningful Vietnamese words (choose the length by "
+            "1500-5000 meaningful Vietnamese words (choose the length by "
             "search intent; never pad with repetition or invented facts), "
-            "3-5 contextual internal "
+            "3-8 contextual internal "
             "links (parent hub required, max 1 true commercial link, other "
             "links informational and relevant), exactly 1 H1, self canonical "
             "(canonical_url), Article schema + BreadcrumbList, no invented "
