@@ -380,6 +380,7 @@ class MatrixStatusTests(unittest.TestCase):
         self.assertEqual(bad, [], "unknown statuses in production matrix")
 
     def test_non_planned_rows_confined_to_active_batch(self):
+        import re
         import run_article_batch as rb
         rows = [r for r in lib.load_matrix() if not lib.is_sample_row(r)]
         active = rb.active_batch_id(rows)
@@ -392,10 +393,20 @@ class MatrixStatusTests(unittest.TestCase):
         if active is None:
             self.assertFalse(moved)
         else:
+            # EXCEPTION (canonical recovery, not drift): scripts/requeue_rows.py
+            # legitimately resumes residual rows of an already-finished batch
+            # while a later batch is active (AGENTS.md: RECOVER -> RESUME the
+            # unfinished rows first). requeue_rows.py is the ONLY writer of the
+            # "repair:N" note marker, so an in-flight row outside the active
+            # batch carrying that marker went through the canonical requeue
+            # tool; one without the marker is drift and must fail the gate.
             stray = [r["article_id"] for r in moved
-                     if r["batch_id"] != active]
+                     if r["batch_id"] != active
+                     and not re.search(r"repair:\d+",
+                                       (r.get("notes") or "").strip())]
             self.assertEqual(stray, [],
-                             "statuses changed outside the active batch")
+                             "statuses changed outside the active batch "
+                             "(non-requeued in-flight rows may not leave it)")
 
 
 class UrlNormalizationTests(unittest.TestCase):
