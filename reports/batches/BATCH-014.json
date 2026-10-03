@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-014",
   "started_at": "2026-10-03T09:08:52+07:00",
-  "finished_at": "2026-10-03T17:16:44+07:00",
+  "finished_at": "2026-10-03T17:21:27+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 26,
-  "pass": 2,
-  "published": 24,
+  "pass": 0,
+  "published": 26,
   "writing": 24,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0110",
@@ -210,7 +210,7 @@
     {
       "article_id": "DL-0111",
       "output_path": "cam-nang/du-lich/dl-0111-canh-quan-dep-nhat-o-ho-nui-coc-theo-nguoi-chay-xe.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 95,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -390,7 +390,7 @@
     {
       "article_id": "KN-0113",
       "output_path": "cam-nang/kinh-nghiem/kn-0113-kinh-nghiem-di-phuot-theo-mua-hoa-o-mien-bac.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],

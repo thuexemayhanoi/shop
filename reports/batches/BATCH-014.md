@@ -1,8 +1,8 @@
 # Batch report BATCH-014
 
-- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T17:16:44+07:00
+- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T17:21:27+07:00
 - writer: external-agent | batch resolved once: BATCH-014
-- processed: 50 | written: 26 | pass: 2 | published: 24
+- processed: 50 | written: 26 | pass: 0 | published: 26
 - writing: 24 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.3 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -28,7 +28,7 @@
 | CD-0116 | cam-nang/cung-duong/cd-0116-tuyen-duong-dep-tu-ha-noi-den-thac-ban-gioc.html | WRITING |  | 0 |  |
 | DL-0109 | cam-nang/du-lich/dl-0109-mua-hoa-nao-no-dep-o-ho-nui-coc-khi-di-xe-may.html | PUBLISHED | 99 | 0 |  |
 | DL-0110 | cam-nang/du-lich/dl-0110-an-sang-o-dau-truoc-khi-chay-xe-den-ho-nui-coc.html | PUBLISHED | 99 | 0 |  |
-| DL-0111 | cam-nang/du-lich/dl-0111-canh-quan-dep-nhat-o-ho-nui-coc-theo-nguoi-chay-xe.html | PASS | 95 | 0 |  |
+| DL-0111 | cam-nang/du-lich/dl-0111-canh-quan-dep-nhat-o-ho-nui-coc-theo-nguoi-chay-xe.html | PUBLISHED | 95 | 0 |  |
 | DL-0112 | cam-nang/du-lich/dl-0112-nen-xuat-phat-may-gio-de-di-xe-may-den-atk-dinh-hoa.html | PUBLISHED | 97 | 0 |  |
 | DL-0113 | cam-nang/du-lich/dl-0113-troi-mua-co-dang-di-atk-dinh-hoa-bang-xe-may-khong.html | PUBLISHED | 98 | 0 |  |
 | DL-0114 | cam-nang/du-lich/dl-0114-nghi-trua-an-gi-khi-di-atk-dinh-hoa-bang-xe-may.html | WRITING |  | 0 |  |
@@ -46,7 +46,7 @@
 | KN-0110 | cam-nang/kinh-nghiem/kn-0110-kinh-nghiem-giu-lien-lac-voi-nguoi-nha-khi-di-phuot.html | PUBLISHED | 100 | 0 |  |
 | KN-0111 | cam-nang/kinh-nghiem/kn-0111-kinh-nghiem-chon-quan-nghi-khi-di-phuot-xe-may.html | PUBLISHED | 100 | 0 |  |
 | KN-0112 | cam-nang/kinh-nghiem/kn-0112-kinh-nghiem-len-ke-hoach-chi-phi-cho-chuyen-phuot.html | PUBLISHED | 100 | 0 |  |
-| KN-0113 | cam-nang/kinh-nghiem/kn-0113-kinh-nghiem-di-phuot-theo-mua-hoa-o-mien-bac.html | PASS | 99 | 0 |  |
+| KN-0113 | cam-nang/kinh-nghiem/kn-0113-kinh-nghiem-di-phuot-theo-mua-hoa-o-mien-bac.html | PUBLISHED | 99 | 0 |  |
 | KN-0114 | cam-nang/kinh-nghiem/kn-0114-checklist-truoc-moi-chuyen-di-xe-may-duong-dai.html | WRITING |  | 0 |  |
 | KN-0115 | cam-nang/kinh-nghiem/kn-0115-kinh-nghiem-dam-phan-khi-thue-xe-may-lan-dau.html | WRITING |  | 0 |  |
 | KN-0116 | cam-nang/kinh-nghiem/kn-0116-kinh-nghiem-chon-cua-hang-cho-thue-xe-may-o-khu-du-lich.html | WRITING |  | 0 |  |
