@@ -1,9 +1,9 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:26:48+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:28:03+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 16 | pass: 0 | published: 16
-- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 17 | pass: 0 | published: 17
+- writing: 33 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -46,7 +46,7 @@
 | HD-0125 | cam-nang/hoi-dap/hd-0125-tu-ha-noi-di-ba-vi-quoc-lo-nao-thuan.html | WRITING |  | 0 |  |
 | KN-0118 | cam-nang/kinh-nghiem/kn-0118-kinh-nghiem-chay-xe-may-tham-quan-lang-nghe.html | PUBLISHED | 100 | 0 |  |
 | KN-0119 | cam-nang/kinh-nghiem/kn-0119-kinh-nghiem-di-xe-may-tham-quan-cho-phien-vung-cao.html | PUBLISHED | 100 | 0 |  |
-| KN-0120 | cam-nang/kinh-nghiem/kn-0120-kinh-nghiem-cho-qua-dac-san-ve-bang-xe-may.html | WRITING |  | 0 |  |
+| KN-0120 | cam-nang/kinh-nghiem/kn-0120-kinh-nghiem-cho-qua-dac-san-ve-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | KN-0121 | cam-nang/kinh-nghiem/kn-0121-chay-xe-may-di-cau-ca-ngoai-thanh-cuoi-tuan.html | WRITING |  | 0 |  |
 | KN-0122 | cam-nang/kinh-nghiem/kn-0122-chay-xe-may-o-quan-tay-ho-kinh-nghiem-tranh-tac-duong.html | WRITING |  | 0 |  |
 | KN-0123 | cam-nang/kinh-nghiem/kn-0123-bai-gui-xe-an-toan-gan-cho-quan-tay-ho.html | WRITING |  | 0 |  |
