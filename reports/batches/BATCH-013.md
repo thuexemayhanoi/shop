@@ -1,9 +1,9 @@
 # Batch report BATCH-013
 
-- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T07:02:59+07:00
+- started_at: 2026-10-01T10:47:35+07:00 | finished_at: 2026-10-03T07:07:25+07:00
 - writer: external-agent | batch resolved once: BATCH-013
-- processed: 50 | written: 48 | pass: 0 | published: 44
-- writing: 2 | review: 0 | repair: 0 | fail: 4 | blocked: 0
+- processed: 50 | written: 50 | pass: 0 | published: 46
+- writing: 0 | review: 0 | repair: 0 | fail: 4 | blocked: 0
 - scores: avg 98.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -58,5 +58,5 @@
 | XM-0104 | cam-nang/xe-may/xm-0104-xe-no-may-roi-chet-ngay-nguyen-nhan.html | FAIL | 100 | 0 | word broken across newline: 'cla\nss'; word broken across newline: 'l\nà' |
 | XM-0105 | cam-nang/xe-may/xm-0105-xe-ga-de-khong-len-may.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html'; broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html' |
 | XM-0106 | cam-nang/xe-may/xm-0106-xe-may-bi-hao-xang-bat-thuong.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html'; broken internal link: 'cam-nang/xe-may/xm-0102-xe-ma-hut-ga-khi-vao-cua.html' |
-| XM-0107 | cam-nang/xe-may/xm-0107-xe-may-co-mui-khet-khi-chay.html | WRITING |  | 0 |  |
-| XM-0108 | cam-nang/xe-may/xm-0108-xe-may-lech-lai-sang-mot-ben.html | WRITING |  | 0 |  |
+| XM-0107 | cam-nang/xe-may/xm-0107-xe-may-co-mui-khet-khi-chay.html | PUBLISHED | 100 | 0 |  |
+| XM-0108 | cam-nang/xe-may/xm-0108-xe-may-lech-lai-sang-mot-ben.html | PUBLISHED | 100 | 0 |  |
