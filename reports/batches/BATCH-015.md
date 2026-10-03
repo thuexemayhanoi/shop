@@ -1,9 +1,9 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:11:15+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:23:45+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 12 | pass: 0 | published: 12
-- writing: 38 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 13 | pass: 0 | published: 13
+- writing: 37 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.3 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|
 | AT-0118 | cam-nang/an-toan/at-0118-gap-den-vang-khi-dang-gan-vach-dung.html | PUBLISHED | 100 | 0 |  |
 | AT-0119 | cam-nang/an-toan/at-0119-xe-buyt-bat-xi-nhan-ben-phai-cho-vuot.html | PUBLISHED | 100 | 0 |  |
-| AT-0120 | cam-nang/an-toan/at-0120-qua-duong-sat-khi-rao-chan-dang-ha.html | WRITING |  | 0 |  |
+| AT-0120 | cam-nang/an-toan/at-0120-qua-duong-sat-khi-rao-chan-dang-ha.html | PUBLISHED | 100 | 0 |  |
 | AT-0121 | cam-nang/an-toan/at-0121-chay-ven-ho-nuoc-khong-co-lan-can.html | WRITING |  | 0 |  |
 | AT-0122 | cam-nang/an-toan/at-0122-khu-mam-non-gio-don-tre-chay-cham-quan-sat.html | WRITING |  | 0 |  |
 | AT-0123 | cam-nang/an-toan/at-0123-duong-doc-doi-hep-gap-xe-nguoc-chieu.html | WRITING |  | 0 |  |
