@@ -1,9 +1,9 @@
 # Batch report BATCH-015
 
-- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:25:05+07:00
+- started_at: 2026-10-03T18:38:20+07:00 | finished_at: 2026-10-03T19:26:13+07:00
 - writer: external-agent | batch resolved once: BATCH-015
-- processed: 50 | written: 14 | pass: 0 | published: 14
-- writing: 36 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 15 | pass: 0 | published: 15
+- writing: 35 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.1 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -29,7 +29,7 @@
 | CD-0125 | cam-nang/cung-duong/cd-0125-cung-duong-ngam-canh-tu-ha-noi-len-lang-co-duong-lam.html | WRITING |  | 0 |  |
 | DL-0118 | cam-nang/du-lich/dl-0118-mon-gi-dang-mua-ve-tu-ho-ba-be.html | PUBLISHED | 100 | 0 |  |
 | DL-0119 | cam-nang/du-lich/dl-0119-goc-view-ven-duong-khi-chay-xe-den-ho-ba-be.html | PUBLISHED | 98 | 0 |  |
-| DL-0120 | cam-nang/du-lich/dl-0120-chuyen-cuoi-tuan-den-pac-po-bang-xe-may.html | WRITING |  | 0 |  |
+| DL-0120 | cam-nang/du-lich/dl-0120-chuyen-cuoi-tuan-den-pac-po-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | DL-0121 | cam-nang/du-lich/dl-0121-sang-som-hay-chieu-muon-den-pac-po-dep-hon.html | WRITING |  | 0 |  |
 | DL-0122 | cam-nang/du-lich/dl-0122-quan-an-gan-bai-xe-o-pac-po.html | WRITING |  | 0 |  |
 | DL-0123 | cam-nang/du-lich/dl-0123-chup-anh-doan-xe-o-pac-po-o-dau-dep.html | WRITING |  | 0 |  |
