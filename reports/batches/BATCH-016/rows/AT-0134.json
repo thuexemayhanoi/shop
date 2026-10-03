@@ -1,0 +1,194 @@
+{
+ "article_id": "AT-0134",
+ "batch_id": "BATCH-016",
+ "category": "An toàn",
+ "category_label": "An toàn",
+ "working_title": "Người mới chạy xe lần đầu trong phố",
+ "primary_keyword": "người mới chạy xe lần đầu trong phố",
+ "secondary_keywords": "người mới chạy xe lần đầu trong phố",
+ "search_intent": "informational",
+ "slug": "at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho",
+ "output_path": "cam-nang/an-toan/at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho.html",
+ "draft_output_path": "_drafts/cam-nang/an-toan/at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho.html",
+ "parent_hub": "antoan.html",
+ "eligible_internal_link_targets": "antoan.html,  kinhnghiem.html,  hoidap.html",
+ "commercial_link_target": "banggia.html",
+ "requires_sources": "false",
+ "source_notes": "Không bắt buộc nguồn chính thức",
+ "source_requirements": "none",
+ "protected_intents": [
+  {
+   "page": "index.html",
+   "intent": "thuê xe máy hà nội"
+  },
+  {
+   "page": "index.html",
+   "intent": "thue xe may ha noi"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thuê xe máy phố cổ hà nội"
+  },
+  {
+   "page": "phoco.html",
+   "intent": "thue xe may pho co"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thuê xe máy hoàn kiếm"
+  },
+  {
+   "page": "hoankiem.html",
+   "intent": "thue xe may hoan kiem"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "giá thuê xe máy hà nội"
+  },
+  {
+   "page": "banggia.html",
+   "intent": "bảng giá thuê xe máy"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy theo ngày"
+  },
+  {
+   "page": "ngay.html",
+   "intent": "thuê xe máy hà nội theo ngày"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy theo tuần"
+  },
+  {
+   "page": "tuan.html",
+   "intent": "thuê xe máy hà nội theo tuần"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy theo tháng"
+  },
+  {
+   "page": "thang.html",
+   "intent": "thuê xe máy hà nội theo tháng"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy"
+  },
+  {
+   "page": "thutuc.html",
+   "intent": "thủ tục thuê xe máy hà nội"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "ưu đãi thuê xe máy"
+  },
+  {
+   "page": "uudai.html",
+   "intent": "khuyến mãi thuê xe máy hà nội"
+  },
+  {
+   "page": "kinhnghiem.html",
+   "intent": "kinh nghiệm thuê xe máy hà nội"
+  },
+  {
+   "page": "antoan.html",
+   "intent": "an toàn khi đi xe máy"
+  },
+  {
+   "page": "xemay.html",
+   "intent": "các loại xe máy"
+  },
+  {
+   "page": "dulich.html",
+   "intent": "du lịch hà nội"
+  },
+  {
+   "page": "cungduong.html",
+   "intent": "cung đường phượt hà nội"
+  },
+  {
+   "page": "hoidap.html",
+   "intent": "hỏi đáp thuê xe máy"
+  }
+ ],
+ "business_facts_policy": "use ONLY config/business-facts.json trusted section; never assert unverified owner facts (hours, delivery, late-return policy); unapproved models must use the standard 'liên hệ để xác nhận giá hiện tại' wording",
+ "word_standard": {
+  "target_min_words": 1500,
+  "target_max_words": 5000,
+  "review_min_words": 1100,
+  "review_max_words": 5400,
+  "scope": "main editorial content only",
+  "policy": "choose length inside the band by search intent; never pad with repeated ideas, keyword stuffing or invented facts"
+ },
+ "taxonomy": {
+  "parent_id": "AN_TOAN",
+  "parent_title": "An toàn",
+  "parent_hub": "/shop/antoan.html",
+  "child_cluster": "AT_KY_NANG_NANG_CAO",
+  "child_title": "Kỹ năng nâng cao",
+  "child_slug": "at-ky-nang-nang-cao",
+  "child_hub": "/shop/cam-nang/chu-de/at-ky-nang-nang-cao.html",
+  "taxonomy_version": "1.0.0",
+  "policy": "taxonomy is authoritative: the writer MUST NOT invent categories or hubs; when child_hub is non-empty, link the parent hub AND the child hub contextually within the 3-8 link budget"
+ },
+ "page_shell": {
+  "chatbot_embed_required": true,
+  "chatbot_embed_snippet": "<link rel=\"stylesheet\" href=\"/shop/assets/css/chatbot-embed.css\">\n<script src=\"/shop/assets/js/chatbot-embed.js\" defer></script>",
+  "chatbot_embed_position": "immediately before </body>, exactly once",
+  "compact_footer_required": true,
+  "compact_footer_snippet_path": "_snippets/footer-compact.html",
+  "compact_footer_position": "immediately after </main>, before the chatbot embed, exactly once; regenerate the file with scripts/build_footer_snippet.py and embed its content verbatim (class site-footer-compact)",
+  "policy": "structural shell elements: never count as contextual internal links; do not add any other chatbot script or a second taxonomy footer"
+ },
+ "link_standard": {
+  "contextual_internal_links_min": 3,
+  "contextual_internal_links_max": 8,
+  "parent_hub_link_required": true,
+  "child_hub_link_recommended": true,
+  "commercial_links_max": 1,
+  "anchors": "descriptive, diverse; no generic anchors"
+ },
+ "canonical_url": "https://thuexemayhanoi.github.io/shop/cam-nang/an-toan/at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho.html",
+ "date_published": "2026-10-03",
+ "planned_date_note": "planned_date is planning metadata ONLY and must never be used as datePublished",
+ "url_base": "https://thuexemayhanoi.github.io/shop",
+ "baseurl": "/shop",
+ "author": "Mr Tú",
+ "neighbor_topics": [
+  {
+   "article_id": "AT-0001",
+   "title": "Nồng độ cồn khi lái xe máy: mức xử phạt hiện hành"
+  },
+  {
+   "article_id": "AT-0002",
+   "title": "Tốc độ tối đa cho xe máy trong khu đô thị"
+  },
+  {
+   "article_id": "AT-0003",
+   "title": "Các lỗi phạt nguội xe máy hay gặp"
+  },
+  {
+   "article_id": "AT-0004",
+   "title": "Lỗi không đội mũ bảo hiểm bị phạt như thế nào"
+  },
+  {
+   "article_id": "AT-0005",
+   "title": "Chở quá số người quy định trên xe máy bị phạt ra sao"
+  },
+  {
+   "article_id": "AT-0006",
+   "title": "Lùi xe trên đường một chiều có bị phạt không"
+  }
+ ]
+}
