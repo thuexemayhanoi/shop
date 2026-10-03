@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-014",
   "started_at": "2026-10-03T09:08:52+07:00",
-  "finished_at": "2026-10-03T12:34:21+07:00",
+  "finished_at": "2026-10-03T12:46:39+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 18,
-  "pass": 2,
-  "published": 15,
+  "pass": 0,
+  "published": 17,
   "writing": 32,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 2,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0110",
@@ -187,7 +187,7 @@
     {
       "article_id": "DL-0109",
       "output_path": "cam-nang/du-lich/dl-0109-mua-hoa-nao-no-dep-o-ho-nui-coc-khi-di-xe-may.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 99,
       "repair_attempts": 0,
       "quality_failures": [],
@@ -277,7 +277,7 @@
     {
       "article_id": "HD-0109",
       "output_path": "cam-nang/hoi-dap/hd-0109-tim-tram-nghi-giua-ha-noi-va-ninh-binh-o-dau.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [],
