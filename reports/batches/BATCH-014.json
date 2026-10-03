@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-014",
   "started_at": "2026-10-03T09:08:52+07:00",
-  "finished_at": "2026-10-03T12:56:25+07:00",
+  "finished_at": "2026-10-03T13:01:11+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 18,
-  "pass": 1,
-  "published": 17,
+  "pass": 0,
+  "published": 18,
   "writing": 32,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 1,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0110",
@@ -124,7 +124,7 @@
     {
       "article_id": "CD-0111",
       "output_path": "cam-nang/cung-duong/cd-0111-cung-duong-di-xe-may-tu-ha-noi-den-ho-ba-be.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 96,
       "repair_attempts": 0,
       "quality_failures": [
