@@ -1,3 +1,2 @@
-cam-nang/an-toan/at-0093-ky-nang-giu-vi-tri-khi-chay-giua-xe-container.html
-cam-nang/an-toan/at-0094-chay-xe-may-khi-met-nen-dung-luc-nao.html
-cam-nang/an-toan/at-0095-ky-nang-can-khoang-do-xe-trong-bai-chat-choi.html
+cam-nang/xe-may/xm-0103-xe-kho-no-buoi-sang-lanh.html
+cam-nang/xe-may/xm-0104-xe-no-may-roi-chet-ngay-nguyen-nhan.html

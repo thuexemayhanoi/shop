@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-013",
   "started_at": "2026-10-01T10:47:35+07:00",
-  "finished_at": "2026-10-03T08:52:28+07:00",
+  "finished_at": "2026-10-03T08:57:32+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 50,
-  "pass": 4,
-  "published": 46,
+  "pass": 2,
+  "published": 48,
   "writing": 0,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 0,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 4,
+  "pass_publishable_now": 2,
   "articles": [
     {
       "article_id": "AT-0101",
@@ -464,7 +464,7 @@
     {
       "article_id": "XM-0103",
       "output_path": "cam-nang/xe-may/xm-0103-xe-kho-no-buoi-sang-lanh.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
@@ -482,7 +482,7 @@
     {
       "article_id": "XM-0104",
       "output_path": "cam-nang/xe-may/xm-0104-xe-no-may-roi-chet-ngay-nguyen-nhan.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
