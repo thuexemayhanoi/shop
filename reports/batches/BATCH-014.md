@@ -1,8 +1,8 @@
 # Batch report BATCH-014
 
-- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T10:35:02+07:00
+- started_at: 2026-10-03T09:08:52+07:00 | finished_at: 2026-10-03T12:34:21+07:00
 - writer: external-agent | batch resolved once: BATCH-014
-- processed: 50 | written: 18 | pass: 4 | published: 13
+- processed: 50 | written: 18 | pass: 2 | published: 15
 - writing: 32 | review: 0 | repair: 0 | fail: 1 | blocked: 0
 - scores: avg 98.9 | min 91 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -18,7 +18,7 @@
 | AT-0115 | cam-nang/an-toan/at-0115-duong-co-bien-bao-cam-re-nhung-dinh-re.html | WRITING |  | 0 |  |
 | AT-0116 | cam-nang/an-toan/at-0116-chay-canh-xe-may-cho-hang-cong-kenh.html | WRITING |  | 0 |  |
 | AT-0117 | cam-nang/an-toan/at-0117-qua-doan-duong-o-to-do-hai-ben.html | WRITING |  | 0 |  |
-| CD-0109 | cam-nang/cung-duong/cd-0109-lich-trinh-dai-lai-danh-cho-nhom-di-phuot.html | PASS | 94 | 0 |  |
+| CD-0109 | cam-nang/cung-duong/cd-0109-lich-trinh-dai-lai-danh-cho-nhom-di-phuot.html | PUBLISHED | 94 | 0 |  |
 | CD-0110 | cam-nang/cung-duong/cd-0110-diem-dung-trua-tren-duong-di-dai-lai.html | PUBLISHED | 99 | 0 |  |
 | CD-0111 | cam-nang/cung-duong/cd-0111-cung-duong-di-xe-may-tu-ha-noi-den-ho-ba-be.html | FAIL | 91 | 0 | broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang.html'; broken internal link: 'cam-nang/cung-duong/cd-0057-cung-duong-vong-qua-thanh-pho-cao-bang.html' |
 | CD-0112 | cam-nang/cung-duong/cd-0112-lich-trinh-2-ngay-1-dem-di-xe-may-den-ho-ba-be.html | WRITING |  | 0 |  |
@@ -51,7 +51,7 @@
 | KN-0115 | cam-nang/kinh-nghiem/kn-0115-kinh-nghiem-dam-phan-khi-thue-xe-may-lan-dau.html | WRITING |  | 0 |  |
 | KN-0116 | cam-nang/kinh-nghiem/kn-0116-kinh-nghiem-chon-cua-hang-cho-thue-xe-may-o-khu-du-lich.html | WRITING |  | 0 |  |
 | KN-0117 | cam-nang/kinh-nghiem/kn-0117-di-phuot-mot-minh-bang-xe-may-thue-kinh-nghiem.html | WRITING |  | 0 |  |
-| XM-0109 | cam-nang/xe-may/xm-0109-phanh-xe-may-rit-khi-phanh-nhe.html | PASS | 100 | 0 |  |
+| XM-0109 | cam-nang/xe-may/xm-0109-phanh-xe-may-rit-khi-phanh-nhe.html | PUBLISHED | 100 | 0 |  |
 | XM-0110 | cam-nang/xe-may/xm-0110-xe-may-chop-tat-den-bao.html | PUBLISHED | 100 | 0 |  |
 | XM-0111 | cam-nang/xe-may/xm-0111-dong-ho-xe-may-hien-thi-sai.html | PUBLISHED | 100 | 0 |  |
 | XM-0112 | cam-nang/xe-may/xm-0112-kinh-nghiem-rua-xe-may-dung-cach.html | PUBLISHED | 100 | 0 |  |
