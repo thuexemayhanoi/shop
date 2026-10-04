@@ -1,8 +1,8 @@
 # Batch report BATCH-016
 
-- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T07:26:51+07:00
+- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T07:31:04+07:00
 - writer: external-agent | batch resolved once: BATCH-016
-- processed: 50 | written: 8 | pass: 1 | published: 7
+- processed: 50 | written: 8 | pass: 0 | published: 8
 - writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.8 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
@@ -11,7 +11,7 @@
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0126 | cam-nang/an-toan/at-0126-xe-phia-truoc-tranh-o-ga-dot-ngot.html | PUBLISHED | 100 | 0 |  |
-| AT-0127 | cam-nang/an-toan/at-0127-no-lop-khi-dang-chay-toc-do-cao.html | PASS | 100 | 0 | requires_sources article has no visible 'Nguồn tham khảo' source section; requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
+| AT-0127 | cam-nang/an-toan/at-0127-no-lop-khi-dang-chay-toc-do-cao.html | PUBLISHED | 100 | 0 | requires_sources article has no visible 'Nguồn tham khảo' source section; requires_sources article cites 0 approved official source URL(s) (minimum 1; approved domains: chinhphu.vn, vanban.chinhphu.vn, congbao.chinhphu.vn, thutuc.gov.vn, mt.gov.vn, hanoi.gov.vn). The writing agent must verify legal claims via official sources before publishing — never guess. |
 | AT-0128 | cam-nang/an-toan/at-0128-mat-phanh-khi-xuong-doc-dai-xu-ly.html | WRITING |  | 0 |  |
 | AT-0129 | cam-nang/an-toan/at-0129-gap-gio-giat-ngang-khi-qua-dong-trong.html | WRITING |  | 0 |  |
 | AT-0130 | cam-nang/an-toan/at-0130-qua-dap-va-ke-kenh-muong.html | WRITING |  | 0 |  |

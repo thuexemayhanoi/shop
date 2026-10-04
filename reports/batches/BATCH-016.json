@@ -1,12 +1,12 @@
 {
   "batch_id": "BATCH-016",
   "started_at": "2026-10-03T22:45:11+07:00",
-  "finished_at": "2026-10-04T07:26:51+07:00",
+  "finished_at": "2026-10-04T07:31:04+07:00",
   "writer": "external-agent",
   "processed": 50,
   "written": 8,
-  "pass": 1,
-  "published": 7,
+  "pass": 0,
+  "published": 8,
   "writing": 42,
   "review": 0,
   "repair": 0,
@@ -19,7 +19,7 @@
   "source_gate_pass": 1,
   "source_gate_blocked": 0,
   "published_commit_sha": null,
-  "pass_publishable_now": 1,
+  "pass_publishable_now": 0,
   "articles": [
     {
       "article_id": "AT-0126",
@@ -34,7 +34,7 @@
     {
       "article_id": "AT-0127",
       "output_path": "cam-nang/an-toan/at-0127-no-lop-khi-dang-chay-toc-do-cao.html",
-      "outcome": "PASS",
+      "outcome": "PUBLISHED",
       "score": 100,
       "repair_attempts": 0,
       "quality_failures": [
