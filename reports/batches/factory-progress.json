@@ -1,10 +1,10 @@
 {
   "schema_version": 2,
-  "generated": "2026-10-04T08:59:28+07:00",
-  "source_head_sha": "ad27a7184b924ff1da1b60a77f359d9421d55c3a",
+  "generated": "2026-10-04T09:08:36+07:00",
+  "source_head_sha": "584f4f24ca5f56682b1400c1449e66d02b100306",
   "total": 2000,
-  "planned": 1200,
-  "writing": 0,
+  "planned": 1150,
+  "writing": 50,
   "qa": 0,
   "review": 0,
   "repair": 0,
@@ -13,7 +13,7 @@
   "fail": 0,
   "blocked": 0,
   "completed_batches": 16,
-  "active_batch": null,
+  "active_batch": "BATCH-017",
   "next_batch": "BATCH-017",
   "published_commit_sha": null
 }
