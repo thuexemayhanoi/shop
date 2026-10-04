@@ -1,10 +1,10 @@
 # Batch report BATCH-016
 
-- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T08:02:10+07:00
+- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T08:13:24+07:00
 - writer: external-agent | batch resolved once: BATCH-016
-- processed: 50 | written: 32 | pass: 0 | published: 32
-- writing: 18 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
+- processed: 50 | written: 38 | pass: 0 | published: 38
+- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.1 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
@@ -16,17 +16,17 @@
 | AT-0129 | cam-nang/an-toan/at-0129-gap-gio-giat-ngang-khi-qua-dong-trong.html | PUBLISHED | 99 | 0 |  |
 | AT-0130 | cam-nang/an-toan/at-0130-qua-dap-va-ke-kenh-muong.html | PUBLISHED | 100 | 0 |  |
 | AT-0131 | cam-nang/an-toan/at-0131-cua-gat-tren-duong-deo.html | PUBLISHED | 100 | 0 |  |
-| AT-0132 | cam-nang/an-toan/at-0132-duong-lang-kin-bi-bang-tron.html | WRITING |  | 0 |  |
-| AT-0133 | cam-nang/an-toan/at-0133-qua-xom-nho-co-tre-con-choi-gan-duong.html | WRITING |  | 0 |  |
-| AT-0134 | cam-nang/an-toan/at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho.html | WRITING |  | 0 |  |
+| AT-0132 | cam-nang/an-toan/at-0132-duong-lang-kin-bi-bang-tron.html | PUBLISHED | 99 | 0 |  |
+| AT-0133 | cam-nang/an-toan/at-0133-qua-xom-nho-co-tre-con-choi-gan-duong.html | PUBLISHED | 99 | 0 |  |
+| AT-0134 | cam-nang/an-toan/at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho.html | PUBLISHED | 99 | 0 |  |
 | CD-0126 | cam-nang/cung-duong/cd-0126-mot-ngay-mot-dem-o-lang-co-duong-lam-co-du-khong.html | PUBLISHED | 99 | 0 |  |
 | CD-0127 | cam-nang/cung-duong/cd-0127-diem-check-in-doc-cung-duong-den-lang-co-duong-lam.html | PUBLISHED | 99 | 0 |  |
 | CD-0128 | cam-nang/cung-duong/cd-0128-duong-tu-ha-noi-vao-ho-dong-mo-doan-nao-kho-di.html | PUBLISHED | 96 | 0 |  |
 | CD-0129 | cam-nang/cung-duong/cd-0129-ke-hoach-3-ngay-2-dem-o-ho-dong-mo-cho-nguoi-chay-xe.html | PUBLISHED | 96 | 0 |  |
 | CD-0130 | cam-nang/cung-duong/cd-0130-noi-tiep-nuoc-va-nghi-giai-lao-di-ho-dong-mo.html | PUBLISHED | 96 | 0 |  |
-| CD-0131 | cam-nang/cung-duong/cd-0131-ra-dam-van-trinh-bang-xe-may-di-trong-ngay-duoc-khong.html | WRITING |  | 0 |  |
-| CD-0132 | cam-nang/cung-duong/cd-0132-chuyen-dam-van-trinh-hai-ngay-xuat-phat-va-nghi-o-dau.html | WRITING |  | 0 |  |
-| CD-0133 | cam-nang/cung-duong/cd-0133-duong-den-dam-van-trinh-nen-dung-o-dau-de-chup-anh.html | WRITING |  | 0 |  |
+| CD-0131 | cam-nang/cung-duong/cd-0131-ra-dam-van-trinh-bang-xe-may-di-trong-ngay-duoc-khong.html | PUBLISHED | 95 | 0 |  |
+| CD-0132 | cam-nang/cung-duong/cd-0132-chuyen-dam-van-trinh-hai-ngay-xuat-phat-va-nghi-o-dau.html | PUBLISHED | 95 | 0 |  |
+| CD-0133 | cam-nang/cung-duong/cd-0133-duong-den-dam-van-trinh-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 95 | 0 |  |
 | DL-0126 | cam-nang/du-lich/dl-0126-do-an-vat-duong-pho-o-thac-ban-gioc-the-nao.html | PUBLISHED | 100 | 0 |  |
 | DL-0127 | cam-nang/du-lich/dl-0127-diem-dung-chup-anh-giua-duong-den-thac-ban-gioc.html | PUBLISHED | 99 | 0 |  |
 | DL-0128 | cam-nang/du-lich/dl-0128-trai-nghiem-mot-ngay-o-huu-lien-bang-xe-may.html | PUBLISHED | 95 | 0 |  |
