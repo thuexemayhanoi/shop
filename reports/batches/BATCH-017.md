@@ -1,10 +1,10 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T13:05:35+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T13:39:28+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 30 | pass: 0 | published: 30
-- writing: 20 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.1 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 32 | pass: 0 | published: 32
+- writing: 18 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
@@ -29,7 +29,7 @@
 | DL-0134 | cam-nang/du-lich/dl-0134-bua-trua-ngon-doc-duong-den-thanh-pho-lang-son.html | PUBLISHED | 98 | 0 |  |
 | DL-0135 | cam-nang/du-lich/dl-0135-chup-dem-o-thanh-pho-lang-son-co-dep-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0136 | cam-nang/du-lich/dl-0136-chuyen-sang-som-den-cao-nguyen-da-dong-van-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
-| DL-0137 | cam-nang/du-lich/dl-0137-cuoi-thu-di-cao-nguyen-da-dong-van-bang-xe-may-co-dep-khong.html | WRITING |  | 0 |  |
+| DL-0137 | cam-nang/du-lich/dl-0137-cuoi-thu-di-cao-nguyen-da-dong-van-bang-xe-may-co-dep-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0138 | cam-nang/du-lich/dl-0138-ca-phe-sang-o-cao-nguyen-da-dong-van-quan-nao-dep.html | WRITING |  | 0 |  |
 | DL-0139 | cam-nang/du-lich/dl-0139-khung-canh-dac-sac-nhat-o-cao-nguyen-da-dong-van.html | WRITING |  | 0 |  |
 | DL-0140 | cam-nang/du-lich/dl-0140-len-ke-hoach-di-ma-pi-leng-bang-xe-may-tron-ven.html | WRITING |  | 0 |  |
@@ -37,7 +37,7 @@
 | DL-0142 | cam-nang/du-lich/dl-0142-mon-an-mua-cua-ma-pi-leng-dang-thu.html | WRITING |  | 0 |  |
 | HD-0134 | cam-nang/hoi-dap/hd-0134-mu-bao-hiem-co-kinh-chong-choi-dang-mua-khong.html | PUBLISHED | 97 | 0 |  |
 | HD-0135 | cam-nang/hoi-dap/hd-0135-ao-mua-mot-manh-hay-hai-manh-tot-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
-| HD-0136 | cam-nang/hoi-dap/hd-0136-gang-tay-xe-may-nen-chon-chat-lieu-nao.html | WRITING |  | 0 |  |
+| HD-0136 | cam-nang/hoi-dap/hd-0136-gang-tay-xe-may-nen-chon-chat-lieu-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0137 | cam-nang/hoi-dap/hd-0137-gia-do-dien-thoai-tren-xe-ga-co-an-toan-khong.html | WRITING |  | 0 |  |
 | HD-0138 | cam-nang/hoi-dap/hd-0138-non-bao-hiem-tre-em-can-dat-tieu-chuan-nao.html | WRITING |  | 0 |  |
 | HD-0139 | cam-nang/hoi-dap/hd-0139-bao-tay-chong-nang-can-thao-tac-phanh-khong.html | WRITING |  | 0 |  |
