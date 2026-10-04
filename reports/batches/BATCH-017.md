@@ -1,10 +1,10 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T09:26:50+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T09:30:29+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 7 | pass: 0 | published: 7
-- writing: 43 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 8 | pass: 0 | published: 8
+- writing: 42 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 97.8 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -47,7 +47,7 @@
 | KN-0136 | cam-nang/kinh-nghiem/kn-0136-chay-xe-may-o-quan-dong-da-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 96 | 0 |  |
 | KN-0137 | cam-nang/kinh-nghiem/kn-0137-bai-gui-xe-an-toan-gan-cho-quan-dong-da.html | PUBLISHED | 96 | 0 |  |
 | KN-0138 | cam-nang/kinh-nghiem/kn-0138-chay-xe-sang-cuoi-tuan-quanh-quan-dong-da.html | PUBLISHED | 96 | 0 |  |
-| KN-0139 | cam-nang/kinh-nghiem/kn-0139-lo-trinh-chay-toi-ven-duong-o-quan-dong-da.html | WRITING |  | 0 |  |
+| KN-0139 | cam-nang/kinh-nghiem/kn-0139-lo-trinh-chay-toi-ven-duong-o-quan-dong-da.html | PUBLISHED | 96 | 0 |  |
 | KN-0140 | cam-nang/kinh-nghiem/kn-0140-do-xe-an-toi-o-quan-dong-da-nen-chon-dau.html | WRITING |  | 0 |  |
 | KN-0141 | cam-nang/kinh-nghiem/kn-0141-chay-xe-may-o-quan-thanh-xuan-kinh-nghiem-tranh-tac-duong.html | WRITING |  | 0 |  |
 | KN-0142 | cam-nang/kinh-nghiem/kn-0142-bai-gui-xe-an-toan-gan-cho-quan-thanh-xuan.html | WRITING |  | 0 |  |
