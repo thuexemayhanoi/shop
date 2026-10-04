@@ -1,6 +1,6 @@
-cam-nang/cung-duong/cd-0131-ra-dam-van-trinh-bang-xe-may-di-trong-ngay-duoc-khong.html
-cam-nang/an-toan/at-0132-duong-lang-kin-bi-bang-tron.html
-cam-nang/cung-duong/cd-0132-chuyen-dam-van-trinh-hai-ngay-xuat-phat-va-nghi-o-dau.html
-cam-nang/an-toan/at-0133-qua-xom-nho-co-tre-con-choi-gan-duong.html
-cam-nang/cung-duong/cd-0133-duong-den-dam-van-trinh-nen-dung-o-dau-de-chup-anh.html
-cam-nang/an-toan/at-0134-nguoi-moi-chay-xe-lan-dau-trong-pho.html
+cam-nang/du-lich/dl-0131-quang-canh-suong-som-o-huu-lien.html
+cam-nang/hoi-dap/hd-0131-di-cho-sang-long-bien-chay-xe-duong-nao.html
+cam-nang/du-lich/dl-0132-di-xe-may-den-thanh-pho-lang-son-theo-nhom-ban.html
+cam-nang/hoi-dap/hd-0132-chay-xe-may-ra-bien-quat-lam-mat-may-tieng.html
+cam-nang/du-lich/dl-0133-san-may-o-thanh-pho-lang-son-mua-nao-bang-xe-may.html
+cam-nang/hoi-dap/hd-0133-mu-bao-hiem-fullface-va-mu-ba-phan-tu-khac-nhau-the-nao.html

@@ -1,11 +1,11 @@
 # Batch report BATCH-016
 
-- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T08:13:24+07:00
+- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T08:46:44+07:00
 - writer: external-agent | batch resolved once: BATCH-016
-- processed: 50 | written: 38 | pass: 0 | published: 38
-- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.1 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 1 | blocked 0
+- processed: 50 | written: 44 | pass: 0 | published: 44
+- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -32,17 +32,17 @@
 | DL-0128 | cam-nang/du-lich/dl-0128-trai-nghiem-mot-ngay-o-huu-lien-bang-xe-may.html | PUBLISHED | 95 | 0 |  |
 | DL-0129 | cam-nang/du-lich/dl-0129-thang-nang-gat-co-nen-di-huu-lien-bang-xe-may-khong.html | PUBLISHED | 95 | 0 |  |
 | DL-0130 | cam-nang/du-lich/dl-0130-quan-ngon-gia-binh-dan-o-huu-lien.html | PUBLISHED | 100 | 0 |  |
-| DL-0131 | cam-nang/du-lich/dl-0131-quang-canh-suong-som-o-huu-lien.html | WRITING |  | 0 |  |
-| DL-0132 | cam-nang/du-lich/dl-0132-di-xe-may-den-thanh-pho-lang-son-theo-nhom-ban.html | WRITING |  | 0 |  |
-| DL-0133 | cam-nang/du-lich/dl-0133-san-may-o-thanh-pho-lang-son-mua-nao-bang-xe-may.html | WRITING |  | 0 |  |
+| DL-0131 | cam-nang/du-lich/dl-0131-quang-canh-suong-som-o-huu-lien.html | PUBLISHED | 100 | 0 |  |
+| DL-0132 | cam-nang/du-lich/dl-0132-di-xe-may-den-thanh-pho-lang-son-theo-nhom-ban.html | PUBLISHED | 100 | 0 |  |
+| DL-0133 | cam-nang/du-lich/dl-0133-san-may-o-thanh-pho-lang-son-mua-nao-bang-xe-may.html | PUBLISHED | 99 | 0 |  |
 | HD-0126 | cam-nang/hoi-dap/hd-0126-ho-tay-chay-xe-may-quanh-dau-duoc-phep.html | PUBLISHED | 100 | 0 |  |
 | HD-0127 | cam-nang/hoi-dap/hd-0127-chay-xe-may-vao-pho-co-gio-nao-duoc.html | PUBLISHED | 100 | 0 |  |
 | HD-0128 | cam-nang/hoi-dap/hd-0128-cho-dau-moi-nao-ha-noi-chay-xe-di-tien.html | PUBLISHED | 99 | 0 |  |
 | HD-0129 | cam-nang/hoi-dap/hd-0129-duong-nao-ve-ha-dong-tranh-un-tac.html | PUBLISHED | 100 | 0 |  |
 | HD-0130 | cam-nang/hoi-dap/hd-0130-chay-xe-may-di-vuon-cay-ba-vi-the-nao.html | PUBLISHED | 100 | 0 |  |
-| HD-0131 | cam-nang/hoi-dap/hd-0131-di-cho-sang-long-bien-chay-xe-duong-nao.html | WRITING |  | 0 |  |
-| HD-0132 | cam-nang/hoi-dap/hd-0132-chay-xe-may-ra-bien-quat-lam-mat-may-tieng.html | WRITING |  | 0 |  |
-| HD-0133 | cam-nang/hoi-dap/hd-0133-mu-bao-hiem-fullface-va-mu-ba-phan-tu-khac-nhau-the-nao.html | WRITING |  | 0 |  |
+| HD-0131 | cam-nang/hoi-dap/hd-0131-di-cho-sang-long-bien-chay-xe-duong-nao.html | PUBLISHED | 99 | 0 |  |
+| HD-0132 | cam-nang/hoi-dap/hd-0132-chay-xe-may-ra-bien-quat-lam-mat-may-tieng.html | PUBLISHED | 99 | 0 |  |
+| HD-0133 | cam-nang/hoi-dap/hd-0133-mu-bao-hiem-fullface-va-mu-ba-phan-tu-khac-nhau-the-nao.html | PUBLISHED | 99 | 0 |  |
 | KN-0126 | cam-nang/kinh-nghiem/kn-0126-do-xe-an-toi-o-quan-tay-ho-nen-chon-dau.html | PUBLISHED | 95 | 0 |  |
 | KN-0127 | cam-nang/kinh-nghiem/kn-0127-bai-gui-xe-an-toan-gan-cho-quan-ba-dinh.html | PUBLISHED | 96 | 0 |  |
 | KN-0128 | cam-nang/kinh-nghiem/kn-0128-chay-xe-sang-cuoi-tuan-quanh-quan-ba-dinh.html | PUBLISHED | 95 | 0 |  |
