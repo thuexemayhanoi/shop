@@ -1,10 +1,10 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T09:33:19+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T09:34:21+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 10 | pass: 0 | published: 10
-- writing: 40 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.8 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 11 | pass: 0 | published: 11
+- writing: 39 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -55,7 +55,7 @@
 | XM-0135 | cam-nang/xe-may/xm-0135-nong-may-khi-chay-pho-lien-tuc.html | PUBLISHED | 100 | 0 |  |
 | XM-0136 | cam-nang/xe-may/xm-0136-xe-may-phat-tieng-keu-khi-om-cua.html | PUBLISHED | 100 | 0 |  |
 | XM-0137 | cam-nang/xe-may/xm-0137-khoi-dong-may-buoi-sang-nen-lam-nong-bao-lau.html | PUBLISHED | 100 | 0 |  |
-| XM-0138 | cam-nang/xe-may/xm-0138-chay-xe-may-luc-nao-nen-dung-so-thap.html | WRITING |  | 0 |  |
+| XM-0138 | cam-nang/xe-may/xm-0138-chay-xe-may-luc-nao-nen-dung-so-thap.html | PUBLISHED | 100 | 0 |  |
 | XM-0139 | cam-nang/xe-may/xm-0139-xe-may-can-vao-bao-duong-dinh-ky-khi-nao.html | WRITING |  | 0 |  |
 | XM-0140 | cam-nang/xe-may/xm-0140-nen-mang-hop-do-sau-xe-khi-di-phuot-khong.html | WRITING |  | 0 |  |
 | XM-0141 | cam-nang/xe-may/xm-0141-moc-treo-tui-phia-truoc-xe-ga-an-toan-khong.html | WRITING |  | 0 |  |
