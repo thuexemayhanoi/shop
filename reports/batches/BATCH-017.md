@@ -1,16 +1,16 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T09:41:05+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T09:42:51+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 15 | pass: 0 | published: 15
-- writing: 35 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 16 | pass: 0 | published: 16
+- writing: 34 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 98.6 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
-| AT-0135 | cam-nang/an-toan/at-0135-nguoi-lon-tuoi-chay-xe-may-an-toan.html | WRITING |  | 0 |  |
+| AT-0135 | cam-nang/an-toan/at-0135-nguoi-lon-tuoi-chay-xe-may-an-toan.html | PUBLISHED | 100 | 0 |  |
 | AT-0136 | cam-nang/an-toan/at-0136-phu-nu-mang-thai-co-nen-chay-xe-may-khong.html | WRITING |  | 0 |  |
 | AT-0137 | cam-nang/an-toan/at-0137-bo-me-cho-con-di-hoc-bang-xe-may-an-toan.html | WRITING |  | 0 |  |
 | AT-0138 | cam-nang/an-toan/at-0138-khach-nuoc-ngoai-lan-dau-chay-xe-o-viet-nam.html | WRITING |  | 0 |  |
