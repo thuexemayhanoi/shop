@@ -1,6 +1,6 @@
-cam-nang/du-lich/dl-0131-quang-canh-suong-som-o-huu-lien.html
-cam-nang/hoi-dap/hd-0131-di-cho-sang-long-bien-chay-xe-duong-nao.html
-cam-nang/du-lich/dl-0132-di-xe-may-den-thanh-pho-lang-son-theo-nhom-ban.html
-cam-nang/hoi-dap/hd-0132-chay-xe-may-ra-bien-quat-lam-mat-may-tieng.html
-cam-nang/du-lich/dl-0133-san-may-o-thanh-pho-lang-son-mua-nao-bang-xe-may.html
-cam-nang/hoi-dap/hd-0133-mu-bao-hiem-fullface-va-mu-ba-phan-tu-khac-nhau-the-nao.html
+cam-nang/xe-may/xm-0131-tieng-rit-khi-van-ga.html
+cam-nang/kinh-nghiem/kn-0132-bai-gui-xe-an-toan-gan-cho-quan-cau-giay.html
+cam-nang/xe-may/xm-0132-xe-ro-dau-duoi-gam.html
+cam-nang/kinh-nghiem/kn-0133-chay-xe-sang-cuoi-tuan-quanh-quan-cau-giay.html
+cam-nang/xe-may/xm-0133-coi-yeu-theo-toc-do-vong-tua.html
+cam-nang/kinh-nghiem/kn-0134-lo-trinh-chay-toi-ven-duong-o-quan-cau-giay.html

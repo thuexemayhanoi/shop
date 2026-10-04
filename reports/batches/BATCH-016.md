@@ -1,11 +1,11 @@
 # Batch report BATCH-016
 
-- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T08:46:44+07:00
+- started_at: 2026-10-03T22:45:11+07:00 | finished_at: 2026-10-04T08:59:28+07:00
 - writer: external-agent | batch resolved once: BATCH-016
-- processed: 50 | written: 44 | pass: 0 | published: 44
-- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 50 | pass: 0 | published: 50
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.2 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 2 | blocked 0
+- source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -49,14 +49,14 @@
 | KN-0129 | cam-nang/kinh-nghiem/kn-0129-lo-trinh-chay-toi-ven-duong-o-quan-ba-dinh.html | PUBLISHED | 96 | 0 |  |
 | KN-0130 | cam-nang/kinh-nghiem/kn-0130-do-xe-an-toi-o-quan-ba-dinh-nen-chon-dau.html | PUBLISHED | 96 | 0 |  |
 | KN-0131 | cam-nang/kinh-nghiem/kn-0131-chay-xe-may-o-quan-cau-giay-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 95 | 0 |  |
-| KN-0132 | cam-nang/kinh-nghiem/kn-0132-bai-gui-xe-an-toan-gan-cho-quan-cau-giay.html | WRITING |  | 0 |  |
-| KN-0133 | cam-nang/kinh-nghiem/kn-0133-chay-xe-sang-cuoi-tuan-quanh-quan-cau-giay.html | WRITING |  | 0 |  |
-| KN-0134 | cam-nang/kinh-nghiem/kn-0134-lo-trinh-chay-toi-ven-duong-o-quan-cau-giay.html | WRITING |  | 0 |  |
+| KN-0132 | cam-nang/kinh-nghiem/kn-0132-bai-gui-xe-an-toan-gan-cho-quan-cau-giay.html | PUBLISHED | 99 | 0 |  |
+| KN-0133 | cam-nang/kinh-nghiem/kn-0133-chay-xe-sang-cuoi-tuan-quanh-quan-cau-giay.html | PUBLISHED | 97 | 0 |  |
+| KN-0134 | cam-nang/kinh-nghiem/kn-0134-lo-trinh-chay-toi-ven-duong-o-quan-cau-giay.html | PUBLISHED | 95 | 0 |  |
 | XM-0126 | cam-nang/xe-may/xm-0126-dong-ho-xang-bao-sai.html | PUBLISHED | 100 | 0 |  |
 | XM-0127 | cam-nang/xe-may/xm-0127-mui-xang-trong-cop-xe-ga.html | PUBLISHED | 99 | 0 |  |
 | XM-0128 | cam-nang/xe-may/xm-0128-chan-chong-khong-bat-len-het.html | PUBLISHED | 99 | 0 |  |
 | XM-0129 | cam-nang/xe-may/xm-0129-yen-xe-lat-dat-khi-chay.html | PUBLISHED | 100 | 0 |  |
 | XM-0130 | cam-nang/xe-may/xm-0130-can-so-vao-kho-khi-may-nguoi.html | PUBLISHED | 100 | 0 |  |
-| XM-0131 | cam-nang/xe-may/xm-0131-tieng-rit-khi-van-ga.html | WRITING |  | 0 |  |
-| XM-0132 | cam-nang/xe-may/xm-0132-xe-ro-dau-duoi-gam.html | WRITING |  | 0 |  |
-| XM-0133 | cam-nang/xe-may/xm-0133-coi-yeu-theo-toc-do-vong-tua.html | WRITING |  | 0 |  |
+| XM-0131 | cam-nang/xe-may/xm-0131-tieng-rit-khi-van-ga.html | PUBLISHED | 100 | 0 |  |
+| XM-0132 | cam-nang/xe-may/xm-0132-xe-ro-dau-duoi-gam.html | PUBLISHED | 98 | 0 |  |
+| XM-0133 | cam-nang/xe-may/xm-0133-coi-yeu-theo-toc-do-vong-tua.html | PUBLISHED | 99 | 0 |  |
