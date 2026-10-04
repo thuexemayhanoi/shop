@@ -1,9 +1,9 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T12:57:27+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T13:01:31+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 26 | pass: 0 | published: 26
-- writing: 24 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 28 | pass: 0 | published: 28
+- writing: 22 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
@@ -19,7 +19,7 @@
 | AT-0141 | cam-nang/an-toan/at-0141-vi-thanh-nien-chua-du-tuoi-lai-tap-o-dau-cho-dung.html | PUBLISHED | 100 | 0 |  |
 | AT-0142 | cam-nang/an-toan/at-0142-nguoi-hay-chay-xe-ve-khuya.html | WRITING |  | 0 |  |
 | CD-0134 | cam-nang/cung-duong/cd-0134-cung-duong-vong-qua-suoi-khoang-my-lam-co-gi-khac.html | PUBLISHED | 100 | 0 |  |
-| CD-0135 | cam-nang/cung-duong/cd-0135-lich-trinh-suoi-khoang-my-lam-danh-cho-nhom-di-phuot.html | WRITING |  | 0 |  |
+| CD-0135 | cam-nang/cung-duong/cd-0135-lich-trinh-suoi-khoang-my-lam-danh-cho-nhom-di-phuot.html | PUBLISHED | 100 | 0 |  |
 | CD-0136 | cam-nang/cung-duong/cd-0136-diem-dung-trua-tren-duong-di-suoi-khoang-my-lam.html | WRITING |  | 0 |  |
 | CD-0137 | cam-nang/cung-duong/cd-0137-cung-duong-di-xe-may-tu-ha-noi-den-vuon-quoc-gia-cuc-phuong.html | WRITING |  | 0 |  |
 | CD-0138 | cam-nang/cung-duong/cd-0138-lich-trinh-2-ngay-1-dem-di-xe-may-den-vuon-quoc-gia-cuc-phuo.html | WRITING |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0141 | cam-nang/du-lich/dl-0141-mua-he-den-ma-pi-leng-bang-xe-may-nen-di-luc-nao.html | WRITING |  | 0 |  |
 | DL-0142 | cam-nang/du-lich/dl-0142-mon-an-mua-cua-ma-pi-leng-dang-thu.html | WRITING |  | 0 |  |
 | HD-0134 | cam-nang/hoi-dap/hd-0134-mu-bao-hiem-co-kinh-chong-choi-dang-mua-khong.html | PUBLISHED | 97 | 0 |  |
-| HD-0135 | cam-nang/hoi-dap/hd-0135-ao-mua-mot-manh-hay-hai-manh-tot-cho-xe-may.html | WRITING |  | 0 |  |
+| HD-0135 | cam-nang/hoi-dap/hd-0135-ao-mua-mot-manh-hay-hai-manh-tot-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | HD-0136 | cam-nang/hoi-dap/hd-0136-gang-tay-xe-may-nen-chon-chat-lieu-nao.html | WRITING |  | 0 |  |
 | HD-0137 | cam-nang/hoi-dap/hd-0137-gia-do-dien-thoai-tren-xe-ga-co-an-toan-khong.html | WRITING |  | 0 |  |
 | HD-0138 | cam-nang/hoi-dap/hd-0138-non-bao-hiem-tre-em-can-dat-tieu-chuan-nao.html | WRITING |  | 0 |  |
