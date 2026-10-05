@@ -1,10 +1,10 @@
 # Batch report BATCH-018
 
-- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:17:11+07:00
+- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:20:28+07:00
 - writer: external-agent | batch resolved once: BATCH-018
-- processed: 10 | written: 10 | pass: 0 | published: 10
+- processed: 12 | written: 12 | pass: 0 | published: 12
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.8 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -20,7 +20,7 @@
 | AT-0150 | cam-nang/an-toan/at-0150-cho-do-an-giao-hang-bang-xe-may-an-toan.html | PLANNED |  | 0 |  |
 | CD-0142 | cam-nang/cung-duong/cd-0142-quan-an-ngon-doc-duong-den-khu-du-lich-tam-chuc.html | PUBLISHED | 100 | 0 |  |
 | CD-0143 | cam-nang/cung-duong/cd-0143-tuyen-duong-dep-tu-ha-noi-den-den-hung.html | PUBLISHED | 96 | 0 |  |
-| CD-0144 | cam-nang/cung-duong/cd-0144-tram-dung-nghi-ven-duong-toi-den-hung.html | PLANNED |  | 0 |  |
+| CD-0144 | cam-nang/cung-duong/cd-0144-tram-dung-nghi-ven-duong-toi-den-hung.html | PUBLISHED | 96 | 0 |  |
 | CD-0145 | cam-nang/cung-duong/cd-0145-ha-noi-den-ho-thac-ba-quoc-lo-nao-nen-chon.html | PLANNED |  | 0 |  |
 | CD-0146 | cam-nang/cung-duong/cd-0146-hai-ngay-o-ho-thac-ba-lich-trinh-goi-y-cho-nguoi-di-xe.html | PLANNED |  | 0 |  |
 | CD-0147 | cam-nang/cung-duong/cd-0147-cho-ngam-canh-giua-duong-den-ho-thac-ba.html | PLANNED |  | 0 |  |
@@ -28,7 +28,7 @@
 | CD-0149 | cam-nang/cung-duong/cd-0149-nghi-dem-o-cho-tinh-khau-vai-khi-di-xe-may-chon-dau.html | PLANNED |  | 0 |  |
 | CD-0150 | cam-nang/cung-duong/cd-0150-bai-do-an-toan-doc-duong-di-cho-tinh-khau-vai.html | PLANNED |  | 0 |  |
 | DL-0143 | cam-nang/du-lich/dl-0143-goc-chup-mua-o-ma-pi-leng-co-dang-thu-khong.html | PUBLISHED | 100 | 0 |  |
-| DL-0144 | cam-nang/du-lich/dl-0144-kinh-nghiem-di-xe-may-den-cong-troi-quan-ba-tu-ha-noi.html | PLANNED |  | 0 |  |
+| DL-0144 | cam-nang/du-lich/dl-0144-kinh-nghiem-di-xe-may-den-cong-troi-quan-ba-tu-ha-noi.html | PUBLISHED | 98 | 0 |  |
 | DL-0145 | cam-nang/du-lich/dl-0145-di-xe-may-den-cong-troi-quan-ba-mua-nao-dep-nhat.html | PLANNED |  | 0 |  |
 | DL-0146 | cam-nang/du-lich/dl-0146-an-gi-khi-du-lich-cong-troi-quan-ba-bang-xe-may.html | PLANNED |  | 0 |  |
 | DL-0147 | cam-nang/du-lich/dl-0147-nhung-goc-chup-anh-dep-o-cong-troi-quan-ba-cho-nguoi-di-xe-m.html | PLANNED |  | 0 |  |
