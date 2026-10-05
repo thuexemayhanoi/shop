@@ -1,0 +1,37 @@
+{
+  "schema_version": "1",
+  "batch": "BATCH-017",
+  "mode": "repair",
+  "queue": [
+    "DL-0139"
+  ],
+  "pair_size": 2,
+  "started": "2026-10-05T13:35:28Z",
+  "finished": "2026-10-05T13:35:30Z",
+  "pairs": [
+    {
+      "pair_index": 1,
+      "ids": [
+        "DL-0139"
+      ],
+      "claimed": [],
+      "pass": [
+        "DL-0139"
+      ],
+      "published": [
+        "DL-0139"
+      ],
+      "review": [],
+      "repair": [],
+      "blocked": [],
+      "publish_rc": 0,
+      "status": "published"
+    }
+  ],
+  "published_total": 1,
+  "published_ids": [
+    "DL-0139"
+  ],
+  "recoverable_ids": [],
+  "fatal": null
+}

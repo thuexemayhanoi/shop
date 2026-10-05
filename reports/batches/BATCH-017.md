@@ -1,10 +1,10 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-04T14:56:57+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T20:35:30+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 36 | pass: 0 | published: 36
-- writing: 14 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.3 | min 96 | max 100 | repair_count: 0
+- processed: 50 | written: 37 | pass: 0 | published: 37
+- writing: 13 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
@@ -31,7 +31,7 @@
 | DL-0136 | cam-nang/du-lich/dl-0136-chuyen-sang-som-den-cao-nguyen-da-dong-van-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | DL-0137 | cam-nang/du-lich/dl-0137-cuoi-thu-di-cao-nguyen-da-dong-van-bang-xe-may-co-dep-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0138 | cam-nang/du-lich/dl-0138-ca-phe-sang-o-cao-nguyen-da-dong-van-quan-nao-dep.html | PUBLISHED | 100 | 0 |  |
-| DL-0139 | cam-nang/du-lich/dl-0139-khung-canh-dac-sac-nhat-o-cao-nguyen-da-dong-van.html | WRITING |  | 0 |  |
+| DL-0139 | cam-nang/du-lich/dl-0139-khung-canh-dac-sac-nhat-o-cao-nguyen-da-dong-van.html | PUBLISHED | 99 | 0 |  |
 | DL-0140 | cam-nang/du-lich/dl-0140-len-ke-hoach-di-ma-pi-leng-bang-xe-may-tron-ven.html | WRITING |  | 0 |  |
 | DL-0141 | cam-nang/du-lich/dl-0141-mua-he-den-ma-pi-leng-bang-xe-may-nen-di-luc-nao.html | WRITING |  | 0 |  |
 | DL-0142 | cam-nang/du-lich/dl-0142-mon-an-mua-cua-ma-pi-leng-dang-thu.html | WRITING |  | 0 |  |
