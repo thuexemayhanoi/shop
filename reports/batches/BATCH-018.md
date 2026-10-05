@@ -1,11 +1,11 @@
 # Batch report BATCH-018
 
-- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T02:08:59+07:00
+- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T02:12:34+07:00
 - writer: external-agent | batch resolved once: BATCH-018
-- processed: 34 | written: 34 | pass: 0 | published: 34
+- processed: 36 | written: 36 | pass: 0 | published: 36
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.9 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 2 | blocked 0
+- scores: avg 99 | min 96 | max 100 | repair_count: 0
+- source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -32,7 +32,7 @@
 | DL-0145 | cam-nang/du-lich/dl-0145-di-xe-may-den-cong-troi-quan-ba-mua-nao-dep-nhat.html | PUBLISHED | 98 | 0 |  |
 | DL-0146 | cam-nang/du-lich/dl-0146-an-gi-khi-du-lich-cong-troi-quan-ba-bang-xe-may.html | PUBLISHED | 98 | 0 |  |
 | DL-0147 | cam-nang/du-lich/dl-0147-nhung-goc-chup-anh-dep-o-cong-troi-quan-ba-cho-nguoi-di-xe-m.html | PUBLISHED | 98 | 0 |  |
-| DL-0148 | cam-nang/du-lich/dl-0148-di-xe-may-den-ruong-bac-thang-hoang-su-phi-can-chuan-bi-gi.html | PLANNED |  | 0 |  |
+| DL-0148 | cam-nang/du-lich/dl-0148-di-xe-may-den-ruong-bac-thang-hoang-su-phi-can-chuan-bi-gi.html | PUBLISHED | 100 | 0 |  |
 | DL-0149 | cam-nang/du-lich/dl-0149-thang-nao-nen-di-ruong-bac-thang-hoang-su-phi-bang-xe-may.html | PLANNED |  | 0 |  |
 | DL-0150 | cam-nang/du-lich/dl-0150-dac-san-ruong-bac-thang-hoang-su-phi-nao-phai-thu-khi-di-xe.html | PLANNED |  | 0 |  |
 | HD-0142 | cam-nang/hoi-dap/hd-0142-tui-dung-do-truoc-xe-ga-nen-chon-loai-nao.html | PUBLISHED | 100 | 0 |  |
@@ -57,6 +57,6 @@
 | XM-0145 | cam-nang/xe-may/xm-0145-bo-va-sam-nhanh-dung-the-nao.html | PUBLISHED | 100 | 0 |  |
 | XM-0146 | cam-nang/xe-may/xm-0146-ao-mua-chuyen-dung-cho-nguoi-chay-xe-may.html | PUBLISHED | 100 | 0 |  |
 | XM-0147 | cam-nang/xe-may/xm-0147-choi-lau-kinh-mu-bao-hiem-tien-o-diem-nao.html | PUBLISHED | 100 | 0 |  |
-| XM-0148 | cam-nang/xe-may/xm-0148-mieng-lot-mu-bao-hiem-tham-mo-hoi.html | PLANNED |  | 0 |  |
+| XM-0148 | cam-nang/xe-may/xm-0148-mieng-lot-mu-bao-hiem-tham-mo-hoi.html | PUBLISHED | 100 | 0 |  |
 | XM-0149 | cam-nang/xe-may/xm-0149-khoa-dia-cho-xe-may-dang-tin-khong.html | PLANNED |  | 0 |  |
 | XM-0150 | cam-nang/xe-may/xm-0150-khoa-chu-u-va-khoa-dia-khac-nhau-the-nao.html | PLANNED |  | 0 |  |
