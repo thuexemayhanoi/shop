@@ -1,9 +1,9 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T23:35:13+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T23:38:22+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 46 | pass: 0 | published: 46
-- writing: 4 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 48 | pass: 0 | published: 48
+- writing: 2 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
@@ -42,7 +42,7 @@
 | HD-0138 | cam-nang/hoi-dap/hd-0138-non-bao-hiem-tre-em-can-dat-tieu-chuan-nao.html | PUBLISHED | 99 | 0 |  |
 | HD-0139 | cam-nang/hoi-dap/hd-0139-bao-tay-chong-nang-can-thao-tac-phanh-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0140 | cam-nang/hoi-dap/hd-0140-mu-bao-hiem-dung-bao-lau-nen-thay.html | PUBLISHED | 100 | 0 |  |
-| HD-0141 | cam-nang/hoi-dap/hd-0141-khoa-xe-dien-tu-co-ben-khong.html | WRITING |  | 0 |  |
+| HD-0141 | cam-nang/hoi-dap/hd-0141-khoa-xe-dien-tu-co-ben-khong.html | PUBLISHED | 100 | 0 |  |
 | KN-0135 | cam-nang/kinh-nghiem/kn-0135-do-xe-an-toi-o-quan-cau-giay-nen-chon-dau.html | PUBLISHED | 98 | 0 |  |
 | KN-0136 | cam-nang/kinh-nghiem/kn-0136-chay-xe-may-o-quan-dong-da-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 96 | 0 |  |
 | KN-0137 | cam-nang/kinh-nghiem/kn-0137-bai-gui-xe-an-toan-gan-cho-quan-dong-da.html | PUBLISHED | 96 | 0 |  |
@@ -50,7 +50,7 @@
 | KN-0139 | cam-nang/kinh-nghiem/kn-0139-lo-trinh-chay-toi-ven-duong-o-quan-dong-da.html | PUBLISHED | 96 | 0 |  |
 | KN-0140 | cam-nang/kinh-nghiem/kn-0140-do-xe-an-toi-o-quan-dong-da-nen-chon-dau.html | PUBLISHED | 96 | 0 |  |
 | KN-0141 | cam-nang/kinh-nghiem/kn-0141-chay-xe-may-o-quan-thanh-xuan-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 96 | 0 |  |
-| KN-0142 | cam-nang/kinh-nghiem/kn-0142-bai-gui-xe-an-toan-gan-cho-quan-thanh-xuan.html | WRITING |  | 0 |  |
+| KN-0142 | cam-nang/kinh-nghiem/kn-0142-bai-gui-xe-an-toan-gan-cho-quan-thanh-xuan.html | PUBLISHED | 96 | 0 |  |
 | XM-0134 | cam-nang/xe-may/xm-0134-xe-giat-cuc-khi-dung-den-do.html | PUBLISHED | 100 | 0 |  |
 | XM-0135 | cam-nang/xe-may/xm-0135-nong-may-khi-chay-pho-lien-tuc.html | PUBLISHED | 100 | 0 |  |
 | XM-0136 | cam-nang/xe-may/xm-0136-xe-may-phat-tieng-keu-khi-om-cua.html | PUBLISHED | 100 | 0 |  |
