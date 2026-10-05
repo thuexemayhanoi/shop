@@ -1,9 +1,9 @@
 # Batch report BATCH-018
 
-- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:24:22+07:00
+- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:25:52+07:00
 - writer: external-agent | batch resolved once: BATCH-018
-- processed: 14 | written: 14 | pass: 0 | published: 12
-- writing: 0 | review: 0 | repair: 2 | fail: 0 | blocked: 0
+- processed: 14 | written: 14 | pass: 0 | published: 14
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.7 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
@@ -37,7 +37,7 @@
 | DL-0150 | cam-nang/du-lich/dl-0150-dac-san-ruong-bac-thang-hoang-su-phi-nao-phai-thu-khi-di-xe.html | PLANNED |  | 0 |  |
 | HD-0142 | cam-nang/hoi-dap/hd-0142-tui-dung-do-truoc-xe-ga-nen-chon-loai-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0143 | cam-nang/hoi-dap/hd-0143-den-gan-them-cho-xe-may-co-duoc-phep-khong.html | PUBLISHED | 100 | 0 |  |
-| HD-0144 | cam-nang/hoi-dap/hd-0144-yen-xe-ga-co-nen-boc-chong-nong.html | REPAIR | 100 | 0 |  |
+| HD-0144 | cam-nang/hoi-dap/hd-0144-yen-xe-ga-co-nen-boc-chong-nong.html | PUBLISHED | 100 | 0 |  |
 | HD-0145 | cam-nang/hoi-dap/hd-0145-ao-phan-quang-nen-mac-khi-nao.html | PLANNED |  | 0 |  |
 | HD-0146 | cam-nang/hoi-dap/hd-0146-kinh-ram-chay-xe-co-hai-mat-khong.html | PLANNED |  | 0 |  |
 | HD-0147 | cam-nang/hoi-dap/hd-0147-mu-bao-hiem-mua-kem-kinh-che-co-dang-mua.html | PLANNED |  | 0 |  |
@@ -53,7 +53,7 @@
 | KN-0149 | cam-nang/kinh-nghiem/kn-0149-lo-trinh-chay-toi-ven-duong-o-quan-hai-ba-trung.html | PLANNED |  | 0 |  |
 | KN-0150 | cam-nang/kinh-nghiem/kn-0150-do-xe-an-toi-o-quan-hai-ba-trung-nen-chon-dau.html | PLANNED |  | 0 |  |
 | XM-0143 | cam-nang/xe-may/xm-0143-bo-dung-cu-sua-xe-mini-gom-nhung-gi.html | PUBLISHED | 100 | 0 |  |
-| XM-0144 | cam-nang/xe-may/xm-0144-bom-tay-mini-cho-xe-may-dang-mua-khong.html | REPAIR | 100 | 0 |  |
+| XM-0144 | cam-nang/xe-may/xm-0144-bom-tay-mini-cho-xe-may-dang-mua-khong.html | PUBLISHED | 100 | 0 |  |
 | XM-0145 | cam-nang/xe-may/xm-0145-bo-va-sam-nhanh-dung-the-nao.html | PLANNED |  | 0 |  |
 | XM-0146 | cam-nang/xe-may/xm-0146-ao-mua-chuyen-dung-cho-nguoi-chay-xe-may.html | PLANNED |  | 0 |  |
 | XM-0147 | cam-nang/xe-may/xm-0147-choi-lau-kinh-mu-bao-hiem-tien-o-diem-nao.html | PLANNED |  | 0 |  |
