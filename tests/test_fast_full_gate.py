@@ -29,7 +29,8 @@ Pins the approved dual-mode workflow contract:
 
   SAFETY GATES NEVER WEAKENED:
     - thresholds stay owner-approved 75/70/75 (rubric-driven)
-    - chunk_size = 2 bounds the micro-pair (config/content-factory.json)
+    - queue_max_push = 10 / pair_size = 2 bound the write-ahead
+      queue (config/content-factory.json)
     - txn/lock safety, exact-ID publish, no blind claim, no force push
       unchanged (covered by the dedicated suites; re-pinned here for
       the touched workflows).
@@ -175,14 +176,15 @@ class FastFullGateContractTest(unittest.TestCase):
         # publish path keeps the rubric as the single threshold source
         self.assertEqual(rubric["thresholds"]["PASS"]["min"], 75)
 
-    def test_chunk_size_is_two_in_production_config(self):
+    def test_write_ahead_queue_config_contract(self):
         cfg = json.load(io.open(os.path.join(
             ROOT, "config", "content-factory.json"), encoding="utf-8"))
         self.assertTrue(cfg["enabled"])
-        self.assertEqual(cfg.get("chunk_size"), 2)
-        # workflow docs agree with the config (pair contract = 2)
-        y = _read(".github/workflows/factory-publish.yml")
-        self.assertIn("chunk_size = 2", y)
+        self.assertEqual(cfg.get("queue_max_push"), 10)
+        self.assertEqual(cfg.get("pair_size"), 2)
+        self.assertNotIn("chunk_size", cfg)
+        q = _read("scripts/factory_queue.py")
+        self.assertIn("PAIR_SIZE = 2", q)
 
     def test_sweep_script_uses_the_canonical_checker(self):
         s = _read("scripts/full_cannibalization_audit.py")

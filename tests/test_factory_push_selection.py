@@ -15,7 +15,7 @@ scripts/factory_push_selection.py:
     deterministic first-50 by article_id
   * SKIP when nothing to do (tooling-only push / factory state commit
     re-triggering on promoted PUBLISHED files): no work, no recursion
-  * REFUSE: > chunk_size (2, config/content-factory.json) new article
+  * REFUSE: > MAX_PER_PUSH (10, write-ahead queue) queued article /
     files in one push
   * REFUSE: touching active rows of another batch while another batch
     is active
@@ -249,123 +249,98 @@ class SelectorTestCase(unittest.TestCase):
 
     # ---------------------------------------------------------------- caps
 
-    def test_refuse_more_than_chunk_size_new_article_files(self):
-        # 3 DISTINCT new article files in one push with chunk_size = 2
-        # (fixture has no content-factory.json -> fail-closed default 2)
-        # -> refuse; the production micro-pair is exactly 2 new IDs
+    def _queue_fixture(self, prefix, count, batch="BATCH-001"):
+        """Create `count` PLANNED rows + draft files; return added list."""
         import csv as _csv
         added = []
-        for i in range(3):
-            aid = "KN-1%03d" % i
+        mp = os.path.join(self.tmp, "data", "content-matrix.csv")
+        with io.open(mp, encoding="utf-8") as f:
+            rows = list(_csv.reader(f))
+        header = rows[0]
+        for i in range(count):
+            aid = "%s%03d" % (prefix, i)
             op = "cam-nang/kinh-nghiem/%s.html" % aid.lower()
             dp = os.path.join(self.tmp, "_drafts", op)
             os.makedirs(os.path.dirname(dp), exist_ok=True)
             io.open(dp, "w", encoding="utf-8").write("<html>%s</html>" % aid)
             added.append("_drafts/" + op)
-        mp = os.path.join(self.tmp, "data", "content-matrix.csv")
-        with io.open(mp, encoding="utf-8") as f:
-            rows = list(_csv.reader(f))
-        header = rows[0]
-        for i in range(3):
-            aid = "KN-1%03d" % i
             r = [""] * len(header)
             r[header.index("article_id")] = aid
             r[header.index("status")] = "PLANNED"
             r[header.index("category")] = "Kinh nghiệm"
             r[header.index("primary_keyword")] = "kw " + aid
             r[header.index("slug")] = aid.lower()
-            r[header.index("output_path")] = (
-                "cam-nang/kinh-nghiem/%s.html" % aid.lower())
+            r[header.index("output_path")] = op
             r[header.index("parent_hub")] = "kinhnghiem.html"
-            r[header.index("batch_id")] = "BATCH-001"
+            r[header.index("batch_id")] = batch
             rows.append(r)
         with io.open(mp, "w", encoding="utf-8", newline="") as f:
             _csv.writer(f).writerows(rows)
+        return added, mp, rows, header
+
+    def test_refuse_more_than_max_per_push_new_article_files(self):
+        # 11 DISTINCT new article files in one push with queue_max_push
+        # default 10 -> refuse; exactly 10 is the write-ahead cap and
+        # is consumed as deterministic PAIRS of 2
+        added, mp, rows, header = self._queue_fixture("KN-1", 11)
         try:
             sel = self._select(added=added)
             self.assertIsNotNone(sel["refuse"])
-            self.assertIn("max 2", sel["refuse"])
-            self.assertIn("chunk_size", sel["refuse"])
+            self.assertIn("max 10", sel["refuse"])
+            self.assertIn("queue_max_push", sel["refuse"])
             self.assertFalse(sel["proceed"])
+            # exactly 10 proceeds as a 5-pair write-ahead queue
+            sel = self._select(added=added[:10])
+            self.assertTrue(sel["proceed"])
+            self.assertEqual(sel["mode"], "new")
+            self.assertEqual(sel["pair_count"], 5)
+            self.assertEqual(sel["pairs"][0], ["KN-1000", "KN-1001"])
+            self.assertEqual(sel["queue"], [
+                "KN-1%03d" % i for i in range(10)])
         finally:
-            # restore the shared fixture (later tests assert SKIP modes
-            # that must not see these backlog rows)
             with io.open(mp, "w", encoding="utf-8", newline="") as f:
+                import csv as _csv
                 _csv.writer(f).writerows(rows[:9])
-            for i in range(3):
-                op = ("cam-nang/kinh-nghiem/kn-1%03d.html" % i)
+            for i in range(11):
+                op = "cam-nang/kinh-nghiem/kn-1%03d.html" % i
                 dp = os.path.join(self.tmp, "_drafts", op)
                 if os.path.isfile(dp):
                     os.remove(dp)
 
-    def test_chunk_size_is_config_driven_and_bounded(self):
-        # chunk_size comes from config/content-factory.json; an
-        # out-of-range value falls back to the bounded default (2),
-        # never to the MAX_CLAIM hard ceiling
-        import csv as _csv
+    def test_queue_max_push_is_config_driven_and_bounded(self):
+        # queue_max_push comes from config/content-factory.json; an
+        # out-of-range or non-numeric value falls back to the bounded
+        # default (10), never above it
         cfg_dir = os.path.join(self.tmp, "config")
         cfg = os.path.join(cfg_dir, "content-factory.json")
         io.open(cfg, "w", encoding="utf-8").write(
-            '{"enabled": true, "chunk_size": 3}')
-        added = []
-        for i in range(3):
-            aid = "KN-2%03d" % i
-            op = "cam-nang/kinh-nghiem/%s.html" % aid.lower()
-            dp = os.path.join(self.tmp, "_drafts", op)
-            os.makedirs(os.path.dirname(dp), exist_ok=True)
-            io.open(dp, "w", encoding="utf-8").write("<html>%s</html>" % aid)
-            added.append("_drafts/" + op)
-        mp = os.path.join(self.tmp, "data", "content-matrix.csv")
-        with io.open(mp, encoding="utf-8") as f:
-            rows = list(_csv.reader(f))
-        header = rows[0]
-        for i in range(4):
-            aid = "KN-2%03d" % i
-            r = [""] * len(header)
-            r[header.index("article_id")] = aid
-            r[header.index("status")] = "PLANNED"
-            r[header.index("category")] = "Kinh nghiệm"
-            r[header.index("primary_keyword")] = "kw " + aid
-            r[header.index("slug")] = aid.lower()
-            r[header.index("output_path")] = (
-                "cam-nang/kinh-nghiem/%s.html" % aid.lower())
-            r[header.index("parent_hub")] = "kinhnghiem.html"
-            r[header.index("batch_id")] = "BATCH-001"
-            rows.append(r)
-        if len(added) == 3:  # add the 4th file too
-            aid = "KN-2003"
-            op = "cam-nang/kinh-nghiem/%s.html" % aid.lower()
-            dp = os.path.join(self.tmp, "_drafts", op)
-            io.open(dp, "w", encoding="utf-8").write("<html>%s</html>" % aid)
-            added.append("_drafts/" + op)
+            '{"enabled": true, "queue_max_push": 5}')
+        added, mp, rows, header = self._queue_fixture("KN-2", 6)
         try:
-            with io.open(mp, "w", encoding="utf-8", newline="") as f:
-                _csv.writer(f).writerows(rows)
-            # chunk_size = 3: three new files OK, the 4th refuses
-            sel = self._select(added=added[:3])
+            sel = self._select(added=added[:5])
             self.assertTrue(sel["proceed"])
-            self.assertEqual(sel["mode"], "new")
-            self.assertEqual(len(sel["claim_ids"]), 3)
+            self.assertEqual(len(sel["queue"]), 5)
             sel = self._select(added=added)
             self.assertIsNotNone(sel["refuse"])
-            self.assertIn("max 3", sel["refuse"])
+            self.assertIn("max 5", sel["refuse"])
             # out-of-range value falls back to the bounded default
             io.open(cfg, "w", encoding="utf-8").write(
-                '{"enabled": true, "chunk_size": 999}')
+                '{"enabled": true, "queue_max_push": 999}')
             sel = self._select(added=added)
-            self.assertIsNotNone(sel["refuse"])
-            self.assertIn("max 2", sel["refuse"])
+            self.assertTrue(sel["proceed"])
+            self.assertEqual(len(sel["queue"]), 6)
             io.open(cfg, "w", encoding="utf-8").write(
-                '{"enabled": true, "chunk_size": "not-a-number"}')
-            sel = self._select(added=added[:3])
-            self.assertIsNotNone(sel["refuse"])
-            self.assertIn("max 2", sel["refuse"])
+                '{"enabled": true, "queue_max_push": "not-a-number"}')
+            sel = self._select(added=added)
+            self.assertTrue(sel["proceed"])
+            self.assertEqual(len(sel["queue"]), 6)
         finally:
             os.remove(cfg)
             with io.open(mp, "w", encoding="utf-8", newline="") as f:
+                import csv as _csv
                 _csv.writer(f).writerows(rows[:9])
-            for i in range(4):
-                op = ("cam-nang/kinh-nghiem/kn-2%03d.html" % i)
+            for i in range(6):
+                op = "cam-nang/kinh-nghiem/kn-2%03d.html" % i
                 dp = os.path.join(self.tmp, "_drafts", op)
                 if os.path.isfile(dp):
                     os.remove(dp)
