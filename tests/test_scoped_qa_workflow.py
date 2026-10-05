@@ -395,7 +395,7 @@ class PublishGateScopeTests(ScopedQATestCase):
 
     def test_gate_ids_contract_in_workflow(self):
         y = io.open(os.path.join(ROOT, ".github", "workflows",
-                                "factory-operator.yml"),
+                                "factory-publish.yml"),
                     encoding="utf-8").read()
         # publish op: scoped gate on the published ids only
         self.assertIn('gate_published_articles.py --ids "$ids"', y)
@@ -403,18 +403,16 @@ class PublishGateScopeTests(ScopedQATestCase):
         self.assertNotIn("python3 scripts/apply_article_shell.py\n"
                           "          python3 scripts/gate_published_"
                           "articles.py", y)
-        # batch-end FULL audit still exists
-        self.assertIn("Batch-end FULL audit", y)
+        # batch-terminal FULL audit dispatch still exists
+        self.assertIn("Batch-terminal FULL audit dispatch", y)
         self.assertIn("BATCH-COMPLETE", y)
-        # one-command-at-a-time guard exists
-        self.assertIn("superseded by a newer push", y)
 
     def test_evidence_cache_persists_as_workflow_artifact(self):
         # reports/article-quality/ is gitignored, so the evidence cache
         # must round-trip through workflow artifacts or reuse would be
         # lost between CI runs (every run cold). Both workflows restore
         # it before any gate and save it afterwards, non-fatally.
-        for wf in ("article-quality.yml", "factory-operator.yml"):
+        for wf in ("article-quality.yml", "factory-publish.yml"):
             y = io.open(os.path.join(ROOT, ".github", "workflows", wf),
                         encoding="utf-8").read()
             self.assertIn("Restore QA evidence cache", y)

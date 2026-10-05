@@ -3,9 +3,9 @@
 #
 # ONE gate, run in ONE place, by EVERY consumer:
 #   - .github/workflows/article-quality.yml (PR + push-to-main quality gate)
-#   - .github/workflows/factory-operator.yml (before EVERY push of operator
-#     outputs, again after every rebase, and once more on the EXACT final
-#     main SHA after the push)
+#   - .github/workflows/factory-publish.yml (before EVERY publish push,
+#     again after every rebase, and once more on the EXACT final main
+#     SHA after the push)
 #
 # GREEN here means: tests pass AND the semantic factory invariants hold on
 # the EXACT tree that will be pushed. Workflow exit 0 alone is never

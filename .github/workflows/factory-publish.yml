@@ -1,4 +1,4 @@
-name: Factory Publish (micro-pair)
+name: Factory Publish (write-ahead queue)
 
 # EVENT-DRIVEN PUBLISH PIPELINE (Simple Production Mode). NO AI, NO API
 # keys, NO secrets, NO cron. Ported from the vanchinh design and adapted
@@ -10,15 +10,17 @@ name: Factory Publish (micro-pair)
 # (scripts/factory_push_selection.py) and runs the canonical factory
 # tooling for that scope ONLY:
 #
-#   NEW article push:     claim exactly the added-article IDs (bounded
-#                         by chunk_size = 2 in config/content-factory.json;
-#                         the production micro-pair pushes exactly 2)
+#   NEW article push:     queue the added-article IDs (bounded by
+#                         queue_max_push = 10 in
+#                         config/content-factory.json; one writer push
+#                         queues 2..10 article files)
 #                          -> scoped QA -> transactional publish of PASS
 #   REPAIR article push:  scoped QA + publish EXACTLY the repaired
 #                         active IDs; touched PASS IDs publish directly;
 #                         NEVER claims fresh PLANNED rows
 #   BACKLOG:              PLANNED rows whose files already exist (<=
-#                         chunk_size = 2, deterministic article_id order)
+#                         queue_max_push = 10, deterministic article_id
+#                         order)
 #                         - recovery for a pipeline failure between file
 #                         add and claim
 #   SKIP:                 tooling-only push / the factory's own state
@@ -109,10 +111,12 @@ jobs:
               f.write(f"claim_ids={','.join(sel['claim_ids'])}\n")
               f.write(f"qa_ids={','.join(sel['qa_ids'])}\n")
               f.write(f"publish_ids={','.join(sel['publish_ids'])}\n")
+              f.write(f"queue={','.join(sel['queue'])}\n")
               f.write(f"refuse={sel['refuse'] or ''}\n")
           print(f"selection: mode={sel['mode']} batch={sel['batch']} "
                 f"claim={sel['claim_ids']} qa={sel['qa_ids']} "
-                f"publish={sel['publish_ids']}")
+                f"publish={sel['publish_ids']} "
+                f"queue={sel['queue']} pairs={sel['pairs']}")
           if sel.get('published_edits'):
               print(f"ignored PUBLISHED-row edits: {sel['published_edits']}")
           if sel.get('unmapped_paths'):
@@ -161,73 +165,76 @@ jobs:
           python3 scripts/validate_content_matrix.py
           node scripts/js/factory.mjs --consistency
 
-      - name: Claim exactly the added-article IDs (never a blind claim)
-        if: steps.select.outputs.proceed == 'true' && steps.select.outputs.claim_ids != ''
+      - name: Consume write-ahead queue (pair -> claim -> QA -> publish, sequential)
+        # scripts/factory_queue.py consumes the push's queue as
+        # deterministic PAIRS of 2 inside THIS run: per pair ->
+        # exact-ID claim (never a blind claim, new mode only) ->
+        # scoped QA (3 gate tools) -> transactional publish of the
+        # pair's PASS ids (--dry-run first) -> report checkpoint ->
+        # next pair. A failed pair never rolls back published pairs.
+        # Scoped QA exit contract (inside the queue runner):
+        #   0) clean  3) FAIL rows legitimately recorded
+        #   4) REVIEW/BLOCKED rows legitimately recorded
+        # ONLY 0/3/4 are valid results; tool/config (1), usage/lock
+        # (2) and unknown exits abort the pair recoverably.
+        if: steps.select.outputs.proceed == 'true' && steps.select.outputs.queue != ''
+        id: queue
         run: |
           set -e
-          python3 scripts/run_article_batch.py --batch "${{ steps.select.outputs.batch }}" --claim-ids --ids "${{ steps.select.outputs.claim_ids }}"
+          MODE="${{ steps.select.outputs.mode }}"
+          case "$MODE" in backlog) MODE=new ;; esac
+          python3 scripts/factory_queue.py run --batch "${{ steps.select.outputs.batch }}" --mode "$MODE" --ids "${{ steps.select.outputs.queue }}"
+          python3 - <<'EOF'
+          import json, os
+          r = json.load(open('reports/batches/factory-queue-last-run.json'))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write("published_ids=%s\n" % ",".join(r.get("published_ids") or []))
+          print("queue consumed: published=%s recoverable=%s"
+                % (r.get("published_ids"), r.get("recoverable_ids")))
+          EOF
 
-      - name: Scoped QA (3 gate tools on the exact push IDs; exit contract 0/3/4)
-        # Runs ONCE. Per-article isolation: FAIL/REVIEW/BLOCKED rows are
-        # legitimate recorded state (exit 3/4) and never block this
-        # pair's PASS rows; tool/config (1), usage/lock (2) and unknown
-        # exits abort the run RED. The exit code is captured from
-        # PIPESTATUS so the report still streams through tee.
-        if: steps.select.outputs.proceed == 'true' && steps.select.outputs.qa_ids != ''
-        id: qa
+      - name: Dispatch publish (explicit PASS ids only, fail-closed)
+        if: steps.dispatch.outputs.proceed == 'true' && steps.dispatch.outputs.publish_ids != ''
         run: |
-          set +e
-          python3 scripts/run_article_batch.py --batch "${{ steps.select.outputs.batch }}" --ids "${{ steps.select.outputs.qa_ids }}" --qa | tee /tmp/qa-output.txt
-          code=${PIPESTATUS[0]}
-          echo "exit=$code" >> "$GITHUB_OUTPUT"
-          case "$code" in
-            0) echo "qa exit code: 0 (clean)" ;;
-            3) echo "qa exit code: 3 (FAIL article rows legitimately recorded)" ;;
-            4) echo "qa exit code: 4 (REVIEW/BLOCKED rows legitimately recorded)" ;;
-            *) echo "::error::qa failed with exit $code (tool/config=1, usage/lock=2; ONLY 0/3/4 are valid results)"; exit "$code" ;;
-          esac
+          set -e
+          node scripts/js/factory.mjs --publish "${{ steps.dispatch.outputs.publish_ids }}" --dry-run
+          node scripts/js/factory.mjs --publish "${{ steps.dispatch.outputs.publish_ids }}"
+          node scripts/js/factory.mjs --consistency
 
-      - name: Compute publish scope (explicit PASS ids only)
+      - name: Resolve published scope (this run's PUBLISHED ids)
         if: (steps.select.outputs.proceed == 'true' || steps.dispatch.outputs.proceed == 'true')
-        id: passids
+        id: pubscope
         run: |
           set -e
-          python3 - <<'EOF' > /tmp/pass_ids.txt
+          python3 - <<'EOF' > /tmp/pub_ids.txt
           import csv, os
-          preselected = os.environ.get('PRESELECTED_IDS', '')
-          qa_ids = os.environ.get('QA_IDS', '')
-          ids = set(x for x in preselected.split(',') if x)
-          # QA'd ids that REACHED PASS in the matrix (this run's QA truth)
-          if qa_ids:
-              wanted = set(x for x in qa_ids.split(',') if x)
+          ids = set()
+          for src in (os.environ.get('QUEUE_PUBLISHED', ''),
+                      os.environ.get('DISPATCH_IDS', '')):
+              for a in src.split(','):
+                  if a.strip():
+                      ids.add(a.strip())
+          pub = set()
+          if ids:
               with open('data/content-matrix.csv', encoding='utf-8') as f:
                   for r in csv.DictReader(f):
                       aid = (r.get('article_id') or '').strip()
-                      if aid in wanted and (r.get('status') or '').strip() == 'PASS':
-                          ids.add(aid)
-          print(','.join(sorted(ids)))
+                      if aid in ids and (r.get('status') or '').strip() == 'PUBLISHED':
+                          pub.add(aid)
+          print(",".join(sorted(pub)))
           EOF
-          PASS_IDS="$(cat /tmp/pass_ids.txt)"
-          echo "publish scope: '$PASS_IDS'"
-          echo "ids=$PASS_IDS" >> "$GITHUB_OUTPUT"
+          IDS="$(cat /tmp/pub_ids.txt)"
+          echo "published scope this run: '$IDS'"
+          echo "ids=$IDS" >> "$GITHUB_OUTPUT"
         env:
-          PRESELECTED_IDS: ${{ steps.select.outputs.publish_ids || steps.dispatch.outputs.publish_ids }}
-          QA_IDS: ${{ steps.select.outputs.qa_ids }}
-
-      - name: Grouped transactional publish (explicit PASS ids, fail-closed)
-        if: steps.passids.outputs.ids != ''
-        id: publish
-        run: |
-          set -e
-          node scripts/js/factory.mjs --publish "${{ steps.passids.outputs.ids }}" --dry-run
-          node scripts/js/factory.mjs --publish "${{ steps.passids.outputs.ids }}"
-          node scripts/js/factory.mjs --consistency
+          QUEUE_PUBLISHED: ${{ steps.queue.outputs.published_ids }}
+          DISPATCH_IDS: ${{ steps.dispatch.outputs.publish_ids }}
 
       - name: Apply the shared article shell to the files promoted by THIS transaction
-        if: steps.passids.outputs.ids != ''
+        if: steps.pubscope.outputs.ids != ''
         run: |
           set -e
-          python3 - "${{ steps.passids.outputs.ids }}" <<'PY' > promoted_files.txt
+          python3 - "${{ steps.pubscope.outputs.ids }}" <<'PY' > promoted_files.txt
           import csv, os, sys
           ids = {s.strip() for s in sys.argv[1].split(',') if s.strip()}
           with open('data/content-matrix.csv', encoding='utf-8') as f:
@@ -242,8 +249,10 @@ jobs:
           fi
 
       - name: PUBLISH GATE (freshly published articles always fully re-validated)
-        if: steps.passids.outputs.ids != ''
-        run: python3 scripts/gate_published_articles.py --ids "${{ steps.passids.outputs.ids }}"
+        if: steps.pubscope.outputs.ids != ''
+        run: |
+          ids="${{ steps.pubscope.outputs.ids }}"
+          python3 scripts/gate_published_articles.py --ids "$ids"
 
       - name: Batch-terminal FULL audit dispatch (heavy audit moved out of the pair loop)
         # The heavy full published-articles audit no longer runs inline
@@ -255,7 +264,7 @@ jobs:
         # cannibalization sweep, evidence-aware full published audit).
         # Fail-closed: a failed dispatch is RED (the milestone audit
         # must run; it can also always be dispatched manually).
-        if: steps.passids.outputs.ids != ''
+        if: steps.pubscope.outputs.ids != ''
         env:
           GH_TOKEN: ${{ github.token }}
           TERM_BATCH: ${{ steps.select.outputs.batch || '' }}
@@ -284,7 +293,7 @@ jobs:
           fi
 
       - name: Canonical generator freshness (python vs node byte-equality)
-        if: steps.passids.outputs.ids != ''
+        if: steps.pubscope.outputs.ids != ''
         run: |
           set -e
           python3 scripts/generate_category_pages.py
@@ -297,8 +306,8 @@ jobs:
           set -e
           python3 scripts/validate_content_matrix.py
           node scripts/js/factory.mjs --consistency
-          if [ -n "${{ steps.passids.outputs.ids }}" ]; then
-            python3 scripts/verify_factory_state.py --op publish --ids "${{ steps.passids.outputs.ids }}"
+          if [ -n "${{ steps.pubscope.outputs.ids }}" ]; then
+            python3 scripts/verify_factory_state.py --op publish --ids "${{ steps.pubscope.outputs.ids }}"
           fi
           python3 scripts/verify_factory_state.py --op consistency
 
@@ -312,7 +321,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "no state changes to commit"
           else
-            git commit -m "factory: ${{ steps.select.outputs.mode || steps.dispatch.outputs.mode }} publish (${{ steps.passids.outputs.ids }}) [automated txn]"
+            git commit -m "factory: ${{ steps.select.outputs.mode || steps.dispatch.outputs.mode }} publish (${{ steps.pubscope.outputs.ids }}) [automated txn]"
             # Push with bounded rebase retry: the writer may push drafts
             # while this run is committing. Writer pushes never touch the
             # factory ledger, so the rebase cannot conflict on derived
@@ -344,8 +353,8 @@ jobs:
               *) echo "batch lock left behind: $l"; exit 1 ;;
             esac
           done
-          if [ -n "${{ steps.passids.outputs.ids }}" ]; then
-            echo "PUBLISHED this run: ${{ steps.passids.outputs.ids }}"
+          if [ -n "${{ steps.pubscope.outputs.ids }}" ]; then
+            echo "PUBLISHED this run: ${{ steps.pubscope.outputs.ids }}"
           else
             echo "no PASS rows this run; QA state committed for repair/review"
           fi

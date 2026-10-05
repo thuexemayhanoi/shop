@@ -72,7 +72,9 @@ GLOBAL_AFFECTING = (
     "_snippets/",
     "assets/css/",
     ".github/workflows/article-quality.yml",
-    ".github/workflows/factory-operator.yml",
+    ".github/workflows/factory-publish.yml",
+    ".github/workflows/factory-liveness.yml",
+    ".github/workflows/factory-publish-verify.yml",
 )
 
 EVIDENCE_CONFIG_FILES = (
@@ -326,7 +328,7 @@ def record_evidence(repo_root, entries):
 
 def record_published_evidence(repo_root, ids, today=None):
     """Record PASS evidence for freshly published production files.
-    Called by the factory-operator publish step AFTER the scoped publish
+    Called by the factory-publish queue run AFTER the scoped publish
     gate re-validated them at their REAL production paths."""
     import datetime
     by_id = {r.get("article_id"): r for r in production_matrix_rows()}

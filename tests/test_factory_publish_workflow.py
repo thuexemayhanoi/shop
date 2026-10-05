@@ -3,8 +3,12 @@
 """Event-driven factory-publish contract tests (Simple Production Mode).
 
 Static workflow contract pins for .github/workflows/factory-publish.yml
-plus functional tests for the --claim-ids exact-ID claim mode of
-scripts/run_article_batch.py:
+plus functional tests for the write-ahead queue runner
+(scripts/factory_queue.py) and the --claim-ids exact-ID claim mode of
+scripts/run_article_batch.py. One writer push queues 2..10 article IDs
+(queue_max_push); the queue is consumed as deterministic PAIRS of 2
+inside the same run (factory_queue.py run): pair -> exact-ID claim ->
+scoped QA -> transactional publish of PASS -> next pair.
 
   * event-driven only: NO cron/schedule, bounded steps, no AI/secrets
   * concurrency group serializes runs; cancel-in-progress is FALSE
@@ -55,6 +59,7 @@ class PublishWorkflowContract(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.y = read(WF)
+        cls.q = read(os.path.join(ROOT, "scripts", "factory_queue.py"))
 
     # ------------------------------------------------------- triggers
 
@@ -80,27 +85,31 @@ class PublishWorkflowContract(unittest.TestCase):
     # ------------------------------------------------------- exact IDs
 
     def test_claim_is_exact_id_never_blind(self):
+        # the queue runner claims each pair by exact ID inside the run
         y = self.y
-        self.assertIn("--claim-ids", y)
-        self.assertIn('python3 scripts/run_article_batch.py --batch '
-                      '"${{ steps.select.outputs.batch }}" --claim-ids '
-                      '--ids "${{ steps.select.outputs.claim_ids }}"', y)
-        # the OLD blind claim mode must NOT appear in this workflow
+        q = self.q
+        self.assertIn("factory_queue.py run", y)
+        self.assertIn("--claim-ids", q)
+        self.assertIn('"--claim-ids", "--ids", ",".join(qa_ids)', q)
+        # the OLD blind claim mode must NOT appear anywhere
         self.assertNotIn("--prepare-agent", y)
+        self.assertNotIn("--prepare-agent", q)
 
     def test_qa_is_scoped_with_exit_contract(self):
         y = self.y
-        self.assertIn('--ids "${{ steps.select.outputs.qa_ids }}" --qa', y)
+        q = self.q
+        self.assertIn('"--ids", ",".join(qa_ids), "--qa"', q)
+        self.assertIn("QA_OK_EXITS = (0, 3, 4)", q)
+        self.assertIn("ONLY 0/3/4 are valid results", q)
         for code in ("0", "3", "4"):
             self.assertIn("%s)" % code, y)
-        self.assertIn("ONLY 0/3/4 are valid results", y)
 
     def test_publish_is_explicit_id_only(self):
         y = self.y
-        self.assertIn(
-            'node scripts/js/factory.mjs --publish '
-            '"${{ steps.passids.outputs.ids }}"', y)
-        self.assertIn("--dry-run", y)
+        q = self.q
+        self.assertIn('"--publish", ids_csv', q)
+        self.assertIn('"--dry-run"', q)
+        self.assertIn('entry["published"] = pass_ids', q)
 
     def test_publish_gate_and_batch_end_audit(self):
         y = self.y

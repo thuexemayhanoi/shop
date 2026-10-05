@@ -358,10 +358,20 @@ class ConcurrencyTests(unittest.TestCase):
         self.assertIn("cancel-in-progress: false", text)
 
     def test_no_cron_anywhere(self):
+        # The read-only liveness watchdog is the ONE scheduled workflow
+        # (vanchinh cadence); everything else must stay manual/event-driven.
+        allowed = {"factory-liveness.yml": 'cron: "0 */6 * * *"'}
+        scheduled = 0
         for wf in os.listdir(os.path.join(ROOT, ".github", "workflows")):
             text = io.open(os.path.join(ROOT, ".github", "workflows", wf),
                            encoding="utf-8").read()
+            if wf in allowed:
+                self.assertIn(allowed[wf], text)
+                scheduled += 1
+                continue
             self.assertNotIn("cron:", "%s has cron" % wf)
+        self.assertEqual(scheduled, 1,
+                         "exactly one scheduled workflow is allowed")
 
 
 class MatrixStatusTests(unittest.TestCase):

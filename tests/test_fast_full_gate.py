@@ -80,8 +80,7 @@ class FastFullGateContractTest(unittest.TestCase):
         for needle in (
             "factory_push_selection.py --added",
             "node scripts/js/factory.mjs --recover",
-            "run_article_batch.py --batch",
-            "gate_published_articles.py --ids",
+            "factory_queue.py run",
             "validate_content_matrix.py",
             "verify_factory_state.py --op publish",
             "verify_factory_state.py --op consistency",
@@ -94,6 +93,22 @@ class FastFullGateContractTest(unittest.TestCase):
         self.assertNotIn("gate_published_articles.py\n", y)
         # no force push anywhere
         self.assertNotIn("--force", y)
+
+    def test_queue_runner_pins(self):
+        # the write-ahead queue runner owns claim -> QA -> publish inside
+        # the run; the heavy full-corpus gate never runs in this hot loop
+        q = _read("scripts/factory_queue.py")
+        for needle in (
+            "run_article_batch.py",
+            "--claim-ids",
+            "--qa",
+            "QA_OK_EXITS",
+            '"--publish", ids_csv',
+            "--dry-run",
+        ):
+            self.assertIn(needle, q)
+        self.assertNotIn("gate_published_articles.py", q)
+        self.assertNotIn("--force", q)
 
     def test_publish_workflow_no_recursion_on_state_commit(self):
         # the factory's own state commit (promoted PUBLISHED files)
@@ -183,6 +198,9 @@ class FastFullGateContractTest(unittest.TestCase):
         self.assertEqual(cfg.get("queue_max_push"), 10)
         self.assertEqual(cfg.get("pair_size"), 2)
         self.assertNotIn("chunk_size", cfg)
+        # the workflow consumes the queue via the runner (pair contract)
+        y = _read(".github/workflows/factory-publish.yml")
+        self.assertIn("factory_queue.py run", y)
         q = _read("scripts/factory_queue.py")
         self.assertIn("PAIR_SIZE = 2", q)
 

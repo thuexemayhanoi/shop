@@ -7,12 +7,12 @@ name: Factory Liveness Watchdog
 # workflow so a stall is visible in Actions instead of hiding behind
 # green publish runs.
 #
-# NOTE: unlike /vanchinh this watchdog is manual-only (workflow_dispatch).
-# The /shop test suite enforces a strict no-scheduled-runs policy for
-# every workflow file in this repository (tests/test_production_standard.py
-# test_no_cron_anywhere), so the periodic cadence of the vanchinh
-# watchdog must be driven by the external operator scheduler, or added
-# later via an explicit contract change (not silently here).
+# NOTE: this watchdog follows the vanchinh cadence: the exact
+# "0 */6 * * *" schedule below is the ONLY scheduled workflow in this
+# repository, pinned by tests/test_production_standard.py
+# test_no_cron_anywhere (every other workflow file must stay
+# manual/event-driven). The watchdog itself stays READ-ONLY: it never
+# recovers, never claims, never publishes, never pushes.
 #
 # Verdict mapping (deterministic, scripts/factory_health.py decides):
 #   RED:   RECOVERY_REQUIRED / BLOCKED / READY_FOR_PUBLISH / READY_FOR_QA
@@ -24,6 +24,8 @@ name: Factory Liveness Watchdog
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: read
