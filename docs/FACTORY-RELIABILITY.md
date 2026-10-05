@@ -9,7 +9,8 @@ pinned by tests:
   verifier (L3)
 * `scripts/factory_health.py` — deterministic health evaluator
 * `tests/test_factory_reliability.py` — L4 reliability suite
-* `tests/test_factory_operator_workflow.py` — workflow contract suite
+* `tests/test_factory_publish_workflow.py` — factory-publish workflow contract suite
+* `tests/test_factory_queue.py` — write-ahead queue runner suite
 
 ## 1. The four reliability layers
 
@@ -18,17 +19,17 @@ pinned by tests:
 | L1 unit | Python + Node test suites | `factory_final_gate.sh` step 1–2 |
 | L2 integration | matrix invariants, factory consistency (matrix/hub/sitemap/leaks), canonical generator freshness (`--check`) | `factory_final_gate.sh` step 3–6 |
 | L3 production | semantic factory invariants + op postconditions on the EXACT tree (`PRODUCTION_INVARIANT=PASS`) | `verify_factory_state.py` inside the gate |
-| L4 long-run | hermetic reliability: sandbox lifecycle, failure injection, transaction cleanliness, writer-lock contention/races, health verdicts, workflow fail-closed contract | `tests/test_factory_reliability.py`, `tests/test_factory_operator_workflow.py` |
+| L4 long-run | hermetic reliability: sandbox lifecycle, failure injection, transaction cleanliness, writer-lock contention/races, health verdicts, workflow fail-closed contract | `tests/test_factory_reliability.py`, `tests/test_factory_publish_workflow.py`, `tests/test_factory_queue.py` |
 
 One gate, one definition of green. `factory_final_gate.sh` is run from
 the same file by every consumer: the PR/push quality gate
-(`article-quality.yml`), the factory operator (before every push, after
-every rebase, and once more on the exact final main SHA) and any local
-run. A workflow exiting 0 is NEVER "production success" by itself.
+(`article-quality.yml`), the factory publish run (the write-ahead
+queue consumer: before every publish push, after every rebase, and once
+more on the exact final main SHA) and any local run. A workflow exiting 0 is NEVER "production success" by itself.
 
 ## 2. The exact-final-SHA contract
 
-Every operator mutation follows one auditable line:
+Every publish-run mutation follows one auditable line:
 
 ```
 INPUT_SHA -> (deterministic operation) -> OP_RESULT_SHA -> push -> FINAL_MAIN_SHA
@@ -48,7 +49,7 @@ INPUT_SHA -> (deterministic operation) -> OP_RESULT_SHA -> push -> FINAL_MAIN_SH
   `FINAL_MAIN_SHA` are recorded in the step summary.
 
 Fail-closed push rules (all pinned by
-`tests/test_factory_operator_workflow.py`):
+`tests/test_factory_publish_workflow.py`):
 
 * The push must prove `pushed=true`; up to 5 retries.
 * On a push failure: fetch `origin/main`, rebase, then RERUN the full
@@ -61,7 +62,7 @@ Fail-closed push rules (all pinned by
   green (3 = FAIL/refusals legitimately recorded, 4 = REVIEW/BLOCKED
   legitimately recorded); 1 (tool/config), 2 (usage/lock) and any
   unknown exit are RED.
-* The operator postcondition runs `verify_factory_state.py` with
+* The publish-run postcondition runs `verify_factory_state.py` with
   op-specific arguments (`if: always()`), so a green tool exit with a
   broken semantic state can never be pushed.
 
@@ -188,7 +189,7 @@ changed. The evaluator is read-only.
 | Interrupted publish transaction | txn marker; consistency refuses mutations | `node scripts/js/factory.mjs --recover`; inspect the marker on inconsistency |
 | Two writers on one batch | writer lock; second writer exits 2 | wait for the owner; a STALE lock is reclaimed automatically under the recovery guard |
 | Push race on main | push retry: fetch + rebase + FULL gate rerun + push (×5) | rebase conflict = stop safe, resolve manually; exhaustion = RED with evidence preserved |
-| Remote/main diverged from tested tree | `FINAL_MAIN_SHA != OP_RESULT_SHA` = RED | re-run the operator command from the new input tree |
+| Remote/main diverged from tested tree | `FINAL_MAIN_SHA != OP_RESULT_SHA` = RED | re-run the publish from the new input tree |
 | Stale/hand-patched reports | verifier report-truth check (counts vs matrix) | regenerate via the deterministic tools; never hand-edit reports |
 | Unpublished public leak | verifier deploy-gate check | keep drafts under `_drafts/` until the publish transaction promotes them |
 | Factory paused | kill switch non-zero exit | flip `enabled` back; no cron to restore, nothing else to clean up |
@@ -209,10 +210,15 @@ evidence, 20-process writer-lock contention (exactly one winner),
 stale-lock reclaim race / recovery-guard serialization / CAS
 ownership, kill switch.
 
-`tests/test_factory_operator_workflow.py`: QA/requeue allowed exits,
-unknown-exit RED, unittest-failure RED, push retry + exhaustion,
-rebase path + conflict abort (no force push), canonical gate rerun
-after rebase, verifier on the exact pushed tree, FINAL_MAIN_SHA
-equality, no silent success on push failure, empty batch/ids parser
-robustness, operator postcondition, command whitelisting and
-single-flight concurrency.
+`tests/test_factory_publish_workflow.py`: the write-ahead publish
+workflow contract — event-driven triggers only, exact-ID claim, scoped
+QA exit contract (only 0/3/4 green), explicit-ID publish, txn/lock
+recovery, single commit with bounded rebase retry, publish gate on the
+freshly published ids, batch-terminal audit dispatch.
+
+`tests/test_factory_queue.py`: the queue runner (`scripts/factory_queue.py`)
+— deterministic pairs of 2, fatal-refusal validation (duplicate /
+unknown / wrong-batch / PUBLISHED / FAIL / BLOCKED / missing-file),
+claim→QA→dry-run→publish order, pair isolation (a failed pair never
+rolls back published pairs), per-pair report checkpoints, env-report
+override for sandboxes.

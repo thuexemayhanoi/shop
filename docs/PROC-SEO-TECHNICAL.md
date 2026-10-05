@@ -126,8 +126,9 @@ curl -s $U/robots.txt   # must match repo robots.txt; Sitemap line points at $U/
 - Draft reachable live (404 expected but 200): STOP immediately — this is
   a P0 deploy-gate breach; verify the file is really under `_drafts/` and
   that no direct `output_path` copy was pushed.
-- Sitemap count drift: regenerate via the operator `publish`/
-  `consistency` flows only; never hand-edit `sitemap.xml`.
+- Sitemap count drift: regenerate via the publish run
+  (`factory.mjs --consistency` after a publish); never hand-edit
+  `sitemap.xml`.
 
 ## Checkpoint
 
@@ -141,8 +142,8 @@ curl -s $U/robots.txt   # must match repo robots.txt; Sitemap line points at $U/
 - Technical fixes are forward-only on published pages. A bad commit is
   reverted by pushing the previous file content (verified possible via
   the GitHub file-push API) — never by deleting URLs.
-- Sitemap/hub corruption: `--recover` then the operator `consistency` op
-  or `node scripts/js/factory.mjs --consistency` (read-only verify) and a
+- Sitemap/hub corruption: `--recover` then
+  `node scripts/js/factory.mjs --consistency` (read-only verify) and a
   regenerating publish if the ledger itself must be corrected.
 
 ## Known limits / TODO (do NOT claim as verified)

@@ -5,8 +5,9 @@
 Produce 5–10 gate-PASS articles per chunk inside the active batch
 (max 50 per batch) and publish them to the live site WITHOUT ever exposing
 unpublished drafts. The external AI agent is the writer; GitHub Actions
-("Factory Operator Tooling") is the operator's hands for ledger/QA/publish
-mutations; deterministic scripts are the gate.
+("Factory Publish, event-driven write-ahead queue") consumes the
+writer's pushes (claim → QA → publish inside one run); deterministic
+scripts are the gate.
 
 Definitions (batch vs chunk — not contradictory):
 
@@ -41,33 +42,31 @@ Definitions (batch vs chunk — not contradictory):
 
 | Need | Source |
 |---|---|
-| Row scope, keywords, output paths, draft paths, dates, taxonomy, link targets | `reports/batches/<BATCH>/rows/<ID>.json` (exported by operator `prepare-next`) |
+| Row scope, keywords, output paths, draft paths, dates, taxonomy, link targets | `reports/batches/<BATCH>/rows/<ID>.json` (exported by `run_article_batch.py --claim-ids`) |
 | Ledger state | `data/content-matrix.csv` (read-only for the writer; NEVER hand-edit) |
 | Business facts | `config/business-facts.json` (trusted section only) |
 | Legal sources | `config/source-policy.json` (approved domains, min 1 URL for `requires_sources=true`) |
 | Protected intents | `config/seo-ownership.json` |
 | Article shell (footer/chatbot) | `_snippets/footer-compact.html` + chatbot snippet per `docs/ARTICLE-RULES.md` |
 
-## Steps (verified operator loop)
+## Steps (verified push-driven loop)
 
-Operator-command discipline (hard rules, see AGENTS.md §2c–2d):
-exactly ONE command at a time — push the command, WAIT for the
-`factory-operator: <op>` result commit to land on MAIN, verify it, then
-send the next command. Never push drafts/matrix/reports while an
-operator run is in flight; the operator workflow aborts superseded
-command files and every mutation runs under the
-`article-batch-production` concurrency group. After every QA/publish
-mutation the operator regenerates `factory-progress.json` and the batch
+Push discipline (hard rules, see AGENTS.md §2c–2d): there is NO
+operator command file. One push queues 2–10 article files
+(`queue_max_push`); the factory-publish run consumes the queue as
+deterministic pairs of 2 (claim → QA → publish inside the same run)
+under the `factory-publish` concurrency group. After every publish run
+the queue runner regenerates `factory-progress.json` and the batch
 report from the current matrix; always read them pinned to a commit SHA
 (`source_head_sha` — the schema-2 INPUT-tree sha — plus the durable
 `published_commit_sha` audit trail), never from a stale
 local copy.
 
-1. **Claim the batch / export manifests** — push
-   `data/batches/operator-command.json` = `{"op":"prepare-next"}`.
-   The Factory Operator workflow claims ≤50 PLANNED rows → WRITING and
-   exports per-row manifests. (Verified: BATCH-005 claim, 50 manifests.)
-   If manifests already exist for the active batch, skip this step.
+1. **Claim the exact rows you will write** —
+   `python3 scripts/run_article_batch.py --batch <BATCH> --claim-ids
+   --ids ID1,ID2,...` claims exactly those PLANNED rows → WRITING and
+   exports per-row manifests. Claim only what this push will queue
+   (2–10 rows); the rest of the batch stays PLANNED.
 2. **Write drafts** at the manifest's `draft_output_path`
    (`_drafts/<output_path>`) — NEVER at the public `output_path`.
    Follow `docs/ARTICLE-RULES.md`: 1,500–5,000 words main content for
@@ -91,27 +90,28 @@ local copy.
    `python3 scripts/check_cannibalization.py <file>` (exit 0 = no conflict).
    Check hard invariants before pushing: slug == manifest slug, canonical ==
    manifest `canonical_url`, meta date == manifest `date_published`.
-4. **Push drafts** (one commit per chunk, paths under `_drafts/`). Jekyll
-   never deploys underscore directories (live-proven: drafts return 404).
-5. **Official QA** — push operator command
-   `{"op":"qa","batch":"<BATCH>"}`. The workflow runs the deterministic QA
-   (validator + cannibalization + scorer + source gate + business facts)
-   on the batch's unfinished rows and records scores/outcomes in the matrix.
-   (Verified: BATCH-005 chunk 1 → 5×PASS score 99.)
-6. **Repair loop** (only for REVIEW/FAIL rows): edit the DRAFT, re-run the
-   local gate, push, re-run operator `qa`. Max 3 meaningful repairs per row
-   (factual → legal/source → schema → structure → style order); exhausted →
-   the row becomes BLOCKED with the reason recorded. One bad row never
-   blocks the chunk's PASS rows. `FAIL→REPAIR` requeue uses operator op
-   `requeue` with `ids` (implemented in the workflow; do not hand-edit).
-7. **Publish PASS rows** — push operator command
-   `{"op":"publish","batch":"<BATCH>","ids":"ID1,ID2,...","date":"YYYY-MM-DD"}`.
-   The workflow: `factory.mjs --publish --dry-run` → real `--publish`
+4. **Push drafts** (one commit, 2–10 files under `_drafts/` — the
+   write-ahead queue cap). Jekyll never deploys underscore directories
+   (live-proven: drafts return 404). The factory-publish workflow
+   consumes the queue by itself: pairs of 2 → exact-ID claim → scoped
+   QA (validator + cannibalization + scorer + source gate + business
+   facts) → transactional publish of PASS, all inside the same run.
+5. **Repair loop** — no command to re-run: edit the DRAFT, re-run the
+   local gate, push again. The queue runner re-QAs exactly the touched
+   rows (touched PASS rows publish directly, never re-QA'd).
+6. **Bounded repair** — max 3 meaningful repairs per row
+   (factual → legal/source → schema → structure → style order);
+   exhausted → the row becomes BLOCKED with the reason recorded. One
+   bad row never blocks the queue's PASS rows. `FAIL→REPAIR` requeue
+   uses `scripts/requeue_rows.py` (do not hand-edit the matrix).
+7. **Publish PASS rows — automatic.** Each pair publishes inside the
+   same run: `factory.mjs --publish --dry-run` → real `--publish`
    (promotes each QA-passed draft `_drafts/<output_path>` → public
    `output_path` inside one transaction, flips rows PUBLISHED, regenerates
    category hubs, child hubs, sitemap, batch report) → `--consistency` →
-   generator freshness checks → full test suites. (Verified: BATCH-005
-   chunk 1 publish workflow success.)
+   generator freshness checks. A failed pair never rolls back published
+   pairs; an interrupted run is recovered by the next publish run
+   (`factory.mjs --recover` + `--consistency`).
 8. **Live verification** (verified command patterns):
 
    ```bash
@@ -147,7 +147,7 @@ local copy.
 | Local scorer REVIEW (score 70–74 or review flags) | Fix per its report (word count inside the target band — 1,500–5,000 for new articles, 1,600–2,000 legacy band for published rows — link count 3–8, parent hub, sources…) and re-score. |
 | `canonical inconsistent with slug` / `article not in content matrix` | Draft filename must equal the manifest slug exactly; canonical must equal the manifest `canonical_url`. |
 | QA workflow reports FAIL/REVIEW rows | Bounded repair (max 3), else BLOCKED with reason. Never publish a non-PASS row. |
-| Publish workflow interrupted | `node scripts/js/factory.mjs --recover` (locally or via operator op `recover`) finishes/verifies the transaction. Never mutate while a marker is pending. |
+| Publish run interrupted | `node scripts/js/factory.mjs --recover` finishes/verifies the transaction; the next publish run also recovers first. Never mutate while a marker is pending. |
 | Writer lock held by a fresh session | Abort cleanly (exit 2). Never two writers on one batch. |
 | Pushed bytes differ from local (integrity) | Re-fetch MAIN, byte-compare, fix from local truth; suspect transport truncation — re-push from a full checkout. |
 
@@ -169,7 +169,7 @@ local copy.
   commit (repair-in-place), never by removal.
 - Interrupted publish → `--recover` (two-phase commit + recovery marker
   under `data/batches/txn/`); mutations are refused until recovered.
-- Wrongly claimed batch/rows → owner decision (requeue via `requeue_rows.py`
-  / operator `requeue`); the agent must not silently renumber or reset.
+- Wrongly claimed batch/rows → owner decision (requeue via
+  `scripts/requeue_rows.py`); the agent must not silently renumber or reset.
 - Factory-wide stop → set `config/content-factory.json` `enabled=false`
   (kill switch) and report.

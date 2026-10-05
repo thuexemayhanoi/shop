@@ -5,8 +5,9 @@ deterministic quality gate, in 40 batches of exactly 50 articles. The plan
 (2,000 rows) is complete; production is IN PROGRESS — read current
 progress from `reports/batches/factory-progress.json`, never from this
 file. Article bodies come from an authorized AI writer or a human author —
-never templates. The operator run loop (operator-command workflow +
-`_drafts/` deploy gate) is documented step-by-step in
+never templates. The event-driven publish run loop (write-ahead queue
+driven by the writer's pushes + `_drafts/` deploy gate) is documented
+step-by-step in
 `docs/PROC-PUBLISH.md`; the reliability contract of that loop
 (canonical gate, exact-final-SHA verification, writer lock, transaction
 recovery, kill switch, health evaluation) is documented in
@@ -99,13 +100,13 @@ step).
 Article files for rows that are NOT yet PUBLISHED live at
 `_drafts/<output_path>`. Jekyll never copies underscore directories to
 the deployed site, so QA-passed drafts stay private. The publish
-transaction (`factory.mjs --publish`, also used by the Factory Operator
+transaction (`factory.mjs --publish`, also used by the factory-publish
 workflow) promotes each QA-passed draft to its public `output_path` in
 the SAME commit that flips the row to PUBLISHED, then removes the draft.
 `--consistency` flags any unpublished row whose file leaked to its public
 path (`unpublished row leaked to public path: <id>`), and
 `tests/test_publish_gate.py` enforces the PUBLISHED ⇔ public-file
-invariant and the sitemap-equals-PUBLISHED invariant. Full operator loop
+invariant and the sitemap-equals-PUBLISHED invariant. Full publish loop
 with verified commands: `docs/PROC-PUBLISH.md`.
 
 ## Node fallback tooling (publish without Python)
@@ -152,7 +153,7 @@ Node but not Python) is never blocked again:
 The Node generators are byte-equal to the canonical Python ones
 (generate_category_pages.py / generate_sitemap.py are no-ops after a
 Node publish — EXCEPT the page-2+ pagination files, which the Node
-transaction does not write: the operator publish flow runs the canonical
+transaction does not write: the factory publish run runs the canonical
 generate_category_pages.py in write mode right after the transaction, so
 the hubs' "trang 2" links resolve and every cam-nang page carries the
 compact footer + chatbot embed). Python scripts stay canonical; the Node tool is the
@@ -289,23 +290,28 @@ the agent cannot write an article honestly, it stays unwritten.
   runs deterministic --qa on the files in the checkout, and uploads
   reports as artifacts. It NEVER writes articles, NEVER pushes, NEVER
   claims rows (no --prepare-agent / --publish / --mark-published in CI).
-- **No cron anywhere, by design.** Hourly repetition belongs to the
-  EXTERNAL Mistral agent operator, not to GitHub Actions. A scheduled AI
-  writer must never be added to CI.
+- **No AI/content cron, by design.** Hourly repetition belongs to the
+  EXTERNAL Mistral agent writer, not to GitHub Actions. A scheduled AI
+  writer must never be added to CI. The ONLY scheduled workflow is the
+  read-only liveness watchdog (factory-liveness.yml, cron
+  "0 */6 * * *"): it never mutates, only reports a stall.
 
-## External-agent operating model (hourly operator flow)
+## External-agent operating model (push-driven write-ahead queue)
 
 The Mistral agent IS the writer and the publisher; GitHub is the
 deterministic planner / validator / ledger / CI. The VERIFIED execution
-path for steps 2, 3, 5, 6, 7, 8 is the "Factory Operator Tooling"
-workflow (`.github/workflows/factory-operator.yml`, trigger: a push of
-`data/batches/operator-command.json`): the agent pushes one whitelisted
-command (`prepare-next` / `qa` / `publish` / `consistency` / `recover` /
-`requeue` / `unittest`) and the workflow runs ONLY canonical repository
-tooling, then commits the deterministic outputs (matrix ledger, hubs,
-sitemap, reports) and deletes the command file. It never writes prose
-and contains no AI. Full step-by-step with verified commands and
-expected outputs: `docs/PROC-PUBLISH.md`. Summary:
+path is the factory-publish workflow
+(`.github/workflows/factory-publish.yml`, trigger: a push of article
+files): one writer push queues 2–10 article IDs; the run consumes the
+queue as deterministic pairs of 2 — exact-ID claim (new rows) → scoped
+QA (exit contract: only 0/3/4 are valid; 3 = FAIL rows legitimately
+recorded, 4 = REVIEW/BLOCKED rows legitimately recorded) →
+transactional publish of the pair's PASS ids — then commits the
+deterministic outputs (matrix ledger, hubs, sitemap, reports) in ONE
+commit per run. It never writes prose and contains no AI. A failed pair
+never rolls back published pairs; the liveness watchdog (cron
+"0 */6 * * *") reports a stalled queue. Full step-by-step with verified
+commands and expected outputs: `docs/PROC-PUBLISH.md`. Summary:
 
 1. Fetch CURRENT MAIN; verify the SHA before editing.
 2. Run `--next --dry-run` to resolve the batch ONCE (an active unfinished
@@ -455,8 +461,9 @@ pipeline in which the Mistral agent is the writer:
 - **Pilot mode**: `--pilot` = BATCH-001 only, max 50, no chaining.
 - **Kill switch**: `config/content-factory.json` — `enabled=false` pauses
   everything.
-- **Scheduling**: NO CRON, ever, in GitHub Actions. The hourly operator
-  flow above belongs to the external agent.
+- **Scheduling**: no AI/content cron, ever, in GitHub Actions. The
+  push-driven flow above belongs to the external agent; the only
+  scheduled workflow is the read-only liveness watchdog.
 
 ## Batch reports
 

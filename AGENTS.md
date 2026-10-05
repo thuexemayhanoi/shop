@@ -48,7 +48,7 @@ change.**
 | Factory lifecycle, states, URL architecture, locks | `docs/CONTENT-FACTORY.md` | current |
 | Article writing rules (length, links, sources, shell) | `docs/ARTICLE-RULES.md` | current |
 | Protected search intents | `docs/SEO-OWNERSHIP.md` | current |
-| **Write + publish an article chunk (operator loop)** | `docs/PROC-PUBLISH.md` | implemented |
+| **Write + publish an article chunk (push-driven loop)** | `docs/PROC-PUBLISH.md` | implemented |
 | **Technical SEO audit (live vs source)** | `docs/PROC-SEO-TECHNICAL.md` | implemented |
 | **Content SEO review (intent, structure, links, sources)** | `docs/PROC-SEO-CONTENT.md` | implemented |
 | **Local SEO & business data** | `docs/PROC-LOCAL-SEO-DATA.md` | implemented |
@@ -95,8 +95,8 @@ The Article Quality Gate (`scripts/qa_scope.py` decides) is SCOPED:
   templates (`_includes/**`, `_snippets/**`, `assets/css/**`), the
   article rules doc, or the gate workflows themselves.
 - FULL also runs: manually via Article Quality Gate `workflow_dispatch`,
-  and at batch completion (the factory operator publish step detects a
-  terminal batch and runs a FULL evidence-aware audit).
+  and at batch completion (the factory publish run detects a terminal
+  batch and dispatches the FULL evidence-aware audit).
 - Publish scope: the publish gate re-validates ONLY the freshly
   published articles (evidence is never reused for them); the shared
   article shell is applied only to the files promoted by the same
@@ -117,18 +117,24 @@ commit SHA (for example the raw blob at that SHA, or the `matrix_commit_sha`
 / `published_commit_sha` fields) instead of trusting a possibly stale
 local copy of a report.
 
-## 2d. Operator coordination (one command at a time)
+## 2d. Writer coordination (event-driven write-ahead queue)
 
-- Exactly ONE operator-command stream: never push a new
-  `data/batches/operator-command.json` while a previous command has not
-  finished. Send a command → wait for the `factory-operator: <op>`
-  result commit on MAIN → only then send the next command.
-- Never push drafts/reports/matrix changes while the operator run is
-  committing/pushing (the operator workflow aborts superseded command
-  files and queues on the `article-batch-production` concurrency group).
+- There is NO operator-command file and NO operator workflow. The
+  factory is driven purely by the writer's pushes: one push may queue
+  2–10 article files (`queue_max_push` in `config/content-factory.json`);
+  the factory-publish run consumes the queue as deterministic PAIRS of 2
+  (claim → QA → publish inside the same run) and commits derived state
+  once per run. QUEUE MORE than 10 article files in one push is
+  refused; split the push deterministically.
+- Never push new drafts while a factory-publish run is committing
+  (runs serialize on the `factory-publish` concurrency group and the
+  workflow rebase-retries bounded; still, write-then-wait is cheapest).
+- REPAIR pushes: touching a WRITING/REVIEW/REPAIR row's draft requeues
+  exactly that row through scoped QA again (push again — nothing else
+  to drive).
 - Pages builds: GitHub Pages (branch-based) rebuilds the site on every
-  push to MAIN — pushes that contain only drafts, operator commands or
-  reports still trigger a Pages build. This cannot be path-filtered for
+  push to MAIN — pushes that contain only drafts or reports still
+  trigger a Pages build. This cannot be path-filtered for
   branch-based Pages and is expected behaviour; do not "fix" it by
   editing unrelated workflow paths.
 
@@ -148,16 +154,21 @@ rows -> VERIFY -> continue.
 
 1. Fetch current MAIN; verify the matrix state and the kill switch.
 2. Recover any pending transaction, check the writer lock.
-3. If the active batch has no exported row manifests yet, push operator
-   command `{"op":"prepare-next"}`; otherwise read the existing manifests
-   under `reports/batches/<BATCH>/rows/`.
-4. Write drafts into `_drafts/<output_path>` (5–10 per chunk).
+3. Claim the exact IDs you are about to write
+   (`python3 scripts/run_article_batch.py --batch <BATCH> --claim-ids
+   --ids ID1,ID2,...`) and read the exported row manifests under
+   `reports/batches/<BATCH>/rows/`.
+4. Write drafts into `_drafts/<output_path>` (2–10 per push — the
+   write-ahead queue cap).
    New articles target **1,500–5,000 main-content Vietnamese words**
    (choose by search intent; already-published articles keep the legacy
    1,600–2,000 band — see `docs/ARTICLE-RULES.md`).
 5. Local gate each draft: `python3 scripts/score_article.py <draft>`.
-6. Push drafts, run operator `{"op":"qa","batch":"<BATCH>"}`.
-7. Publish PASS rows: operator `{"op":"publish","batch":"<BATCH>","ids":"…","date":"<date>"}`.
+6. Push drafts (2–10 files, one commit). The factory-publish workflow
+   consumes the queue by itself: pairs of 2 → claim → QA → publish.
+7. Publish needs NO command: PASS rows publish inside the same run;
+   REVIEW/FAIL rows are recorded for repair. Repair = edit the draft,
+   re-gate locally, push again.
 8. Live-verify URLs + sitemap (curl evidence). Report per chunk.
 9. Repeat at a chunk boundary while budget remains; otherwise save the
    checkpoint and stop. Give exact resume commands in the report.

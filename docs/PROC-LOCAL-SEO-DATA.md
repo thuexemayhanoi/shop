@@ -91,7 +91,7 @@ business commitment.
 ## Checkpoint
 
 - The audit is re-run in CI (article-quality workflow) and in the
-  operator flows; its exit status is part of the chunk report evidence.
+  publish runs; its exit status is part of the chunk report evidence.
 - Any fact change = one commit containing config + affected pages +
   updated tests, so the audit never drifts.
 

@@ -261,7 +261,7 @@ matrix and dry-runs the batch scope, optionally runs deterministic QA on
 the files in the checkout, and uploads reports as artifacts (read-only:
 contents: read). No autonomous AI writer or AI-generation cron may run inside GitHub
 Actions (no AI API keys/secrets for article generation either). The
-deterministic Factory Operator / QA / publish tooling stays in GitHub;
+deterministic Factory Publish / QA / publish tooling stays in GitHub;
 the WRITER is an external AI agent or human. External scheduling of that
 writer/operator is allowed, provided each scheduled invocation resumes
 repository truth and obeys the canonical lock, transaction, QA, publish
@@ -273,7 +273,7 @@ restoring the obsolete MotoAI v39/v40 blob and the stale monolithic
 `phoco.html`, and pushed directly to main without the canonical gate.
 `phoco.html` is now maintained exclusively through the canonical
 content-factory pipeline (matrix ledger, publish gate, exact-SHA
-operator contract — see docs/FACTORY-RELIABILITY.md).
+verifier contract — see docs/FACTORY-RELIABILITY.md).
 
 ## 9. CONTENT FACTORY — CHUNKED WRITER MODE
 
@@ -292,8 +292,8 @@ legitimate terminal state per the factory contract.
 Speed-oriented orchestration for the 2,000-article run. Quality gates,
 business-fact safeguards, matrix invariants and the publish policy are
 UNCHANGED — only the shape of a writer run changes. The verified
-operator-loop implementation of this mode (operator-command workflow +
-`_drafts/` deploy gate) is documented step-by-step in
+publish-loop implementation of this mode (write-ahead queue driven by
+the writer's pushes + `_drafts/` deploy gate) is documented step-by-step in
 `docs/PROC-PUBLISH.md`.
 
 - **Canonical batch max stays 50.** Chunking happens INSIDE a batch.
