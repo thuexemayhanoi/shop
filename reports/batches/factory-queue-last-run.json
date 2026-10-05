@@ -3,43 +3,40 @@
   "batch": "BATCH-018",
   "mode": "new",
   "queue": [
-    "DL-0144",
-    "CD-0144"
+    "XM-0144",
+    "HD-0144"
   ],
   "pair_size": 2,
-  "started": "2026-10-05T18:20:26Z",
-  "finished": "2026-10-05T18:20:28Z",
+  "started": "2026-10-05T18:24:21Z",
+  "finished": "2026-10-05T18:24:22Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "DL-0144",
-        "CD-0144"
+        "XM-0144",
+        "HD-0144"
       ],
       "claimed": [
-        "DL-0144",
-        "CD-0144"
+        "XM-0144",
+        "HD-0144"
       ],
-      "pass": [
-        "DL-0144",
-        "CD-0144"
-      ],
-      "published": [
-        "CD-0144",
-        "DL-0144"
-      ],
+      "pass": [],
+      "published": [],
       "review": [],
-      "repair": [],
+      "repair": [
+        "XM-0144",
+        "HD-0144"
+      ],
       "blocked": [],
       "publish_rc": 0,
-      "status": "published"
+      "status": "recoverable"
     }
   ],
-  "published_total": 2,
-  "published_ids": [
-    "CD-0144",
-    "DL-0144"
+  "published_total": 0,
+  "published_ids": [],
+  "recoverable_ids": [
+    "HD-0144",
+    "XM-0144"
   ],
-  "recoverable_ids": [],
   "fatal": null
 }
