@@ -273,10 +273,14 @@ def select(added, modified):
         out["pair_count"] = len(out["pairs"])
         out["proceed"] = True
         return out
-    # BACKLOG: PLANNED rows whose files already exist (no files in this
-    # push) - recovery for a pipeline failure between file add and claim.
+    # BACKLOG: PLANNED or WRITING rows whose files already exist (no
+    # files in this push) - recovery for a pipeline failure between
+    # file add and claim (PLANNED) or between claim/QA and publish
+    # (WRITING, e.g. a publish-gate failure before the state commit:
+    # the pair's completed work was discarded and the row would
+    # otherwise be stranded with no re-queue path).
     backlog = [r["article_id"] for r in br
-              if (r.get("status") or "").strip() == "PLANNED"
+              if (r.get("status") or "").strip() in ("PLANNED", "WRITING")
               and row_has_file(r)]
     backlog = _queue_pairs(backlog, order)
     backlog = [a for pair in backlog for a in pair][:limit]

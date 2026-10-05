@@ -197,7 +197,7 @@ class SelectorTestCase(unittest.TestCase):
         @contextlib.contextmanager
         def _ctx():
             moved = []
-            for aid in ("KN-0001", "KN-0002"):
+            for aid in ("KN-0001", "KN-0002", "KN-0004"):
                 src = os.path.join(self.tmp, "_drafts", "cam-nang",
                                    "kinh-nghiem", aid.lower() + ".html")
                 dst = src + ".hidden"
@@ -244,8 +244,10 @@ class SelectorTestCase(unittest.TestCase):
         # nothing touched, but PLANNED rows already have draft files
         sel = self._select()
         self.assertEqual(sel["mode"], "backlog")
-        self.assertEqual(sel["claim_ids"], ["KN-0001", "KN-0002"])
-        self.assertEqual(sel["qa_ids"], ["KN-0001", "KN-0002"])
+        self.assertEqual(sel["claim_ids"],
+                         ["KN-0001", "KN-0002", "KN-0004"])
+        self.assertEqual(sel["qa_ids"],
+                         ["KN-0001", "KN-0002", "KN-0004"])
 
     # ---------------------------------------------------------------- caps
 

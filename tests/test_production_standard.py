@@ -89,10 +89,13 @@ class WordCountTests(unittest.TestCase):
         self.assertFail(5401)
 
     def test_published_rows_keep_legacy_band(self):
-        # Already-PUBLISHED rows are never re-audited against the new band
+        # Genuinely-LEGACY corpus rows (published before the 2026-10-03
+        # cutover) keep the 1600-2000 band; a PUBLISHED status alone never
+        # selects the legacy band (regression: run #165 mid-run flip).
         art, d = synth_article(2000)
         try:
-            pub_row = dict(PROD_ROW, status="PUBLISHED")
+            pub_row = dict(PROD_ROW, status="PUBLISHED",
+                           published_date="2026-09-20")
             fails, flags, warns, metrics = lib.evaluate_production_standard(
                 art, pub_row, self.rubric, self.ownership)
             self.assertEqual([f for f in fails if "length" in f], [])
@@ -102,7 +105,8 @@ class WordCountTests(unittest.TestCase):
             shutil.rmtree(d)
         art, d = synth_article(2100)
         try:
-            pub_row = dict(PROD_ROW, status="PUBLISHED")
+            pub_row = dict(PROD_ROW, status="PUBLISHED",
+                           published_date="2026-09-20")
             fails, flags, warns, metrics = lib.evaluate_production_standard(
                 art, pub_row, self.rubric, self.ownership)
             # 2100 is inside the NEW band but REVIEW under the legacy band
@@ -112,7 +116,8 @@ class WordCountTests(unittest.TestCase):
             shutil.rmtree(d)
         art, d = synth_article(2500)
         try:
-            pub_row = dict(PROD_ROW, status="PUBLISHED")
+            pub_row = dict(PROD_ROW, status="PUBLISHED",
+                           published_date="2026-09-20")
             fails, flags, warns, _m = lib.evaluate_production_standard(
                 art, pub_row, self.rubric, self.ownership)
             # 2500 is fine for an unpublished row but FAIL for a PUBLISHED

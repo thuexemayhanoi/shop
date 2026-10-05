@@ -339,38 +339,54 @@ class WordCountingTests(unittest.TestCase):
         finally:
             shutil.rmtree(d)
 
-    def test_new_band_applies_only_to_unpublished_rows(self):
-        # unpublished: 2500 words satisfied; published: legacy FAIL
-        for status, expected_fail in (("WRITING", False),
-                                      ("PUBLISHED", True)):
-            d = tempfile.mkdtemp()
-            try:
-                body = " ".join("t%d" % i for i in range(2499))
-                html = ('<html lang="vi"><head><title>t</title>'
-                        '<link rel="canonical" href="x.html"></head><body>'
-                        '<article><h1>H1</h1><p>%s</p></article>'
-                        "</body></html>" % body)
-                p = os.path.join(d, "wc.html")
-                with io.open(p, "w", encoding="utf-8") as f:
-                    f.write(html)
-                art = lib.Article(p)
-                row = {"article_id": "QT-3001", "status": status,
-                       "category": "Xe máy", "primary_keyword": "k",
-                       "slug": "qt-3001",
-                       "output_path": "cam-nang/xe-may/qt-3001.html",
-                       "parent_hub": "xemay.html"}
-                fails, flags, _w, metrics = \
-                    lib.evaluate_production_standard(
-                        art, row, lib.load_rubric(), lib.load_ownership())
-                self.assertEqual(
-                    any("length" in f for f in fails), expected_fail,
-                    (status, fails, flags))
-                if status == "WRITING":
-                    self.assertIn("1500-5000", metrics["word_count_band"])
-                else:
-                    self.assertIn("legacy", metrics["word_count_band"])
-            finally:
-                shutil.rmtree(d)
+    def _band_eval(self, d_words, status, published_date):
+        d = tempfile.mkdtemp()
+        try:
+            body = " ".join("t%d" % i for i in range(d_words))
+            html = ('<html lang="vi"><head><title>t</title>'
+                    '<link rel="canonical" href="x.html"></head><body>'
+                    '<article><h1>H1</h1><p>%s</p></article>'
+                    "</body></html>" % body)
+            p = os.path.join(d, "wc.html")
+            with io.open(p, "w", encoding="utf-8") as f:
+                f.write(html)
+            art = lib.Article(p)
+            row = {"article_id": "QT-3001", "status": status,
+                   "category": "Xe máy", "primary_keyword": "k",
+                   "slug": "qt-3001",
+                   "output_path": "cam-nang/xe-may/qt-3001.html",
+                   "parent_hub": "xemay.html",
+                   "published_date": published_date}
+            fails, flags, _w, metrics = \
+                lib.evaluate_production_standard(
+                    art, row, lib.load_rubric(), lib.load_ownership())
+            return fails, flags, metrics
+        finally:
+            shutil.rmtree(d)
+
+    def test_word_band_is_stable_across_publish_flip(self):
+        # 1579 words: legal in the current band both before AND after the
+        # row flips to PUBLISHED mid-run (regression: run #165 band flip).
+        for status in ("WRITING", "PUBLISHED"):
+            for pub in ("", "2026-10-05"):
+                fails, flags, metrics = self._band_eval(
+                    1578, status, pub)   # + H1 word = 1579
+                self.assertFalse(
+                    any("length" in f for f in fails),
+                    (status, pub, fails))
+                self.assertFalse(
+                    any("length" in fl for fl in flags),
+                    (status, pub, flags))
+                self.assertIn("1500-5000", metrics["word_count_band"])
+
+    def test_genuine_legacy_corpus_keeps_legacy_band(self):
+        # a genuinely-legacy corpus article (published before the cutover)
+        # keeps the 1600-2000 band even at 2499 words.
+        fails, flags, metrics = self._band_eval(
+            2498, "PUBLISHED", "2026-09-20")  # + H1 word = 2499
+        self.assertTrue(
+            any("length" in f for f in fails + flags), (fails, flags))
+        self.assertIn("legacy", metrics["word_count_band"])
 
 
 class PublishGateScopeTests(ScopedQATestCase):

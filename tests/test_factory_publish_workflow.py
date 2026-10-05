@@ -68,7 +68,10 @@ class PublishWorkflowContract(unittest.TestCase):
         self.assertNotIn("cron:", self.y)
         self.assertIn("workflow_dispatch:", self.y)
         self.assertIn("paths: ['_drafts/cam-nang/**', 'cam-nang/**', "
-                      "'.github/workflows/factory-publish.yml']",
+                      "'.github/workflows/factory-publish.yml', "
+                      "'scripts/factory_queue.py', "
+                      "'scripts/factory_push_selection.py', "
+                      "'config/content-factory.json']",
                       self.y)
 
     def test_concurrency_serializes_and_never_cancels(self):

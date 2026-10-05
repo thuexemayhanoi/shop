@@ -9,7 +9,9 @@ push): one writer push queues 2..MAX_PER_PUSH (10) article IDs; this
 processor consumes the queue as deterministic PAIRS of 2, sequentially,
 inside ONE production run:
 
-    pair -> claim (new mode only, exact pair IDs, never a blind claim)
+    pair -> claim (new mode only, exact IDs of the pair's PLANNED
+         rows, never a blind claim; already-claimed rows re-queued
+         by backlog recovery skip the claim)
          -> scoped QA (exit contract: ONLY 0/3/4 are valid results)
          -> transactional publish (PASS only; already-PASS touched rows
             publish directly, never re-QA'd)
@@ -192,13 +194,20 @@ def run_queue(batch_id, mode, ids, pair_size=PAIR_SIZE):
             direct = [a for a in pair if st.get(a) == "PASS"]
             qa_ids = [a for a in pair if st.get(a) != "PASS"]
             if qa_ids and mode == "new":
-                rc = _pair_claim(batch_id, qa_ids)
-                if rc.returncode != 0:
-                    entry["status"] = "claim_failed"
-                    state["recoverable_ids"] += qa_ids
-                    _write_report(state)
-                    continue
-                entry["claimed"] = qa_ids
+                # Claim ONLY the pair's PLANNED rows (exact-ID, never a
+                # blind claim). Already-claimed rows (WRITING etc.,
+                # re-queued by backlog recovery after a failed run
+                # discarded its state) SKIP the claim - the canonical
+                # CLI refuses re-claims and the row must not be lost.
+                claim_now = [a for a in qa_ids if st.get(a) == "PLANNED"]
+                if claim_now:
+                    rc = _pair_claim(batch_id, claim_now)
+                    if rc.returncode != 0:
+                        entry["status"] = "claim_failed"
+                        state["recoverable_ids"] += claim_now
+                        _write_report(state)
+                        continue
+                    entry["claimed"] = claim_now
             if qa_ids:
                 qa = _pair_qa(batch_id, qa_ids)
                 code = qa.returncode

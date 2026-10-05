@@ -2,9 +2,20 @@
   "schema_version": 2,
   "total_score": 100,
   "thresholds": {
-    "PASS": {"min": 75, "max": 100, "requires_no_critical_failures": true},
-    "REVIEW": {"min": 70, "max": 74, "requires_no_critical_failures": true},
-    "FAIL": {"min": 0, "max": 69}
+    "PASS": {
+      "min": 75,
+      "max": 100,
+      "requires_no_critical_failures": true
+    },
+    "REVIEW": {
+      "min": 70,
+      "max": 74,
+      "requires_no_critical_failures": true
+    },
+    "FAIL": {
+      "min": 0,
+      "max": 69
+    }
   },
   "threshold_policy": {
     "owner_approved": "2026-09-30 - Simple Production Mode thresholds 75/70/75",
@@ -13,7 +24,7 @@
   "any_critical_failure_is_fail": true,
   "thin_content_min_words": 300,
   "article_length": {
-    "legacy_note": "target_* / review_* below are the LEGACY band, still applied to rows already PUBLISHED (no retroactive re-audit under the new band).",
+    "legacy_note": "The LEGACY band (target_*/review_* above) applies ONLY to rows genuinely published before legacy_published_before (the pre-cutover corpus). NEVER key the band on status=PUBLISHED: a new article keeps the unpublished_* band (1500-5000) for its whole life - QA -> publish -> post-publish gate - so the standard can never flip under a running pair.",
     "target_min_words": 1600,
     "target_max_words": 2000,
     "review_min_words": 1200,
@@ -21,7 +32,8 @@
     "unpublished_target_min_words": 1500,
     "unpublished_target_max_words": 5000,
     "unpublished_review_min_words": 1100,
-    "unpublished_review_max_words": 5400
+    "unpublished_review_max_words": 5400,
+    "legacy_published_before": "2026-10-03"
   },
   "contextual_internal_links": {
     "min": 3,

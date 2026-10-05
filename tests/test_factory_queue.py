@@ -248,6 +248,20 @@ class QueueRunnerTestCase(unittest.TestCase):
         self.assertEqual(rep["pairs"][0]["claimed"],
                          ["KN-1001", "KN-1002"])
 
+    def test_new_mode_claims_only_planned_ids_in_mixed_pair(self):
+        # regression: HD-0138 stranding. a pair mixing an already-claimed
+        # WRITING row (backlog recovery) with a fresh PLANNED row must
+        # claim ONLY the PLANNED id, then QA + publish both.
+        self._set_status("KN-1002", "WRITING")
+        rc, rep, cmdlog = self._run("new", ["KN-1001", "KN-1002"])
+        self.assertEqual(rc, 0)
+        claims = [c for c in cmdlog if "--claim-ids" in c]
+        self.assertEqual(len(claims), 1)
+        self.assertEqual(claims[0][claims[0].index("--ids") + 1],
+                         "KN-1001")
+        self.assertEqual(rep["pairs"][0]["claimed"], ["KN-1001"])
+        self.assertEqual(rep["published_ids"], ["KN-1001", "KN-1002"])
+
     def test_repair_mode_never_claims(self):
         rc, rep, cmdlog = self._run("repair", ["KN-1004", "KN-1005"])
         self.assertEqual(rc, 0)

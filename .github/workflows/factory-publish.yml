@@ -51,7 +51,7 @@ name: Factory Publish (write-ahead queue)
 on:
   push:
     branches: [main]
-    paths: ['_drafts/cam-nang/**', 'cam-nang/**', '.github/workflows/factory-publish.yml']
+    paths: ['_drafts/cam-nang/**', 'cam-nang/**', '.github/workflows/factory-publish.yml', 'scripts/factory_queue.py', 'scripts/factory_push_selection.py', 'config/content-factory.json']
   workflow_dispatch:
     inputs:
       publish_ids:

@@ -41,7 +41,7 @@ EXIT_ERROR = 4
 # 2026-10-03.1 = owner-ordered widening for not-yet-published articles:
 # contextual internal links 3–8 (was 3–5) and word band 1,500–5,000
 # (was 1,600–3,000; REVIEW margins 1,100–1,499 / 5,001–5,400).
-VALIDATOR_VERSION = "2026-10-03.1"
+VALIDATOR_VERSION = "2026-10-05.1"
 
 CATEGORIES = {
     "Kinh nghiệm": "kinhnghiem.html",
@@ -832,16 +832,21 @@ def evaluate_production_standard(article, row, rubric, ownership):
     """Mr Tú Content Factory production standard (applies to PRODUCTION
     matrix rows only; SAMPLE/compact fixtures are exempt).
 
-    Word rule (main-content words only), status-aware since VALIDATOR_VERSION
-    2026-10-03.1:
-      row already PUBLISHED → LEGACY band: 1600–2000 satisfied |
+    Word rule (main-content words only), cutover-based since
+    VALIDATOR_VERSION 2026-10-05.1 (fixes the mid-run band flip):
+      row published_date < legacy_published_before (default
+        "2026-10-03") → LEGACY band: 1600–2000 satisfied |
         1200–1599 / 2001–2300 REVIEW | <1200 / >2300 FAIL
-      row not yet published (WRITING/PASS/REPAIR/REVIEW/FAIL/BLOCKED) →
-        NEW band: 1500–5000 satisfied | 1100–1499 / 5001–5400 REVIEW |
-        <1100 / >5400 FAIL
-    Published articles are NEVER re-audited against the new band
-    (no retroactive FULL failures). Inside the band, choose length by
-    search intent; padding is detected separately and never rewarded.
+      every other row (never published, or published on/after the
+        cutover) → NEW band: 1500–5000 satisfied |
+        1100–1499 / 5001–5400 REVIEW | <1100 / >5400 FAIL
+    The band is keyed on published_date vs the cutover, NEVER on
+    status=PUBLISHED: a new article keeps the NEW band for its whole
+    life (QA -> publish -> post-publish gate), so the standard can never
+    change under a running pair. The genuine pre-cutover corpus keeps
+    the legacy band (no retroactive re-audit). Inside the band, choose
+    length by search intent; padding is detected separately and never
+    rewarded.
     Contextual internal links: exactly 3–8; 0 = strong REVIEW (never PASS);
       <3 or >8 = REVIEW. Parent hub link required (missing = REVIEW).
     Commercial contextual links: >1 = REVIEW. Repeated exact commercial
@@ -862,15 +867,26 @@ def evaluate_production_standard(article, row, rubric, ownership):
     warnings = []
     length_cfg = rubric.get("article_length", {})
     row_status = (row.get("status") or "").strip().upper()
-    if row_status == "PUBLISHED":
-        # legacy band — keeps every already-published article stable
+    # Band cutover: legacy iff genuinely published BEFORE the cutover
+    # date (config article_length.legacy_published_before, fail-closed
+    # default). Keyed on published_date, NEVER on status=PUBLISHED, so
+    # a new article keeps the NEW band across QA -> publish -> the
+    # post-publish gate (the band can never flip mid-run), while the
+    # genuine pre-cutover corpus keeps the legacy band.
+    pub_date = (row.get("published_date") or "").strip()
+    cutover = str(length_cfg.get("legacy_published_before",
+                                  "2026-10-03")).strip() or "2026-10-03"
+    is_legacy = bool(pub_date) and pub_date < cutover
+    if is_legacy:
+        # legacy band — keeps every pre-cutover article stable
         tmin = int(length_cfg.get("target_min_words", 1600))
         tmax = int(length_cfg.get("target_max_words", 2000))
         rmin = int(length_cfg.get("review_min_words", 1200))
         rmax = int(length_cfg.get("review_max_words", 2300))
-        band = "legacy-1600-2000 (row already PUBLISHED)"
+        band = "legacy-1600-2000 (published before %s)" % cutover
     else:
-        # new band for every not-yet-published row
+        # new band for every non-legacy row (never published, or
+        # published on/after the cutover)
         tmin = int(length_cfg.get("unpublished_target_min_words",
                                   length_cfg.get("target_min_words", 1500)))
         tmax = int(length_cfg.get("unpublished_target_max_words",
@@ -879,7 +895,7 @@ def evaluate_production_standard(article, row, rubric, ownership):
                                   length_cfg.get("review_min_words", 1100)))
         rmax = int(length_cfg.get("unpublished_review_max_words",
                                   length_cfg.get("review_max_words", 5400)))
-        band = "current-1500-5000 (row not yet published)"
+        band = "current-1500-5000 (row not legacy)"
     link_cfg = rubric.get("contextual_internal_links", {})
     lmin = int(link_cfg.get("min", 3))
     lmax = int(link_cfg.get("max", 8))
