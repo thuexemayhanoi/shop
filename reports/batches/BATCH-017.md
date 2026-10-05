@@ -1,11 +1,11 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T20:35:30+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T21:27:43+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 37 | pass: 0 | published: 37
-- writing: 13 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 38 | pass: 0 | published: 38
+- writing: 12 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.2 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 1 | blocked 0
+- source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -39,7 +39,7 @@
 | HD-0135 | cam-nang/hoi-dap/hd-0135-ao-mua-mot-manh-hay-hai-manh-tot-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | HD-0136 | cam-nang/hoi-dap/hd-0136-gang-tay-xe-may-nen-chon-chat-lieu-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0137 | cam-nang/hoi-dap/hd-0137-gia-do-dien-thoai-tren-xe-ga-co-an-toan-khong.html | PUBLISHED | 100 | 0 |  |
-| HD-0138 | cam-nang/hoi-dap/hd-0138-non-bao-hiem-tre-em-can-dat-tieu-chuan-nao.html | WRITING |  | 0 |  |
+| HD-0138 | cam-nang/hoi-dap/hd-0138-non-bao-hiem-tre-em-can-dat-tieu-chuan-nao.html | PUBLISHED | 99 | 0 |  |
 | HD-0139 | cam-nang/hoi-dap/hd-0139-bao-tay-chong-nang-can-thao-tac-phanh-khong.html | WRITING |  | 0 |  |
 | HD-0140 | cam-nang/hoi-dap/hd-0140-mu-bao-hiem-dung-bao-lau-nen-thay.html | WRITING |  | 0 |  |
 | HD-0141 | cam-nang/hoi-dap/hd-0141-khoa-xe-dien-tu-co-ben-khong.html | WRITING |  | 0 |  |
