@@ -1,10 +1,10 @@
 # Batch report BATCH-018
 
-- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:04:16+07:00
+- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:10:05+07:00
 - writer: external-agent | batch resolved once: BATCH-018
-- processed: 4 | written: 4 | pass: 0 | published: 4
+- processed: 6 | written: 6 | pass: 0 | published: 6
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99 | min 96 | max 100 | repair_count: 0
+- scores: avg 99.3 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -27,7 +27,7 @@
 | CD-0148 | cam-nang/cung-duong/cd-0148-cung-duong-ha-noi-cho-tinh-khau-vai-cho-nguoi-moi.html | PLANNED |  | 0 |  |
 | CD-0149 | cam-nang/cung-duong/cd-0149-nghi-dem-o-cho-tinh-khau-vai-khi-di-xe-may-chon-dau.html | PLANNED |  | 0 |  |
 | CD-0150 | cam-nang/cung-duong/cd-0150-bai-do-an-toan-doc-duong-di-cho-tinh-khau-vai.html | PLANNED |  | 0 |  |
-| DL-0143 | cam-nang/du-lich/dl-0143-goc-chup-mua-o-ma-pi-leng-co-dang-thu-khong.html | PLANNED |  | 0 |  |
+| DL-0143 | cam-nang/du-lich/dl-0143-goc-chup-mua-o-ma-pi-leng-co-dang-thu-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0144 | cam-nang/du-lich/dl-0144-kinh-nghiem-di-xe-may-den-cong-troi-quan-ba-tu-ha-noi.html | PLANNED |  | 0 |  |
 | DL-0145 | cam-nang/du-lich/dl-0145-di-xe-may-den-cong-troi-quan-ba-mua-nao-dep-nhat.html | PLANNED |  | 0 |  |
 | DL-0146 | cam-nang/du-lich/dl-0146-an-gi-khi-du-lich-cong-troi-quan-ba-bang-xe-may.html | PLANNED |  | 0 |  |
@@ -52,7 +52,7 @@
 | KN-0148 | cam-nang/kinh-nghiem/kn-0148-chay-xe-sang-cuoi-tuan-quanh-quan-hai-ba-trung.html | PLANNED |  | 0 |  |
 | KN-0149 | cam-nang/kinh-nghiem/kn-0149-lo-trinh-chay-toi-ven-duong-o-quan-hai-ba-trung.html | PLANNED |  | 0 |  |
 | KN-0150 | cam-nang/kinh-nghiem/kn-0150-do-xe-an-toi-o-quan-hai-ba-trung-nen-chon-dau.html | PLANNED |  | 0 |  |
-| XM-0143 | cam-nang/xe-may/xm-0143-bo-dung-cu-sua-xe-mini-gom-nhung-gi.html | PLANNED |  | 0 |  |
+| XM-0143 | cam-nang/xe-may/xm-0143-bo-dung-cu-sua-xe-mini-gom-nhung-gi.html | PUBLISHED | 100 | 0 |  |
 | XM-0144 | cam-nang/xe-may/xm-0144-bom-tay-mini-cho-xe-may-dang-mua-khong.html | PLANNED |  | 0 |  |
 | XM-0145 | cam-nang/xe-may/xm-0145-bo-va-sam-nhanh-dung-the-nao.html | PLANNED |  | 0 |  |
 | XM-0146 | cam-nang/xe-may/xm-0146-ao-mua-chuyen-dung-cho-nguoi-chay-xe-may.html | PLANNED |  | 0 |  |
