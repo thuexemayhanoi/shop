@@ -1,9 +1,9 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T23:30:53+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T23:35:13+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 44 | pass: 0 | published: 44
-- writing: 6 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 46 | pass: 0 | published: 46
+- writing: 4 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
@@ -25,7 +25,7 @@
 | CD-0138 | cam-nang/cung-duong/cd-0138-lich-trinh-2-ngay-1-dem-di-xe-may-den-vuon-quoc-gia-cuc-phuo.html | PUBLISHED | 100 | 0 |  |
 | CD-0139 | cam-nang/cung-duong/cd-0139-diem-dung-chan-dep-tren-cung-duong-ha-noi-vuon-quoc-gia-cuc.html | PUBLISHED | 99 | 0 |  |
 | CD-0140 | cam-nang/cung-duong/cd-0140-di-xe-may-tu-ha-noi-den-khu-du-lich-tam-chuc-mat-bao-lau.html | PUBLISHED | 100 | 0 |  |
-| CD-0141 | cam-nang/cung-duong/cd-0141-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-khu-du-lich-tam-chu.html | WRITING |  | 0 |  |
+| CD-0141 | cam-nang/cung-duong/cd-0141-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-khu-du-lich-tam-chu.html | PUBLISHED | 100 | 0 |  |
 | DL-0134 | cam-nang/du-lich/dl-0134-bua-trua-ngon-doc-duong-den-thanh-pho-lang-son.html | PUBLISHED | 98 | 0 |  |
 | DL-0135 | cam-nang/du-lich/dl-0135-chup-dem-o-thanh-pho-lang-son-co-dep-khong.html | PUBLISHED | 100 | 0 |  |
 | DL-0136 | cam-nang/du-lich/dl-0136-chuyen-sang-som-den-cao-nguyen-da-dong-van-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
@@ -33,7 +33,7 @@
 | DL-0138 | cam-nang/du-lich/dl-0138-ca-phe-sang-o-cao-nguyen-da-dong-van-quan-nao-dep.html | PUBLISHED | 100 | 0 |  |
 | DL-0139 | cam-nang/du-lich/dl-0139-khung-canh-dac-sac-nhat-o-cao-nguyen-da-dong-van.html | PUBLISHED | 99 | 0 |  |
 | DL-0140 | cam-nang/du-lich/dl-0140-len-ke-hoach-di-ma-pi-leng-bang-xe-may-tron-ven.html | PUBLISHED | 100 | 0 |  |
-| DL-0141 | cam-nang/du-lich/dl-0141-mua-he-den-ma-pi-leng-bang-xe-may-nen-di-luc-nao.html | WRITING |  | 0 |  |
+| DL-0141 | cam-nang/du-lich/dl-0141-mua-he-den-ma-pi-leng-bang-xe-may-nen-di-luc-nao.html | PUBLISHED | 100 | 0 |  |
 | DL-0142 | cam-nang/du-lich/dl-0142-mon-an-mua-cua-ma-pi-leng-dang-thu.html | WRITING |  | 0 |  |
 | HD-0134 | cam-nang/hoi-dap/hd-0134-mu-bao-hiem-co-kinh-chong-choi-dang-mua-khong.html | PUBLISHED | 97 | 0 |  |
 | HD-0135 | cam-nang/hoi-dap/hd-0135-ao-mua-mot-manh-hay-hai-manh-tot-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
