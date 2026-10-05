@@ -1,9 +1,9 @@
 # Batch report BATCH-017
 
-- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T23:38:22+07:00
+- started_at: 2026-10-04T09:08:35+07:00 | finished_at: 2026-10-05T23:43:24+07:00
 - writer: external-agent | batch resolved once: BATCH-017
-- processed: 50 | written: 48 | pass: 0 | published: 48
-- writing: 2 | review: 0 | repair: 0 | fail: 0 | blocked: 0
+- processed: 50 | written: 50 | pass: 0 | published: 50
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99.2 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
@@ -17,7 +17,7 @@
 | AT-0139 | cam-nang/an-toan/at-0139-nguoi-can-thi-chay-xe-may-luu-y-gi.html | PUBLISHED | 100 | 0 |  |
 | AT-0140 | cam-nang/an-toan/at-0140-nguoi-cao-lon-chay-xe-tay-ga-nho.html | PUBLISHED | 100 | 0 |  |
 | AT-0141 | cam-nang/an-toan/at-0141-vi-thanh-nien-chua-du-tuoi-lai-tap-o-dau-cho-dung.html | PUBLISHED | 100 | 0 |  |
-| AT-0142 | cam-nang/an-toan/at-0142-nguoi-hay-chay-xe-ve-khuya.html | WRITING |  | 0 |  |
+| AT-0142 | cam-nang/an-toan/at-0142-nguoi-hay-chay-xe-ve-khuya.html | PUBLISHED | 100 | 0 |  |
 | CD-0134 | cam-nang/cung-duong/cd-0134-cung-duong-vong-qua-suoi-khoang-my-lam-co-gi-khac.html | PUBLISHED | 100 | 0 |  |
 | CD-0135 | cam-nang/cung-duong/cd-0135-lich-trinh-suoi-khoang-my-lam-danh-cho-nhom-di-phuot.html | PUBLISHED | 100 | 0 |  |
 | CD-0136 | cam-nang/cung-duong/cd-0136-diem-dung-trua-tren-duong-di-suoi-khoang-my-lam.html | PUBLISHED | 100 | 0 |  |
@@ -34,7 +34,7 @@
 | DL-0139 | cam-nang/du-lich/dl-0139-khung-canh-dac-sac-nhat-o-cao-nguyen-da-dong-van.html | PUBLISHED | 99 | 0 |  |
 | DL-0140 | cam-nang/du-lich/dl-0140-len-ke-hoach-di-ma-pi-leng-bang-xe-may-tron-ven.html | PUBLISHED | 100 | 0 |  |
 | DL-0141 | cam-nang/du-lich/dl-0141-mua-he-den-ma-pi-leng-bang-xe-may-nen-di-luc-nao.html | PUBLISHED | 100 | 0 |  |
-| DL-0142 | cam-nang/du-lich/dl-0142-mon-an-mua-cua-ma-pi-leng-dang-thu.html | WRITING |  | 0 |  |
+| DL-0142 | cam-nang/du-lich/dl-0142-mon-an-mua-cua-ma-pi-leng-dang-thu.html | PUBLISHED | 100 | 0 |  |
 | HD-0134 | cam-nang/hoi-dap/hd-0134-mu-bao-hiem-co-kinh-chong-choi-dang-mua-khong.html | PUBLISHED | 97 | 0 |  |
 | HD-0135 | cam-nang/hoi-dap/hd-0135-ao-mua-mot-manh-hay-hai-manh-tot-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | HD-0136 | cam-nang/hoi-dap/hd-0136-gang-tay-xe-may-nen-chon-chat-lieu-nao.html | PUBLISHED | 100 | 0 |  |
