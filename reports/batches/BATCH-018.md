@@ -1,10 +1,10 @@
 # Batch report BATCH-018
 
-- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:10:05+07:00
+- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T01:13:38+07:00
 - writer: external-agent | batch resolved once: BATCH-018
-- processed: 6 | written: 6 | pass: 0 | published: 6
+- processed: 8 | written: 8 | pass: 0 | published: 8
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99.3 | min 96 | max 100 | repair_count: 0
+- scores: avg 99 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -19,7 +19,7 @@
 | AT-0149 | cam-nang/an-toan/at-0149-cho-nguoi-benh-di-kham-bang-xe-may.html | PLANNED |  | 0 |  |
 | AT-0150 | cam-nang/an-toan/at-0150-cho-do-an-giao-hang-bang-xe-may-an-toan.html | PLANNED |  | 0 |  |
 | CD-0142 | cam-nang/cung-duong/cd-0142-quan-an-ngon-doc-duong-den-khu-du-lich-tam-chuc.html | PUBLISHED | 100 | 0 |  |
-| CD-0143 | cam-nang/cung-duong/cd-0143-tuyen-duong-dep-tu-ha-noi-den-den-hung.html | PLANNED |  | 0 |  |
+| CD-0143 | cam-nang/cung-duong/cd-0143-tuyen-duong-dep-tu-ha-noi-den-den-hung.html | PUBLISHED | 96 | 0 |  |
 | CD-0144 | cam-nang/cung-duong/cd-0144-tram-dung-nghi-ven-duong-toi-den-hung.html | PLANNED |  | 0 |  |
 | CD-0145 | cam-nang/cung-duong/cd-0145-ha-noi-den-ho-thac-ba-quoc-lo-nao-nen-chon.html | PLANNED |  | 0 |  |
 | CD-0146 | cam-nang/cung-duong/cd-0146-hai-ngay-o-ho-thac-ba-lich-trinh-goi-y-cho-nguoi-di-xe.html | PLANNED |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0149 | cam-nang/du-lich/dl-0149-thang-nao-nen-di-ruong-bac-thang-hoang-su-phi-bang-xe-may.html | PLANNED |  | 0 |  |
 | DL-0150 | cam-nang/du-lich/dl-0150-dac-san-ruong-bac-thang-hoang-su-phi-nao-phai-thu-khi-di-xe.html | PLANNED |  | 0 |  |
 | HD-0142 | cam-nang/hoi-dap/hd-0142-tui-dung-do-truoc-xe-ga-nen-chon-loai-nao.html | PUBLISHED | 100 | 0 |  |
-| HD-0143 | cam-nang/hoi-dap/hd-0143-den-gan-them-cho-xe-may-co-duoc-phep-khong.html | PLANNED |  | 0 |  |
+| HD-0143 | cam-nang/hoi-dap/hd-0143-den-gan-them-cho-xe-may-co-duoc-phep-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0144 | cam-nang/hoi-dap/hd-0144-yen-xe-ga-co-nen-boc-chong-nong.html | PLANNED |  | 0 |  |
 | HD-0145 | cam-nang/hoi-dap/hd-0145-ao-phan-quang-nen-mac-khi-nao.html | PLANNED |  | 0 |  |
 | HD-0146 | cam-nang/hoi-dap/hd-0146-kinh-ram-chay-xe-co-hai-mat-khong.html | PLANNED |  | 0 |  |
