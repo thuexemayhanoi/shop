@@ -1,22 +1,20 @@
 {
   "schema_version": "1",
   "batch": "BATCH-021",
-  "mode": "new",
+  "mode": "repair",
   "queue": [
     "CD-0167"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T20:20:43Z",
-  "finished": "2026-10-06T20:20:43Z",
+  "started": "2026-10-06T20:58:58Z",
+  "finished": "2026-10-06T20:58:59Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
         "CD-0167"
       ],
-      "claimed": [
-        "CD-0167"
-      ],
+      "claimed": [],
       "pass": [],
       "published": [],
       "review": [],

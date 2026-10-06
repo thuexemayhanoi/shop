@@ -1,6 +1,6 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T03:20:43+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T03:58:58+07:00
 - writer: external-agent | batch resolved once: BATCH-021
 - processed: 1 | written: 1 | pass: 0 | published: 0
 - writing: 0 | review: 0 | repair: 0 | fail: 1 | blocked: 0
