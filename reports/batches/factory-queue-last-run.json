@@ -1,37 +1,44 @@
 {
   "schema_version": "1",
   "batch": "BATCH-019",
-  "mode": "repair",
+  "mode": "new",
   "queue": [
-    "DL-0156"
+    "CD-0156",
+    "HD-0156"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T11:50:01Z",
-  "finished": "2026-10-06T11:50:03Z",
+  "started": "2026-10-06T11:55:19Z",
+  "finished": "2026-10-06T11:55:21Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "DL-0156"
+        "CD-0156",
+        "HD-0156"
       ],
-      "claimed": [],
+      "claimed": [
+        "CD-0156",
+        "HD-0156"
+      ],
       "pass": [
-        "DL-0156"
+        "CD-0156"
       ],
       "published": [
-        "DL-0156"
+        "CD-0156"
       ],
       "review": [],
       "repair": [],
       "blocked": [],
       "publish_rc": 0,
-      "status": "published"
+      "status": "partial"
     }
   ],
   "published_total": 1,
   "published_ids": [
-    "DL-0156"
+    "CD-0156"
   ],
-  "recoverable_ids": [],
+  "recoverable_ids": [
+    "HD-0156"
+  ],
   "fatal": null
 }

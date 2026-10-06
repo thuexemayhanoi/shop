@@ -1,10 +1,10 @@
 # Batch report BATCH-019
 
-- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T18:50:02+07:00
+- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T18:55:21+07:00
 - writer: external-agent | batch resolved once: BATCH-019
-- processed: 34 | written: 34 | pass: 0 | published: 34
-- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 96.9 | min 84 | max 100 | repair_count: 0
+- processed: 36 | written: 36 | pass: 0 | published: 35
+- writing: 0 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- scores: avg 96.8 | min 84 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
@@ -24,7 +24,7 @@
 | CD-0153 | cam-nang/cung-duong/cd-0153-quan-ca-phe-dung-chan-tren-duong-cho-phien-dong-van.html | PUBLISHED | 99 | 0 |  |
 | CD-0154 | cam-nang/cung-duong/cd-0154-cung-duong-ngam-canh-tu-ha-noi-len-bac-ha.html | PUBLISHED | 92 | 0 |  |
 | CD-0155 | cam-nang/cung-duong/cd-0155-mot-ngay-mot-dem-o-bac-ha-co-du-khong.html | PUBLISHED | 96 | 0 |  |
-| CD-0156 | cam-nang/cung-duong/cd-0156-diem-check-in-doc-cung-duong-den-bac-ha.html | PLANNED |  | 0 |  |
+| CD-0156 | cam-nang/cung-duong/cd-0156-diem-check-in-doc-cung-duong-den-bac-ha.html | PUBLISHED | 96 | 0 |  |
 | CD-0157 | cam-nang/cung-duong/cd-0157-duong-tu-ha-noi-vao-y-ty-doan-nao-kho-di.html | PLANNED |  | 0 |  |
 | CD-0158 | cam-nang/cung-duong/cd-0158-noi-tiep-nuoc-va-nghi-giai-lao-di-y-ty.html | PLANNED |  | 0 |  |
 | DL-0151 | cam-nang/du-lich/dl-0151-diem-ngam-hoang-hon-o-ruong-bac-thang-hoang-su-phi-khi-di-xe.html | PUBLISHED | 100 | 0 |  |
@@ -40,7 +40,7 @@
 | HD-0153 | cam-nang/hoi-dap/hd-0153-ao-gio-chong-lanh-nen-chon-loai-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0154 | cam-nang/hoi-dap/hd-0154-mu-bao-hiem-gon-nhe-nen-chon-loai-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0155 | cam-nang/hoi-dap/hd-0155-kinh-che-bui-nen-chon-trong-gi.html | PUBLISHED | 88 | 0 |  |
-| HD-0156 | cam-nang/hoi-dap/hd-0156-uoc-tinh-chi-phi-xang-cho-mot-chuyen-di-ninh-binh-the-nao.html | PLANNED |  | 0 |  |
+| HD-0156 | cam-nang/hoi-dap/hd-0156-uoc-tinh-chi-phi-xang-cho-mot-chuyen-di-ninh-binh-the-nao.html | FAIL | 95 | 0 | broken internal link: 'cam-nang/chu-de/hd-chi-phi-ke-hoach.html'; broken internal link: 'cam-nang/chu-de/hd-chi-phi-ke-hoach.html' |
 | HD-0157 | cam-nang/hoi-dap/hd-0157-chi-phi-gui-xe-may-mot-ngay-o-ha-noi-khoang-bao-nhieu.html | PLANNED |  | 0 |  |
 | HD-0158 | cam-nang/hoi-dap/hd-0158-chi-phi-di-phuot-2-ngay-quang-ninh-gom-nhung-gi.html | PLANNED |  | 0 |  |
 | KN-0151 | cam-nang/kinh-nghiem/kn-0151-bai-gui-xe-an-toan-gan-cho-quan-long-bien.html | PUBLISHED | 98 | 0 |  |
