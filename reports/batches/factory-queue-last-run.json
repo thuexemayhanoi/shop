@@ -1,44 +1,37 @@
 {
   "schema_version": "1",
   "batch": "BATCH-019",
-  "mode": "new",
+  "mode": "repair",
   "queue": [
-    "XM-0156",
     "DL-0156"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T11:43:23Z",
-  "finished": "2026-10-06T11:43:26Z",
+  "started": "2026-10-06T11:50:01Z",
+  "finished": "2026-10-06T11:50:03Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "XM-0156",
         "DL-0156"
       ],
-      "claimed": [
-        "XM-0156",
-        "DL-0156"
-      ],
+      "claimed": [],
       "pass": [
-        "XM-0156"
+        "DL-0156"
       ],
       "published": [
-        "XM-0156"
+        "DL-0156"
       ],
       "review": [],
       "repair": [],
       "blocked": [],
       "publish_rc": 0,
-      "status": "partial"
+      "status": "published"
     }
   ],
   "published_total": 1,
   "published_ids": [
-    "XM-0156"
-  ],
-  "recoverable_ids": [
     "DL-0156"
   ],
+  "recoverable_ids": [],
   "fatal": null
 }
