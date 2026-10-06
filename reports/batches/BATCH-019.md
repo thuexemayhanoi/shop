@@ -1,11 +1,11 @@
 # Batch report BATCH-019
 
-- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T13:03:59+07:00
+- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T13:08:25+07:00
 - writer: external-agent | batch resolved once: BATCH-019
-- processed: 8 | written: 8 | pass: 0 | published: 8
+- processed: 10 | written: 10 | pass: 0 | published: 10
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.9 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 1 | blocked 0
+- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -28,7 +28,7 @@
 | CD-0157 | cam-nang/cung-duong/cd-0157-duong-tu-ha-noi-vao-y-ty-doan-nao-kho-di.html | PLANNED |  | 0 |  |
 | CD-0158 | cam-nang/cung-duong/cd-0158-noi-tiep-nuoc-va-nghi-giai-lao-di-y-ty.html | PLANNED |  | 0 |  |
 | DL-0151 | cam-nang/du-lich/dl-0151-diem-ngam-hoang-hon-o-ruong-bac-thang-hoang-su-phi-khi-di-xe.html | PUBLISHED | 100 | 0 |  |
-| DL-0152 | cam-nang/du-lich/dl-0152-lo-trinh-di-xe-may-tu-ha-noi-den-bac-ha.html | PLANNED |  | 0 |  |
+| DL-0152 | cam-nang/du-lich/dl-0152-lo-trinh-di-xe-may-tu-ha-noi-den-bac-ha.html | PUBLISHED | 95 | 0 |  |
 | DL-0153 | cam-nang/du-lich/dl-0153-di-xe-may-den-bac-ha-cuoi-tuan-hay-ngay-thuong.html | PLANNED |  | 0 |  |
 | DL-0154 | cam-nang/du-lich/dl-0154-quan-an-noi-tieng-gan-bac-ha-cho-khach-di-xe-may.html | PLANNED |  | 0 |  |
 | DL-0155 | cam-nang/du-lich/dl-0155-chup-anh-sang-som-o-bac-ha-co-gi-dep.html | PLANNED |  | 0 |  |
@@ -53,7 +53,7 @@
 | KN-0158 | cam-nang/kinh-nghiem/kn-0158-lo-trinh-chay-toi-ven-duong-o-huyen-gia-lam.html | PLANNED |  | 0 |  |
 | KN-0159 | cam-nang/kinh-nghiem/kn-0159-do-xe-an-toi-o-huyen-gia-lam-nen-chon-dau.html | PLANNED |  | 0 |  |
 | XM-0151 | cam-nang/xe-may/xm-0151-thiet-bi-dinh-vi-gan-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
-| XM-0152 | cam-nang/xe-may/xm-0152-camera-hanh-trinh-gan-tren-mu-bao-hiem.html | PLANNED |  | 0 |  |
+| XM-0152 | cam-nang/xe-may/xm-0152-camera-hanh-trinh-gan-tren-mu-bao-hiem.html | PUBLISHED | 100 | 0 |  |
 | XM-0153 | cam-nang/xe-may/xm-0153-de-chong-truot-lot-cop-xe-ga.html | PLANNED |  | 0 |  |
 | XM-0154 | cam-nang/xe-may/xm-0154-mieng-dan-chong-tray-than-xe.html | PLANNED |  | 0 |  |
 | XM-0155 | cam-nang/xe-may/xm-0155-tui-nuoc-chong-mua-dung-dien-thoai.html | PLANNED |  | 0 |  |
