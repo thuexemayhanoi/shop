@@ -1,17 +1,17 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-06T23:49:03+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-06T23:53:48+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 10 | written: 10 | pass: 0 | published: 10
+- processed: 12 | written: 12 | pass: 0 | published: 12
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.8 | min 95 | max 99 | repair_count: 0
+- scores: avg 98 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0160 | cam-nang/an-toan/at-0160-chay-dem-tren-duong-khong-co-den-chieu.html | PUBLISHED | 99 | 0 |  |
-| AT-0161 | cam-nang/an-toan/at-0161-chay-dem-khi-den-xe-doi-dien-choi.html | PLANNED |  | 0 |  |
+| AT-0161 | cam-nang/an-toan/at-0161-chay-dem-khi-den-xe-doi-dien-choi.html | PUBLISHED | 99 | 0 |  |
 | AT-0162 | cam-nang/an-toan/at-0162-bam-theo-xe-phia-truoc-trong-suong-dem.html | PLANNED |  | 0 |  |
 | AT-0163 | cam-nang/an-toan/at-0163-dan-phan-quang-len-xe-va-mu-bao-hiem.html | PLANNED |  | 0 |  |
 | AT-0164 | cam-nang/an-toan/at-0164-den-bao-nguy-hiem-khi-chay-dem-mua.html | PLANNED |  | 0 |  |
@@ -44,7 +44,7 @@
 | HD-0165 | cam-nang/hoi-dap/hd-0165-tien-ve-tham-quan-khi-di-trang-an-gom-nhung-gi.html | PLANNED |  | 0 |  |
 | HD-0166 | cam-nang/hoi-dap/hd-0166-chi-phi-cho-chuyen-di-ba-vi-mot-ngay.html | PLANNED |  | 0 |  |
 | KN-0160 | cam-nang/kinh-nghiem/kn-0160-chay-xe-may-o-tu-liem-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 95 | 0 |  |
-| KN-0161 | cam-nang/kinh-nghiem/kn-0161-bai-gui-xe-an-toan-gan-cho-tu-liem.html | PLANNED |  | 0 |  |
+| KN-0161 | cam-nang/kinh-nghiem/kn-0161-bai-gui-xe-an-toan-gan-cho-tu-liem.html | PUBLISHED | 99 | 0 |  |
 | KN-0162 | cam-nang/kinh-nghiem/kn-0162-chay-xe-sang-cuoi-tuan-quanh-tu-liem.html | PLANNED |  | 0 |  |
 | KN-0163 | cam-nang/kinh-nghiem/kn-0163-lo-trinh-chay-toi-ven-duong-o-tu-liem.html | PLANNED |  | 0 |  |
 | KN-0164 | cam-nang/kinh-nghiem/kn-0164-do-xe-an-toi-o-tu-liem-nen-chon-dau.html | PLANNED |  | 0 |  |
