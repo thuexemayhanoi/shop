@@ -1,8 +1,8 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:07:41+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:08:55+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 45 | written: 45 | pass: 0 | published: 45
+- processed: 46 | written: 46 | pass: 0 | published: 46
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.1 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -42,7 +42,7 @@
 | HD-0163 | cam-nang/hoi-dap/hd-0163-tien-xang-tu-ha-noi-di-pu-luong-khoang-bao-nhieu.html | PUBLISHED | 98 | 0 |  |
 | HD-0164 | cam-nang/hoi-dap/hd-0164-chi-phi-nghi-dem-o-mai-chau-the-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0165 | cam-nang/hoi-dap/hd-0165-tien-ve-tham-quan-khi-di-trang-an-gom-nhung-gi.html | PUBLISHED | 100 | 0 |  |
-| HD-0166 | cam-nang/hoi-dap/hd-0166-chi-phi-cho-chuyen-di-ba-vi-mot-ngay.html | PLANNED |  | 0 |  |
+| HD-0166 | cam-nang/hoi-dap/hd-0166-chi-phi-cho-chuyen-di-ba-vi-mot-ngay.html | PUBLISHED | 100 | 0 |  |
 | KN-0160 | cam-nang/kinh-nghiem/kn-0160-chay-xe-may-o-tu-liem-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 95 | 0 |  |
 | KN-0161 | cam-nang/kinh-nghiem/kn-0161-bai-gui-xe-an-toan-gan-cho-tu-liem.html | PUBLISHED | 99 | 0 |  |
 | KN-0162 | cam-nang/kinh-nghiem/kn-0162-chay-xe-sang-cuoi-tuan-quanh-tu-liem.html | PUBLISHED | 99 | 0 |  |
