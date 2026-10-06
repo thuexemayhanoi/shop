@@ -1,10 +1,10 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-06T23:37:11+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-06T23:44:00+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 6 | written: 6 | pass: 0 | published: 6
+- processed: 8 | written: 8 | pass: 0 | published: 8
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.7 | min 95 | max 99 | repair_count: 0
+- scores: avg 97.8 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -27,7 +27,7 @@
 | CD-0165 | cam-nang/cung-duong/cd-0165-diem-dung-chan-dep-tren-cung-duong-ha-noi-deo-o-quy-ho.html | PLANNED |  | 0 |  |
 | CD-0166 | cam-nang/cung-duong/cd-0166-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-sa-pa.html | PLANNED |  | 0 |  |
 | DL-0159 | cam-nang/du-lich/dl-0159-canh-quan-dep-nhat-o-cho-phien-bac-ha-theo-nguoi-chay-xe.html | PUBLISHED | 99 | 0 |  |
-| DL-0160 | cam-nang/du-lich/dl-0160-nen-xuat-phat-may-gio-de-di-xe-may-den-sa-pa.html | PLANNED |  | 0 |  |
+| DL-0160 | cam-nang/du-lich/dl-0160-nen-xuat-phat-may-gio-de-di-xe-may-den-sa-pa.html | PUBLISHED | 97 | 0 |  |
 | DL-0161 | cam-nang/du-lich/dl-0161-troi-mua-co-dang-di-sa-pa-bang-xe-may-khong.html | PLANNED |  | 0 |  |
 | DL-0162 | cam-nang/du-lich/dl-0162-nghi-trua-an-gi-khi-di-sa-pa-bang-xe-may.html | PLANNED |  | 0 |  |
 | DL-0163 | cam-nang/du-lich/dl-0163-vi-tri-chup-anh-o-sa-pa-it-nguoi-biet.html | PLANNED |  | 0 |  |
@@ -52,7 +52,7 @@
 | KN-0166 | cam-nang/kinh-nghiem/kn-0166-bai-gui-xe-an-toan-gan-cho-huyen-thanh-tri.html | PLANNED |  | 0 |  |
 | KN-0167 | cam-nang/kinh-nghiem/kn-0167-chay-xe-sang-cuoi-tuan-quanh-huyen-thanh-tri.html | PLANNED |  | 0 |  |
 | XM-0159 | cam-nang/xe-may/xm-0159-boc-tay-cam-chong-truot.html | PUBLISHED | 99 | 0 |  |
-| XM-0160 | cam-nang/xe-may/xm-0160-day-buoc-hanh-ly-mem-khi-di-phuot.html | PLANNED |  | 0 |  |
+| XM-0160 | cam-nang/xe-may/xm-0160-day-buoc-hanh-ly-mem-khi-di-phuot.html | PUBLISHED | 99 | 0 |  |
 | XM-0161 | cam-nang/xe-may/xm-0161-binh-giu-nhiet-gan-tren-xe-co-an-toan-khong.html | PLANNED |  | 0 |  |
 | XM-0162 | cam-nang/xe-may/xm-0162-ao-gio-chong-lanh-cho-nguoi-chay-xe-dem.html | PLANNED |  | 0 |  |
 | XM-0163 | cam-nang/xe-may/xm-0163-non-bao-hiem-gan-them-kinh-roi.html | PLANNED |  | 0 |  |
