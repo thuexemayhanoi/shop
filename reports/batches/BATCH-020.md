@@ -1,10 +1,10 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T01:23:00+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T02:57:52+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 40 | written: 40 | pass: 0 | published: 40
+- processed: 41 | written: 41 | pass: 0 | published: 41
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.1 | min 88 | max 100 | repair_count: 0
+- scores: avg 98 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
@@ -49,7 +49,7 @@
 | KN-0163 | cam-nang/kinh-nghiem/kn-0163-lo-trinh-chay-toi-ven-duong-o-tu-liem.html | PUBLISHED | 99 | 0 |  |
 | KN-0164 | cam-nang/kinh-nghiem/kn-0164-do-xe-an-toi-o-tu-liem-nen-chon-dau.html | PUBLISHED | 100 | 0 |  |
 | KN-0165 | cam-nang/kinh-nghiem/kn-0165-chay-xe-may-o-huyen-thanh-tri-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 96 | 0 |  |
-| KN-0166 | cam-nang/kinh-nghiem/kn-0166-bai-gui-xe-an-toan-gan-cho-huyen-thanh-tri.html | PLANNED |  | 0 |  |
+| KN-0166 | cam-nang/kinh-nghiem/kn-0166-bai-gui-xe-an-toan-gan-cho-huyen-thanh-tri.html | PUBLISHED | 96 | 0 |  |
 | KN-0167 | cam-nang/kinh-nghiem/kn-0167-chay-xe-sang-cuoi-tuan-quanh-huyen-thanh-tri.html | PLANNED |  | 0 |  |
 | XM-0159 | cam-nang/xe-may/xm-0159-boc-tay-cam-chong-truot.html | PUBLISHED | 99 | 0 |  |
 | XM-0160 | cam-nang/xe-may/xm-0160-day-buoc-hanh-ly-mem-khi-di-phuot.html | PUBLISHED | 99 | 0 |  |
