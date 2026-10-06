@@ -1,10 +1,10 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T04:08:26+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T04:15:31+07:00
 - writer: external-agent | batch resolved once: BATCH-021
-- processed: 1 | written: 1 | pass: 0 | published: 1
+- processed: 2 | written: 2 | pass: 0 | published: 2
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 98 | max 98 | repair_count: 0
+- scores: avg 99 | min 98 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -35,7 +35,7 @@
 | DL-0173 | cam-nang/du-lich/dl-0173-dip-le-den-deo-khau-pha-co-dong-nguoi-khong.html | PLANNED |  | 0 |  |
 | DL-0174 | cam-nang/du-lich/dl-0174-do-an-vat-duong-pho-o-deo-khau-pha-the-nao.html | PLANNED |  | 0 |  |
 | DL-0175 | cam-nang/du-lich/dl-0175-diem-dung-chup-anh-giua-duong-den-deo-khau-pha.html | PLANNED |  | 0 |  |
-| HD-0167 | cam-nang/hoi-dap/hd-0167-tien-xang-di-tham-chua-huong-het-bao-nhieu.html | PLANNED |  | 0 |  |
+| HD-0167 | cam-nang/hoi-dap/hd-0167-tien-xang-di-tham-chua-huong-het-bao-nhieu.html | PUBLISHED | 100 | 0 |  |
 | HD-0168 | cam-nang/hoi-dap/hd-0168-chi-phi-di-sam-son-2-ngay-bang-xe-may.html | PLANNED |  | 0 |  |
 | HD-0169 | cam-nang/hoi-dap/hd-0169-tien-xang-ha-noi-di-tam-dao-khoang-bao-nhieu.html | PLANNED |  | 0 |  |
 | HD-0170 | cam-nang/hoi-dap/hd-0170-chi-phi-vui-choi-o-ho-tay-het-bao-nhieu.html | PLANNED |  | 0 |  |

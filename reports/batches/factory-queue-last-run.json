@@ -1,25 +1,27 @@
 {
   "schema_version": "1",
   "batch": "BATCH-021",
-  "mode": "repair",
+  "mode": "new",
   "queue": [
-    "CD-0167"
+    "HD-0167"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T21:08:25Z",
-  "finished": "2026-10-06T21:08:26Z",
+  "started": "2026-10-06T21:15:30Z",
+  "finished": "2026-10-06T21:15:32Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "CD-0167"
+        "HD-0167"
       ],
-      "claimed": [],
+      "claimed": [
+        "HD-0167"
+      ],
       "pass": [
-        "CD-0167"
+        "HD-0167"
       ],
       "published": [
-        "CD-0167"
+        "HD-0167"
       ],
       "review": [],
       "repair": [],
@@ -30,7 +32,7 @@
   ],
   "published_total": 1,
   "published_ids": [
-    "CD-0167"
+    "HD-0167"
   ],
   "recoverable_ids": [],
   "fatal": null
