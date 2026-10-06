@@ -3,25 +3,25 @@
   "batch": "BATCH-020",
   "mode": "new",
   "queue": [
-    "AT-0167"
+    "DL-0167"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T20:13:57Z",
-  "finished": "2026-10-06T20:13:59Z",
+  "started": "2026-10-06T20:15:16Z",
+  "finished": "2026-10-06T20:15:18Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "AT-0167"
+        "DL-0167"
       ],
       "claimed": [
-        "AT-0167"
+        "DL-0167"
       ],
       "pass": [
-        "AT-0167"
+        "DL-0167"
       ],
       "published": [
-        "AT-0167"
+        "DL-0167"
       ],
       "review": [],
       "repair": [],
@@ -32,7 +32,7 @@
   ],
   "published_total": 1,
   "published_ids": [
-    "AT-0167"
+    "DL-0167"
   ],
   "recoverable_ids": [],
   "fatal": null

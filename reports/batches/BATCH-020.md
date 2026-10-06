@@ -1,8 +1,8 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:13:58+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:15:18+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 48 | written: 48 | pass: 0 | published: 48
+- processed: 49 | written: 49 | pass: 0 | published: 49
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.1 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -34,7 +34,7 @@
 | DL-0164 | cam-nang/du-lich/dl-0164-di-xe-may-den-ban-ta-van-lan-dau-can-biet-gi.html | PUBLISHED | 96 | 0 |  |
 | DL-0165 | cam-nang/du-lich/dl-0165-mua-dong-den-ban-ta-van-bang-xe-may-co-lanh-lam-khong.html | PUBLISHED | 96 | 0 |  |
 | DL-0166 | cam-nang/du-lich/dl-0166-mon-gi-dang-mua-ve-tu-ban-ta-van.html | PUBLISHED | 100 | 0 |  |
-| DL-0167 | cam-nang/du-lich/dl-0167-goc-view-ven-duong-khi-chay-xe-den-ban-ta-van.html | PLANNED |  | 0 |  |
+| DL-0167 | cam-nang/du-lich/dl-0167-goc-view-ven-duong-khi-chay-xe-den-ban-ta-van.html | PUBLISHED | 97 | 0 |  |
 | HD-0159 | cam-nang/hoi-dap/hd-0159-tien-pha-cho-xe-may-qua-song-hong-bao-nhieu.html | PUBLISHED | 99 | 0 |  |
 | HD-0160 | cam-nang/hoi-dap/hd-0160-chi-phi-an-uong-khi-di-phuot-mien-nui-khoang-bao-nhieu.html | PUBLISHED | 99 | 0 |  |
 | HD-0161 | cam-nang/hoi-dap/hd-0161-len-ke-hoach-chi-phi-cho-nhom-5-xe-di-moc-chau.html | PUBLISHED | 99 | 0 |  |
