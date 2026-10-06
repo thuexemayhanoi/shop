@@ -1,2 +1,2 @@
-cam-nang/kinh-nghiem/kn-0151-bai-gui-xe-an-toan-gan-cho-quan-long-bien.html
-cam-nang/an-toan/at-0151-di-cho-cho-hang-nang-bang-xe-may.html
+cam-nang/xe-may/xm-0151-thiet-bi-dinh-vi-gan-cho-xe-may.html
+cam-nang/du-lich/dl-0151-diem-ngam-hoang-hon-o-ruong-bac-thang-hoang-su-phi-khi-di-xe.html
