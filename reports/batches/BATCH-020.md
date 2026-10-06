@@ -1,10 +1,10 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T00:42:10+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T00:47:49+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 28 | written: 28 | pass: 0 | published: 28
+- processed: 30 | written: 30 | pass: 0 | published: 30
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.1 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.2 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
@@ -14,7 +14,7 @@
 | AT-0161 | cam-nang/an-toan/at-0161-chay-dem-khi-den-xe-doi-dien-choi.html | PUBLISHED | 99 | 0 |  |
 | AT-0162 | cam-nang/an-toan/at-0162-bam-theo-xe-phia-truoc-trong-suong-dem.html | PUBLISHED | 99 | 0 |  |
 | AT-0163 | cam-nang/an-toan/at-0163-dan-phan-quang-len-xe-va-mu-bao-hiem.html | PUBLISHED | 99 | 0 |  |
-| AT-0164 | cam-nang/an-toan/at-0164-den-bao-nguy-hiem-khi-chay-dem-mua.html | PLANNED |  | 0 |  |
+| AT-0164 | cam-nang/an-toan/at-0164-den-bao-nguy-hiem-khi-chay-dem-mua.html | PUBLISHED | 100 | 0 |  |
 | AT-0165 | cam-nang/an-toan/at-0165-can-trong-voi-xe-dien-khong-tieng-dong.html | PLANNED |  | 0 |  |
 | AT-0166 | cam-nang/an-toan/at-0166-chay-dem-qua-vung-trau-bo-qua-duong.html | PLANNED |  | 0 |  |
 | AT-0167 | cam-nang/an-toan/at-0167-cuoi-tuan-gap-nhom-xe-chay-dem.html | PLANNED |  | 0 |  |
@@ -47,7 +47,7 @@
 | KN-0161 | cam-nang/kinh-nghiem/kn-0161-bai-gui-xe-an-toan-gan-cho-tu-liem.html | PUBLISHED | 99 | 0 |  |
 | KN-0162 | cam-nang/kinh-nghiem/kn-0162-chay-xe-sang-cuoi-tuan-quanh-tu-liem.html | PUBLISHED | 99 | 0 |  |
 | KN-0163 | cam-nang/kinh-nghiem/kn-0163-lo-trinh-chay-toi-ven-duong-o-tu-liem.html | PUBLISHED | 99 | 0 |  |
-| KN-0164 | cam-nang/kinh-nghiem/kn-0164-do-xe-an-toi-o-tu-liem-nen-chon-dau.html | PLANNED |  | 0 |  |
+| KN-0164 | cam-nang/kinh-nghiem/kn-0164-do-xe-an-toi-o-tu-liem-nen-chon-dau.html | PUBLISHED | 100 | 0 |  |
 | KN-0165 | cam-nang/kinh-nghiem/kn-0165-chay-xe-may-o-huyen-thanh-tri-kinh-nghiem-tranh-tac-duong.html | PLANNED |  | 0 |  |
 | KN-0166 | cam-nang/kinh-nghiem/kn-0166-bai-gui-xe-an-toan-gan-cho-huyen-thanh-tri.html | PLANNED |  | 0 |  |
 | KN-0167 | cam-nang/kinh-nghiem/kn-0167-chay-xe-sang-cuoi-tuan-quanh-huyen-thanh-tri.html | PLANNED |  | 0 |  |
