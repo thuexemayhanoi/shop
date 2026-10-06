@@ -1,8 +1,8 @@
 # Batch report BATCH-018
 
-- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T02:12:34+07:00
+- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T12:23:03+07:00
 - writer: external-agent | batch resolved once: BATCH-018
-- processed: 36 | written: 36 | pass: 0 | published: 36
+- processed: 38 | written: 38 | pass: 0 | published: 38
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 99 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -24,7 +24,7 @@
 | CD-0145 | cam-nang/cung-duong/cd-0145-ha-noi-den-ho-thac-ba-quoc-lo-nao-nen-chon.html | PUBLISHED | 100 | 0 |  |
 | CD-0146 | cam-nang/cung-duong/cd-0146-hai-ngay-o-ho-thac-ba-lich-trinh-goi-y-cho-nguoi-di-xe.html | PUBLISHED | 96 | 0 |  |
 | CD-0147 | cam-nang/cung-duong/cd-0147-cho-ngam-canh-giua-duong-den-ho-thac-ba.html | PUBLISHED | 100 | 0 |  |
-| CD-0148 | cam-nang/cung-duong/cd-0148-cung-duong-ha-noi-cho-tinh-khau-vai-cho-nguoi-moi.html | PLANNED |  | 0 |  |
+| CD-0148 | cam-nang/cung-duong/cd-0148-cung-duong-ha-noi-cho-tinh-khau-vai-cho-nguoi-moi.html | PUBLISHED | 99 | 0 |  |
 | CD-0149 | cam-nang/cung-duong/cd-0149-nghi-dem-o-cho-tinh-khau-vai-khi-di-xe-may-chon-dau.html | PLANNED |  | 0 |  |
 | CD-0150 | cam-nang/cung-duong/cd-0150-bai-do-an-toan-doc-duong-di-cho-tinh-khau-vai.html | PLANNED |  | 0 |  |
 | DL-0143 | cam-nang/du-lich/dl-0143-goc-chup-mua-o-ma-pi-leng-co-dang-thu-khong.html | PUBLISHED | 100 | 0 |  |
@@ -41,7 +41,7 @@
 | HD-0145 | cam-nang/hoi-dap/hd-0145-ao-phan-quang-nen-mac-khi-nao.html | PUBLISHED | 100 | 0 |  |
 | HD-0146 | cam-nang/hoi-dap/hd-0146-kinh-ram-chay-xe-co-hai-mat-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0147 | cam-nang/hoi-dap/hd-0147-mu-bao-hiem-mua-kem-kinh-che-co-dang-mua.html | PUBLISHED | 100 | 0 |  |
-| HD-0148 | cam-nang/hoi-dap/hd-0148-boc-tay-cam-chong-truot-co-hieu-qua-khong.html | PLANNED |  | 0 |  |
+| HD-0148 | cam-nang/hoi-dap/hd-0148-boc-tay-cam-chong-truot-co-hieu-qua-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0149 | cam-nang/hoi-dap/hd-0149-non-bao-hiem-co-kinh-hay-mua-kinh-roi.html | PLANNED |  | 0 |  |
 | HD-0150 | cam-nang/hoi-dap/hd-0150-giay-chay-xe-may-nen-chon-de-gi.html | PLANNED |  | 0 |  |
 | KN-0143 | cam-nang/kinh-nghiem/kn-0143-chay-xe-sang-cuoi-tuan-quanh-quan-thanh-xuan.html | PUBLISHED | 96 | 0 |  |
