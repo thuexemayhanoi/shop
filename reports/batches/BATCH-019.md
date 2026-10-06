@@ -1,8 +1,8 @@
 # Batch report BATCH-019
 
-- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T13:08:25+07:00
+- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T13:12:30+07:00
 - writer: external-agent | batch resolved once: BATCH-019
-- processed: 10 | written: 10 | pass: 0 | published: 10
+- processed: 12 | written: 12 | pass: 0 | published: 12
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.6 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
@@ -20,7 +20,7 @@
 | AT-0158 | cam-nang/an-toan/at-0158-chay-dem-nen-mac-do-mau-gi.html | PLANNED |  | 0 |  |
 | AT-0159 | cam-nang/an-toan/at-0159-den-hau-xe-may-mo-nguy-co-the-nao.html | PLANNED |  | 0 |  |
 | CD-0151 | cam-nang/cung-duong/cd-0151-chay-xe-may-tu-ha-noi-ra-cho-phien-dong-van-nen-di-luc-nao.html | PUBLISHED | 98 | 0 |  |
-| CD-0152 | cam-nang/cung-duong/cd-0152-lich-trinh-chi-tiet-cho-chuyen-cho-phien-dong-van-bang-xe-ma.html | PLANNED |  | 0 |  |
+| CD-0152 | cam-nang/cung-duong/cd-0152-lich-trinh-chi-tiet-cho-chuyen-cho-phien-dong-van-bang-xe-ma.html | PUBLISHED | 97 | 0 |  |
 | CD-0153 | cam-nang/cung-duong/cd-0153-quan-ca-phe-dung-chan-tren-duong-cho-phien-dong-van.html | PLANNED |  | 0 |  |
 | CD-0154 | cam-nang/cung-duong/cd-0154-cung-duong-ngam-canh-tu-ha-noi-len-bac-ha.html | PLANNED |  | 0 |  |
 | CD-0155 | cam-nang/cung-duong/cd-0155-mot-ngay-mot-dem-o-bac-ha-co-du-khong.html | PLANNED |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0157 | cam-nang/du-lich/dl-0157-mua-hoa-nao-no-dep-o-cho-phien-bac-ha-khi-di-xe-may.html | PLANNED |  | 0 |  |
 | DL-0158 | cam-nang/du-lich/dl-0158-an-sang-o-dau-truoc-khi-chay-xe-den-cho-phien-bac-ha.html | PLANNED |  | 0 |  |
 | HD-0151 | cam-nang/hoi-dap/hd-0151-mu-bao-hiem-tre-em-co-nao-vua-dau-be.html | PUBLISHED | 99 | 0 |  |
-| HD-0152 | cam-nang/hoi-dap/hd-0152-khoa-co-xe-may-dien-tu-dang-tin-khong.html | PLANNED |  | 0 |  |
+| HD-0152 | cam-nang/hoi-dap/hd-0152-khoa-co-xe-may-dien-tu-dang-tin-khong.html | PUBLISHED | 100 | 0 |  |
 | HD-0153 | cam-nang/hoi-dap/hd-0153-ao-gio-chong-lanh-nen-chon-loai-nao.html | PLANNED |  | 0 |  |
 | HD-0154 | cam-nang/hoi-dap/hd-0154-mu-bao-hiem-gon-nhe-nen-chon-loai-nao.html | PLANNED |  | 0 |  |
 | HD-0155 | cam-nang/hoi-dap/hd-0155-kinh-che-bui-nen-chon-trong-gi.html | PLANNED |  | 0 |  |

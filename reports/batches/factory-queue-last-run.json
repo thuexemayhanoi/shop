@@ -3,30 +3,30 @@
   "batch": "BATCH-019",
   "mode": "new",
   "queue": [
-    "XM-0152",
-    "DL-0152"
+    "CD-0152",
+    "HD-0152"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T06:08:23Z",
-  "finished": "2026-10-06T06:08:25Z",
+  "started": "2026-10-06T06:12:29Z",
+  "finished": "2026-10-06T06:12:31Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "XM-0152",
-        "DL-0152"
+        "CD-0152",
+        "HD-0152"
       ],
       "claimed": [
-        "XM-0152",
-        "DL-0152"
+        "CD-0152",
+        "HD-0152"
       ],
       "pass": [
-        "XM-0152",
-        "DL-0152"
+        "CD-0152",
+        "HD-0152"
       ],
       "published": [
-        "DL-0152",
-        "XM-0152"
+        "CD-0152",
+        "HD-0152"
       ],
       "review": [],
       "repair": [],
@@ -37,8 +37,8 @@
   ],
   "published_total": 2,
   "published_ids": [
-    "DL-0152",
-    "XM-0152"
+    "CD-0152",
+    "HD-0152"
   ],
   "recoverable_ids": [],
   "fatal": null
