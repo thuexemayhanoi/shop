@@ -1,8 +1,8 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:11:21+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:13:58+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 47 | written: 47 | pass: 0 | published: 47
+- processed: 48 | written: 48 | pass: 0 | published: 48
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.1 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -17,7 +17,7 @@
 | AT-0164 | cam-nang/an-toan/at-0164-den-bao-nguy-hiem-khi-chay-dem-mua.html | PUBLISHED | 100 | 0 |  |
 | AT-0165 | cam-nang/an-toan/at-0165-can-trong-voi-xe-dien-khong-tieng-dong.html | PUBLISHED | 99 | 0 |  |
 | AT-0166 | cam-nang/an-toan/at-0166-chay-dem-qua-vung-trau-bo-qua-duong.html | PUBLISHED | 100 | 0 |  |
-| AT-0167 | cam-nang/an-toan/at-0167-cuoi-tuan-gap-nhom-xe-chay-dem.html | PLANNED |  | 0 |  |
+| AT-0167 | cam-nang/an-toan/at-0167-cuoi-tuan-gap-nhom-xe-chay-dem.html | PUBLISHED | 100 | 0 |  |
 | CD-0159 | cam-nang/cung-duong/cd-0159-duong-den-ta-xua-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 95 | 0 |  |
 | CD-0160 | cam-nang/cung-duong/cd-0160-cung-duong-vong-qua-mu-cang-chai-co-gi-khac.html | PUBLISHED | 97 | 0 |  |
 | CD-0161 | cam-nang/cung-duong/cd-0161-lich-trinh-mu-cang-chai-danh-cho-nhom-di-phuot.html | PUBLISHED | 95 | 0 |  |
