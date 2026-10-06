@@ -1,10 +1,10 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T01:15:36+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T01:23:00+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 38 | written: 38 | pass: 0 | published: 38
+- processed: 40 | written: 40 | pass: 0 | published: 40
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.1 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
@@ -24,7 +24,7 @@
 | CD-0162 | cam-nang/cung-duong/cd-0162-diem-dung-trua-tren-duong-di-mu-cang-chai.html | PUBLISHED | 97 | 0 |  |
 | CD-0163 | cam-nang/cung-duong/cd-0163-cung-duong-di-xe-may-tu-ha-noi-den-deo-o-quy-ho.html | PUBLISHED | 98 | 0 |  |
 | CD-0164 | cam-nang/cung-duong/cd-0164-lich-trinh-2-ngay-1-dem-di-xe-may-den-deo-o-quy-ho.html | PUBLISHED | 100 | 0 |  |
-| CD-0165 | cam-nang/cung-duong/cd-0165-diem-dung-chan-dep-tren-cung-duong-ha-noi-deo-o-quy-ho.html | PLANNED |  | 0 |  |
+| CD-0165 | cam-nang/cung-duong/cd-0165-diem-dung-chan-dep-tren-cung-duong-ha-noi-deo-o-quy-ho.html | PUBLISHED | 88 | 0 |  |
 | CD-0166 | cam-nang/cung-duong/cd-0166-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-sa-pa.html | PLANNED |  | 0 |  |
 | DL-0159 | cam-nang/du-lich/dl-0159-canh-quan-dep-nhat-o-cho-phien-bac-ha-theo-nguoi-chay-xe.html | PUBLISHED | 99 | 0 |  |
 | DL-0160 | cam-nang/du-lich/dl-0160-nen-xuat-phat-may-gio-de-di-xe-may-den-sa-pa.html | PUBLISHED | 97 | 0 |  |
@@ -41,7 +41,7 @@
 | HD-0162 | cam-nang/hoi-dap/hd-0162-chi-phi-phat-sinh-khi-xe-thue-thung-sam-gom-gi.html | PUBLISHED | 99 | 0 |  |
 | HD-0163 | cam-nang/hoi-dap/hd-0163-tien-xang-tu-ha-noi-di-pu-luong-khoang-bao-nhieu.html | PUBLISHED | 98 | 0 |  |
 | HD-0164 | cam-nang/hoi-dap/hd-0164-chi-phi-nghi-dem-o-mai-chau-the-nao.html | PUBLISHED | 100 | 0 |  |
-| HD-0165 | cam-nang/hoi-dap/hd-0165-tien-ve-tham-quan-khi-di-trang-an-gom-nhung-gi.html | PLANNED |  | 0 |  |
+| HD-0165 | cam-nang/hoi-dap/hd-0165-tien-ve-tham-quan-khi-di-trang-an-gom-nhung-gi.html | PUBLISHED | 100 | 0 |  |
 | HD-0166 | cam-nang/hoi-dap/hd-0166-chi-phi-cho-chuyen-di-ba-vi-mot-ngay.html | PLANNED |  | 0 |  |
 | KN-0160 | cam-nang/kinh-nghiem/kn-0160-chay-xe-may-o-tu-liem-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 95 | 0 |  |
 | KN-0161 | cam-nang/kinh-nghiem/kn-0161-bai-gui-xe-an-toan-gan-cho-tu-liem.html | PUBLISHED | 99 | 0 |  |
