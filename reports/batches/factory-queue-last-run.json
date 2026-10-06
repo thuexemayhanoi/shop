@@ -3,30 +3,30 @@
   "batch": "BATCH-020",
   "mode": "new",
   "queue": [
-    "XM-0164",
-    "DL-0164"
+    "CD-0164",
+    "HD-0164"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T17:52:40Z",
-  "finished": "2026-10-06T17:52:42Z",
+  "started": "2026-10-06T17:57:09Z",
+  "finished": "2026-10-06T17:57:10Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "XM-0164",
-        "DL-0164"
+        "CD-0164",
+        "HD-0164"
       ],
       "claimed": [
-        "XM-0164",
-        "DL-0164"
+        "CD-0164",
+        "HD-0164"
       ],
       "pass": [
-        "XM-0164",
-        "DL-0164"
+        "CD-0164",
+        "HD-0164"
       ],
       "published": [
-        "DL-0164",
-        "XM-0164"
+        "CD-0164",
+        "HD-0164"
       ],
       "review": [],
       "repair": [],
@@ -37,8 +37,8 @@
   ],
   "published_total": 2,
   "published_ids": [
-    "DL-0164",
-    "XM-0164"
+    "CD-0164",
+    "HD-0164"
   ],
   "recoverable_ids": [],
   "fatal": null
