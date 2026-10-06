@@ -1,8 +1,8 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:04:34+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:07:41+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 44 | written: 44 | pass: 0 | published: 44
+- processed: 45 | written: 45 | pass: 0 | published: 45
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.1 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
@@ -25,7 +25,7 @@
 | CD-0163 | cam-nang/cung-duong/cd-0163-cung-duong-di-xe-may-tu-ha-noi-den-deo-o-quy-ho.html | PUBLISHED | 98 | 0 |  |
 | CD-0164 | cam-nang/cung-duong/cd-0164-lich-trinh-2-ngay-1-dem-di-xe-may-den-deo-o-quy-ho.html | PUBLISHED | 100 | 0 |  |
 | CD-0165 | cam-nang/cung-duong/cd-0165-diem-dung-chan-dep-tren-cung-duong-ha-noi-deo-o-quy-ho.html | PUBLISHED | 88 | 0 |  |
-| CD-0166 | cam-nang/cung-duong/cd-0166-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-sa-pa.html | PLANNED |  | 0 |  |
+| CD-0166 | cam-nang/cung-duong/cd-0166-goi-y-lich-trinh-cuoi-tuan-di-xe-may-den-sa-pa.html | PUBLISHED | 96 | 0 |  |
 | DL-0159 | cam-nang/du-lich/dl-0159-canh-quan-dep-nhat-o-cho-phien-bac-ha-theo-nguoi-chay-xe.html | PUBLISHED | 99 | 0 |  |
 | DL-0160 | cam-nang/du-lich/dl-0160-nen-xuat-phat-may-gio-de-di-xe-may-den-sa-pa.html | PUBLISHED | 97 | 0 |  |
 | DL-0161 | cam-nang/du-lich/dl-0161-troi-mua-co-dang-di-sa-pa-bang-xe-may-khong.html | PUBLISHED | 97 | 0 |  |
