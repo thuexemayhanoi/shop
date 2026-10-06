@@ -1,10 +1,10 @@
 # Batch report BATCH-018
 
-- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T12:23:03+07:00
+- started_at: 2026-10-05T23:48:29+07:00 | finished_at: 2026-10-06T12:26:54+07:00
 - writer: external-agent | batch resolved once: BATCH-018
-- processed: 38 | written: 38 | pass: 0 | published: 38
+- processed: 40 | written: 40 | pass: 0 | published: 40
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 99 | min 96 | max 100 | repair_count: 0
+- scores: avg 99.1 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
@@ -16,7 +16,7 @@
 | AT-0146 | cam-nang/an-toan/at-0146-nguoi-chay-xe-sau-thoi-gian-dai-khong-lai.html | PUBLISHED | 100 | 0 |  |
 | AT-0147 | cam-nang/an-toan/at-0147-nguoi-di-lam-cung-mot-lo-trinh-moi-ngay.html | PUBLISHED | 100 | 0 |  |
 | AT-0148 | cam-nang/an-toan/at-0148-shipper-chay-xe-may-nhieu-gio-trong-ngay.html | PUBLISHED | 100 | 0 |  |
-| AT-0149 | cam-nang/an-toan/at-0149-cho-nguoi-benh-di-kham-bang-xe-may.html | PLANNED |  | 0 |  |
+| AT-0149 | cam-nang/an-toan/at-0149-cho-nguoi-benh-di-kham-bang-xe-may.html | PUBLISHED | 99 | 0 |  |
 | AT-0150 | cam-nang/an-toan/at-0150-cho-do-an-giao-hang-bang-xe-may-an-toan.html | PLANNED |  | 0 |  |
 | CD-0142 | cam-nang/cung-duong/cd-0142-quan-an-ngon-doc-duong-den-khu-du-lich-tam-chuc.html | PUBLISHED | 100 | 0 |  |
 | CD-0143 | cam-nang/cung-duong/cd-0143-tuyen-duong-dep-tu-ha-noi-den-den-hung.html | PUBLISHED | 96 | 0 |  |
@@ -50,7 +50,7 @@
 | KN-0146 | cam-nang/kinh-nghiem/kn-0146-chay-xe-may-o-quan-hai-ba-trung-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 96 | 0 |  |
 | KN-0147 | cam-nang/kinh-nghiem/kn-0147-bai-gui-xe-an-toan-gan-cho-quan-hai-ba-trung.html | PUBLISHED | 100 | 0 |  |
 | KN-0148 | cam-nang/kinh-nghiem/kn-0148-chay-xe-sang-cuoi-tuan-quanh-quan-hai-ba-trung.html | PUBLISHED | 100 | 0 |  |
-| KN-0149 | cam-nang/kinh-nghiem/kn-0149-lo-trinh-chay-toi-ven-duong-o-quan-hai-ba-trung.html | PLANNED |  | 0 |  |
+| KN-0149 | cam-nang/kinh-nghiem/kn-0149-lo-trinh-chay-toi-ven-duong-o-quan-hai-ba-trung.html | PUBLISHED | 100 | 0 |  |
 | KN-0150 | cam-nang/kinh-nghiem/kn-0150-do-xe-an-toi-o-quan-hai-ba-trung-nen-chon-dau.html | PLANNED |  | 0 |  |
 | XM-0143 | cam-nang/xe-may/xm-0143-bo-dung-cu-sua-xe-mini-gom-nhung-gi.html | PUBLISHED | 100 | 0 |  |
 | XM-0144 | cam-nang/xe-may/xm-0144-bom-tay-mini-cho-xe-may-dang-mua-khong.html | PUBLISHED | 100 | 0 |  |
