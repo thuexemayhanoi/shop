@@ -3,30 +3,30 @@
   "batch": "BATCH-019",
   "mode": "new",
   "queue": [
-    "CD-0153",
-    "HD-0153"
+    "KN-0154",
+    "AT-0154"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T09:18:06Z",
-  "finished": "2026-10-06T09:18:08Z",
+  "started": "2026-10-06T09:24:17Z",
+  "finished": "2026-10-06T09:24:19Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "CD-0153",
-        "HD-0153"
+        "KN-0154",
+        "AT-0154"
       ],
       "claimed": [
-        "CD-0153",
-        "HD-0153"
+        "KN-0154",
+        "AT-0154"
       ],
       "pass": [
-        "CD-0153",
-        "HD-0153"
+        "KN-0154",
+        "AT-0154"
       ],
       "published": [
-        "CD-0153",
-        "HD-0153"
+        "AT-0154",
+        "KN-0154"
       ],
       "review": [],
       "repair": [],
@@ -37,8 +37,8 @@
   ],
   "published_total": 2,
   "published_ids": [
-    "CD-0153",
-    "HD-0153"
+    "AT-0154",
+    "KN-0154"
   ],
   "recoverable_ids": [],
   "fatal": null
