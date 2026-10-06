@@ -1,10 +1,10 @@
 # Batch report BATCH-019
 
-- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T16:24:19+07:00
+- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T16:29:52+07:00
 - writer: external-agent | batch resolved once: BATCH-019
-- processed: 20 | written: 20 | pass: 0 | published: 20
+- processed: 22 | written: 22 | pass: 0 | published: 22
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.5 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
@@ -30,7 +30,7 @@
 | DL-0151 | cam-nang/du-lich/dl-0151-diem-ngam-hoang-hon-o-ruong-bac-thang-hoang-su-phi-khi-di-xe.html | PUBLISHED | 100 | 0 |  |
 | DL-0152 | cam-nang/du-lich/dl-0152-lo-trinh-di-xe-may-tu-ha-noi-den-bac-ha.html | PUBLISHED | 95 | 0 |  |
 | DL-0153 | cam-nang/du-lich/dl-0153-di-xe-may-den-bac-ha-cuoi-tuan-hay-ngay-thuong.html | PUBLISHED | 96 | 0 |  |
-| DL-0154 | cam-nang/du-lich/dl-0154-quan-an-noi-tieng-gan-bac-ha-cho-khach-di-xe-may.html | PLANNED |  | 0 |  |
+| DL-0154 | cam-nang/du-lich/dl-0154-quan-an-noi-tieng-gan-bac-ha-cho-khach-di-xe-may.html | PUBLISHED | 96 | 0 |  |
 | DL-0155 | cam-nang/du-lich/dl-0155-chup-anh-sang-som-o-bac-ha-co-gi-dep.html | PLANNED |  | 0 |  |
 | DL-0156 | cam-nang/du-lich/dl-0156-di-trong-ngay-den-cho-phien-bac-ha-bang-xe-may-co-dang-khong.html | PLANNED |  | 0 |  |
 | DL-0157 | cam-nang/du-lich/dl-0157-mua-hoa-nao-no-dep-o-cho-phien-bac-ha-khi-di-xe-may.html | PLANNED |  | 0 |  |
@@ -55,7 +55,7 @@
 | XM-0151 | cam-nang/xe-may/xm-0151-thiet-bi-dinh-vi-gan-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | XM-0152 | cam-nang/xe-may/xm-0152-camera-hanh-trinh-gan-tren-mu-bao-hiem.html | PUBLISHED | 100 | 0 |  |
 | XM-0153 | cam-nang/xe-may/xm-0153-de-chong-truot-lot-cop-xe-ga.html | PUBLISHED | 100 | 0 |  |
-| XM-0154 | cam-nang/xe-may/xm-0154-mieng-dan-chong-tray-than-xe.html | PLANNED |  | 0 |  |
+| XM-0154 | cam-nang/xe-may/xm-0154-mieng-dan-chong-tray-than-xe.html | PUBLISHED | 100 | 0 |  |
 | XM-0155 | cam-nang/xe-may/xm-0155-tui-nuoc-chong-mua-dung-dien-thoai.html | PLANNED |  | 0 |  |
 | XM-0156 | cam-nang/xe-may/xm-0156-gia-gac-do-hai-ben-hong-xe-so.html | PLANNED |  | 0 |  |
 | XM-0157 | cam-nang/xe-may/xm-0157-bao-che-yen-xe-chong-nong.html | PLANNED |  | 0 |  |
