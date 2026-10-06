@@ -6,8 +6,8 @@
     "CD-0167"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T20:58:58Z",
-  "finished": "2026-10-06T20:58:59Z",
+  "started": "2026-10-06T21:08:25Z",
+  "finished": "2026-10-06T21:08:26Z",
   "pairs": [
     {
       "pair_index": 1,
@@ -15,19 +15,23 @@
         "CD-0167"
       ],
       "claimed": [],
-      "pass": [],
-      "published": [],
+      "pass": [
+        "CD-0167"
+      ],
+      "published": [
+        "CD-0167"
+      ],
       "review": [],
       "repair": [],
       "blocked": [],
       "publish_rc": 0,
-      "status": "recoverable"
+      "status": "published"
     }
   ],
-  "published_total": 0,
-  "published_ids": [],
-  "recoverable_ids": [
+  "published_total": 1,
+  "published_ids": [
     "CD-0167"
   ],
+  "recoverable_ids": [],
   "fatal": null
 }
