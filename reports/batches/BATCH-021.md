@@ -1,10 +1,10 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T04:28:40+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T04:34:43+07:00
 - writer: external-agent | batch resolved once: BATCH-021
-- processed: 6 | written: 6 | pass: 0 | published: 6
+- processed: 8 | written: 8 | pass: 0 | published: 8
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.7 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -19,7 +19,7 @@
 | AT-0174 | cam-nang/an-toan/at-0174-mu-bao-hiem-nguyen-ven-khac-gi-mu-ba-phan-tu.html | PLANNED |  | 0 |  |
 | AT-0175 | cam-nang/an-toan/at-0175-mu-bao-hiem-dat-chuan-ghi-tem-nao.html | PLANNED |  | 0 |  |
 | CD-0167 | cam-nang/cung-duong/cd-0167-quan-an-ngon-doc-duong-den-sa-pa.html | PUBLISHED | 98 | 0 | newline inside HTML tag |
-| CD-0168 | cam-nang/cung-duong/cd-0168-tuyen-duong-dep-tu-ha-noi-den-bat-trang.html | PLANNED |  | 0 |  |
+| CD-0168 | cam-nang/cung-duong/cd-0168-tuyen-duong-dep-tu-ha-noi-den-bat-trang.html | PUBLISHED | 96 | 0 |  |
 | CD-0169 | cam-nang/cung-duong/cd-0169-trai-nghiem-mot-ngay-o-bat-trang-bang-xe-may.html | PLANNED |  | 0 |  |
 | CD-0170 | cam-nang/cung-duong/cd-0170-tram-dung-nghi-ven-duong-toi-bat-trang.html | PLANNED |  | 0 |  |
 | CD-0171 | cam-nang/cung-duong/cd-0171-ha-noi-den-den-soc-quoc-lo-nao-nen-chon.html | PLANNED |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0174 | cam-nang/du-lich/dl-0174-do-an-vat-duong-pho-o-deo-khau-pha-the-nao.html | PLANNED |  | 0 |  |
 | DL-0175 | cam-nang/du-lich/dl-0175-diem-dung-chup-anh-giua-duong-den-deo-khau-pha.html | PLANNED |  | 0 |  |
 | HD-0167 | cam-nang/hoi-dap/hd-0167-tien-xang-di-tham-chua-huong-het-bao-nhieu.html | PUBLISHED | 100 | 0 |  |
-| HD-0168 | cam-nang/hoi-dap/hd-0168-chi-phi-di-sam-son-2-ngay-bang-xe-may.html | PLANNED |  | 0 |  |
+| HD-0168 | cam-nang/hoi-dap/hd-0168-chi-phi-di-sam-son-2-ngay-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | HD-0169 | cam-nang/hoi-dap/hd-0169-tien-xang-ha-noi-di-tam-dao-khoang-bao-nhieu.html | PLANNED |  | 0 |  |
 | HD-0170 | cam-nang/hoi-dap/hd-0170-chi-phi-vui-choi-o-ho-tay-het-bao-nhieu.html | PLANNED |  | 0 |  |
 | HD-0171 | cam-nang/hoi-dap/hd-0171-tien-xang-di-vong-ha-giang-khoang-bao-nhieu.html | PLANNED |  | 0 |  |
