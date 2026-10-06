@@ -1,10 +1,10 @@
 # Batch report BATCH-019
 
-- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T13:12:30+07:00
+- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T16:06:52+07:00
 - writer: external-agent | batch resolved once: BATCH-019
-- processed: 12 | written: 12 | pass: 0 | published: 12
+- processed: 14 | written: 14 | pass: 0 | published: 14
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.6 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.5 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|
 | AT-0151 | cam-nang/an-toan/at-0151-di-cho-cho-hang-nang-bang-xe-may.html | PUBLISHED | 100 | 0 |  |
 | AT-0152 | cam-nang/an-toan/at-0152-khach-du-lich-mot-minh-thue-xe-o-ha-noi.html | PUBLISHED | 100 | 0 |  |
-| AT-0153 | cam-nang/an-toan/at-0153-cap-doi-di-phuot-tren-hai-xe.html | PLANNED |  | 0 |  |
+| AT-0153 | cam-nang/an-toan/at-0153-cap-doi-di-phuot-tren-hai-xe.html | PUBLISHED | 100 | 0 |  |
 | AT-0154 | cam-nang/an-toan/at-0154-gia-dinh-di-choi-bang-hai-xe.html | PLANNED |  | 0 |  |
 | AT-0155 | cam-nang/an-toan/at-0155-chay-xe-may-khi-dang-doi-bung.html | PLANNED |  | 0 |  |
 | AT-0156 | cam-nang/an-toan/at-0156-nguoi-hay-voi-vang-moi-sang.html | PLANNED |  | 0 |  |
@@ -45,7 +45,7 @@
 | HD-0158 | cam-nang/hoi-dap/hd-0158-chi-phi-di-phuot-2-ngay-quang-ninh-gom-nhung-gi.html | PLANNED |  | 0 |  |
 | KN-0151 | cam-nang/kinh-nghiem/kn-0151-bai-gui-xe-an-toan-gan-cho-quan-long-bien.html | PUBLISHED | 98 | 0 |  |
 | KN-0152 | cam-nang/kinh-nghiem/kn-0152-chay-xe-sang-cuoi-tuan-quanh-quan-long-bien.html | PUBLISHED | 96 | 0 |  |
-| KN-0153 | cam-nang/kinh-nghiem/kn-0153-lo-trinh-chay-toi-ven-duong-o-quan-long-bien.html | PLANNED |  | 0 |  |
+| KN-0153 | cam-nang/kinh-nghiem/kn-0153-lo-trinh-chay-toi-ven-duong-o-quan-long-bien.html | PUBLISHED | 96 | 0 |  |
 | KN-0154 | cam-nang/kinh-nghiem/kn-0154-do-xe-an-toi-o-quan-long-bien-nen-chon-dau.html | PLANNED |  | 0 |  |
 | KN-0155 | cam-nang/kinh-nghiem/kn-0155-chay-xe-may-o-huyen-gia-lam-kinh-nghiem-tranh-tac-duong.html | PLANNED |  | 0 |  |
 | KN-0156 | cam-nang/kinh-nghiem/kn-0156-bai-gui-xe-an-toan-gan-cho-huyen-gia-lam.html | PLANNED |  | 0 |  |
