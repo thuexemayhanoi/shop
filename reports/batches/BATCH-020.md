@@ -1,8 +1,8 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-06T23:44:00+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-06T23:49:03+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 8 | written: 8 | pass: 0 | published: 8
+- processed: 10 | written: 10 | pass: 0 | published: 10
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 97.8 | min 95 | max 99 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -19,7 +19,7 @@
 | AT-0166 | cam-nang/an-toan/at-0166-chay-dem-qua-vung-trau-bo-qua-duong.html | PLANNED |  | 0 |  |
 | AT-0167 | cam-nang/an-toan/at-0167-cuoi-tuan-gap-nhom-xe-chay-dem.html | PLANNED |  | 0 |  |
 | CD-0159 | cam-nang/cung-duong/cd-0159-duong-den-ta-xua-nen-dung-o-dau-de-chup-anh.html | PUBLISHED | 95 | 0 |  |
-| CD-0160 | cam-nang/cung-duong/cd-0160-cung-duong-vong-qua-mu-cang-chai-co-gi-khac.html | PLANNED |  | 0 |  |
+| CD-0160 | cam-nang/cung-duong/cd-0160-cung-duong-vong-qua-mu-cang-chai-co-gi-khac.html | PUBLISHED | 97 | 0 |  |
 | CD-0161 | cam-nang/cung-duong/cd-0161-lich-trinh-mu-cang-chai-danh-cho-nhom-di-phuot.html | PLANNED |  | 0 |  |
 | CD-0162 | cam-nang/cung-duong/cd-0162-diem-dung-trua-tren-duong-di-mu-cang-chai.html | PLANNED |  | 0 |  |
 | CD-0163 | cam-nang/cung-duong/cd-0163-cung-duong-di-xe-may-tu-ha-noi-den-deo-o-quy-ho.html | PLANNED |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0166 | cam-nang/du-lich/dl-0166-mon-gi-dang-mua-ve-tu-ban-ta-van.html | PLANNED |  | 0 |  |
 | DL-0167 | cam-nang/du-lich/dl-0167-goc-view-ven-duong-khi-chay-xe-den-ban-ta-van.html | PLANNED |  | 0 |  |
 | HD-0159 | cam-nang/hoi-dap/hd-0159-tien-pha-cho-xe-may-qua-song-hong-bao-nhieu.html | PUBLISHED | 99 | 0 |  |
-| HD-0160 | cam-nang/hoi-dap/hd-0160-chi-phi-an-uong-khi-di-phuot-mien-nui-khoang-bao-nhieu.html | PLANNED |  | 0 |  |
+| HD-0160 | cam-nang/hoi-dap/hd-0160-chi-phi-an-uong-khi-di-phuot-mien-nui-khoang-bao-nhieu.html | PUBLISHED | 99 | 0 |  |
 | HD-0161 | cam-nang/hoi-dap/hd-0161-len-ke-hoach-chi-phi-cho-nhom-5-xe-di-moc-chau.html | PLANNED |  | 0 |  |
 | HD-0162 | cam-nang/hoi-dap/hd-0162-chi-phi-phat-sinh-khi-xe-thue-thung-sam-gom-gi.html | PLANNED |  | 0 |  |
 | HD-0163 | cam-nang/hoi-dap/hd-0163-tien-xang-tu-ha-noi-di-pu-luong-khoang-bao-nhieu.html | PLANNED |  | 0 |  |
