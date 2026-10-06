@@ -1,10 +1,10 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T04:38:40+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T04:44:42+07:00
 - writer: external-agent | batch resolved once: BATCH-021
-- processed: 10 | written: 10 | pass: 0 | published: 10
+- processed: 12 | written: 12 | pass: 0 | published: 12
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.4 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
@@ -28,7 +28,7 @@
 | CD-0174 | cam-nang/cung-duong/cd-0174-cung-duong-ha-noi-chua-bai-dinh-cho-nguoi-moi.html | PLANNED |  | 0 |  |
 | CD-0175 | cam-nang/cung-duong/cd-0175-nghi-dem-o-chua-bai-dinh-khi-di-xe-may-chon-dau.html | PLANNED |  | 0 |  |
 | DL-0168 | cam-nang/du-lich/dl-0168-chuyen-cuoi-tuan-den-mu-cang-chai-bang-xe-may.html | PUBLISHED | 98 | 0 |  |
-| DL-0169 | cam-nang/du-lich/dl-0169-sang-som-hay-chieu-muon-den-mu-cang-chai-dep-hon.html | PLANNED |  | 0 |  |
+| DL-0169 | cam-nang/du-lich/dl-0169-sang-som-hay-chieu-muon-den-mu-cang-chai-dep-hon.html | PUBLISHED | 98 | 0 |  |
 | DL-0170 | cam-nang/du-lich/dl-0170-quan-an-gan-bai-xe-o-mu-cang-chai.html | PLANNED |  | 0 |  |
 | DL-0171 | cam-nang/du-lich/dl-0171-chup-anh-doan-xe-o-mu-cang-chai-o-dau-dep.html | PLANNED |  | 0 |  |
 | DL-0172 | cam-nang/du-lich/dl-0172-di-xe-may-den-deo-khau-pha-co-kho-tim-duong-khong.html | PLANNED |  | 0 |  |
@@ -53,7 +53,7 @@
 | KN-0174 | cam-nang/kinh-nghiem/kn-0174-do-xe-an-toi-o-huyen-soc-son-nen-chon-dau.html | PLANNED |  | 0 |  |
 | KN-0175 | cam-nang/kinh-nghiem/kn-0175-bai-gui-xe-an-toan-gan-cho-huyen-me-linh.html | PLANNED |  | 0 |  |
 | XM-0168 | cam-nang/xe-may/xm-0168-tim-diem-sac-khi-di-xe-may-dien-xa.html | PUBLISHED | 100 | 0 |  |
-| XM-0169 | cam-nang/xe-may/xm-0169-tuoi-tho-ac-quy-xe-may-dien.html | PLANNED |  | 0 |  |
+| XM-0169 | cam-nang/xe-may/xm-0169-tuoi-tho-ac-quy-xe-may-dien.html | PUBLISHED | 100 | 0 |  |
 | XM-0170 | cam-nang/xe-may/xm-0170-an-toan-ac-quy-xe-may-dien-khi-troi-nong.html | PLANNED |  | 0 |  |
 | XM-0171 | cam-nang/xe-may/xm-0171-xe-may-dien-chay-duong-deo-co-on-khong.html | PLANNED |  | 0 |  |
 | XM-0172 | cam-nang/xe-may/xm-0172-xe-may-dien-bi-ngap-nuoc-nguy-co-gi.html | PLANNED |  | 0 |  |
