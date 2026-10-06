@@ -1,10 +1,10 @@
 # Batch report BATCH-019
 
-- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T23:11:44+07:00
+- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T23:17:39+07:00
 - writer: external-agent | batch resolved once: BATCH-019
-- processed: 48 | written: 48 | pass: 0 | published: 48
+- processed: 50 | written: 50 | pass: 0 | published: 50
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 97.3 | min 84 | max 100 | repair_count: 0
+- scores: avg 97.2 | min 84 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
@@ -18,7 +18,7 @@
 | AT-0156 | cam-nang/an-toan/at-0156-nguoi-hay-voi-vang-moi-sang.html | PUBLISHED | 87 | 0 |  |
 | AT-0157 | cam-nang/an-toan/at-0157-nguoi-de-mat-tap-trung-khi-lai-xe.html | PUBLISHED | 100 | 0 |  |
 | AT-0158 | cam-nang/an-toan/at-0158-chay-dem-nen-mac-do-mau-gi.html | PUBLISHED | 100 | 0 |  |
-| AT-0159 | cam-nang/an-toan/at-0159-den-hau-xe-may-mo-nguy-co-the-nao.html | PLANNED |  | 0 |  |
+| AT-0159 | cam-nang/an-toan/at-0159-den-hau-xe-may-mo-nguy-co-the-nao.html | PUBLISHED | 99 | 0 |  |
 | CD-0151 | cam-nang/cung-duong/cd-0151-chay-xe-may-tu-ha-noi-ra-cho-phien-dong-van-nen-di-luc-nao.html | PUBLISHED | 98 | 0 |  |
 | CD-0152 | cam-nang/cung-duong/cd-0152-lich-trinh-chi-tiet-cho-chuyen-cho-phien-dong-van-bang-xe-ma.html | PUBLISHED | 97 | 0 |  |
 | CD-0153 | cam-nang/cung-duong/cd-0153-quan-ca-phe-dung-chan-tren-duong-cho-phien-dong-van.html | PUBLISHED | 99 | 0 |  |
@@ -51,7 +51,7 @@
 | KN-0156 | cam-nang/kinh-nghiem/kn-0156-bai-gui-xe-an-toan-gan-cho-huyen-gia-lam.html | PUBLISHED | 96 | 0 |  |
 | KN-0157 | cam-nang/kinh-nghiem/kn-0157-chay-xe-sang-cuoi-tuan-quanh-huyen-gia-lam.html | PUBLISHED | 96 | 0 |  |
 | KN-0158 | cam-nang/kinh-nghiem/kn-0158-lo-trinh-chay-toi-ven-duong-o-huyen-gia-lam.html | PUBLISHED | 95 | 0 |  |
-| KN-0159 | cam-nang/kinh-nghiem/kn-0159-do-xe-an-toi-o-huyen-gia-lam-nen-chon-dau.html | PLANNED |  | 0 |  |
+| KN-0159 | cam-nang/kinh-nghiem/kn-0159-do-xe-an-toi-o-huyen-gia-lam-nen-chon-dau.html | PUBLISHED | 95 | 0 |  |
 | XM-0151 | cam-nang/xe-may/xm-0151-thiet-bi-dinh-vi-gan-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
 | XM-0152 | cam-nang/xe-may/xm-0152-camera-hanh-trinh-gan-tren-mu-bao-hiem.html | PUBLISHED | 100 | 0 |  |
 | XM-0153 | cam-nang/xe-may/xm-0153-de-chong-truot-lot-cop-xe-ga.html | PUBLISHED | 100 | 0 |  |
