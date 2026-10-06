@@ -1,10 +1,10 @@
 # Batch report BATCH-019
 
-- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T19:00:24+07:00
+- started_at: 2026-10-06T12:51:55+07:00 | finished_at: 2026-10-06T19:30:10+07:00
 - writer: external-agent | batch resolved once: BATCH-019
-- processed: 36 | written: 36 | pass: 0 | published: 36
+- processed: 38 | written: 38 | pass: 0 | published: 38
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 96.9 | min 84 | max 100 | repair_count: 0
+- scores: avg 97 | min 84 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
@@ -16,7 +16,7 @@
 | AT-0154 | cam-nang/an-toan/at-0154-gia-dinh-di-choi-bang-hai-xe.html | PUBLISHED | 100 | 0 |  |
 | AT-0155 | cam-nang/an-toan/at-0155-chay-xe-may-khi-dang-doi-bung.html | PUBLISHED | 100 | 0 |  |
 | AT-0156 | cam-nang/an-toan/at-0156-nguoi-hay-voi-vang-moi-sang.html | PUBLISHED | 87 | 0 |  |
-| AT-0157 | cam-nang/an-toan/at-0157-nguoi-de-mat-tap-trung-khi-lai-xe.html | PLANNED |  | 0 |  |
+| AT-0157 | cam-nang/an-toan/at-0157-nguoi-de-mat-tap-trung-khi-lai-xe.html | PUBLISHED | 100 | 0 |  |
 | AT-0158 | cam-nang/an-toan/at-0158-chay-dem-nen-mac-do-mau-gi.html | PLANNED |  | 0 |  |
 | AT-0159 | cam-nang/an-toan/at-0159-den-hau-xe-may-mo-nguy-co-the-nao.html | PLANNED |  | 0 |  |
 | CD-0151 | cam-nang/cung-duong/cd-0151-chay-xe-may-tu-ha-noi-ra-cho-phien-dong-van-nen-di-luc-nao.html | PUBLISHED | 98 | 0 |  |
@@ -49,7 +49,7 @@
 | KN-0154 | cam-nang/kinh-nghiem/kn-0154-do-xe-an-toi-o-quan-long-bien-nen-chon-dau.html | PUBLISHED | 95 | 0 |  |
 | KN-0155 | cam-nang/kinh-nghiem/kn-0155-chay-xe-may-o-huyen-gia-lam-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 84 | 0 |  |
 | KN-0156 | cam-nang/kinh-nghiem/kn-0156-bai-gui-xe-an-toan-gan-cho-huyen-gia-lam.html | PUBLISHED | 96 | 0 |  |
-| KN-0157 | cam-nang/kinh-nghiem/kn-0157-chay-xe-sang-cuoi-tuan-quanh-huyen-gia-lam.html | PLANNED |  | 0 |  |
+| KN-0157 | cam-nang/kinh-nghiem/kn-0157-chay-xe-sang-cuoi-tuan-quanh-huyen-gia-lam.html | PUBLISHED | 96 | 0 |  |
 | KN-0158 | cam-nang/kinh-nghiem/kn-0158-lo-trinh-chay-toi-ven-duong-o-huyen-gia-lam.html | PLANNED |  | 0 |  |
 | KN-0159 | cam-nang/kinh-nghiem/kn-0159-do-xe-an-toi-o-huyen-gia-lam-nen-chon-dau.html | PLANNED |  | 0 |  |
 | XM-0151 | cam-nang/xe-may/xm-0151-thiet-bi-dinh-vi-gan-cho-xe-may.html | PUBLISHED | 100 | 0 |  |
