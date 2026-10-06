@@ -3,25 +3,25 @@
   "batch": "BATCH-020",
   "mode": "new",
   "queue": [
-    "XM-0166"
+    "DL-0166"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T20:03:43Z",
-  "finished": "2026-10-06T20:03:45Z",
+  "started": "2026-10-06T20:04:33Z",
+  "finished": "2026-10-06T20:04:36Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "XM-0166"
+        "DL-0166"
       ],
       "claimed": [
-        "XM-0166"
+        "DL-0166"
       ],
       "pass": [
-        "XM-0166"
+        "DL-0166"
       ],
       "published": [
-        "XM-0166"
+        "DL-0166"
       ],
       "review": [],
       "repair": [],
@@ -32,7 +32,7 @@
   ],
   "published_total": 1,
   "published_ids": [
-    "XM-0166"
+    "DL-0166"
   ],
   "recoverable_ids": [],
   "fatal": null
