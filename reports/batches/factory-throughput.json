@@ -179,16 +179,16 @@
     },
     "BATCH-020": {
       "articles_written": 0,
-      "articles_qa_checked": 34,
-      "articles_published": 34,
+      "articles_qa_checked": 36,
+      "articles_published": 36,
       "chunks_completed": 0,
-      "publish_operations": 17,
+      "publish_operations": 18,
       "repair_count": 0,
-      "qa_score_sum": 3343,
-      "qa_score_count": 34,
+      "qa_score_sum": 3538,
+      "qa_score_count": 36,
       "average_qa_score": 98.3
     }
   },
-  "updated_at": "2026-10-06T17:57:10",
+  "updated_at": "2026-10-06T18:02:42",
   "note": "Cumulative throughput counters for chunked writer mode. Every counter is incremented only by deterministic tooling (run_article_batch.py --qa/--chunk-complete, factory.mjs --publish) with the exact number of rows it verified. Historical per-article runs before chunked mode are NOT backfilled — measurement starts from the chunked orchestration commit. No estimated numbers are ever written; effective_articles_per_hour is derived by the operator from elapsed wall time, never fabricated here."
 }
