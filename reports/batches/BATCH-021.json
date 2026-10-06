@@ -1,0 +1,527 @@
+{
+  "batch_id": "BATCH-021",
+  "started_at": "2026-10-07T03:20:43+07:00",
+  "finished_at": "2026-10-07T03:20:43+07:00",
+  "writer": "external-agent",
+  "processed": 1,
+  "written": 1,
+  "pass": 0,
+  "published": 0,
+  "writing": 0,
+  "review": 0,
+  "repair": 0,
+  "fail": 1,
+  "blocked": 0,
+  "average_score": 98,
+  "min_score": 98,
+  "max_score": 98,
+  "repair_count": 0,
+  "source_gate_pass": 0,
+  "source_gate_blocked": 0,
+  "published_commit_sha": null,
+  "pass_publishable_now": 0,
+  "articles": [
+    {
+      "article_id": "AT-0168",
+      "output_path": "cam-nang/an-toan/at-0168-chay-dem-qua-khu-vui-choi-dong-nguoi.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0169",
+      "output_path": "cam-nang/an-toan/at-0169-den-pin-gan-mu-bao-hiem-co-an-toan-khong.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0170",
+      "output_path": "cam-nang/an-toan/at-0170-den-hau-dinh-bun-ve-sinh-dinh-ky.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0171",
+      "output_path": "cam-nang/an-toan/at-0171-chay-dem-khi-mat-moi-cuoi-ngay.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0172",
+      "output_path": "cam-nang/an-toan/at-0172-chay-dem-tranh-quan-coc-sang-den-choi.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0173",
+      "output_path": "cam-nang/an-toan/at-0173-chon-mu-bao-hiem-dung-co-dau.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0174",
+      "output_path": "cam-nang/an-toan/at-0174-mu-bao-hiem-nguyen-ven-khac-gi-mu-ba-phan-tu.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "AT-0175",
+      "output_path": "cam-nang/an-toan/at-0175-mu-bao-hiem-dat-chuan-ghi-tem-nao.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0167",
+      "output_path": "cam-nang/cung-duong/cd-0167-quan-an-ngon-doc-duong-den-sa-pa.html",
+      "outcome": "FAIL",
+      "score": 98,
+      "repair_attempts": 0,
+      "quality_failures": [
+        "newline inside HTML tag"
+      ],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0168",
+      "output_path": "cam-nang/cung-duong/cd-0168-tuyen-duong-dep-tu-ha-noi-den-bat-trang.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0169",
+      "output_path": "cam-nang/cung-duong/cd-0169-trai-nghiem-mot-ngay-o-bat-trang-bang-xe-may.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0170",
+      "output_path": "cam-nang/cung-duong/cd-0170-tram-dung-nghi-ven-duong-toi-bat-trang.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0171",
+      "output_path": "cam-nang/cung-duong/cd-0171-ha-noi-den-den-soc-quoc-lo-nao-nen-chon.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0172",
+      "output_path": "cam-nang/cung-duong/cd-0172-hai-ngay-o-den-soc-lich-trinh-goi-y-cho-nguoi-di-xe.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0173",
+      "output_path": "cam-nang/cung-duong/cd-0173-cho-ngam-canh-giua-duong-den-den-soc.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0174",
+      "output_path": "cam-nang/cung-duong/cd-0174-cung-duong-ha-noi-chua-bai-dinh-cho-nguoi-moi.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "CD-0175",
+      "output_path": "cam-nang/cung-duong/cd-0175-nghi-dem-o-chua-bai-dinh-khi-di-xe-may-chon-dau.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0168",
+      "output_path": "cam-nang/du-lich/dl-0168-chuyen-cuoi-tuan-den-mu-cang-chai-bang-xe-may.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0169",
+      "output_path": "cam-nang/du-lich/dl-0169-sang-som-hay-chieu-muon-den-mu-cang-chai-dep-hon.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0170",
+      "output_path": "cam-nang/du-lich/dl-0170-quan-an-gan-bai-xe-o-mu-cang-chai.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0171",
+      "output_path": "cam-nang/du-lich/dl-0171-chup-anh-doan-xe-o-mu-cang-chai-o-dau-dep.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0172",
+      "output_path": "cam-nang/du-lich/dl-0172-di-xe-may-den-deo-khau-pha-co-kho-tim-duong-khong.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0173",
+      "output_path": "cam-nang/du-lich/dl-0173-dip-le-den-deo-khau-pha-co-dong-nguoi-khong.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0174",
+      "output_path": "cam-nang/du-lich/dl-0174-do-an-vat-duong-pho-o-deo-khau-pha-the-nao.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "DL-0175",
+      "output_path": "cam-nang/du-lich/dl-0175-diem-dung-chup-anh-giua-duong-den-deo-khau-pha.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0167",
+      "output_path": "cam-nang/hoi-dap/hd-0167-tien-xang-di-tham-chua-huong-het-bao-nhieu.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0168",
+      "output_path": "cam-nang/hoi-dap/hd-0168-chi-phi-di-sam-son-2-ngay-bang-xe-may.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0169",
+      "output_path": "cam-nang/hoi-dap/hd-0169-tien-xang-ha-noi-di-tam-dao-khoang-bao-nhieu.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0170",
+      "output_path": "cam-nang/hoi-dap/hd-0170-chi-phi-vui-choi-o-ho-tay-het-bao-nhieu.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0171",
+      "output_path": "cam-nang/hoi-dap/hd-0171-tien-xang-di-vong-ha-giang-khoang-bao-nhieu.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0172",
+      "output_path": "cam-nang/hoi-dap/hd-0172-chi-phi-an-o-bac-ha-ngay-cho-phien.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0173",
+      "output_path": "cam-nang/hoi-dap/hd-0173-tien-xang-tu-ha-noi-di-ba-be-khoang-bao-nhieu.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0174",
+      "output_path": "cam-nang/hoi-dap/hd-0174-chi-phi-cho-chuyen-di-cat-ba-can-gui-xe-khong.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "HD-0175",
+      "output_path": "cam-nang/hoi-dap/hd-0175-len-ngan-sach-du-phong-khi-di-phuot-the-nao.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0168",
+      "output_path": "cam-nang/kinh-nghiem/kn-0168-lo-trinh-chay-toi-ven-duong-o-huyen-thanh-tri.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0169",
+      "output_path": "cam-nang/kinh-nghiem/kn-0169-do-xe-an-toi-o-huyen-thanh-tri-nen-chon-dau.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0170",
+      "output_path": "cam-nang/kinh-nghiem/kn-0170-chay-xe-may-o-huyen-soc-son-kinh-nghiem-tranh-tac-duong.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0171",
+      "output_path": "cam-nang/kinh-nghiem/kn-0171-bai-gui-xe-an-toan-gan-cho-huyen-soc-son.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0172",
+      "output_path": "cam-nang/kinh-nghiem/kn-0172-chay-xe-sang-cuoi-tuan-quanh-huyen-soc-son.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0173",
+      "output_path": "cam-nang/kinh-nghiem/kn-0173-lo-trinh-chay-toi-ven-duong-o-huyen-soc-son.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0174",
+      "output_path": "cam-nang/kinh-nghiem/kn-0174-do-xe-an-toi-o-huyen-soc-son-nen-chon-dau.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "KN-0175",
+      "output_path": "cam-nang/kinh-nghiem/kn-0175-bai-gui-xe-an-toan-gan-cho-huyen-me-linh.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0168",
+      "output_path": "cam-nang/xe-may/xm-0168-tim-diem-sac-khi-di-xe-may-dien-xa.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0169",
+      "output_path": "cam-nang/xe-may/xm-0169-tuoi-tho-ac-quy-xe-may-dien.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0170",
+      "output_path": "cam-nang/xe-may/xm-0170-an-toan-ac-quy-xe-may-dien-khi-troi-nong.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0171",
+      "output_path": "cam-nang/xe-may/xm-0171-xe-may-dien-chay-duong-deo-co-on-khong.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0172",
+      "output_path": "cam-nang/xe-may/xm-0172-xe-may-dien-bi-ngap-nuoc-nguy-co-gi.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0173",
+      "output_path": "cam-nang/xe-may/xm-0173-bao-quan-xe-may-dien-mua-mua.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0174",
+      "output_path": "cam-nang/xe-may/xm-0174-xe-may-dien-keu-re-re-o-banh-xe.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    },
+    {
+      "article_id": "XM-0175",
+      "output_path": "cam-nang/xe-may/xm-0175-xe-may-dien-de-yeu-dan-kiem-tra-dau.html",
+      "outcome": "PLANNED",
+      "score": null,
+      "repair_attempts": 0,
+      "quality_failures": [],
+      "cannibalization_failures": [],
+      "cannibalization_warnings": []
+    }
+  ]
+}
