@@ -1,2 +1,2 @@
-cam-nang/kinh-nghiem/kn-0161-bai-gui-xe-an-toan-gan-cho-tu-liem.html
-cam-nang/an-toan/at-0161-chay-dem-khi-den-xe-doi-dien-choi.html
+cam-nang/xe-may/xm-0161-binh-giu-nhiet-gan-tren-xe-co-an-toan-khong.html
+cam-nang/du-lich/dl-0161-troi-mua-co-dang-di-sa-pa-bang-xe-may-khong.html
