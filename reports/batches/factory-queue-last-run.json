@@ -3,25 +3,25 @@
   "batch": "BATCH-020",
   "mode": "new",
   "queue": [
-    "AT-0166"
+    "XM-0166"
   ],
   "pair_size": 2,
-  "started": "2026-10-06T19:59:20Z",
-  "finished": "2026-10-06T19:59:22Z",
+  "started": "2026-10-06T20:03:43Z",
+  "finished": "2026-10-06T20:03:45Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "AT-0166"
+        "XM-0166"
       ],
       "claimed": [
-        "AT-0166"
+        "XM-0166"
       ],
       "pass": [
-        "AT-0166"
+        "XM-0166"
       ],
       "published": [
-        "AT-0166"
+        "XM-0166"
       ],
       "review": [],
       "repair": [],
@@ -32,7 +32,7 @@
   ],
   "published_total": 1,
   "published_ids": [
-    "AT-0166"
+    "XM-0166"
   ],
   "recoverable_ids": [],
   "fatal": null

@@ -1,10 +1,10 @@
 # Batch report BATCH-020
 
-- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T02:59:22+07:00
+- started_at: 2026-10-06T23:24:29+07:00 | finished_at: 2026-10-07T03:03:45+07:00
 - writer: external-agent | batch resolved once: BATCH-020
-- processed: 42 | written: 42 | pass: 0 | published: 42
+- processed: 43 | written: 43 | pass: 0 | published: 43
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98 | min 88 | max 100 | repair_count: 0
+- scores: avg 98.1 | min 88 | max 100 | repair_count: 0
 - source_gate: pass 3 | blocked 0
 - published_commit_sha: null
 
@@ -58,5 +58,5 @@
 | XM-0163 | cam-nang/xe-may/xm-0163-non-bao-hiem-gan-them-kinh-roi.html | PUBLISHED | 100 | 0 |  |
 | XM-0164 | cam-nang/xe-may/xm-0164-tui-chuyen-dung-dung-mu-bao-hiem-khi-xuong-xe.html | PUBLISHED | 100 | 0 |  |
 | XM-0165 | cam-nang/xe-may/xm-0165-gia-sac-dien-thoai-gan-tren-xe-ga.html | PUBLISHED | 100 | 0 |  |
-| XM-0166 | cam-nang/xe-may/xm-0166-xe-may-dien-sac-day-chay-duoc-bao-xa.html | PLANNED |  | 0 |  |
+| XM-0166 | cam-nang/xe-may/xm-0166-xe-may-dien-sac-day-chay-duoc-bao-xa.html | PUBLISHED | 100 | 0 |  |
 | XM-0167 | cam-nang/xe-may/xm-0167-sac-ac-quy-xe-may-dien-dung-cach.html | PLANNED |  | 0 |  |
