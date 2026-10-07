@@ -1,10 +1,10 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:19:54+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:34:37+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 22 | written: 22 | pass: 0 | published: 22
+- processed: 24 | written: 24 | pass: 0 | published: 24
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
@@ -26,7 +26,7 @@
 | CD-0180 | cam-nang/cung-duong/cd-0180-cung-duong-ngam-canh-tu-ha-noi-len-den-tran-nam-dinh.html | PLANNED |  | 0 |  |
 | CD-0181 | cam-nang/cung-duong/cd-0181-mot-ngay-mot-dem-o-den-tran-nam-dinh-co-du-khong.html | PLANNED |  | 0 |  |
 | CD-0182 | cam-nang/cung-duong/cd-0182-diem-check-in-doc-cung-duong-den-den-tran-nam-dinh.html | PLANNED |  | 0 |  |
-| CD-0183 | cam-nang/cung-duong/cd-0183-duong-tu-ha-noi-vao-bien-do-son-doan-nao-kho-di.html | PLANNED |  | 0 |  |
+| CD-0183 | cam-nang/cung-duong/cd-0183-duong-tu-ha-noi-vao-bien-do-son-doan-nao-kho-di.html | PUBLISHED | 95 | 0 |  |
 | DL-0176 | cam-nang/du-lich/dl-0176-trai-nghiem-mot-ngay-o-y-ty-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
 | DL-0177 | cam-nang/du-lich/dl-0177-thang-nang-gat-co-nen-di-y-ty-bang-xe-may-khong.html | PUBLISHED | 96 | 0 |  |
 | DL-0178 | cam-nang/du-lich/dl-0178-quan-ngon-gia-binh-dan-o-y-ty.html | PUBLISHED | 97 | 0 |  |
@@ -42,7 +42,7 @@
 | HD-0180 | cam-nang/hoi-dap/hd-0180-mang-theo-do-an-khi-di-phuot-nen-chon-gi.html | PLANNED |  | 0 |  |
 | HD-0181 | cam-nang/hoi-dap/hd-0181-uong-nuoc-tren-xe-may-luc-nao-duoc.html | PLANNED |  | 0 |  |
 | HD-0182 | cam-nang/hoi-dap/hd-0182-su-dung-tai-nghe-khi-chay-xe-may-co-an-toan-khong.html | PLANNED |  | 0 |  |
-| HD-0183 | cam-nang/hoi-dap/hd-0183-nghe-chi-dan-re-tren-ung-dung-khi-dang-chay-xe.html | PLANNED |  | 0 |  |
+| HD-0183 | cam-nang/hoi-dap/hd-0183-nghe-chi-dan-re-tren-ung-dung-khi-dang-chay-xe.html | PUBLISHED | 100 | 0 |  |
 | KN-0176 | cam-nang/kinh-nghiem/kn-0176-chay-xe-sang-cuoi-tuan-quanh-huyen-me-linh.html | PUBLISHED | 96 | 0 |  |
 | KN-0177 | cam-nang/kinh-nghiem/kn-0177-lo-trinh-chay-toi-ven-duong-o-huyen-me-linh.html | PUBLISHED | 96 | 0 |  |
 | KN-0178 | cam-nang/kinh-nghiem/kn-0178-do-xe-an-toi-o-huyen-me-linh-nen-chon-dau.html | PUBLISHED | 96 | 0 |  |
