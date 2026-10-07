@@ -1,45 +1,42 @@
 {
   "schema_version": "1",
-  "batch": "BATCH-021",
+  "batch": "BATCH-022",
   "mode": "new",
   "queue": [
-    "CD-0175",
-    "HD-0175"
+    "KN-0176",
+    "AT-0176"
   ],
   "pair_size": 2,
-  "started": "2026-10-07T07:05:00Z",
-  "finished": "2026-10-07T07:05:01Z",
+  "started": "2026-10-07T07:14:31Z",
+  "finished": "2026-10-07T07:14:32Z",
   "pairs": [
     {
       "pair_index": 1,
       "ids": [
-        "CD-0175",
-        "HD-0175"
+        "KN-0176",
+        "AT-0176"
       ],
       "claimed": [
-        "CD-0175",
-        "HD-0175"
+        "KN-0176",
+        "AT-0176"
       ],
-      "pass": [
-        "CD-0175",
-        "HD-0175"
-      ],
-      "published": [
-        "CD-0175",
-        "HD-0175"
-      ],
+      "pass": [],
+      "published": [],
       "review": [],
-      "repair": [],
+      "repair": [
+        "KN-0176",
+        "AT-0176"
+      ],
       "blocked": [],
       "publish_rc": 0,
-      "status": "published"
+      "status": "recoverable"
     }
   ],
-  "published_total": 2,
-  "published_ids": [
-    "CD-0175",
-    "HD-0175"
+  "published_total": 0,
+  "published_ids": [],
+  "recoverable_ids": [
+    "AT-0176",
+    "KN-0176"
   ],
-  "recoverable_ids": [],
   "fatal": null
 }
