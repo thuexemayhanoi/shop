@@ -1,11 +1,11 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T13:02:12+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T13:08:18+07:00
 - writer: external-agent | batch resolved once: BATCH-021
-- processed: 32 | written: 32 | pass: 0 | published: 32
+- processed: 34 | written: 34 | pass: 0 | published: 34
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 1 | blocked 0
+- scores: avg 98.4 | min 96 | max 100 | repair_count: 0
+- source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -15,7 +15,7 @@
 | AT-0170 | cam-nang/an-toan/at-0170-den-hau-dinh-bun-ve-sinh-dinh-ky.html | PUBLISHED | 100 | 0 |  |
 | AT-0171 | cam-nang/an-toan/at-0171-chay-dem-khi-mat-moi-cuoi-ngay.html | PUBLISHED | 100 | 0 |  |
 | AT-0172 | cam-nang/an-toan/at-0172-chay-dem-tranh-quan-coc-sang-den-choi.html | PUBLISHED | 100 | 0 | word broken across newline: 'e\nmbed'; newline inside HTML tag |
-| AT-0173 | cam-nang/an-toan/at-0173-chon-mu-bao-hiem-dung-co-dau.html | PLANNED |  | 0 |  |
+| AT-0173 | cam-nang/an-toan/at-0173-chon-mu-bao-hiem-dung-co-dau.html | PUBLISHED | 100 | 0 |  |
 | AT-0174 | cam-nang/an-toan/at-0174-mu-bao-hiem-nguyen-ven-khac-gi-mu-ba-phan-tu.html | PLANNED |  | 0 |  |
 | AT-0175 | cam-nang/an-toan/at-0175-mu-bao-hiem-dat-chuan-ghi-tem-nao.html | PLANNED |  | 0 |  |
 | CD-0167 | cam-nang/cung-duong/cd-0167-quan-an-ngon-doc-duong-den-sa-pa.html | PUBLISHED | 98 | 0 | newline inside HTML tag |
@@ -49,7 +49,7 @@
 | KN-0170 | cam-nang/kinh-nghiem/kn-0170-chay-xe-may-o-huyen-soc-son-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 96 | 0 |  |
 | KN-0171 | cam-nang/kinh-nghiem/kn-0171-bai-gui-xe-an-toan-gan-cho-huyen-soc-son.html | PUBLISHED | 96 | 0 |  |
 | KN-0172 | cam-nang/kinh-nghiem/kn-0172-chay-xe-sang-cuoi-tuan-quanh-huyen-soc-son.html | PUBLISHED | 96 | 0 |  |
-| KN-0173 | cam-nang/kinh-nghiem/kn-0173-lo-trinh-chay-toi-ven-duong-o-huyen-soc-son.html | PLANNED |  | 0 |  |
+| KN-0173 | cam-nang/kinh-nghiem/kn-0173-lo-trinh-chay-toi-ven-duong-o-huyen-soc-son.html | PUBLISHED | 96 | 0 |  |
 | KN-0174 | cam-nang/kinh-nghiem/kn-0174-do-xe-an-toi-o-huyen-soc-son-nen-chon-dau.html | PLANNED |  | 0 |  |
 | KN-0175 | cam-nang/kinh-nghiem/kn-0175-bai-gui-xe-an-toan-gan-cho-huyen-me-linh.html | PLANNED |  | 0 |  |
 | XM-0168 | cam-nang/xe-may/xm-0168-tim-diem-sac-khi-di-xe-may-dien-xa.html | PUBLISHED | 100 | 0 |  |
