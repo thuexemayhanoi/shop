@@ -1,10 +1,10 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T14:54:52+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T15:05:07+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 10 | written: 10 | pass: 0 | published: 10
+- processed: 12 | written: 12 | pass: 0 | published: 12
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.4 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.7 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -20,7 +20,7 @@
 | AT-0183 | cam-nang/an-toan/at-0183-day-mu-bao-hiem-long-tu-siet-duoc-khong.html | PLANNED |  | 0 |  |
 | AT-0184 | cam-nang/an-toan/at-0184-lop-lot-mu-bao-hiem-co-giat-duoc-khong.html | PLANNED |  | 0 |  |
 | CD-0176 | cam-nang/cung-duong/cd-0176-bai-do-an-toan-doc-duong-di-chua-bai-dinh.html | PUBLISHED | 100 | 0 |  |
-| CD-0177 | cam-nang/cung-duong/cd-0177-chay-xe-may-tu-ha-noi-ra-tam-coc-bich-dong-nen-di-luc-nao.html | PLANNED |  | 0 |  |
+| CD-0177 | cam-nang/cung-duong/cd-0177-chay-xe-may-tu-ha-noi-ra-tam-coc-bich-dong-nen-di-luc-nao.html | PUBLISHED | 100 | 0 |  |
 | CD-0178 | cam-nang/cung-duong/cd-0178-lich-trinh-chi-tiet-cho-chuyen-tam-coc-bich-dong-bang-xe-may.html | PLANNED |  | 0 |  |
 | CD-0179 | cam-nang/cung-duong/cd-0179-quan-ca-phe-dung-chan-tren-duong-tam-coc-bich-dong.html | PLANNED |  | 0 |  |
 | CD-0180 | cam-nang/cung-duong/cd-0180-cung-duong-ngam-canh-tu-ha-noi-len-den-tran-nam-dinh.html | PLANNED |  | 0 |  |
@@ -36,7 +36,7 @@
 | DL-0182 | cam-nang/du-lich/dl-0182-bua-trua-ngon-doc-duong-den-ta-xua.html | PLANNED |  | 0 |  |
 | DL-0183 | cam-nang/du-lich/dl-0183-chup-dem-o-ta-xua-co-dep-khong.html | PLANNED |  | 0 |  |
 | HD-0176 | cam-nang/hoi-dap/hd-0176-sac-dien-thoai-khi-di-phuot-o-dau.html | PUBLISHED | 100 | 0 |  |
-| HD-0177 | cam-nang/hoi-dap/hd-0177-tim-tram-xang-tren-quoc-lo-khi-het-xang.html | PLANNED |  | 0 |  |
+| HD-0177 | cam-nang/hoi-dap/hd-0177-tim-tram-xang-tren-quoc-lo-khi-het-xang.html | PUBLISHED | 100 | 0 |  |
 | HD-0178 | cam-nang/hoi-dap/hd-0178-chay-xe-may-di-mua-nen-che-balo-bang-gi.html | PLANNED |  | 0 |  |
 | HD-0179 | cam-nang/hoi-dap/hd-0179-giu-balo-khi-chay-xe-may-an-toan.html | PLANNED |  | 0 |  |
 | HD-0180 | cam-nang/hoi-dap/hd-0180-mang-theo-do-an-khi-di-phuot-nen-chon-gi.html | PLANNED |  | 0 |  |
