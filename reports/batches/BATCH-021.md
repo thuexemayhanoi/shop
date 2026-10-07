@@ -1,10 +1,10 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T12:50:12+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T12:56:03+07:00
 - writer: external-agent | batch resolved once: BATCH-021
-- processed: 30 | written: 30 | pass: 0 | published: 30
-- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
+- processed: 32 | written: 32 | pass: 0 | published: 31
+- writing: 0 | review: 0 | repair: 1 | fail: 0 | blocked: 0
+- scores: avg 98.4 | min 93 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
@@ -23,7 +23,7 @@
 | CD-0169 | cam-nang/cung-duong/cd-0169-trai-nghiem-mot-ngay-o-bat-trang-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
 | CD-0170 | cam-nang/cung-duong/cd-0170-tram-dung-nghi-ven-duong-toi-bat-trang.html | PUBLISHED | 98 | 0 |  |
 | CD-0171 | cam-nang/cung-duong/cd-0171-ha-noi-den-den-soc-quoc-lo-nao-nen-chon.html | PUBLISHED | 96 | 0 |  |
-| CD-0172 | cam-nang/cung-duong/cd-0172-hai-ngay-o-den-soc-lich-trinh-goi-y-cho-nguoi-di-xe.html | PLANNED |  | 0 |  |
+| CD-0172 | cam-nang/cung-duong/cd-0172-hai-ngay-o-den-soc-lich-trinh-goi-y-cho-nguoi-di-xe.html | REPAIR | 93 | 0 |  |
 | CD-0173 | cam-nang/cung-duong/cd-0173-cho-ngam-canh-giua-duong-den-den-soc.html | PLANNED |  | 0 |  |
 | CD-0174 | cam-nang/cung-duong/cd-0174-cung-duong-ha-noi-chua-bai-dinh-cho-nguoi-moi.html | PLANNED |  | 0 |  |
 | CD-0175 | cam-nang/cung-duong/cd-0175-nghi-dem-o-chua-bai-dinh-khi-di-xe-may-chon-dau.html | PLANNED |  | 0 |  |
@@ -40,7 +40,7 @@
 | HD-0169 | cam-nang/hoi-dap/hd-0169-tien-xang-ha-noi-di-tam-dao-khoang-bao-nhieu.html | PUBLISHED | 98 | 0 |  |
 | HD-0170 | cam-nang/hoi-dap/hd-0170-chi-phi-vui-choi-o-ho-tay-het-bao-nhieu.html | PUBLISHED | 100 | 0 |  |
 | HD-0171 | cam-nang/hoi-dap/hd-0171-tien-xang-di-vong-ha-giang-khoang-bao-nhieu.html | PUBLISHED | 100 | 0 |  |
-| HD-0172 | cam-nang/hoi-dap/hd-0172-chi-phi-an-o-bac-ha-ngay-cho-phien.html | PLANNED |  | 0 |  |
+| HD-0172 | cam-nang/hoi-dap/hd-0172-chi-phi-an-o-bac-ha-ngay-cho-phien.html | PUBLISHED | 100 | 0 |  |
 | HD-0173 | cam-nang/hoi-dap/hd-0173-tien-xang-tu-ha-noi-di-ba-be-khoang-bao-nhieu.html | PLANNED |  | 0 |  |
 | HD-0174 | cam-nang/hoi-dap/hd-0174-chi-phi-cho-chuyen-di-cat-ba-can-gui-xe-khong.html | PLANNED |  | 0 |  |
 | HD-0175 | cam-nang/hoi-dap/hd-0175-len-ngan-sach-du-phong-khi-di-phuot-the-nao.html | PLANNED |  | 0 |  |
