@@ -1,17 +1,17 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T14:38:01+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T14:47:12+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 6 | written: 6 | pass: 0 | published: 6
+- processed: 8 | written: 8 | pass: 0 | published: 8
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.7 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
 |---|---|---|---|---|---|
 | AT-0176 | cam-nang/an-toan/at-0176-kinh-che-mat-bui-khi-chay-xe-may.html | PUBLISHED | 100 | 0 |  |
-| AT-0177 | cam-nang/an-toan/at-0177-gang-tay-chay-xe-duong-dai-nen-chon-loai-nao.html | PLANNED |  | 0 |  |
+| AT-0177 | cam-nang/an-toan/at-0177-gang-tay-chay-xe-duong-dai-nen-chon-loai-nao.html | PUBLISHED | 100 | 0 |  |
 | AT-0178 | cam-nang/an-toan/at-0178-giay-boc-co-khi-chay-xe-may.html | PLANNED |  | 0 |  |
 | AT-0179 | cam-nang/an-toan/at-0179-ao-phan-quang-khi-chay-xe-dem.html | PLANNED |  | 0 |  |
 | AT-0180 | cam-nang/an-toan/at-0180-bao-tay-chong-nang-co-anh-huong-thao-tac-khong.html | PLANNED |  | 0 |  |
@@ -44,7 +44,7 @@
 | HD-0182 | cam-nang/hoi-dap/hd-0182-su-dung-tai-nghe-khi-chay-xe-may-co-an-toan-khong.html | PLANNED |  | 0 |  |
 | HD-0183 | cam-nang/hoi-dap/hd-0183-nghe-chi-dan-re-tren-ung-dung-khi-dang-chay-xe.html | PLANNED |  | 0 |  |
 | KN-0176 | cam-nang/kinh-nghiem/kn-0176-chay-xe-sang-cuoi-tuan-quanh-huyen-me-linh.html | PUBLISHED | 96 | 0 |  |
-| KN-0177 | cam-nang/kinh-nghiem/kn-0177-lo-trinh-chay-toi-ven-duong-o-huyen-me-linh.html | PLANNED |  | 0 |  |
+| KN-0177 | cam-nang/kinh-nghiem/kn-0177-lo-trinh-chay-toi-ven-duong-o-huyen-me-linh.html | PUBLISHED | 96 | 0 |  |
 | KN-0178 | cam-nang/kinh-nghiem/kn-0178-do-xe-an-toi-o-huyen-me-linh-nen-chon-dau.html | PLANNED |  | 0 |  |
 | KN-0179 | cam-nang/kinh-nghiem/kn-0179-bai-gui-xe-an-toan-gan-cho-huyen-hoai-duc.html | PLANNED |  | 0 |  |
 | KN-0180 | cam-nang/kinh-nghiem/kn-0180-chay-xe-sang-cuoi-tuan-quanh-huyen-hoai-duc.html | PLANNED |  | 0 |  |
