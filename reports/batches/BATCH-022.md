@@ -1,11 +1,11 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:34:37+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:41:07+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 24 | written: 24 | pass: 0 | published: 24
+- processed: 26 | written: 26 | pass: 0 | published: 26
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
-- source_gate: pass 1 | blocked 0
+- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
+- source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -17,7 +17,7 @@
 | AT-0180 | cam-nang/an-toan/at-0180-bao-tay-chong-nang-co-anh-huong-thao-tac-khong.html | PLANNED |  | 0 |  |
 | AT-0181 | cam-nang/an-toan/at-0181-mu-bao-hiem-tre-em-chon-the-nao.html | PLANNED |  | 0 |  |
 | AT-0182 | cam-nang/an-toan/at-0182-kinh-nghiem-thay-mu-bao-hiem-sau-va-cham-nhe.html | PLANNED |  | 0 |  |
-| AT-0183 | cam-nang/an-toan/at-0183-day-mu-bao-hiem-long-tu-siet-duoc-khong.html | PLANNED |  | 0 |  |
+| AT-0183 | cam-nang/an-toan/at-0183-day-mu-bao-hiem-long-tu-siet-duoc-khong.html | PUBLISHED | 100 | 0 |  |
 | AT-0184 | cam-nang/an-toan/at-0184-lop-lot-mu-bao-hiem-co-giat-duoc-khong.html | PUBLISHED | 100 | 0 | word broken across newline: 'e\nmbed'; newline inside HTML tag |
 | CD-0176 | cam-nang/cung-duong/cd-0176-bai-do-an-toan-doc-duong-di-chua-bai-dinh.html | PUBLISHED | 100 | 0 |  |
 | CD-0177 | cam-nang/cung-duong/cd-0177-chay-xe-may-tu-ha-noi-ra-tam-coc-bich-dong-nen-di-luc-nao.html | PUBLISHED | 100 | 0 |  |
@@ -50,7 +50,7 @@
 | KN-0180 | cam-nang/kinh-nghiem/kn-0180-chay-xe-sang-cuoi-tuan-quanh-huyen-hoai-duc.html | PLANNED |  | 0 |  |
 | KN-0181 | cam-nang/kinh-nghiem/kn-0181-lo-trinh-chay-toi-ven-duong-o-huyen-hoai-duc.html | PLANNED |  | 0 |  |
 | KN-0182 | cam-nang/kinh-nghiem/kn-0182-do-xe-an-toi-o-huyen-hoai-duc-nen-chon-dau.html | PLANNED |  | 0 |  |
-| KN-0183 | cam-nang/kinh-nghiem/kn-0183-chay-xe-may-o-huyen-dan-phuong-kinh-nghiem-tranh-tac-duong.html | PLANNED |  | 0 |  |
+| KN-0183 | cam-nang/kinh-nghiem/kn-0183-chay-xe-may-o-huyen-dan-phuong-kinh-nghiem-tranh-tac-duong.html | PUBLISHED | 95 | 0 |  |
 | KN-0184 | cam-nang/kinh-nghiem/kn-0184-bai-gui-xe-an-toan-gan-cho-huyen-dan-phuong.html | PUBLISHED | 98 | 0 |  |
 | XM-0176 | cam-nang/xe-may/xm-0176-di-xe-may-dien-cho-hai-nguoi-anh-huong-pin.html | PUBLISHED | 100 | 0 |  |
 | XM-0177 | cam-nang/xe-may/xm-0177-nen-sac-du-phong-luc-nao-khi-di-xa.html | PUBLISHED | 100 | 0 |  |
