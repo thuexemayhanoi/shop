@@ -1,8 +1,8 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T15:28:27+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T15:34:38+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 16 | written: 16 | pass: 0 | published: 16
+- processed: 18 | written: 18 | pass: 0 | published: 18
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.5 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
@@ -21,7 +21,7 @@
 | AT-0184 | cam-nang/an-toan/at-0184-lop-lot-mu-bao-hiem-co-giat-duoc-khong.html | PLANNED |  | 0 |  |
 | CD-0176 | cam-nang/cung-duong/cd-0176-bai-do-an-toan-doc-duong-di-chua-bai-dinh.html | PUBLISHED | 100 | 0 |  |
 | CD-0177 | cam-nang/cung-duong/cd-0177-chay-xe-may-tu-ha-noi-ra-tam-coc-bich-dong-nen-di-luc-nao.html | PUBLISHED | 100 | 0 |  |
-| CD-0178 | cam-nang/cung-duong/cd-0178-lich-trinh-chi-tiet-cho-chuyen-tam-coc-bich-dong-bang-xe-may.html | PLANNED |  | 0 |  |
+| CD-0178 | cam-nang/cung-duong/cd-0178-lich-trinh-chi-tiet-cho-chuyen-tam-coc-bich-dong-bang-xe-may.html | PUBLISHED | 97 | 0 |  |
 | CD-0179 | cam-nang/cung-duong/cd-0179-quan-ca-phe-dung-chan-tren-duong-tam-coc-bich-dong.html | PLANNED |  | 0 |  |
 | CD-0180 | cam-nang/cung-duong/cd-0180-cung-duong-ngam-canh-tu-ha-noi-len-den-tran-nam-dinh.html | PLANNED |  | 0 |  |
 | CD-0181 | cam-nang/cung-duong/cd-0181-mot-ngay-mot-dem-o-den-tran-nam-dinh-co-du-khong.html | PLANNED |  | 0 |  |
@@ -37,7 +37,7 @@
 | DL-0183 | cam-nang/du-lich/dl-0183-chup-dem-o-ta-xua-co-dep-khong.html | PLANNED |  | 0 |  |
 | HD-0176 | cam-nang/hoi-dap/hd-0176-sac-dien-thoai-khi-di-phuot-o-dau.html | PUBLISHED | 100 | 0 |  |
 | HD-0177 | cam-nang/hoi-dap/hd-0177-tim-tram-xang-tren-quoc-lo-khi-het-xang.html | PUBLISHED | 100 | 0 |  |
-| HD-0178 | cam-nang/hoi-dap/hd-0178-chay-xe-may-di-mua-nen-che-balo-bang-gi.html | PLANNED |  | 0 |  |
+| HD-0178 | cam-nang/hoi-dap/hd-0178-chay-xe-may-di-mua-nen-che-balo-bang-gi.html | PUBLISHED | 100 | 0 |  |
 | HD-0179 | cam-nang/hoi-dap/hd-0179-giu-balo-khi-chay-xe-may-an-toan.html | PLANNED |  | 0 |  |
 | HD-0180 | cam-nang/hoi-dap/hd-0180-mang-theo-do-an-khi-di-phuot-nen-chon-gi.html | PLANNED |  | 0 |  |
 | HD-0181 | cam-nang/hoi-dap/hd-0181-uong-nuoc-tren-xe-may-luc-nao-duoc.html | PLANNED |  | 0 |  |
