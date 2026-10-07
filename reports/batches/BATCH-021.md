@@ -1,11 +1,11 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T13:46:42+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T13:52:14+07:00
 - writer: external-agent | batch resolved once: BATCH-021
-- processed: 44 | written: 44 | pass: 0 | published: 44
+- processed: 46 | written: 46 | pass: 0 | published: 46
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.4 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 3 | blocked 0
+- source_gate: pass 4 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -17,7 +17,7 @@
 | AT-0172 | cam-nang/an-toan/at-0172-chay-dem-tranh-quan-coc-sang-den-choi.html | PUBLISHED | 100 | 0 | word broken across newline: 'e\nmbed'; newline inside HTML tag |
 | AT-0173 | cam-nang/an-toan/at-0173-chon-mu-bao-hiem-dung-co-dau.html | PUBLISHED | 100 | 0 |  |
 | AT-0174 | cam-nang/an-toan/at-0174-mu-bao-hiem-nguyen-ven-khac-gi-mu-ba-phan-tu.html | PUBLISHED | 99 | 0 |  |
-| AT-0175 | cam-nang/an-toan/at-0175-mu-bao-hiem-dat-chuan-ghi-tem-nao.html | PLANNED |  | 0 |  |
+| AT-0175 | cam-nang/an-toan/at-0175-mu-bao-hiem-dat-chuan-ghi-tem-nao.html | PUBLISHED | 100 | 0 |  |
 | CD-0167 | cam-nang/cung-duong/cd-0167-quan-an-ngon-doc-duong-den-sa-pa.html | PUBLISHED | 98 | 0 | newline inside HTML tag |
 | CD-0168 | cam-nang/cung-duong/cd-0168-tuyen-duong-dep-tu-ha-noi-den-bat-trang.html | PUBLISHED | 96 | 0 |  |
 | CD-0169 | cam-nang/cung-duong/cd-0169-trai-nghiem-mot-ngay-o-bat-trang-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
@@ -51,7 +51,7 @@
 | KN-0172 | cam-nang/kinh-nghiem/kn-0172-chay-xe-sang-cuoi-tuan-quanh-huyen-soc-son.html | PUBLISHED | 96 | 0 |  |
 | KN-0173 | cam-nang/kinh-nghiem/kn-0173-lo-trinh-chay-toi-ven-duong-o-huyen-soc-son.html | PUBLISHED | 96 | 0 |  |
 | KN-0174 | cam-nang/kinh-nghiem/kn-0174-do-xe-an-toi-o-huyen-soc-son-nen-chon-dau.html | PUBLISHED | 96 | 0 |  |
-| KN-0175 | cam-nang/kinh-nghiem/kn-0175-bai-gui-xe-an-toan-gan-cho-huyen-me-linh.html | PLANNED |  | 0 |  |
+| KN-0175 | cam-nang/kinh-nghiem/kn-0175-bai-gui-xe-an-toan-gan-cho-huyen-me-linh.html | PUBLISHED | 96 | 0 |  |
 | XM-0168 | cam-nang/xe-may/xm-0168-tim-diem-sac-khi-di-xe-may-dien-xa.html | PUBLISHED | 100 | 0 |  |
 | XM-0169 | cam-nang/xe-may/xm-0169-tuoi-tho-ac-quy-xe-may-dien.html | PUBLISHED | 100 | 0 |  |
 | XM-0170 | cam-nang/xe-may/xm-0170-an-toan-ac-quy-xe-may-dien-khi-troi-nong.html | PUBLISHED | 100 | 0 |  |
