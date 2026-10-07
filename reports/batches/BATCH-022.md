@@ -1,10 +1,10 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:41:07+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:47:26+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 26 | written: 26 | pass: 0 | published: 26
+- processed: 28 | written: 28 | pass: 0 | published: 28
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.3 | min 95 | max 100 | repair_count: 0
+- scores: avg 98.4 | min 95 | max 100 | repair_count: 0
 - source_gate: pass 2 | blocked 0
 - published_commit_sha: null
 
@@ -34,7 +34,7 @@
 | DL-0180 | cam-nang/du-lich/dl-0180-di-xe-may-den-ta-xua-theo-nhom-ban.html | PLANNED |  | 0 |  |
 | DL-0181 | cam-nang/du-lich/dl-0181-san-may-o-ta-xua-mua-nao-bang-xe-may.html | PLANNED |  | 0 |  |
 | DL-0182 | cam-nang/du-lich/dl-0182-bua-trua-ngon-doc-duong-den-ta-xua.html | PLANNED |  | 0 |  |
-| DL-0183 | cam-nang/du-lich/dl-0183-chup-dem-o-ta-xua-co-dep-khong.html | PLANNED |  | 0 |  |
+| DL-0183 | cam-nang/du-lich/dl-0183-chup-dem-o-ta-xua-co-dep-khong.html | PUBLISHED | 99 | 0 |  |
 | HD-0176 | cam-nang/hoi-dap/hd-0176-sac-dien-thoai-khi-di-phuot-o-dau.html | PUBLISHED | 100 | 0 |  |
 | HD-0177 | cam-nang/hoi-dap/hd-0177-tim-tram-xang-tren-quoc-lo-khi-het-xang.html | PUBLISHED | 100 | 0 |  |
 | HD-0178 | cam-nang/hoi-dap/hd-0178-chay-xe-may-di-mua-nen-che-balo-bang-gi.html | PUBLISHED | 100 | 0 |  |
@@ -59,4 +59,4 @@
 | XM-0180 | cam-nang/xe-may/xm-0180-kinh-nghiem-keo-dai-quang-duong-moi-lan-sac.html | PLANNED |  | 0 |  |
 | XM-0181 | cam-nang/xe-may/xm-0181-dau-hieu-ac-quy-xe-may-dien-can-thay.html | PLANNED |  | 0 |  |
 | XM-0182 | cam-nang/xe-may/xm-0182-sac-xe-may-dien-qua-dem-co-an-toan-khong.html | PLANNED |  | 0 |  |
-| XM-0183 | cam-nang/xe-may/xm-0183-den-bao-pin-nhap-nhay-nghia-la-gi.html | PLANNED |  | 0 |  |
+| XM-0183 | cam-nang/xe-may/xm-0183-den-bao-pin-nhap-nhay-nghia-la-gi.html | PUBLISHED | 100 | 0 |  |
