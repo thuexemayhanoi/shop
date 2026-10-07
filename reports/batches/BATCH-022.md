@@ -1,11 +1,11 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:13:23+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T19:19:54+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 22 | written: 22 | pass: 0 | published: 21
-- writing: 0 | review: 0 | repair: 0 | fail: 1 | blocked: 0
+- processed: 22 | written: 22 | pass: 0 | published: 22
+- writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.5 | min 96 | max 100 | repair_count: 0
-- source_gate: pass 0 | blocked 0
+- source_gate: pass 1 | blocked 0
 - published_commit_sha: null
 
 | article_id | output_path | status | score | repairs | notes |
@@ -18,7 +18,7 @@
 | AT-0181 | cam-nang/an-toan/at-0181-mu-bao-hiem-tre-em-chon-the-nao.html | PLANNED |  | 0 |  |
 | AT-0182 | cam-nang/an-toan/at-0182-kinh-nghiem-thay-mu-bao-hiem-sau-va-cham-nhe.html | PLANNED |  | 0 |  |
 | AT-0183 | cam-nang/an-toan/at-0183-day-mu-bao-hiem-long-tu-siet-duoc-khong.html | PLANNED |  | 0 |  |
-| AT-0184 | cam-nang/an-toan/at-0184-lop-lot-mu-bao-hiem-co-giat-duoc-khong.html | FAIL | 100 | 0 | word broken across newline: 'e\nmbed'; newline inside HTML tag |
+| AT-0184 | cam-nang/an-toan/at-0184-lop-lot-mu-bao-hiem-co-giat-duoc-khong.html | PUBLISHED | 100 | 0 | word broken across newline: 'e\nmbed'; newline inside HTML tag |
 | CD-0176 | cam-nang/cung-duong/cd-0176-bai-do-an-toan-doc-duong-di-chua-bai-dinh.html | PUBLISHED | 100 | 0 |  |
 | CD-0177 | cam-nang/cung-duong/cd-0177-chay-xe-may-tu-ha-noi-ra-tam-coc-bich-dong-nen-di-luc-nao.html | PUBLISHED | 100 | 0 |  |
 | CD-0178 | cam-nang/cung-duong/cd-0178-lich-trinh-chi-tiet-cho-chuyen-tam-coc-bich-dong-bang-xe-may.html | PUBLISHED | 97 | 0 |  |
