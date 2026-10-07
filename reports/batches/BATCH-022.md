@@ -1,10 +1,10 @@
 # Batch report BATCH-022
 
-- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T15:17:52+07:00
+- started_at: 2026-10-07T14:14:31+07:00 | finished_at: 2026-10-07T15:28:27+07:00
 - writer: external-agent | batch resolved once: BATCH-022
-- processed: 14 | written: 14 | pass: 0 | published: 14
+- processed: 16 | written: 16 | pass: 0 | published: 16
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
-- scores: avg 98.6 | min 96 | max 100 | repair_count: 0
+- scores: avg 98.5 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 0 | blocked 0
 - published_commit_sha: null
 
@@ -29,7 +29,7 @@
 | CD-0183 | cam-nang/cung-duong/cd-0183-duong-tu-ha-noi-vao-bien-do-son-doan-nao-kho-di.html | PLANNED |  | 0 |  |
 | DL-0176 | cam-nang/du-lich/dl-0176-trai-nghiem-mot-ngay-o-y-ty-bang-xe-may.html | PUBLISHED | 96 | 0 |  |
 | DL-0177 | cam-nang/du-lich/dl-0177-thang-nang-gat-co-nen-di-y-ty-bang-xe-may-khong.html | PUBLISHED | 96 | 0 |  |
-| DL-0178 | cam-nang/du-lich/dl-0178-quan-ngon-gia-binh-dan-o-y-ty.html | PLANNED |  | 0 |  |
+| DL-0178 | cam-nang/du-lich/dl-0178-quan-ngon-gia-binh-dan-o-y-ty.html | PUBLISHED | 97 | 0 |  |
 | DL-0179 | cam-nang/du-lich/dl-0179-quang-canh-suong-som-o-y-ty.html | PLANNED |  | 0 |  |
 | DL-0180 | cam-nang/du-lich/dl-0180-di-xe-may-den-ta-xua-theo-nhom-ban.html | PLANNED |  | 0 |  |
 | DL-0181 | cam-nang/du-lich/dl-0181-san-may-o-ta-xua-mua-nao-bang-xe-may.html | PLANNED |  | 0 |  |
@@ -54,7 +54,7 @@
 | KN-0184 | cam-nang/kinh-nghiem/kn-0184-bai-gui-xe-an-toan-gan-cho-huyen-dan-phuong.html | PLANNED |  | 0 |  |
 | XM-0176 | cam-nang/xe-may/xm-0176-di-xe-may-dien-cho-hai-nguoi-anh-huong-pin.html | PUBLISHED | 100 | 0 |  |
 | XM-0177 | cam-nang/xe-may/xm-0177-nen-sac-du-phong-luc-nao-khi-di-xa.html | PUBLISHED | 100 | 0 |  |
-| XM-0178 | cam-nang/xe-may/xm-0178-xe-may-dien-de-lau-khong-sac-co-hong-pin-khong.html | PLANNED |  | 0 |  |
+| XM-0178 | cam-nang/xe-may/xm-0178-xe-may-dien-de-lau-khong-sac-co-hong-pin-khong.html | PUBLISHED | 99 | 0 |  |
 | XM-0179 | cam-nang/xe-may/xm-0179-xe-may-dien-va-xe-xang-di-trong-pho-khac-nhau-the-nao.html | PLANNED |  | 0 |  |
 | XM-0180 | cam-nang/xe-may/xm-0180-kinh-nghiem-keo-dai-quang-duong-moi-lan-sac.html | PLANNED |  | 0 |  |
 | XM-0181 | cam-nang/xe-may/xm-0181-dau-hieu-ac-quy-xe-may-dien-can-thay.html | PLANNED |  | 0 |  |
