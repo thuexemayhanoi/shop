@@ -1,8 +1,8 @@
 # Batch report BATCH-021
 
-- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T12:44:21+07:00
+- started_at: 2026-10-07T03:20:43+07:00 | finished_at: 2026-10-07T12:50:12+07:00
 - writer: external-agent | batch resolved once: BATCH-021
-- processed: 28 | written: 28 | pass: 0 | published: 28
+- processed: 30 | written: 30 | pass: 0 | published: 30
 - writing: 0 | review: 0 | repair: 0 | fail: 0 | blocked: 0
 - scores: avg 98.5 | min 96 | max 100 | repair_count: 0
 - source_gate: pass 1 | blocked 0
@@ -31,7 +31,7 @@
 | DL-0169 | cam-nang/du-lich/dl-0169-sang-som-hay-chieu-muon-den-mu-cang-chai-dep-hon.html | PUBLISHED | 98 | 0 |  |
 | DL-0170 | cam-nang/du-lich/dl-0170-quan-an-gan-bai-xe-o-mu-cang-chai.html | PUBLISHED | 100 | 0 |  |
 | DL-0171 | cam-nang/du-lich/dl-0171-chup-anh-doan-xe-o-mu-cang-chai-o-dau-dep.html | PUBLISHED | 100 | 0 |  |
-| DL-0172 | cam-nang/du-lich/dl-0172-di-xe-may-den-deo-khau-pha-co-kho-tim-duong-khong.html | PLANNED |  | 0 |  |
+| DL-0172 | cam-nang/du-lich/dl-0172-di-xe-may-den-deo-khau-pha-co-kho-tim-duong-khong.html | PUBLISHED | 97 | 0 |  |
 | DL-0173 | cam-nang/du-lich/dl-0173-dip-le-den-deo-khau-pha-co-dong-nguoi-khong.html | PLANNED |  | 0 |  |
 | DL-0174 | cam-nang/du-lich/dl-0174-do-an-vat-duong-pho-o-deo-khau-pha-the-nao.html | PLANNED |  | 0 |  |
 | DL-0175 | cam-nang/du-lich/dl-0175-diem-dung-chup-anh-giua-duong-den-deo-khau-pha.html | PLANNED |  | 0 |  |
@@ -56,7 +56,7 @@
 | XM-0169 | cam-nang/xe-may/xm-0169-tuoi-tho-ac-quy-xe-may-dien.html | PUBLISHED | 100 | 0 |  |
 | XM-0170 | cam-nang/xe-may/xm-0170-an-toan-ac-quy-xe-may-dien-khi-troi-nong.html | PUBLISHED | 100 | 0 |  |
 | XM-0171 | cam-nang/xe-may/xm-0171-xe-may-dien-chay-duong-deo-co-on-khong.html | PUBLISHED | 100 | 0 |  |
-| XM-0172 | cam-nang/xe-may/xm-0172-xe-may-dien-bi-ngap-nuoc-nguy-co-gi.html | PLANNED |  | 0 |  |
+| XM-0172 | cam-nang/xe-may/xm-0172-xe-may-dien-bi-ngap-nuoc-nguy-co-gi.html | PUBLISHED | 100 | 0 |  |
 | XM-0173 | cam-nang/xe-may/xm-0173-bao-quan-xe-may-dien-mua-mua.html | PLANNED |  | 0 |  |
 | XM-0174 | cam-nang/xe-may/xm-0174-xe-may-dien-keu-re-re-o-banh-xe.html | PLANNED |  | 0 |  |
 | XM-0175 | cam-nang/xe-may/xm-0175-xe-may-dien-de-yeu-dan-kiem-tra-dau.html | PLANNED |  | 0 |  |
